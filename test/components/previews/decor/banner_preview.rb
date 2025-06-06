@@ -12,8 +12,8 @@ class ::Decor::BannerPreview < ::ViewComponent::Preview
   # @param link select [~, "https://example.com"]
   # @param style select [warning, info, error, notice, success]
   def playground(body: "Hi!", centered: nil, icon: nil, link: nil, style: :notice)
-    render ::Decor::Banner.new(link: link, centered: centered, icon: icon, style: style) do |c|
-      c.span { body }
+    render ::Decor::Banner.new(link: link, centered: centered, icon: icon, style: style) do
+      body
     end
   end
 end

@@ -16,10 +16,7 @@ module Decor
 
     def root_element_attributes
       {
-        html_options: {
-          role: "alert",
-          class: root_element_classes
-        }
+        html_options: {role: "alert"}
       }
     end
 
@@ -45,8 +42,8 @@ module Decor
       end
     end
 
-    def root_element_classes
-      "mb-4 w-full #{alert_classes}"
+    def element_classes
+      "mb-4 w-full flex #{alert_classes}"
     end
 
     def wrapper_classes
