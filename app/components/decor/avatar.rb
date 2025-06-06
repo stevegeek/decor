@@ -21,16 +21,16 @@ module Decor
 
     def view_template(&block)
       render parent_element do
-        div(class: "avatar") do
-          div(class: "#{size_classes} #{shape_class} #{border_classes}") do
-            if @url
+        if @url
+          div(class: "avatar") do
+            div(class: "#{size_classes} #{shape_class} #{border_classes}") do
               image_tag @url, alt: t(".image")
-            else
-              div(class: "avatar-placeholder") do
-                div(class: "bg-neutral text-neutral-content #{size_classes} #{shape_class}") do
-                  span(class: "#{text_size_class}") { @initials }
-                end
-              end
+            end
+          end
+        else
+          div(class: "avatar avatar-placeholder") do
+            div(class: "bg-neutral text-neutral-content #{size_classes} #{shape_class} #{border_classes}") do
+              span(class: "#{text_size_class}") { @initials }
             end
           end
         end
