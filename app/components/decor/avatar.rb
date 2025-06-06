@@ -34,7 +34,7 @@ module Decor
             end
           end
         end
-        
+
         yield if block_given?
       end
     end
