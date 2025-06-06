@@ -17,22 +17,20 @@ gem "stimulus-rails"
 # Use Tailwind CSS [https://github.com/rails/tailwindcss-rails]
 gem "tailwindcss-rails"
 
-
 gem "dry-struct" # TODO: change to Literal
 
 gem "view_component"
-gem "phlex-rails"
+gem "phlex-rails", ">= 2.0.0"
 gem "phlex-slotable"
-gem "vident"
-gem "vident-typed"
-gem "vident-phlex"
-gem "vident-typed-phlex"
-gem "vident-tailwind"
-gem "vident-view_component"
-gem "vident-typed-view_component"
+gem "vident", github: "stevegeek/vident", branch: "main"
+gem "vident-typed", github: "stevegeek/vident", branch: "main"
+gem "vident-phlex", github: "stevegeek/vident", branch: "main"
+gem "vident-typed-phlex", github: "stevegeek/vident", branch: "main"
+gem "vident-tailwind", github: "stevegeek/vident", branch: "main"
+gem "vident-view_component", github: "stevegeek/vident", branch: "main"
+gem "vident-typed-view_component", github: "stevegeek/vident", branch: "main"
 gem "lookbook"
-gem "phlexing"
-
+gem "phlexing", github: "stevegeek/phlexing", branch: "main"
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
@@ -41,7 +39,7 @@ gem "jbuilder"
 # gem "bcrypt", "~> 3.1.7"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: %i[ windows jruby ]
+gem "tzinfo-data", platforms: %i[windows jruby]
 
 # Use the database-backed adapters for Rails.cache, Active Job, and Action Cable
 gem "solid_cache"
@@ -62,7 +60,7 @@ gem "thruster", require: false
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
+  gem "debug", platforms: %i[mri windows], require: "debug/prelude"
 
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", require: false
@@ -76,6 +74,8 @@ group :development do
   gem "web-console"
 
   gem "tidewave"
+
+  gem "standard", ">= 1.35.1"
 end
 
 group :test do

@@ -13,21 +13,27 @@ module ActiveSupport
     # Add more helper methods to be used by all tests here...
 
     # Phlex component testing helper
-    def render_component(component)
-      controller = ApplicationController.new
-      controller.request = ActionDispatch::TestRequest.create
-      component.call(view_context: controller.view_context)
+    def render_component(...)
+      view_context.render(...)
     end
 
     # Parse rendered HTML for testing
-    def render_fragment(component)
-      html = render_component(component)
+    def render_fragment(component, &block)
+      html = render_component(component, &block)
       Nokogiri::HTML5.fragment(html)
     end
 
-    def render_document(component)
-      html = render_component(component)
+    def render_document(component, &block)
+      html = render_component(component, &block)
       Nokogiri::HTML5(html)
+    end
+
+    def view_context
+      controller.view_context
+    end
+
+    def controller
+      @controller ||= ActionView::TestCase::TestController.new
     end
   end
 end
