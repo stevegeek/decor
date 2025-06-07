@@ -10,7 +10,7 @@ module Decor
     attribute :link, String, allow_nil: true, allow_blank: false
     attribute :style, Symbol, in: %i[warning info error notice standard success], default: :notice
 
-    attribute :centered, :boolean, default: true
+    attribute :centered, :boolean, default: false
 
     private
 

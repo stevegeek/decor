@@ -6,7 +6,9 @@
 @source "../../../app/views/**/*";
 @source "../../../app/components/**/*";
 
-@plugin "./daisyui.js";
+@plugin "./daisyui.js" {
+  themes: corporate --default, business --prefersdark, all;
+}
 
 /* Optional for custom themes – Docs: https://daisyui.com/docs/themes/#how-to-add-a-new-custom-theme */
 @plugin "./daisyui-theme.js"{
@@ -14,45 +16,4 @@
 }
 
 @theme {
-  --color-primary-50: #e3f2fd;
-  --color-primary-100: #bbdefb;
-  --color-primary-200: #90caf9;
-  --color-primary-300: #64b5f6;
-  --color-primary-400: #42a5f5;
-  --color-primary-500: #2196f3;
-  --color-primary-600: #1e88e5;
-  --color-primary-700: #1976d2;
-  --color-primary-800: #1565c0;
-  --color-primary-900: #0d47a1;
-  --color-primary: #1565c0;
-
-  --color-secondary-50: #edeff2;
-  --color-secondary-100: #d1d8de;
-  --color-secondary-200: #b4bec8;
-  --color-secondary-300: #96a4b2;
-  --color-secondary-400: #7f90a1;
-  --color-secondary-500: #697d90;
-  --color-secondary-600: #5c6e7f;
-  --color-secondary-700: #4c5a68;
-  --color-secondary-800: #3c4753;
-  --color-secondary-900: #2a323b;
-  --color-secondary: #3c4753;
-
-  --color-success-pale: #dff6e6;
-  --color-success-light: #96d1c6;
-  --color-success: #00bfa5;
-  --color-success-dark: #00af9e;
-
-  --color-error-pale: #B0002033;
-  --color-error-light: #f26262;
-  --color-error: #ef5350;
-  --color-error-dark: #991b1b;
-
-  --color-disabled: #9ca3af;
-
-  --color-warning-pale: #FFF582;
-  --color-warning-light: #ffee36;
-  --color-warning: #ffee36;
-  --color-warning-dark: #524E2A;
-  --color-warning-disabled: #e3e0c0;
 }
