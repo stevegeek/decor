@@ -10,4 +10,3 @@ pin "external-svg-loader" # @1.7.1
 pin "swiper" # @11.2.8
 
 pin_all_from "app/javascript/controllers", under: "controllers"
-
