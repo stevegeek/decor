@@ -2,30 +2,13 @@
 
 module Decor
   class Link < Button
-    # Link href
-    attribute :href, String, allow_nil: true, allow_blank: false
-
-    # Link target
-    attribute :target, String, allow_nil: true, allow_blank: false
+    include Decor::Concerns::ActsAsLink
 
     private
 
-    def root_element_attributes
-      {
-        element_tag: :a,
-        html_options: {
-          href: @disabled ? nil : @href,
-          target: @target,
-          "aria-disabled": @disabled ? "true" : nil,
-          role: @disabled ? "link" : nil,
-          tabindex: @disabled ? "-1" : nil
-        }.compact
-      }
-    end
-
     def element_classes
       [
-        "btn-link",
+        "btn btn-link",
         *theme_classes,
         *size_classes,
         *modifier_classes

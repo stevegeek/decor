@@ -101,7 +101,7 @@ module Decor
     def variant_classes
       case @variant
       when :outlined
-        ["btn-outline"]
+        ["btn-outline bg-base-100"]
       when :text
         ["btn-ghost"]
       else

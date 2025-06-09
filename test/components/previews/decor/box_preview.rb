@@ -40,12 +40,12 @@ class ::Decor::BoxPreview < ::ViewComponent::Preview
   # @label Box with Actions
   def with_actions
     render ::Decor::Box.new(
-      title: "Box with Actions", 
+      title: "Box with Actions",
       description: "This box has action buttons in the content area."
     ) do
       content_tag :div, class: "card-actions justify-end" do
         content_tag(:button, "Cancel", class: "btn btn-ghost") +
-        content_tag(:button, "Save", class: "btn btn-primary")
+          content_tag(:button, "Save", class: "btn btn-primary")
       end
     end
   end

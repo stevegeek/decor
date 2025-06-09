@@ -7,8 +7,8 @@ class Decor::LinkTest < ActiveSupport::TestCase
 
     assert_includes rendered, "Test Link"
     assert_includes rendered, 'href="/test"'
-    assert_includes rendered, 'btn-link'
-    assert_includes rendered, '<a'
+    assert_includes rendered, "btn-link"
+    assert_includes rendered, "<a"
   end
 
   test "renders with different themes" do
@@ -32,8 +32,8 @@ class Decor::LinkTest < ActiveSupport::TestCase
     assert_includes rendered, "Disabled Link"
     refute_includes rendered, 'href="/test"'
     assert_includes rendered, 'aria-disabled="true"'
-    assert_includes rendered, 'text-gray-400'
-    assert_includes rendered, 'cursor-not-allowed'
+    assert_includes rendered, "text-gray-400"
+    assert_includes rendered, "cursor-not-allowed"
   end
 
   test "renders with icon" do
@@ -83,9 +83,9 @@ class Decor::LinkTest < ActiveSupport::TestCase
 
   test "handles icon only on mobile" do
     component = Decor::Link.new(
-      label: "Mobile Icon", 
-      href: "#", 
-      icon: "star", 
+      label: "Mobile Icon",
+      href: "#",
+      icon: "star",
       icon_only_on_mobile: true
     )
     rendered = render_component(component)

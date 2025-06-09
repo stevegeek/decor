@@ -12,7 +12,7 @@ class ::Decor::LinkPreview < ::ViewComponent::Preview
   # @param theme select {choices: [primary, secondary, danger, warning, neutral]}
   # @param size select {choices: [large, medium, small, micro]}
   # @param disabled toggle
-  # @param icon text
+  # @param icon select [~, check-circle, x, check, download, play]
   def playground(label: "Click me", href: "#", theme: :primary, size: :medium, disabled: false, icon: nil)
     render ::Decor::Link.new(
       label: label,
@@ -24,57 +24,189 @@ class ::Decor::LinkPreview < ::ViewComponent::Preview
     )
   end
 
-  # @label All Themes
-  def all_themes
-    content_tag :div, class: "space-y-4" do
-      [:primary, :secondary, :danger, :warning, :neutral].map do |theme|
-        content_tag(:div, class: "flex items-center space-x-4") do
-          content_tag(:span, "#{theme.to_s.capitalize}:", class: "w-20 font-medium") +
-          render(::Decor::Link.new(label: "Sample Link", href: "#", theme: theme))
-        end
-      end.join.html_safe
-    end
+  # @group Themes
+  # @label Primary Theme
+  def theme_primary
+    render ::Decor::Link.new(label: "Primary Link", href: "#", theme: :primary)
   end
 
-  # @label All Sizes
-  def all_sizes
-    content_tag :div, class: "space-y-4" do
-      [:large, :medium, :small, :micro].map do |size|
-        content_tag(:div, class: "flex items-center space-x-4") do
-          content_tag(:span, "#{size.to_s.capitalize}:", class: "w-20 font-medium") +
-          render(::Decor::Link.new(label: "Sample Link", href: "#", size: size))
-        end
-      end.join.html_safe
-    end
+  # @group Themes
+  # @label Secondary Theme
+  def theme_secondary
+    render ::Decor::Link.new(label: "Secondary Link", href: "#", theme: :secondary)
   end
 
-  # @label With Icons
-  def with_icons
-    content_tag :div, class: "space-y-4" do
-      render(::Decor::Link.new(label: "Link with icon", href: "#", icon: "star")) +
-      render(::Decor::Link.new(label: "Large with icon", href: "#", icon: "heart", size: :large)) +
-      render(::Decor::Link.new(label: "Small with icon", href: "#", icon: "bell", size: :small))
-    end
+  # @group Themes
+  # @label Danger Theme
+  def theme_danger
+    render ::Decor::Link.new(label: "Danger Link", href: "#", theme: :danger)
   end
 
-  # @label Disabled States
-  def disabled_states
-    content_tag :div, class: "space-y-4" do
-      [:primary, :secondary, :danger].map do |theme|
-        content_tag(:div, class: "flex items-center space-x-4") do
-          content_tag(:span, "#{theme.to_s.capitalize}:", class: "w-20 font-medium") +
-          render(::Decor::Link.new(label: "Disabled Link", href: "#", theme: theme, disabled: true))
-        end
-      end.join.html_safe
-    end
+  # @group Themes
+  # @label Warning Theme
+  def theme_warning
+    render ::Decor::Link.new(label: "Warning Link", href: "#", theme: :warning)
   end
 
-  # @label External Links
-  def external_links
-    content_tag :div, class: "space-y-4" do
-      render(::Decor::Link.new(label: "External Link", href: "https://example.com", target: "_blank")) +
-      render(::Decor::Link.new(label: "Email Link", href: "mailto:test@example.com")) +
-      render(::Decor::Link.new(label: "Phone Link", href: "tel:+1234567890"))
-    end
+  # @group Themes
+  # @label Neutral Theme
+  def theme_neutral
+    render ::Decor::Link.new(label: "Neutral Link", href: "#", theme: :neutral)
+  end
+
+  # @group Sizes
+  # @label Large Size
+  def size_large
+    render ::Decor::Link.new(label: "Large Link", href: "#", size: :large)
+  end
+
+  # @group Sizes
+  # @label Medium Size
+  def size_medium
+    render ::Decor::Link.new(label: "Medium Link", href: "#", size: :medium)
+  end
+
+  # @group Sizes
+  # @label Small Size
+  def size_small
+    render ::Decor::Link.new(label: "Small Link", href: "#", size: :small)
+  end
+
+  # @group Sizes
+  # @label Micro Size
+  def size_micro
+    render ::Decor::Link.new(label: "Micro Link", href: "#", size: :micro)
+  end
+
+  # @group With Icons
+  # @label Basic Icon
+  def icon_basic
+    render ::Decor::Link.new(label: "Link with icon", href: "#", icon: "star")
+  end
+
+  # @group With Icons
+  # @label Large with Icon
+  def icon_large
+    render ::Decor::Link.new(label: "Large with icon", href: "#", icon: "heart", size: :large)
+  end
+
+  # @group With Icons
+  # @label Small with Icon
+  def icon_small
+    render ::Decor::Link.new(label: "Small with icon", href: "#", icon: "bell", size: :small)
+  end
+
+  # @group Disabled States
+  # @label Disabled Primary
+  def disabled_primary
+    render ::Decor::Link.new(label: "Disabled Primary", href: "#", theme: :primary, disabled: true)
+  end
+
+  # @group Disabled States
+  # @label Disabled Secondary
+  def disabled_secondary
+    render ::Decor::Link.new(label: "Disabled Secondary", href: "#", theme: :secondary, disabled: true)
+  end
+
+  # @group Disabled States
+  # @label Disabled Danger
+  def disabled_danger
+    render ::Decor::Link.new(label: "Disabled Danger", href: "#", theme: :danger, disabled: true)
+  end
+
+  # @group External Links
+  # @label External Website
+  def external_website
+    render ::Decor::Link.new(label: "External Link", href: "https://example.com", target: "_blank")
+  end
+
+  # @group External Links
+  # @label Email Link
+  def external_email
+    render ::Decor::Link.new(label: "Email Link", href: "mailto:test@example.com")
+  end
+
+  # @group External Links
+  # @label Phone Link
+  def external_phone
+    render ::Decor::Link.new(label: "Phone Link", href: "tel:+1234567890")
+  end
+
+  # @group Turbo Methods
+  # @label DELETE Request
+  def turbo_delete
+    render ::Decor::Link.new(label: "DELETE request", href: "/delete-item", http_method: :delete, theme: :danger)
+  end
+
+  # @group Turbo Methods
+  # @label POST Request
+  def turbo_post
+    render ::Decor::Link.new(label: "POST request", href: "/create-item", http_method: :post, theme: :primary)
+  end
+
+  # @group Turbo Methods
+  # @label PATCH Request
+  def turbo_patch
+    render ::Decor::Link.new(label: "PATCH request", href: "/update-item", http_method: :patch, theme: :secondary)
+  end
+
+  # @group Turbo Frames
+  # @label Modal Frame
+  def turbo_frame_modal
+    render ::Decor::Link.new(label: "Load in modal frame", href: "/modal-content", turbo_frame: "modal")
+  end
+
+  # @group Turbo Frames
+  # @label Top Frame
+  def turbo_frame_top
+    render ::Decor::Link.new(label: "Replace entire page", href: "/new-page", turbo_frame: "_top")
+  end
+
+  # @group Turbo Frames
+  # @label Sidebar Frame
+  def turbo_frame_sidebar
+    render ::Decor::Link.new(label: "Load in sidebar", href: "/sidebar-content", turbo_frame: "sidebar")
+  end
+
+  # @group Turbo Features
+  # @label Turbo Confirmation
+  def turbo_confirm
+    render ::Decor::Link.new(
+      label: "Delete with confirmation",
+      href: "/dangerous-action",
+      http_method: :delete,
+      turbo_confirm: "Are you sure you want to delete this?",
+      theme: :danger
+    )
+  end
+
+  # @group Turbo Features
+  # @label Disable Turbo
+  def turbo_disabled
+    render ::Decor::Link.new(
+      label: "Full page reload (no Turbo)",
+      href: "/full-reload",
+      turbo: false
+    )
+  end
+
+  # @group Turbo Features
+  # @label Prefetch on Hover
+  def turbo_prefetch_hover
+    render ::Decor::Link.new(
+      label: "Prefetch on hover",
+      href: "/prefetch-hover",
+      turbo_prefetch: :hover
+    )
+  end
+
+  # @group Turbo Features
+  # @label Prefetch on Viewport
+  def turbo_prefetch_viewport
+    render ::Decor::Link.new(
+      label: "Prefetch when visible",
+      href: "/prefetch-viewport",
+      turbo_prefetch: :viewport
+    )
   end
 end
