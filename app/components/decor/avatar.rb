@@ -19,7 +19,7 @@ module Decor
 
     private
 
-    def view_template(&block)
+    def view_template
       render parent_element do
         if @url
           div(class: "avatar") do

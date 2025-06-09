@@ -10,7 +10,7 @@ module Decor
 
     private
 
-    def view_template(&block)
+    def view_template
       render parent_element do
         if header_slot.present?
           render header_slot

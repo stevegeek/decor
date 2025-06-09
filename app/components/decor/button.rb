@@ -2,10 +2,7 @@
 
 module Decor
   class Button < PhlexComponent
-    # Eg to render an icon before
     slot :before_label
-
-    # Eg to render an icon after the label
     slot :after_label
 
     attribute :label, String
@@ -15,16 +12,10 @@ module Decor
     attribute :icon_variant, Symbol
     attribute :icon_only_on_mobile, :boolean, default: false
 
-    # Button variant.
     attribute :variant, Symbol, default: :contained, in: %i[contained outlined text]
-
-    # Theme
     attribute :theme, Symbol, default: :primary, in: %i[primary secondary danger warning neutral]
-
-    # Size
     attribute :size, Symbol, default: :medium, in: %i[large medium wide small micro]
 
-    # Whether button is disabled or not
     attribute :disabled, :boolean, default: false
 
     # Whether button should span the entire width of the container or not

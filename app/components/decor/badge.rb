@@ -64,8 +64,6 @@ module Decor
       case @size
       when :small
         "badge-sm"
-      when :medium
-        nil # default size, no class needed
       when :large
         "badge-lg"
       end

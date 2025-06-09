@@ -13,12 +13,10 @@ module Decor
 
     private
 
-    def view_template(&block)
+    def view_template
       render parent_element do
         div(class: "card-body") do
-          # Handle slots layout
           if left_slot.present? && right_slot.present?
-            # Both slots: create flex layout
             div(class: "flex justify-between items-start") do
               div(class: "flex-1") do
                 render left_slot
@@ -28,10 +26,8 @@ module Decor
               end
             end
           elsif left_slot.present?
-            # Only left slot
             render left_slot
           else
-            # Standard content layout
             if @title.present? || html_title_slot.present?
               h2(class: "card-title") do
                 if html_title_slot.present?
@@ -42,14 +38,12 @@ module Decor
               end
             end
 
-            # Description section
             if @description.present?
               p(class: "text-base-content/70") do
                 plain(@description)
               end
             end
 
-            # Right slot or block content
             if right_slot.present?
               render right_slot
             elsif block_given?
