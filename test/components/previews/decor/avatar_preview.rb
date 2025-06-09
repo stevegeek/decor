@@ -13,7 +13,7 @@ class ::Decor::AvatarPreview < ::ViewComponent::Preview
   # @param initials text
   # @param image select [~, "https://i.pravatar.cc/300", "https://cataas.com/cat"]
   # @param shape select [circle, square]
-  # @param size select [tiny, small, normal, medium, large, x_large, xx_large]
+  # @param size select [nano, micro, tiny, small, normal, medium, large, x_large, xx_large]
   # @param border toggle
   def playground(image: nil, initials: "JG", shape: :circle, size: :normal, border: true)
     render ::Decor::Avatar.new(initials: initials, url: image, shape: shape, size: size, border: border)

@@ -14,7 +14,7 @@ module Decor
 
     attribute :border, :boolean, default: false
 
-    SIZE_OPTIONS = %i[tiny small normal medium large x_large xx_large].freeze
+    SIZE_OPTIONS = %i[nano micro tiny small normal medium large x_large xx_large].freeze
     attribute :size, Symbol, in: SIZE_OPTIONS, default: :normal
 
     private
@@ -49,6 +49,10 @@ module Decor
 
     def size_classes
       case @size
+      when :nano
+        "w-4"
+      when :micro
+        "w-5"
       when :tiny
         "w-6"
       when :small
@@ -68,7 +72,9 @@ module Decor
 
     def text_size_class
       case @size
-      when :tiny
+      when :nano
+        "text-[0.5rem]"
+      when :micro, :tiny
         "text-xs"
       when :small
         "text-sm"
