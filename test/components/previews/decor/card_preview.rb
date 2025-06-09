@@ -3,7 +3,7 @@ class ::Decor::CardPreview < ::ViewComponent::Preview
   # Card
   # -------
   #
-  # A card is a container for content which has a border and a shadow. 
+  # A card is a container for content which has a border and a shadow.
   # Cards can have a title attribute or use a header slot for more complex headers.
   #
   # @param card_type [Symbol] select { choices: [basic, with_title, with_header_slot] }

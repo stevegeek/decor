@@ -74,19 +74,19 @@ module Decor
         return {} unless needs_data_attributes?
 
         attrs = (@data || {}).dup
-        
+
         # Turbo method (uses data-turbo-method instead of data-method)
         attrs["turbo-method"] = @http_method.to_s if @http_method.present? && @http_method != :get
-        
+
         # Turbo frame
         attrs["turbo-frame"] = @turbo_frame if @turbo_frame.present?
-        
+
         # Turbo prefetch
         attrs["turbo-prefetch"] = @turbo_prefetch.to_s if @turbo_prefetch.present?
-        
+
         # Turbo confirm
         attrs["turbo-confirm"] = @turbo_confirm if @turbo_confirm.present?
-        
+
         # Disable Turbo
         attrs["turbo"] = "false" if @turbo == false
 
@@ -94,12 +94,12 @@ module Decor
       end
 
       def needs_data_attributes?
-        @data.present? || 
-        (@http_method.present? && @http_method != :get) || 
-        @turbo_frame.present? || 
-        @turbo_prefetch.present? ||
-        @turbo_confirm.present? ||
-        !@turbo
+        @data.present? ||
+          (@http_method.present? && @http_method != :get) ||
+          @turbo_frame.present? ||
+          @turbo_prefetch.present? ||
+          @turbo_confirm.present? ||
+          !@turbo
       end
     end
   end
