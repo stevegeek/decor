@@ -55,7 +55,7 @@ class Decor::BannerTest < ActiveSupport::TestCase
 
     assert_includes rendered, "Learn more"
     assert_includes rendered, 'href="/learn-more"'
-    assert_includes rendered, "btn btn-sm btn-primary"
+    assert_includes rendered, "btn btn-sm btn-secondary"
   end
 
   test "renders different error styles" do
