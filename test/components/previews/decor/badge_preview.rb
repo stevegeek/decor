@@ -16,7 +16,7 @@ class ::Decor::BadgePreview < ::ViewComponent::Preview
   # @param image select [~, "https://i.pravatar.cc/300", "https://cataas.com/cat"]
   # @param initials text
 
-  def playground(label: "Price Catalog", size: nil, icon: nil, style: :info, variant: :filled, image: nil, initials: nil, dashed: false)
+  def playground(label: "My Badge", size: nil, icon: nil, style: :info, variant: :outlined, image: nil, initials: nil, dashed: false)
     render ::Decor::Badge.new(label:, icon:, size:, style:, variant:, url: image, initials:, dashed:)
   end
 end

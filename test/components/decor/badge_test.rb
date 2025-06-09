@@ -29,15 +29,15 @@ class Decor::BadgeTest < ActiveSupport::TestCase
     rendered = render_component(component)
 
     assert_includes rendered, "star"
-    assert_includes rendered, "h-3 w-3" # small size icon
+    assert_includes rendered, "h-3.5 w-3.5"
   end
 
-  test "renders small size by default" do
-    component = Decor::Badge.new(label: "Small")
+  test "renders medium size by default" do
+    component = Decor::Badge.new(label: "Medium")
     rendered = render_component(component)
 
     # Small is default according to the attribute definition
-    assert_includes rendered, "badge-sm"
+    refute_includes rendered, "badge-sm"
     assert_includes rendered, "badge"
   end
 

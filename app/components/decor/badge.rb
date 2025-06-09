@@ -7,8 +7,8 @@ module Decor
     attribute :label, String, allow_blank: false
 
     attribute :style, Symbol, in: %i[warning info error standard success], default: :standard
-    attribute :size, Symbol, default: :small, in: %i[small medium large]
-    attribute :variant, Symbol, default: :filled, in: %i[outlined filled]
+    attribute :size, Symbol, default: :medium, in: %i[small medium large]
+    attribute :variant, Symbol, default: :outlined, in: %i[outlined filled]
     attribute :dashed, :boolean, default: false
 
     attribute :icon, String

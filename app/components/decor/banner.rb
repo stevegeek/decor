@@ -32,7 +32,7 @@ module Decor
           yield
         end
         if @link.present?
-          link_to "Learn more", @link, class: "btn btn-sm btn-primary"
+          link_to "Learn more", @link, class: button_classes
         end
         if action_slot.present?
           div do
@@ -47,23 +47,38 @@ module Decor
     end
 
     def wrapper_classes
-      @centered ? "w-full justify-center text-center" : ""
+      @centered ? "w-full justify-center text-center" : "flex-1"
     end
 
     def alert_classes
-      classes = ["alert"]
-      case @style
+      style = case @style
       when :success
-        classes << "alert-success"
+        "alert-success"
       when :error
-        classes << "alert-error"
+        "alert-error"
       when :warning
-        classes << "alert-warning"
+        "alert-warning"
       when :info
-        classes << "alert-info"
+        "alert-info"
       end
 
-      classes.join(" ")
+      "alert #{style}"
+    end
+
+    def button_classes
+      style = case @style
+      when :success
+        "btn-success"
+      when :error
+        "btn-error"
+      when :warning
+        "btn-warning"
+      when :info
+        "btn-info"
+      else
+        "btn-secondary"
+      end
+      "btn btn-sm #{style}"
     end
   end
 end

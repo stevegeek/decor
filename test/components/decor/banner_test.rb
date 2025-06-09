@@ -26,18 +26,19 @@ class Decor::BannerTest < ActiveSupport::TestCase
     assert_includes rendered, 'role="alert"'
   end
 
-  test "applies centered layout by default" do
+  test "applies left aligned layout by default" do
     component = Decor::Banner.new
+    rendered = render_component(component) { "Left aligned banner" }
+
+    assert_includes rendered, "flex-1"
+    refute_includes rendered, "justify-center text-center"
+  end
+
+  test "applies centered layout when specified" do
+    component = Decor::Banner.new(centered: true)
     rendered = render_component(component) { "Centered banner" }
 
     assert_includes rendered, "justify-center text-center"
-  end
-
-  test "disables centered layout when specified" do
-    component = Decor::Banner.new(centered: false)
-    rendered = render_component(component) { "Left aligned banner" }
-
-    refute_includes rendered, "justify-center text-center"
   end
 
   test "renders with icon" do
