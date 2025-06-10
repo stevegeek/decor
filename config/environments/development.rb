@@ -72,4 +72,8 @@ Rails.application.configure do
 
   config.lookbook.project_name = "Decor Components Kit"
   config.view_component.default_preview_layout = "component_preview"
+  config.lookbook.ui_theme = "rose"
+  config.lookbook.preview_display_options = {
+    theme: [["light", "decor-light"], ["dark", "decor-dark"]],
+  }
 end
