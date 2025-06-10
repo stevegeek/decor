@@ -1,5 +1,5 @@
 ## @label Card
-class ::Decor::CardPreview < ::ViewComponent::Preview
+class ::Decor::CardPreview < ::Lookbook::Preview
   # Card
   # -------
   #

@@ -1,5 +1,5 @@
 # @label Chat Message
-class ::Decor::Chat::ListMessagePreview < ::ViewComponent::Preview
+class ::Decor::Chat::ListMessagePreview < ::Lookbook::Preview
   # Chat Message
   # ------------
   #

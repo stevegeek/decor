@@ -1,5 +1,5 @@
 # @label PanelGroup
-class ::Decor::PanelGroupPreview < ::ViewComponent::Preview
+class ::Decor::PanelGroupPreview < ::Lookbook::Preview
   # PanelGroup
   # -------
   #

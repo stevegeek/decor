@@ -1,5 +1,5 @@
 ## @label Title
-class ::Decor::TitlePreview < ::ViewComponent::Preview
+class ::Decor::TitlePreview < ::Lookbook::Preview
   # Title
   # -------
   #

@@ -1,5 +1,5 @@
 # @label ClickToCopy
-class ::Decor::ClickToCopyPreview < ::ViewComponent::Preview
+class ::Decor::ClickToCopyPreview < ::Lookbook::Preview
   # ClickToCopy
   # -------
   #

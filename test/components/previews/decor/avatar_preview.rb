@@ -1,5 +1,5 @@
 # @label Avatar
-class ::Decor::AvatarPreview < ::ViewComponent::Preview
+class ::Decor::AvatarPreview < ::Lookbook::Preview
   # Avatars
   # -------
   #

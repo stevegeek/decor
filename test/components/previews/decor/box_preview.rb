@@ -1,5 +1,5 @@
 # @label Box
-class ::Decor::BoxPreview < ::ViewComponent::Preview
+class ::Decor::BoxPreview < ::Lookbook::Preview
   # Box
   # -------
   #

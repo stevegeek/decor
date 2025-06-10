@@ -1,5 +1,5 @@
 # @label Link
-class ::Decor::LinkPreview < ::ViewComponent::Preview
+class ::Decor::LinkPreview < ::Lookbook::Preview
   # Link
   # -------
   #

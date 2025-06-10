@@ -1,5 +1,5 @@
 # @label Badge
-class ::Decor::BadgePreview < ::ViewComponent::Preview
+class ::Decor::BadgePreview < ::Lookbook::Preview
   # Badge
   # -------
   #

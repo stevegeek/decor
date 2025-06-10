@@ -1,5 +1,5 @@
 # @label Banner
-class ::Decor::BannerPreview < ::ViewComponent::Preview
+class ::Decor::BannerPreview < ::Lookbook::Preview
   # Banner
   # -------
   #

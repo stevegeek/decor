@@ -1,5 +1,5 @@
 # @label Carousel
-class ::Decor::CarouselPreview < ::ViewComponent::Preview
+class ::Decor::CarouselPreview < ::Lookbook::Preview
   # Carousel
   # -------
   #

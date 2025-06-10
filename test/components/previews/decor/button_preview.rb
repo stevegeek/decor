@@ -1,5 +1,5 @@
 # @label Button
-class ::Decor::ButtonPreview < ::ViewComponent::Preview
+class ::Decor::ButtonPreview < ::Lookbook::Preview
   # Buttons
   # -------
   #

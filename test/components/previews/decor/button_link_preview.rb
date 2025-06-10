@@ -1,5 +1,5 @@
 # @label ButtonLink
-class ::Decor::ButtonLinkPreview < ::ViewComponent::Preview
+class ::Decor::ButtonLinkPreview < ::Lookbook::Preview
   # ButtonLinks
   # -------
   #

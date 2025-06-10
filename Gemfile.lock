@@ -13,7 +13,7 @@ GIT
 
 GIT
   remote: https://github.com/stevegeek/vident.git
-  revision: 6eb466446cd7acaa605091362b830b855bab916c
+  revision: 440413a02c44716e2a9c4c16eca4493636a96014
   branch: main
   specs:
     vident (0.13.0)

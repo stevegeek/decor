@@ -27,7 +27,7 @@ class BoxComponentTest < ActiveSupport::TestCase
 
   def test_renders_box_with_html_title_slot
     component = Decor::Box.new(description: "Test description")
-    component.with_html_title { "Custom <strong>HTML</strong> Title".html_safe }
+    component.html_title { "Custom <strong>HTML</strong> Title".html_safe }
 
     rendered = render_fragment(component)
 
@@ -38,7 +38,7 @@ class BoxComponentTest < ActiveSupport::TestCase
 
   def test_renders_box_with_left_slot
     component = Decor::Box.new(title: "Title", description: "Description")
-    component.with_left { "Left content" }
+    component.left { "Left content" }
 
     rendered = render_fragment(component)
 
@@ -52,7 +52,7 @@ class BoxComponentTest < ActiveSupport::TestCase
 
   def test_renders_box_with_right_slot
     component = Decor::Box.new(title: "Title", description: "Description")
-    component.with_right { "Right content" }
+    component.right { "Right content" }
 
     rendered = render_fragment(component)
 
@@ -78,8 +78,8 @@ class BoxComponentTest < ActiveSupport::TestCase
 
   def test_renders_box_with_both_slots
     component = Decor::Box.new(title: "Title", description: "Description")
-    component.with_left { "Left content" }
-    component.with_right { "Right content" }
+    component.left { "Left content" }
+    component.right { "Right content" }
 
     rendered = render_fragment(component)
 

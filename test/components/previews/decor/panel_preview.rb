@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # @label Panel
-class ::Decor::PanelPreview < ::ViewComponent::Preview
+class ::Decor::PanelPreview < ::Lookbook::Preview
   # Details Box Panel
   # --------
   #
