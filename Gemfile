@@ -21,6 +21,7 @@ gem "dry-struct" # TODO: change to Literal
 
 gem "view_component"
 gem "phlex-rails", ">= 2.0.0"
+gem "inline_svg"
 gem "vident", github: "stevegeek/vident", branch: "main"
 gem "vident-typed", github: "stevegeek/vident", branch: "main"
 gem "vident-phlex", github: "stevegeek/vident", branch: "main"

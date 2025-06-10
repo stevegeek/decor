@@ -2,26 +2,31 @@
 
 module Decor
   class Carousel < PhlexComponent
-    slot :slides, collection: true
-
     attribute :images, type: Array, sub_type: Hash
     attribute :slides_per_view, Integer
 
     attribute :max_height, Integer
 
+    def slide(&block)
+      @slides ||= []
+      @slides << block
+    end
+
     private
 
-    def view_template
+    def view_template(&)
+      @content = capture(&) if block_given?
+      
       render parent_element do |s|
         div(class: "carousel w-full") do
-          slides_slots.each_with_index do |slide, index|
+          @slides&.each_with_index do |slide, index|
             div(class: "carousel-item w-full", id: "slide#{index + 1}") do
               render slide
             end
           end
 
           @images&.each_with_index do |slide, idx|
-            div(class: "carousel-item w-full", id: "slide#{slides_slots.length + idx + 1}") do
+            div(class: "carousel-item w-full", id: "slide#{(@slides&.length || 0) + idx + 1}") do
               image_tag(
                 slide[:url] || slide[:path],
                 alt: "#{slide[:alt]} image #{idx}",
@@ -34,13 +39,13 @@ module Decor
 
         # Navigation controls
         div(class: "flex justify-center w-full py-2 gap-2") do
-          total_slides = slides_slots.length + (@images&.length || 0)
+          total_slides = (@slides&.length || 0) + (@images&.length || 0)
           (1..total_slides).each do |i|
             a(href: "#slide#{i}", class: "btn btn-xs") { i.to_s }
           end
         end
 
-        yield if block_given?
+        render @content if @content
       end
     end
 
