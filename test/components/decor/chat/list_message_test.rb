@@ -1,158 +1,148 @@
 require "test_helper"
-require "ostruct"
 
 class Decor::Chat::ListMessageTest < ActiveSupport::TestCase
   def setup
-    @mock_message = OpenStruct.new(
-      id: 1,
-      content: "Hello, how are you today?",
-      user: "John Doe",
-      timestamp: Time.now,
-      own_message: false
+    @message_component = Decor::Chat::ListMessage.new(
+      author_name: "John Doe",
+      message: "Hello, how are you today?",
+      is_current_user: false,
+      localised_created_at: Time.current
     )
   end
 
   test "renders successfully with message data" do
-    component = Decor::Chat::ListMessage.new(message: @mock_message)
-    rendered = render_component(component)
+    rendered = render_component(@message_component)
 
-    assert_includes rendered, "chat"
-    assert_includes rendered, "decor--chat-list-message"
+    assert_includes rendered, "chat chat-start"
     assert_includes rendered, "Hello, how are you today?"
   end
 
   test "renders with daisyUI chat bubble" do
-    component = Decor::Chat::ListMessage.new(message: @mock_message)
-    rendered = render_component(component)
+    rendered = render_component(@message_component)
 
     assert_includes rendered, "chat-bubble"
   end
 
   test "renders message content" do
-    component = Decor::Chat::ListMessage.new(message: @mock_message)
-    rendered = render_component(component)
+    rendered = render_component(@message_component)
 
     assert_includes rendered, "Hello, how are you today?"
   end
 
-  test "renders user information" do
-    component = Decor::Chat::ListMessage.new(message: @mock_message)
-    rendered = render_component(component)
+  test "renders user information in header" do
+    rendered = render_component(@message_component)
 
     assert_includes rendered, "John Doe"
   end
 
-  test "supports own message styling" do
-    own_message = OpenStruct.new(
-      content: "My message",
-      user: "Me",
-      own_message: true
+  test "supports current user message styling" do
+    current_user_message = Decor::Chat::ListMessage.new(
+      author_name: "You",
+      message: "My message",
+      is_current_user: true
     )
-    component = Decor::Chat::ListMessage.new(message: own_message)
-    rendered = render_component(component)
+    rendered = render_component(current_user_message)
 
     assert_includes rendered, "chat-end"
+    assert_includes rendered, "chat-bubble-primary"
   end
 
   test "supports other user message styling" do
-    component = Decor::Chat::ListMessage.new(message: @mock_message)
-    rendered = render_component(component)
+    rendered = render_component(@message_component)
 
     assert_includes rendered, "chat-start"
+    refute_includes rendered, "chat-bubble-primary"
   end
 
   test "renders with correct HTML structure" do
-    component = Decor::Chat::ListMessage.new(message: @mock_message)
-    fragment = render_fragment(component)
+    fragment = render_fragment(@message_component)
 
     chat_div = fragment.at_css(".chat")
     assert_not_nil chat_div
-    assert_includes chat_div["class"], "decor--chat-list-message"
+    assert_includes chat_div["class"], "chat-start"
 
     bubble = fragment.at_css(".chat-bubble")
     assert_not_nil bubble
   end
 
   test "component inherits from PhlexComponent" do
-    component = Decor::Chat::ListMessage.new(message: @mock_message)
-
-    assert component.is_a?(Decor::PhlexComponent)
+    assert @message_component.is_a?(Decor::PhlexComponent)
   end
 
-  test "supports avatar slot" do
-    component = Decor::Chat::ListMessage.new(message: @mock_message)
-    rendered = render_component(component) do |c|
-      c.with_avatar { "<div class='avatar'>JD</div>" }
-    end
+  test "supports avatar display" do
+    message_with_avatar = Decor::Chat::ListMessage.new(
+      author_name: "Jane Smith",
+      author_initials: "JS",
+      message: "Message with avatar",
+      is_current_user: false
+    )
+    rendered = render_component(message_with_avatar)
 
-    assert_includes rendered, "<div class='avatar'>JD</div>"
+    assert_includes rendered, "chat-image"
+    assert_includes rendered, "avatar"
   end
 
   test "supports timestamp display" do
-    timestamped_message = OpenStruct.new(
-      content: "Timestamped message",
-      user: "User",
-      timestamp: Time.parse("2024-01-01 12:00:00")
+    timestamped_message = Decor::Chat::ListMessage.new(
+      author_name: "User",
+      message: "Timestamped message",
+      localised_created_at: 2.hours.ago,
+      is_current_user: false
     )
-    component = Decor::Chat::ListMessage.new(message: timestamped_message)
-    rendered = render_component(component)
+    rendered = render_component(timestamped_message)
 
-    # Should include some timestamp information
     assert_includes rendered, "Timestamped message"
+    # Should show time format for recent messages (within 24 hours)
+    assert_includes rendered, ":"
   end
 
-  test "handles different message positions" do
-    start_message = OpenStruct.new(
-      content: "Start message",
-      user: "Other",
-      own_message: false
+  test "supports footer text" do
+    message_with_footer = Decor::Chat::ListMessage.new(
+      author_name: "User",
+      message: "Message with footer",
+      footer_text: "Delivered",
+      is_current_user: false
     )
+    rendered = render_component(message_with_footer)
 
-    end_message = OpenStruct.new(
-      content: "End message",
-      user: "Me",
-      own_message: true
-    )
-
-    start_component = Decor::Chat::ListMessage.new(message: start_message)
-    end_component = Decor::Chat::ListMessage.new(message: end_message)
-
-    start_rendered = render_component(start_component)
-    end_rendered = render_component(end_component)
-
-    assert_includes start_rendered, "chat-start"
-    assert_includes end_rendered, "chat-end"
+    assert_includes rendered, "Delivered"
+    assert_includes rendered, "chat-footer"
   end
 
-  test "supports custom CSS classes" do
-    component = Decor::Chat::ListMessage.new(
-      message: @mock_message,
-      class: "custom-message"
+  test "handles old timestamps correctly" do
+    old_message = Decor::Chat::ListMessage.new(
+      author_name: "User",
+      message: "Old message",
+      localised_created_at: 2.days.ago,
+      is_current_user: false
     )
-    rendered = render_component(component)
+    rendered = render_component(old_message)
 
-    assert_includes rendered, "custom-message"
-    assert_includes rendered, "chat"
+    # Should show date format for old messages
+    refute_includes rendered, ":"
   end
 
   test "renders message bubble with content" do
-    component = Decor::Chat::ListMessage.new(message: @mock_message)
-    fragment = render_fragment(component)
+    fragment = render_fragment(@message_component)
 
     bubble = fragment.at_css(".chat-bubble")
     assert_not_nil bubble
     assert_includes bubble.text, "Hello, how are you today?"
   end
 
-  test "applies appropriate chat direction class" do
-    component = Decor::Chat::ListMessage.new(message: @mock_message)
-    rendered = render_component(component)
-
-    # Should have either chat-start or chat-end based on own_message
-    if @mock_message.own_message
-      assert_includes rendered, "chat-end"
-    else
-      assert_includes rendered, "chat-start"
+  test "supports attachment slot" do
+    message_with_attachment = Decor::Chat::ListMessage.new(
+      author_name: "User",
+      message: "Message with attachment",
+      is_current_user: false
+    )
+    rendered = render_component(message_with_attachment) do |c|
+      c.with_attachment do
+        "<div class='attachment'>File.pdf</div>"
+      end
     end
+
+    assert_includes rendered, "File.pdf"
+    assert_includes rendered, "attachment"
   end
 end

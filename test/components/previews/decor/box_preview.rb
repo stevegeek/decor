@@ -13,10 +13,10 @@ class ::Decor::BoxPreview < ::ViewComponent::Preview
   def playground(title: "Card Title", description: "A card component has a figure, a body part, and inside body there are title and actions parts", show_slots: false)
     render ::Decor::Box.new(title: title, description: description) do |box|
       if show_slots
-        box.with_left do
+        box.left do
           content_tag :div, "Custom Left Content", class: "font-bold"
         end
-        box.with_right do
+        box.right do
           content_tag :div, class: "card-actions justify-end" do
             content_tag :button, "Buy Now", class: "btn btn-primary"
           end

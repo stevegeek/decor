@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2025 Confinus LLC
+Copyright (c) 2023 [Components contributors](https://github.com/willpinha/daisy-components/graphs/contributors)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

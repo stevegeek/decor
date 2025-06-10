@@ -2,9 +2,6 @@
 
 module Decor
   class Button < PhlexComponent
-    slot :before_label
-    slot :after_label
-
     attribute :label, String
 
     # An icon name to render before the label
@@ -21,19 +18,28 @@ module Decor
     # Whether button should span the entire width of the container or not
     attribute :full_width, :boolean, default: false
 
+    def before_label(&block)
+      @before_label = block
+    end
+
+    def after_label(&block)
+      @after_label = block
+    end
+
     private
 
-    def view_template
+    def view_template(&)
+      @content = block_given? ? capture(&) : @label
       render parent_element do
         span(class: "text-center") do
-          render before_label_slot if before_label_slot.present?
+          render @before_label if @before_label.present?
           if @icon
             render ::Decor::Icon.new(name: @icon, variant: @icon_variant, html_options: {class: icon_classes})
           end
           span(class: @icon_only_on_mobile ? "hidden md:inline" : "") do
-            block_given? ? yield : @label
+            render @content
           end
-          render after_label_slot if after_label_slot.present?
+          render @after_label if @after_label.present?
         end
       end
     end

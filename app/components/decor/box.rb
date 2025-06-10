@@ -4,34 +4,44 @@ module Decor
   class Box < PhlexComponent
     no_stimulus_controller
 
-    slot :html_title
-    slot :left
-    slot :right
-
     attribute :title, String
     attribute :description, String
 
+    def html_title(&block)
+      @html_title = block
+    end
+
+    def left(&block)
+      @left = block
+    end
+
+    def right(&block)
+      @right = block
+    end
+
     private
 
-    def view_template
+    def view_template(&)
+      @content = capture(&) if block_given?
+
       render parent_element do
         div(class: "card-body") do
-          if left_slot.present? && right_slot.present?
+          if @left.present? && @right.present?
             div(class: "flex justify-between items-start") do
               div(class: "flex-1") do
-                render left_slot
+                render @left
               end
               div(class: "flex-none") do
-                render right_slot
+                render @right
               end
             end
-          elsif left_slot.present?
-            render left_slot
+          elsif @left.present?
+            render @left
           else
-            if @title.present? || html_title_slot.present?
+            if @title.present? || @html_title.present?
               h2(class: "card-title") do
-                if html_title_slot.present?
-                  render html_title_slot
+                if @html_title.present?
+                  render @html_title
                 else
                   plain(@title)
                 end
@@ -44,11 +54,11 @@ module Decor
               end
             end
 
-            if right_slot.present?
-              render right_slot
+            if @right.present?
+              render @right
             elsif block_given?
               div do
-                yield
+                @content
               end
             end
           end

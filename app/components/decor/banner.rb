@@ -4,13 +4,15 @@ module Decor
   class Banner < PhlexComponent
     no_stimulus_controller
 
-    slot :action
-
     attribute :icon, String
     attribute :link, String, allow_nil: true, allow_blank: false
     attribute :style, Symbol, in: %i[warning info error notice standard success], default: :notice
 
     attribute :centered, :boolean, default: false
+
+    def call_to_action(&block)
+      @call_to_action = block
+    end
 
     private
 
@@ -34,9 +36,9 @@ module Decor
         if @link.present?
           link_to "Learn more", @link, class: button_classes
         end
-        if action_slot.present?
+        if @call_to_action.present?
           div do
-            render action_slot
+            render @call_to_action
           end
         end
       end

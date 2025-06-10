@@ -158,7 +158,7 @@ class ::Decor::BannerPreview < ::ViewComponent::Preview
   # @label Custom Action Button
   def action_slot_custom
     render ::Decor::Banner.new(style: :warning) do |banner|
-      banner.with_action do
+      banner.call_to_action do
         banner.render ::Decor::Button.new(label: "Update Now", theme: :warning, size: :small)
       end
       "A new version is available."
@@ -169,7 +169,7 @@ class ::Decor::BannerPreview < ::ViewComponent::Preview
   # @label Multiple Actions
   def action_slot_multiple
     render ::Decor::Banner.new(style: :info) do |banner|
-      banner.with_action do
+      banner.call_to_action do
         banner.content_tag(:div, class: "flex gap-2") do
           banner.render ::Decor::Button.new(label: "Accept", theme: :primary, size: :small)
           banner.render ::Decor::Button.new(label: "Decline", variant: :outlined, size: :small)
@@ -196,7 +196,7 @@ class ::Decor::BannerPreview < ::ViewComponent::Preview
   # @label Warning Left with Icon and Action
   def combo_warning_left_icon_action
     render ::Decor::Banner.new(style: :warning, icon: "exclamation-triangle") do |banner|
-      banner.with_action do
+      banner.call_to_action do
         render ::Decor::Button.new(label: "Dismiss", variant: :text, size: :small)
       end
       "Please verify your email address to continue."
@@ -215,7 +215,7 @@ class ::Decor::BannerPreview < ::ViewComponent::Preview
   # @label Cookie Consent
   def usecase_cookie_consent
     render ::Decor::Banner.new(style: :info, link: "/privacy") do |banner|
-      banner.with_action do
+      banner.call_to_action do
         render ::Decor::Button.new(label: "Accept", theme: :primary, size: :small)
       end
       "We use cookies to improve your experience."

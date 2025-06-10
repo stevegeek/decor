@@ -10,7 +10,5 @@ module Decor
     include ::Phlex::Rails::Helpers::ImageTag
     include ::Phlex::Rails::Helpers::LinkTo
     include ::Phlex::Rails::Helpers::ContentTag
-
-    include ::Phlex::Slotable
   end
 end

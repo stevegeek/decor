@@ -1,37 +1,25 @@
 require "test_helper"
-require "ostruct"
 
 class Decor::Chat::ListTest < ActiveSupport::TestCase
   def setup
-    @mock_messages = [
-      OpenStruct.new(id: 1, content: "Hello there!", user: "John", timestamp: Time.now),
-      OpenStruct.new(id: 2, content: "How are you?", user: "Jane", timestamp: Time.now)
-    ]
+    @message1 = Decor::Chat::ListMessage.new(
+      author_name: "John",
+      message: "Hello there!",
+      is_current_user: false
+    )
+    @message2 = Decor::Chat::ListMessage.new(
+      author_name: "Jane",
+      message: "How are you?",
+      is_current_user: false
+    )
+    @mock_messages = [@message1, @message2]
   end
 
   test "renders successfully with messages" do
     component = Decor::Chat::List.new(messages: @mock_messages)
     rendered = render_component(component)
 
-    assert_includes rendered, "chat"
-    assert_includes rendered, "decor--chat-list"
-  end
-
-  test "renders with daisyUI chat classes" do
-    component = Decor::Chat::List.new(messages: @mock_messages)
-    rendered = render_component(component)
-
-    assert_includes rendered, "chat"
-  end
-
-  test "supports messages slot" do
-    component = Decor::Chat::List.new(messages: @mock_messages)
-    rendered = render_component(component) do |c|
-      c.with_messages { "<div class='chat chat-start'>Custom message</div>" }
-    end
-
-    assert_includes rendered, "Custom message"
-    assert_includes rendered, "chat-start"
+    assert_includes rendered, "flex flex-col gap-2 p-4"
   end
 
   test "renders message content from collection" do
@@ -42,11 +30,19 @@ class Decor::Chat::ListTest < ActiveSupport::TestCase
     assert_includes rendered, "How are you?"
   end
 
-  test "renders with scrollable container" do
+  test "renders with proper container styling" do
     component = Decor::Chat::List.new(messages: @mock_messages)
     rendered = render_component(component)
 
-    assert_includes rendered, "overflow-y-auto"
+    assert_includes rendered, "flex flex-col gap-2 p-4"
+  end
+
+  test "renders each message as chat components" do
+    component = Decor::Chat::List.new(messages: @mock_messages)
+    rendered = render_component(component)
+
+    assert_includes rendered, "chat chat-start"
+    assert_includes rendered, "chat-bubble"
   end
 
   test "component inherits from PhlexComponent" do
@@ -59,63 +55,63 @@ class Decor::Chat::ListTest < ActiveSupport::TestCase
     component = Decor::Chat::List.new(messages: [])
     rendered = render_component(component)
 
-    assert_includes rendered, "chat"
-    assert_includes rendered, "decor--chat-list"
+    assert_includes rendered, "No messages yet"
+    assert_includes rendered, "flex flex-col gap-2 p-4"
+  end
+
+  test "renders empty state when no messages" do
+    component = Decor::Chat::List.new(messages: [])
+    rendered = render_component(component)
+
+    assert_includes rendered, "No messages yet"
+    # Description only shows when there's an action slot
+    refute_includes rendered, "Start a conversation by sending a message"
   end
 
   test "renders with correct HTML structure" do
     component = Decor::Chat::List.new(messages: @mock_messages)
     fragment = render_fragment(component)
 
-    container = fragment.at_css(".chat")
+    container = fragment.at_css("div")
     assert_not_nil container
-    assert_includes container["class"], "decor--chat-list"
+    assert_includes container["class"], "flex flex-col gap-2 p-4"
   end
 
-  test "supports custom CSS classes" do
+  test "handles empty messages array gracefully" do
+    component = Decor::Chat::List.new(messages: [])
+    rendered = render_component(component)
+
+    assert_includes rendered, "flex flex-col gap-2 p-4"
+    assert_includes rendered, "No messages yet"
+  end
+
+  test "renders ListMessage components correctly" do
+    component = Decor::Chat::List.new(messages: @mock_messages)
+    rendered = render_component(component)
+
+    # Should contain both messages
+    assert_includes rendered, "Hello there!"
+    assert_includes rendered, "How are you?"
+
+    # Should have chat structure
+    assert_includes rendered, "chat-bubble"
+    assert_includes rendered, "chat-start"
+  end
+
+  test "supports empty state with action button" do
     component = Decor::Chat::List.new(
-      messages: @mock_messages,
-      class: "custom-chat-list"
+      messages: [],
+      empty_state_title: "Custom empty title",
+      empty_state_description: "Custom description"
     )
-    rendered = render_component(component)
-
-    assert_includes rendered, "custom-chat-list"
-    assert_includes rendered, "chat"
-  end
-
-  test "handles nil messages gracefully" do
-    component = Decor::Chat::List.new(messages: nil)
-    rendered = render_component(component)
-
-    assert_includes rendered, "chat"
-    assert_includes rendered, "decor--chat-list"
-  end
-
-  test "renders with maximum height for scrolling" do
-    component = Decor::Chat::List.new(messages: @mock_messages)
-    rendered = render_component(component)
-
-    # Should have height constraints for scrolling
-    assert_includes rendered, "overflow-y-auto"
-  end
-
-  test "supports message rendering with chat components" do
-    component = Decor::Chat::List.new(messages: @mock_messages)
     rendered = render_component(component) do |c|
-      c.with_messages do
-        "<div class='chat chat-start'><div class='chat-bubble'>Test message</div></div>"
+      c.with_empty_state_action do
+        "<button class='btn btn-primary'>Start Chat</button>"
       end
     end
 
-    assert_includes rendered, "chat-bubble"
-    assert_includes rendered, "Test message"
-  end
-
-  test "applies default element classes" do
-    component = Decor::Chat::List.new(messages: @mock_messages)
-    rendered = render_component(component)
-
-    assert_includes rendered, "decor--chat-list"
-    assert_includes rendered, "overflow-y-auto"
+    assert_includes rendered, "Custom empty title"
+    assert_includes rendered, "Custom description"
+    assert_includes rendered, "Start Chat"
   end
 end

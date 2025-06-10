@@ -4,7 +4,7 @@ module Decor
   class Badge < PhlexComponent
     no_stimulus_controller
 
-    attribute :label, String, allow_blank: false
+    attribute :label, String, allow_blank: false, allow_nil: true
 
     attribute :style, Symbol, in: %i[warning info error standard success], default: :standard
     attribute :size, Symbol, default: :medium, in: %i[small medium large]
@@ -56,7 +56,11 @@ module Decor
             )
           )
         end
-        plain(@label, &block)
+        if @label
+          plain(@label)
+        elsif block_given?
+          yield
+        end
       end
     end
 

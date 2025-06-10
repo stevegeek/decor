@@ -1,4 +1,4 @@
-# Decor UI Components for Ruby on Rails
+# Decor: UI Components for Ruby on Rails
 
 A comprehensive Ruby on Rails UI component library built for flexibility, maintainability, and developer experience.
 
@@ -30,6 +30,8 @@ Once I port my production application to this version and battle test it, I will
 - [ ] Change `dry-struct` to `Literal` (via vident-typed)
 - [ ] simplify naming of sizes (e.g. `micro` to `xs`, `small` to `sm`, etc.) and unify across components
 - [ ] Unify variant naming
+- [ ] Unify style attribute naming (sometimes we use `style`, sometimes `theme`)
+- [ ] Dark mode support
 
 
 ## The dependencies
@@ -39,7 +41,6 @@ in Gemfile:
 ```ruby
 gem "dry-struct" # TODO: change to Literal
 gem "phlex-rails"
-gem "phlex-slotable"
 gem "vident"
 gem "vident-typed" # TODO: change to Literal
 gem "vident-phlex" 
@@ -105,3 +106,7 @@ and to your `config/routes.rb`:
     mount Lookbook::Engine, at: "/lookbook"
   end
 ```
+
+# Acknowledgements
+ 
+- Thanks to https://github.com/willpinha/daisy-components for the inspiration for certain components
