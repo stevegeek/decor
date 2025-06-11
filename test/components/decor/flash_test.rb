@@ -23,7 +23,7 @@ module Decor
 
       variants.each do |variant, expected_class|
         render_inline(Flash.new(
-          text: "Test message", 
+          text: "Test message",
           variant: variant,
           controller_path: "test",
           action_name: "show"
@@ -58,7 +58,7 @@ module Decor
 
       expected_titles.each do |variant, expected_title|
         component = Flash.new(
-          text: "Test", 
+          text: "Test",
           variant: variant,
           controller_path: "test",
           action_name: "show"
@@ -79,7 +79,7 @@ module Decor
       render_inline(component)
 
       # Check if the component has hidden class when collapsed and empty
-      assert_match /hidden/, component.send(:element_classes)
+      assert_match(/hidden/, component.send(:element_classes))
     end
 
     def test_shows_when_collapse_if_empty_false_and_no_content

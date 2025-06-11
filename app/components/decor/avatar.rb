@@ -30,7 +30,7 @@ module Decor
         else
           div(class: "avatar avatar-placeholder") do
             div(class: "bg-neutral text-neutral-content #{size_classes} #{shape_class} #{border_classes}") do
-              span(class: "#{text_size_class}") { @initials }
+              span(class: text_size_class.to_s) { @initials }
             end
           end
         end

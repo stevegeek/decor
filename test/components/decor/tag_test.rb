@@ -206,7 +206,7 @@ class Decor::TagTest < ActiveSupport::TestCase
     assert_not_nil div
     assert_includes div["class"], "bg-success"
     assert_includes div["class"], "rounded-full"
-    
+
     # The span should contain the text
     span = fragment.at_css("span")
     assert_not_nil span
@@ -239,7 +239,7 @@ class Decor::TagTest < ActiveSupport::TestCase
   # Block content test
   test "supports block content" do
     component = Decor::Tag.new(color: :primary)
-    
+
     # This simulates passing a block to the component
     component.instance_eval do
       def view_template
@@ -248,7 +248,7 @@ class Decor::TagTest < ActiveSupport::TestCase
         end
       end
     end
-    
+
     rendered = render_component(component)
     assert_includes rendered, "Custom Content"
   end

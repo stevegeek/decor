@@ -58,7 +58,7 @@ module Decor
               render @right
             elsif block_given?
               div do
-                @content
+                @content.html_safe
               end
             end
           end

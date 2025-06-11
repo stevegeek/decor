@@ -9,20 +9,20 @@ module Decor
     attribute :image_url, String
     attribute :image_position, Symbol, default: :top, in: [:top, :bottom, :left, :right]
     attribute :image_alt, String, default: ""
-    
+
     # Size of the card
     attribute :size, Symbol, default: :md, in: [:xs, :sm, :md, :lg, :xl]
-    
+
     # Color scheme using DaisyUI semantic colors
     attribute :color, Symbol, default: :base, in: [:base, :primary, :secondary, :accent, :success, :error, :warning, :info, :neutral]
-    
+
     # Visual variant
     attribute :variant, Symbol, default: :filled, in: [:filled, :outlined, :ghost]
 
     def card_header(&block)
       @card_header = block
     end
-    
+
     # Alias for backward compatibility
     alias_method :with_header, :card_header
 
@@ -70,7 +70,7 @@ module Decor
         "flex flex-col #{bg_class} rounded-l-box flex-1"
       end
     end
-    
+
     def get_background_class_for_content
       # For horizontal image cards, we need to apply the background to the content area
       case @variant
@@ -132,7 +132,7 @@ module Decor
     def image_position_horizontal?
       [:left, :right].include?(@image_position)
     end
-    
+
     def size_classes
       case @size
       when :xs then "card-xs"
@@ -142,7 +142,7 @@ module Decor
       when :xl then "card-xl"
       end
     end
-    
+
     def color_classes
       case @variant
       when :ghost
@@ -166,7 +166,7 @@ module Decor
         end
       end
     end
-    
+
     def variant_classes
       case @variant
       when :filled
@@ -177,7 +177,7 @@ module Decor
         "shadow-none"
       end
     end
-    
+
     def outline_variant_classes
       border_color = case @color
       when :base then "border-base-300"
@@ -190,7 +190,7 @@ module Decor
       when :info then "border-info"
       when :neutral then "border-neutral"
       end
-      
+
       "border #{border_color}"
     end
   end

@@ -12,5 +12,5 @@ Rails.application.routes.draw do
   mount Lookbook::Engine, at: "/lookbook"
 
   # Defines the root path route ("/")
-  # root "posts#index"
+  root to: redirect("/lookbook")
 end

@@ -16,7 +16,7 @@ module Decor
 
     def view_template(&)
       @content = capture(&) if block_given?
-      
+
       render parent_element do |s|
         div(class: "carousel w-full") do
           @slides&.each_with_index do |slide, index|

@@ -46,9 +46,11 @@ class Decor::PanelGroupTest < ActiveSupport::TestCase
 
   def test_renders_details_box_with_cta_slot
     component = Decor::PanelGroup.new(title: "Details with CTA")
-    component.with_cta { "Action Button" }
 
-    rendered = render_fragment(component) { "Box content" }
+    rendered = render_fragment(component) do |group|
+      group.cta { "Action Button" }
+      "Box content"
+    end
 
     # Should render title
     title_element = rendered.css("h3").first
@@ -63,22 +65,23 @@ class Decor::PanelGroupTest < ActiveSupport::TestCase
   end
 
   def test_renders_details_box_with_panels
-    panels = [
-      [
-        {title: "Panel 1", content: "Content 1"},
-        {title: "Panel 2", content: "Content 2"}
-      ],
-      [
-        {title: "Panel 3", icon: "academic-cap", content: "Content 3"}
-      ]
-    ]
-
     component = Decor::PanelGroup.new(
-      title: "Details with Panels",
-      panels: panels
+      title: "Details with Panels"
     )
 
-    rendered = render_fragment(component)
+    rendered = render_fragment(component) do |group|
+      group.panels do
+        [
+          group.panel(title: "Panel 1") { |p| p.plain("Content 1") },
+          group.panel(title: "Panel 2") { |p| p.plain("Content 2") }
+        ]
+      end
+      group.panels do
+        [
+          group.panel(title: "Panel 3", icon: "academic-cap") { |p| p.plain("Content 3") }
+        ]
+      end
+    end
 
     # Should render main title
     main_title = rendered.css("h3").first
@@ -102,21 +105,21 @@ class Decor::PanelGroupTest < ActiveSupport::TestCase
   end
 
   def test_details_box_with_complete_configuration
-    panels = [
-      [
-        {title: "Users", icon: "users", content: "1,234 active"},
-        {title: "Revenue", content: "$12,345"}
-      ]
-    ]
-
     component = Decor::PanelGroup.new(
       title: "Dashboard Overview",
-      description: "Key metrics and statistics",
-      panels: panels
+      description: "Key metrics and statistics"
     )
-    component.with_cta { "Refresh Data" }
 
-    rendered = render_fragment(component) { "Additional content" }
+    rendered = render_fragment(component) do |group|
+      group.panels do
+        [
+          group.panel(title: "Users", icon: "users") { |p| p.plain("1,234 active") },
+          group.panel(title: "Revenue") { |p| p.plain("$12,345") }
+        ]
+      end
+      group.cta { "Refresh Data" }
+      "Additional content"
+    end
 
     # Should have all elements
     assert rendered.css("h3").any? # Main title
@@ -144,24 +147,21 @@ class Decor::PanelGroupTest < ActiveSupport::TestCase
   end
 
   def test_details_box_section_alternating_backgrounds
-    panels = [
-      [
-        {title: "Section 1", content: "Content 1"}
-      ],
-      [
-        {title: "Section 2", content: "Content 2"}
-      ],
-      [
-        {title: "Section 3", content: "Content 3"}
-      ]
-    ]
-
     component = Decor::PanelGroup.new(
-      title: "Alternating Sections",
-      panels: panels
+      title: "Alternating Sections"
     )
 
-    rendered = render_fragment(component)
+    rendered = render_fragment(component) do |group|
+      group.panels do
+        [group.panel(title: "Section 1") { |p| p.plain("Content 1") }]
+      end
+      group.panels do
+        [group.panel(title: "Section 2") { |p| p.plain("Content 2") }]
+      end
+      group.panels do
+        [group.panel(title: "Section 3") { |p| p.plain("Content 3") }]
+      end
+    end
 
     # Should have different background classes for alternating sections
     section_divs = rendered.css(".px-4.py-5")
@@ -184,21 +184,37 @@ class Decor::PanelGroupTest < ActiveSupport::TestCase
     # Test different grid sizes based on number of panels
 
     # Single panel should use md:grid-cols-1
-    single_panel = [{title: "Single", content: "Content"}]
-    component = Decor::PanelGroup.new(title: "Single", panels: [single_panel])
-    rendered = render_fragment(component)
+    component = Decor::PanelGroup.new(title: "Single")
+    rendered = render_fragment(component) do |group|
+      group.panels do
+        [group.panel(title: "Single") { |p| p.plain("Content") }]
+      end
+    end
     assert rendered.css(".md\\:grid-cols-1").any?
 
     # Two panels should use md:grid-cols-2
-    double_panels = [{title: "First", content: "Content"}, {title: "Second", content: "Content"}]
-    component = Decor::PanelGroup.new(title: "Double", panels: [double_panels])
-    rendered = render_fragment(component)
+    component = Decor::PanelGroup.new(title: "Double")
+    rendered = render_fragment(component) do |group|
+      group.panels do
+        [
+          group.panel(title: "First") { |p| p.plain("Content") },
+          group.panel(title: "Second") { |p| p.plain("Content") }
+        ]
+      end
+    end
     assert rendered.css(".md\\:grid-cols-2").any?
 
     # Three panels should use md:grid-cols-3
-    triple_panels = [{title: "1", content: "A"}, {title: "2", content: "B"}, {title: "3", content: "C"}]
-    component = Decor::PanelGroup.new(title: "Triple", panels: [triple_panels])
-    rendered = render_fragment(component)
+    component = Decor::PanelGroup.new(title: "Triple")
+    rendered = render_fragment(component) do |group|
+      group.panels do
+        [
+          group.panel(title: "1") { |p| p.plain("A") },
+          group.panel(title: "2") { |p| p.plain("B") },
+          group.panel(title: "3") { |p| p.plain("C") }
+        ]
+      end
+    end
     assert rendered.css(".md\\:grid-cols-3").any?
   end
 
@@ -222,18 +238,20 @@ class Decor::PanelGroupTest < ActiveSupport::TestCase
   end
 
   def test_details_box_panel_with_callable_content
-    panels = [
-      [
-        {title: "Dynamic Panel", content: -> { "Dynamic content from proc" }}
-      ]
-    ]
-
     component = Decor::PanelGroup.new(
-      title: "Callable Content Test",
-      panels: panels
+      title: "Callable Content Test"
     )
 
-    rendered = render_fragment(component)
+    rendered = render_fragment(component) do |group|
+      group.panels do
+        [
+          group.panel(title: "Dynamic Panel") do |p|
+            content_proc = -> { "Dynamic content from proc" }
+            p.plain(content_proc.call)
+          end
+        ]
+      end
+    end
 
     # Should render the result of the proc
     assert_includes rendered.text, "Dynamic content from proc"
@@ -259,5 +277,58 @@ class Decor::PanelGroupTest < ActiveSupport::TestCase
     # Title and description should be in same wrapper div
     assert title_wrapper.css("h3").any?
     assert title_wrapper.css("p").any?
+  end
+
+  def test_size_attribute
+    component = Decor::PanelGroup.new(title: "Large Panel Group", size: :lg)
+    rendered = render_fragment(component)
+
+    # Should use large size on Card component internally
+    assert rendered.css(".card-lg").any?
+  end
+
+  def test_color_attribute
+    component = Decor::PanelGroup.new(title: "Primary Panel Group", color: :primary)
+    rendered = render_fragment(component)
+
+    # Should use primary color on Card component internally
+    assert rendered.css(".bg-primary").any?
+  end
+
+  def test_variant_attribute
+    component = Decor::PanelGroup.new(title: "Ghost Panel Group", variant: :ghost)
+    rendered = render_fragment(component)
+
+    # Should use ghost variant styling (no shadow)
+    assert rendered.css(".shadow-none").any?
+  end
+
+  def test_default_attributes
+    component = Decor::PanelGroup.new(title: "Default Panel Group")
+    rendered = render_fragment(component)
+
+    # Should use default values: size: :md, color: :base, variant: :filled
+    assert rendered.css(".card-md").any?
+    assert rendered.css(".bg-base-100").any?
+    assert rendered.css(".shadow-sm").any?
+  end
+
+  def test_attribute_validation
+    # Valid sizes
+    assert_nothing_raised { Decor::PanelGroup.new(title: "Test", size: :xs) }
+    assert_nothing_raised { Decor::PanelGroup.new(title: "Test", size: :xl) }
+
+    # Valid colors
+    assert_nothing_raised { Decor::PanelGroup.new(title: "Test", color: :primary) }
+    assert_nothing_raised { Decor::PanelGroup.new(title: "Test", color: :success) }
+
+    # Valid variants
+    assert_nothing_raised { Decor::PanelGroup.new(title: "Test", variant: :outlined) }
+    assert_nothing_raised { Decor::PanelGroup.new(title: "Test", variant: :ghost) }
+
+    # Should raise for invalid values
+    assert_raises(ArgumentError) { Decor::PanelGroup.new(title: "Test", size: :invalid) }
+    assert_raises(ArgumentError) { Decor::PanelGroup.new(title: "Test", color: :invalid) }
+    assert_raises(ArgumentError) { Decor::PanelGroup.new(title: "Test", variant: :invalid) }
   end
 end
