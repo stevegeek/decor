@@ -283,4 +283,39 @@ class Decor::CardTest < ActiveSupport::TestCase
     # This test ensures the attribute is accepted
     assert_equal "Test alt text", component.instance_variable_get(:@image_alt)
   end
+
+  # Tests for new standardized attributes
+  def test_card_with_color_attribute
+    card = ::Decor::Card.new(color: :primary)
+    output = card.call
+    assert_includes output, "bg-primary"
+    assert_includes output, "text-primary-content"
+  end
+
+  def test_card_with_size_attribute
+    card = ::Decor::Card.new(size: :xs)
+    output = card.call
+    assert_includes output, "card-compact"
+  end
+
+  def test_card_with_variant_outlined
+    card = ::Decor::Card.new(variant: :outlined, color: :primary)
+    output = card.call
+    assert_includes output, "border"
+    assert_includes output, "border-primary"
+    assert_includes output, "bg-base-100"
+  end
+
+  def test_card_with_variant_ghost
+    card = ::Decor::Card.new(variant: :ghost)
+    output = card.call
+    assert_includes output, "shadow-none"
+  end
+
+  def test_card_defaults_to_base_color_and_filled_variant
+    card = ::Decor::Card.new
+    output = card.call
+    assert_includes output, "bg-base-100"
+    assert_includes output, "shadow-sm"
+  end
 end

@@ -9,10 +9,22 @@ module Decor
     attribute :image_url, String
     attribute :image_position, Symbol, default: :top, in: [:top, :bottom, :left, :right]
     attribute :image_alt, String, default: ""
+    
+    # Size of the card
+    attribute :size, Symbol, default: :md, in: [:xs, :sm, :md, :lg, :xl]
+    
+    # Color scheme using DaisyUI semantic colors
+    attribute :color, Symbol, default: :base, in: [:base, :primary, :secondary, :accent, :success, :error, :warning, :info, :neutral]
+    
+    # Visual variant
+    attribute :variant, Symbol, default: :filled, in: [:filled, :outlined, :ghost]
 
     def card_header(&block)
       @card_header = block
     end
+    
+    # Alias for backward compatibility
+    alias_method :with_header, :card_header
 
     private
 
@@ -39,22 +51,46 @@ module Decor
     end
 
     def element_classes
-      base_classes = "card bg-base-100 shadow-sm"
-      if image_position_horizontal?
-        "#{base_classes} flex-row"
-      else
-        base_classes
-      end
+      classes = ["card"]
+      classes << size_classes
+      classes << color_classes
+      classes << variant_classes
+      classes << "flex-row" if image_position_horizontal?
+      classes.compact.join(" ")
     end
 
     def card_content_classes
       return "" unless image_position_horizontal?
 
+      bg_class = get_background_class_for_content
       case @image_position
       when :left
-        "flex flex-col bg-base-100 rounded-r-box flex-1"
+        "flex flex-col #{bg_class} rounded-r-box flex-1"
       when :right
-        "flex flex-col bg-base-100 rounded-l-box flex-1"
+        "flex flex-col #{bg_class} rounded-l-box flex-1"
+      end
+    end
+    
+    def get_background_class_for_content
+      # For horizontal image cards, we need to apply the background to the content area
+      case @variant
+      when :ghost
+        ""
+      when :outlined
+        "bg-base-100"
+      else
+        # Filled variant
+        case @color
+        when :base then "bg-base-100"
+        when :primary then "bg-primary text-primary-content"
+        when :secondary then "bg-secondary text-secondary-content"
+        when :accent then "bg-accent text-accent-content"
+        when :success then "bg-success text-success-content"
+        when :error then "bg-error text-error-content"
+        when :warning then "bg-warning text-warning-content"
+        when :info then "bg-info text-info-content"
+        when :neutral then "bg-neutral text-neutral-content"
+        end
       end
     end
 
@@ -66,7 +102,7 @@ module Decor
         if @title.present?
           span(class: "card-title") { @title }
         end
-        render @content if @content.present?
+        raw @content.html_safe if @content.present?
       end
     end
 
@@ -95,6 +131,67 @@ module Decor
 
     def image_position_horizontal?
       [:left, :right].include?(@image_position)
+    end
+    
+    def size_classes
+      case @size
+      when :xs then "card-xs"
+      when :sm then "card-sm"
+      when :md then "card-md"
+      when :lg then "card-lg"
+      when :xl then "card-xl"
+      end
+    end
+    
+    def color_classes
+      case @variant
+      when :ghost
+        # Ghost variant doesn't use background colors
+        nil
+      when :outlined
+        # Outlined variant uses base background
+        "bg-base-100"
+      else
+        # Filled variant
+        case @color
+        when :base then "bg-base-100"
+        when :primary then "bg-primary text-primary-content"
+        when :secondary then "bg-secondary text-secondary-content"
+        when :accent then "bg-accent text-accent-content"
+        when :success then "bg-success text-success-content"
+        when :error then "bg-error text-error-content"
+        when :warning then "bg-warning text-warning-content"
+        when :info then "bg-info text-info-content"
+        when :neutral then "bg-neutral text-neutral-content"
+        end
+      end
+    end
+    
+    def variant_classes
+      case @variant
+      when :filled
+        "shadow-sm"
+      when :outlined
+        outline_variant_classes
+      when :ghost
+        "shadow-none"
+      end
+    end
+    
+    def outline_variant_classes
+      border_color = case @color
+      when :base then "border-base-300"
+      when :primary then "border-primary"
+      when :secondary then "border-secondary"
+      when :accent then "border-accent"
+      when :success then "border-success"
+      when :error then "border-error"
+      when :warning then "border-warning"
+      when :info then "border-info"
+      when :neutral then "border-neutral"
+      end
+      
+      "border #{border_color}"
     end
   end
 end
