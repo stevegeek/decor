@@ -7,6 +7,15 @@ module Decor
     attribute :title, String
     attribute :description, String
 
+    # Size of the panel group
+    attribute :size, Symbol, default: :md, in: [:xs, :sm, :md, :lg, :xl]
+
+    # Color scheme using DaisyUI semantic colors
+    attribute :color, Symbol, default: :base, in: [:base, :primary, :secondary, :accent, :success, :error, :warning, :info, :neutral]
+
+    # Visual variant
+    attribute :variant, Symbol, default: :filled, in: [:filled, :outlined, :ghost]
+
     def after_initialize
       @panels = []
     end
@@ -16,7 +25,7 @@ module Decor
       vanish(&) if block_given?
 
       render parent_element do
-        render ::Decor::Card.new(html_options: {class: "shadow-lg border border-base-300 overflow-hidden"}) do |card|
+        render ::Decor::Card.new(size: @size, color: @color, variant: @variant, html_options: card_html_options) do |card|
           card.card_header do
             card.div(class: "p-4 lg:p-6") do
               card.div(class: "-ml-4 -mt-4 ml-4 mt-4") do
@@ -63,6 +72,10 @@ module Decor
 
     def element_classes
       "space-y-4"
+    end
+
+    def card_html_options
+      {class: "overflow-hidden"}
     end
 
     def section_classes(idx)
