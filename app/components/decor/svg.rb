@@ -12,6 +12,7 @@ module Decor
     attribute :inline, :boolean, default: true
 
     attribute :name, String, allow_blank: false
+    attribute :root_path, String
     attribute :title, String
     attribute :description, String
 
@@ -49,7 +50,11 @@ module Decor
     end
 
     def file_name
-      "svgs/#{@name}.svg"
+      if @root_path.present?
+        File.join(@root_path, "#{@name}.svg")
+      else
+        "#{@name}.svg"
+      end
     end
 
     def strip(output)

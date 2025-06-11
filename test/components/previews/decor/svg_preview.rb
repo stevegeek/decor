@@ -17,7 +17,8 @@ class ::Decor::SvgPreview < ::Lookbook::Preview
       name: name,
       inline: inline,
       title: title,
-      description: description
+      description: description,
+      root_path: "svgs"
     )
   end
 end
