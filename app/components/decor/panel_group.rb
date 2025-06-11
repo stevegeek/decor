@@ -4,52 +4,59 @@ module Decor
   class PanelGroup < PhlexComponent
     no_stimulus_controller
 
-    slot :cta
-
     attribute :title, String
     attribute :description, String
-    attribute :panels, Array
+
+    def after_initialize
+      @panels = []
+    end
 
     def view_template(&)
+      # Execute the block in the context of this component to collect panels and cta
+      vanish(&) if block_given?
+
       render parent_element do
         render ::Decor::Card.new(html_options: {class: "shadow-lg border border-base-300 overflow-hidden"}) do |card|
-          card.with_header do
+          card.card_header do
             card.div(class: "p-4 lg:p-6") do
               card.div(class: "-ml-4 -mt-4 ml-4 mt-4") do
                 card.render ::Decor::Title.new(
                   title: @title,
                   description: @description,
                   size: :md
-                ) do
-                  card.render cta_slot if cta_slot.present?
+                ) do |title|
+                  title.render @cta_content if @cta_content
                 end
               end
             end
           end
 
-          @panels&.each_with_index do |panel_group, idx|
-            div(class: section_classes(idx)) do
-              div(class: "grid #{grid_size(panel_group)} gap-4 md:gap-5") do
-                panel_group.each do |panel_config|
-                  if panel_config.size > 1
-                    render ::Decor::Panel.new(**panel_config.first) do
-                      if panel_config.last.is_a?(String)
-                        panel_config.last
-                      elsif panel_config.last.respond_to?(:call)
-                        instance_exec(&panel_config.last)
-                      end
-                    end
-                  else
-                    render ::Decor::Panel.new(**panel_config.first)
-                  end
-                end
+          @panels.each_with_index do |panel_row, idx|
+            card.div(class: section_classes(idx)) do
+              card.div(class: "grid #{grid_size(panel_row)} gap-4 md:gap-5") do
+                panel_row.each { render it }
               end
             end
           end
-
-          div(&) if block_given?
         end
       end
+    end
+
+    def panels(&block)
+      panel_list = instance_exec(&block)
+      if panel_list.is_a?(Array)
+        @panels << panel_list
+      else
+        raise ArgumentError, "Expected an array of panels, got #{panel_list.class}"
+      end
+    end
+
+    def panel(title:, icon: nil, &content)
+      ::Decor::Panel.new(title: title, icon: icon, &content)
+    end
+
+    def cta(&block)
+      @cta_content = block
     end
 
     private
@@ -67,8 +74,8 @@ module Decor
       end
     end
 
-    def grid_size(panels_in_row)
-      case panels_in_row.size
+    def grid_size(panel_row)
+      case panel_row.size
       when 1
         "md:grid-cols-1"
       when 2
