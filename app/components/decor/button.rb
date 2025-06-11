@@ -11,7 +11,7 @@ module Decor
 
     attribute :variant, Symbol, default: :contained, in: %i[contained outlined text]
     attribute :theme, Symbol, default: :primary, in: %i[primary secondary danger warning neutral]
-    attribute :size, Symbol, default: :medium, in: %i[large medium wide small micro]
+    attribute :size, Symbol, default: :medium, in: %i[large medium wide small micro xs lg md sm]
 
     attribute :disabled, :boolean, default: false
 
@@ -66,13 +66,13 @@ module Decor
     def icon_classes
       sized =
         case @size
-        when :large
+        when :large, :lg
           "size-8 pr-2"
-        when :medium, :wide
+        when :medium, :wide, :md
           "size-6 pr-1"
-        when :small
+        when :small, :sm
           "size-5.5 pr-1"
-        when :micro
+        when :micro, :xs
           "size-4.5 pr-1"
         end
       "inline #{@icon_only_on_mobile ? "mr-0 md:mr-1" : "mr-1"} #{sized}"
@@ -108,11 +108,11 @@ module Decor
 
     def size_classes
       case @size
-      when :large
+      when :large, :lg
         ["btn-lg"]
-      when :small
+      when :small, :sm
         ["btn-sm"]
-      when :micro
+      when :micro, :xs
         ["btn-xs"]
       when :wide
         ["btn-wide"]

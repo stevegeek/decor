@@ -13,7 +13,7 @@ class ::Decor::ButtonPreview < ::Lookbook::Preview
   # @param variant select [contained, outlined, text]
   # @param theme select [primary, secondary, danger, warning, neutral]
   # @param element_tag select [button, a]
-  # @param size select [medium, large, wide, small, micro]
+  # @param size select [medium, large, wide, small, micro, xs, lg, md, sm]
   # @param full_width toggle
   def playground(
     label: "Button",
@@ -113,6 +113,30 @@ class ::Decor::ButtonPreview < ::Lookbook::Preview
   # @label Micro Size
   def size_micro
     render ::Decor::Button.new(label: "Micro Button", size: :micro)
+  end
+
+  # @group Sizes
+  # @label XS Size (alias for micro)
+  def size_xs
+    render ::Decor::Button.new(label: "XS Button", size: :xs)
+  end
+
+  # @group Size Aliases
+  # @label Large Alias (lg)
+  def size_alias_lg
+    render ::Decor::Button.new(label: "Large Alias", size: :lg)
+  end
+
+  # @group Size Aliases
+  # @label Medium Alias (md)
+  def size_alias_md
+    render ::Decor::Button.new(label: "Medium Alias", size: :md)
+  end
+
+  # @group Size Aliases
+  # @label Small Alias (sm)
+  def size_alias_sm
+    render ::Decor::Button.new(label: "Small Alias", size: :sm)
   end
 
   # @group With Icons
