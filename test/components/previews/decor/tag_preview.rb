@@ -1,0 +1,349 @@
+# @label Tag
+class ::Decor::TagPreview < ::Lookbook::Preview
+  # Tag
+  # -------
+  #
+  # A modern tag/badge component built with DaisyUI styling. Tags can display simple labels,
+  # include icons, and optionally show a close button for removal functionality.
+  #
+  # ## Features
+  # - **DaisyUI Integration**: Uses DaisyUI badge classes for consistent theming
+  # - **Icon Support**: Optional leading icons using Decor::Icon
+  # - **Removable Tags**: Optional close button (removal logic handled by parent components)
+  # - **Multiple Variants**: Filled, outline, and ghost styles
+  # - **Semantic Colors**: Full DaisyUI color palette support
+  # - **Size Options**: 4 sizes from xs to lg
+  #
+  # ## Note on Removable Tags
+  # When `removable: true`, the tag renders a close button with an X icon. The actual removal
+  # logic should be handled by parent components or separate controllers, not by the Tag itself.
+  #
+  # @label Interactive Playground
+  # @param label text
+  # @param icon select [~, check-circle, x-mark, check, star, heart, user, tag]
+  # @param size select [xs, sm, md, lg]
+  # @param color select [primary, secondary, accent, success, error, warning, info, neutral]
+  # @param variant select [filled, outline]
+  # @param removable toggle
+  def playground(
+    label: "Sample Tag",
+    icon: nil,
+    size: :md,
+    color: :primary,
+    variant: :filled,
+    removable: false
+  )
+    render ::Decor::Tag.new(
+      label: label,
+      icon: icon,
+      size: size,
+      color: color,
+      variant: variant,
+      removable: removable
+    )
+  end
+
+  # @group Colors
+  # @label Primary Color
+  def color_primary
+    render ::Decor::Tag.new(label: "Primary", color: :primary)
+  end
+
+  # @group Colors
+  # @label Secondary Color
+  def color_secondary
+    render ::Decor::Tag.new(label: "Secondary", color: :secondary)
+  end
+
+  # @group Colors
+  # @label Accent Color
+  def color_accent
+    render ::Decor::Tag.new(label: "Accent", color: :accent)
+  end
+
+  # @group Colors
+  # @label Success Color
+  def color_success
+    render ::Decor::Tag.new(label: "Success", color: :success)
+  end
+
+  # @group Colors
+  # @label Error Color
+  def color_error
+    render ::Decor::Tag.new(label: "Error", color: :error)
+  end
+
+  # @group Colors
+  # @label Warning Color
+  def color_warning
+    render ::Decor::Tag.new(label: "Warning", color: :warning)
+  end
+
+  # @group Colors
+  # @label Info Color
+  def color_info
+    render ::Decor::Tag.new(label: "Info", color: :info)
+  end
+
+  # @group Colors
+  # @label Neutral Color
+  def color_neutral
+    render ::Decor::Tag.new(label: "Neutral", color: :neutral)
+  end
+
+  # @group Sizes
+  # @label Extra Small
+  def size_xs
+    render ::Decor::Tag.new(icon: "heart", label: "XS Tag", size: :xs, removable: true)
+  end
+
+  # @group Sizes
+  # @label Small
+  def size_sm
+    render ::Decor::Tag.new(icon: "heart", label: "Small Tag", size: :sm, removable: true)
+  end
+
+  # @group Sizes
+  # @label Medium (Default)
+  def size_md
+    render ::Decor::Tag.new(icon: "heart", label: "Medium Tag", size: :md, removable: true)
+  end
+
+  # @group Sizes
+  # @label Large
+  def size_lg
+    render ::Decor::Tag.new(icon: "heart", label: "Large Tag", size: :lg, removable: true)
+  end
+
+  # @group Variants
+  # @label Filled (Default)
+  def variant_filled
+    render ::Decor::Tag.new(label: "Filled Tag", color: :primary, variant: :filled)
+  end
+
+  # @group Variants
+  # @label Outline
+  def variant_outline
+    render ::Decor::Tag.new(label: "Outline Tag", color: :primary, variant: :outlined)
+  end
+
+  # @group With Icons
+  # @label Basic Icon
+  def icon_basic
+    render ::Decor::Tag.new(label: "Tagged", icon: "tag", color: :info)
+  end
+
+  # @group With Icons
+  # @label Success with Check
+  def icon_success_check
+    render ::Decor::Tag.new(label: "Verified", icon: "check-circle", color: :success)
+  end
+
+  # @group With Icons
+  # @label Star Rating
+  def icon_star
+    render ::Decor::Tag.new(label: "Favorite", icon: "star", color: :warning)
+  end
+
+  # @group With Icons
+  # @label User Tag
+  def icon_user
+    render ::Decor::Tag.new(label: "Admin", icon: "user", color: :accent)
+  end
+
+  # @group Removable Tags
+  # @label Basic Removable
+  def removable_basic
+    render ::Decor::Tag.new(
+      label: "Remove Me",
+      color: :primary,
+      removable: true
+    )
+  end
+
+  # @group Removable Tags
+  # @label Removable with Icon
+  def removable_with_icon
+    render ::Decor::Tag.new(
+      label: "Category",
+      icon: "tag",
+      color: :accent,
+      removable: true
+    )
+  end
+
+  # @group Removable Tags
+  # @label Different Colors Removable
+  def removable_colors
+    render ::Decor::Tag.new(
+      label: "Success Tag",
+      color: :success,
+      removable: true
+    )
+  end
+
+  # @group Removable Tags
+  # @label Error Tag Removable
+  def removable_error
+    render ::Decor::Tag.new(
+      label: "Error Tag",
+      color: :error,
+      removable: true
+    )
+  end
+
+  # @group Removable Tags
+  # @label Large Removable
+  def removable_large
+    render ::Decor::Tag.new(
+      label: "Large Removable",
+      color: :warning,
+      size: :lg,
+      removable: true
+    )
+  end
+
+  # @group Combinations
+  # @label Outline with Icon
+  def combo_outline_icon
+    render ::Decor::Tag.new(
+      label: "Featured",
+      icon: "star",
+      color: :accent,
+      variant: :outlined
+    )
+  end
+
+  # @group Combinations
+  # @label Outline with Icon and Removable
+  def combo_outline_icon_removable
+    render ::Decor::Tag.new(
+      label: "Draft",
+      icon: "document",
+      color: :warning,
+      variant: :outlined,
+      removable: true
+    )
+  end
+
+  # @group Combinations
+  # @label Large Outline Removable
+  def combo_large_outline_removable
+    render ::Decor::Tag.new(
+      label: "Important",
+      color: :error,
+      variant: :outlined,
+      size: :lg,
+      removable: true
+    )
+  end
+
+  # @group Examples
+  # @label Status Tags
+  def example_status_tags
+    render ::Decor::Tag.new(label: "Active", color: :success, icon: "check-circle")
+  end
+
+  # @group Examples
+  # @label Category Tag
+  def example_category
+    render ::Decor::Tag.new(
+      label: "Technology",
+      color: :info,
+      icon: "tag",
+      removable: true
+    )
+  end
+
+  # @group Examples
+  # @label Priority Tag
+  def example_priority
+    render ::Decor::Tag.new(
+      label: "High Priority",
+      color: :error,
+      variant: :outlined,
+      size: :lg
+    )
+  end
+
+  # @group Examples
+  # @label User Role
+  def example_user_role
+    render ::Decor::Tag.new(
+      label: "Moderator",
+      color: :accent,
+      icon: "user",
+      variant: :filled
+    )
+  end
+
+  # @group Examples
+  # @label Filter Tag
+  def example_filter
+    render ::Decor::Tag.new(
+      label: "JavaScript",
+      color: :warning,
+      removable: true
+    )
+  end
+
+  # @group Use Cases
+  # @label Blog Post Tags
+  def usecase_blog_tags
+    render ::Decor::Tag.new(
+      label: "Web Development",
+      color: :primary,
+      size: :sm,
+      removable: true
+    )
+  end
+
+  # @group Use Cases
+  # @label Product Labels
+  def usecase_product_labels
+    render ::Decor::Tag.new(
+      label: "Best Seller",
+      color: :success,
+      icon: "star",
+      variant: :filled
+    )
+  end
+
+  # @group Use Cases
+  # @label Notification Badge
+  def usecase_notification
+    render ::Decor::Tag.new(
+      label: "New",
+      color: :error,
+      size: :xs,
+      variant: :filled
+    )
+  end
+
+  # @group Use Cases
+  # @label Skill Tag
+  def usecase_skill
+    render ::Decor::Tag.new(
+      label: "Ruby on Rails",
+      color: :accent,
+      variant: :outlined,
+      removable: true
+    )
+  end
+
+  # @group Legacy Support
+  # @label With Text Attribute (Deprecated)
+  def legacy_text_attribute
+    render ::Decor::Tag.new(text: "Legacy Text", color: :neutral)
+  end
+
+  # @group Legacy Support
+  # @label Mixed Text and Label
+  def legacy_mixed
+    render ::Decor::Tag.new(
+      text: "This will be ignored",
+      label: "Label takes precedence",
+      color: :info
+    )
+  end
+end
