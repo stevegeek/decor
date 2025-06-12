@@ -74,6 +74,13 @@ class Decor::TagTest < ActiveSupport::TestCase
     assert_includes rendered, "px-2.5 py-0.5 text-sm"
   end
 
+  test "applies xl size classes" do
+    component = Decor::Tag.new(label: "XL Tag", size: :xl)
+    rendered = render_component(component)
+
+    assert_includes rendered, "px-4 py-1.5 text-lg"
+  end
+
   # Variant tests
   test "applies outline variant classes" do
     component = Decor::Tag.new(label: "Outlined", variant: :outlined, color: :primary)
@@ -89,6 +96,16 @@ class Decor::TagTest < ActiveSupport::TestCase
 
     assert_includes rendered, "bg-primary"
     assert_includes rendered, "text-primary-content"
+    refute_includes rendered, "border"
+  end
+
+  test "applies ghost variant classes" do
+    component = Decor::Tag.new(label: "Ghost", variant: :ghost, color: :primary)
+    rendered = render_component(component)
+
+    assert_includes rendered, "text-primary"
+    assert_includes rendered, "hover:bg-primary/10"
+    refute_includes rendered, "bg-primary text-primary-content"
     refute_includes rendered, "border"
   end
 
@@ -151,11 +168,13 @@ class Decor::TagTest < ActiveSupport::TestCase
     assert_includes rendered, "x-mark"
   end
 
-  test "remove button has correct hover classes" do
+  test "remove button has correct classes" do
     component = Decor::Tag.new(label: "Removable", color: :error, removable: true)
     rendered = render_component(component)
 
-    assert_includes rendered, "hover:btn-error"
+    assert_includes rendered, "btn-ghost"
+    assert_includes rendered, "btn-xs"
+    assert_includes rendered, "btn-circle"
   end
 
   # Combination tests
@@ -220,13 +239,6 @@ class Decor::TagTest < ActiveSupport::TestCase
 
     assert_includes rendered, "rounded-full"
     assert rendered # Should not raise error
-  end
-
-  test "handles nil label gracefully when text is provided" do
-    component = Decor::Tag.new(text: "Fallback")
-    rendered = render_component(component)
-
-    assert_includes rendered, "Fallback"
   end
 
   test "whitespace-nowrap is applied to text content" do

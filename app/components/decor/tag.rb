@@ -5,19 +5,19 @@ module Decor
   class Tag < PhlexComponent
     no_stimulus_controller
 
-    attribute :label, String, allow_nil: false
+    attribute :label, String, allow_nil: true
 
     # Icon to display before the label
     attribute :icon, String
 
     # Size of the tag
-    attribute :size, Symbol, default: :md, choice: [:xs, :sm, :md, :lg]
+    attribute :size, Symbol, default: :md, in: [:xs, :sm, :md, :lg, :xl]
 
     # Color scheme using DaisyUI semantic colors
-    attribute :color, Symbol, default: :neutral, choice: [:primary, :secondary, :accent, :success, :error, :warning, :info, :neutral]
+    attribute :color, Symbol, default: :neutral, in: [:primary, :secondary, :accent, :success, :error, :warning, :info, :neutral]
 
     # Visual variant
-    attribute :variant, Symbol, default: :filled, choice: [:filled, :outlined]
+    attribute :variant, Symbol, default: :filled, in: [:filled, :outlined, :ghost]
 
     # Whether the tag can be removed with a close button
     attribute :removable, :boolean, default: false
@@ -36,7 +36,7 @@ module Decor
         if @icon.present?
           render ::Decor::Icon.new(
             name: @icon,
-            variant: :outlined,
+            variant: :outline,
             html_options: {
               class: icon_classes
             }
@@ -47,7 +47,7 @@ module Decor
         if block_given?
           yield
         else
-          span(class: "whitespace-nowrap") { plain(@label || @text) }
+          span(class: "whitespace-nowrap") { plain(@label) }
         end
 
         # Remove button (if removable)
@@ -71,12 +71,16 @@ module Decor
       when :sm then "px-2.5 py-0.5 text-sm"
       when :md then "px-2.5 py-0.5 text-sm"
       when :lg then "px-3 py-1 text-base"
+      when :xl then "px-4 py-1.5 text-lg"
       end
     end
 
     def color_classes
-      if @variant == :outlined
+      case @variant
+      when :outlined
         outline_color_classes
+      when :ghost
+        ghost_color_classes
       else
         filled_color_classes
       end
@@ -108,12 +112,26 @@ module Decor
       end
     end
 
+    def ghost_color_classes
+      case @color
+      when :primary then "text-primary hover:bg-primary/10"
+      when :secondary then "text-secondary hover:bg-secondary/10"
+      when :accent then "text-accent hover:bg-accent/10"
+      when :success then "text-success hover:bg-success/10"
+      when :error then "text-error hover:bg-error/10"
+      when :warning then "text-warning hover:bg-warning/10"
+      when :info then "text-info hover:bg-info/10"
+      when :neutral then "text-neutral hover:bg-neutral/10"
+      end
+    end
+
     def icon_classes
       case @size
       when :xs then "w-3 h-3"
       when :sm then "w-3 h-3"
       when :md then "w-4 h-4"
       when :lg then "w-5 h-5"
+      when :xl then "w-6 h-6"
       end
     end
 
@@ -125,7 +143,7 @@ module Decor
         span(class: "sr-only") { "Remove tag" }
         render ::Decor::Icon.new(
           name: "x-mark",
-          variant: :outlined,
+          variant: :outline,
           html_options: {
             class: remove_icon_classes
           }
@@ -161,9 +179,10 @@ module Decor
     def remove_icon_classes
       case @size
       when :xs then "w-2 h-2"
-      when :sm then "w-3 h-3"  
+      when :sm then "w-3 h-3"
       when :md then "w-3 h-3"
       when :lg then "w-4 h-4"
+      when :xl then "w-5 h-5"
       end
     end
   end

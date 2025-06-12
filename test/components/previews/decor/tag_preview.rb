@@ -21,9 +21,9 @@ class ::Decor::TagPreview < ::Lookbook::Preview
   # @label Interactive Playground
   # @param label text
   # @param icon select [~, check-circle, x-mark, check, star, heart, user, tag]
-  # @param size select [xs, sm, md, lg]
+  # @param size select [xs, sm, md, lg, xl]
   # @param color select [primary, secondary, accent, success, error, warning, info, neutral]
-  # @param variant select [filled, outline]
+  # @param variant select [filled, outlined, ghost]
   # @param removable toggle
   def playground(
     label: "Sample Tag",
@@ -115,6 +115,12 @@ class ::Decor::TagPreview < ::Lookbook::Preview
     render ::Decor::Tag.new(icon: "heart", label: "Large Tag", size: :lg, removable: true)
   end
 
+  # @group Sizes
+  # @label Extra Large
+  def size_xl
+    render ::Decor::Tag.new(icon: "heart", label: "XL Tag", size: :xl, removable: true)
+  end
+
   # @group Variants
   # @label Filled (Default)
   def variant_filled
@@ -125,6 +131,12 @@ class ::Decor::TagPreview < ::Lookbook::Preview
   # @label Outline
   def variant_outline
     render ::Decor::Tag.new(label: "Outline Tag", color: :primary, variant: :outlined)
+  end
+
+  # @group Variants
+  # @label Ghost
+  def variant_ghost
+    render ::Decor::Tag.new(label: "Ghost Tag", color: :primary, variant: :ghost)
   end
 
   # @group With Icons
@@ -203,7 +215,7 @@ class ::Decor::TagPreview < ::Lookbook::Preview
     )
   end
 
-  # @group Combinations
+  # @group Examples
   # @label Outline with Icon
   def combo_outline_icon
     render ::Decor::Tag.new(
@@ -214,7 +226,7 @@ class ::Decor::TagPreview < ::Lookbook::Preview
     )
   end
 
-  # @group Combinations
+  # @group Examples
   # @label Outline with Icon and Removable
   def combo_outline_icon_removable
     render ::Decor::Tag.new(
@@ -226,22 +238,17 @@ class ::Decor::TagPreview < ::Lookbook::Preview
     )
   end
 
-  # @group Combinations
-  # @label Large Outline Removable
-  def combo_large_outline_removable
+  # @group Examples
+  # @label Large Filled Removable
+  def combo_large_filled_removable
     render ::Decor::Tag.new(
       label: "Important",
+      icon: "exclamation-triangle",
       color: :error,
-      variant: :outlined,
+      variant: :filled,
       size: :lg,
       removable: true
     )
-  end
-
-  # @group Examples
-  # @label Status Tags
-  def example_status_tags
-    render ::Decor::Tag.new(label: "Active", color: :success, icon: "check-circle")
   end
 
   # @group Examples
@@ -287,18 +294,7 @@ class ::Decor::TagPreview < ::Lookbook::Preview
     )
   end
 
-  # @group Use Cases
-  # @label Blog Post Tags
-  def usecase_blog_tags
-    render ::Decor::Tag.new(
-      label: "Web Development",
-      color: :primary,
-      size: :sm,
-      removable: true
-    )
-  end
-
-  # @group Use Cases
+  # @group Examples
   # @label Product Labels
   def usecase_product_labels
     render ::Decor::Tag.new(
@@ -309,7 +305,7 @@ class ::Decor::TagPreview < ::Lookbook::Preview
     )
   end
 
-  # @group Use Cases
+  # @group Examples
   # @label Notification Badge
   def usecase_notification
     render ::Decor::Tag.new(
@@ -320,7 +316,7 @@ class ::Decor::TagPreview < ::Lookbook::Preview
     )
   end
 
-  # @group Use Cases
+  # @group Examples
   # @label Skill Tag
   def usecase_skill
     render ::Decor::Tag.new(
@@ -328,22 +324,6 @@ class ::Decor::TagPreview < ::Lookbook::Preview
       color: :accent,
       variant: :outlined,
       removable: true
-    )
-  end
-
-  # @group Legacy Support
-  # @label With Text Attribute (Deprecated)
-  def legacy_text_attribute
-    render ::Decor::Tag.new(text: "Legacy Text", color: :neutral)
-  end
-
-  # @group Legacy Support
-  # @label Mixed Text and Label
-  def legacy_mixed
-    render ::Decor::Tag.new(
-      text: "This will be ignored",
-      label: "Label takes precedence",
-      color: :info
     )
   end
 end
