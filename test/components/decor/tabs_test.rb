@@ -139,7 +139,7 @@ class Decor::TabsTest < ActiveSupport::TestCase
   end
 
   test "supports custom CSS classes via additional attributes" do
-    component = Decor::Tabs.new(html_options: { class: "custom-tabs" })
+    component = Decor::Tabs.new(html_options: {class: "custom-tabs"})
     rendered = render_component(component)
 
     assert_includes rendered, "custom-tabs"
@@ -297,14 +297,14 @@ class Decor::TabsTest < ActiveSupport::TestCase
 
   # Mobile Responsive Tests
   test "shows select dropdown for many tabs" do
-    links = 5.times.map { |i| {title: "Tab #{i+1}", href: "/tab#{i+1}"} }
+    links = 5.times.map { |i| {title: "Tab #{i + 1}", href: "/tab#{i + 1}"} }
     component = Decor::Tabs.new(links: links)
     fragment = render_fragment(component)
 
     # Should have mobile select
     mobile_nav = fragment.at_css("nav.sm\\:hidden")
     assert_not_nil mobile_nav
-    
+
     select = fragment.at_css("select")
     assert_not_nil select
     assert_includes select["class"], "select-bordered"
@@ -321,7 +321,7 @@ class Decor::TabsTest < ActiveSupport::TestCase
   end
 
   test "mobile select includes status text" do
-    links = 5.times.map { |i| {title: "Tab #{i+1}", href: "/tab#{i+1}"} }
+    links = 5.times.map { |i| {title: "Tab #{i + 1}", href: "/tab#{i + 1}"} }
     component = Decor::Tabs.new(links: links, status: "Status message")
     rendered = render_component(component)
 
@@ -377,7 +377,7 @@ class Decor::TabsTest < ActiveSupport::TestCase
   test "detects slot API when tab_buttons provided" do
     component = Decor::Tabs.new
     component.with_tab_buttons { "Button content" }
-    
+
     # Private method testing - use send to access
     assert component.send(:use_slot_api?)
   end
@@ -385,20 +385,20 @@ class Decor::TabsTest < ActiveSupport::TestCase
   test "detects slot API when tab_content provided" do
     component = Decor::Tabs.new
     component.with_tab_content { "Content here" }
-    
+
     assert component.send(:use_slot_api?)
   end
 
   test "detects legacy API when links provided and no slots" do
     links = [{title: "Tab", href: "/tab"}]
     component = Decor::Tabs.new(links: links)
-    
+
     refute component.send(:use_slot_api?)
   end
 
   test "defaults to slot API when no links and no slots provided" do
     component = Decor::Tabs.new
-    
+
     assert component.send(:use_slot_api?)
   end
 end

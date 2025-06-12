@@ -10,11 +10,11 @@ module Decor
       # Title used as `title` attr in HTML and as content of `a` tag
       attribute :title, String, allow_blank: false
       attribute :href, String, allow_blank: false
-      
+
       # Icon configuration
       attribute :icon, String
       attribute :icon_position, Symbol, default: :before, in: [:before, :after, :only]
-      
+
       # Badge configuration
       attribute :badge_text, String
       attribute :badge_color, Symbol, default: :standard, in: [:standard, :warning, :info, :error, :success, :primary, :secondary, :accent]
@@ -29,19 +29,19 @@ module Decor
         @disabled
       end
     end
-    
+
     # Array of links in navigation. Each link must have a `title` and `href` specified
     attribute :links, Array, sub_type: TabInfo, convert: true, allow_nil: true
-    
+
     # Status text is displayed to the right of the tabs
     attribute :status, String
-    
+
     # Size of the tabs
     attribute :size, Symbol, default: :md, in: [:xs, :sm, :md, :lg, :xl]
-    
+
     # Color scheme using DaisyUI semantic colors
     attribute :color, Symbol, default: :base, in: [:base, :primary, :secondary, :accent, :success, :error, :warning, :info, :neutral]
-    
+
     # Visual variant
     attribute :variant, Symbol, default: :bordered, in: [:ghost, :bordered, :lifted, :boxed]
 
@@ -125,7 +125,7 @@ module Decor
         a(
           href: link.href,
           role: "tab",
-          class: "tab #{link.active? ? 'tab-active' : ''}",
+          class: "tab #{link.active? ? "tab-active" : ""}",
           **tab_link_attributes(link)
         ) do
           render_tab_content(link)
@@ -138,26 +138,26 @@ module Decor
       if link.icon.present? && link.icon_position == :before
         render ::Decor::Icon.new(name: link.icon, size: @size, html_options: {class: "mr-2"})
       end
-      
+
       # Title text (unless icon-only)
       unless link.icon.present? && link.icon_position == :only
         span { link.title }
       end
-      
+
       # Icon after text
       if link.icon.present? && link.icon_position == :after
         render ::Decor::Icon.new(name: link.icon, size: @size, html_options: {class: "ml-2"})
       end
-      
+
       # Icon only (with aria-label)
       if link.icon.present? && link.icon_position == :only
         render ::Decor::Icon.new(name: link.icon, size: @size)
       end
-      
+
       # Badge indicator
       if link.badge_text.present?
         render ::Decor::Badge.new(
-          label: link.badge_text, 
+          label: link.badge_text,
           style: map_badge_color_to_style(link.badge_color),
           size: :small,
           html_options: {class: "ml-2"}
@@ -166,7 +166,7 @@ module Decor
     end
 
     def tabs_container_classes
-      "tabs #{select_on_mobile? ? 'hidden sm:block' : ''} #{variant_classes} #{size_classes} #{color_classes}".strip
+      "tabs #{select_on_mobile? ? "hidden sm:block" : ""} #{variant_classes} #{size_classes} #{color_classes}".strip
     end
 
     def variant_classes
@@ -205,7 +205,7 @@ module Decor
 
     def tabs_container_attributes
       attrs = {}
-      
+
       # Enhanced ARIA attributes
       attrs[:role] = "tablist"
       attrs[:aria_label] = "Tabs"
@@ -218,16 +218,16 @@ module Decor
 
     def tab_link_attributes(link)
       attrs = {}
-      
+
       # ARIA attributes for accessibility
       attrs[:aria_selected] = link.active? ? "true" : "false"
       attrs[:tabindex] = link.active? ? "0" : "-1"
-      
+
       # Enhanced accessibility for icon-only tabs
       if link.icon.present? && link.icon_position == :only
         attrs[:aria_label] = link.title
       end
-      
+
       attrs
     end
 

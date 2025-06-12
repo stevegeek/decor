@@ -11,10 +11,12 @@ class ::Decor::AvatarPreview < ::Lookbook::Preview
   # @param initials text
   # @param image select [~, "https://i.pravatar.cc/300", "https://cataas.com/cat"]
   # @param shape select [circle, square]
-  # @param size select [nano, micro, tiny, small, normal, medium, large, x_large, xx_large]
+  # @param size select [xs, sm, md, lg, xl]
   # @param border toggle
-  def playground(image: nil, initials: "JG", shape: :circle, size: :normal, border: true)
-    render ::Decor::Avatar.new(initials: initials, url: image, shape: shape, size: size, border: border)
+  # @param color select [base, primary, secondary, accent, success, error, warning, info, neutral]
+  # @param variant select [filled, outlined, ghost]
+  def playground(image: nil, initials: "JG", shape: :circle, size: :md, border: true, color: :neutral, variant: :filled)
+    render ::Decor::Avatar.new(initials: initials, url: image, shape: shape, size: size, border: border, color: color, variant: variant)
   end
 
   # @group Shapes
@@ -42,57 +44,33 @@ class ::Decor::AvatarPreview < ::Lookbook::Preview
   end
 
   # @group Sizes
-  # @label Nano Size
-  def size_nano
-    render ::Decor::Avatar.new(initials: "N", size: :nano)
+  # @label XS Size
+  def size_xs
+    render ::Decor::Avatar.new(initials: "XS", size: :xs)
   end
 
   # @group Sizes
-  # @label Micro Size
-  def size_micro
-    render ::Decor::Avatar.new(initials: "M", size: :micro)
+  # @label SM Size
+  def size_sm
+    render ::Decor::Avatar.new(initials: "SM", size: :sm)
   end
 
   # @group Sizes
-  # @label Tiny Size
-  def size_tiny
-    render ::Decor::Avatar.new(initials: "T", size: :tiny)
+  # @label MD Size (Default)
+  def size_md
+    render ::Decor::Avatar.new(initials: "MD", size: :md)
   end
 
   # @group Sizes
-  # @label Small Size
-  def size_small
-    render ::Decor::Avatar.new(initials: "S", size: :small)
+  # @label LG Size
+  def size_lg
+    render ::Decor::Avatar.new(initials: "LG", size: :lg)
   end
 
   # @group Sizes
-  # @label Normal Size
-  def size_normal
-    render ::Decor::Avatar.new(initials: "N", size: :normal)
-  end
-
-  # @group Sizes
-  # @label Medium Size
-  def size_medium
-    render ::Decor::Avatar.new(initials: "M", size: :medium)
-  end
-
-  # @group Sizes
-  # @label Large Size
-  def size_large
-    render ::Decor::Avatar.new(initials: "L", size: :large)
-  end
-
-  # @group Sizes
-  # @label X-Large Size
-  def size_x_large
-    render ::Decor::Avatar.new(initials: "XL", size: :x_large)
-  end
-
-  # @group Sizes
-  # @label XX-Large Size
-  def size_xx_large
-    render ::Decor::Avatar.new(initials: "XXL", size: :xx_large)
+  # @label XL Size
+  def size_xl
+    render ::Decor::Avatar.new(initials: "XL", size: :xl)
   end
 
   # @group With Images
@@ -110,13 +88,13 @@ class ::Decor::AvatarPreview < ::Lookbook::Preview
   # @group With Images
   # @label Large Profile Picture
   def image_large
-    render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", size: :large)
+    render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", size: :lg)
   end
 
   # @group With Images
-  # @label Medium Square Picture
-  def image_medium_square
-    render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", size: :medium, shape: :square)
+  # @label Large Square Picture
+  def image_large_square
+    render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", size: :lg, shape: :square)
   end
 
   # @group With Initials
@@ -158,7 +136,7 @@ class ::Decor::AvatarPreview < ::Lookbook::Preview
   # @group With Borders
   # @label Large with Border
   def border_large
-    render ::Decor::Avatar.new(initials: "LB", border: true, size: :large)
+    render ::Decor::Avatar.new(initials: "LB", border: true, size: :lg)
   end
 
   # @group With Borders
@@ -172,18 +150,18 @@ class ::Decor::AvatarPreview < ::Lookbook::Preview
   def combo_large_circle_border
     render ::Decor::Avatar.new(
       initials: "LCB",
-      size: :large,
+      size: :lg,
       shape: :circle,
       border: true
     )
   end
 
   # @group Combinations
-  # @label Medium Square Image
-  def combo_medium_square_image
+  # @label Large Square Image
+  def combo_large_square_image
     render ::Decor::Avatar.new(
       url: "https://i.pravatar.cc/300",
-      size: :medium,
+      size: :lg,
       shape: :square
     )
   end
@@ -193,7 +171,7 @@ class ::Decor::AvatarPreview < ::Lookbook::Preview
   def combo_xlarge_circle_image_border
     render ::Decor::Avatar.new(
       url: "https://i.pravatar.cc/300",
-      size: :x_large,
+      size: :xl,
       shape: :circle,
       border: true
     )
@@ -202,30 +180,111 @@ class ::Decor::AvatarPreview < ::Lookbook::Preview
   # @group Use Cases
   # @label User Profile
   def usecase_user_profile
-    render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", size: :medium, border: true)
+    render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", size: :lg, border: true)
   end
 
   # @group Use Cases
   # @label Chat Message
   def usecase_chat_message
-    render ::Decor::Avatar.new(initials: "JD", size: :small)
+    render ::Decor::Avatar.new(initials: "JD", size: :sm)
   end
 
   # @group Use Cases
   # @label Navigation Bar
   def usecase_navbar
-    render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", size: :normal)
+    render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", size: :md)
   end
 
   # @group Use Cases
   # @label Team Member Card
   def usecase_team_member
-    render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", size: :large, border: true)
+    render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", size: :lg, border: true)
   end
 
   # @group Use Cases
   # @label Comment Author
   def usecase_comment_author
-    render ::Decor::Avatar.new(initials: "CA", size: :tiny)
+    render ::Decor::Avatar.new(initials: "CA", size: :xs)
+  end
+
+  # @group Colors
+  # @label Primary Color
+  def color_primary
+    render ::Decor::Avatar.new(initials: "PC", color: :primary)
+  end
+
+  # @group Colors
+  # @label Secondary Color
+  def color_secondary
+    render ::Decor::Avatar.new(initials: "SC", color: :secondary)
+  end
+
+  # @group Colors
+  # @label Accent Color
+  def color_accent
+    render ::Decor::Avatar.new(initials: "AC", color: :accent)
+  end
+
+  # @group Colors
+  # @label Success Color
+  def color_success
+    render ::Decor::Avatar.new(initials: "SU", color: :success)
+  end
+
+  # @group Colors
+  # @label Error Color
+  def color_error
+    render ::Decor::Avatar.new(initials: "ER", color: :error)
+  end
+
+  # @group Colors
+  # @label Warning Color
+  def color_warning
+    render ::Decor::Avatar.new(initials: "WA", color: :warning)
+  end
+
+  # @group Colors
+  # @label Info Color
+  def color_info
+    render ::Decor::Avatar.new(initials: "IN", color: :info)
+  end
+
+  # @group Variants
+  # @label Filled Variant
+  def variant_filled
+    render ::Decor::Avatar.new(initials: "FV", variant: :filled, color: :primary)
+  end
+
+  # @group Variants
+  # @label Outlined Variant
+  def variant_outlined
+    render ::Decor::Avatar.new(initials: "OV", variant: :outlined, color: :primary)
+  end
+
+  # @group Variants
+  # @label Ghost Variant
+  def variant_ghost
+    render ::Decor::Avatar.new(initials: "GV", variant: :ghost, color: :primary)
+  end
+
+  # @group Advanced Examples
+  # @label Colorful Team
+  def advanced_colorful_team
+    content_tag :div, class: "flex space-x-2" do
+      concat render(::Decor::Avatar.new(initials: "JD", color: :primary, variant: :filled))
+      concat render(::Decor::Avatar.new(initials: "SM", color: :secondary, variant: :outlined))
+      concat render(::Decor::Avatar.new(initials: "AK", color: :accent, variant: :ghost))
+      concat render(::Decor::Avatar.new(initials: "TL", color: :success, variant: :filled))
+    end
+  end
+
+  # @group Advanced Examples
+  # @label Color does not affect images
+  def advanced_image_color_no_effect
+    content_tag :div, class: "flex space-x-2" do
+      concat render(::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :primary))
+      concat render(::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :secondary))
+      concat render(::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :accent))
+    end
   end
 end

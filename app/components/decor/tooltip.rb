@@ -7,13 +7,13 @@ module Decor
 
     attribute :position, Symbol, in: [:top, :bottom, :left, :right], default: :top
     attribute :tip_text, String
-    
+
     # Size of the tooltip
     attribute :size, Symbol, default: :md, in: [:xs, :sm, :md, :lg, :xl]
-    
+
     # Color scheme using DaisyUI semantic colors
     attribute :color, Symbol, default: :base, in: [:base, :primary, :secondary, :accent, :success, :error, :warning, :info, :neutral]
-    
+
     # Visual variant
     attribute :variant, Symbol, default: :filled, in: [:filled, :outlined, :ghost]
 
@@ -36,7 +36,7 @@ module Decor
       classes = ["tooltip"]
       classes << position_class
       classes << size_classes
-      classes << color_classes  
+      classes << color_classes
       classes << variant_classes
       classes.compact.join(" ")
     end

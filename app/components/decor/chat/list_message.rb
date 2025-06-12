@@ -3,8 +3,6 @@
 module Decor
   module Chat
     class ListMessage < PhlexComponent
-      slot :attachment
-
       attribute :author_name, String, allow_nil: false
       attribute :author_initials, String
       attribute :author_profile_image_url, String
@@ -17,7 +15,17 @@ module Decor
       attribute :show_timestamp, :boolean, default: true
       attribute :footer_text, String
 
+      def initialize(**attributes)
+        @attachment_block = nil
+        super
+      end
+
+      def attachment(&block)
+        @attachment_block = block
+      end
+
       def view_template
+        yield(self) if block_given?
         render parent_element do
           if @show_timestamp || (!@is_current_user && @author_name.present?)
             div(class: "chat-header") do
@@ -35,19 +43,19 @@ module Decor
               render ::Decor::Avatar.new(
                 url: @author_profile_image_url,
                 initials: @author_initials || @author_name.first.upcase,
-                size: :medium,
+                size: :md,
                 shape: :circle
               )
             end
           end
 
           div(class: chat_bubble_classes) do
-            if attachment_slot.present?
-              render attachment_slot
-            end
-
             if @message.present?
               span { @message }
+            end
+
+            if @attachment_block
+              instance_eval(&@attachment_block)
             end
           end
 
@@ -63,14 +71,14 @@ module Decor
       private
 
       def format_timestamp
-        if older_than_18_hours?
-          @localised_created_at.strftime("%m/%d %H:%M")
+        if older_than_24_hours?
+          @localised_created_at.strftime("%m/%d")
         else
           @localised_created_at.strftime("%H:%M")
         end
       end
 
-      def older_than_18_hours?
+      def older_than_24_hours?
         Time.current - @localised_created_at > 24.hours
       end
 

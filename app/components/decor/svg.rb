@@ -16,6 +16,8 @@ module Decor
     attribute :title, String
     attribute :description, String
 
+    attribute :size, Symbol, default: :md, in: [:xs, :sm, :md, :lg, :xl]
+
     attribute :width, Integer
     attribute :height, Integer
 
@@ -41,12 +43,30 @@ module Decor
         desc: @description,
         aria: true,
         aria_hidden: true,
-        width: @width,
-        height: @height,
+        width: svg_width,
+        height: svg_height,
         data: ::Vident::ViewComponent::RootComponent.new(
           **stimulus_options_for_component({})
         ).send(:tag_data_attributes)
       }
+    end
+
+    def svg_width
+      @width || size_value
+    end
+
+    def svg_height
+      @height || size_value
+    end
+
+    def size_value
+      case @size
+      when :xs then 16
+      when :sm then 20
+      when :md then 24
+      when :lg then 28
+      when :xl then 32
+      end
     end
 
     def file_name

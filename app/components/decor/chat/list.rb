@@ -3,13 +3,21 @@
 module Decor
   module Chat
     class List < PhlexComponent
-      slot :empty_state_action
-
       attribute :messages, Array, sub_type: ::Decor::Chat::ListMessage, default: []
       attribute :empty_state_title, String, default: "No messages yet."
       attribute :empty_state_description, String, default: "Start a conversation by sending a message."
 
+      def initialize(**attributes)
+        @empty_state_action_block = nil
+        super
+      end
+
+      def empty_state_action(&block)
+        @empty_state_action_block = block
+      end
+
       def view_template
+        yield(self) if block_given?
         render parent_element do
           if @messages.any?
             @messages.each do |message|
@@ -27,11 +35,9 @@ module Decor
         div(class: "flex flex-col items-center justify-center py-12 text-center") do
           div(class: "text-base-content/60") do
             h3(class: "text-lg font-medium") { @empty_state_title }
-            if empty_state_action_slot.present?
+            if @empty_state_action_block
               p(class: "mt-2 text-sm") { @empty_state_description }
-              div(class: "mt-6") do
-                render empty_state_action_slot
-              end
+              div(class: "mt-6", &@empty_state_action_block)
             end
           end
         end
