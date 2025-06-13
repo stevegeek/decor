@@ -14,7 +14,6 @@ module Decor
     attribute :collection, Symbol, default: :heroicons, in: [:heroicons, :icons]
     attribute :variant, Symbol, default: :outline, in: [:outline, :solid, :small_solid]
 
-
     def file_name
       @file_name ||= "#{@collection}/#{@variant}/#{@name}.svg"
     end

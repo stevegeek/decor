@@ -5,33 +5,33 @@ class Decor::SvgTest < ActiveSupport::TestCase
   # asset paths and inline_svg gem which may not be available in test environment
 
   test "file_name method returns correct path" do
-    component = Decor::Svg.new(name: "test-icon")
+    component = Decor::Svg.new(file_path: "svgs/test-icon.svg")
 
     assert_equal "svgs/test-icon.svg", component.send(:file_name)
   end
 
   test "file_name method handles heroicons paths" do
-    component = Decor::Svg.new(name: "heroicons/outline/home")
+    component = Decor::Svg.new(file_path: "svgs/heroicons/outline/home.svg")
 
     assert_equal "svgs/heroicons/outline/home.svg", component.send(:file_name)
   end
 
-  test "handles complex icon names with slashes" do
-    component = Decor::Svg.new(name: "heroicons/outline/academic-cap")
+  test "handles complex icon file paths with slashes" do
+    component = Decor::Svg.new(file_path: "svgs/heroicons/outline/academic-cap.svg")
     expected_path = "svgs/heroicons/outline/academic-cap.svg"
 
     assert_equal expected_path, component.send(:file_name)
   end
 
   test "inline attribute defaults to true" do
-    component = Decor::Svg.new(name: "heroicons/outline/home")
+    component = Decor::Svg.new(file_path: "svgs/heroicons/outline/home.svg")
 
     # Test that the default inline value is true by checking component attribute
     assert_equal true, component.instance_variable_get(:@inline)
   end
 
   test "handles various heroicon collections" do
-    component = Decor::Svg.new(name: "heroicons/solid/home")
+    component = Decor::Svg.new(file_path: "svgs/heroicons/solid/home.svg")
     expected_path = "svgs/heroicons/solid/home.svg"
 
     assert_equal expected_path, component.send(:file_name)
@@ -39,7 +39,7 @@ class Decor::SvgTest < ActiveSupport::TestCase
 
   test "svg_attributes method returns correct hash structure with basic attributes" do
     component = Decor::Svg.new(
-      name: "heroicons/outline/home",
+      file_path: "svgs/heroicons/outline/home.svg",
       id: "test-id",
       title: "Test Title",
       description: "Test Description",
@@ -60,7 +60,7 @@ class Decor::SvgTest < ActiveSupport::TestCase
   end
 
   test "svg_attributes includes render_classes" do
-    component = Decor::Svg.new(name: "test-icon")
+    component = Decor::Svg.new(file_path: "svgs/test-icon.svg")
 
     attributes = component.send(:svg_attributes)
 
@@ -69,7 +69,7 @@ class Decor::SvgTest < ActiveSupport::TestCase
   end
 
   test "strip method removes whitespace and returns html_safe string" do
-    component = Decor::Svg.new(name: "heroicons/outline/home")
+    component = Decor::Svg.new(file_path: "svgs/heroicons/outline/home.svg")
     test_string = "  <svg>content</svg>  "
 
     result = component.send(:strip, test_string)
@@ -79,19 +79,19 @@ class Decor::SvgTest < ActiveSupport::TestCase
   end
 
   test "component inherits from PhlexComponent" do
-    component = Decor::Svg.new(name: "test-icon")
+    component = Decor::Svg.new(file_path: "svgs/test-icon.svg")
 
     assert component.is_a?(Decor::PhlexComponent)
   end
 
-  test "name attribute is required" do
-    component = Decor::Svg.new(name: "required-name")
+  test "file_path attribute is required" do
+    component = Decor::Svg.new(file_path: "svgs/required-file.svg")
 
-    assert_equal "required-name", component.instance_variable_get(:@name)
+    assert_equal "svgs/required-file.svg", component.instance_variable_get(:@file_path)
   end
 
   test "handles optional attributes correctly" do
-    component = Decor::Svg.new(name: "test")
+    component = Decor::Svg.new(file_path: "svgs/test.svg")
 
     assert_nil component.instance_variable_get(:@title)
     assert_nil component.instance_variable_get(:@description)
@@ -100,7 +100,7 @@ class Decor::SvgTest < ActiveSupport::TestCase
   end
 
   test "inline can be set to false" do
-    component = Decor::Svg.new(name: "test", inline: false)
+    component = Decor::Svg.new(file_path: "svgs/test.svg", inline: false)
 
     assert_equal false, component.instance_variable_get(:@inline)
   end

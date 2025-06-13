@@ -13,10 +13,8 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @param position select [left, right, top, bottom, end, center, start]
   # @param trigger select [click, hover, focus] "Interaction mode"
   # @param force_open select [auto, open, closed] "Force open/closed state"
-  # @param menu_position select [aligned_to_left, aligned_to_right] "Legacy positioning (for backward compatibility)"
-  # @param menu_classes [Array] text "Legacy classes (for backward compatibility)"
   # @param button_active_classes [Array] text "Legacy button classes (for backward compatibility)"
-  def playground(size: :md, color: :base, variant: :default, position: :left, trigger: :click, force_open: :auto, menu_position: :aligned_to_left, menu_classes: ["bg-white"], button_active_classes: nil)
+  def playground(size: :md, color: :base, variant: :default, position: :left, trigger: :click, force_open: :auto, button_active_classes: nil)
     render ::Decor::Dropdown.new(
       size: size,
       color: color,
@@ -24,8 +22,6 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
       position: position,
       trigger: trigger,
       force_open: force_open,
-      menu_position: menu_position,
-      menu_classes: menu_classes,
       button_active_classes: button_active_classes
     ) do |dropdown|
       dropdown.trigger_button_content do
@@ -42,11 +38,13 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @label With Avatar Button
   def example_avatar_button
     render ::Decor::Dropdown.new(
-      button_classes: ["inline-flex items-center justify-center w-8 h-8 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-full hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"],
-      menu_position: :aligned_to_right
+      position: :right # Example of using modern position attribute
     ) do |dropdown|
       dropdown.trigger_button_content do
-        render ::Decor::Avatar.new(src: "/images/pic.jpg", alt: "User avatar", size: :sm)
+        # Using a div with DaisyUI classes for the button content
+        div(class: "btn btn-circle btn-ghost") do
+          render ::Decor::Avatar.new(src: "/images/pic.jpg", alt: "User avatar", size: :sm)
+        end
       end
 
       dropdown.menu_item(::Decor::DropdownItem.new(text: "Profile", href: "#", icon_name: "user"))
@@ -59,9 +57,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @group Examples
   # @label With Item Actions
   def example_item_actions
-    render ::Decor::Dropdown.new(
-      button_classes: ["inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"]
-    ) do |dropdown|
+    render ::Decor::Dropdown.new(color: :primary, variant: :bordered) do |dropdown| # Example using modern attributes
       dropdown.trigger_button_content do
         plain "Actions"
         render ::Decor::Icon.new(name: "chevron-down", html_options: {class: "ml-2 -mr-1 h-4 w-4"})
@@ -78,18 +74,16 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @group Examples
   # @label With Header
   def example_with_header
-    render ::Decor::Dropdown.new(
-      button_classes: ["inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"]
-    ) do |dropdown|
+    render ::Decor::Dropdown.new(color: :secondary) do |dropdown| # Example using modern attributes
       dropdown.trigger_button_content do
         plain "User Menu"
         render ::Decor::Icon.new(name: "chevron-down", html_options: {class: "ml-2 -mr-1 h-4 w-4"})
       end
 
       dropdown.menu_header do
-        div(class: "px-4 py-3 border-b border-gray-100") do
-          p(class: "text-sm font-medium text-gray-900") { "John Doe" }
-          p(class: "text-sm text-gray-500") { "john@example.com" }
+        div(class: "px-4 py-3 border-b border-base-200") do # DaisyUI classes for header
+          p(class: "text-sm font-medium") { "John Doe" }
+          p(class: "text-sm opacity-70") { "john@example.com" }
         end
       end
 
@@ -106,9 +100,10 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   def example_custom_button
     render ::Decor::Dropdown.new do |dropdown|
       dropdown.trigger_button do
+        # Custom button can still be used, ensure it has necessary DaisyUI classes or your own styling
         button(
           type: "button",
-          class: "inline-flex items-center px-4 py-2 bg-primary-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-primary-500 active:bg-primary-900 focus:outline-none focus:border-primary-900 focus:shadow-outline-primary transition ease-in-out duration-150"
+          class: "btn btn-accent" # Example DaisyUI classes
         ) do
           plain "Custom Button"
           render ::Decor::Icon.new(name: "chevron-down", html_options: {class: "ml-2 -mr-1 h-4 w-4"})
