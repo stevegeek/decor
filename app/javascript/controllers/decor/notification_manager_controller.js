@@ -20,13 +20,6 @@ export default class extends Controller {
         this.initialNotificationsValue.forEach((notificationOptions) => {
             this.showNotification(notificationOptions);
         });
-
-        console.log('NotificationManager connected');
-        console.log(this.element);
-        console.log(this.notificationContainerTarget);
-        console.log(this.initialNotificationsValue);
-        console.log('Active notifications:', this.activeNotifications);
-
     }
 
     disconnect() {
@@ -34,7 +27,6 @@ export default class extends Controller {
     }
 
     async handleShowEvent(evt) {
-        console.log('NotificationManager: handleShowEvent', evt.detail);
         await this.showNotification(evt.detail);
     }
 
