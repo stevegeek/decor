@@ -1,3 +1,24 @@
+/**
+ * Decor JavaScript Utilities
+ * 
+ * This file contains utility functions for use with Stimulus controllers in the Decor component library.
+ * All functions are standalone utilities that can be imported and used independently.
+ * 
+ * Core Functions:
+ * - replaceContentsWithChildren: DOM manipulation utility
+ * - markAsSafeHTML, safelySetInnerHTML: XSS-safe HTML handling
+ * - createAxiosInstance: CSRF-configured Axios instances
+ * 
+ * Animation & CSS Utilities:
+ * - toggleTargetElementTransitionClasses: Complex transition animations
+ * - toggleTargetElementClasses: Simple class toggling
+ * - setTargetElementClasses: Add/remove CSS classes
+ * 
+ * Additional Utilities:
+ * - toggleOnSearch: Search functionality with class toggling
+ * - emitEvent: Custom event emission with namespacing
+ */
+
 export function replaceContentsWithChildren(parent, children) {
     // Remove the existing children
     emptyNode(parent);
@@ -73,4 +94,70 @@ export function createAxiosInstance() {
             "X-CSRF-TOKEN": csrfToken,
         },
     });
+}
+
+/**
+ * Toggles CSS classes on an element based on state
+ * @param {Element} target - DOM element to modify
+ * @param {boolean} state - true to apply "on" classes, false for "off" classes
+ * @param {Array} classesOff - classes to use when state is false
+ * @param {Array} classesOn - classes to use when state is true
+ */
+export function toggleTargetElementClasses(target, state, classesOff, classesOn) {
+    if (state) {
+        setTargetElementClasses(target, classesOff, classesOn);
+    } else {
+        setTargetElementClasses(target, classesOn, classesOff);
+    }
+}
+/**
+ * Adds and removes CSS classes on an element
+ * @param {Element} target - DOM element to modify
+ * @param {Array} classesToRemove - classes to remove
+ * @param {Array} classesToAdd - classes to add
+ */
+export function setTargetElementClasses(target, classesToRemove, classesToAdd) {
+    classesToRemove.forEach((className) => target.classList.remove(className));
+    classesToAdd.forEach((className) => target.classList.add(className));
+}
+/**
+ * Handles search functionality with class toggling based on matches
+ * @param {string} search - search term
+ * @param {Element} target - element to apply classes to
+ * @param {Array} searchTargets - elements to search within
+ * @param {Array} classesOnMatch - classes to apply when matches found
+ * @param {Array} classesOnNoMatch - classes to apply when no matches found
+ * @returns {boolean} true if matches found or search is too short
+ */
+export function toggleOnSearch(search, target, searchTargets, classesOnMatch, classesOnNoMatch) {
+    const st = search.trim().toLowerCase();
+    if (st.length < 2 || st == "") {
+        setTargetElementClasses(target, classesOnNoMatch, classesOnMatch);
+        return true;
+    }
+    const matches = searchTargets.filter((searchTarget) => searchTarget.innerText.toLowerCase().includes(st)).length > 0;
+    toggleTargetElementClasses(target, matches, classesOnNoMatch, classesOnMatch);
+    return matches;
+}
+/**
+ * Emit a custom event with proper namespacing
+ * @param {Element} target - element to dispatch event from
+ * @param {Object} controller - Stimulus controller instance for context
+ * @param {string} eventName - name of the event
+ * @param {*} detail - event detail data
+ * @param {boolean} bubbles - whether event should bubble
+ * @param {boolean} cancelable - whether event can be cancelled
+ */
+export function emitEvent(target, controller, eventName, detail = undefined, bubbles = true, cancelable = false) {
+    const identifier = controller.identifier || 'component';
+    console.debug(`[${identifier}] Emitting event ${identifier}:${eventName}`);
+    
+    // Use direct CustomEvent instead of Stimulus dispatch for broader compatibility
+    const customEvent = new CustomEvent(`${identifier}:${eventName}`, {
+        detail,
+        bubbles,
+        cancelable,
+    });
+    
+    target.dispatchEvent(customEvent);
 }

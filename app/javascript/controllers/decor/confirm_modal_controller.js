@@ -1,16 +1,55 @@
-import ModalController from "./modal_controller.js";
-import { safelySetInnerHTML } from "lib/util/safe_html";
+import { Controller } from "@hotwired/stimulus";
+import { safelySetInnerHTML } from "controllers/decor";
 export var ModalConfirmEvents;
 (function (ModalConfirmEvents) {
-    ModalConfirmEvents["Open"] = "components--decor--confirm-modal:open";
-    ModalConfirmEvents["Opening"] = "components--decor--confirm-modal:opening";
-    ModalConfirmEvents["Ready"] = "components--decor--confirm-modal:ready";
-    ModalConfirmEvents["Opened"] = "components--decor--confirm-modal:opened";
-    ModalConfirmEvents["Close"] = "components--decor--confirm-modal:close";
-    ModalConfirmEvents["Closing"] = "components--decor--confirm-modal:closing";
-    ModalConfirmEvents["Closed"] = "components--decor--confirm-modal:closed";
+    ModalConfirmEvents["Open"] = "decor--confirm-modal:open";
+    ModalConfirmEvents["Opening"] = "decor--confirm-modal:opening";
+    ModalConfirmEvents["Ready"] = "decor--confirm-modal:ready";
+    ModalConfirmEvents["Opened"] = "decor--confirm-modal:opened";
+    ModalConfirmEvents["Close"] = "decor--confirm-modal:close";
+    ModalConfirmEvents["Closing"] = "decor--confirm-modal:closing";
+    ModalConfirmEvents["Closed"] = "decor--confirm-modal:closed";
 })(ModalConfirmEvents || (ModalConfirmEvents = {}));
-class ConfirmModalController extends ModalController {
+export default class extends Controller {
+    constructor() {
+        super();
+        this.modalVisible = false;
+        this.closeOnOverlayClick = false;
+    }
+
+    static targets = [
+        "overlay",
+        "modal", 
+        "title",
+        "message",
+        "negativeButton",
+        "positiveButton",
+    ];
+
+    reveal() {
+        this.modalVisible = true;
+        this.element.classList.remove("hidden");
+    }
+
+    hide() {
+        this.modalVisible = false;
+        this.element.classList.add("hidden");
+    }
+
+    overlayClicked() {
+        if (this.closeOnOverlayClick) {
+            this.close();
+        }
+    }
+
+    dispatchLifecycleEvent(type, detail) {
+        const evt = new CustomEvent(type, {
+            bubbles: true,
+            cancelable: false,
+            detail: detail,
+        });
+        window.dispatchEvent(evt);
+    }
     negativeButton() {
         this.close(this.negativeButtonReason);
     }
@@ -65,12 +104,3 @@ class ConfirmModalController extends ModalController {
         this.dispatchLifecycleEvent(ModalConfirmEvents.Closed, { closeReason });
     }
 }
-ConfirmModalController.targets = [
-    "overlay",
-    "modal",
-    "title",
-    "message",
-    "negativeButton",
-    "positiveButton",
-];
-export default ConfirmModalController;

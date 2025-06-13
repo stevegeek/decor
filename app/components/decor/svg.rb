@@ -9,10 +9,11 @@ module Decor
     no_stimulus_controller
     with_cache_key
 
+    register_output_helper :inline_svg_tag
+
     attribute :inline, :boolean, default: true
 
-    attribute :name, String, allow_blank: false
-    attribute :root_path, String
+    attribute :file_name, String, allow_nil: false
     attribute :title, String
     attribute :description, String
 
@@ -23,17 +24,18 @@ module Decor
 
     def view_template
       if @inline
-        # TODO: strip is now part of inline_svg_tag, https://github.com/jamesmartin/inline_svg/pull/150
-        raw strip(helpers.inline_svg_tag(file_name, **svg_attributes))
+        raw inline_svg_tag(file_name, **svg_attributes)
       else
         svg(
-          "data-src" => helpers.image_path(file_name),
+          "data-src" => image_path(file_name),
           **svg_attributes
         ) {}
       end
     end
 
     private
+
+    attr_reader :file_name
 
     def svg_attributes
       {
@@ -66,14 +68,6 @@ module Decor
       when :md then 24
       when :lg then 28
       when :xl then 32
-      end
-    end
-
-    def file_name
-      if @root_path.present?
-        File.join(@root_path, "#{@name}.svg")
-      else
-        "#{@name}.svg"
       end
     end
 

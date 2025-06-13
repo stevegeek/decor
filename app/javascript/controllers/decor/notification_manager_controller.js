@@ -1,128 +1,180 @@
-import axios from "lib/axios";
-import BaseController from "decor/base_controller.js";
-import { localeMessage } from "lib/i18n";
-import { markAsSafeHTML, safelySetInnerHTML } from "lib/util/safe_html";
-export const NOTIFICATION_MANAGER_CLASS_NAME = "components--decor--notification-manager";
+import { Controller } from "@hotwired/stimulus";
+import { markAsSafeHTML, safelySetInnerHTML, createAxiosInstance } from "controllers/decor";
+
+export const NOTIFICATION_MANAGER_CLASS_NAME = "decor--notification-manager";
 const NOTIFICATION_CLASSNAME = `${NOTIFICATION_MANAGER_CLASS_NAME}-notification`;
 const DEFAULT_DISMISS_AFTER_MS = 3000;
 const DISMISS_ALL_STAGGER_MS = 50;
-class NotificationManagerController extends BaseController {
-    constructor() {
-        super(...arguments);
+
+export default class extends Controller {
+    static targets = ["notificationContainer"];
+    static values = {
+        initialNotifications: { type: Array, default: [] },
+    };
+
+    connect() {
         this.currentNotificationId = 0;
-    }
-    onInitialize() {
-        this.onConnect(() => {
-            if (this.initialNotificationsValue) {
-                this.initialNotificationsValue.forEach((notificationOptions) => {
-                    this.showNotification(notificationOptions);
-                });
-            }
+        this.activeNotifications = new Map();
+
+        // Process initial notifications if any
+        this.initialNotificationsValue.forEach((notificationOptions) => {
+            this.showNotification(notificationOptions);
         });
-        return super.onInitialize();
+
+        console.log('NotificationManager connected');
+        console.log(this.element);
+        console.log(this.notificationContainerTarget);
+        console.log(this.initialNotificationsValue);
+        console.log('Active notifications:', this.activeNotifications);
+
     }
+
+    disconnect() {
+        this.clearAllTimeouts();
+    }
+
     async handleShowEvent(evt) {
-        this.showNotification(evt.detail);
+        console.log('NotificationManager: handleShowEvent', evt.detail);
+        await this.showNotification(evt.detail);
     }
+
     async showNotification(options) {
-        const { content, timeout, contentHref } = options;
-        const notification = await this.createNotification(content, contentHref);
-        const showTimeout = timeout || DEFAULT_DISMISS_AFTER_MS;
-        if (showTimeout !== Infinity) {
-            const timerId = window.setTimeout(() => this.dismissNotification(notification.id), showTimeout);
-            notification.dataset.dismissTimerId = timerId.toString();
+        const { __safe, content, timeout, contentHref } = options;
+        
+        try {
+            const notification = await this.createNotification(options, contentHref);
+            const showTimeout = timeout !== undefined ? timeout : DEFAULT_DISMISS_AFTER_MS;
+            
+            // Track the notification
+            let timerId = null;
+            if (showTimeout !== Infinity && showTimeout > 0) {
+                timerId = setTimeout(() => this.dismissNotification(notification.id), showTimeout);
+            }
+            
+            this.activeNotifications.set(notification.id, { element: notification, timerId });
+
+            // Add to DOM
+            this.notificationContainerTarget.prepend(notification);
+
+            // Set up click/touch handlers for dismissal
+            this.setupDismissHandlers(notification);
+
+        } catch (error) {
+            console.error('Error showing notification:', error);
+            this.showFallbackNotification();
         }
-        // .prepend() not available in IE11
-        // this.element.prepend(notification);
-        this.notificationContainerTarget.insertBefore(notification, this.notificationContainerTarget.firstChild);
-        notification.addEventListener("click", () => {
-            this.dismissNotification(notification.id);
-        });
-        notification.addEventListener("touchend", () => {
-            this.dismissNotification(notification.id);
-        });
     }
+
     handleDismissAllEvent() {
-        // This isn't exactly the 'stimulus way' - we should probably be using targets instead.
-        // But, it works.
-        Array.from(this.notificationContainerTarget.getElementsByClassName(NOTIFICATION_CLASSNAME))
-            .reverse() // Bottom notification should disappear first
-            .forEach((node, idx) => {
-            const el = node;
-            clearTimeout(+el.dataset.dismissTimerId);
-            setTimeout(() => this.dismissNotification(el.id), idx * DISMISS_ALL_STAGGER_MS);
+        const notifications = Array.from(this.notificationContainerTarget.getElementsByClassName(NOTIFICATION_CLASSNAME));
+        
+        notifications.reverse().forEach((notification, idx) => {
+            const notificationData = this.activeNotifications.get(notification.id);
+            if (notificationData?.timerId) {
+                clearTimeout(notificationData.timerId);
+            }
+            setTimeout(() => this.dismissNotification(notification.id), idx * DISMISS_ALL_STAGGER_MS);
         });
     }
+
     handleDismissSingleEvent(evt) {
-        const { detail: { id }, } = evt;
+        const { detail: { id } } = evt;
         this.dismissNotification(id);
     }
+
     nextNotificationId() {
-        const next = this.currentNotificationId + 1;
-        this.currentNotificationId = next;
-        return `${NOTIFICATION_CLASSNAME}-${next}`;
+        return `${NOTIFICATION_CLASSNAME}-${++this.currentNotificationId}`;
     }
+
     async createNotification(content, contentHref) {
         const notification = document.createElement("div");
         notification.id = this.nextNotificationId();
-        this.setTargetElementClasses(notification, [], [NOTIFICATION_CLASSNAME].concat(this.notificationBaseClasses));
-        this.toggleTargetElementTransitionClasses(notification, true, this.enteringClasses, this.enteringFromClasses, this.enteringToClasses, this.leavingClasses, this.leavingFromClasses, this.leavingToClasses);
+        notification.className = NOTIFICATION_CLASSNAME;
+        
         if (contentHref) {
-            // TODO: What if contentHref already has a query string parameters?
             const remoteContent = await this.getRemoteContent(`${contentHref}?notification_id=${notification.id}`);
             safelySetInnerHTML(notification, remoteContent);
-        }
-        else if (content) {
+        } else if (content) {
             safelySetInnerHTML(notification, content);
         }
+        
         return notification;
     }
-    getRemoteContent(contentHref) {
-        return this.getContent(contentHref).catch((err) => {
-            console.warn(err);
-            const errorMessage = localeMessage("generic_server_error");
-            return markAsSafeHTML(errorMessage);
-        });
+
+    async getRemoteContent(contentHref) {
+        try {
+            const axios = createAxiosInstance();
+            const response = await axios.get(contentHref, {
+                headers: { "Content-Type": "text/html" }
+            });
+            return markAsSafeHTML(response.data);
+        } catch (error) {
+            console.warn('Error fetching remote content:', error);
+            throw new Error('Failed to load notification content');
+        }
     }
-    getContent(url) {
-        return axios
-            .get(url, {
-            headers: {
-                "Content-Type": "text/html",
-            },
-        })
-            .then((response) => markAsSafeHTML(response.data));
+
+    setupDismissHandlers(notification) {
+        const dismissHandler = () => this.dismissNotification(notification.id);
+        notification.addEventListener("click", dismissHandler);
+        notification.addEventListener("touchend", dismissHandler);
     }
+
     dismissNotification(notificationId) {
-        // Only try to dismiss the notification if it is still in the DOM,
-        // and it is not being dismissed
-        const notification = document.getElementById(notificationId);
-        if (notification) {
-            this.toggleTargetElementTransitionClasses(notification, false, this.enteringClasses, this.enteringFromClasses, this.enteringToClasses, this.leavingClasses, this.leavingFromClasses, this.leavingToClasses);
+        const notificationData = this.activeNotifications.get(notificationId);
+        if (!notificationData) return;
+
+        const { element, timerId } = notificationData;
+        
+        if (timerId) clearTimeout(timerId);
+
+        if (element && this.notificationContainerTarget.contains(element) && !element.dataset.dismissing) {
+            element.dataset.dismissing = 'true';
+            element.style.opacity = '0';
+            
             setTimeout(() => {
-                this.removeNotification(notification);
+                this.removeNotification(element);
+                this.activeNotifications.delete(notificationId);
             }, 150);
         }
     }
-    removeNotification(target) {
-        // .remove() not available in IE11
-        // target.remove();
-        if (this.notificationContainerTarget.contains(target)) {
-            this.notificationContainerTarget.removeChild(target);
+
+    removeNotification(element) {
+        if (this.notificationContainerTarget.contains(element)) {
+            element.remove();
         }
     }
+
+    showFallbackNotification() {
+        // Create a simple fallback notification without going through showNotification
+        // to avoid infinite recursion if there's an error in showNotification itself
+        try {
+            const notification = document.createElement("div");
+            notification.id = this.nextNotificationId();
+            notification.className = NOTIFICATION_CLASSNAME;
+            notification.textContent = "Something went wrong while loading the notification. Please try again later.";
+            
+            this.notificationContainerTarget.prepend(notification);
+            
+            const dismissHandler = () => {
+                if (this.notificationContainerTarget.contains(notification)) {
+                    notification.remove();
+                }
+            };
+            
+            notification.addEventListener("click", dismissHandler);
+            notification.addEventListener("touchend", dismissHandler);
+            
+            setTimeout(dismissHandler, DEFAULT_DISMISS_AFTER_MS);
+        } catch (error) {
+            console.error('Failed to show fallback notification:', error);
+        }
+    }
+
+    clearAllTimeouts() {
+        this.activeNotifications.forEach(({ timerId }) => {
+            if (timerId) clearTimeout(timerId);
+        });
+        this.activeNotifications.clear();
+    }
 }
-NotificationManagerController.targets = ["notificationContainer"];
-NotificationManagerController.values = {
-    initialNotifications: Array
-};
-NotificationManagerController.classes = [
-    "notificationBase",
-    "entering",
-    "enteringFrom",
-    "enteringTo",
-    "leaving",
-    "leavingFrom",
-    "leavingTo",
-];
-export default NotificationManagerController;

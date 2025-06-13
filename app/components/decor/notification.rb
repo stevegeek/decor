@@ -5,15 +5,17 @@ module Decor
   class Notification < PhlexComponent
     no_stimulus_controller
 
-    class ActionButton < PhlexComponent
+    class ActionButton < ::Literal::Data
       # ActionButton is used to define an action button within a notification.
       # It can be a link or a button, and can be styled as primary or secondary.
       # The `href` attribute is optional; if provided, it will render as a link.
       # If `action_name` is provided, it will be used for Stimulus actions.
-      attribute :label, String
-      attribute :href, String
-      attribute :action_name, String
-      attribute :primary, :boolean, default: false
+      prop :label, String
+      prop :href, _Nilable(String)
+      prop :action_name, _Nilable(String)
+      prop :primary, _Boolean, default: false, predicate: :public
+      prop :color, _Nilable(Symbol)
+      prop :variant, _Nilable(Symbol)
 
       def text_classes
         primary? ? "font-medium text-primary hover:text-primary-focus" : "text-base-content hover:text-base-content/70"
@@ -25,7 +27,7 @@ module Decor
     attribute :title, String
     attribute :description, String
     attribute :icon, String
-    attribute :style, Symbol, in: %i[warning success error info].freeze, default: :info
+    attribute :color, Symbol, in: %i[warning success error info].freeze, default: :info
     attribute :action_buttons, Array, sub_type: ActionButton, default: [], convert: true
 
     def avatar(&block)
@@ -66,16 +68,16 @@ module Decor
                 render ::Decor::ButtonLink.new(
                   label: button.label,
                   href: button.href,
-                  variant: button.primary? ? :contained : :text,
-                  theme: button.primary? ? :primary : :neutral,
+                  variant: button.variant || (button.primary? ? :contained : :text),
+                  color: button.color || (button.primary? ? :primary : :neutral),
                   size: :small,
                   full_width: true
                 )
               else
                 render ::Decor::Button.new(
                   label: button.label,
-                  variant: button.primary? ? :contained : :text,
-                  theme: button.primary? ? :primary : :neutral,
+                  variant: button.variant || (button.primary? ? :contained : :text),
+                  color: button.color || (button.primary? ? :primary : :neutral),
                   size: :small,
                   full_width: true,
                   **action_button_attributes(el, button)
@@ -94,7 +96,7 @@ module Decor
     end
 
     def icon_background_class
-      case @style
+      case @color
       when :success then "bg-success"
       when :error then "bg-error"
       when :warning then "bg-warning"
@@ -104,7 +106,7 @@ module Decor
     end
 
     def icon_text_class
-      case @style
+      case @color
       when :success then "text-success-content"
       when :error then "text-error-content"
       when :warning then "text-warning-content"
@@ -114,7 +116,7 @@ module Decor
     end
 
     def title_text_class
-      case @style
+      case @color
       when :success then "text-success"
       when :error then "text-error"
       when :warning then "text-warning"

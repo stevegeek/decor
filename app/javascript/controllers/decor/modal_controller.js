@@ -1,35 +1,37 @@
-import axios from "lib/axios";
-import BaseController from "decor/base_controller.js";
-import { localeMessage } from "lib/i18n";
-import { replaceContentsWithChildren } from "lib/util/replace_with_dom_nodes";
-import { markAsSafeHTML, safelySetInnerHTML } from "lib/util/safe_html";
+import { Controller } from "@hotwired/stimulus";
+import { markAsSafeHTML, safelySetInnerHTML, replaceContentsWithChildren, createAxiosInstance } from "controllers/decor";
 export var ModalEvents;
 (function (ModalEvents) {
-    ModalEvents["Open"] = "components--decor--modal:open";
-    ModalEvents["Opening"] = "components--decor--modal:opening";
-    ModalEvents["Loading"] = "components--decor--modal:loading";
-    ModalEvents["Loaded"] = "components--decor--modal:loaded";
-    ModalEvents["Ready"] = "components--decor--modal:ready";
-    ModalEvents["Opened"] = "components--decor--modal:opened";
-    ModalEvents["Close"] = "components--decor--modal:close";
-    ModalEvents["Closing"] = "components--decor--modal:closing";
-    ModalEvents["Closed"] = "components--decor--modal:closed";
+    ModalEvents["Open"] = "decor--modal:open";
+    ModalEvents["Opening"] = "decor--modal:opening";
+    ModalEvents["Loading"] = "decor--modal:loading";
+    ModalEvents["Loaded"] = "decor--modal:loaded";
+    ModalEvents["Ready"] = "decor--modal:ready";
+    ModalEvents["Opened"] = "decor--modal:opened";
+    ModalEvents["Close"] = "decor--modal:close";
+    ModalEvents["Closing"] = "decor--modal:closing";
+    ModalEvents["Closed"] = "decor--modal:closed";
 })(ModalEvents || (ModalEvents = {}));
-class ModalController extends BaseController {
+export default class extends Controller {
     constructor() {
-        super(...arguments);
+        super();
         this.modalVisible = false;
         this.closeOnOverlayClick = false;
     }
-    onInitialize() {
-        this.onConnect(() => {
-            if (this.showInitialValue) {
-                this.open({
-                    contentHref: this.contentHrefValue,
-                });
-            }
-        });
-        return super.onInitialize();
+
+    static targets = ["overlay", "modal"];
+    static values = {
+        showInitial: Boolean,
+        contentHref: String,
+        closeOnOverlayClick: Boolean
+    };
+
+    connect() {
+        if (this.showInitialValue) {
+            this.open({
+                contentHref: this.contentHrefValue,
+            });
+        }
     }
     // Handle click on overlay to optionally close modal
     overlayClicked() {
@@ -79,8 +81,8 @@ class ModalController extends BaseController {
                 this.setContent(c);
             })
                 .catch((err) => {
-                console.error("Could not fetch content for dropdown", contentHref, err);
-                const errorMessage = localeMessage("generic_server_error");
+                console.error("Could not fetch content for modal", contentHref, err);
+                const errorMessage = "Something went wrong while loading the content. Please try again later.";
                 // To prevent user being blocked, make sure they can exit the modal
                 this.closeOnOverlayClick = true;
                 this.setContent(markAsSafeHTML(errorMessage));
@@ -98,15 +100,13 @@ class ModalController extends BaseController {
     }
     setClasses() {
         if (this.modalVisible) {
-            this.setTargetElementClasses(this.element, ["hidden"], []);
+            this.element.classList.remove("hidden");
         }
         else {
             setTimeout(() => {
-                this.setTargetElementClasses(this.element, [], ["hidden"]);
+                this.element.classList.add("hidden");
             }, 200);
         }
-        this.toggleTargetElementTransitionClasses(this.overlayTarget, this.modalVisible, this.overlayEnteringClasses, this.overlayEnteringFromClasses, this.overlayEnteringToClasses, this.overlayLeavingClasses, this.overlayLeavingFromClasses, this.overlayLeavingToClasses, 200);
-        this.toggleTargetElementTransitionClasses(this.modalTarget, this.modalVisible, this.modalEnteringClasses, this.modalEnteringFromClasses, this.modalEnteringToClasses, this.modalLeavingClasses, this.modalLeavingFromClasses, this.modalLeavingToClasses, 200);
     }
     setContent(content) {
         this.replaceContents(this.modalTarget, this.createContent(content));
@@ -127,6 +127,7 @@ class ModalController extends BaseController {
     }
     async getContent(shownWith) {
         this.dispatchLifecycleEvent(ModalEvents.Loading, { shownWith });
+        const axios = createAxiosInstance();
         return axios
             .get(shownWith.contentHref, {
             headers: {
@@ -148,24 +149,3 @@ class ModalController extends BaseController {
         window.dispatchEvent(evt);
     }
 }
-ModalController.targets = ["overlay", "modal"];
-ModalController.values = {
-    showInitial: Boolean,
-    contentHref: String,
-    closeOnOverlayClick: Boolean
-};
-ModalController.classes = [
-    "overlayEntering",
-    "overlayEnteringFrom",
-    "overlayEnteringTo",
-    "overlayLeaving",
-    "overlayLeavingFrom",
-    "overlayLeavingTo",
-    "modalEntering",
-    "modalEnteringFrom",
-    "modalEnteringTo",
-    "modalLeaving",
-    "modalLeavingFrom",
-    "modalLeavingTo",
-];
-export default ModalController;

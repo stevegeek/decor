@@ -26,5 +26,19 @@
     <main class="p-10">
       <%= yield %>
     </main>
+
+    <%= render ::Decor::Modal.new %>
+    <%= render ::Decor::ConfirmModal.new %>
+    <%= render ::Decor::NotificationManager.new(
+      data_maps: [
+        {
+          initial_notifications: [notice, alert].compact.map do |message|
+            {content: {content: render(::Decor::Notification.new(title: message)), __safe: true}}
+          end
+        }
+      ]
+    ) %>
+
+    <%= tag.div nil, data: {controller: "util--dev-form-fill"} if Rails.env.development? %>
   </body>
 </html>

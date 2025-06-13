@@ -1,5 +1,6 @@
-import BaseController from "decor/base_controller.js";
-export default class TabsController extends BaseController {
+import { Controller } from "@hotwired/stimulus";
+
+export default class extends Controller {
     handleSelectTabOnMobile(event) {
         const select = event.target;
         const selected = select.options[select.selectedIndex];

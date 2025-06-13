@@ -1,15 +1,16 @@
-import BaseController from "decor/base_controller.js";
-import { closeModal } from "lib/overlay/modal";
-class ModalCloseButtonController extends BaseController {
+import { Controller } from "@hotwired/stimulus";
+
+export default class extends Controller {
+    static values = {
+        closeReason: String
+    };
     handleButtonClick(event) {
         event.preventDefault();
         const reason = this.closeReasonValue;
-        closeModal({
-            closeReason: reason ? reason : undefined,
-        });
+        
+        // Dispatch event to close modal
+        window.dispatchEvent(new CustomEvent('"decor--modal:close', {
+            detail: { closeReason: reason ? reason : undefined }
+        }));
     }
 }
-ModalCloseButtonController.values = {
-    closeReason: String
-};
-export default ModalCloseButtonController;
