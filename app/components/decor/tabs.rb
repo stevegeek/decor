@@ -2,32 +2,22 @@
 
 module Decor
   class Tabs < PhlexComponent
-    class TabInfo < PhlexComponent
+    class TabInfo < ::Literal::Data
       # When active link gets visual indicator representing its state
-      attribute :active, :boolean, default: false
-      attribute :disabled, :boolean, default: false
+      prop :active, _Boolean, default: false, predicate: :public
+      prop :disabled, _Boolean, default: false, predicate: :public
 
       # Title used as `title` attr in HTML and as content of `a` tag
-      attribute :title, String, allow_blank: false
-      attribute :href, String, allow_blank: false
+      prop :title, _Nilable(String)
+      prop :href, _Nilable(String)
 
       # Icon configuration
-      attribute :icon, String
-      attribute :icon_position, Symbol, default: :before, in: [:before, :after, :only]
+      prop :icon, _Nilable(String)
+      prop :icon_position, Symbol, default: :before, in: [:before, :after, :only]
 
       # Badge configuration
-      attribute :badge_text, String
-      attribute :badge_color, Symbol, default: :standard, in: [:standard, :warning, :info, :error, :success, :primary, :secondary, :accent]
-
-      attr_reader :href, :title, :icon, :icon_position, :badge_text, :badge_color
-
-      def active?
-        @active
-      end
-
-      def disabled?
-        @disabled
-      end
+      prop :badge_text, _Nilable(String)
+      prop :badge_color, Symbol, default: :standard, in: [:standard, :warning, :info, :error, :success, :primary, :secondary, :accent]
     end
 
     # Array of links in navigation. Each link must have a `title` and `href` specified

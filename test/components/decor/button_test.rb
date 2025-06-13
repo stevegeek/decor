@@ -25,8 +25,8 @@ class Decor::ButtonTest < ActiveSupport::TestCase
     assert_includes rendered, "btn-outline"
   end
 
-  test "applies correct theme classes" do
-    component = Decor::Button.new(label: "Danger", theme: :danger)
+  test "applies correct color classes" do
+    component = Decor::Button.new(label: "Danger", color: :danger)
     rendered = render_component(component)
 
     assert_includes rendered, "btn-error"
@@ -65,7 +65,7 @@ class Decor::ButtonTest < ActiveSupport::TestCase
     assert_includes span.text, "Centered"
   end
 
-  test "applies daisyUI primary theme by default" do
+  test "applies daisyUI primary color by default" do
     component = Decor::Button.new(label: "Primary")
     rendered = render_component(component)
 

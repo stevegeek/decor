@@ -10,15 +10,15 @@ class ::Decor::NotificationPreview < ::Lookbook::Preview
   # @param title text
   # @param description text
   # @param icon select [~, check-circle, x-circle, exclamation-triangle, information-circle, bell]
-  # @param style select [info, success, warning, error]
+  # @param color select [info, success, warning, error]
   # @param has_avatar toggle
   # @param has_action_buttons toggle
-  def playground(title: "Notification Title", description: "This is a sample notification message.", icon: "information-circle", style: :info, has_avatar: false, has_action_buttons: false)
+  def playground(title: "Notification Title", description: "This is a sample notification message.", icon: "information-circle", color: :info, has_avatar: false, has_action_buttons: false)
     render ::Decor::Notification.new(
       title: title,
       description: description,
       icon: icon,
-      style: style,
+      color: color,
       **(has_action_buttons ? {action_buttons: [
         {
           label: "Action",
@@ -42,47 +42,47 @@ class ::Decor::NotificationPreview < ::Lookbook::Preview
     end
   end
 
-  # @group Styles
+  # @group Colors
   # @label Info Style
   def style_info
     render ::Decor::Notification.new(
       title: "Information",
       description: "Here's some helpful information for you.",
       icon: "information-circle",
-      style: :info
+      color: :info
     )
   end
 
-  # @group Styles
+  # @group Colors
   # @label Success Style
   def style_success
     render ::Decor::Notification.new(
       title: "Success!",
       description: "Your account has been created successfully.",
       icon: "check-circle",
-      style: :success
+      color: :success
     )
   end
 
-  # @group Styles
+  # @group Colors
   # @label Warning Style
   def style_warning
     render ::Decor::Notification.new(
       title: "Warning",
       description: "Please verify your email address.",
       icon: "exclamation-triangle",
-      style: :warning
+      color: :warning
     )
   end
 
-  # @group Styles
+  # @group Colors
   # @label Error Style
   def style_error
     render ::Decor::Notification.new(
       title: "Error",
       description: "Something went wrong. Please try again.",
       icon: "x-circle",
-      style: :error
+      color: :error
     )
   end
 
@@ -92,7 +92,7 @@ class ::Decor::NotificationPreview < ::Lookbook::Preview
     render ::Decor::Notification.new(
       title: "Simple notification",
       icon: "bell",
-      style: :info
+      color: :info
     )
   end
 
@@ -102,7 +102,7 @@ class ::Decor::NotificationPreview < ::Lookbook::Preview
     render ::Decor::Notification.new(
       description: "Just a simple message without a title.",
       icon: "information-circle",
-      style: :info
+      color: :info
     )
   end
 
@@ -112,7 +112,7 @@ class ::Decor::NotificationPreview < ::Lookbook::Preview
     render ::Decor::Notification.new(
       title: "No Icon Notification",
       description: "This notification doesn't have an icon.",
-      style: :info
+      color: :info
     )
   end
 
@@ -122,7 +122,7 @@ class ::Decor::NotificationPreview < ::Lookbook::Preview
     render ::Decor::Notification.new(
       title: "New Message",
       description: "You have a message from John Doe.",
-      style: :info
+      color: :info
     ) do |notification|
       notification.avatar do
         render ::Decor::Avatar.new(
@@ -139,7 +139,7 @@ class ::Decor::NotificationPreview < ::Lookbook::Preview
     render ::Decor::Notification.new(
       title: "Profile Updated",
       description: "Your profile picture has been updated.",
-      style: :success
+      color: :success
     ) do |notification|
       notification.avatar do
         render ::Decor::Avatar.new(
@@ -157,7 +157,7 @@ class ::Decor::NotificationPreview < ::Lookbook::Preview
       title: "Confirm Action",
       description: "Please confirm this important action.",
       icon: "exclamation-triangle",
-      style: :warning,
+      color: :warning,
       action_buttons: [
         {
           label: "Confirm",
@@ -175,7 +175,7 @@ class ::Decor::NotificationPreview < ::Lookbook::Preview
       title: "Save Changes?",
       description: "You have unsaved changes.",
       icon: "exclamation-triangle",
-      style: :warning,
+      color: :warning,
       action_buttons: [
         {
           label: "Save",
@@ -190,6 +190,62 @@ class ::Decor::NotificationPreview < ::Lookbook::Preview
     )
   end
 
+  # @group With Actions
+  # @label Custom Button Colors and Variants
+  def actions_custom_styling
+    render ::Decor::Notification.new(
+      title: "Custom Action Buttons",
+      description: "Demonstration of custom colors and variants for action buttons.",
+      icon: "information-circle",
+      color: :info,
+      action_buttons: [
+        {
+          label: "Primary",
+          href: "#",
+          color: :primary,
+          variant: :contained
+        },
+        {
+          label: "Outlined",
+          href: "#",
+          color: :secondary,
+          variant: :outlined
+        },
+        {
+          label: "Text",
+          action_name: "text_action",
+          color: :neutral,
+          variant: :text
+        }
+      ]
+    )
+  end
+
+  # @group With Actions
+  # @label Danger Actions
+  def actions_danger
+    render ::Decor::Notification.new(
+      title: "Delete Account",
+      description: "This action cannot be undone.",
+      icon: "exclamation-triangle",
+      color: :error,
+      action_buttons: [
+        {
+          label: "Delete",
+          href: "#",
+          color: :danger,
+          variant: :contained
+        },
+        {
+          label: "Cancel",
+          action_name: "cancel",
+          color: :neutral,
+          variant: :outlined
+        }
+      ]
+    )
+  end
+
   # @group Real-world Examples
   # @label Account Created
   def example_account_created
@@ -197,7 +253,7 @@ class ::Decor::NotificationPreview < ::Lookbook::Preview
       title: "Welcome!",
       description: "Your account has been successfully created.",
       icon: "check-circle",
-      style: :success,
+      color: :success,
       action_buttons: [
         {
           label: "Get Started",
@@ -215,11 +271,12 @@ class ::Decor::NotificationPreview < ::Lookbook::Preview
       title: "Payment Failed",
       description: "We couldn't process your payment. Please update your payment method.",
       icon: "x-circle",
-      style: :error,
+      color: :error,
       action_buttons: [
         {
           label: "Update Payment",
           href: "#",
+          color: :error,
           primary: true
         },
         {
@@ -236,7 +293,7 @@ class ::Decor::NotificationPreview < ::Lookbook::Preview
     render ::Decor::Notification.new(
       title: "New Message",
       description: "You received a message from Sarah Johnson.",
-      style: :info,
+      color: :info,
       action_buttons: [
         {
           label: "Reply",
@@ -248,7 +305,7 @@ class ::Decor::NotificationPreview < ::Lookbook::Preview
       notification.avatar do
         render ::Decor::Avatar.new(
           initials: "SJ",
-          size: :small
+          size: :sm
         )
       end
     end
@@ -261,7 +318,7 @@ class ::Decor::NotificationPreview < ::Lookbook::Preview
       title: "Scheduled Maintenance",
       description: "The system will be down for maintenance on Sunday at 2 AM.",
       icon: "exclamation-triangle",
-      style: :warning
+      color: :warning
     )
   end
 
@@ -272,11 +329,12 @@ class ::Decor::NotificationPreview < ::Lookbook::Preview
       title: "Upload Complete",
       description: "Your file 'document.pdf' has been uploaded successfully.",
       icon: "check-circle",
-      style: :success,
+      color: :success,
       action_buttons: [
         {
           label: "View File",
           href: "#",
+          color: :success,
           primary: true
         }
       ]

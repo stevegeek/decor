@@ -11,7 +11,7 @@ class ::Decor::ButtonPreview < ::Lookbook::Preview
   # @param disabled toggle
   # @param icon select [~, check-circle, x, check, download, play]
   # @param variant select [contained, outlined, text]
-  # @param theme select [primary, secondary, danger, warning, neutral]
+  # @param color select [primary, secondary, danger, warning, neutral]
   # @param element_tag select [button, a]
   # @param size select [medium, large, wide, small, micro, xs, lg, md, sm]
   # @param full_width toggle
@@ -19,7 +19,7 @@ class ::Decor::ButtonPreview < ::Lookbook::Preview
     label: "Button",
     icon: nil,
     variant: :contained,
-    theme: :primary,
+    color: :primary,
     size: :medium,
     element_tag: :button,
     disabled: false,
@@ -29,7 +29,7 @@ class ::Decor::ButtonPreview < ::Lookbook::Preview
       label: label,
       icon: icon,
       variant: variant,
-      theme: theme,
+      color: color,
       size: size,
       element_tag: element_tag,
       disabled: disabled,
@@ -37,34 +37,34 @@ class ::Decor::ButtonPreview < ::Lookbook::Preview
     )
   end
 
-  # @group Themes
+  # @group Colors
   # @label Primary Theme
   def theme_primary
-    render ::Decor::Button.new(label: "Primary Button", theme: :primary)
+    render ::Decor::Button.new(label: "Primary Button", color: :primary)
   end
 
-  # @group Themes
+  # @group Colors
   # @label Secondary Theme
   def theme_secondary
-    render ::Decor::Button.new(label: "Secondary Button", theme: :secondary)
+    render ::Decor::Button.new(label: "Secondary Button", color: :secondary)
   end
 
-  # @group Themes
+  # @group Colors
   # @label Danger Theme
   def theme_danger
-    render ::Decor::Button.new(label: "Danger Button", theme: :danger)
+    render ::Decor::Button.new(label: "Danger Button", color: :danger)
   end
 
-  # @group Themes
+  # @group Colors
   # @label Warning Theme
   def theme_warning
-    render ::Decor::Button.new(label: "Warning Button", theme: :warning)
+    render ::Decor::Button.new(label: "Warning Button", color: :warning)
   end
 
-  # @group Themes
+  # @group Colors
   # @label Neutral Theme
   def theme_neutral
-    render ::Decor::Button.new(label: "Neutral Button", theme: :neutral)
+    render ::Decor::Button.new(label: "Neutral Button", color: :neutral)
   end
 
   # @group Variants
@@ -166,19 +166,19 @@ class ::Decor::ButtonPreview < ::Lookbook::Preview
   # @group States
   # @label Disabled Primary
   def state_disabled_primary
-    render ::Decor::Button.new(label: "Disabled Primary", theme: :primary, disabled: true)
+    render ::Decor::Button.new(label: "Disabled Primary", color: :primary, disabled: true)
   end
 
   # @group States
   # @label Disabled Secondary
   def state_disabled_secondary
-    render ::Decor::Button.new(label: "Disabled Secondary", theme: :secondary, disabled: true)
+    render ::Decor::Button.new(label: "Disabled Secondary", color: :secondary, disabled: true)
   end
 
   # @group States
   # @label Disabled Danger
   def state_disabled_danger
-    render ::Decor::Button.new(label: "Disabled Danger", theme: :danger, disabled: true)
+    render ::Decor::Button.new(label: "Disabled Danger", color: :danger, disabled: true)
   end
 
   # @group Layout
@@ -205,7 +205,7 @@ class ::Decor::ButtonPreview < ::Lookbook::Preview
     render ::Decor::Button.new(
       label: "Outlined Primary Large",
       variant: :outlined,
-      theme: :primary,
+      color: :primary,
       size: :large
     )
   end
@@ -216,7 +216,7 @@ class ::Decor::ButtonPreview < ::Lookbook::Preview
     render ::Decor::Button.new(
       label: "Delete Item",
       variant: :text,
-      theme: :danger,
+      color: :danger,
       icon: "x"
     )
   end
@@ -227,7 +227,7 @@ class ::Decor::ButtonPreview < ::Lookbook::Preview
     render ::Decor::Button.new(
       label: "Wide Secondary",
       variant: :outlined,
-      theme: :secondary,
+      color: :secondary,
       size: :wide
     )
   end

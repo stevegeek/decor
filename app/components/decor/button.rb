@@ -10,7 +10,7 @@ module Decor
     attribute :icon_only_on_mobile, :boolean, default: false
 
     attribute :variant, Symbol, default: :contained, in: %i[contained outlined text]
-    attribute :theme, Symbol, default: :primary, in: %i[primary secondary danger warning neutral]
+    attribute :color, Symbol, default: :primary, in: %i[primary secondary danger warning neutral]
     attribute :size, Symbol, default: :medium, in: %i[large medium wide small micro xs lg md sm]
 
     attribute :disabled, :boolean, default: false
@@ -56,7 +56,7 @@ module Decor
     def element_classes
       [
         "btn",
-        *theme_classes,
+        *color_classes,
         *variant_classes,
         *size_classes,
         *modifier_classes
@@ -78,8 +78,8 @@ module Decor
       "inline #{@icon_only_on_mobile ? "mr-0 md:mr-1" : "mr-1"} #{sized}"
     end
 
-    def theme_classes
-      case @theme
+    def color_classes
+      case @color
       when :primary
         ["btn-primary"]
       when :secondary
