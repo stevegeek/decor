@@ -1,0 +1,33 @@
+<%= render ::Decor::Modal.new(
+  initial_content: capture do %>
+  <div>
+    <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+      <%= render ::Decor::Icon.new(name: "check", variant: :outline, html_options: {class: "w-6 h-6"}) %>
+    </div>
+    <div class="mt-3 text-center sm:mt-5">
+      <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">Payment confirmed?</h3>
+      <div class="mt-2">
+        <p class="text-sm text-gray-500">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius aliquam laudantium explicabo pariatur iste dolorem animi vitae error totam. At sapiente aliquam accusamus facere veritatis.</p>
+      </div>
+    </div>
+  </div>
+  <div class="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
+    <%= render ::Decor::ModalCloseButton.new(
+      label: "Confirm",
+      close_reason: "ok",
+      full_width: true,
+      html_options: {class: "sm:col-start-2 sm:text-sm"}
+    ) %>
+    <%= render ::Decor::ModalCloseButton.new(
+      label: "Cancel",
+      close_reason: "cancel",
+      full_width: true,
+      theme: :secondary,
+      variant: :outlined,
+      html_options: {class: "sm:mt-0 sm:col-start-1 sm:text-sm"}
+    ) %>
+  </div>
+<%
+  end,
+  start_shown: true
+) %>

@@ -1,0 +1,27 @@
+<%= javascript_tag nonce: true do %>
+  setTimeout(() => {
+    function closingHandler(e) {
+      window.removeEventListener("decor--confirm-modal:closing", closingHandler);
+      alert(e.detail.closeReason)
+    }
+
+    window.addEventListener("decor--confirm-modal:closing", closingHandler);
+
+    const evt = new CustomEvent("decor--confirm-modal:open", {
+      bubbles: true,
+      cancelable: false,
+      detail: {
+        defaultReason: "<%= default_reason %>",
+        positiveButtonReason: "<%= positive_reason %>",
+        negativeButtonReason: "<%= negative_reason %>",
+        title: "<%= title %>",
+        negativeButtonLabel: "<%= negative_text %>",
+        positiveButtonLabel: "<%= positive_text %>",
+        messageHTML: {__safe: true, content: "<%= message %>"},
+        closeOnOverlayClick: <%= close_on_overlay_click %>
+      }
+    });
+    console.log("Dispatching event", evt);
+    window.dispatchEvent(evt);
+  }, 1500);
+<% end %>
