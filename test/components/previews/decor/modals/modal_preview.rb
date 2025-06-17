@@ -1,5 +1,5 @@
 # @label Modal
-class ::Decor::ModalPreview < ::Lookbook::Preview
+class ::Decor::Modals::ModalPreview < ::Lookbook::Preview
   # Modal
   # -------
   #

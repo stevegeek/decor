@@ -1,5 +1,5 @@
 # @label ModalOpenButton
-class ::Decor::ModalOpenButtonPreview < ::Lookbook::Preview
+class ::Decor::Modals::ModalOpenButtonPreview < ::Lookbook::Preview
   # ModalOpenButton
   # -------
   #

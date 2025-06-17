@@ -1,5 +1,5 @@
 # @label ConfirmModal
-class ::Decor::ConfirmModalPreview < ::Lookbook::Preview
+class ::Decor::Modals::ConfirmModalPreview < ::Lookbook::Preview
   # ConfirmModal
   # -------
   #

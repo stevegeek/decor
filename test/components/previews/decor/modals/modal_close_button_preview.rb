@@ -1,5 +1,5 @@
 # @label ModalCloseButton
-class ::Decor::ModalCloseButtonPreview < ::Lookbook::Preview
+class ::Decor::Modals::ModalCloseButtonPreview < ::Lookbook::Preview
   # ModalCloseButton
   # -------
   #

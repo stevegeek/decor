@@ -1,5 +1,5 @@
 # @label ModalLayout
-class ::Decor::ModalLayoutPreview < ::Lookbook::Preview
+class ::Decor::Modals::ModalLayoutPreview < ::Lookbook::Preview
   # ModalLayout
   # -------
   #
@@ -34,18 +34,18 @@ class ::Decor::ModalLayoutPreview < ::Lookbook::Preview
 
   # @label With Slots
   def with_slots
-    render ::Decor::ModalLayout.new(size: :large, color: :primary) do |modal|
-      modal.with_header do
-        h2(class: "text-xl font-bold") { "Custom Header" }
-      end
-      modal.with_body do
-        p(class: "py-4") { "This is the modal body content using slots!" }
-      end
-      modal.with_footer do
-        button(class: "btn") { "Close" }
-        button(class: "btn btn-primary") { "Save changes" }
-      end
+    modal = ::Decor::ModalLayout.new(size: :large, color: :primary)
+    modal.with_header do
+      modal.h2(class: "text-xl font-bold") { "Custom Header" }
     end
+    modal.with_body do
+      modal.p(class: "py-4") { "This is the modal body content using slots!" }
+    end
+    modal.with_footer do
+      modal.button(class: "btn") { "Close" }
+      modal.button(class: "btn btn-primary") { "Save changes" }
+    end
+    render modal
   end
 
   # @label Legacy Style
