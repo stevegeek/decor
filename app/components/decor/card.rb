@@ -51,12 +51,13 @@ module Decor
     end
 
     def element_classes
-      classes = ["card"]
-      classes << size_classes
-      classes << color_classes
-      classes << variant_classes
-      classes << "flex-row" if image_position_horizontal?
-      classes.compact.join(" ")
+      [
+        "card",
+        size_classes,
+        color_classes,
+        variant_classes,
+        image_position_horizontal? ? "flex-row" : nil
+      ].compact.join(" ")
     end
 
     def card_content_classes

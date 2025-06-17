@@ -58,11 +58,16 @@ module Decor
     end
 
     def element_classes
-      classes = ["inline-flex", "items-center", "justify-center", "rounded-full", "whitespace-nowrap"]
-      classes << size_classes
-      classes << color_classes
-      classes << "gap-2" if @icon.present? || @removable
-      classes.compact.join(" ")
+      [
+        "inline-flex",
+        "items-center",
+        "justify-center",
+        "rounded-full",
+        "whitespace-nowrap",
+        size_classes,
+        color_classes,
+        (@icon.present? || @removable) ? "gap-2" : nil
+      ].compact.join(" ")
     end
 
     def size_classes

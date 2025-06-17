@@ -55,9 +55,7 @@ module Decor
     end
 
     def modifier_classes
-      classes = []
-      classes << "no-underline" if @disabled
-      classes
+      @disabled ? "no-underline" : nil
     end
   end
 end

@@ -48,19 +48,22 @@ module Decor
     end
 
     def element_classes
-      classes = [base_size_class]
-      classes << "w-full" if @full_width
-      classes << "w-96" unless @full_width
-      classes << "border-2 #{color_classes}" if @color
-      classes << state_classes
-      classes << @class if @class.present?
-      classes.compact.join(" ")
+      [
+        base_size_class,
+        @full_width ? "w-full" : "w-96",
+        @color ? "border-2 #{color_classes}" : nil,
+        state_classes,
+        @class
+      ].compact.join(" ")
     end
 
     def map_container_classes
-      classes = ["w-full", "h-full", "bg-gray-50"]
-      classes << "opacity-50" if @disabled
-      classes.join(" ")
+      [
+        "w-full",
+        "h-full",
+        "bg-gray-50",
+        @disabled ? "opacity-50" : nil
+      ].compact.join(" ")
     end
 
     def base_size_class

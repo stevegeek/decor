@@ -122,9 +122,7 @@ module Decor
     end
 
     def modifier_classes
-      classes = []
-      classes << "btn-block" if @full_width
-      classes
+      @full_width ? "btn-block" : nil
     end
   end
 end

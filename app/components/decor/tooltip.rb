@@ -33,12 +33,13 @@ module Decor
     private
 
     def element_classes
-      classes = ["tooltip"]
-      classes << position_class
-      classes << size_classes
-      classes << color_classes
-      classes << variant_classes
-      classes.compact.join(" ")
+      [
+        "tooltip",
+        position_class,
+        size_classes,
+        color_classes,
+        variant_classes
+      ].compact.join(" ")
     end
 
     def position_class

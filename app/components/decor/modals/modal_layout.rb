@@ -78,11 +78,13 @@ module Decor
       private
 
       def element_classes
-        classes = ["modal-box", "relative"]
-        classes << size_classes
-        classes << color_classes
-        classes << variant_classes
-        classes.compact.join(" ")
+        [
+          "modal-box",
+          "relative",
+          size_classes,
+          color_classes,
+          variant_classes
+        ].compact.join(" ")
       end
 
       def size_classes

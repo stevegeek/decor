@@ -51,9 +51,10 @@ module Decor
     end
 
     def element_classes
-      base_classes = ["invisible opacity-0"]
-      base_classes << "hidden" if @collapse_if_empty && !show_initial?
-      base_classes.join(" ")
+      [
+        "invisible opacity-0",
+        (@collapse_if_empty && !show_initial?) ? "hidden" : nil
+      ].compact.join(" ")
     end
 
     def alert_variant_class
