@@ -1,0 +1,210 @@
+<% content_for :title, "CloudStack Pro - Support Center" %>
+
+<div class="container mx-auto px-4 py-6">
+  <!-- Page Header -->
+  <div class="mb-8">
+    <%= render ::Decor::Title.new(text: "Support Center", level: 1) %>
+    <p class="text-gray-600 mt-2">Get help with CloudStack Pro and manage your support tickets.</p>
+  </div>
+
+  <!-- Support Overview -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+    <!-- Support Tickets Summary -->
+    <%= render ::Decor::Card.new(title: "Your Support Tickets", size: :lg) do |card| %>
+      <div class="grid grid-cols-2 gap-4 mb-4">
+        <div class="text-center">
+          <div class="text-2xl font-bold text-orange-600"><%= @ticket_summary[:open] %></div>
+          <div class="text-sm text-gray-600">Open</div>
+        </div>
+        <div class="text-center">
+          <div class="text-2xl font-bold text-blue-600"><%= @ticket_summary[:in_progress] %></div>
+          <div class="text-sm text-gray-600">In Progress</div>
+        </div>
+        <div class="text-center">
+          <div class="text-2xl font-bold text-yellow-600"><%= @ticket_summary[:waiting_customer] %></div>
+          <div class="text-sm text-gray-600">Waiting</div>
+        </div>
+        <div class="text-center">
+          <div class="text-2xl font-bold text-green-600"><%= @ticket_summary[:resolved] %></div>
+          <div class="text-sm text-gray-600">Resolved</div>
+        </div>
+      </div>
+      
+      <div class="flex space-x-2">
+        <%= render ::Decor::Button.new(
+          label: "View All Tickets",
+          color: :primary,
+          variant: :outlined,
+          full_width: true,
+          element_tag: :a
+        ) %>
+        <%= render ::Decor::Button.new(
+          label: "Create Ticket",
+          color: :primary,
+          icon: "plus",
+          full_width: true,
+          element_tag: :a
+        ) %>
+      </div>
+    <% end %>
+
+    <!-- Quick Actions -->
+    <%= render ::Decor::Card.new(title: "Quick Actions", size: :lg) do |card| %>
+      <div class="space-y-3">
+        <%= render ::Decor::Link.new(
+          href: cloudstack_support_docs_path,
+          text: "📚 Browse Documentation",
+          html_options: {class: "block p-3 rounded-lg border hover:bg-gray-50 transition-colors"}
+        ) %>
+        
+        <%= render ::Decor::Link.new(
+          href: "#",
+          text: "💬 Live Chat Support",
+          html_options: {class: "block p-3 rounded-lg border hover:bg-gray-50 transition-colors"}
+        ) %>
+        
+        <%= render ::Decor::Link.new(
+          href: "#",
+          text: "📧 Email Support",
+          html_options: {class: "block p-3 rounded-lg border hover:bg-gray-50 transition-colors"}
+        ) %>
+        
+        <%= render ::Decor::Link.new(
+          href: "#",
+          text: "🔍 Search Knowledge Base",
+          html_options: {class: "block p-3 rounded-lg border hover:bg-gray-50 transition-colors"}
+        ) %>
+      </div>
+    <% end %>
+
+    <!-- System Status -->
+    <%= render ::Decor::Card.new(title: "System Status", size: :lg) do |card| %>
+      <div class="mb-4">
+        <div class="flex items-center space-x-2 mb-2">
+          <%= render ::Decor::Icon.new(name: "check-circle", html_options: {class: "h-5 w-5 text-green-600"}) %>
+          <span class="font-medium text-green-600">All Systems Operational</span>
+        </div>
+      </div>
+      
+      <div class="space-y-2">
+        <% @system_status[:services].each do |service| %>
+          <div class="flex items-center justify-between">
+            <span class="text-sm"><%= service[:name] %></span>
+            <%= render ::Decor::Badge.new(
+              text: service[:status].humanize,
+              color: case service[:status]
+                     when 'operational' then :success
+                     when 'degraded_performance' then :warning
+                     else :danger
+                     end,
+              size: :small
+            ) %>
+          </div>
+        <% end %>
+      </div>
+      
+      <div class="mt-4 pt-4 border-t">
+        <%= render ::Decor::Link.new(
+          href: "#",
+          text: "View Status Page →"
+        ) %>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Popular Articles -->
+  <%= render ::Decor::Card.new(title: "Popular Help Articles", size: :lg) do |card| %>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <% @popular_articles.each do |article| %>
+        <div class="p-4 border rounded-lg hover:bg-gray-50 transition-colors">
+          <div class="flex items-start justify-between">
+            <div class="flex-1">
+              <%= render ::Decor::Link.new(
+                href: "#",
+                text: article[:title],
+                html_options: {class: "font-medium hover:text-blue-600"}
+              ) %>
+            </div>
+            <span class="text-sm text-gray-500 ml-4"><%= article[:views] %> views</span>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    
+    <div class="mt-6 text-center">
+      <%= render ::Decor::Button.new(
+        label: "Browse All Articles",
+        color: :neutral,
+        variant: :outlined,
+        element_tag: :a
+      ) %>
+    </div>
+  <% end %>
+
+  <!-- Support Categories -->
+  <div class="mt-8">
+    <%= render ::Decor::Tabs.new(default_tab: "getting_started") do |tabs| %>
+      <% tabs.tab(id: "getting_started", label: "Getting Started") do %>
+        <%= render ::Decor::Card.new(title: "Getting Started with CloudStack Pro", size: :lg) do |card| %>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <h4 class="font-medium mb-3">Quick Start Guides</h4>
+              <ul class="space-y-2">
+                <li><%= render ::Decor::Link.new(href: "#", text: "Launch Your First Instance") %></li>
+                <li><%= render ::Decor::Link.new(href: "#", text: "Configure Networking") %></li>
+                <li><%= render ::Decor::Link.new(href: "#", text: "Set Up Monitoring") %></li>
+                <li><%= render ::Decor::Link.new(href: "#", text: "Understanding Billing") %></li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="font-medium mb-3">Video Tutorials</h4>
+              <ul class="space-y-2">
+                <li><%= render ::Decor::Link.new(href: "#", text: "CloudStack Pro Overview (5 min)") %></li>
+                <li><%= render ::Decor::Link.new(href: "#", text: "Creating Your First Project (8 min)") %></li>
+                <li><%= render ::Decor::Link.new(href: "#", text: "Security Best Practices (12 min)") %></li>
+              </ul>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+
+      <% tabs.tab(id: "technical", label: "Technical Support") do %>
+        <%= render ::Decor::Card.new(title: "Technical Support", size: :lg) do |card| %>
+          <p class="text-gray-600 mb-4">Need help with technical issues? Our support team is here to help.</p>
+          
+          <div class="mb-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <%= render ::Decor::Icon.new(name: "information-circle", html_options: {class: "inline h-5 w-5 text-blue-600 mr-2"}) %>
+            <span class="text-blue-800">Average response time: 2 hours for Pro accounts</span>
+          </div>
+          
+          <%= render ::Decor::Button.new(
+            label: "Create Technical Support Ticket",
+            color: :primary,
+            icon: "wrench-screwdriver",
+            element_tag: :a
+          ) %>
+        <% end %>
+      <% end %>
+
+      <% tabs.tab(id: "billing", label: "Billing Support") do %>
+        <%= render ::Decor::Card.new(title: "Billing & Account Support", size: :lg) do |card| %>
+          <p class="text-gray-600 mb-4">Questions about billing, payments, or account management?</p>
+          
+          <div class="space-y-3 mb-6">
+            <div><%= render ::Decor::Link.new(href: "#", text: "Understanding Your Bill") %></div>
+            <div><%= render ::Decor::Link.new(href: "#", text: "Payment Methods & Billing") %></div>
+            <div><%= render ::Decor::Link.new(href: "#", text: "Cost Optimization Tips") %></div>
+            <div><%= render ::Decor::Link.new(href: "#", text: "Billing FAQ") %></div>
+          </div>
+          
+          <%= render ::Decor::Button.new(
+            label: "Contact Billing Support",
+            color: :success,
+            icon: "credit-card",
+            element_tag: :a
+          ) %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
