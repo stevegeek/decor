@@ -19,38 +19,34 @@ class Decor::ModalLayoutTest < ActiveSupport::TestCase
 
   test "renders with header slot" do
     component = Decor::ModalLayout.new
-    rendered = render_component(component) do |c|
-      c.with_header { "Modal Header" }
-    end
+    component.with_header { "Modal Header" }
+    rendered = render_component(component)
 
     assert_includes rendered, "Modal Header"
   end
 
   test "renders with body slot" do
     component = Decor::ModalLayout.new
-    rendered = render_component(component) do |c|
-      c.with_body { "Modal Body Content" }
-    end
+    component.with_body { "Modal Body Content" }
+    rendered = render_component(component)
 
     assert_includes rendered, "Modal Body Content"
   end
 
   test "renders with footer slot" do
     component = Decor::ModalLayout.new
-    rendered = render_component(component) do |c|
-      c.with_footer { "Modal Footer" }
-    end
+    component.with_footer { "Modal Footer" }
+    rendered = render_component(component)
 
     assert_includes rendered, "Modal Footer"
   end
 
   test "renders all slots together" do
     component = Decor::ModalLayout.new
-    rendered = render_component(component) do |c|
-      c.with_header { "Header Content" }
-      c.with_body { "Body Content" }
-      c.with_footer { "Footer Content" }
-    end
+    component.with_header { "Header Content" }
+    component.with_body { "Body Content" }
+    component.with_footer { "Footer Content" }
+    rendered = render_component(component)
 
     assert_includes rendered, "Header Content"
     assert_includes rendered, "Body Content"
@@ -92,10 +88,9 @@ class Decor::ModalLayoutTest < ActiveSupport::TestCase
 
   test "header slot renders in correct position" do
     component = Decor::ModalLayout.new
-    fragment = render_fragment(component) do |c|
-      c.with_header { "Test Header" }
-      c.with_body { "Test Body" }
-    end
+    component.with_header { "Test Header" }
+    component.with_body { "Test Body" }
+    fragment = render_fragment(component)
 
     # Header should come before body in DOM order
     content = fragment.to_html
@@ -107,10 +102,9 @@ class Decor::ModalLayoutTest < ActiveSupport::TestCase
 
   test "footer slot renders in correct position" do
     component = Decor::ModalLayout.new
-    fragment = render_fragment(component) do |c|
-      c.with_body { "Test Body" }
-      c.with_footer { "Test Footer" }
-    end
+    component.with_body { "Test Body" }
+    component.with_footer { "Test Footer" }
+    fragment = render_fragment(component)
 
     # Footer should come after body in DOM order
     content = fragment.to_html

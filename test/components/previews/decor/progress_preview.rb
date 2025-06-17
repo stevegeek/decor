@@ -299,7 +299,6 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
     )
   end
 
-
   # @group States
   # @label Not Started
   def state_not_started

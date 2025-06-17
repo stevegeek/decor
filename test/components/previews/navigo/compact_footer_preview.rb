@@ -8,14 +8,14 @@ class ::Navigo::CompactFooterPreview < ::Lookbook::Preview
       supplier_name: "Example Company",
       supplier_support_email_address: "support@example.com",
       social_links: [
-        { platform: :twitter, url: "https://twitter.com/example" },
-        { platform: :github, url: "https://github.com/example" },
-        { platform: :linkedin, url: "https://linkedin.com/company/example" }
+        {platform: :twitter, url: "https://twitter.com/example"},
+        {platform: :github, url: "https://github.com/example"},
+        {platform: :linkedin, url: "https://linkedin.com/company/example"}
       ],
       footer_links: [
-        { label: "Support", href: "/support" },
-        { label: "Privacy", href: "/privacy" },
-        { label: "Terms", href: "/terms" }
+        {label: "Support", href: "/support"},
+        {label: "Privacy", href: "/privacy"},
+        {label: "Terms", href: "/terms"}
       ]
     )
   end
@@ -26,12 +26,12 @@ class ::Navigo::CompactFooterPreview < ::Lookbook::Preview
       supplier_name: "Example Company",
       supplier_support_email_address: "support@example.com",
       social_links: [
-        { platform: :facebook, url: "https://facebook.com/example", label: "Follow us on Facebook" },
-        { platform: :twitter, url: "https://twitter.com/example", label: "Follow us on Twitter" },
-        { platform: :instagram, url: "https://instagram.com/example", label: "Follow us on Instagram" },
-        { platform: :linkedin, url: "https://linkedin.com/company/example", label: "Connect on LinkedIn" },
-        { platform: :youtube, url: "https://youtube.com/@example", label: "Subscribe on YouTube" },
-        { platform: :github, url: "https://github.com/example", label: "View our code on GitHub" }
+        {platform: :facebook, url: "https://facebook.com/example", label: "Follow us on Facebook"},
+        {platform: :twitter, url: "https://twitter.com/example", label: "Follow us on Twitter"},
+        {platform: :instagram, url: "https://instagram.com/example", label: "Follow us on Instagram"},
+        {platform: :linkedin, url: "https://linkedin.com/company/example", label: "Connect on LinkedIn"},
+        {platform: :youtube, url: "https://youtube.com/@example", label: "Subscribe on YouTube"},
+        {platform: :github, url: "https://github.com/example", label: "View our code on GitHub"}
       ]
     )
   end
@@ -43,8 +43,8 @@ class ::Navigo::CompactFooterPreview < ::Lookbook::Preview
       supplier_support_email_address: "support@example.com",
       theme: :dark,
       social_links: [
-        { platform: :twitter, url: "https://twitter.com/example" },
-        { platform: :github, url: "https://github.com/example" }
+        {platform: :twitter, url: "https://twitter.com/example"},
+        {platform: :github, url: "https://github.com/example"}
       ]
     )
   end
@@ -56,8 +56,8 @@ class ::Navigo::CompactFooterPreview < ::Lookbook::Preview
       supplier_support_email_address: "support@example.com",
       show_logo: false,
       social_links: [
-        { platform: :twitter, url: "https://twitter.com/example" },
-        { platform: :linkedin, url: "https://linkedin.com/company/example" }
+        {platform: :twitter, url: "https://twitter.com/example"},
+        {platform: :linkedin, url: "https://linkedin.com/company/example"}
       ]
     )
   end
@@ -95,7 +95,6 @@ class ::Navigo::CompactFooterPreview < ::Lookbook::Preview
         div(class: "text-center space-y-2") do
           p(class: "text-xs opacity-70") { "Built with ♥ by our amazing team" }
           p(class: "text-xs opacity-70") do
-            "© 2024 Example Company. Made with "
             a(href: "https://daisyui.com", class: "link", target: "_blank") { "daisyUI" }
           end
         end
@@ -109,13 +108,13 @@ class ::Navigo::CompactFooterPreview < ::Lookbook::Preview
       supplier_name: "Example Company",
       supplier_support_email_address: "support@example.com",
       social_links: [
-        { platform: :twitter, url: "https://twitter.com/example", visible: true },
-        { platform: :facebook, url: "https://facebook.com/example", visible: false },
-        { platform: :github, url: "https://github.com/example", visible: true }
+        {platform: :twitter, url: "https://twitter.com/example", visible: true},
+        {platform: :facebook, url: "https://facebook.com/example", visible: false},
+        {platform: :github, url: "https://github.com/example", visible: true}
       ],
       footer_links: [
-        { label: "Support", href: "/support" },
-        { label: "Privacy", href: "/privacy", external: true }
+        {label: "Support", href: "/support"},
+        {label: "Privacy", href: "/privacy", external: true}
       ]
     )
   end

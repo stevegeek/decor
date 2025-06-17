@@ -20,7 +20,7 @@ module Navigo
     attribute :separator, String, default: "chevron-right"
 
     def initialize(**attrs)
-      super(**attrs)
+      super
       convert_breadcrumbs
     end
 
@@ -130,12 +130,12 @@ module Navigo
         div(class: "text-sm font-medium text-base-content mb-2") do
           plain "Mobile navigation:"
         end
-        
+
         div(class: "space-y-1") do
           if @show_home
             a(
               href: @home_path,
-              class: "block py-2 px-3 rounded-md text-sm #{@home_path == current_path ? 'bg-primary text-primary-content' : 'text-base-content hover:bg-base-300'}"
+              class: "block py-2 px-3 rounded-md text-sm #{(@home_path == current_path) ? "bg-primary text-primary-content" : "text-base-content hover:bg-base-300"}"
             ) do
               plain "Home"
             end
@@ -143,7 +143,7 @@ module Navigo
 
           @breadcrumbs.each do |crumb|
             next if crumb.disabled
-            
+
             if crumb.current || crumb.path == current_path
               div(class: "block py-2 px-3 rounded-md text-sm bg-primary text-primary-content") do
                 plain crumb.name

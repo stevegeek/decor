@@ -1,7 +1,7 @@
 # @label Footer
 class ::Navigo::FooterPreview < ::Lookbook::Preview
   # @!group Basic Examples
-  
+
   # Default footer with link groups and social links
   def default
     render ::Navigo::Footer.new(
@@ -10,32 +10,32 @@ class ::Navigo::FooterPreview < ::Lookbook::Preview
         {
           title: "Products",
           links: [
-            { label: "Features", href: "/features" },
-            { label: "Pricing", href: "/pricing" },
-            { label: "Enterprise", href: "/enterprise" }
+            {label: "Features", href: "/features"},
+            {label: "Pricing", href: "/pricing"},
+            {label: "Enterprise", href: "/enterprise"}
           ]
         },
         {
           title: "Resources",
           links: [
-            { label: "Documentation", href: "/docs" },
-            { label: "API Reference", href: "/api", external: true },
-            { label: "Support", href: "/support", icon: "support" }
+            {label: "Documentation", href: "/docs"},
+            {label: "API Reference", href: "/api", external: true},
+            {label: "Support", href: "/support", icon: "support"}
           ]
         },
         {
           title: "Company",
           links: [
-            { label: "About", href: "/about" },
-            { label: "Blog", href: "/blog" },
-            { label: "Careers", href: "/careers" }
+            {label: "About", href: "/about"},
+            {label: "Blog", href: "/blog"},
+            {label: "Careers", href: "/careers"}
           ]
         }
       ],
       social_links: [
-        { platform: :twitter, url: "https://twitter.com/example" },
-        { platform: :github, url: "https://github.com/example" },
-        { platform: :linkedin, url: "https://linkedin.com/company/example" }
+        {platform: :twitter, url: "https://twitter.com/example"},
+        {platform: :github, url: "https://github.com/example"},
+        {platform: :linkedin, url: "https://linkedin.com/company/example"}
       ]
     )
   end
@@ -50,15 +50,15 @@ class ::Navigo::FooterPreview < ::Lookbook::Preview
         {
           title: "Quick Links",
           links: [
-            { label: "Home", href: "/" },
-            { label: "About", href: "/about" },
-            { label: "Contact", href: "/contact" }
+            {label: "Home", href: "/"},
+            {label: "About", href: "/about"},
+            {label: "Contact", href: "/contact"}
           ]
         }
       ],
       social_links: [
-        { platform: :facebook, url: "https://facebook.com/example" },
-        { platform: :instagram, url: "https://instagram.com/example" }
+        {platform: :facebook, url: "https://facebook.com/example"},
+        {platform: :instagram, url: "https://instagram.com/example"}
       ]
     )
   end
@@ -72,15 +72,15 @@ class ::Navigo::FooterPreview < ::Lookbook::Preview
         {
           title: "Services",
           links: [
-            { label: "Web Development", href: "/web" },
-            { label: "Mobile Apps", href: "/mobile" },
-            { label: "Consulting", href: "/consulting" }
+            {label: "Web Development", href: "/web"},
+            {label: "Mobile Apps", href: "/mobile"},
+            {label: "Consulting", href: "/consulting"}
           ]
         }
       ],
       social_links: [
-        { platform: :github, url: "https://github.com/example" },
-        { platform: :youtube, url: "https://youtube.com/@example" }
+        {platform: :github, url: "https://github.com/example"},
+        {platform: :youtube, url: "https://youtube.com/@example"}
       ]
     )
   end
@@ -100,7 +100,7 @@ class ::Navigo::FooterPreview < ::Lookbook::Preview
           p(class: "text-sm opacity-70") { "This is a custom logo section with additional branding content." }
         end
       end
-      
+
       component.with_content do
         div(class: "space-y-4") do
           h3(class: "footer-title") { "Get in Touch" }
@@ -126,9 +126,7 @@ class ::Navigo::FooterPreview < ::Lookbook::Preview
 
       component.with_copyright do
         p(class: "text-sm opacity-70 text-center") do
-          "© 2024 Custom Copyright. All rights reserved. | "
           a(href: "/privacy", class: "link") { "Privacy Policy" }
-          " | "
           a(href: "/terms", class: "link") { "Terms of Service" }
         end
       end
@@ -144,20 +142,20 @@ class ::Navigo::FooterPreview < ::Lookbook::Preview
           title: "Visible Group",
           visible: true,
           links: [
-            { label: "Public Link", href: "/public" }
+            {label: "Public Link", href: "/public"}
           ]
         },
         {
           title: "Hidden Group",
           visible: false,
           links: [
-            { label: "Hidden Link", href: "/hidden" }
+            {label: "Hidden Link", href: "/hidden"}
           ]
         }
       ],
       social_links: [
-        { platform: :twitter, url: "https://twitter.com/example", visible: true },
-        { platform: :facebook, url: "https://facebook.com/example", visible: false }
+        {platform: :twitter, url: "https://twitter.com/example", visible: true},
+        {platform: :facebook, url: "https://facebook.com/example", visible: false}
       ]
     )
   end
@@ -174,14 +172,14 @@ class ::Navigo::FooterPreview < ::Lookbook::Preview
         {
           title: "Company",
           links: [
-            { label: "About", href: "/about" },
-            { label: "Careers", href: "/careers" }
+            {label: "About", href: "/about"},
+            {label: "Careers", href: "/careers"}
           ]
         }
       ],
       social_links: [
-        { platform: :twitter, url: "https://twitter.com/company" },
-        { platform: :github, url: "https://github.com/company" }
+        {platform: :twitter, url: "https://twitter.com/company"},
+        {platform: :github, url: "https://github.com/company"}
       ]
     )
   end

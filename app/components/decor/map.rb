@@ -101,7 +101,7 @@ module Decor
         api_key: @api_key,
         interactive: @interactive.to_s,
         show_controls: @show_controls.to_s,
-        map_type: @map_type.to_s,
+        map_type: @map_type.to_s
       }
     end
   end

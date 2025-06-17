@@ -158,7 +158,6 @@ class ::Decor::MapPreview < ::Lookbook::Preview
     )
   end
 
-
   # @group Sizes
   # @label Extra Small Size (xs)
   # @param api_key text
@@ -325,7 +324,6 @@ class ::Decor::MapPreview < ::Lookbook::Preview
     )
   end
 
-
   # @group States
   # @label Disabled State
   # @param api_key text
@@ -350,7 +348,6 @@ class ::Decor::MapPreview < ::Lookbook::Preview
       api_key: api_key
     )
   end
-
 
   # @group Layout
   # @label Full Width

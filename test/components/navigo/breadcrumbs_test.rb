@@ -181,7 +181,7 @@ class Navigo::BreadcrumbsTest < ActiveSupport::TestCase
   test "handles objects with duck typing (legacy compatibility)" do
     # Create a mock object that responds to name and path like Loaf::Breadcrumb would
     mock_crumb = Struct.new(:name, :path, :current).new("Legacy", "/legacy", false)
-    
+
     component = Navigo::Breadcrumbs.new(breadcrumbs: [mock_crumb])
     rendered = render_component(component)
 

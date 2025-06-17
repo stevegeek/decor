@@ -50,7 +50,7 @@ module Navigo
     end
 
     def initialize(**attrs)
-      super(**attrs)
+      super
       convert_data_structures
     end
 
@@ -70,7 +70,7 @@ module Navigo
 
     def element_classes
       classes = ["footer"]
-      classes << (@theme == :dark ? "bg-neutral text-neutral-content" : "bg-base-200")
+      classes << ((@theme == :dark) ? "bg-neutral text-neutral-content" : "bg-base-200")
       classes.join(" ")
     end
 

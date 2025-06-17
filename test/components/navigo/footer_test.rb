@@ -32,12 +32,12 @@ class Navigo::FooterTest < ActiveSupport::TestCase
       {
         title: "Products",
         links: [
-          { label: "Feature A", href: "/feature-a" },
-          { label: "Feature B", href: "/feature-b", external: true }
+          {label: "Feature A", href: "/feature-a"},
+          {label: "Feature B", href: "/feature-b", external: true}
         ]
       }
     ]
-    
+
     component = Navigo::Footer.new(
       supplier_name: "Test Company",
       link_groups: link_groups
@@ -53,10 +53,10 @@ class Navigo::FooterTest < ActiveSupport::TestCase
 
   test "renders social links with Literal::Data" do
     social_links = [
-      { platform: :twitter, url: "https://twitter.com/test" },
-      { platform: :github, url: "https://github.com/test" }
+      {platform: :twitter, url: "https://twitter.com/test"},
+      {platform: :github, url: "https://github.com/test"}
     ]
-    
+
     component = Navigo::Footer.new(
       supplier_name: "Test Company",
       social_links: social_links
@@ -133,15 +133,15 @@ class Navigo::FooterTest < ActiveSupport::TestCase
       {
         title: "Visible Group",
         visible: true,
-        links: [{ label: "Visible Link", href: "/visible" }]
+        links: [{label: "Visible Link", href: "/visible"}]
       },
       {
         title: "Hidden Group",
         visible: false,
-        links: [{ label: "Hidden Link", href: "/hidden" }]
+        links: [{label: "Hidden Link", href: "/hidden"}]
       }
     ]
-    
+
     component = Navigo::Footer.new(
       supplier_name: "Test Company",
       link_groups: link_groups
@@ -156,10 +156,10 @@ class Navigo::FooterTest < ActiveSupport::TestCase
 
   test "renders only visible social links" do
     social_links = [
-      { platform: :twitter, url: "https://twitter.com/test", visible: true },
-      { platform: :facebook, url: "https://facebook.com/test", visible: false }
+      {platform: :twitter, url: "https://twitter.com/test", visible: true},
+      {platform: :facebook, url: "https://facebook.com/test", visible: false}
     ]
-    
+
     component = Navigo::Footer.new(
       supplier_name: "Test Company",
       social_links: social_links

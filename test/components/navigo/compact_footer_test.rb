@@ -40,10 +40,10 @@ class Navigo::CompactFooterTest < ActiveSupport::TestCase
 
   test "renders social links with Literal::Data" do
     social_links = [
-      { platform: :twitter, url: "https://twitter.com/test" },
-      { platform: :github, url: "https://github.com/test" }
+      {platform: :twitter, url: "https://twitter.com/test"},
+      {platform: :github, url: "https://github.com/test"}
     ]
-    
+
     component = Navigo::CompactFooter.new(
       supplier_name: "Test Company",
       supplier_support_email_address: "support@test.com",
@@ -58,10 +58,10 @@ class Navigo::CompactFooterTest < ActiveSupport::TestCase
 
   test "renders footer links with Literal::Data" do
     footer_links = [
-      { label: "Support", href: "/support" },
-      { label: "Privacy", href: "/privacy", external: true }
+      {label: "Support", href: "/support"},
+      {label: "Privacy", href: "/privacy", external: true}
     ]
-    
+
     component = Navigo::CompactFooter.new(
       supplier_name: "Test Company",
       supplier_support_email_address: "support@test.com",
@@ -139,10 +139,10 @@ class Navigo::CompactFooterTest < ActiveSupport::TestCase
 
   test "renders only visible social links" do
     social_links = [
-      { platform: :twitter, url: "https://twitter.com/test", visible: true },
-      { platform: :facebook, url: "https://facebook.com/test", visible: false }
+      {platform: :twitter, url: "https://twitter.com/test", visible: true},
+      {platform: :facebook, url: "https://facebook.com/test", visible: false}
     ]
-    
+
     component = Navigo::CompactFooter.new(
       supplier_name: "Test Company",
       supplier_support_email_address: "support@test.com",
@@ -156,14 +156,14 @@ class Navigo::CompactFooterTest < ActiveSupport::TestCase
 
   test "renders all supported social platforms" do
     social_links = [
-      { platform: :facebook, url: "https://facebook.com/test" },
-      { platform: :twitter, url: "https://twitter.com/test" },
-      { platform: :instagram, url: "https://instagram.com/test" },
-      { platform: :linkedin, url: "https://linkedin.com/company/test" },
-      { platform: :youtube, url: "https://youtube.com/@test" },
-      { platform: :github, url: "https://github.com/test" }
+      {platform: :facebook, url: "https://facebook.com/test"},
+      {platform: :twitter, url: "https://twitter.com/test"},
+      {platform: :instagram, url: "https://instagram.com/test"},
+      {platform: :linkedin, url: "https://linkedin.com/company/test"},
+      {platform: :youtube, url: "https://youtube.com/@test"},
+      {platform: :github, url: "https://github.com/test"}
     ]
-    
+
     component = Navigo::CompactFooter.new(
       supplier_name: "Test Company",
       supplier_support_email_address: "support@test.com",
@@ -178,10 +178,10 @@ class Navigo::CompactFooterTest < ActiveSupport::TestCase
 
   test "renders external link attributes correctly" do
     footer_links = [
-      { label: "Internal", href: "/internal", external: false },
-      { label: "External", href: "https://external.com", external: true }
+      {label: "Internal", href: "/internal", external: false},
+      {label: "External", href: "https://external.com", external: true}
     ]
-    
+
     component = Navigo::CompactFooter.new(
       supplier_name: "Test Company",
       supplier_support_email_address: "support@test.com",

@@ -2,7 +2,6 @@
 
 module Decor
   class Progress < PhlexComponent
-
     class ProgressItem < ::Literal::Data
       prop :label_key, String
       prop :href, _Nilable(String)
