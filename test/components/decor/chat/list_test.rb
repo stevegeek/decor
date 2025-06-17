@@ -104,9 +104,9 @@ class Decor::Chat::ListTest < ActiveSupport::TestCase
       empty_state_title: "Custom empty title",
       empty_state_description: "Custom description"
     )
-    rendered = render_component(component) do |c|
-      c.with_empty_state_action do
-        "<button class='btn btn-primary'>Start Chat</button>"
+    rendered = render_component(component) do |list|
+      list.empty_state_action do
+        "Start Chat"
       end
     end
 
