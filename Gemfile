@@ -18,10 +18,11 @@ gem "stimulus-rails"
 gem "tailwindcss-rails"
 
 gem "dry-struct" # TODO: change to Literal
+gem "literal"
 
 gem "view_component"
 gem "phlex-rails", ">= 2.0.0"
-gem "inline_svg"
+gem "inline_svg" # used by Decor::Svg if inline: true
 gem "vident", github: "stevegeek/vident", branch: "main"
 gem "vident-typed", github: "stevegeek/vident", branch: "main"
 gem "vident-phlex", github: "stevegeek/vident", branch: "main"
@@ -31,6 +32,8 @@ gem "vident-view_component", github: "stevegeek/vident", branch: "main"
 gem "vident-typed-view_component", github: "stevegeek/vident", branch: "main"
 gem "lookbook"
 gem "phlexing", github: "stevegeek/phlexing", branch: "main"
+
+gem "claude_swarm", github: "stevegeek/claude-swarm", branch: "tail"
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
