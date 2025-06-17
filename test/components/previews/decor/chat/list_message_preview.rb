@@ -50,12 +50,12 @@ class ::Decor::Chat::ListMessagePreview < ::Lookbook::Preview
             message: "Here's the updated mockup for review:",
             is_current_user: false
           ) do |message|
-            message.with_attachment do
-              message.div(class: "card bg-base-200 p-4 max-w-sm") do
-                message.h4(class: "font-semibold") { "Design_Mockup_v2.png" }
-                message.p(class: "text-sm text-base-content/70") { "2.1 MB • PNG Image" }
-                message.div(class: "mt-2") do
-                  message.render ::Decor::Button.new(size: :small, color: :primary) { "Download" }
+            message.attachment do
+              div(class: "card bg-base-200 p-4 max-w-sm") do
+                h4(class: "font-semibold") { "Design_Mockup_v2.png" }
+                p(class: "text-sm text-base-content/70") { "2.1 MB • PNG Image" }
+                div(class: "mt-2") do
+                  render ::Decor::Button.new(size: :small, color: :primary) { "Download" }
                 end
               end
             end
@@ -100,13 +100,13 @@ class ::Decor::Chat::ListMessagePreview < ::Lookbook::Preview
       message: "Here's the document you requested:",
       is_current_user: false
     ) do |message|
-      message.with_attachment do
-        message.div(class: "bg-base-200 rounded-lg p-3 border border-base-300") do
-          message.div(class: "flex items-center space-x-2") do
-            message.render ::Decor::Icon.new(name: "document-text", variant: :outline, html_options: {class: "w-6 h-6 text-primary"})
-            message.div do
-              message.p(class: "font-medium text-sm") { "Project_Requirements.pdf" }
-              message.p(class: "text-xs text-base-content/70") { "1.8 MB" }
+      message.attachment do
+        div(class: "bg-base-200 rounded-lg p-3 border border-base-300") do
+          div(class: "flex items-center space-x-2") do
+            render ::Decor::Icon.new(name: "document-text", variant: :outline, html_options: {class: "w-6 h-6 text-primary"})
+            div do
+              p(class: "font-medium text-sm") { "Project_Requirements.pdf" }
+              p(class: "text-xs text-base-content/70") { "1.8 MB" }
             end
           end
         end

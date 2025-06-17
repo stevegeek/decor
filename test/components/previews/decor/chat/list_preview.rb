@@ -11,8 +11,8 @@ class ::Decor::Chat::ListPreview < ::Lookbook::Preview
     case chat_type
     when :empty
       render ::Decor::Chat::List.new do |list|
-        list.with_empty_state_action do
-          list.render ::Decor::Button.new(color: :primary) { "Start Conversation" }
+        list.empty_state_action do
+          render ::Decor::Button.new(color: :primary) { "Start Conversation" }
         end
       end
     when :simple
@@ -158,8 +158,8 @@ class ::Decor::Chat::ListPreview < ::Lookbook::Preview
       empty_state_title: "No conversations yet",
       empty_state_description: "Start chatting by sending your first message."
     ) do |list|
-      list.with_empty_state_action do
-        list.render ::Decor::Button.new(color: :primary, size: :small) { "Send Message" }
+      list.empty_state_action do
+        render ::Decor::Button.new(color: :primary, size: :small) { "Send Message" }
       end
     end
   end
