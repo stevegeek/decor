@@ -1,4 +1,6 @@
 require "test_helper"
+require_relative "../../../lib/colors"
+require_relative "../../../lib/sizes"
 
 class Decor::AvatarTest < ActiveSupport::TestCase
   test "renders successfully with initials" do
@@ -165,7 +167,8 @@ class Decor::AvatarTest < ActiveSupport::TestCase
   # COMPREHENSIVE COLOR_CLASSES VALIDATION TESTS
 
   test "validates all color options with filled variant" do
-    Decor::Avatar::COLOR_OPTIONS.each do |color|
+    Colors.members.each do |color_enum|
+      color = color_enum.value
       component = Decor::Avatar.new(initials: "TC", color: color, variant: :filled)
       rendered = render_component(component)
 
@@ -202,7 +205,8 @@ class Decor::AvatarTest < ActiveSupport::TestCase
   end
 
   test "validates all color options with outlined variant" do
-    Decor::Avatar::COLOR_OPTIONS.each do |color|
+    Colors.members.each do |color_enum|
+      color = color_enum.value
       component = Decor::Avatar.new(initials: "TC", color: color, variant: :outlined)
       rendered = render_component(component)
 
@@ -241,7 +245,8 @@ class Decor::AvatarTest < ActiveSupport::TestCase
   end
 
   test "validates all color options with ghost variant" do
-    Decor::Avatar::COLOR_OPTIONS.each do |color|
+    Colors.members.each do |color_enum|
+      color = color_enum.value
       component = Decor::Avatar.new(initials: "TC", color: color, variant: :ghost)
       rendered = render_component(component)
 
@@ -306,8 +311,10 @@ class Decor::AvatarTest < ActiveSupport::TestCase
 
   test "ensures no dynamic string building or nil values in output" do
     # Test that all combinations produce valid class strings with no interpolation artifacts
-    Decor::Avatar::COLOR_OPTIONS.each do |color|
-      Decor::Avatar::VARIANT_OPTIONS.each do |variant|
+    Colors.members.each do |color_enum|
+      Decor::Avatar::Variant.members.each do |variant_enum|
+        color = color_enum.value
+        variant = variant_enum.value
         component = Decor::Avatar.new(initials: "TC", color: color, variant: variant)
         rendered = render_component(component)
 
@@ -331,5 +338,29 @@ class Decor::AvatarTest < ActiveSupport::TestCase
     assert_includes rendered, "text-neutral-content"
     assert_includes rendered, "w-10" # default size
     assert_includes rendered, "rounded-full" # default shape
+  end
+
+  test "supports size enum aliases" do
+    # Test that long form aliases work the same as short forms
+    component_short = Decor::Avatar.new(initials: "SM", size: :sm)
+    component_long = Decor::Avatar.new(initials: "SM", size: Sizes::Small)
+    
+    rendered_short = render_component(component_short)
+    rendered_long = render_component(component_long)
+    
+    # Both should produce the same size classes
+    assert_includes rendered_short, "w-8"
+    assert_includes rendered_long, "w-8"
+    assert_includes rendered_short, "text-sm"
+    assert_includes rendered_long, "text-sm"
+    
+    # Test other aliases
+    component_xs = Decor::Avatar.new(initials: "XS", size: Sizes::ExtraSmall)
+    rendered_xs = render_component(component_xs)
+    assert_includes rendered_xs, "w-6"
+    
+    component_lg = Decor::Avatar.new(initials: "LG", size: Sizes::Large)
+    rendered_lg = render_component(component_lg)
+    assert_includes rendered_lg, "w-16"
   end
 end

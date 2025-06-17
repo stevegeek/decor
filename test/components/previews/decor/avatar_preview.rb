@@ -1,4 +1,8 @@
 # @label Avatar
+
+require_relative "../../../lib/colors"
+require_relative "../../../lib/sizes"
+
 class ::Decor::AvatarPreview < ::Lookbook::Preview
   # Avatars
   # -------
@@ -285,6 +289,18 @@ class ::Decor::AvatarPreview < ::Lookbook::Preview
       concat render(::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :primary))
       concat render(::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :secondary))
       concat render(::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :accent))
+    end
+  end
+
+  # @group Advanced Examples
+  # @label Size Enum Aliases
+  def advanced_size_aliases
+    content_tag :div, class: "flex items-center space-x-2" do
+      concat render(::Decor::Avatar.new(initials: "XS", size: ::Sizes::ExtraSmall))
+      concat render(::Decor::Avatar.new(initials: "SM", size: ::Sizes::Small))
+      concat render(::Decor::Avatar.new(initials: "MD", size: ::Sizes::Medium))
+      concat render(::Decor::Avatar.new(initials: "LG", size: ::Sizes::Large))
+      concat render(::Decor::Avatar.new(initials: "XL", size: ::Sizes::ExtraLarge))
     end
   end
 end

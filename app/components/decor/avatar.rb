@@ -4,24 +4,16 @@ module Decor
   class Avatar < PhlexComponent
     no_stimulus_controller
 
-    with_cache_key :attributes
+    # with_cache_key :attributes
 
-    attribute :url, String, allow_nil: true, allow_blank: false
-    attribute :initials, String, allow_blank: false, allow_nil: true
+    prop :url, _Nilable(String)
+    prop :initials, _Nilable(String)
 
-    SHAPE_OPTIONS = %i[circle square].freeze
-    attribute :shape, Symbol, in: SHAPE_OPTIONS, default: :circle
-
-    attribute :border, :boolean, default: false
-
-    SIZE_OPTIONS = %i[xs sm md lg xl].freeze
-    attribute :size, Symbol, in: SIZE_OPTIONS, default: :md
-
-    COLOR_OPTIONS = %i[base primary secondary accent success error warning info neutral].freeze
-    attribute :color, Symbol, in: COLOR_OPTIONS, default: :neutral
-
-    VARIANT_OPTIONS = %i[filled outlined ghost].freeze
-    attribute :variant, Symbol, in: VARIANT_OPTIONS, default: :filled
+    prop :shape, Shapes, default: -> { Shapes::Circle }, &Shapes
+    prop :border, _Boolean, default: false
+    prop :size, Sizes, default: -> { Sizes::Md }, &Sizes
+    prop :color, _Union(Colors, Symbol), default: -> { Colors::Neutral }, &Colors
+    prop :variant, _Union(Variants, Symbol), default: -> { Variants::Filled }, &Variants
 
     private
 
@@ -50,20 +42,20 @@ module Decor
     end
 
     def shape_class
-      (@shape == :circle) ? "rounded-full" : "rounded"
+      @shape.circle? ? "rounded-full" : "rounded"
     end
 
     def size_classes
       case @size
-      when :xs
+      when Sizes::Xs
         "w-6"
-      when :sm
+      when Sizes::Sm
         "w-8"
-      when :md
+      when Sizes::Md
         "w-10"
-      when :lg
+      when Sizes::Lg
         "w-16"
-      when :xl
+      when Sizes::Xl
         "w-24"
       else
         "w-10"
@@ -71,7 +63,7 @@ module Decor
     end
 
     def text_size_class
-      case @size
+      case @size.value
       when :xs
         "text-xs"
       when :sm
@@ -92,57 +84,57 @@ module Decor
     end
 
     def color_classes
-      case @color
+      case @color.value
       when :base
-        case @variant
+        case @variant.value
         when :filled then "bg-base text-base-content"
         when :outlined then "text-base border-2 border-base"
         when :ghost then "text-base hover:bg-base/20 hover:border-2 hover:border-base"
         end
       when :primary
-        case @variant
+        case @variant.value
         when :filled then "bg-primary text-primary-content"
         when :outlined then "text-primary border-2 border-primary"
         when :ghost then "text-primary hover:bg-primary/20 hover:border-2 hover:border-primary"
         end
       when :secondary
-        case @variant
+        case @variant.value
         when :filled then "bg-secondary text-secondary-content"
         when :outlined then "text-secondary border-2 border-secondary"
         when :ghost then "text-secondary hover:bg-secondary/20 hover:border-2 hover:border-secondary"
         end
       when :accent
-        case @variant
+        case @variant.value
         when :filled then "bg-accent text-accent-content"
         when :outlined then "text-accent border-2 border-accent"
         when :ghost then "text-accent hover:bg-accent/20 hover:border-2 hover:border-accent"
         end
       when :success
-        case @variant
+        case @variant.value
         when :filled then "bg-success text-success-content"
         when :outlined then "text-success border-2 border-success"
         when :ghost then "text-success hover:bg-success/20 hover:border-2 hover:border-success"
         end
       when :error
-        case @variant
+        case @variant.value
         when :filled then "bg-error text-error-content"
         when :outlined then "text-error border-2 border-error"
         when :ghost then "text-error hover:bg-error/20 hover:border-2 hover:border-error"
         end
       when :warning
-        case @variant
+        case @variant.value
         when :filled then "bg-warning text-warning-content"
         when :outlined then "text-warning border-2 border-warning"
         when :ghost then "text-warning hover:bg-warning/20 hover:border-2 hover:border-warning"
         end
       when :info
-        case @variant
+        case @variant.value
         when :filled then "bg-info text-info-content"
         when :outlined then "text-info border-2 border-info"
         when :ghost then "text-info hover:bg-info/20 hover:border-2 hover:border-info"
         end
       when :neutral
-        case @variant
+        case @variant.value
         when :filled then "bg-neutral text-neutral-content"
         when :outlined then "text-neutral border-2 border-neutral"
         when :ghost then "text-neutral hover:bg-neutral/20 hover:border-2 hover:border-neutral"

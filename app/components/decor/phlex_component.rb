@@ -2,6 +2,8 @@
 
 module Decor
   class PhlexComponent < ::Vident::Typed::Phlex::HTML
+    extend Literal::Properties
+
     include ::Vident::Caching
     include ::Vident::Tailwind
 
