@@ -1,0 +1,177 @@
+<% content_for :title, "CloudStack Pro - Instance Details" %>
+
+<div class="container mx-auto px-4 py-6">
+  <!-- Instance Header -->
+  <div class="mb-8">
+    <div class="flex justify-between items-start">
+      <div>
+        <%= render ::Decor::Title.new(text: @instance[:name], level: 1) %>
+        <div class="flex items-center space-x-4 mt-2">
+          <span class="text-gray-600"><%= @instance[:id] %></span>
+          <%= render ::Decor::Badge.new(
+            text: @instance[:status].humanize,
+            color: case @instance[:status]
+                   when 'running' then :success
+                   when 'stopped' then :neutral
+                   when 'error' then :danger
+                   else :warning
+                   end
+          ) %>
+          <%= render ::Decor::Badge.new(
+            text: @instance[:instance_type],
+            color: :info,
+            variant: :outlined
+          ) %>
+        </div>
+      </div>
+      
+      <!-- Action Buttons -->
+      <div class="flex space-x-2">
+        <%= render ::Decor::Button.new(
+          label: @instance[:status] == 'running' ? "Stop" : "Start",
+          color: @instance[:status] == 'running' ? :warning : :success,
+          icon: @instance[:status] == 'running' ? "stop" : "play"
+        ) %>
+        <%= render ::Decor::Button.new(
+          label: "Restart",
+          color: :secondary,
+          variant: :outlined,
+          icon: "arrow-path"
+        ) %>
+        <%= render ::Decor::Dropdown.new(color: :neutral, variant: :outlined) do |dropdown| %>
+          <% dropdown.trigger_button_content do %>
+            More Actions
+            <%= render ::Decor::Icon.new(name: "chevron-down", html_options: {class: "ml-1 h-4 w-4"}) %>
+          <% end %>
+          
+          <% dropdown.menu_item(::Decor::DropdownItem.new(text: "Create Image", href: "#", icon_name: "camera")) %>
+          <% dropdown.menu_item(::Decor::DropdownItem.new(text: "Create Snapshot", href: "#", icon_name: "document-duplicate")) %>
+          <% dropdown.menu_item(::Decor::DropdownItem.new(separator: true)) %>
+          <% dropdown.menu_item(::Decor::DropdownItem.new(text: "Terminate", href: "#", icon_name: "trash")) %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Instance Details Tabs -->
+  <%= render ::Decor::Tabs.new(default_tab: "overview") do |tabs| %>
+    <% tabs.tab(id: "overview", label: "Overview") do %>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Instance Information -->
+        <%= render ::Decor::Card.new(title: "Instance Information", size: :lg) do |card| %>
+          <div class="space-y-4">
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <div class="text-sm font-medium text-gray-500">Instance ID</div>
+                <div class="mt-1">
+                  <%= @instance[:id] %>
+                  <%= render ::Decor::ClickToCopy.new(text: @instance[:id], html_options: {class: "ml-2"}) %>
+                </div>
+              </div>
+              <div>
+                <div class="text-sm font-medium text-gray-500">Instance Type</div>
+                <div class="mt-1"><%= @instance[:instance_type] %></div>
+              </div>
+              <div>
+                <div class="text-sm font-medium text-gray-500">Created</div>
+                <div class="mt-1"><%= @instance[:created_at].strftime("%B %d, %Y") %></div>
+              </div>
+              <div>
+                <div class="text-sm font-medium text-gray-500">Monthly Cost</div>
+                <div class="mt-1 font-semibold text-green-600">$<%= @instance[:monthly_cost] %></div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+        <!-- Resource Usage -->
+        <%= render ::Decor::Card.new(title: "Current Resource Usage", size: :lg) do |card| %>
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between text-sm">
+                <span>CPU Usage</span>
+                <span><%= @instance[:cpu_usage] %>%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
+                <div class="bg-blue-600 h-2 rounded-full" style="width: <%= @instance[:cpu_usage] %>%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm">
+                <span>Memory Usage</span>
+                <span><%= @instance[:memory_usage] %>%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
+                <div class="bg-green-600 h-2 rounded-full" style="width: <%= @instance[:memory_usage] %>%"></div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <% tabs.tab(id: "monitoring", label: "Monitoring") do %>
+      <%= render ::Decor::Card.new(title: "Performance Metrics", size: :lg) do |card| %>
+        <div class="mb-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+          <%= render ::Decor::Icon.new(name: "chart-bar", html_options: {class: "inline h-5 w-5 text-blue-600 mr-2"}) %>
+          <span class="text-blue-800">Monitoring charts would be implemented here with a charting library.</span>
+        </div>
+        <p class="text-gray-600">CPU, Memory, Network, and Disk I/O charts over time...</p>
+      <% end %>
+    <% end %>
+
+    <% tabs.tab(id: "network", label: "Network & Security") do %>
+      <%= render ::Decor::Card.new(title: "Network Configuration", size: :lg) do |card| %>
+        <div class="space-y-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <div class="text-sm font-medium text-gray-500">VPC ID</div>
+              <div class="mt-1"><%= @network_settings[:vpc_id] %></div>
+            </div>
+            <div>
+              <div class="text-sm font-medium text-gray-500">Subnet ID</div>
+              <div class="mt-1"><%= @network_settings[:subnet_id] %></div>
+            </div>
+            <div>
+              <div class="text-sm font-medium text-gray-500">Public IP</div>
+              <div class="mt-1">
+                <%= @network_settings[:public_ip] %>
+                <%= render ::Decor::ClickToCopy.new(text: @network_settings[:public_ip], html_options: {class: "ml-2"}) %>
+              </div>
+            </div>
+            <div>
+              <div class="text-sm font-medium text-gray-500">Private IP</div>
+              <div class="mt-1">
+                <%= @network_settings[:private_ip] %>
+                <%= render ::Decor::ClickToCopy.new(text: @network_settings[:private_ip], html_options: {class: "ml-2"}) %>
+              </div>
+            </div>
+          </div>
+          
+          <div>
+            <div class="text-sm font-medium text-gray-500 mb-2">Security Groups</div>
+            <div class="flex space-x-2">
+              <% @network_settings[:security_groups].each do |sg| %>
+                <%= render ::Decor::Badge.new(text: sg, color: :info, variant: :outlined) %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+
+    <% tabs.tab(id: "storage", label: "Storage") do %>
+      <%= render ::Decor::Card.new(title: "Storage Configuration", size: :lg) do |card| %>
+        <p class="text-gray-600">Storage volumes, snapshots, and backup configuration...</p>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <!-- Back to Instances -->
+  <div class="mt-8">
+    <%= render ::Decor::Link.new(
+      href: cloudstack_instances_path,
+      text: "← Back to Instances"
+    ) %>
+  </div>
+</div>

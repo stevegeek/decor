@@ -1,0 +1,166 @@
+<% content_for :title, "CloudStack Pro - Instances" %>
+
+<div class="container mx-auto px-4 py-6">
+  <!-- Page Header -->
+  <div class="flex justify-between items-center mb-8">
+    <div>
+      <%= render ::Decor::Title.new(text: "Instance Management", level: 1) %>
+      <p class="text-gray-600 mt-2">Manage all your cloud instances in one place.</p>
+    </div>
+    <%= render ::Decor::Button.new(
+      label: "Launch Instance",
+      color: :primary,
+      icon: "plus",
+      element_tag: :a,
+      size: :large
+    ) %>
+  </div>
+
+  <!-- Instance Status Tabs -->
+  <%= render ::Decor::Tabs.new(default_tab: "all") do |tabs| %>
+    <% tabs.tab(id: "all", label: "All Instances") do %>
+      <!-- TODO: Replace with DataTableBuilder implementation -->
+      <%= render ::Decor::Card.new(title: "All Instances (#{@instances.count})", size: :lg) do |card| %>
+        <div class="mb-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+          <%= render ::Decor::Icon.new(name: "information-circle", html_options: {class: "inline h-5 w-5 text-yellow-600 mr-2"}) %>
+          <span class="text-yellow-800">DataTableBuilder implementation coming soon. This is a mock table for now.</span>
+        </div>
+        
+        <!-- Mock Instance Table -->
+        <div class="overflow-x-auto">
+          <table class="table table-zebra w-full">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Type</th>
+                <th>CPU</th>
+                <th>Memory</th>
+                <th>Monthly Cost</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @instances.each do |instance| %>
+                <tr class="hover">
+                  <td>
+                    <div class="font-medium"><%= instance[:name] %></div>
+                    <div class="text-sm text-gray-500"><%= instance[:id] %></div>
+                  </td>
+                  <td>
+                    <%= render ::Decor::Badge.new(
+                      text: instance[:status].humanize,
+                      color: case instance[:status]
+                             when 'running' then :success
+                             when 'stopped' then :neutral
+                             when 'error' then :danger
+                             else :warning
+                             end
+                    ) %>
+                  </td>
+                  <td><%= instance[:instance_type] %></td>
+                  <td><%= instance[:cpu_usage] %>%</td>
+                  <td><%= instance[:memory_usage] %>%</td>
+                  <td>$<%= instance[:monthly_cost] %></td>
+                  <td>
+                    <%= render ::Decor::Dropdown.new(color: :primary, size: :sm) do |dropdown| %>
+                      <% dropdown.trigger_button_content do %>
+                        Actions
+                        <%= render ::Decor::Icon.new(name: "chevron-down", html_options: {class: "ml-1 h-4 w-4"}) %>
+                      <% end %>
+                      
+                      <% dropdown.menu_item(::Decor::DropdownItem.new(
+                        text: "View Details",
+                        href: cloudstack_instance_path(instance[:id]),
+                        icon_name: "eye"
+                      )) %>
+                      <% dropdown.menu_item(::Decor::DropdownItem.new(
+                        text: instance[:status] == 'running' ? "Stop" : "Start",
+                        href: "#",
+                        icon_name: instance[:status] == 'running' ? "stop" : "play"
+                      )) %>
+                      <% dropdown.menu_item(::Decor::DropdownItem.new(
+                        text: "Restart",
+                        href: "#",
+                        icon_name: "arrow-path"
+                      )) %>
+                      <% dropdown.menu_item(::Decor::DropdownItem.new(separator: true)) %>
+                      <% dropdown.menu_item(::Decor::DropdownItem.new(
+                        text: "Delete",
+                        href: "#",
+                        icon_name: "trash",
+                        http_method: :delete
+                      )) %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% end %>
+    <% end %>
+
+    <% tabs.tab(id: "running", label: "Running") do %>
+      <%= render ::Decor::Card.new(title: "Running Instances", size: :lg) do |card| %>
+        <p class="text-gray-600">Show only running instances...</p>
+      <% end %>
+    <% end %>
+
+    <% tabs.tab(id: "stopped", label: "Stopped") do %>
+      <%= render ::Decor::Card.new(title: "Stopped Instances", size: :lg) do |card| %>
+        <p class="text-gray-600">Show only stopped instances...</p>
+      <% end %>
+    <% end %>
+
+    <% tabs.tab(id: "error", label: "Error") do %>
+      <%= render ::Decor::Card.new(title: "Instances with Errors", size: :lg) do |card| %>
+        <p class="text-gray-600">Show only instances with errors...</p>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <!-- Bulk Actions -->
+  <div class="mt-6 flex justify-between items-center">
+    <div class="flex space-x-2">
+      <%= render ::Decor::Button.new(
+        label: "Start Selected",
+        color: :success,
+        variant: :outlined,
+        size: :small,
+        disabled: true
+      ) %>
+      <%= render ::Decor::Button.new(
+        label: "Stop Selected",
+        color: :warning,
+        variant: :outlined,
+        size: :small,
+        disabled: true
+      ) %>
+      <%= render ::Decor::Button.new(
+        label: "Delete Selected",
+        color: :danger,
+        variant: :outlined,
+        size: :small,
+        disabled: true
+      ) %>
+    </div>
+    
+    <div class="flex space-x-2">
+      <%= render ::Decor::Button.new(
+        label: "Export CSV",
+        color: :neutral,
+        variant: :outlined,
+        icon: "arrow-down-tray",
+        size: :small
+      ) %>
+      <%= render ::Decor::Button.new(
+        label: "Refresh",
+        color: :neutral,
+        variant: :outlined,
+        icon: "arrow-path",
+        size: :small
+      ) %>
+    </div>
+  </div>
+</div>
