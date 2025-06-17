@@ -27,8 +27,8 @@
       <%= yield %>
     </main>
 
-    <%= render ::Decor::Modal.new %>
-    <%= render ::Decor::ConfirmModal.new %>
+    <%= render ::Decor::Modals::Modal.new %>
+    <%= render ::Decor::Modals::ConfirmModal.new %>
     <%= render ::Decor::NotificationManager.new(
       data_maps: [
         {
