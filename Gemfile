@@ -17,7 +17,8 @@ gem "stimulus-rails"
 # Use Tailwind CSS [https://github.com/rails/tailwindcss-rails]
 gem "tailwindcss-rails"
 
-gem "dry-struct" # TODO: change to Literal
+gem "literal"
+gem "dry-struct"
 
 gem "view_component"
 gem "phlex-rails", ">= 2.0.0"
