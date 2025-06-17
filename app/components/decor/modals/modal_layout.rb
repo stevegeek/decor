@@ -5,13 +5,9 @@ module Decor
     class ModalLayout < PhlexComponent
       attribute :title, String
       attribute :description, String
+      attribute :icon, String
 
-      MODAL_TYPES = [:info, :warning, :error, :success, :edit, :new].freeze
-
-      # Backward compatibility
-      attribute :style, Symbol, default: :info
-
-      # Modern attributes following Button/Notification patterns
+      # Standard attributes following Button/Notification patterns
       attribute :color, Symbol, default: :base, in: [:base, :primary, :secondary, :accent, :info, :success, :warning, :error, :neutral]
       attribute :variant, Symbol, default: :filled, in: [:filled, :outlined, :ghost]
       attribute :size, Symbol, default: :medium, in: [:small, :medium, :large, :extra_large]
@@ -43,14 +39,14 @@ module Decor
             if @body
               render @body
             elsif @title || @description
-              # Legacy icon/title/description layout
+              # Icon/title/description layout
               div(class: "sm:flex sm:items-start") do
                 if show_icon?
                   div(class: "mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full #{icon_background_classes} sm:mx-0 sm:h-10 sm:w-10") do
-                    render ::Decor::Icon.new(name: icon_name, html_options: {class: "h-6 w-6 #{icon_text_classes}"})
+                    render ::Decor::Icon.new(name: @icon, html_options: {class: "h-6 w-6 #{icon_text_classes}"})
                   end
                 end
-                div(class: "#{show_icon? ? 'mt-3 sm:mt-0 sm:ml-4' : ''} text-center sm:text-left") do
+                div(class: "#{show_icon? ? "mt-3 sm:mt-0 sm:ml-4" : ""} text-center sm:text-left") do
                   if @title
                     h3(class: "text-lg leading-6 font-medium") { @title }
                   end
@@ -62,7 +58,7 @@ module Decor
                 end
               end
             end
-            # Legacy content from yield
+            # Content from yield
             yield if block_given? && !@body
           end
 
@@ -101,23 +97,23 @@ module Decor
       def color_classes
         return "" if @variant == :ghost
 
-        case effective_color
+        case @color
         when :primary
-          @variant == :outlined ? "border-primary" : "bg-primary/10"
+          (@variant == :outlined) ? "border-primary" : "bg-primary/10"
         when :secondary
-          @variant == :outlined ? "border-secondary" : "bg-secondary/10"
+          (@variant == :outlined) ? "border-secondary" : "bg-secondary/10"
         when :accent
-          @variant == :outlined ? "border-accent" : "bg-accent/10"
+          (@variant == :outlined) ? "border-accent" : "bg-accent/10"
         when :info
-          @variant == :outlined ? "border-info" : "bg-info/10"
+          (@variant == :outlined) ? "border-info" : "bg-info/10"
         when :success
-          @variant == :outlined ? "border-success" : "bg-success/10"
+          (@variant == :outlined) ? "border-success" : "bg-success/10"
         when :warning
-          @variant == :outlined ? "border-warning" : "bg-warning/10"
+          (@variant == :outlined) ? "border-warning" : "bg-warning/10"
         when :error
-          @variant == :outlined ? "border-error" : "bg-error/10"
+          (@variant == :outlined) ? "border-error" : "bg-error/10"
         when :neutral
-          @variant == :outlined ? "border-neutral" : "bg-neutral/10"
+          (@variant == :outlined) ? "border-neutral" : "bg-neutral/10"
         else # :base
           ""
         end
@@ -135,49 +131,11 @@ module Decor
       end
 
       def show_icon?
-        @title || @description
-      end
-
-      def effective_color
-        # Map legacy style to color for backward compatibility
-        if @style != :info
-          style_to_color_map[@style] || @color
-        else
-          @color
-        end
-      end
-
-      def style_to_color_map
-        {
-          new: :primary,
-          edit: :secondary,
-          warning: :warning,
-          error: :error,
-          success: :success,
-          info: :info
-        }
-      end
-
-      def icon_name
-        case @style
-        when :new
-          "plus-circle"
-        when :edit
-          "pencil-alt"
-        when :warning
-          "exclamation"
-        when :error
-          "exclamation-circle"
-        when :success
-          "check"
-        else
-          "information-circle"
-        end
+        @icon.present?
       end
 
       def icon_text_classes
-        color = effective_color
-        case color
+        case @color
         when :primary
           "text-primary"
         when :secondary
@@ -200,8 +158,7 @@ module Decor
       end
 
       def icon_background_classes
-        color = effective_color
-        case color
+        case @color
         when :primary
           "bg-primary/20"
         when :secondary
@@ -224,7 +181,4 @@ module Decor
       end
     end
   end
-  
-  # Backward compatibility alias
-  ModalLayout = Modals::ModalLayout
 end

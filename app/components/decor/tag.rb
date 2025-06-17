@@ -24,7 +24,7 @@ module Decor
 
     private
 
-    def parent_element_attributes
+    def root_element_attributes
       {
         element_tag: :span
       }
