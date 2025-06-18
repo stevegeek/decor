@@ -13,5 +13,10 @@ module Decor
     include ::Phlex::Rails::Helpers::ImageTag
     include ::Phlex::Rails::Helpers::LinkTo
     include ::Phlex::Rails::Helpers::ContentTag
+
+    # Shared attribute helpers
+    include Decor::Concerns::SizeClassHelper
+    include Decor::Concerns::ColorClassHelper
+    include Decor::Concerns::VariantClassHelper
   end
 end

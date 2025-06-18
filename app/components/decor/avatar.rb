@@ -54,20 +54,7 @@ module Decor
     end
 
     def size_classes
-      case @size
-      when :xs
-        "w-6"
-      when :sm
-        "w-8"
-      when :md
-        "w-10"
-      when :lg
-        "w-16"
-      when :xl
-        "w-24"
-      else
-        "w-10"
-      end
+      avatar_size_classes
     end
 
     def text_size_class

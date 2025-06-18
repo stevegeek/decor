@@ -51,13 +51,7 @@ module Decor
     end
 
     def size_classes
-      case @size
-      when :xs then "tooltip-xs"
-      when :sm then "tooltip-sm"
-      when :lg then "tooltip-lg"
-      when :xl then "tooltip-xl"
-      else nil # md is default, no class needed
-      end
+      daisy_ui_size_classes("tooltip")
     end
 
     def color_classes
