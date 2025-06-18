@@ -21,7 +21,7 @@ class ::Decor::PaginationPreview < ::Lookbook::Preview
   )
     fake_items = (1..[[number_of_items, 0].max, 10_000].min).to_a
     @collection = ::ApplicationCollectionBackedQuery.wrap(fake_items).new(
-      page: current_page, 
+      page: current_page,
       page_size: per_page || 20
     )
 
@@ -39,7 +39,7 @@ class ::Decor::PaginationPreview < ::Lookbook::Preview
   # @label First Page (Previous Disabled)
   def first_page
     @collection = ::ApplicationCollectionBackedQuery.wrap((1..100).to_a).new(page: 1, page_size: 10)
-    
+
     render ::Decor::Pagination.new(
       current_page: 1,
       page_size: 10,
@@ -52,7 +52,7 @@ class ::Decor::PaginationPreview < ::Lookbook::Preview
   # @label Last Page (Next Disabled)
   def last_page
     @collection = ::ApplicationCollectionBackedQuery.wrap((1..100).to_a).new(page: 10, page_size: 10)
-    
+
     render ::Decor::Pagination.new(
       current_page: 10,
       page_size: 10,
@@ -65,7 +65,7 @@ class ::Decor::PaginationPreview < ::Lookbook::Preview
   # @label Single Page (No Navigation)
   def single_page
     @collection = ::ApplicationCollectionBackedQuery.wrap((1..8).to_a).new(page: 1, page_size: 20)
-    
+
     render ::Decor::Pagination.new(
       current_page: 1,
       page_size: 20,
@@ -79,7 +79,7 @@ class ::Decor::PaginationPreview < ::Lookbook::Preview
   # @label With Page Size Selector
   def with_page_size_selector
     @collection = ::ApplicationCollectionBackedQuery.wrap((1..500).to_a).new(page: 3, page_size: 25)
-    
+
     render ::Decor::Pagination.new(
       current_page: 3,
       page_size: 25,
@@ -95,7 +95,7 @@ class ::Decor::PaginationPreview < ::Lookbook::Preview
   def high_page_numbers
     fake_items = (1..5000).to_a
     @collection = ::ApplicationCollectionBackedQuery.wrap(fake_items).new(page: 125, page_size: 20)
-    
+
     render ::Decor::Pagination.new(
       current_page: 125,
       page_size: 20,
@@ -109,7 +109,7 @@ class ::Decor::PaginationPreview < ::Lookbook::Preview
   # @label Mobile Layout
   def mobile_layout
     @collection = ::ApplicationCollectionBackedQuery.wrap((1..100).to_a).new(page: 3, page_size: 10)
-    
+
     div(class: "max-w-sm mx-auto") do
       render ::Decor::Pagination.new(
         current_page: 3,
@@ -125,19 +125,19 @@ class ::Decor::PaginationPreview < ::Lookbook::Preview
   # @label With Data Table
   def with_data_table
     @collection = ::ApplicationCollectionBackedQuery.wrap((1..200).to_a).new(page: 4, page_size: 15)
-    
+
     div(class: "bg-base-100 border border-base-300 rounded-lg") do
       div(class: "px-4 py-3 border-b border-base-300") do
         h3(class: "text-lg font-medium text-base-content") { "Product Inventory" }
         p(class: "text-sm text-base-content/70") { "Manage your product catalog" }
       end
-      
+
       div(class: "p-4") do
         div(class: "text-center text-base-content/70 py-8") do
           "Table content would go here..."
         end
       end
-      
+
       render ::Decor::Pagination.new(
         current_page: 4,
         page_size: 15,
