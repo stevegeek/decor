@@ -75,48 +75,48 @@ module Decor
 
             # Main pagination with DaisyUI join pattern
             div(class: "join") do
-            # Previous button
-            a(
-              href: prev_page_path,
-              class: "join-item btn btn-sm #{first_page? ? 'btn-disabled' : 'btn-outline'}",
-              disabled: first_page?
-            ) do
-              render ::Decor::Icon.new(name: "chevron-left", variant: :solid, html_options: {class: "h-4 w-4"})
-              span(class: "sr-only") { "Previous" }
-            end
+              # Previous button
+              a(
+                href: prev_page_path,
+                class: "join-item btn btn-sm #{first_page? ? "btn-disabled" : "btn-outline"}",
+                disabled: first_page?
+              ) do
+                render ::Decor::Icon.new(name: "chevron-left", variant: :solid, html_options: {class: "h-4 w-4"})
+                span(class: "sr-only") { "Previous" }
+              end
 
-            # Page numbers and ellipses
-            page_indicies_and_ellipses.each do |page|
-              if page[:index].present?
-                a(
-                  href: page[:path],
-                  rel: page[:rel],
-                  class: "join-item btn btn-sm #{page[:current] ? 'btn-active btn-primary' : 'btn-outline'}"
-                ) { page[:index].to_s }
-              else
-                # Ellipsis dropdown with DaisyUI styling
-                render ::Decor::Dropdown.new(
-                  size: :sm,
-                  button_classes: ["btn-ghost", "border-y-black", "join-item"]
-                ) do |dropdown|
-                  dropdown.trigger_button_content { "..." }
-                  page[:list_of_pages_for_dropdown]&.each do |pl|
-                    dropdown.menu_item(::Decor::DropdownItem.new(text: pl[:index].to_s, href: pl[:path], tabindex: pl[:index]))
+              # Page numbers and ellipses
+              page_indicies_and_ellipses.each do |page|
+                if page[:index].present?
+                  a(
+                    href: page[:path],
+                    rel: page[:rel],
+                    class: "join-item btn btn-sm #{page[:current] ? "btn-active btn-primary" : "btn-outline"}"
+                  ) { page[:index].to_s }
+                else
+                  # Ellipsis dropdown with DaisyUI styling
+                  render ::Decor::Dropdown.new(
+                    size: :sm,
+                    button_classes: ["btn-ghost", "border-y-black", "join-item"]
+                  ) do |dropdown|
+                    dropdown.trigger_button_content { "..." }
+                    page[:list_of_pages_for_dropdown]&.each do |pl|
+                      dropdown.menu_item(::Decor::DropdownItem.new(text: pl[:index].to_s, href: pl[:path], tabindex: pl[:index]))
+                    end
                   end
                 end
               end
-            end
 
-            # Next button
-            a(
-              href: next_page_path,
-              title: "Next page",
-              class: "join-item btn btn-sm #{last_page? ? 'btn-disabled' : 'btn-outline'}",
-              disabled: last_page?
-            ) do
-              render ::Decor::Icon.new(name: "chevron-right", variant: :solid, html_options: {class: "h-4 w-4"})
-              span(class: "sr-only") { "Next" }
-            end
+              # Next button
+              a(
+                href: next_page_path,
+                title: "Next page",
+                class: "join-item btn btn-sm #{last_page? ? "btn-disabled" : "btn-outline"}",
+                disabled: last_page?
+              ) do
+                render ::Decor::Icon.new(name: "chevron-right", variant: :solid, html_options: {class: "h-4 w-4"})
+                span(class: "sr-only") { "Next" }
+              end
             end
           end
         end
