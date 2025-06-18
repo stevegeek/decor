@@ -1,0 +1,22 @@
+<% klass = Class.new(::Decor::Tables::DataTableBuilder) do
+  def pagination_options
+    {path: "#"}
+  end
+end
+dt = klass.new(
+  {
+    title: title,
+    header_height: :standard,
+    row_height: :tight,
+    rows_selectable_as_name: rows_selectable_as_name&.to_sym,
+    pagination: false,
+    query: ::ApplicationCollectionBackedQuery.wrap((1..10).to_a).new
+  },
+  params,
+  self
+) do |dt|
+  dt.column(:col1, numeric: true) { Random.rand }
+  dt.column(:col2, stretch: true, sortable: true) { Random.rand }
+  dt.column(:col3, emphasis: :low) { Random.rand }
+end %>
+<%= render dt.component %>

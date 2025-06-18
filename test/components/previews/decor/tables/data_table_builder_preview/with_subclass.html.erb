@@ -1,0 +1,8 @@
+<%= data_table ::Decor::Tables::DataTableBuilderPreview::DataTableBuilderSubclass,
+               alternating: alternating,
+               row_height: :comfortable do |dt| %>
+  <% dt.column(:id, sortable: true) { |item| item[:id] } %>
+  <% dt.column(:col2, numeric: true, stretch: true, sortable: true) { Random.rand } %>
+  <% dt.column(:col3, numeric: true, stretch: true) { Random.rand } %>
+  <% dt.column(:col4, emphasis: :low) { Random.rand } %>
+<% end %>

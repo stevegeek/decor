@@ -5,7 +5,7 @@
 module Decor
   class Element < PhlexComponent
     # TODO: use literal ** ?
-    attribute :options
+    attribute :options, default: {}
 
     def view_template
       render parent_element do

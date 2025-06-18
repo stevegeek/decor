@@ -10,7 +10,7 @@ module Decor
     attribute :trigger, Symbol, default: :click, in: [:click, :hover, :focus]
     attribute :force_open, Symbol, default: :auto, in: [:auto, :open, :closed]
 
-    # Backward compatibility attribute (still in use for active state)
+    attribute :button_classes, Array, default: []
     attribute :button_active_classes, Array, default: []
 
     def trigger_button(&block)
@@ -62,7 +62,7 @@ module Decor
             if @trigger_button_content.present?
               instance_eval(&@trigger_button_content)
             else
-              plain "Click"
+              plain "Menu"
             end
           end
         end
@@ -134,7 +134,8 @@ module Decor
         "btn",
         size_classes,
         color_classes,
-        variant_classes
+        variant_classes,
+        @button_classes
       ].compact.join(" ")
     end
 

@@ -17,6 +17,8 @@ gem "stimulus-rails"
 # Use Tailwind CSS [https://github.com/rails/tailwindcss-rails]
 gem "tailwindcss-rails"
 
+gem "quo", github: "stevegeek/quo", branch: "main"
+
 gem "dry-struct" # TODO: change to Literal
 gem "literal"
 

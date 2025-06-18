@@ -21,6 +21,16 @@ GIT
       syntax_tree (~> 6.0)
 
 GIT
+  remote: https://github.com/stevegeek/quo.git
+  revision: 38bd30c02a6bb952407cbe6f30d87f57ec30a5a0
+  branch: main
+  specs:
+    quo (1.0.0.beta2)
+      activerecord (>= 7.2, < 9)
+      activesupport (>= 7.2, < 9)
+      literal (>= 1.6.0, < 2)
+
+GIT
   remote: https://github.com/stevegeek/vident.git
   revision: 440413a02c44716e2a9c4c16eca4493636a96014
   branch: main
@@ -576,6 +586,7 @@ DEPENDENCIES
   phlexing!
   propshaft
   puma (>= 5.0)
+  quo!
   rails (~> 8.0.2)
   rubocop-rails-omakase
   selenium-webdriver

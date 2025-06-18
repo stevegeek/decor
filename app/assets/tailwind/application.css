@@ -84,3 +84,90 @@
 }
 
 @custom-variant dark (&:where(.dark, .dark *));
+
+.decor--tables--data-table-cell {
+  td > a:not(.cell-row-link-overlay) {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+
+/* Scroll or inset shadow for element */
+/* https://mileswilhelm.github.io/Adding-Inset-Shadows-to-Cue-Visitors-to-Scrollable-Elements/ */
+/*
+  <div class="inset-wrapper">
+    <div class="inset-shadow-content not-at-right">
+      <!-- whatever HTML you have inside -->
+    </div>
+  </div>
+  .inset-wrapper {
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  .inset-shadow-content {
+    overflow-x: auto;
+  }
+ */
+
+@keyframes fadeInOpacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.decor--tables--data-table {
+  .inset-scroll-shadow {
+    &-not-at-right:after,
+    &-not-at-left:before {
+      content: "";
+      height: 100%;
+      width: 30px;
+      top: 0;
+      position: absolute;
+      opacity: 1;
+      animation-name: fadeInOpacity;
+      animation-iteration-count: 1;
+      animation-timing-function: ease-in;
+      animation-duration: 0.2s;
+    }
+
+    &-not-at-right:after {
+      right: 0;
+      border-top: 1px solid;
+      border-image: linear-gradient(
+              to right,
+              rgba(50, 50, 50, 0),
+              rgba(50, 50, 50, 0.2)
+      )
+      1;
+      background: linear-gradient(
+              to right,
+              rgba(0, 0, 0, 0) 0%,
+              rgba(0, 0, 0, 0) 50%,
+              rgba(0, 0, 0, 0.2) 100%
+      );
+    }
+
+    &-not-at-left:before {
+      left: 0;
+      border-top: 1px solid;
+      border-image: linear-gradient(
+              to right,
+              rgba(50, 50, 50, 0.2),
+              rgba(50, 50, 50, 0)
+      )
+      1;
+      background: linear-gradient(
+              to right,
+              rgba(0, 0, 0, 0.2) 0%,
+              rgba(0, 0, 0, 0) 50%,
+              rgba(0, 0, 0, 0) 100%
+      );
+    }
+  }
+}
