@@ -96,29 +96,13 @@ module Decor
     end
 
     def variant_classes
-      case @variant
-      when :outlined
-        ["btn-outline bg-base-100"]
-      when :text
-        ["btn-ghost"]
-      else
-        []
-      end
+      classes = button_variant_classes
+      classes << "bg-base-100" if @variant == :outlined
+      classes
     end
 
     def size_classes
-      case @size
-      when :large, :lg
-        ["btn-lg"]
-      when :small, :sm
-        ["btn-sm"]
-      when :micro, :xs
-        ["btn-xs"]
-      when :wide
-        ["btn-wide"]
-      else
-        []
-      end
+      button_size_classes
     end
 
     def modifier_classes
