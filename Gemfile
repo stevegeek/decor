@@ -18,6 +18,7 @@ gem "stimulus-rails"
 gem "tailwindcss-rails"
 
 gem "quo", github: "stevegeek/quo", branch: "main"
+gem "encoded_id-rails", "1.0.0.rc6", github: "stevegeek/encoded_id", branch: "main"
 
 gem "dry-struct" # TODO: change to Literal
 gem "literal"
@@ -35,7 +36,7 @@ gem "vident-typed-view_component", github: "stevegeek/vident", branch: "main"
 gem "lookbook"
 gem "phlexing", github: "stevegeek/phlexing", branch: "main"
 
-gem "claude_swarm", github: "stevegeek/claude-swarm", branch: "tail"
+gem "claude_swarm", github: "parruda/claude-swarm", branch: "main"
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"

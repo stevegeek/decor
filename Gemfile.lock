@@ -1,11 +1,22 @@
 GIT
-  remote: https://github.com/stevegeek/claude-swarm.git
-  revision: fd13ec31d96dba8542579dbab11c47b70d681f64
-  branch: tail
+  remote: https://github.com/parruda/claude-swarm.git
+  revision: 0a00237acd9f69336101386735a893f636a1920a
+  branch: main
   specs:
-    claude_swarm (0.1.16)
+    claude_swarm (0.1.17)
       fast-mcp-annotations
       thor (~> 1.3)
+
+GIT
+  remote: https://github.com/stevegeek/encoded_id.git
+  revision: 03a616b369634c73e6eb5edf6dae7edd09f4f64b
+  branch: main
+  specs:
+    encoded_id (1.0.0.rc6)
+    encoded_id-rails (1.0.0.rc6)
+      activerecord (>= 7.2, < 9)
+      activesupport (>= 7.2, < 9)
+      encoded_id (= 1.0.0.rc6)
 
 GIT
   remote: https://github.com/stevegeek/phlexing.git
@@ -576,6 +587,7 @@ DEPENDENCIES
   claude_swarm!
   debug
   dry-struct
+  encoded_id-rails (= 1.0.0.rc6)!
   importmap-rails
   inline_svg
   jbuilder
