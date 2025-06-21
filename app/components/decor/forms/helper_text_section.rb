@@ -15,7 +15,7 @@ module Decor
           if @helper_text.present? && @error_text.blank?
             div(
               class: "validator-hint #{@disabled ? "opacity-50" : ""}",
-              **el.as_target(:helper_text)
+              data: {**target_data_attributes(el, :helper_text)}
             ) do
               @helper_text
             end
@@ -24,7 +24,7 @@ module Decor
           if @error_section && @error_text.present?
             div(
               class: "validator-hint text-error",
-              **el.as_target(:error_text)
+              data: {**target_data_attributes(el, :error_text)}
             ) do
               @error_text
             end

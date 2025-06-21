@@ -1,0 +1,26 @@
+<%= render ::Decor::Forms::Form.new(model: model, url: "#", local: true) do |form_component| %>
+  <%= render ::Decor::Forms::LayoutContainer.new do |container| %>
+    <%= render ::Decor::Forms::LayoutSection.new(stacked: stacked_form) do %>
+      <%= form_component.builder.text_area :text,
+                      label: label,
+                      description: description,
+                      show_label: show_label,
+                      value: value,
+                      required: required,
+                      disabled: disabled,
+                      helper_text: helper_text,
+                      hide_label_required_asterisk: hide_label_required_asterisk,
+                      compact: compact,
+                      label_position: label_position,
+                      grid_span: grid_span,
+                      floating_error_text: floating_error_text,
+                      placeholder: placeholder,
+                      pattern: pattern,
+                      maximum_length: maximum_length,
+                      minimum_length: minimum_length %>
+    <% end %>
+    <% container.with_buttons do %>
+      <%= form_component.builder.submit %>
+    <% end %>
+  <% end %>
+<% end %>

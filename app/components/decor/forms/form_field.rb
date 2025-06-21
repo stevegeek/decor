@@ -63,6 +63,10 @@ module Decor
       # Format: "decor/forms/form_control" (which represents decor/forms/form_control_controller.ts)
       attribute :form_control_controller_path, String, default: "decor/forms/form_control"
 
+      # DaisyUI styling attributes
+      attribute :color, Symbol, default: :primary, choice: [:primary, :secondary, :accent, :success, :error, :warning, :info, :ghost, :neutral]
+      attribute :size, Symbol, default: :md, choice: [:xs, :sm, :md, :lg, :xl]
+
       private
 
       def control_actions?
@@ -148,7 +152,20 @@ module Decor
 
       # Additional control data attrs
       def render_control_data_attrs
-        @control_html_options[:data]&.map { |key, value| "data-#{key.to_s.dasherize}=\"#{value}\"" }&.join(" ")
+        control_data_attributes&.map { |key, value| "#{key.to_s.dasherize}=\"#{value}\"" }&.join(" ")
+      end
+
+      def control_data_attributes
+        @control_html_options[:data] if @control_html_options&.key?(:data)
+      end
+
+      def input_data_attributes(el, target_name: :input)
+        {
+          **target_data_attributes(el, target_name),
+          **(control_actions? ? action_data_attributes(el, control_actions) : {}),
+          **(control_targets? ? target_data_attributes(el, *control_targets) : {}),
+          **(control_data_attributes || {})
+        }
       end
 
       # Form fields have extra stimulus attributes

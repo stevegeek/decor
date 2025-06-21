@@ -59,14 +59,16 @@ module Decor
               invalid_label: "text-error-dark"
             }
           )
-          
-          layout.helper_text_section(
-            helper_text: @helper_text,
-            error_text: error_text,
-            disabled: @disabled,
-            error_section: !floating_error_text?,
-            collapsing_helper_text: @collapsing_helper_text
-          )
+
+          layout.helper_text_section do
+            render ::Decor::Forms::HelperTextSection.new(
+              helper_text: @helper_text,
+              error_text: error_text,
+              disabled: @disabled,
+              error_section: !floating_error_text?,
+              collapsing_helper_text: @collapsing_helper_text
+            )
+          end
           
           render layout do
             if has_any_add_on?
@@ -94,12 +96,7 @@ module Decor
                 data_controller: form_control_controller,
                 class: input_classes + " " + daisyui_input_classes,
                 **html_attributes,
-                data: {
-                  **target_data_attributes(el, :input),
-                  **(control_actions? ? actions_data_attributes(el, control_actions) : {}),
-                  **(control_targets? ? target_data_attributes(el, *control_targets) : {}),
-                  **(control_data_attributes || {})
-                }
+                data: input_data_attributes(el)
               )
             end
 
@@ -209,10 +206,6 @@ module Decor
             @trailing_text_add_on
           end
         end
-      end
-
-      def control_data_attributes
-        @control_html_options[:data] if @control_html_options&.key?(:data)
       end
 
       def resolved_pattern

@@ -12,3 +12,4 @@ pin "swiper" # @11.2.8
 
 pin "controllers/decor"
 pin_all_from "app/javascript/controllers", under: "controllers"
+pin "cally" # @0.8.0

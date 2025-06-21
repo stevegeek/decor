@@ -1,0 +1,18 @@
+<%= render ::Decor::Forms::Form.new(model: model, url: "#", local: true) do |form_component| %>
+  <div class="space-y-3">
+    <%= form_component.builder.collection_check_boxes :chosen,
+                                 choices,
+                                 :value,
+                                 :label,
+                                 size: size,
+                                 hide_after_showing: hide_after_showing,
+                                 show_label: show_label,
+                                 value: value,
+                                 required: required,
+                                 disabled: disabled,
+                                 helper_text: helper_text,
+                                 hide_required_asterisk: hide_required_asterisk %>
+
+    <%= form_component.builder.submit %>
+  </div>
+<% end %>

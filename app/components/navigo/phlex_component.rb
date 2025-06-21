@@ -12,7 +12,7 @@ module Navigo
       return {} unless el
       attrs = el.send(:parse_targets, [name])
       attrs[:controller] = controller if controller
-      el.send(:build_target_data_attributes, attrs)}
+      el.send(:build_target_data_attributes, attrs)
     end
 
     def action_data_attributes(el, *event_name_pairs)

@@ -14,6 +14,7 @@ module Decor
     include ::Phlex::Rails::Helpers::LinkTo
     include ::Phlex::Rails::Helpers::FormWith
     include ::Phlex::Rails::Helpers::ContentTag
+    include ::Phlex::Rails::Helpers::OptionsForSelect
 
     # TODO: part of transition to Literal
     class << self

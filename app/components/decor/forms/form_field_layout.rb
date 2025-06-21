@@ -23,8 +23,7 @@ module Decor
         @inline_label = block
       end
 
-      def helper_text_section(**options, &block)
-        @helper_text_section_options = options
+      def helper_text_section(&block)
         @helper_text_section = block
       end
 
@@ -112,9 +111,7 @@ module Decor
       end
 
       def render_helper_text_section
-        if @helper_text_section_options.present?
-          render ::Decor::Forms::HelperTextSection.new(**@helper_text_section_options)
-        elsif @helper_text_section.present?
+        if @helper_text_section.present?
           render @helper_text_section
         end
       end
