@@ -9,7 +9,7 @@ class ::Decor::StatPreview < ::Lookbook::Preview
   #
   # @label Playground
   # @param title text
-  # @param value text  
+  # @param value text
   # @param description text
   # @param color select [neutral, primary, secondary, accent, success, error, warning, info]
   # @param centered toggle
@@ -19,8 +19,8 @@ class ::Decor::StatPreview < ::Lookbook::Preview
   # @param shadow toggle
   # @param responsive toggle
   def playground(
-    title: "Total Page Views", 
-    value: "89,400", 
+    title: "Total Page Views",
+    value: "89,400",
     description: "21% more than last month",
     color: :neutral,
     centered: false,

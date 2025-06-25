@@ -5,7 +5,7 @@ module Decor
     class ExpandingCheckboxCollection < FormField
       attribute :size, Integer
       attribute :hide_after_showing, Integer
-      
+
       # Variant styling options
       attribute :variant, Symbol, default: :default
       attribute :color, Symbol, default: :primary

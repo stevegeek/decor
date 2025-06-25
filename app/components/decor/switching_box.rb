@@ -14,7 +14,7 @@ module Decor
 
     def initialize(**attributes)
       super
-      
+
       # Set up the left content (title and description)
       left do
         if @title.present?
@@ -29,7 +29,7 @@ module Decor
           end
         end
       end
-      
+
       # Set up the right content block for the Box
       right do
         render(::Decor::Forms::Form.new(model: @model, url: @url, local: true, http_method: @http_method)) do |form_component|

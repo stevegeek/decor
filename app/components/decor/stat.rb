@@ -74,7 +74,7 @@ module Decor
           render ::Decor::Icon.new(
             name: @icon,
             variant: :outline,
-            html_options: { class: "inline-block h-8 w-8 stroke-current" }
+            html_options: {class: "inline-block h-8 w-8 stroke-current"}
           )
         end
       end

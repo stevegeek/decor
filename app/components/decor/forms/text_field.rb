@@ -69,12 +69,12 @@ module Decor
               collapsing_helper_text: @collapsing_helper_text
             )
           end
-          
+
           render layout do
             if has_any_add_on?
               label(class: input_classes) do
                 render_leading_add_on(el) if has_leading_add_on?
-                
+
                 input(
                   data_hj_whitelist: true,
                   data_controller: form_control_controller,
@@ -87,7 +87,7 @@ module Decor
                     **(control_data_attributes || {})
                   }
                 )
-                
+
                 render_trailing_add_on(el) if has_trailing_add_on?
               end
             else
@@ -174,7 +174,7 @@ module Decor
       def daisyui_input_classes
         classes = []
         classes << (@size ? "" : "w-full")
-        classes << (@numerical && @type == :tel ? "tabular-nums" : "")
+        classes << ((@numerical && @type == :tel) ? "tabular-nums" : "")
         classes.join(" ").strip
       end
 

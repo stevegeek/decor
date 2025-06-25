@@ -31,7 +31,6 @@ class TypedForm < ::Literal::Struct
       # prop_names.map { |key| permitted_key(key) }
     end
 
-
     def prop_names
       literal_properties.properties_index.keys.map(&:to_sym)
     end
@@ -47,14 +46,14 @@ class TypedForm < ::Literal::Struct
   # In a form model the attributes should not include the :id by default.
   def attributes(include_id: false)
     @attributes ||= begin
-                      # Use the schema attribute names directly (symbols)
-                      attrs = self.class.prop_names.map do |attr_name|
-                        value = instance_variable_get(:"@#{attr_name}")
-                        [attr_name, value] unless value.nil?
-                      end
-                      final_attrs = attrs.compact.to_h
-                      ActiveSupport::HashWithIndifferentAccess.new(include_id ? final_attrs : final_attrs.except(:id))
-                    end
+      # Use the schema attribute names directly (symbols)
+      attrs = self.class.prop_names.map do |attr_name|
+        value = instance_variable_get(:"@#{attr_name}")
+        [attr_name, value] unless value.nil?
+      end
+      final_attrs = attrs.compact.to_h
+      ActiveSupport::HashWithIndifferentAccess.new(include_id ? final_attrs : final_attrs.except(:id))
+    end
   end
 
   # When splatting for keyword arguments, use original attributes store to ensure all attributes are present and

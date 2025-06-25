@@ -197,7 +197,6 @@ class ::Decor::Forms::TextFieldPreview < ::Lookbook::Preview
       prop :password, String
     end
 
-
     puts "%%%%%%%%%%%%%%%%%%%%%%%%"
     render_with_template(
       locals: {

@@ -161,7 +161,7 @@ class Decor::StatTest < ActiveSupport::TestCase
   # Block content tests
   test "renders block content in value area" do
     component = Decor::Stat.new(title: "Custom")
-    
+
     # Simulate block content
     component.instance_eval do
       def view_template(&block)

@@ -14,12 +14,12 @@ class ::Navigo::PagePreview < ::Lookbook::Preview
   # @param cta_snap_large toggle
   # @param full_height toggle
   def playground(
-    title: "Page title", 
-    subtitle: "Subtitle", 
-    description: "Page description", 
-    include_flash: true, 
-    show_hero_slot: false, 
-    show_example_tag: true, 
+    title: "Page title",
+    subtitle: "Subtitle",
+    description: "Page description",
+    include_flash: true,
+    show_hero_slot: false,
+    show_example_tag: true,
     show_example_badge: true,
     size: :md,
     background: :default,
@@ -59,7 +59,7 @@ class ::Navigo::PagePreview < ::Lookbook::Preview
     ) do |page|
       page.with_badge(label: "XS Size", color: :primary)
       page.with_tag(label: "Compact", color: :info, size: :xs)
-      
+
       page.with_cta do
         render ::Decor::Button.new(label: "Action", size: :sm, color: :primary)
       end
@@ -80,7 +80,7 @@ class ::Navigo::PagePreview < ::Lookbook::Preview
     ) do |page|
       page.with_badge(label: "Premium", color: :accent)
       page.with_tag(label: "Featured", color: :warning)
-      
+
       page.with_cta do
         render ::Decor::Button.new(label: "Get Started", size: :lg, color: :primary)
       end
@@ -110,7 +110,7 @@ class ::Navigo::PagePreview < ::Lookbook::Preview
       end
 
       page.with_badge(label: "New", color: :success)
-      
+
       page.div(class: "grid grid-cols-1 md:grid-cols-2 gap-6") do
         page.div(class: "card bg-base-100 shadow-lg p-6") do
           page.h3(class: "text-lg font-semibold mb-2") { "Feature One" }
@@ -153,7 +153,7 @@ class ::Navigo::PagePreview < ::Lookbook::Preview
       size: :lg
     ) do |page|
       page.with_badge(label: "Beta", color: :info)
-      
+
       page.with_tabs do
         render ::Decor::Tabs.new do |tabs|
           tabs.with_tab(label: "Overview", active: true, href: "#overview")
@@ -194,7 +194,7 @@ class ::Navigo::PagePreview < ::Lookbook::Preview
 
       page.with_badge(label: "Pro", color: :accent)
       page.with_badge(label: "New", color: :success)
-      
+
       page.with_tag(label: "Featured", color: :warning, icon: "star")
       page.with_tag(label: "Popular", color: :info, icon: "trending-up")
 

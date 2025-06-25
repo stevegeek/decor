@@ -177,7 +177,6 @@ module Navigo
       when :primary then "bg-primary/10"
       when :secondary then "bg-secondary/10"
       when :neutral then "bg-neutral/10"
-      else nil
       end
     end
 

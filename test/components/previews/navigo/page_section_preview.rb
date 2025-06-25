@@ -36,7 +36,7 @@ class ::Navigo::PageSectionPreview < ::Lookbook::Preview
   end
 
   # @!group Sizes
-  
+
   def extra_small
     render ::Navigo::PageSection.new(
       title: "Extra Small Section",

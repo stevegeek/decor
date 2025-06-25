@@ -54,8 +54,8 @@ class Decor::Forms::TextAreaTest < ActiveSupport::TestCase
 
   test "applies error styling when errors present" do
     component = Decor::Forms::TextArea.new(
-      name: "my_text", 
-      label: "Label", 
+      name: "my_text",
+      label: "Label",
       value: "Test",
       error_messages: ["This field is required"]
     )
@@ -67,8 +67,8 @@ class Decor::Forms::TextAreaTest < ActiveSupport::TestCase
 
   test "renders helper text when provided" do
     component = Decor::Forms::TextArea.new(
-      name: "my_text", 
-      label: "Label", 
+      name: "my_text",
+      label: "Label",
       value: "Test",
       helper_text: "This is helper text"
     )

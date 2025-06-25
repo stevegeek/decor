@@ -148,7 +148,7 @@ class Decor::Forms::ExpandingCheckboxCollectionTest < ActiveSupport::TestCase
 
     checkboxes = fragment.css('input[type="checkbox"]')
     assert_equal 2, checkboxes.length
-    
+
     first_checkbox = checkboxes.first
     assert_equal "1", first_checkbox["value"]
     assert_includes first_checkbox["name"], "preferences"

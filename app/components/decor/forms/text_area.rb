@@ -33,7 +33,7 @@ module Decor
               collapsing_helper_text: @collapsing_helper_text
             )
           end
-          
+
           render layout do
             textarea(
               data_hj_whitelist: true,

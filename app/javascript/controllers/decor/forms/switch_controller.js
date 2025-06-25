@@ -4,10 +4,10 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static targets = ["checkbox"];
   static values = {
-    label: String,
-    confirmOnSubmit: String,
-    confirmOnSubmitYes: String,
-    confirmOnSubmitNo: String,
+    label: { type: String, default: null },
+    confirmOnSubmit: { type: String, default: null },
+    confirmOnSubmitYes: { type: String, default: null },
+    confirmOnSubmitNo: { type: String, default: null },
     submitOnChange: Boolean
   };
 

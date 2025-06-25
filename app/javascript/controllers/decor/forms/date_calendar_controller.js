@@ -4,8 +4,8 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = ["calendar", "hiddenInput"]
   static values = {
-    calendarType: String,
-    locale: String,
+    calendarType: { type: String, default: null },
+    locale: { type: String, default: null },
     months: Number,
     disabledDates: Array,
     disabledDaysOfWeek: Array,

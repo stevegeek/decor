@@ -72,10 +72,10 @@ class Decor::Forms::TextFieldTest < ActiveSupport::TestCase
     )
     fragment = render_fragment(component)
 
-    label = fragment.at_css('label.input')
+    label = fragment.at_css("label.input")
     assert_not_nil label
-    
-    input = label.at_css('input')
+
+    input = label.at_css("input")
     assert_not_nil input
     assert_equal "username", input["name"]
   end
@@ -88,10 +88,10 @@ class Decor::Forms::TextFieldTest < ActiveSupport::TestCase
     )
     fragment = render_fragment(component)
 
-    label = fragment.at_css('label.input')
+    label = fragment.at_css("label.input")
     assert_not_nil label
-    
-    input = label.at_css('input')
+
+    input = label.at_css("input")
     assert_not_nil input
     assert_equal "email", input["name"]
   end
@@ -106,7 +106,7 @@ class Decor::Forms::TextFieldTest < ActiveSupport::TestCase
     )
     fragment = render_fragment(component)
 
-    label = fragment.at_css('label.input.validator')
+    label = fragment.at_css("label.input.validator")
     assert_not_nil label
   end
 
@@ -117,7 +117,7 @@ class Decor::Forms::TextFieldTest < ActiveSupport::TestCase
       helper_text: "This is helper text"
     )
     rendered = render_component(component)
-    
+
     assert_includes rendered, "validator-hint"
     assert_includes rendered, "This is helper text"
   end
@@ -130,10 +130,10 @@ class Decor::Forms::TextFieldTest < ActiveSupport::TestCase
     )
     fragment = render_fragment(component)
 
-    label = fragment.at_css('label.input')
+    label = fragment.at_css("label.input")
     assert_not_nil label
-    
-    span = label.at_css('span')
+
+    span = label.at_css("span")
     assert_not_nil span
     assert_includes span.text, "https://"
   end
@@ -146,10 +146,10 @@ class Decor::Forms::TextFieldTest < ActiveSupport::TestCase
     )
     fragment = render_fragment(component)
 
-    label = fragment.at_css('label.input')
+    label = fragment.at_css("label.input")
     assert_not_nil label
-    
-    span = label.at_css('span')
+
+    span = label.at_css("span")
     assert_not_nil span
     assert_includes span.text, "USD"
   end
@@ -159,12 +159,12 @@ class Decor::Forms::TextFieldTest < ActiveSupport::TestCase
       name: "custom_field",
       label: "Custom Field"
     )
-    
+
     component.leading_add_on { "Custom Content" }
-    
+
     fragment = render_fragment(component)
 
-    label = fragment.at_css('label.input')
+    label = fragment.at_css("label.input")
     assert_not_nil label
     assert_includes label.text, "Custom Content"
   end

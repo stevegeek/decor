@@ -19,7 +19,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
     )
     fragment = render_fragment(component)
 
-    calendar = fragment.at_css('calendar-date')
+    calendar = fragment.at_css("calendar-date")
     assert_not_nil calendar
     assert_includes calendar["class"], "cally"
   end
@@ -32,7 +32,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
     )
     fragment = render_fragment(component)
 
-    calendar = fragment.at_css('calendar-range')
+    calendar = fragment.at_css("calendar-range")
     assert_not_nil calendar
   end
 
@@ -44,7 +44,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
     )
     fragment = render_fragment(component)
 
-    calendar = fragment.at_css('calendar-multi')
+    calendar = fragment.at_css("calendar-multi")
     assert_not_nil calendar
   end
 
@@ -56,7 +56,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
     )
     fragment = render_fragment(component)
 
-    calendar = fragment.at_css('calendar-date')
+    calendar = fragment.at_css("calendar-date")
     assert_equal "2024-06-15", calendar["value"]
   end
 
@@ -67,7 +67,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
     )
     fragment = render_fragment(component)
 
-    calendar = fragment.at_css('calendar-date')
+    calendar = fragment.at_css("calendar-date")
     assert_includes calendar["class"], "cally"
     assert_includes calendar["class"], "bg-base-100"
     assert_includes calendar["class"], "border"
@@ -83,7 +83,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
     )
     fragment = render_fragment(component)
 
-    calendar = fragment.at_css('calendar-date')
+    calendar = fragment.at_css("calendar-date")
     assert_equal "2024-01-01", calendar["min"]
     assert_equal "2024-12-31", calendar["max"]
   end
@@ -96,7 +96,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
     )
     fragment = render_fragment(component)
 
-    calendar = fragment.at_css('calendar-date')
+    calendar = fragment.at_css("calendar-date")
     assert_equal "en-GB", calendar["locale"]
   end
 
@@ -108,7 +108,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
     )
     fragment = render_fragment(component)
 
-    calendar = fragment.at_css('calendar-date')
+    calendar = fragment.at_css("calendar-date")
     assert_equal "2", calendar["months"]
   end
 
@@ -120,7 +120,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
     )
     fragment = render_fragment(component)
 
-    calendar = fragment.at_css('calendar-date')
+    calendar = fragment.at_css("calendar-date")
     assert_equal "1", calendar["firstdayofweek"]
   end
 
@@ -155,7 +155,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
     )
     fragment = render_fragment(component)
 
-    calendar = fragment.at_css('calendar-date')
+    calendar = fragment.at_css("calendar-date")
     assert calendar.has_attribute?("disabled")
   end
 
@@ -190,7 +190,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
 
     prev_svg = fragment.at_css('svg[slot="previous"]')
     next_svg = fragment.at_css('svg[slot="next"]')
-    
+
     assert_not_nil prev_svg
     assert_not_nil next_svg
   end
@@ -202,7 +202,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
     )
     fragment = render_fragment(component)
 
-    calendar_month = fragment.at_css('calendar-month')
+    calendar_month = fragment.at_css("calendar-month")
     assert_not_nil calendar_month
   end
 
@@ -215,7 +215,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
     )
     fragment = render_fragment(component)
 
-    calendar = fragment.at_css('calendar-range')
+    calendar = fragment.at_css("calendar-range")
     assert_equal "2024-06-01/2024-06-15", calendar["value"]
   end
 
@@ -228,7 +228,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
     )
     fragment = render_fragment(component)
 
-    calendar = fragment.at_css('calendar-multi')
+    calendar = fragment.at_css("calendar-multi")
     assert_equal "2024-06-01 2024-06-15 2024-06-30", calendar["value"]
   end
 
@@ -240,7 +240,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
     component.instance_variable_set(:@errors, ["Date is required"])
     fragment = render_fragment(component)
 
-    calendar = fragment.at_css('calendar-date')
+    calendar = fragment.at_css("calendar-date")
     assert_includes calendar["class"], "calendar-error"
   end
 
@@ -253,7 +253,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
     )
     fragment = render_fragment(component)
 
-    calendar = fragment.at_css('calendar-date')
+    calendar = fragment.at_css("calendar-date")
     expected_dates = disabled_dates.map(&:iso8601).join(",")
     assert_equal expected_dates, calendar["data-disabled-dates"]
   end
@@ -266,7 +266,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
     )
     fragment = render_fragment(component)
 
-    calendar = fragment.at_css('calendar-date')
+    calendar = fragment.at_css("calendar-date")
     assert_equal "0,6", calendar["data-disabled-days-of-week"]
   end
 
@@ -279,7 +279,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
     )
     fragment = render_fragment(component)
 
-    calendar = fragment.at_css('calendar-date')
+    calendar = fragment.at_css("calendar-date")
     expected_dates = enabled_dates.map(&:iso8601).join(",")
     assert_equal expected_dates, calendar["data-enabled-dates"]
   end
@@ -292,7 +292,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
     )
     fragment = render_fragment(component)
 
-    calendar = fragment.at_css('calendar-date')
+    calendar = fragment.at_css("calendar-date")
     assert_equal "1,2,3,4,5", calendar["data-enabled-days-of-week"]
   end
 
@@ -305,7 +305,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
     )
     fragment = render_fragment(component)
 
-    calendar = fragment.at_css('calendar-date')
+    calendar = fragment.at_css("calendar-date")
     assert_nil calendar["data-disabled-dates"]
     assert_nil calendar["data-disabled-days-of-week"]
   end

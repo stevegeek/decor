@@ -142,13 +142,13 @@ class Decor::Forms::RadioTest < ActiveSupport::TestCase
   test "preserves radio name for grouping" do
     component1 = Decor::Forms::Radio.new(name: "radio_group", label: "Option 1", value: "option1")
     component2 = Decor::Forms::Radio.new(name: "radio_group", label: "Option 2", value: "option2")
-    
+
     fragment1 = render_fragment(component1)
     fragment2 = render_fragment(component2)
 
     input1 = fragment1.at_css('input[type="radio"]')
     input2 = fragment2.at_css('input[type="radio"]')
-    
+
     assert_equal "radio_group", input1["name"]
     assert_equal "radio_group", input2["name"]
     assert_equal "option1", input1["value"]

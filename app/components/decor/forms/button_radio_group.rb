@@ -8,7 +8,7 @@ module Decor
 
       # Button groups mostly don't have labels
       attribute :show_label, :boolean, default: false
-      
+
       # Variant styling options
       attribute :variant, Symbol, default: :outline
       attribute :size, Symbol, default: :md

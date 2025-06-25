@@ -76,7 +76,6 @@ class Navigo::PageTest < ActiveSupport::TestCase
     refute_includes page_div["class"], "min-h-screen"
   end
 
-
   test "renders without slots when none provided" do
     component = Navigo::Page.new
     rendered = render_component(component)
@@ -115,7 +114,7 @@ class Navigo::PageTest < ActiveSupport::TestCase
     assert_includes rendered, "bg-base-100"
     assert_includes rendered, "text-base-content"
     assert_includes rendered, "border-base-300"
-    
+
     # Ensure legacy classes are not present
     refute_includes rendered, "bg-white"
     refute_includes rendered, "text-gray-900"
@@ -184,7 +183,7 @@ class Navigo::PageTest < ActiveSupport::TestCase
   test "maintains backward compatibility" do
     component = Navigo::Page.new(
       title: "Legacy Title",
-      subtitle: "Legacy Subtitle", 
+      subtitle: "Legacy Subtitle",
       description: "Legacy description",
       cta_snap_large: true,
       include_flash: false

@@ -82,7 +82,7 @@ module Decor
       assert_selector "span.bg-primary.text-primary-content"
     end
 
-    def test_modern_size_variants  
+    def test_modern_size_variants
       # Test span sizes for step indicators
       sizes_and_expected = {
         xs: "w-6 h-6",
@@ -94,7 +94,7 @@ module Decor
 
       sizes_and_expected.each do |size, expected_classes|
         render_inline(FlowStep.new(title: "Test", step: 1, size: size))
-        
+
         expected_classes.split.each do |css_class|
           assert_selector "span.#{css_class}"
         end

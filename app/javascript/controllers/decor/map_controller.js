@@ -17,10 +17,10 @@ export default class extends Controller {
   static targets = ["mapContainer"];
   static values = {
     apiKey: String,
-    zoom: String,
+    zoom: { type: String, default: null },
     points: Array,
-    overlays: String, 
-    center: String,
+    overlays: { type: String, default: null },
+    center: { type: String, default: null },
     interactive: { type: Boolean, default: true },
     showControls: { type: Boolean, default: true },
     mapType: { type: String, default: 'roadmap' },

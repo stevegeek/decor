@@ -12,7 +12,7 @@ class Decor::StatsTest < ActiveSupport::TestCase
 
   test "renders with block content" do
     component = Decor::Stats.new
-    
+
     # Simulate block content
     component.instance_eval do
       def view_template(&block)
@@ -223,7 +223,7 @@ class Decor::StatsTest < ActiveSupport::TestCase
   # Integration with Stat components
   test "renders with nested Stat components" do
     stats_component = Decor::Stats.new
-    
+
     # Simulate nested stats
     stats_component.instance_eval do
       def view_template(&block)
@@ -252,7 +252,7 @@ class Decor::StatsTest < ActiveSupport::TestCase
   # Edge cases
   test "handles empty block gracefully" do
     component = Decor::Stats.new
-    
+
     component.instance_eval do
       def view_template(&block)
         render parent_element do
@@ -304,7 +304,7 @@ class Decor::StatsTest < ActiveSupport::TestCase
 
     # Should have responsive classes, not just vertical
     assert_includes rendered, "stats-vertical lg:stats-horizontal"
-    
+
     # Make sure it doesn't duplicate vertical class
     refute_match(/stats-vertical.*stats-vertical/, rendered)
   end
@@ -314,7 +314,7 @@ class Decor::StatsTest < ActiveSupport::TestCase
     [:horizontal, :vertical].each do |orientation|
       component = Decor::Stats.new(orientation: orientation)
       rendered = render_component(component)
-      
+
       assert_includes rendered, "stats"
       if orientation == :vertical
         assert_includes rendered, "stats-vertical"

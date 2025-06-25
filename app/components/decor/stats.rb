@@ -37,16 +37,16 @@ module Decor
 
     def element_classes
       classes = ["stats"]
-      
+
       if @responsive
         classes << "stats-vertical lg:stats-horizontal"
       elsif @orientation == :vertical
         classes << "stats-vertical"
       end
-      
+
       classes << "shadow" if @shadow
       classes << "bg-base-100" if @background
-      
+
       classes.join(" ")
     end
   end

@@ -7,7 +7,7 @@ module Decor
 
     attribute :step, Integer
     attribute :icon, String
-    
+
     # Modern attributes following daisyUI standards
     attribute :size, Symbol, in: %i[xs sm md lg xl], default: :md
     attribute :color, Symbol, in: %i[primary secondary accent success error warning info neutral], default: :info
@@ -48,7 +48,6 @@ module Decor
         end
       end
     end
-
 
     def title_size
       case @size
@@ -136,7 +135,7 @@ module Decor
       when :lg then "w-6 h-6"
       when :xl then "w-8 h-8"
       end
-      
+
       if @variant == :filled
         base_size # Color will be inherited from parent
       else

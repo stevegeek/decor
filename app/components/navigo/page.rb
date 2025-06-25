@@ -125,7 +125,7 @@ module Navigo
         (@full_height ? "min-h-screen" : nil),
         padding_classes,
         "space-y-4",
-        (@background != :default ? background_classes : nil)
+        ((@background != :default) ? background_classes : nil)
       ].compact.join(" ")
     end
 
@@ -245,7 +245,6 @@ module Navigo
       when :secondary then "bg-secondary/10"
       when :hero then "bg-base-200"
       when :neutral then "bg-neutral/10"
-      else nil
       end
     end
 

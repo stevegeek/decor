@@ -32,7 +32,7 @@ module Decor
               collapsing_helper_text: @collapsing_helper_text
             )
           end
-          
+
           render layout do
             label(class: "inline-flex items-center #{cursor_classes}") do
               input(

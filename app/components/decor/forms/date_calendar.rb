@@ -5,16 +5,16 @@ module Decor
     class DateCalendar < FormField
       # Calendar type - single date, range, or multi-select
       attribute :calendar_type, Symbol, default: :date, choice: [:date, :range, :multi, :month]
-      
+
       # Date constraints
       attribute :min_date, Set[Date, Time, DateTime]
       attribute :max_date, Set[Date, Time, DateTime]
-      
+
       # Display options
       attribute :months, Integer, default: 1
       attribute :first_day_of_week, Integer, default: 0, choice: (0..6).to_a
       attribute :locale, String, default: "en-US"
-      
+
       # Date filtering options
       attribute :disabled_dates, Array, default: []
       attribute :disabled_days_of_week, Array, default: []
@@ -45,7 +45,7 @@ module Decor
               collapsing_helper_text: @collapsing_helper_text
             )
           end
-          
+
           render layout do
             # Hidden input to store the actual form value
             input(
@@ -54,18 +54,18 @@ module Decor
               value: formatted_value,
               data: input_data_attributes(el, target_name: :hidden_input)
             )
-            
+
             # Cally calendar component
             public_send(calendar_element_type, **calendar_attributes(el)) do
               # Navigation icons (slots)
               svg(slot: "previous", class: "w-4 h-4", fill: "none", stroke: "currentColor", viewBox: "0 0 24 24") do |s|
                 s.path(stroke_linecap: "round", stroke_linejoin: "round", stroke_width: "2", d: "M15 19l-7-7 7-7")
               end
-              
+
               svg(slot: "next", class: "w-4 h-4", fill: "none", stroke: "currentColor", viewBox: "0 0 24 24") do |s|
                 s.path(stroke_linecap: "round", stroke_linejoin: "round", stroke_width: "2", d: "M9 5l7 7-7 7")
               end
-              
+
               # Calendar month display
               public_send(:calendar_month)
             end
@@ -105,11 +105,11 @@ module Decor
             **date_filtering_data_attributes
           }
         }
-        
+
         attrs[:min] = format_date_for_cally(@min_date) if @min_date
         attrs[:max] = format_date_for_cally(@max_date) if @max_date
         attrs[:disabled] = nil if @disabled
-        
+
         attrs
       end
 
@@ -149,7 +149,7 @@ module Decor
 
       def format_date_for_cally(date)
         return nil unless date
-        
+
         case date
         when Date
           date.iso8601
@@ -173,7 +173,7 @@ module Decor
 
       def format_dates_for_cally(dates)
         return nil if dates.blank?
-        
+
         dates.map { |date| format_date_for_cally(date) }.compact.join(",")
       end
 
@@ -196,7 +196,7 @@ module Decor
 
       def format_dates_for_stimulus(dates)
         return [] if dates.blank?
-        
+
         dates.map { |date| format_date_for_cally(date) }.compact
       end
 
