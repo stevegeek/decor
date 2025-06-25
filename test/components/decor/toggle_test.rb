@@ -1,5 +1,4 @@
 require "test_helper"
-require "ostruct"
 
 class Decor::ToggleTest < ActiveSupport::TestCase
   # This test is simplified because the Toggle component depends on Decor::Forms::Form
@@ -7,7 +6,7 @@ class Decor::ToggleTest < ActiveSupport::TestCase
   # the component attributes and initialization.
 
   def setup
-    @mock_model = OpenStruct.new(id: 1, active: true)
+    @mock_model = TestModel.new(id: 1, active: true)
     @mock_url = "/test/1"
   end
 
@@ -118,14 +117,14 @@ class Decor::ToggleTest < ActiveSupport::TestCase
     assert_equal complex_options, component.switch_options
   end
 
-  test "component inherits from Component base class" do
+  test "component inherits from PhlexComponent base class" do
     component = Decor::Toggle.new(
       model: @mock_model,
       url: @mock_url,
       property_name: :active
     )
 
-    assert component.is_a?(Decor::Component)
+    assert component.is_a?(Decor::PhlexComponent)
   end
 
   test "can be initialized with all required attributes" do

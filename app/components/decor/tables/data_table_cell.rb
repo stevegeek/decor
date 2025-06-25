@@ -59,7 +59,7 @@ module Decor
       def element_classes
         [
           @numeric ? "text-right" : "text-left",
-          @path.blank? && row_height_classes,
+          row_height_classes,
           *typography_classes,
           "relative whitespace-nowrap",
           @path ? "cursor-pointer hover:bg-base-200" : nil

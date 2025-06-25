@@ -1,5 +1,4 @@
 require "test_helper"
-require "ostruct"
 
 class Decor::SwitchingBoxTest < ActiveSupport::TestCase
   # This test is simplified because the SwitchingBox component depends on form rendering
@@ -7,7 +6,7 @@ class Decor::SwitchingBoxTest < ActiveSupport::TestCase
   # the component attributes and structure.
 
   def setup
-    @mock_model = OpenStruct.new(id: 1, active: true)
+    @mock_model = TestModel.new(id: 1, active: true)
     @mock_url = "/test/1"
   end
 
@@ -36,7 +35,7 @@ class Decor::SwitchingBoxTest < ActiveSupport::TestCase
     # Should include Box classes
     assert_includes rendered, "card"
     assert_includes rendered, "card-bordered"
-    assert_includes rendered, "bg-base-100"
+    assert_includes rendered, "bg-base-200"
   end
 
   test "renders with title and description" do
@@ -91,7 +90,7 @@ class Decor::SwitchingBoxTest < ActiveSupport::TestCase
     assert_includes rendered, "Custom left content"
   end
 
-  test "renders title in h4 element when provided" do
+  test "renders title in h2 element when provided" do
     component = Decor::SwitchingBox.new(
       model: @mock_model,
       url: @mock_url,
@@ -100,10 +99,10 @@ class Decor::SwitchingBoxTest < ActiveSupport::TestCase
     )
     fragment = render_fragment(component)
 
-    h4 = fragment.at_css("h4")
-    assert_not_nil h4
-    assert_includes h4.text, "Feature Toggle"
-    assert_includes h4["class"], "font-medium"
+    h2 = fragment.at_css("h2")
+    assert_not_nil h2
+    assert_includes h2.text, "Feature Toggle"
+    assert_includes h2["class"], "card-title"
   end
 
   test "renders description in paragraph when provided" do
@@ -118,7 +117,7 @@ class Decor::SwitchingBoxTest < ActiveSupport::TestCase
     paragraph = fragment.css("p").first
     assert_not_nil paragraph
     assert_includes paragraph.text, "Toggle this setting on or off"
-    assert_includes paragraph["class"], "text-sm"
+    assert_includes paragraph["class"], "text-base-content/70"
   end
 
   test "component inherits from Box" do
@@ -157,6 +156,6 @@ class Decor::SwitchingBoxTest < ActiveSupport::TestCase
 
     assert_includes rendered, "decor--switching-box"
     assert_includes rendered, "card-bordered"
-    assert_includes rendered, "bg-base-100"
+    assert_includes rendered, "bg-base-200"
   end
 end

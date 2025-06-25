@@ -169,7 +169,7 @@ class ::Decor::FlowStepPreview < ::Lookbook::Preview
           end,
           content_tag(:div, class: "flex gap-2") do
             safe_join([
-              render(::Decor::Button.new(label: "Upload Files", variant: :primary, size: :sm)),
+              render(::Decor::Button.new(label: "Upload Files", color: :primary, size: :sm)),
               render(::Decor::Button.new(label: "Skip for Now", variant: :outline, size: :sm))
             ])
           end
@@ -178,9 +178,9 @@ class ::Decor::FlowStepPreview < ::Lookbook::Preview
     end
   end
 
-  # Modern sizes
-  # @label Modern Sizes
-  def modern_sizes
+  # All available sizes
+  # @label Sizes
+  def sizes
     sizes = [:xs, :sm, :md, :lg, :xl]
 
     content_tag :div, class: "space-y-4" do
@@ -196,16 +196,16 @@ class ::Decor::FlowStepPreview < ::Lookbook::Preview
     end
   end
 
-  # Modern colors
-  # @label Modern Colors
-  def modern_colors
+  # All available colors
+  # @label Colors
+  def colors
     colors = [:primary, :secondary, :accent, :success, :error, :warning, :info, :neutral]
 
     content_tag :div, class: "space-y-4" do
       colors.map.with_index do |color, index|
         render ::Decor::FlowStep.new(
           title: "#{color.to_s.capitalize} Color",
-          description: "This flow step uses #{color} color with filled variant",
+          description: "This flow step uses #{color} color",
           step: index + 1,
           color: color,
           variant: :filled
@@ -214,9 +214,9 @@ class ::Decor::FlowStepPreview < ::Lookbook::Preview
     end
   end
 
-  # Modern variants
-  # @label Modern Variants
-  def modern_variants
+  # All available variants
+  # @label Variants
+  def variants
     variants = [
       {variant: :filled, title: "Filled Variant", description: "Solid background with contrasting text"},
       {variant: :outlined, title: "Outlined Variant", description: "Transparent background with colored border"},
