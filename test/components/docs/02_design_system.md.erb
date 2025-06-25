@@ -1,0 +1,231 @@
+---
+title: Design System
+label: Design System
+---
+
+# Design System
+
+Decor's design system is built on daisyUI's semantic approach to styling, providing a consistent system across all components.
+
+**Note:** Many components are still being updated to follow this system consistently. This documentation represents the target design system that components are being migrated toward.
+
+## Migration Notes
+
+**Current State**: Components are being migrated to follow consistent patterns:
+
+1. **Color attributes**: Moving from mixed naming to consistent `color` and `style` attributes
+2. **Size variants**: Standardizing on `:xs`, `:sm`, `:md`, `:lg`, `:xl`
+3. **Variant naming**: Aligning with daisyUI conventions
+4. **DaisyUI classes**: Leveraging more daisyUI utility classes
+
+**Future improvements** will include:
+- Consistent attribute naming across all components
+- Better TypeScript/Literal integration for type safety
+- Enhanced accessibility features
+- More comprehensive responsive behavior
+
+
+## Color System
+
+### Semantic Colors
+
+Decor uses daisyUI's semantic color palette that automatically adapts to light and dark themes:
+
+#### Primary Colors
+- **primary**: Main brand color for primary actions
+- **secondary**: Supporting brand color for secondary actions  
+- **accent**: Highlight color for special elements
+
+#### Feedback Colors
+- **success**: Green tones for positive feedback
+- **warning**: Orange/yellow tones for cautions
+- **error**: Red tones for errors and destructive actions
+- **info**: Blue tones for informational content
+
+#### Neutral Colors
+- **base**: Base background colors (base-100, base-200, base-300)
+- **neutral**: Neutral text and background colors
+- **base-content**: Primary text color
+
+### Usage Examples
+
+```ruby
+# Success notification
+render Decor::Notification.new(
+  title: "Success!",
+  variant: :success
+)
+
+# Primary button
+render Decor::Button.new(
+  label: "Submit",
+  color: :primary
+)
+
+# Error badge
+render Decor::Badge.new(
+  label: "Error",
+  style: :error
+)
+```
+
+## Component Attributes
+
+### Size Variants
+
+Most components support consistent sizing with these attributes:
+
+- **xs**: Extra small/compact size
+- **sm**: Small size
+- **md**: Medium/default size (often omitted as default)
+- **lg**: Large size
+- **xl**: Extra large size
+
+### Color Attributes
+
+Components use different color attribute names depending on their purpose:
+
+- **color**: For semantic colors (`:primary`, `:secondary`, `:accent`, `:success`, `:error`, `:warning`, `:info`, `:neutral`, `:base`)
+- **style**: For feedback states (`:success`, `:error`, `:warning`, `:info`, `:notice`, `:standard`)
+
+### Variant Attributes
+
+Common variant patterns include:
+
+- **filled**: Solid background (default for most components)
+- **outlined**: Border with transparent background
+- **ghost**: Minimal styling, often transparent
+- **bordered**: With border styling
+- **lifted**: Elevated appearance
+- **boxed**: Contained appearance
+
+## Component-Specific Patterns
+
+### Buttons
+```ruby
+render Decor::Button.new(
+  color: :primary,        # :primary, :secondary, :danger, :warning, :neutral
+  variant: :contained,    # :contained, :outlined, :text
+  size: :medium          # :large, :medium, :wide, :small, :micro, :xs
+)
+```
+
+### Form Fields
+```ruby
+render Decor::Forms::TextField.new(
+  color: :primary,       # DaisyUI semantic colors
+  size: :md             # :xs, :sm, :md, :lg, :xl
+)
+```
+
+### Cards and Containers
+```ruby
+render Decor::Card.new(
+  color: :base,         # :base, :primary, :secondary, :accent, etc.
+  variant: :filled,     # :filled, :outlined, :ghost
+  size: :md            # :xs, :sm, :md, :lg, :xl
+)
+```
+
+### Tooltips and Overlays
+```ruby
+render Decor::Tooltip.new(
+  color: :base,         # DaisyUI semantic colors
+  variant: :filled,     # :filled, :outlined, :ghost
+  position: :top        # :top, :bottom, :left, :right
+)
+```
+
+## Typography
+
+### Text Hierarchy
+
+Components use Tailwind's typography scale:
+
+- **Headings**: `text-xl`, `text-lg`, `text-base` for hierarchical content
+- **Body Text**: `text-sm`, `text-base` for readable content
+- **Captions**: `text-xs` for supporting information
+
+### Font Weights
+
+- **font-bold**: For headings and emphasis
+- **font-medium**: For labels and important text
+- **font-normal**: For body text
+
+## Spacing System
+
+### Component Spacing
+
+Decor uses Tailwind's spacing scale consistently:
+
+- **Padding**: `p-2`, `p-3`, `p-4`, `p-6` for internal spacing
+- **Margins**: `m-2`, `m-3`, `m-4` for external spacing
+- **Gaps**: `gap-2`, `gap-3`, `gap-4`, `gap-5` for flexbox/grid spacing
+
+## Responsive Design
+
+### Breakpoints
+
+Decor components use Tailwind's responsive breakpoints:
+
+- **sm**: 640px and up
+- **md**: 768px and up  
+- **lg**: 1024px and up
+- **xl**: 1280px and up
+
+### Mobile-First Approach
+
+Components are designed mobile-first with progressive enhancement. Many components include mobile-specific behavior:
+
+```ruby
+# Tabs component automatically shows mobile select when > 3 tabs
+render Decor::Tabs.new(links: many_links)
+
+# Progress component adapts sizing on mobile
+render Decor::Progress.new(size: :md) # Responsive sizing
+```
+
+## Accessibility
+
+### ARIA Support
+
+Components include appropriate ARIA attributes:
+
+- **aria-label**: For screen reader descriptions
+- **aria-expanded**: For collapsible content
+- **role**: For semantic meaning (tablist, tab, etc.)
+- **tabindex**: For keyboard navigation
+
+### Focus Management
+
+Components support keyboard navigation:
+
+- **Focus indicators**: Visible focus states
+- **Tab order**: Logical keyboard navigation
+- **Focus trapping**: In modals and dropdowns
+
+## Theme Integration
+
+### daisyUI Themes
+
+Decor works with any daisyUI theme:
+
+```html
+<!-- Light theme -->
+<html data-theme="light">
+
+<!-- Dark theme -->  
+<html data-theme="dark">
+
+<!-- Custom theme -->
+<html data-theme="cyberpunk">
+```
+
+### Theme Switching
+
+Components automatically adapt when themes change through daisyUI's CSS custom properties.
+
+
+---
+
+This design system ensures consistency and accessibility across Decor components while leveraging daisyUI's thoughtful design decisions.

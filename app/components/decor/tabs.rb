@@ -13,11 +13,11 @@ module Decor
 
       # Icon configuration
       prop :icon, _Nilable(String)
-      prop :icon_position, Symbol, default: :before, in: [:before, :after, :only]
+      prop :icon_position, _Union(:before, :after, :only), default: :before
 
       # Badge configuration
       prop :badge_text, _Nilable(String)
-      prop :badge_color, Symbol, default: :standard, in: [:standard, :warning, :info, :error, :success, :primary, :secondary, :accent]
+      prop :badge_color, _Union(:standard, :warning, :info, :error, :success, :primary, :secondary, :accent), default: :standard
     end
 
     # Array of links in navigation. Each link must have a `title` and `href` specified

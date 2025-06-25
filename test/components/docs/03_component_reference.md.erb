@@ -1,0 +1,1159 @@
+---
+title: Component Reference
+label: Component Reference
+---
+
+# Component Reference
+
+Complete reference for all Decor and Navigo UI components with usage examples and parameters.
+
+---
+
+## Core Components (Decor)
+
+### Button
+
+Interactive button component with multiple variants and states.
+
+**Basic Usage:**
+```ruby
+render Decor::Button.new(
+  label: "Click me",
+  color: :primary,
+  variant: :contained
+)
+```
+
+**Key Attributes:**
+- `label` (String) - Button text
+- `icon` (String) - Icon name
+- `variant` (Symbol) - `:contained`, `:outlined`, `:text`
+- `color` (Symbol) - `:primary`, `:secondary`, `:danger`, `:warning`, `:neutral`
+- `size` (Symbol) - `:large`, `:medium`, `:wide`, `:small`, `:micro`, `:xs`
+- `disabled` (Boolean) - Disable button interaction
+- `full_width` (Boolean) - Span full container width
+
+---
+
+### ButtonLink
+
+Button that renders as a link with all button styling.
+
+**Basic Usage:**
+```ruby
+render Decor::ButtonLink.new(
+  label: "Go to page",
+  href: "/page",
+  color: :primary
+)
+```
+
+**Key Attributes:**
+- Inherits all Button attributes
+- `href` (String) - Link destination
+- `http_method` (Symbol) - HTTP method for forms
+- `turbo_frame` (String) - Turbo frame target
+
+---
+
+### Card
+
+Flexible container for content with optional images and headers.
+
+**Basic Usage:**
+```ruby
+render Decor::Card.new(title: "Card Title") do
+  "Card content goes here"
+end
+```
+
+**Key Attributes:**
+- `title` (String) - Card title
+- `image_url` (String) - Image URL
+- `image_position` (Symbol) - `:top`, `:bottom`, `:left`, `:right`
+- `size` (Symbol) - `:xs`, `:sm`, `:md`, `:lg`, `:xl`
+- `color` (Symbol) - DaisyUI semantic colors
+- `variant` (Symbol) - `:filled`, `:outlined`, `:ghost`
+
+---
+
+### Dropdown
+
+Contextual menu component with flexible content options.
+
+**Basic Usage:**
+```ruby
+render Decor::Dropdown.new do |dropdown|
+  dropdown.trigger_button_content { "Options" }
+  dropdown.menu_item(Decor::DropdownItem.new(text: "Edit", href: "#"))
+end
+```
+
+**Key Attributes:**
+- `size` (Symbol) - `:xs`, `:sm`, `:md`, `:lg`, `:xl`
+- `color` (Symbol) - DaisyUI semantic colors
+- `variant` (Symbol) - `:default`, `:bordered`, `:filled`
+- `position` (Symbol) - `:left`, `:right`, `:top`, `:bottom`, `:end`, `:center`, `:start`
+- `trigger` (Symbol) - `:click`, `:hover`, `:focus`
+
+---
+
+### Avatar
+
+User avatar component supporting images and initials.
+
+**Basic Usage:**
+```ruby
+render Decor::Avatar.new(
+  initials: "JD",
+  color: :primary,
+  size: :md
+)
+```
+
+**Key Attributes:**
+- `url` (String) - Image URL
+- `initials` (String) - Fallback initials
+- `shape` (Symbol) - `:circle`, `:square`
+- `size` (Symbol) - `:xs`, `:sm`, `:md`, `:lg`, `:xl`
+- `border` (Boolean) - Add border ring
+- `color` (Symbol) - Background color for initials
+- `variant` (Symbol) - `:filled`, `:outlined`, `:ghost`
+
+---
+
+### Badge
+
+Status indicators and labels with icons and avatars.
+
+**Basic Usage:**
+```ruby
+render Decor::Badge.new(
+  label: "New",
+  style: :success,
+  size: :medium
+)
+```
+
+**Key Attributes:**
+- `label` (String) - Badge text
+- `style` (Symbol) - `:success`, `:error`, `:warning`, `:info`, `:standard`
+- `size` (Symbol) - `:small`, `:medium`, `:large`
+- `variant` (Symbol) - `:outlined`, `:filled`
+- `icon` (String) - Icon name
+- `dashed` (Boolean) - Dashed border
+
+---
+
+### Banner
+
+Large alert component for important messages.
+
+**Basic Usage:**
+```ruby
+render Decor::Banner.new(
+  style: :warning,
+  icon: "exclamation-triangle"
+) do
+  "Important announcement"
+end
+```
+
+**Key Attributes:**
+- `style` (Symbol) - `:warning`, `:info`, `:error`, `:notice`, `:success`
+- `icon` (String) - Icon name
+- `link` (String) - Optional link URL
+- `centered` (Boolean) - Center content
+
+---
+
+### Box
+
+Simple container with title and description.
+
+**Basic Usage:**
+```ruby
+render Decor::Box.new(title: "Box Title") do
+  "Box content"
+end
+```
+
+---
+
+### Carousel
+
+Image and content carousel with navigation.
+
+**Basic Usage:**
+```ruby
+render Decor::Carousel.new do |carousel|
+  carousel.slide { "Slide 1" }
+  carousel.slide { "Slide 2" }
+end
+```
+
+---
+
+### ClickToCopy
+
+Copy-to-clipboard functionality wrapper.
+
+**Basic Usage:**
+```ruby
+render Decor::ClickToCopy.new do
+  "Click to copy me!"
+end
+```
+
+---
+
+### FlowStep
+
+Step indicator for multi-step processes.
+
+**Basic Usage:**
+```ruby
+render Decor::FlowStep.new(
+  title: "Create Account",
+  description: "Set up your new account",
+  step: 1,
+  color: :info
+)
+```
+
+**Key Attributes:**
+- `title` (String) - Step title
+- `description` (String) - Step description
+- `step` (Integer) - Step number
+- `icon` (String) - Icon instead of number
+- `size` (Symbol) - `:xs`, `:sm`, `:md`, `:lg`, `:xl`
+- `color` (Symbol) - DaisyUI semantic colors
+- `variant` (Symbol) - `:filled`, `:outlined`, `:ghost`
+
+---
+
+### Icon/SVG
+
+Icon and SVG components with Heroicons support.
+
+**Basic Usage:**
+```ruby
+render Decor::Icon.new(name: "star", size: :md)
+render Decor::SVG.new(size: :lg) { "<svg>...</svg>" }
+```
+
+---
+
+### Link
+
+Styled link component with Turbo support.
+
+**Basic Usage:**
+```ruby
+render Decor::Link.new(
+  href: "/page",
+  theme: :primary
+) { "Link text" }
+```
+
+---
+
+### Map
+
+Interactive map component with Google Maps integration.
+
+**Basic Usage:**
+```ruby
+render Decor::Map.new(
+  center: {lat: 37.7749, lng: -122.4194},
+  points: [{lat: 37.7749, lng: -122.4194, title: "San Francisco"}]
+)
+```
+
+---
+
+### Progress
+
+Progress indicator with steps and progress bar.
+
+**Basic Usage:**
+```ruby
+render Decor::Progress.new(
+  current_step: 2,
+  steps: [
+    {label_key: "step1"},
+    {label_key: "step2"},
+    {label_key: "step3"}
+  ]
+)
+```
+
+**Key Attributes:**
+- `current_step` (Integer) - Current step number
+- `steps` (Array) - Array of step objects
+- `color` (Symbol) - `:primary`, `:secondary`, `:success`, `:error`, `:warning`, `:info`
+- `size` (Symbol) - `:xs`, `:sm`, `:md`, `:lg`
+- `variant` (Symbol) - `:steps`, `:progress`, `:both`
+
+---
+
+### Spinner
+
+Loading spinner component.
+
+**Basic Usage:**
+```ruby
+render Decor::Spinner.new(size: :md, color: :primary)
+```
+
+---
+
+### Tag
+
+Label component with remove functionality.
+
+**Basic Usage:**
+```ruby
+render Decor::Tag.new(
+  label: "Tag",
+  color: :primary,
+  removable: true
+)
+```
+
+---
+
+### Title
+
+Page and section title component.
+
+**Basic Usage:**
+```ruby
+render Decor::Title.new(
+  title: "Page Title",
+  description: "Page description",
+  size: :lg
+)
+```
+
+---
+
+### Tooltip
+
+Contextual help text that appears on hover.
+
+**Basic Usage:**
+```ruby
+render Decor::Tooltip.new(
+  tip_text: "Helpful information",
+  position: :top
+) do
+  "Hover me"
+end
+```
+
+**Key Attributes:**
+- `position` (Symbol) - `:top`, `:bottom`, `:left`, `:right`
+- `tip_text` (String) - Tooltip content
+- `size` (Symbol) - `:xs`, `:sm`, `:md`, `:lg`, `:xl`
+- `color` (Symbol) - DaisyUI semantic colors
+- `variant` (Symbol) - `:filled`, `:outlined`, `:ghost`
+
+---
+
+## Form Components (Decor::Forms)
+
+### TextField
+
+Text input component with extensive customization options.
+
+**Basic Usage:**
+```ruby
+render Decor::Forms::TextField.new(
+  name: "email",
+  label: "Email Address",
+  type: :email,
+  required: true
+)
+```
+
+**Key Attributes:**
+- `name` (String) - Input name attribute
+- `label` (String) - Field label
+- `type` (Symbol) - `:text`, `:email`, `:password`, `:number`, etc.
+- `leading_text_add_on` (String) - Text before input
+- `trailing_text_add_on` (String) - Text after input
+- `leading_icon_name` (String) - Icon before input
+- `trailing_icon_name` (String) - Icon after input
+- `placeholder` (String) - Placeholder text
+- `required` (Boolean) - Required field
+- `disabled` (Boolean) - Disabled state
+
+---
+
+### TextArea
+
+Multi-line text input component.
+
+**Basic Usage:**
+```ruby
+render Decor::Forms::TextArea.new(
+  name: "description",
+  label: "Description",
+  rows: 4
+)
+```
+
+---
+
+### Select
+
+Dropdown selection component with grouping support.
+
+**Basic Usage:**
+```ruby
+render Decor::Forms::Select.new(
+  name: "category",
+  label: "Category",
+  options: [
+    {title: "Option 1", value: "1"},
+    {title: "Option 2", value: "2"}
+  ]
+)
+```
+
+**Key Attributes:**
+- `options` (Array) - Array of option objects
+- `include_blank_option` (Boolean) - Include blank option
+- `color` (Symbol) - DaisyUI semantic colors
+- `size` (Symbol) - `:xs`, `:sm`, `:md`, `:lg`, `:xl`
+
+---
+
+### Checkbox
+
+Checkbox input component.
+
+**Basic Usage:**
+```ruby
+render Decor::Forms::Checkbox.new(
+  name: "agree",
+  label: "I agree to the terms",
+  color: :primary
+)
+```
+
+**Key Attributes:**
+- `checked` (Boolean) - Checked state
+- `color` (Symbol) - DaisyUI semantic colors
+- `size` (Symbol) - `:xs`, `:sm`, `:md`, `:lg`, `:xl`
+
+---
+
+### Radio
+
+Radio button component.
+
+**Basic Usage:**
+```ruby
+render Decor::Forms::Radio.new(
+  name: "option",
+  label: "Option 1",
+  value: "1"
+)
+```
+
+---
+
+### Switch
+
+Toggle switch component with optional form submission.
+
+**Basic Usage:**
+```ruby
+render Decor::Forms::Switch.new(
+  name: "enabled",
+  label: "Enable feature",
+  submit_on_change: true
+)
+```
+
+**Key Attributes:**
+- `submit_on_change` (Boolean) - Submit form on change
+- `confirm_on_submit` (String) - Confirmation message
+- `color` (Symbol) - DaisyUI semantic colors
+- `size` (Symbol) - `:xs`, `:sm`, `:md`, `:lg`
+
+---
+
+### ButtonRadioGroup
+
+Radio buttons styled as button group.
+
+**Basic Usage:**
+```ruby
+render Decor::Forms::ButtonRadioGroup.new(
+  name: "size",
+  options: [
+    {label: "Small", value: "sm"},
+    {label: "Medium", value: "md"},
+    {label: "Large", value: "lg"}
+  ]
+)
+```
+
+---
+
+### DateCalendar
+
+Calendar component for date selection.
+
+**Basic Usage:**
+```ruby
+render Decor::Forms::DateCalendar.new(
+  name: "date",
+  label: "Select Date"
+)
+```
+
+---
+
+### FileUpload
+
+File upload component with preview support.
+
+**Basic Usage:**
+```ruby
+render Decor::Forms::FileUpload.new(
+  name: "avatar",
+  label: "Upload Avatar",
+  accept: "image/*"
+)
+```
+
+---
+
+### NumberField
+
+Number input with validation.
+
+**Basic Usage:**
+```ruby
+render Decor::Forms::NumberField.new(
+  name: "quantity",
+  label: "Quantity",
+  min: 1,
+  max: 100
+)
+```
+
+---
+
+### HiddenField
+
+Hidden form field.
+
+**Basic Usage:**
+```ruby
+render Decor::Forms::HiddenField.new(
+  name: "token",
+  value: "abc123"
+)
+```
+
+---
+
+### ExpandingCheckboxCollection
+
+Checkbox collection with show more functionality.
+
+**Basic Usage:**
+```ruby
+render Decor::Forms::ExpandingCheckboxCollection.new(
+  name: "tags",
+  options: checkbox_options,
+  show_more_threshold: 5
+)
+```
+
+---
+
+### Form
+
+Form wrapper component with Stimulus integration.
+
+**Basic Usage:**
+```ruby
+render Decor::Forms::Form.new(model: @user) do |form|
+  # Form fields
+end
+```
+
+---
+
+## Data Display Components
+
+### DataTable
+
+Feature-rich table component with sorting, filtering, and pagination.
+
+**Basic Usage:**
+```ruby
+render Decor::Tables::DataTable.new(
+  title: "Users",
+  subtitle: "Manage user accounts"
+) do |table|
+  table.with_data_table_header_row do |header|
+    header.with_data_table_header_cell(content: "Name")
+  end
+  
+  users.each do |user|
+    table.with_data_table_row do |row|
+      row.with_data_table_cell(content: user.name)
+    end
+  end
+end
+```
+
+**Key Features:**
+- Sortable columns with sort indicators
+- Selectable rows with checkboxes
+- Row highlighting and hover effects
+- DaisyUI size variants (`:xs`, `:sm`, `:md`, `:lg`, `:xl`)
+- Zebra striping and pinned rows
+- Expandable row content
+- Typography and cell emphasis options
+
+---
+
+### DataTableBuilder
+
+Advanced table builder with query integration.
+
+**Basic Usage:**
+```ruby
+render Decor::Tables::DataTableBuilder.new(
+  query: User.all,
+  title: "Users"
+) do |builder|
+  builder.column :name, "Name"
+  builder.column :email, "Email"
+end
+```
+
+---
+
+### Pagination
+
+Page navigation component for data tables and lists.
+
+**Basic Usage:**
+```ruby
+render Decor::Pagination.new(
+  current_page: 3,
+  page_size: 20,
+  total_count: 500,
+  path: "/users"
+)
+```
+
+**Key Features:**
+- Responsive design with mobile-friendly layout
+- Page size selector with custom options
+- High page number handling with ellipsis
+- Integration with data tables
+- Result count display
+
+---
+
+### Stats/Stat
+
+Statistics display components.
+
+**Basic Usage:**
+```ruby
+render Decor::Stats.new do |stats|
+  stats.render Decor::Stat.new(
+    title: "Total Users",
+    value: "1,234",
+    description: "↗︎ 400 (22%)"
+  )
+end
+```
+
+---
+
+### Tabs
+
+Tabbed navigation interface.
+
+**Basic Usage:**
+```ruby
+render Decor::Tabs.new(
+  links: [
+    {title: "Dashboard", href: "/dashboard", active: true},
+    {title: "Settings", href: "/settings"}
+  ]
+)
+```
+
+**Key Features:**
+- Icons before, after, or only
+- Badge indicators with colors
+- Multiple size variants (`:xs`, `:sm`, `:md`, `:lg`, `:xl`)
+- Color themes (DaisyUI semantic colors)
+- Style variants (`:ghost`, `:bordered`, `:lifted`, `:boxed`)
+- Mobile responsive with automatic select dropdown
+- Disabled states and status text
+- Custom tab buttons via slots
+
+---
+
+## Navigation Components (Navigo)
+
+### SideNavbar
+
+Responsive sidebar navigation with hierarchical menu structure and search functionality.
+
+**Basic Usage:**
+```ruby
+render Navigo::SideNavbar.new do |navbar|
+  navbar.with_section(title: "Main") do |section|
+    section.with_item(title: "Dashboard", href: "/dashboard", icon: "home")
+    section.with_item(title: "Users", href: "/users", icon: "users")
+  end
+end
+```
+
+**Key Features:**
+- Collapsible sidebar with desktop/mobile modes
+- Hierarchical menu with sections and sub-items
+- Search functionality
+- Avatar and logo support
+- DaisyUI menu styling
+- Active states and badges
+
+---
+
+### TopNavbar
+
+Top navigation bar with search, account menu, and notifications.
+
+**Basic Usage:**
+```ruby
+render Navigo::TopNavbar.new do |navbar|
+  navbar.with_account_menu do
+    # Account menu items
+  end
+  navbar.with_notifications_menu do
+    # Notifications
+  end
+end
+```
+
+---
+
+### SecondaryNavbar
+
+Secondary navigation bars for sub-navigation.
+
+**Basic Usage:**
+```ruby
+render Navigo::SecondaryNavbar.new do
+  # Secondary navigation content
+end
+```
+
+---
+
+### Footer
+
+Comprehensive footer with link groups, social media, and newsletter signup.
+
+**Basic Usage:**
+```ruby
+render Navigo::Footer.new(
+  supplier_name: "Company Name",
+  link_groups: [
+    {
+      title: "Products",
+      links: [
+        {label: "Features", href: "/features"},
+        {label: "Pricing", href: "/pricing"}
+      ]
+    }
+  ],
+  social_links: [
+    {platform: :twitter, url: "https://twitter.com/company"}
+  ]
+)
+```
+
+---
+
+### CompactFooter
+
+Simplified footer for basic social links and copyright.
+
+**Basic Usage:**
+```ruby
+render Navigo::CompactFooter.new do |footer|
+  footer.with_logo { "Company" }
+  footer.with_links([
+    {title: "About", href: "/about"},
+    {title: "Contact", href: "/contact"}
+  ])
+end
+```
+
+---
+
+### Page
+
+Page layout component with hero, header, tabs, and body sections.
+
+**Basic Usage:**
+```ruby
+render Navigo::Page.new(title: "Page Title") do |page|
+  page.with_hero { "Hero content" }
+  page.with_header { "Page header" }
+  page.with_body { "Main content" }
+end
+```
+
+**Key Features:**
+- Multiple size variants (`:xs`, `:sm`, `:md`, `:lg`, `:xl`)
+- Background themes (`:default`, `:primary`, `:secondary`, `:hero`, `:neutral`)
+- Padding options (`:none`, `:sm`, `:md`, `:lg`, `:xl`)
+- Spacing control between elements
+- Full height option
+- Badge and tag support
+- CTA (call-to-action) sections
+- Tab integration
+
+---
+
+### PageSection
+
+Visual section separator within pages with title and description.
+
+**Basic Usage:**
+```ruby
+render Navigo::PageSection.new(
+  title: "Section Title",
+  description: "Section description"
+) do
+  "Section content"
+end
+```
+
+---
+
+### PageHeader
+
+Flexible page header with multiple layout options.
+
+**Basic Usage:**
+```ruby
+render Navigo::PageHeader.new(
+  title: "Page Title",
+  subtitle: "Page subtitle",
+  layout: :default
+) do |header|
+  header.with_actions do
+    render Decor::Button.new(label: "Action")
+  end
+end
+```
+
+**Key Features:**
+- Multiple layout options (`:default`, `:centered`, `:minimal`, `:hero`, `:compact`)
+- Size variants and background themes
+- Avatar, breadcrumbs, and status support
+- Action buttons and secondary actions
+- Meta content and title content slots
+
+---
+
+### Breadcrumbs
+
+Navigation breadcrumb trail with mobile-friendly select dropdown.
+
+**Basic Usage:**
+```ruby
+render Navigo::Breadcrumbs.new(
+  breadcrumbs: [
+    {title: "Home", href: "/"},
+    {title: "Products", href: "/products"},
+    {title: "Current Page"}
+  ]
+)
+```
+
+---
+
+### SearchResultsDropdown
+
+Search results display component.
+
+**Basic Usage:**
+```ruby
+render Navigo::SearchResultsDropdown.new do
+  # Search results content
+end
+```
+
+---
+
+## Feedback & Modal Components
+
+### Flash/Notification
+
+Alert and notification components for user feedback.
+
+**Basic Usage:**
+```ruby
+render Decor::Flash.new(
+  variant: :success,
+  title: "Success!",
+  text: "Operation completed successfully"
+)
+
+render Decor::Notification.new(
+  title: "New Message",
+  style: :info
+) do
+  "You have a new message"
+end
+```
+
+---
+
+### NotificationManager
+
+Container for managing multiple notifications.
+
+**Basic Usage:**
+```ruby
+render Decor::NotificationManager.new do |manager|
+  # Notifications are added via Stimulus
+end
+```
+
+---
+
+### Modal Components
+
+Complete modal system with layouts and controls.
+
+**Basic Usage:**
+```ruby
+# Basic Modal
+render Decor::Modals::Modal.new(
+  initial_content: "Modal content",
+  start_shown: true
+)
+
+# Modal Layout with structure
+render Decor::Modals::ModalLayout.new do |modal|
+  modal.with_header { "Modal Title" }
+  modal.with_body { "Modal content" }
+  modal.with_footer { "Modal actions" }
+end
+
+# Confirmation Modal
+render Decor::Modals::ConfirmModal.new(
+  title: "Confirm Action",
+  message: "Are you sure?"
+)
+```
+
+**Available Components:**
+- `Modal` - Basic modal dialog
+- `ModalLayout` - Structured modal with header/body/footer
+- `ConfirmModal` - Confirmation dialog
+- `ModalOpenButton` - Button that opens a modal
+- `ModalCloseButton` - Button that closes a modal
+
+---
+
+## Chat Components
+
+### Chat::List
+
+Chat message list container.
+
+**Basic Usage:**
+```ruby
+render Decor::Chat::List.new do |list|
+  messages.each do |message|
+    list.render Decor::Chat::ListMessage.new(message: message)
+  end
+end
+```
+
+---
+
+### Chat::ListMessage
+
+Individual chat message component.
+
+**Basic Usage:**
+```ruby
+render Decor::Chat::ListMessage.new(
+  message: message_object,
+  incoming: true
+)
+```
+
+---
+
+## Layout & Utility Components
+
+### PanelGroup/Panel
+
+Information panels for organizing content.
+
+**Basic Usage:**
+```ruby
+render Decor::PanelGroup.new(
+  title: "Dashboard",
+  description: "Overview of key metrics"
+) do |group|
+  group.panels do
+    [
+      group.panel(title: "Users", icon: "users") { "1,234" },
+      group.panel(title: "Revenue", icon: "currency-dollar") { "$12,345" }
+    ]
+  end
+end
+```
+
+---
+
+### SearchAndFilter
+
+Search and filter controls for data tables.
+
+**Basic Usage:**
+```ruby
+render Decor::SearchAndFilter.new do |component|
+  component.search(placeholder: "Search...")
+  component.filters do
+    # Filter controls
+  end
+end
+```
+
+---
+
+### Element
+
+Generic container for custom Stimulus controllers.
+
+**Basic Usage:**
+```ruby
+render Decor::Element.new(
+  stimulus_controller: "custom-controller"
+) do
+  "Custom content"
+end
+```
+
+---
+
+### FormattedEncodedId
+
+Display formatted encoded IDs with prefixes.
+
+**Basic Usage:**
+```ruby
+render Decor::FormattedEncodedId.new(
+  encoded_id: "abc123",
+  prefix: "USR"
+)
+```
+
+---
+
+### SwitchingBox
+
+Container that switches between different states.
+
+**Basic Usage:**
+```ruby
+render Decor::SwitchingBox.new(name: "view-mode") do
+  # Content that can switch states
+end
+```
+
+---
+
+### Toggle
+
+Simple toggle component.
+
+**Basic Usage:**
+```ruby
+render Decor::Toggle.new(name: "feature-enabled")
+```
+
+---
+
+## Interactive Examples
+
+For live, interactive examples of all components with adjustable parameters, explore the component previews in the sidebar. Each component includes:
+
+- 🎮 **Interactive playground** with all parameters
+- 📱 **Responsive preview** modes  
+- 🎨 **All color and variant** combinations
+- 📋 **Copy-paste code** examples
+
+## Common Patterns
+
+### Styling Attributes
+
+Most components support these common styling attributes:
+
+- `color` (Symbol) - DaisyUI semantic colors (`:primary`, `:secondary`, `:success`, `:error`, etc.)
+- `size` (Symbol) - Size variants (`:xs`, `:sm`, `:md`, `:lg`, `:xl`)
+- `variant` (Symbol) - Style variants (`:filled`, `:outlined`, `:ghost`, etc.)
+- `disabled` (Boolean) - Disable interaction
+
+### Form Field Attributes
+
+Form components inherit these common attributes:
+
+- `name` (String) - Input name attribute
+- `label` (String) - Field label
+- `required` (Boolean) - Required field indicator
+- `disabled` (Boolean) - Disabled state
+- `helper_text` (String) - Help text below field
+- `placeholder` (String) - Placeholder text
+
+### Navigation Patterns
+
+Navigation components use consistent slot patterns:
+
+```ruby
+# Common navigation pattern
+render Navigo::SideNavbar.new do |navbar|
+  navbar.with_section(title: "Section") do |section|
+    section.with_item(title: "Item", href: "/path")
+  end
+end
+```
+
+### DaisyUI Integration
+
+All components leverage daisyUI's design system:
+
+- **Semantic colors** that adapt to themes
+- **Responsive utilities** for mobile-first design
+- **Consistent spacing** and typography scales
+- **Accessibility features** built-in
+- **Dark/light mode** support automatic
+
+---
+
+*For detailed examples and interactive demos, use the Lookbook interface to explore each component's preview.*

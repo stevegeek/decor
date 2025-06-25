@@ -1,0 +1,8 @@
+<%= render ::Decor::Carousel.new(
+  slides_per_view: 3,
+  max_height: 200
+) do |c|
+  (1..10).each do |i|
+    c.with_slide(component: ::Decor::Badge, attributes: {label: "Nice Badge ##{i}!", html_options: {class: "m-4"}})
+  end
+end %>
