@@ -25,6 +25,8 @@ gem "literal"
 
 gem "view_component"
 gem "phlex-rails", ">= 2.0.0"
+gem "minitest"
+gem "minitest-hooks"
 gem "inline_svg" # used by Decor::Svg if inline: true
 gem "vident", github: "stevegeek/vident", branch: "main"
 gem "vident-typed", github: "stevegeek/vident", branch: "main"
