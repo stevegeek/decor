@@ -11,6 +11,8 @@ class ::Decor::Forms::ExpandingCheckboxCollectionPreview < ::Lookbook::Preview
   # @param label text
   # @param size number
   # @param hide_after_showing number
+  # @param variant [Symbol] select [~, default, joined]
+  # @param color [Symbol] select [~, primary, secondary, accent, neutral, success, warning, info, error]
   # @param show_label toggle
   # @param required toggle
   # @param hide_label_required_asterisk toggle
@@ -23,26 +25,30 @@ class ::Decor::Forms::ExpandingCheckboxCollectionPreview < ::Lookbook::Preview
     show_label: true,
     size: 5,
     hide_after_showing: 3,
+    variant: nil,
+    color: nil,
     value: nil,
     required: nil,
     disabled: nil,
     helper_text: nil,
     hide_label_required_asterisk: nil
   )
-    render ::Decor::Forms::ExpandingCheckboxCollection.new(
+    component = ::Decor::Forms::ExpandingCheckboxCollection.new(
       name: name,
       label: label,
       show_label: show_label,
       size: size,
       hide_after_showing: hide_after_showing,
+      variant: variant,
+      color: color,
       value: value,
       required: required,
       disabled: disabled,
       helper_text: helper_text,
       hide_required_asterisk: hide_label_required_asterisk
-    ) do |c|
-      c.with_checkboxes { "Checkboxes go here! This must really be created using the custom FormBuilder" }
-    end
+    )
+    component.instance_variable_set(:@checkboxes, "Checkboxes go here! This must really be created using the custom FormBuilder")
+    render component
   end
 
   # Form field attrs
@@ -50,6 +56,8 @@ class ::Decor::Forms::ExpandingCheckboxCollectionPreview < ::Lookbook::Preview
   # @param show_label toggle
   # @param size number
   # @param hide_after_showing number
+  # @param variant [Symbol] select [~, default, joined]
+  # @param color [Symbol] select [~, primary, secondary, accent, neutral, success, warning, info, error]
   # @param required toggle
   # @param hide_label_required_asterisk toggle
   # @param disabled toggle
@@ -61,6 +69,8 @@ class ::Decor::Forms::ExpandingCheckboxCollectionPreview < ::Lookbook::Preview
     value: nil,
     size: 5,
     hide_after_showing: 3,
+    variant: nil,
+    color: nil,
     required: nil,
     disabled: nil,
     helper_text: nil,
@@ -78,15 +88,17 @@ class ::Decor::Forms::ExpandingCheckboxCollectionPreview < ::Lookbook::Preview
       locals: {
         model: klass.new(chosen: nil),
         choices: [
-          OpenStruct.new(value: "yes", label: "Yes"),
-          OpenStruct.new(value: "no", label: "No"),
-          OpenStruct.new(value: "maybe", label: "Maybe"),
-          OpenStruct.new(value: "maybe-not", label: "Maybe not"),
-          OpenStruct.new(value: "maybe-not-maybe", label: "Maybe not maybe")
+          {value: "yes", label: "Yes"},
+          {value: "no", label: "No"},
+          {value: "maybe", label: "Maybe"},
+          {value: "maybe-not", label: "Maybe not"},
+          {value: "maybe-not-maybe", label: "Maybe not maybe"}
         ],
         label: label,
         size: size,
         hide_after_showing: hide_after_showing,
+        variant: variant,
+        color: color,
         show_label: show_label,
         value: value,
         required: required,
