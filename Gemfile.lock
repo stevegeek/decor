@@ -1,11 +1,12 @@
 GIT
   remote: https://github.com/parruda/claude-swarm.git
-  revision: 0a00237acd9f69336101386735a893f636a1920a
+  revision: 21e041668ac44fd8135ee08aab7827b500a5f083
   branch: main
   specs:
-    claude_swarm (0.1.17)
+    claude_swarm (0.1.20)
       fast-mcp-annotations
       thor (~> 1.3)
+      zeitwerk (~> 2.6)
 
 GIT
   remote: https://github.com/stevegeek/encoded_id.git
@@ -323,7 +324,7 @@ GEM
     mime-types (3.7.0)
       logger
       mime-types-data (~> 3.2025, >= 3.2025.0507)
-    mime-types-data (3.2025.0610)
+    mime-types-data (3.2025.0624)
     mini_mime (1.1.5)
     minitest (5.25.5)
     msgpack (1.8.0)
