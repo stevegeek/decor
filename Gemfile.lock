@@ -42,45 +42,6 @@ GIT
       activesupport (>= 7.2, < 9)
       literal (>= 1.6.0, < 2)
 
-GIT
-  remote: https://github.com/stevegeek/vident.git
-  revision: 440413a02c44716e2a9c4c16eca4493636a96014
-  branch: main
-  specs:
-    vident (0.13.0)
-      activesupport (>= 7.2, < 9)
-      railties (>= 7.2, < 9)
-    vident-phlex (0.13.0)
-      activesupport (>= 7.2, < 9)
-      phlex (>= 1.5.0, < 3)
-      phlex-rails (>= 0.8.1, < 3)
-      railties (>= 7.2, < 9)
-      vident (~> 0.13.0)
-    vident-tailwind (0.13.0)
-      activesupport (>= 7.2, < 9)
-      railties (>= 7.2, < 9)
-      tailwind_merge (>= 0.5.2, < 2)
-      vident (~> 0.13.0)
-    vident-typed (0.13.0)
-      activesupport (>= 7.2, < 9)
-      dry-struct (>= 1.5.0, < 2)
-      railties (>= 7.2, < 9)
-      vident (~> 0.13.0)
-    vident-typed-phlex (0.13.0)
-      railties (>= 7.2, < 9)
-      vident-phlex (~> 0.13.0)
-      vident-typed (~> 0.13.0)
-    vident-typed-view_component (0.13.0)
-      activesupport (>= 7.2, < 9)
-      railties (>= 7.2, < 9)
-      vident-typed (~> 0.13.0)
-      vident-view_component (~> 0.13.0)
-    vident-view_component (0.13.0)
-      activesupport (>= 7.2, < 9)
-      railties (>= 7.2, < 9)
-      vident (~> 0.13.0)
-      view_component (>= 2.74.1, < 4)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -320,8 +281,6 @@ GEM
     mime-types-data (3.2025.0624)
     mini_mime (1.1.5)
     minitest (5.25.5)
-    minitest-hooks (1.5.2)
-      minitest (> 5.3)
     msgpack (1.8.0)
     multi_css (0.1.0)
       css_press
@@ -544,6 +503,39 @@ GEM
     unicode-emoji (4.0.4)
     uri (1.0.3)
     useragent (0.16.11)
+    vident (0.13.1)
+      activesupport (>= 7.2, < 9)
+      railties (>= 7.2, < 9)
+    vident-phlex (0.13.1)
+      activesupport (>= 7.2, < 9)
+      phlex (>= 1.5.0, < 3)
+      phlex-rails (>= 0.8.1, < 3)
+      railties (>= 7.2, < 9)
+      vident (~> 0.13.1)
+    vident-tailwind (0.13.1)
+      activesupport (>= 7.2, < 9)
+      railties (>= 7.2, < 9)
+      tailwind_merge (>= 0.5.2, < 2)
+      vident (~> 0.13.1)
+    vident-typed (0.13.1)
+      activesupport (>= 7.2, < 9)
+      dry-struct (>= 1.5.0, < 2)
+      railties (>= 7.2, < 9)
+      vident (~> 0.13.1)
+    vident-typed-phlex (0.13.1)
+      railties (>= 7.2, < 9)
+      vident-phlex (~> 0.13.1)
+      vident-typed (~> 0.13.1)
+    vident-typed-view_component (0.13.1)
+      activesupport (>= 7.2, < 9)
+      railties (>= 7.2, < 9)
+      vident-typed (~> 0.13.1)
+      vident-view_component (~> 0.13.1)
+    vident-view_component (0.13.1)
+      activesupport (>= 7.2, < 9)
+      railties (>= 7.2, < 9)
+      vident (~> 0.13.1)
+      view_component (>= 2.74.1, < 4)
     view_component (3.23.2)
       activesupport (>= 5.2.0, < 8.1)
       concurrent-ruby (~> 1)
@@ -586,8 +578,6 @@ DEPENDENCIES
   kamal
   literal
   lookbook
-  minitest
-  minitest-hooks
   phlex-rails (>= 2.0.0)
   phlexing!
   propshaft
@@ -606,13 +596,13 @@ DEPENDENCIES
   thruster
   turbo-rails
   tzinfo-data
-  vident!
-  vident-phlex!
-  vident-tailwind!
-  vident-typed!
-  vident-typed-phlex!
-  vident-typed-view_component!
-  vident-view_component!
+  vident (>= 0.13.1)
+  vident-phlex (>= 0.13.1)
+  vident-tailwind (>= 0.13.1)
+  vident-typed (>= 0.13.1)
+  vident-typed-phlex (>= 0.13.1)
+  vident-typed-view_component (>= 0.13.1)
+  vident-view_component (>= 0.13.1)
   view_component
   web-console
 
