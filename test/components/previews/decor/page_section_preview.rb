@@ -1,5 +1,5 @@
 # @label PageSection
-class ::Navigo::PageSectionPreview < ::Lookbook::Preview
+class ::Decor::PageSectionPreview < ::Lookbook::Preview
   # @param title text
   # @param description text
   # @param show_hero_slot toggle
@@ -38,7 +38,7 @@ class ::Navigo::PageSectionPreview < ::Lookbook::Preview
   # @!group Sizes
 
   def extra_small
-    render ::Navigo::PageSection.new(
+    render ::Decor::PageSection.new(
       title: "Extra Small Section",
       description: "This is an extra small section with compact spacing and smaller text.",
       separator: true,
@@ -50,7 +50,7 @@ class ::Navigo::PageSectionPreview < ::Lookbook::Preview
   end
 
   def small
-    render ::Navigo::PageSection.new(
+    render ::Decor::PageSection.new(
       title: "Small Section",
       description: "This is a small section with slightly reduced spacing.",
       separator: true,
@@ -62,7 +62,7 @@ class ::Navigo::PageSectionPreview < ::Lookbook::Preview
   end
 
   def medium
-    render ::Navigo::PageSection.new(
+    render ::Decor::PageSection.new(
       title: "Medium Section (Default)",
       description: "This is a medium section with standard spacing.",
       separator: true,
@@ -74,7 +74,7 @@ class ::Navigo::PageSectionPreview < ::Lookbook::Preview
   end
 
   def large
-    render ::Navigo::PageSection.new(
+    render ::Decor::PageSection.new(
       title: "Large Section",
       description: "This is a large section with increased spacing and larger text.",
       separator: true,
@@ -86,7 +86,7 @@ class ::Navigo::PageSectionPreview < ::Lookbook::Preview
   end
 
   def extra_large
-    render ::Navigo::PageSection.new(
+    render ::Decor::PageSection.new(
       title: "Extra Large Section",
       description: "This is an extra large section with maximum spacing and largest text.",
       separator: true,
@@ -102,7 +102,7 @@ class ::Navigo::PageSectionPreview < ::Lookbook::Preview
   # @!group Backgrounds
 
   def with_primary_background
-    render ::Navigo::PageSection.new(
+    render ::Decor::PageSection.new(
       title: "Primary Background Section",
       description: "This section has a subtle primary color background.",
       background: :primary,
@@ -113,7 +113,7 @@ class ::Navigo::PageSectionPreview < ::Lookbook::Preview
   end
 
   def with_secondary_background
-    render ::Navigo::PageSection.new(
+    render ::Decor::PageSection.new(
       title: "Secondary Background Section",
       description: "This section has a subtle secondary color background.",
       background: :secondary,
@@ -124,7 +124,7 @@ class ::Navigo::PageSectionPreview < ::Lookbook::Preview
   end
 
   def with_neutral_background
-    render ::Navigo::PageSection.new(
+    render ::Decor::PageSection.new(
       title: "Neutral Background Section",
       description: "This section has a subtle neutral color background.",
       background: :neutral,
@@ -139,7 +139,7 @@ class ::Navigo::PageSectionPreview < ::Lookbook::Preview
   # @!group Padding Variations
 
   def no_padding
-    render ::Navigo::PageSection.new(
+    render ::Decor::PageSection.new(
       title: "No Padding Section",
       description: "This section has no bottom padding.",
       padding: :none,
@@ -150,7 +150,7 @@ class ::Navigo::PageSectionPreview < ::Lookbook::Preview
   end
 
   def small_padding
-    render ::Navigo::PageSection.new(
+    render ::Decor::PageSection.new(
       title: "Small Padding Section",
       description: "This section has small bottom padding.",
       padding: :sm,
@@ -161,7 +161,7 @@ class ::Navigo::PageSectionPreview < ::Lookbook::Preview
   end
 
   def large_padding
-    render ::Navigo::PageSection.new(
+    render ::Decor::PageSection.new(
       title: "Large Padding Section",
       description: "This section has large bottom padding.",
       padding: :lg,
@@ -176,7 +176,7 @@ class ::Navigo::PageSectionPreview < ::Lookbook::Preview
   # @!group Complex Examples
 
   def with_all_features
-    render ::Navigo::PageSection.new(
+    render ::Decor::PageSection.new(
       title: "Feature-Rich Section",
       description: "This section demonstrates all available features.",
       separator: true,

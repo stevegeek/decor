@@ -1,16 +1,16 @@
 # @label PageHeader
-class ::Navigo::PageHeaderPreview < ::Lookbook::Preview
+class ::Decor::PageHeaderPreview < ::Lookbook::Preview
   # @!group Layout Examples
 
   # Default layout with all features
   def default_layout
-    render ::Navigo::PageHeader.new(
+    render ::Decor::PageHeader.new(
       title: "User Profile",
       subtitle: "Manage your account settings and preferences",
       description: "Update your personal information, change your password, and customize your experience."
     ) do |header|
       header.with_breadcrumbs do
-        render ::Navigo::Breadcrumbs.new(
+        render ::Decor::Nav::Breadcrumbs.new(
           breadcrumbs: [
             {name: "Dashboard", path: "/dashboard"},
             {name: "Users", path: "/users"},
@@ -48,7 +48,7 @@ class ::Navigo::PageHeaderPreview < ::Lookbook::Preview
 
   # Centered layout for profile pages
   def centered_layout
-    render ::Navigo::PageHeader.new(
+    render ::Decor::PageHeader.new(
       title: "John Doe",
       subtitle: "Software Engineer at Example Corp",
       description: "Passionate about building beautiful and functional web applications with modern technologies.",
@@ -87,7 +87,7 @@ class ::Navigo::PageHeaderPreview < ::Lookbook::Preview
 
   # Minimal layout for admin interfaces
   def minimal_layout
-    render ::Navigo::PageHeader.new(
+    render ::Decor::PageHeader.new(
       title: "User Management",
       layout: :minimal
     ) do |header|
@@ -99,7 +99,7 @@ class ::Navigo::PageHeaderPreview < ::Lookbook::Preview
 
   # Hero layout for landing pages
   def hero_layout
-    render ::Navigo::PageHeader.new(
+    render ::Decor::PageHeader.new(
       title: "Welcome to Our Platform",
       subtitle: "Build amazing applications with our comprehensive toolkit",
       description: "Join thousands of developers who are already using our platform to create beautiful, scalable applications that delight users and drive business growth.",
@@ -124,7 +124,7 @@ class ::Navigo::PageHeaderPreview < ::Lookbook::Preview
 
   # Compact layout for dense interfaces
   def compact_layout
-    render ::Navigo::PageHeader.new(
+    render ::Decor::PageHeader.new(
       title: "Project: E-commerce Redesign",
       layout: :compact
     ) do |header|
@@ -146,7 +146,7 @@ class ::Navigo::PageHeaderPreview < ::Lookbook::Preview
 
   # Small size header
   def small_size
-    render ::Navigo::PageHeader.new(
+    render ::Decor::PageHeader.new(
       title: "Small Header",
       subtitle: "This is a smaller version",
       size: :sm
@@ -159,7 +159,7 @@ class ::Navigo::PageHeaderPreview < ::Lookbook::Preview
 
   # Large size header
   def large_size
-    render ::Navigo::PageHeader.new(
+    render ::Decor::PageHeader.new(
       title: "Large Header",
       subtitle: "This is a larger version with more presence",
       description: "Perfect for important pages that need to make a statement.",
@@ -173,7 +173,7 @@ class ::Navigo::PageHeaderPreview < ::Lookbook::Preview
 
   # Extra large size header
   def extra_large_size
-    render ::Navigo::PageHeader.new(
+    render ::Decor::PageHeader.new(
       title: "Extra Large Header",
       subtitle: "Maximum impact for hero sections",
       description: "This size is perfect for landing pages and major section headers that need to capture attention.",
@@ -192,7 +192,7 @@ class ::Navigo::PageHeaderPreview < ::Lookbook::Preview
 
   # Hero background
   def hero_background
-    render ::Navigo::PageHeader.new(
+    render ::Decor::PageHeader.new(
       title: "Hero Background",
       subtitle: "Uses base-200 background for subtle contrast",
       background: :hero
@@ -201,7 +201,7 @@ class ::Navigo::PageHeaderPreview < ::Lookbook::Preview
 
   # Gradient background
   def gradient_background
-    render ::Navigo::PageHeader.new(
+    render ::Decor::PageHeader.new(
       title: "Gradient Background",
       subtitle: "Eye-catching gradient from primary to secondary",
       background: :gradient,
@@ -215,7 +215,7 @@ class ::Navigo::PageHeaderPreview < ::Lookbook::Preview
 
   # Transparent background
   def transparent_background
-    render ::Navigo::PageHeader.new(
+    render ::Decor::PageHeader.new(
       title: "Transparent Background",
       subtitle: "Blends seamlessly with parent container",
       background: :transparent,
@@ -228,7 +228,7 @@ class ::Navigo::PageHeaderPreview < ::Lookbook::Preview
 
   # Custom title content
   def custom_title_content
-    render ::Navigo::PageHeader.new(
+    render ::Decor::PageHeader.new(
       title: "Original Title"  # This will be overridden
     ) do |header|
       header.with_title_content do
@@ -246,7 +246,7 @@ class ::Navigo::PageHeaderPreview < ::Lookbook::Preview
 
   # Rich meta content
   def rich_meta_content
-    render ::Navigo::PageHeader.new(
+    render ::Decor::PageHeader.new(
       title: "Project Dashboard",
       subtitle: "Track your project progress and team performance"
     ) do |header|
@@ -287,7 +287,7 @@ class ::Navigo::PageHeaderPreview < ::Lookbook::Preview
 
   # Complex actions layout
   def complex_actions
-    render ::Navigo::PageHeader.new(
+    render ::Decor::PageHeader.new(
       title: "Content Management",
       subtitle: "Manage your articles, pages, and media"
     ) do |header|
@@ -308,7 +308,7 @@ class ::Navigo::PageHeaderPreview < ::Lookbook::Preview
 
   # Mobile-optimized layout
   def mobile_optimized
-    render ::Navigo::PageHeader.new(
+    render ::Decor::PageHeader.new(
       title: "Mobile-First Design",
       subtitle: "This header adapts beautifully to mobile screens",
       description: "Notice how the layout stacks vertically on mobile and arranges horizontally on larger screens."
@@ -336,12 +336,12 @@ class ::Navigo::PageHeaderPreview < ::Lookbook::Preview
 
   # Integration with other Navigo components
   def with_navigo_components
-    render ::Navigo::PageHeader.new(
+    render ::Decor::PageHeader.new(
       title: "Dashboard",
       subtitle: "Welcome back to your workspace"
     ) do |header|
       header.with_breadcrumbs do
-        render ::Navigo::Breadcrumbs.new(
+        render ::Decor::Nav::Breadcrumbs.new(
           breadcrumbs: [
             {name: "Home", path: "/", icon: "home"},
             {name: "Workspace", path: "/workspace"},
@@ -388,7 +388,7 @@ class ::Navigo::PageHeaderPreview < ::Lookbook::Preview
     show_breadcrumbs: false,
     border: true
   )
-    render ::Navigo::PageHeader.new(
+    render ::Decor::PageHeader.new(
       title: title,
       subtitle: subtitle,
       description: description,
@@ -399,7 +399,7 @@ class ::Navigo::PageHeaderPreview < ::Lookbook::Preview
     ) do |header|
       if show_breadcrumbs
         header.with_breadcrumbs do
-          render ::Navigo::Breadcrumbs.new(
+          render ::Decor::Nav::Breadcrumbs.new(
             breadcrumbs: [
               {name: "Home", path: "/"},
               {name: "Current", path: "/current", current: true}

@@ -1,0 +1,29 @@
+<%= render ::Navigo::PageSection.new(
+  title: title,
+  description: description,
+  separator: show_separator,
+  size: size,
+  background: background,
+  padding: padding
+) do |page| %>
+  <% if show_hero_slot %>
+    <% page.with_hero do %>
+      <div class="hero bg-base-200 rounded-lg p-4">
+        <p>I'm in the hero area</p>
+      </div>
+    <% end %>
+  <% end %>
+  <% if show_example_tag %>
+    <% page.with_tag(label: "Active", color: :success, icon: "check-circle") %>
+  <% end %>
+  <% if show_cta %>
+    <% page.with_cta do %>
+      <%= render ::Decor::Button.new(label: "Add new", variant: :outlined, color: :secondary) %>
+    <% end %>
+  <% end %>
+
+  <div class="prose">
+    <p>This is the main content area of the page section.</p>
+    <p>You can add any content here, and it will be properly spaced according to the size attribute.</p>
+  </div>
+<% end %>

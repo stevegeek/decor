@@ -1,0 +1,98 @@
+<%=
+  render ::Navigo::SideNavbar.new(
+    landscape_logo_url: "https://via.placeholder.com/220x64/8B5CF6/FFFFFF.png?text=FLUENT",
+    avatar_logo_url: "https://via.placeholder.com/64x64/8B5CF6/FFFFFF.png?text=F",
+    collapsed: false
+  ) do |navbar|
+    # Home section (no title)
+    navbar.with_section do |section|
+      section.with_item(
+        title: "Dashboard",
+        icon: "home",
+        path: "/dashboard",
+        selected: true
+      )
+    end
+
+    # Sales section with complex nesting
+    navbar.with_section(title: "Sales") do |section|
+      section.with_item(
+        title: "Orders", 
+        icon: "currency-dollar",
+        path: "/orders",
+        counter: 12
+      ) do |item|
+        item.with_sub_item(title: "Recent", path: "/orders/recent", selected: true)
+        item.with_sub_item(title: "Archive", path: "/orders/archive")
+        item.with_sub_item(title: "Pending", path: "/orders/pending", counter: 3)
+      end
+      
+      section.with_item(
+        title: "Customers",
+        icon: "users",
+        path: "/customers",
+        selected: false
+      )
+      
+      section.with_item(title: "Reports", icon: "chart-bar", path: "/reports")
+    end
+    
+    # Settings section
+    navbar.with_section(title: "Settings") do |section|
+      section.with_item(title: "Profile", icon: "user", path: "/profile")
+      section.with_item(
+        title: "System",
+        icon: "cog"
+      ) do |item|
+        item.with_sub_item(title: "General", path: "/settings/general")
+        item.with_sub_item(title: "Security", path: "/settings/security")
+        item.with_sub_item(title: "Integrations", path: "/settings/integrations")
+      end
+    end
+  end
+%>
+
+<section id="main-content" class="transition-[padding] duration-300 flex flex-col h-full lg:pl-72">
+  <div class="px-6 py-4">
+    <div class="bg-info/10 border border-info rounded-lg p-4 mb-6">
+      <h2 class="text-lg font-semibold text-info mb-2">🔥 New Fluent Builder API</h2>
+      <p class="text-sm text-base-content/80 mb-3">
+        This example demonstrates the new method-based composition API that replaces Phlex slots.
+      </p>
+      <div class="mockup-code">
+        <pre data-prefix=">" class="text-warning"><code>render Navigo::SideNavbar.new(...) do |navbar|</code></pre>
+        <pre data-prefix="" class="text-success"><code>  navbar.with_section(title: "Sales") do |section|</code></pre>
+        <pre data-prefix="" class="text-success"><code>    section.with_item(title: "Orders") do |item|</code></pre>
+        <pre data-prefix="" class="text-success"><code>      item.with_sub_item(title: "Recent")</code></pre>
+        <pre data-prefix="" class="text-success"><code>    end</code></pre>
+        <pre data-prefix="" class="text-success"><code>  end</code></pre>
+        <pre data-prefix=">" class="text-warning"><code>end</code></pre>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="stats shadow">
+        <div class="stat">
+          <div class="stat-title">Builder Benefits</div>
+          <div class="stat-value text-primary">4x</div>
+          <div class="stat-desc">Faster component building</div>
+        </div>
+      </div>
+      
+      <div class="stats shadow">
+        <div class="stat">
+          <div class="stat-title">Performance</div>
+          <div class="stat-value text-success">+25%</div>
+          <div class="stat-desc">Improved rendering speed</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert alert-success mt-4">
+      <div>
+        <h3 class="font-bold">Backward Compatible!</h3>
+        <div class="text-xs">Existing menu_items array API continues to work unchanged.</div>
+      </div>
+    </div>
+  </div>
+</section>

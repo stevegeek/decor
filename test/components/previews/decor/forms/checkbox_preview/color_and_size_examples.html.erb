@@ -1,0 +1,97 @@
+<div class="space-y-6">
+  <div>
+    <h3 class="text-lg font-semibold mb-4">Colors</h3>
+    <div class="grid grid-cols-2 gap-4">
+      <% %w[primary secondary accent neutral success warning info error].each do |color| %>
+        <div class="p-4 border rounded-lg">
+          <p class="text-sm font-medium mb-2 capitalize"><%= color %></p>
+          <%= render ::Decor::Forms::Checkbox.new(
+            name: "color_#{color}",
+            label: "#{color.capitalize} checkbox",
+            color: color.to_sym,
+            checked: true
+          ) %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div>
+    <h3 class="text-lg font-semibold mb-4">Sizes</h3>
+    <div class="grid grid-cols-2 gap-4">
+      <% %w[xs sm md lg xl].each do |size| %>
+        <div class="p-4 border rounded-lg">
+          <p class="text-sm font-medium mb-2 capitalize"><%= size %></p>
+          <%= render ::Decor::Forms::Checkbox.new(
+            name: "size_#{size}",
+            label: "#{size.upcase} checkbox",
+            size: size.to_sym,
+            checked: true
+          ) %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div>
+    <h3 class="text-lg font-semibold mb-4">States</h3>
+    <div class="grid grid-cols-2 gap-4">
+      <div class="p-4 border rounded-lg">
+        <p class="text-sm font-medium mb-2">Checked</p>
+        <%= render ::Decor::Forms::Checkbox.new(
+          name: "checked_state",
+          label: "This is checked",
+          checked: true
+        ) %>
+      </div>
+      <div class="p-4 border rounded-lg">
+        <p class="text-sm font-medium mb-2">Unchecked</p>
+        <%= render ::Decor::Forms::Checkbox.new(
+          name: "unchecked_state",
+          label: "This is unchecked",
+          checked: false
+        ) %>
+      </div>
+      <div class="p-4 border rounded-lg">
+        <p class="text-sm font-medium mb-2">Disabled</p>
+        <%= render ::Decor::Forms::Checkbox.new(
+          name: "disabled_state",
+          label: "This is disabled",
+          disabled: true
+        ) %>
+      </div>
+      <div class="p-4 border rounded-lg">
+        <p class="text-sm font-medium mb-2">With Helper Text</p>
+        <%= render ::Decor::Forms::Checkbox.new(
+          name: "helper_state",
+          label: "Checkbox with help",
+          helper_text: "This checkbox has helpful information"
+        ) %>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <h3 class="text-lg font-semibold mb-4">Group Example</h3>
+    <div class="p-4 border rounded-lg">
+      <p class="text-sm font-medium mb-4">Multiple Options</p>
+      <div class="space-y-2">
+        <%= render ::Decor::Forms::Checkbox.new(
+          name: "option_1",
+          label: "Option 1",
+          checked: true
+        ) %>
+        <%= render ::Decor::Forms::Checkbox.new(
+          name: "option_2",
+          label: "Option 2",
+          checked: false
+        ) %>
+        <%= render ::Decor::Forms::Checkbox.new(
+          name: "option_3",
+          label: "Option 3",
+          checked: true
+        ) %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Navigo
+module Decor
   class PageHeader < PhlexComponent
     no_stimulus_controller
 

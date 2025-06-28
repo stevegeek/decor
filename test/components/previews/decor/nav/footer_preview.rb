@@ -1,10 +1,10 @@
 # @label Footer
-class ::Navigo::FooterPreview < ::Lookbook::Preview
+class ::Decor::Nav::FooterPreview < ::Lookbook::Preview
   # @!group Basic Examples
 
   # Default footer with link groups and social links
   def default
-    render ::Navigo::Footer.new(
+    render ::Decor::Nav::Footer.new(
       supplier_name: "Example Company",
       link_groups: [
         {
@@ -42,7 +42,7 @@ class ::Navigo::FooterPreview < ::Lookbook::Preview
 
   # Footer with newsletter signup
   def with_newsletter
-    render ::Navigo::Footer.new(
+    render ::Decor::Nav::Footer.new(
       supplier_name: "Example Company",
       show_newsletter: true,
       leads_submit_path: "/leads",
@@ -65,7 +65,7 @@ class ::Navigo::FooterPreview < ::Lookbook::Preview
 
   # Light theme footer
   def light_theme
-    render ::Navigo::Footer.new(
+    render ::Decor::Nav::Footer.new(
       supplier_name: "Example Company",
       theme: :light,
       link_groups: [
@@ -90,7 +90,7 @@ class ::Navigo::FooterPreview < ::Lookbook::Preview
 
   # Footer with custom content areas
   def custom_content
-    render ::Navigo::Footer.new(
+    render ::Decor::Nav::Footer.new(
       supplier_name: "Example Company",
       show_newsletter: false
     ) do |component|
@@ -135,7 +135,7 @@ class ::Navigo::FooterPreview < ::Lookbook::Preview
 
   # Footer with hidden link groups
   def with_visibility_control
-    render ::Navigo::Footer.new(
+    render ::Decor::Nav::Footer.new(
       supplier_name: "Example Company",
       link_groups: [
         {
@@ -165,7 +165,7 @@ class ::Navigo::FooterPreview < ::Lookbook::Preview
 
   # Interactive playground for testing
   def playground
-    render ::Navigo::Footer.new(
+    render ::Decor::Nav::Footer.new(
       supplier_name: "Example Company",
       theme: :dark,
       link_groups: [

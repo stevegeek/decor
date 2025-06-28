@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Navigo
+module Decor
   # A PageSection is a part of the page that visually separates sections
   class PageSection < PhlexComponent
     no_stimulus_controller

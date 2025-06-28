@@ -1,5 +1,5 @@
 # @label Page
-class ::Navigo::PagePreview < ::Lookbook::Preview
+class ::Decor::PagePreview < ::Lookbook::Preview
   # @param title text
   # @param subtitle text
   # @param description text
@@ -50,7 +50,7 @@ class ::Navigo::PagePreview < ::Lookbook::Preview
   # @!group Sizes
 
   def extra_small
-    render ::Navigo::Page.new(
+    render ::Decor::Page.new(
       title: "Extra Small Page",
       subtitle: "Compact layout",
       description: "This page uses the smallest text sizes and spacing.",
@@ -71,7 +71,7 @@ class ::Navigo::PagePreview < ::Lookbook::Preview
   end
 
   def large
-    render ::Navigo::Page.new(
+    render ::Decor::Page.new(
       title: "Large Page Layout",
       subtitle: "Spacious design",
       description: "This page uses larger text sizes and increased spacing between elements.",
@@ -96,7 +96,7 @@ class ::Navigo::PagePreview < ::Lookbook::Preview
   # @!group Backgrounds
 
   def hero_background
-    render ::Navigo::Page.new(
+    render ::Decor::Page.new(
       title: "Hero Background Page",
       subtitle: "Subtle background styling",
       description: "This page uses a hero background color for subtle visual separation.",
@@ -125,7 +125,7 @@ class ::Navigo::PagePreview < ::Lookbook::Preview
   end
 
   def primary_background
-    render ::Navigo::Page.new(
+    render ::Decor::Page.new(
       title: "Primary Themed Page",
       subtitle: "Brand-colored background",
       description: "Uses a subtle primary color background tint.",
@@ -146,7 +146,7 @@ class ::Navigo::PagePreview < ::Lookbook::Preview
   # @!group Complex Examples
 
   def with_tabs
-    render ::Navigo::Page.new(
+    render ::Decor::Page.new(
       title: "Page with Tabs",
       subtitle: "Tabbed navigation example",
       description: "Demonstrates how tabs integrate with the page header.",
@@ -170,7 +170,7 @@ class ::Navigo::PagePreview < ::Lookbook::Preview
   end
 
   def full_featured
-    render ::Navigo::Page.new(
+    render ::Decor::Page.new(
       title: "Full-Featured Page",
       subtitle: "All components demonstrated",
       description: "This example shows all available page features working together.",
@@ -235,7 +235,7 @@ class ::Navigo::PagePreview < ::Lookbook::Preview
   # @!group Spacing Variations
 
   def no_spacing
-    render ::Navigo::Page.new(
+    render ::Decor::Page.new(
       title: "Compact Page",
       description: "Minimal spacing between elements",
       spacing: :none,
@@ -248,7 +248,7 @@ class ::Navigo::PagePreview < ::Lookbook::Preview
   end
 
   def extra_large_spacing
-    render ::Navigo::Page.new(
+    render ::Decor::Page.new(
       title: "Spacious Page",
       description: "Maximum spacing for better visual separation",
       spacing: :xl,
@@ -264,7 +264,7 @@ class ::Navigo::PagePreview < ::Lookbook::Preview
   # @!group Padding Examples
 
   def no_padding
-    render ::Navigo::Page.new(
+    render ::Decor::Page.new(
       title: "No Padding Page",
       description: "Page with no internal padding",
       padding: :none
@@ -274,7 +274,7 @@ class ::Navigo::PagePreview < ::Lookbook::Preview
   end
 
   def small_padding
-    render ::Navigo::Page.new(
+    render ::Decor::Page.new(
       title: "Small Padding",
       description: "Minimal padding for compact layouts",
       padding: :sm
@@ -284,7 +284,7 @@ class ::Navigo::PagePreview < ::Lookbook::Preview
   end
 
   def large_padding
-    render ::Navigo::Page.new(
+    render ::Decor::Page.new(
       title: "Large Padding",
       description: "Generous padding for spacious layouts",
       padding: :lg
@@ -294,7 +294,7 @@ class ::Navigo::PagePreview < ::Lookbook::Preview
   end
 
   def extra_large_padding
-    render ::Navigo::Page.new(
+    render ::Decor::Page.new(
       title: "Extra Large Padding",
       description: "Maximum padding for very spacious layouts",
       padding: :xl
@@ -308,7 +308,7 @@ class ::Navigo::PagePreview < ::Lookbook::Preview
   # @!group Full Height Examples
 
   def with_full_height
-    render ::Navigo::Page.new(
+    render ::Decor::Page.new(
       title: "Full Height Page",
       description: "This page uses the full viewport height",
       full_height: true,
@@ -324,7 +324,7 @@ class ::Navigo::PagePreview < ::Lookbook::Preview
   end
 
   def without_full_height
-    render ::Navigo::Page.new(
+    render ::Decor::Page.new(
       title: "Normal Height Page",
       description: "This page uses natural content height (default)",
       full_height: false,

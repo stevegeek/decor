@@ -1,0 +1,152 @@
+<%=
+  render ::Navigo::SideNavbar.new(
+    landscape_logo_url: "https://via.placeholder.com/200x50/570DF8/FFFFFF?text=ACTIVE",
+    avatar_logo_url: "https://via.placeholder.com/50x50/570DF8/FFFFFF?text=A",
+    collapsed: false,
+    menu_items: [
+      {
+       title: "Navigation Examples",
+       items: [
+         {
+           title: "Active Item",
+           icon: "check-circle",
+           path: "#",
+           selected: true
+         },
+         {
+           title: "Normal Item",
+           icon: "home",
+           path: "#",
+           selected: false
+         },
+         {
+           title: "With Badge",
+           icon: "mail",
+           path: "#",
+           selected: false,
+           counter: 99
+         }
+       ]
+      },
+      {
+       title: "Expanded Section",
+       items: [
+         {
+           title: "Parent with Active Child",
+           icon: "folder-open",
+           selected: true,
+           sub_items: [
+             {
+               title: "Active Sub-item",
+               icon: "document",
+               path: "#",
+               selected: true
+             },
+             {
+               title: "Normal Sub-item",
+               icon: "document",
+               path: "#",
+               selected: false
+             }
+           ]
+         },
+         {
+           title: "Collapsed Parent",
+           icon: "folder",
+           selected: false,
+           sub_items: [
+             {
+               title: "Hidden Sub-item",
+               icon: "document",
+               path: "#",
+               selected: false
+             }
+           ]
+         }
+       ]
+      },
+      {
+       title: "Badge Examples",
+       items: [
+         {
+           title: "Small Count",
+           icon: "bell",
+           path: "#",
+           selected: false,
+           counter: 3
+         },
+         {
+           title: "Large Count",
+           icon: "inbox",
+           path: "#",
+           selected: false,
+           counter: 1234
+         }
+       ]
+      }
+    ]
+  )
+%>
+<section id="main-content" class="transition-[padding] duration-300 flex flex-col h-full lg:pl-72">
+  <div class="bg-primary text-primary-content p-6">
+    <h1 class="text-2xl font-bold">Active States & Badge Examples</h1>
+    <p class="opacity-90 mt-2">Demonstrating DaisyUI active states and badge styling</p>
+  </div>
+
+  <main class="p-6 space-y-6">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div class="stat bg-base-100 shadow rounded-lg">
+        <div class="stat-figure text-primary">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        </div>
+        <div class="stat-title">Active Items</div>
+        <div class="stat-value text-primary">2</div>
+        <div class="stat-desc">Currently selected</div>
+      </div>
+
+      <div class="stat bg-base-100 shadow rounded-lg">
+        <div class="stat-figure text-secondary">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4"></path></svg>
+        </div>
+        <div class="stat-title">Badge Count</div>
+        <div class="stat-value text-secondary">1339</div>
+        <div class="stat-desc">Total notifications</div>
+      </div>
+
+      <div class="stat bg-base-100 shadow rounded-lg">
+        <div class="stat-figure text-accent">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
+        </div>
+        <div class="stat-title">Menu Items</div>
+        <div class="stat-value text-accent">8</div>
+        <div class="stat-desc">Total available</div>
+      </div>
+    </div>
+
+    <div class="space-y-4">
+      <h2 class="text-xl font-semibold text-base-content">DaisyUI Features in Action</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="alert alert-success">
+          <div class="flex-1">
+            <strong>Active States:</strong> Items with <code>selected: true</code> get <code>bg-primary</code> and <code>text-primary-content</code> classes
+          </div>
+        </div>
+        
+        <div class="alert alert-info">
+          <div class="flex-1">
+            <strong>Badges:</strong> Counter values are styled with <code>badge-primary</code> class for consistency
+          </div>
+        </div>
+      </div>
+
+      <div class="mockup-code">
+        <pre data-prefix="$"><code>// DaisyUI classes applied automatically:</code></pre>
+        <pre data-prefix=">" class="text-success"><code>menu menu-vertical w-full</code></pre>
+        <pre data-prefix=">" class="text-warning"><code>menu-title text-base-content/70</code></pre>
+        <pre data-prefix=">" class="text-info"><code>active bg-primary text-primary-content</code></pre>
+        <pre data-prefix=">" class="text-secondary"><code>badge badge-primary badge-sm</code></pre>
+      </div>
+    </div>
+  </main>
+</section>

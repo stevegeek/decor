@@ -1,0 +1,83 @@
+<div class="space-y-8">
+  <div>
+    <h3 class="text-lg font-semibold mb-4">Colors</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <% [:primary, :secondary, :accent, :success, :error, :warning, :info, :ghost, :neutral].each do |color| %>
+        <%= render(::Decor::Forms::FileUpload.new(
+          name: "file_upload_#{color}",
+          label: "#{color.to_s.humanize} File Upload",
+          color: color,
+          helper_text: "Color variant: #{color}",
+          file_mime_types: "image/*,.pdf,.doc,.docx"
+        )) %>
+      <% end %>
+    </div>
+  </div>
+
+  <div>
+    <h3 class="text-lg font-semibold mb-4">Sizes</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <% [:xs, :sm, :md, :lg, :xl].each do |size| %>
+        <%= render(::Decor::Forms::FileUpload.new(
+          name: "file_upload_#{size}",
+          label: "#{size.to_s.humanize} File Upload",
+          size: size,
+          helper_text: "Size variant: #{size}",
+          file_mime_types: "image/*"
+        )) %>
+      <% end %>
+    </div>
+  </div>
+
+  <div>
+    <h3 class="text-lg font-semibold mb-4">Variants</h3>
+    <div class="space-y-6">
+      <div>
+        <h4 class="text-md font-medium mb-2">File Variant</h4>
+        <%= render(::Decor::Forms::FileUpload.new(
+          name: "file_upload_file",
+          label: "Upload Document",
+          variant: :file,
+          helper_text: "Standard file upload for documents",
+          file_mime_types: ".pdf,.doc,.docx,.txt"
+        )) %>
+      </div>
+
+      <div>
+        <h4 class="text-md font-medium mb-2">Image Variant</h4>
+        <%= render(::Decor::Forms::FileUpload.new(
+          name: "file_upload_image",
+          label: "Upload Image",
+          variant: :image,
+          helper_text: "Image upload with preview",
+          file_mime_types: "image/*",
+          existing_file_url: "https://i.pravatar.cc/300"
+        )) %>
+      </div>
+
+      <div>
+        <h4 class="text-md font-medium mb-2">Avatar Variant</h4>
+        <%= render(::Decor::Forms::FileUpload.new(
+          name: "file_upload_avatar",
+          label: "Upload Avatar",
+          variant: :avatar,
+          helper_text: "Avatar upload with circular preview",
+          file_mime_types: "image/*",
+          initials: "AB",
+          shape: :circle
+        )) %>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <h3 class="text-lg font-semibold mb-4">Error State</h3>
+    <%= render(::Decor::Forms::FileUpload.new(
+      name: "file_upload_error",
+      label: "File Upload with Error",
+      error_messages: ["File type not supported"],
+      helper_text: "This shows how error styling works",
+      file_mime_types: "image/*"
+    )) %>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<%= render ::Navigo::Page.new(
+  title: title,
+  subtitle: subtitle,
+  description: description,
+  include_flash: include_flash,
+  size: size,
+  background: background,
+  padding: padding,
+  spacing: spacing,
+  cta_snap_large: cta_snap_large,
+  full_height: full_height
+) do |page| %>
+  <% if show_hero_slot %>
+    <% page.with_hero do %>
+      <div class="hero bg-base-200 rounded-lg p-8">
+        <div class="hero-content">
+          <div class="max-w-md">
+            <h1 class="text-3xl font-bold">Hero Section</h1>
+            <p class="py-4">This is example hero content that adapts to the page background.</p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+  <% if show_example_badge %>
+    <% page.with_badge(label: "Public Catalog", color: :primary) %>
+  <% end %>
+  <% if show_example_tag %>
+    <% page.with_tag(label: "Active", icon: "check-circle", color: :success) %>
+  <% end %>
+  <% page.with_cta do %>
+    <%= render ::Decor::Button.new(label: "Add new", variant: :outlined, color: :secondary) %>
+  <% end %>
+
+  <div class="prose">
+    <p>This is the main content area of the page.</p>
+    <p>The page component provides a consistent layout structure with customizable spacing, sizing, and background options.</p>
+  </div>
+<% end %>

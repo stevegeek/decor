@@ -1,0 +1,121 @@
+<div class="space-y-8">
+  <div>
+    <h3 class="text-lg font-semibold mb-4">Colors</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <% [:primary, :secondary, :accent, :success, :error, :warning, :info, :ghost, :neutral].each do |color| %>
+        <%= render(::Decor::Forms::Select.new(
+          name: "select_#{color}",
+          label: "#{color.to_s.humanize} Select",
+          color: color,
+          helper_text: "Color variant: #{color}",
+          **::Decor::Forms::Select.map_options_for_select([
+            { title: "Option 1", value: "1" },
+            { title: "Option 2", value: "2", selected: true },
+            { title: "Option 3", value: "3" }
+          ])
+        )) %>
+      <% end %>
+    </div>
+  </div>
+
+  <div>
+    <h3 class="text-lg font-semibold mb-4">Sizes</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <% [:xs, :sm, :md, :lg, :xl].each do |size| %>
+        <%= render(::Decor::Forms::Select.new(
+          name: "select_#{size}",
+          label: "#{size.to_s.humanize} Select",
+          size: size,
+          helper_text: "Size variant: #{size}",
+          **::Decor::Forms::Select.map_options_for_select([
+            { title: "Extra Small", value: "xs" },
+            { title: "Small", value: "sm" },
+            { title: "Medium", value: "md", selected: true },
+            { title: "Large", value: "lg" },
+            { title: "Extra Large", value: "xl" }
+          ])
+        )) %>
+      <% end %>
+    </div>
+  </div>
+
+  <div>
+    <h3 class="text-lg font-semibold mb-4">Grouped Options</h3>
+    <%= render(::Decor::Forms::Select.new(
+      name: "select_grouped",
+      label: "Grouped Select",
+      helper_text: "Select options organized in groups",
+      **::Decor::Forms::Select.map_grouped_options_for_select([
+        {
+          title: "Fruits",
+          value: [
+            { title: "Apple", value: "apple" },
+            { title: "Banana", value: "banana" },
+            { title: "Orange", value: "orange" }
+          ]
+        },
+        {
+          title: "Vegetables",
+          value: [
+            { title: "Carrot", value: "carrot" },
+            { title: "Broccoli", value: "broccoli", selected: true },
+            { title: "Spinach", value: "spinach" }
+          ]
+        }
+      ])
+    )) %>
+  </div>
+
+  <div>
+    <h3 class="text-lg font-semibold mb-4">Special Features</h3>
+    <div class="space-y-4">
+      <div>
+        <h4 class="text-md font-medium mb-2">With Placeholder</h4>
+        <%= render(::Decor::Forms::Select.new(
+          name: "select_placeholder",
+          label: "Select with Placeholder",
+          placeholder: "Choose an option...",
+          helper_text: "First option is a placeholder",
+          options_array: [["Option 1", "1"], ["Option 2", "2"], ["Option 3", "3"]]
+        )) %>
+      </div>
+
+      <div>
+        <h4 class="text-md font-medium mb-2">With Blank Option</h4>
+        <%= render(::Decor::Forms::Select.new(
+          name: "select_blank",
+          label: "Select with Blank Option",
+          include_blank_option: true,
+          helper_text: "First option is blank for clearing selection",
+          options_array: [["Option 1", "1"], ["Option 2", "2"], ["Option 3", "3"]]
+        )) %>
+      </div>
+
+      <div>
+        <h4 class="text-md font-medium mb-2">Disabled Options</h4>
+        <%= render(::Decor::Forms::Select.new(
+          name: "select_disabled_opts",
+          label: "Select with Disabled Options",
+          helper_text: "Some options are disabled",
+          **::Decor::Forms::Select.map_options_for_select([
+            { title: "Available Option 1", value: "1" },
+            { title: "Disabled Option", value: "2", disabled: true },
+            { title: "Available Option 2", value: "3", selected: true },
+            { title: "Another Disabled", value: "4", disabled: true }
+          ])
+        )) %>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <h3 class="text-lg font-semibold mb-4">Error State</h3>
+    <%= render(::Decor::Forms::Select.new(
+      name: "select_error",
+      label: "Select with Error",
+      error_messages: ["Please select a valid option"],
+      helper_text: "This shows how error styling works",
+      options_array: [["Invalid Option", "invalid"], ["Valid Option", "valid"]]
+    )) %>
+  </div>
+</div>

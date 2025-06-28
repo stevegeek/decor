@@ -1,10 +1,10 @@
 # @label CompactFooter
-class ::Navigo::CompactFooterPreview < ::Lookbook::Preview
+class ::Decor::Nav::CompactFooterPreview < ::Lookbook::Preview
   # @!group Basic Examples
 
   # Default compact footer with social links
   def default
-    render ::Navigo::CompactFooter.new(
+    render ::Decor::Nav::CompactFooter.new(
       supplier_name: "Example Company",
       supplier_support_email_address: "support@example.com",
       social_links: [
@@ -22,7 +22,7 @@ class ::Navigo::CompactFooterPreview < ::Lookbook::Preview
 
   # Compact footer with all social platforms
   def all_social_platforms
-    render ::Navigo::CompactFooter.new(
+    render ::Decor::Nav::CompactFooter.new(
       supplier_name: "Example Company",
       supplier_support_email_address: "support@example.com",
       social_links: [
@@ -38,7 +38,7 @@ class ::Navigo::CompactFooterPreview < ::Lookbook::Preview
 
   # Dark theme compact footer
   def dark_theme
-    render ::Navigo::CompactFooter.new(
+    render ::Decor::Nav::CompactFooter.new(
       supplier_name: "Example Company",
       supplier_support_email_address: "support@example.com",
       theme: :dark,
@@ -51,7 +51,7 @@ class ::Navigo::CompactFooterPreview < ::Lookbook::Preview
 
   # Compact footer without logo
   def without_logo
-    render ::Navigo::CompactFooter.new(
+    render ::Decor::Nav::CompactFooter.new(
       supplier_name: "Example Company",
       supplier_support_email_address: "support@example.com",
       show_logo: false,
@@ -67,7 +67,7 @@ class ::Navigo::CompactFooterPreview < ::Lookbook::Preview
 
   # Compact footer with custom content areas
   def custom_content
-    render ::Navigo::CompactFooter.new(
+    render ::Decor::Nav::CompactFooter.new(
       supplier_name: "Example Company",
       supplier_support_email_address: "support@example.com",
       show_logo: false
@@ -104,7 +104,7 @@ class ::Navigo::CompactFooterPreview < ::Lookbook::Preview
 
   # Compact footer with visibility controls
   def visibility_controls
-    render ::Navigo::CompactFooter.new(
+    render ::Decor::Nav::CompactFooter.new(
       supplier_name: "Example Company",
       supplier_support_email_address: "support@example.com",
       social_links: [
@@ -121,7 +121,7 @@ class ::Navigo::CompactFooterPreview < ::Lookbook::Preview
 
   # Legacy attribute support (backward compatibility)
   def legacy_attributes
-    render ::Navigo::CompactFooter.new(
+    render ::Decor::Nav::CompactFooter.new(
       supplier_name: "Example Company",
       supplier_support_email_address: "support@example.com",
       facebook_url: "https://www.facebook.com/example",
@@ -139,7 +139,7 @@ class ::Navigo::CompactFooterPreview < ::Lookbook::Preview
 
   # Interactive playground for testing
   def playground
-    render ::Navigo::CompactFooter.new(
+    render ::Decor::Nav::CompactFooter.new(
       supplier_name: "Example Company",
       supplier_support_email_address: "support@example.com",
       theme: :light,

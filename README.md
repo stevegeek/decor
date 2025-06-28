@@ -13,9 +13,9 @@ A comprehensive Ruby on Rails UI component library built for flexibility, mainta
 
 ### A note on the state of the project
 
-This project is extracted from a production application and has been in use for years (starting out on a [custom view component system](https://github.com/stevegeek/vc) with my own [typed attributes](https://github.com/stevegeek/typed_support), moving to [ViewComponent](https://viewcomponent.org), and finally to [Phlex](https://phlex.fun))
+This project is extracted from a production application and has been in use for years (starting out on a [custom view component system](https://github.com/stevegeek/vc) with my own [typed attributes](https://github.com/stevegeek/typed_support), moving to [ViewComponent](https://viewcomponent.org), and now finally to [Phlex](https://phlex.fun))
 
-**However**, the original was styled differently. This open source version is moving to daisyUI and Tailwind CSS v4, which means the components are being rewritten 
+**However**, the original was using ViewComponent and styled differently. This open source version is moving to Phlex, daisyUI and Tailwind CSS v4, which means the components are being rewritten 
 and in some cases the APIs are changing. Therefore, for the time being, assume that this is a work in progress and not all components
 are ready for production. 
 
@@ -24,19 +24,29 @@ Once I port my production application to this version and battle test it, I will
 ## Main TODOs
 
 - [ ] Add all components
-- [ ] Add more tests / previews
+- [x] Add more tests / previews
 - [ ] Update vident, review vident API
-- [ ] Stop using slots
+- [x] Stop using slots
 - [ ] Change `dry-struct` to `Literal` (via vident-typed)
 - [ ] simplify naming of sizes (e.g. `micro` to `xs`, `small` to `sm`, etc.) and unify across components
 - [ ] Unify variant naming
 - [ ] Unify style attribute naming (sometimes we use `style`, sometimes `theme`)
 - [ ] Dark mode support
 
+# Using Decor / Installation
 
-## The dependencies
+You can use Decor in two ways:
 
-in Gemfile:
+## 1. Fork this repository to start a new Rails application
+
+Fork this repository to create a new simple Rails application with Decor preconfigured.
+
+Build your application on top of it. If you want to be able to update Decor in the future (recommended), simply
+avoid modifying the provided components, and simply pull changes from this repository as they are made.
+
+## 2. Copy into an existing Rails application
+
+Add to Gemfile:
 
 ```ruby
 gem "dry-struct" # TODO: change to Literal
@@ -51,15 +61,13 @@ gem "vident-tailwind"
 gem "lookbook"
 ```
 
-### Installation
-
 ```bash
 bundle install
 ```
 
 Copy `app/components`, `app/javascript/controllers` and `test/components` directories from this repository to your Rails application.
 
-Copy over `app/assets/tailwind/application.css`
+Copy over `app/assets/tailwind/application.css` or at least merge the contents into your existing Tailwind CSS setup.
 
 ### External SVG Loader Setup
 

@@ -23,7 +23,6 @@ gem "encoded_id-rails", "1.0.0.rc6", github: "stevegeek/encoded_id", branch: "ma
 gem "dry-struct" # TODO: change to Literal
 gem "literal"
 
-gem "view_component"
 gem "phlex-rails", ">= 2.0.0"
 gem "inline_svg" # used by Decor::Svg if inline: true
 gem "vident", ">= 0.13.1"
@@ -31,10 +30,7 @@ gem "vident-typed", ">= 0.13.1"
 gem "vident-phlex", ">= 0.13.1"
 gem "vident-typed-phlex", ">= 0.13.1"
 gem "vident-tailwind", ">= 0.13.1"
-gem "vident-view_component", ">= 0.13.1"
-gem "vident-typed-view_component", ">= 0.13.1"
 gem "lookbook"
-gem "phlexing", github: "stevegeek/phlexing", branch: "main"
 
 gem "claude_swarm", github: "parruda/claude-swarm", branch: "main"
 
