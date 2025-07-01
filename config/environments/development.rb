@@ -71,7 +71,7 @@ Rails.application.configure do
   # config.generators.apply_rubocop_autocorrect_after_generate!
 
   config.lookbook.project_name = "Decor Components Kit"
-  config.view_component.default_preview_layout = "component_preview"
+  config.lookbook.preview_layout = "component_preview"
   config.lookbook.preview_inspector.sidebar_panels = [:pages, :previews]
   config.lookbook.page_collection_label = "Docs"
   config.lookbook.ui_theme = "rose"
