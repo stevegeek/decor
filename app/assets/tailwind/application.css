@@ -45,7 +45,7 @@
   --noise: 0;
 }
 
-@plugin "./daisyui-theme.js" {
+@plugin "daisyui/theme" {
   name: "decor-light";
   default: true;
   prefersdark: false;
@@ -92,6 +92,14 @@
   }
 }
 
+@keyframes fadeInOpacity {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
 
 /* Scroll or inset shadow for element */
 /* https://mileswilhelm.github.io/Adding-Inset-Shadows-to-Cue-Visitors-to-Scrollable-Elements/ */
@@ -110,15 +118,6 @@
     overflow-x: auto;
   }
  */
-
-@keyframes fadeInOpacity {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
 
 .decor--tables--data-table {
   .inset-scroll-shadow {
