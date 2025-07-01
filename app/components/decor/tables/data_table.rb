@@ -18,8 +18,8 @@ module Decor
         self
       end
 
-      def with_search_and_filter(component = nil, **attributes, &block)
-        @search_and_filter = component || block || ::Decor::SearchAndFilter.new(**attributes)
+      def with_search_and_filter(&block)
+        @search_and_filter_block = block
         self
       end
 
@@ -43,8 +43,8 @@ module Decor
         row
       end
 
-      def with_pagination(component = nil, **attributes, &block)
-        @pagination = component || ::Decor::Pagination.new(**attributes)
+      def with_pagination(&block)
+        @pagination_block = block
         self
       end
 
@@ -72,7 +72,7 @@ module Decor
 
         render parent_element do |el|
           # Data table header section
-          if @title.present? || @data_table_header.present? || @search_and_filter.present?
+          if @title.present? || @data_table_header.present? || @search_and_filter_block.present?
             if @data_table_header.present?
               instance_eval(@data_table_header).html_safe
             end
@@ -88,12 +88,8 @@ module Decor
                     end
                   end
                 end
-                if @search_and_filter.present?
-                  if @search_and_filter.respond_to?(:call)
-                    @search_and_filter.call
-                  else
-                    render @search_and_filter
-                  end
+                if @search_and_filter_block.present?
+                  instance_eval(&@search_and_filter_block)
                 end
               end
             end
@@ -138,8 +134,8 @@ module Decor
             end
           end
 
-          if @pagination.present?
-            render @pagination
+          if @pagination_block.present?
+            instance_eval(&@pagination_block)
           end
 
           if @data_table_footer.present?

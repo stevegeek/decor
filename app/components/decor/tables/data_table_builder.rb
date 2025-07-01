@@ -218,7 +218,7 @@ module Decor
           end
         end
         data_table_component.with_data_table_header_row(selectable_as: rows_selectable_as_name) do |header_row_component|
-          header_cell_attributes.each { |col| header_row_component.with_data_table_header_cell(col) }
+          header_cell_attributes.each { |col| header_row_component.with_data_table_header_cell(**col) }
         end
         prepare_table_rows.each do |row|
           data_table_component.with_data_table_row(**row.component) do |row_component|

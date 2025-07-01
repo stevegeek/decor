@@ -30,10 +30,11 @@ module Decor
           form_with(**form_with_helper_options) do |builder|
             content = ""
             unless locked_version.nil?
-              content += builder.hidden_field(:lock_version)
+              hidden_field_html = builder.hidden_field(:lock_version)
+              content += hidden_field_html.to_s if hidden_field_html
             end
             yielded_form = form_contents(builder, &block)
-            content += yielded_form if yielded_form
+            content += yielded_form.to_s if yielded_form
             content
           end
         )

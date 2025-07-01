@@ -158,7 +158,9 @@ class Decor::Tables::DataTableTest < ActiveSupport::TestCase
   test "supports search and filter slot" do
     component = Decor::Tables::DataTable.new
     rendered = render_component(component) do |c|
-      c.with_search_and_filter
+      c.with_search_and_filter do
+        div(class: "decor--search-and-filter") { "Search and Filter Content" }
+      end
     end
 
     assert_includes rendered, "decor--search-and-filter"
@@ -167,7 +169,9 @@ class Decor::Tables::DataTableTest < ActiveSupport::TestCase
   test "supports pagination slot" do
     component = Decor::Tables::DataTable.new
     rendered = render_component(component) do |c|
-      c.with_pagination
+      c.with_pagination do
+        div(class: "decor--pagination") { "Pagination Content" }
+      end
     end
 
     assert_includes rendered, "decor--pagination"

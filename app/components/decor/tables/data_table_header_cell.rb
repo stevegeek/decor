@@ -66,7 +66,7 @@ module Decor
       end
 
       def sort_icon
-        (sorted_direction == :asc) ? "chevron-up" : "chevron-down"
+        (@sorted_direction == :asc) ? "chevron-up" : "chevron-down"
       end
 
       private
@@ -86,7 +86,7 @@ module Decor
 
         if sort_key?
           attrs[:actions] = [[:click, :handle_sortable_click]]
-          attrs[:values] = [{sort_key: sort_key, sorted_direction: sorted_direction}]
+          attrs[:values] = [{sort_key: @sort_key, sorted_direction: @sorted_direction}]
         end
 
         attrs

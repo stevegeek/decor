@@ -313,7 +313,7 @@ class Decor::AvatarTest < ActiveSupport::TestCase
 
         # Should not contain dynamic interpolation artifacts
         refute_includes rendered, "nil"
-        refute_includes rendered, "#{"
+        refute_includes rendered, '#{'
         refute_includes rendered, "}"
 
         # Should contain valid HTML classes

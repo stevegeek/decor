@@ -75,10 +75,8 @@ class Decor::Forms::FormTest < ActiveSupport::TestCase
     component = Decor::Forms::Form.new(model: model_with_lock, url: "/test")
     rendered = render_component(component)
 
-    # The form field is HTML encoded in the output
     assert_includes rendered, "test_model[lock_version]"
-    # The value is HTML encoded in the output
-    assert_includes rendered, "value=&quot;5&quot;"
+    assert_includes rendered, "value=\"5\""
   end
 
   test "handles hash model with lock_version" do

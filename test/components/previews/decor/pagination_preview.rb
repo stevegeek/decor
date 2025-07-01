@@ -19,7 +19,7 @@ class ::Decor::PaginationPreview < ::Lookbook::Preview
     page_size_selector: true,
     total_count: nil
   )
-    fake_items = (1..[[number_of_items, 0].max, 10_000].min).to_a
+    fake_items = (1..number_of_items.clamp(0, 10_000)).to_a
     @collection = ::ApplicationCollectionBackedQuery.wrap(fake_items).new(
       page: current_page,
       page_size: per_page || 20
