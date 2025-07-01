@@ -270,21 +270,22 @@ class ::Decor::AvatarPreview < ::Lookbook::Preview
   # @group Advanced Examples
   # @label Colorful Team
   def advanced_colorful_team
-    content_tag :div, class: "flex space-x-2" do
-      concat render(::Decor::Avatar.new(initials: "JD", color: :primary, variant: :filled))
-      concat render(::Decor::Avatar.new(initials: "SM", color: :secondary, variant: :outlined))
-      concat render(::Decor::Avatar.new(initials: "AK", color: :accent, variant: :ghost))
-      concat render(::Decor::Avatar.new(initials: "TL", color: :success, variant: :filled))
+    render ::Decor::Element.new(html_options: {class: "flex space-x-2"}) do |el|
+      el.render ::Decor::Avatar.new(initials: "JD", color: :primary, variant: :filled)
+      el.render ::Decor::Avatar.new(initials: "SM", color: :secondary, variant: :outlined)
+      el.render ::Decor::Avatar.new(initials: "AK", color: :accent, variant: :ghost)
+      el.render ::Decor::Avatar.new(initials: "TL", color: :success, variant: :filled)
     end
   end
 
   # @group Advanced Examples
-  # @label Color does not affect images
+  # @label Color does not affect images unless there is a border
   def advanced_image_color_no_effect
-    content_tag :div, class: "flex space-x-2" do
-      concat render(::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :primary))
-      concat render(::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :secondary))
-      concat render(::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :accent))
+    render ::Decor::Element.new(html_options: {class: "flex space-x-2"}) do |el|
+      el.render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :primary)
+      el.render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :primary, border: true)
+      el.render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :secondary)
+      el.render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :secondary, border: true)
     end
   end
 end

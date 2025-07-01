@@ -7,11 +7,20 @@ class ::Decor::Forms::FormPreview < ::Lookbook::Preview
   # Provides form validation, AJAX submission handling, and custom events.
   #
   # @label Playground
-  # @param local [Boolean] checkbox
+  # @param local [Boolean] toggle
   # @param http_method select [get, post, patch, delete]
   def playground(local: true, http_method: :post)
     # Create a simple form model for demonstration
-    model = OpenStruct.new(name: "", email: "", message: "")
+    klass = Class.new(TypedForm) do
+      prop :name, String
+      prop :email, String
+      prop :message, String
+
+      def self.name
+        "TestFormClass"
+      end
+    end
+    model = klass.new(name: "", email: "", message: "")
 
     render ::Decor::Forms::Form.new(
       model: model,
@@ -19,29 +28,27 @@ class ::Decor::Forms::FormPreview < ::Lookbook::Preview
       local: local,
       http_method: http_method
     ) do |form|
-      content_tag(:div, class: "space-y-6") do
-        concat content_tag(:h2, "Contact Form", class: "text-lg font-medium text-gray-900")
+      form.render ::Decor::Element.new do |el|
+        el.h2(class: "text-lg font-medium text-gray-900") { "Contact Form" }
 
-        concat form.builder.text_field(:name,
+        # TODO: work out why we need the `raw` method here
+        form.raw form.builder.text_field(:name,
           label: "Full Name",
           placeholder: "Enter your full name",
           required: true,
           class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500")
-
-        concat form.builder.email_field(:email,
+        form.raw form.builder.email_field(:email,
           label: "Email Address",
           placeholder: "Enter your email",
           required: true,
           class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500")
-
-        concat form.builder.text_area(:message,
+        form.raw form.builder.text_area(:message,
           label: "Message",
           placeholder: "Enter your message",
           rows: 4,
           class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500")
-
-        concat content_tag(:div, class: "flex justify-end") do
-          form.builder.submit("Send Message", class: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500")
+        el.div class: "flex justify-end" do
+          form.raw form.builder.submit("Send Message", class: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500")
         end
       end
     end
@@ -49,33 +56,48 @@ class ::Decor::Forms::FormPreview < ::Lookbook::Preview
 
   # @label Basic Form
   def basic_form
-    model = OpenStruct.new(title: "", description: "")
+    klass = Class.new(TypedForm) do
+      prop :title, String
+      prop :description, String
+
+      def self.name
+        "BasicFormClass"
+      end
+    end
+    model = klass.new(title: "", description: "")
 
     render ::Decor::Forms::Form.new(
       model: model,
       url: "#",
       local: true
     ) do |form|
-      content_tag(:div, class: "space-y-4") do
-        concat content_tag(:h3, "Basic Form Example", class: "text-md font-medium")
+      form.render ::Decor::Element.new do |el|
+        el.h3(class: "text-md font-medium") { "Basic Form Example" }
 
-        concat form.builder.text_field(:title,
+        form.raw form.builder.text_field(:title,
           label: "Title",
           placeholder: "Enter title")
 
-        concat form.builder.text_area(:description,
+        form.raw form.builder.text_area(:description,
           label: "Description",
           placeholder: "Enter description",
           rows: 3)
 
-        concat form.builder.submit("Save", class: "btn btn-primary")
+        form.raw form.builder.submit("Save", class: "btn btn-primary")
       end
     end
   end
 
   # @label AJAX Form
   def ajax_form
-    model = OpenStruct.new(feedback: "")
+    klass = Class.new(TypedForm) do
+      prop :feedback, String
+
+      def self.name
+        "AjaxFormClass"
+      end
+    end
+    model = klass.new(feedback: "")
 
     render ::Decor::Forms::Form.new(
       model: model,
@@ -84,40 +106,48 @@ class ::Decor::Forms::FormPreview < ::Lookbook::Preview
       on_success: "form--feedback#onSuccess",
       on_error: "form--feedback#onError"
     ) do |form|
-      content_tag(:div, class: "space-y-4") do
-        concat content_tag(:h3, "AJAX Form Example", class: "text-md font-medium")
-        concat content_tag(:p, "This form submits via AJAX with custom event handlers", class: "text-sm text-gray-600")
+      form.render ::Decor::Element.new do |el|
+        el.h3(class: "text-md font-medium") { "AJAX Form Example" }
+        el.p(class: "text-sm text-gray-600") { "This form submits via AJAX with custom event handlers" }
 
-        concat form.builder.text_area(:feedback,
+        form.raw form.builder.text_area(:feedback,
           label: "Feedback",
           placeholder: "Share your feedback",
           rows: 3)
 
-        concat form.builder.submit("Submit Feedback", class: "btn btn-primary")
+        form.raw form.builder.submit("Submit Feedback", class: "btn btn-primary")
       end
     end
   end
 
   # @label Form with Custom Namespace
   def namespaced_form
-    model = OpenStruct.new(settings: {theme: "dark", notifications: true})
+    klass = Class.new(TypedForm) do
+      prop :theme, String
+      prop :notifications, _Boolean
+
+      def self.name
+        "SettingsFormClass"
+      end
+    end
+    model = klass.new(theme: "dark", notifications: true)
 
     render ::Decor::Forms::Form.new(
       model: model,
       url: "#",
       namespace: :settings
     ) do |form|
-      content_tag(:div, class: "space-y-4") do
-        concat content_tag(:h3, "Settings Form", class: "text-md font-medium")
+      form.render ::Decor::Element.new do |el|
+        el.h3(class: "text-md font-medium") { "Settings Form" }
 
-        concat form.builder.select(:theme,
-          options_for_select([["Light", "light"], ["Dark", "dark"]], "dark"),
+        form.raw form.builder.select(:theme,
+                                     [["Light", "light"], ["Dark", "dark"]],
           {label: "Theme"})
 
-        concat form.builder.check_box(:notifications,
+        form.raw form.builder.check_box(:notifications,
           label: "Enable Notifications")
 
-        concat form.builder.submit("Save Settings", class: "btn btn-primary")
+        form.raw form.builder.submit("Save Settings", class: "btn btn-primary")
       end
     end
   end
