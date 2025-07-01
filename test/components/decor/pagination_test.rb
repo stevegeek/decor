@@ -1,17 +1,19 @@
 require "test_helper"
 
 class Decor::PaginationTest < ActiveSupport::TestCase
+  TestCollection = Struct.new(:page, :page_size, :total_count, :current_page, :total_pages, :first_page?, :last_page?, :prev_page, :next_page)
+
   def setup
-    @collection = OpenStruct.new(
-      page: 1,
-      page_size: 10,
-      total_count: 100,
-      current_page: 1,
-      total_pages: 10,
-      first_page?: true,
-      last_page?: false,
-      prev_page: nil,
-      next_page: 2
+    @collection = TestCollection.new(
+      1,      # page
+      10,     # page_size
+      100,    # total_count
+      1,      # current_page
+      10,     # total_pages
+      true,   # first_page?
+      false,  # last_page?
+      nil,    # prev_page
+      2       # next_page
     )
   end
 

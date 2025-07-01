@@ -6,6 +6,9 @@ module Decor
       extend ActiveSupport::Concern
 
       included do
+        include Phlex::Rails::Helpers::Request
+        include Phlex::Rails::Helpers::UrlFor
+
         # The name of the query params used for the pagination options
         attribute :page_parameter_name, Symbol, default: :page, allow_blank: false
         attribute :page_size_parameter_name, Symbol, default: :page_size, allow_blank: false
@@ -44,7 +47,8 @@ module Decor
         if page_size || sanitised_page_size != default_page_size
           p << [@page_size_parameter_name, page_size || sanitised_page_size]
         end
-        add_query_params_to_url(@path || helpers.url_for, p.to_h)
+        base_url = @path || (respond_to?(:url_for) ? url_for : request.url)
+        add_query_params_to_url(base_url, p.to_h)
       end
 
       def add_query_params_to_url(url, page_params)
@@ -54,7 +58,7 @@ module Decor
         else
           {}
         end
-        other_params = helpers.request.query_parameters.except(*page_params.keys)
+        other_params = request.query_parameters.except(*page_params.keys)
         query.merge!(other_params)
         query.merge!(page_params)
         parsed.query = query.to_query

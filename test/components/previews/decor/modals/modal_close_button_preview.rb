@@ -27,7 +27,7 @@ class ::Decor::Modals::ModalCloseButtonPreview < ::Lookbook::Preview
     disabled: false,
     full_width: false
   )
-    render ::Decor::ModalCloseButton.new(
+    render ::Decor::Modals::ModalCloseButton.new(
       close_reason: close_reason,
       label: label,
       icon: icon,

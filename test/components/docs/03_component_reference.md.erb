@@ -5,7 +5,7 @@ label: Component Reference
 
 # Component Reference
 
-Complete reference for all Decor and Navigo UI components with usage examples and parameters.
+Complete reference for all Decor and navigation UI components with usage examples and parameters.
 
 ---
 
@@ -709,7 +709,7 @@ render Decor::Tabs.new(
 
 ---
 
-## Navigation Components (Navigo)
+## Navigation Components (Decor::Nav)
 
 ### SideNavbar
 
@@ -717,7 +717,7 @@ Responsive sidebar navigation with hierarchical menu structure and search functi
 
 **Basic Usage:**
 ```ruby
-render Navigo::SideNavbar.new do |navbar|
+render Decor::Nav::SideNavbar.new do |navbar|
   navbar.with_section(title: "Main") do |section|
     section.with_item(title: "Dashboard", href: "/dashboard", icon: "home")
     section.with_item(title: "Users", href: "/users", icon: "users")
@@ -741,7 +741,7 @@ Top navigation bar with search, account menu, and notifications.
 
 **Basic Usage:**
 ```ruby
-render Navigo::TopNavbar.new do |navbar|
+render Decor::Nav::TopNavbar.new do |navbar|
   navbar.with_account_menu do
     # Account menu items
   end
@@ -759,7 +759,7 @@ Secondary navigation bars for sub-navigation.
 
 **Basic Usage:**
 ```ruby
-render Navigo::SecondaryNavbar.new do
+render Decor::Nav::SecondaryNavbar.new do
   # Secondary navigation content
 end
 ```
@@ -772,7 +772,7 @@ Comprehensive footer with link groups, social media, and newsletter signup.
 
 **Basic Usage:**
 ```ruby
-render Navigo::Footer.new(
+render Decor::Footer.new(
   supplier_name: "Company Name",
   link_groups: [
     {
@@ -797,7 +797,7 @@ Simplified footer for basic social links and copyright.
 
 **Basic Usage:**
 ```ruby
-render Navigo::CompactFooter.new do |footer|
+render Decor::CompactFooter.new do |footer|
   footer.with_logo { "Company" }
   footer.with_links([
     {title: "About", href: "/about"},
@@ -814,7 +814,7 @@ Page layout component with hero, header, tabs, and body sections.
 
 **Basic Usage:**
 ```ruby
-render Navigo::Page.new(title: "Page Title") do |page|
+render Decor::Page.new(title: "Page Title") do |page|
   page.with_hero { "Hero content" }
   page.with_header { "Page header" }
   page.with_body { "Main content" }
@@ -839,7 +839,7 @@ Visual section separator within pages with title and description.
 
 **Basic Usage:**
 ```ruby
-render Navigo::PageSection.new(
+render Decor::PageSection.new(
   title: "Section Title",
   description: "Section description"
 ) do
@@ -855,7 +855,7 @@ Flexible page header with multiple layout options.
 
 **Basic Usage:**
 ```ruby
-render Navigo::PageHeader.new(
+render Decor::PageHeader.new(
   title: "Page Title",
   subtitle: "Page subtitle",
   layout: :default
@@ -881,7 +881,7 @@ Navigation breadcrumb trail with mobile-friendly select dropdown.
 
 **Basic Usage:**
 ```ruby
-render Navigo::Breadcrumbs.new(
+render Decor::Breadcrumbs.new(
   breadcrumbs: [
     {title: "Home", href: "/"},
     {title: "Products", href: "/products"},
@@ -898,7 +898,7 @@ Search results display component.
 
 **Basic Usage:**
 ```ruby
-render Navigo::SearchResultsDropdown.new do
+render Decor::SearchResultsDropdown.new do
   # Search results content
 end
 ```
@@ -1137,7 +1137,7 @@ Navigation components use consistent slot patterns:
 
 ```ruby
 # Common navigation pattern
-render Navigo::SideNavbar.new do |navbar|
+render Decor::Nav::SideNavbar.new do |navbar|
   navbar.with_section(title: "Section") do |section|
     section.with_item(title: "Item", href: "/path")
   end

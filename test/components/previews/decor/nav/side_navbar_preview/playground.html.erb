@@ -1,5 +1,5 @@
 <%=
-  render ::Navigo::SideNavbar.new(
+  render ::Decor::Nav::SideNavbar.new(
     landscape_logo_url: "https://i.pravatar.cc/300",
     avatar_logo_url: "https://i.pravatar.cc/300",
     collapsed: start_collapsed,
@@ -74,7 +74,7 @@
   )
 %>
 <section id="main-content" class="transition-[padding] duration-300 flex flex-col h-full <%= start_collapsed ? "lg:pl-20" : "lg:pl-72" %>">
-  <%= render ::Navigo::TopNavbar.new %>
+  <%= render ::Decor::Nav::TopNavbar.new %>
 
   <!-- Page content -->
   <main class="px-4">

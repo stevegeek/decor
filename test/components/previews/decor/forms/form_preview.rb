@@ -141,7 +141,7 @@ class ::Decor::Forms::FormPreview < ::Lookbook::Preview
         el.h3(class: "text-md font-medium") { "Settings Form" }
 
         form.raw form.builder.select(:theme,
-                                     [["Light", "light"], ["Dark", "dark"]],
+          [["Light", "light"], ["Dark", "dark"]],
           {label: "Theme"})
 
         form.raw form.builder.check_box(:notifications,

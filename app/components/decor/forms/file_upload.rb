@@ -3,6 +3,9 @@
 module Decor
   module Forms
     class FileUpload < FormField
+      include ::Phlex::Rails::Helpers::FileField
+      include ::Phlex::Rails::Helpers::FieldName
+
       attribute :preview_layout, Symbol, in: [:stacked, :inline], default: :inline
       attribute :description, String, default: "Upload a .jpg or .png file, smaller than 5MB"
       attribute :file_mime_types, String, default: "image/png,image/gif,image/jpeg"
@@ -49,7 +52,7 @@ module Decor
               render ::Decor::Avatar.new(
                 initials: @initials,
                 shape: @shape,
-                size: :large,
+                size: :lg,
                 url: file_url,
                 html_options: {
                   class: "decor--image-upload--image-container shrink-0"
@@ -58,7 +61,7 @@ module Decor
             elsif @variant == :image
               div(class: "decor--image-upload--image-container") do
                 if file_url
-                  image(src: file_url, class: el.named_classes(:image))
+                  img(src: file_url, class: el.named_classes(:image))
                 else
                   div(class: "bg-white relative block border-2 border-gray-200 border-dashed rounded-md py-12 text-center hover:border-gray-300") do
                     span(class: "mt-2 block text-sm text-low-emphasis") { "No image selected..." }
@@ -71,7 +74,7 @@ module Decor
               span(class: "sr-only") { "Choose file to upload" }
               div(data: {**action_data_attributes(el, [:change, :file_selected])}) do
                 raw(
-                  helpers.file_field(
+                  file_field(
                     attribute(:object_name),
                     attribute(:method_name),
                     accept: @file_mime_types,
@@ -90,7 +93,7 @@ module Decor
             if @clear_checkbox && (file_url || @existing_file_url.present?)
               div(class: "flex items-center") do
                 checkbox = ::Decor::Forms::Checkbox.new(
-                  name: helpers.field_name(attribute(:object_name), :"#{attribute(:method_name)}_delete"),
+                  name: field_name(attribute(:object_name), :"#{attribute(:method_name)}_delete"),
                   disabled: @disabled,
                   collapsing_helper_text: true,
                   html_options: {
@@ -204,7 +207,7 @@ module Decor
           # isnt useful as image isnt persisted to activestorage and cant be set again on form field.
           nil
         elsif @file.present?
-          helpers.rails_blob_path(@file, only_path: true)
+          rails_blob_path(@file, only_path: true)
         end
       end
     end

@@ -3,6 +3,8 @@
 module Decor
   module Forms
     class Form < PhlexComponent
+      include ::Phlex::Rails::Helpers::FormWith
+
       attribute :model, default: proc { false }
       attribute :url, String
       attribute :local, :boolean, default: true
@@ -25,7 +27,7 @@ module Decor
 
       def view_template(&block)
         raw(
-          helpers.form_with(**form_with_helper_options) do |builder|
+          form_with(**form_with_helper_options) do |builder|
             content = ""
             unless locked_version.nil?
               content += builder.hidden_field(:lock_version)
@@ -81,7 +83,6 @@ module Decor
         resolved_stimulus_options = stimulus_options_for_component({})
         root_component = ::Vident::Phlex::RootComponent.new(**resolved_stimulus_options)
         options = {
-          model: @model,
           url: @url,
           local: @local,
           method: @http_method,
@@ -95,13 +96,17 @@ module Decor
           builder: @form_builder_class,
           namespace: @namespace
         }
+
+        # Only include model if it's not the default false value
+        options[:model] = @model unless @model == false
+
         options[:id] = resolved_stimulus_options[:id] if resolved_stimulus_options[:id]
         options
       end
 
       def form_contents(builder)
         @builder = builder
-        yield
+        yield if block_given?
       end
     end
   end

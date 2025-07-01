@@ -10,20 +10,20 @@ class Decor::TagTest < ActiveSupport::TestCase
     assert_includes rendered, "rounded-full"
   end
 
-  test "renders with deprecated text attribute" do
-    component = Decor::Tag.new(text: "Legacy Tag")
+  test "renders with label attribute" do
+    component = Decor::Tag.new(label: "Test Tag")
     rendered = render_component(component)
 
-    assert_includes rendered, "Legacy Tag"
+    assert_includes rendered, "Test Tag"
     assert_includes rendered, "rounded-full"
   end
 
-  test "label takes precedence over text" do
-    component = Decor::Tag.new(text: "Should be ignored", label: "This shows")
+  test "renders with label content" do
+    component = Decor::Tag.new(label: "Content Tag")
     rendered = render_component(component)
 
-    assert_includes rendered, "This shows"
-    refute_includes rendered, "Should be ignored"
+    assert_includes rendered, "Content Tag"
+    assert_includes rendered, "whitespace-nowrap"
   end
 
   # Color tests

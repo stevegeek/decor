@@ -20,7 +20,7 @@ class ::Decor::Modals::ModalLayoutPreview < ::Lookbook::Preview
     variant: :filled,
     size: :medium
   )
-    render ::Decor::ModalLayout.new(
+    render ::Decor::Modals::ModalLayout.new(
       style: style,
       title: title,
       description: description,
@@ -34,7 +34,7 @@ class ::Decor::Modals::ModalLayoutPreview < ::Lookbook::Preview
 
   # @label With Slots
   def with_slots
-    modal = ::Decor::ModalLayout.new(size: :large, color: :primary)
+    modal = ::Decor::Modals::ModalLayout.new(size: :large, color: :primary)
     modal.with_header do
       modal.h2(class: "text-xl font-bold") { "Custom Header" }
     end
@@ -50,7 +50,7 @@ class ::Decor::Modals::ModalLayoutPreview < ::Lookbook::Preview
 
   # @label Legacy Style
   def legacy_style
-    render ::Decor::ModalLayout.new(
+    render ::Decor::Modals::ModalLayout.new(
       style: :warning,
       title: "Are you sure?",
       description: "This action cannot be undone."
@@ -66,7 +66,7 @@ class ::Decor::Modals::ModalLayoutPreview < ::Lookbook::Preview
   def color_variants
     div(class: "space-y-4") do
       %i[primary secondary accent info success warning error].each do |color|
-        render ::Decor::ModalLayout.new(
+        render ::Decor::Modals::ModalLayout.new(
           color: color,
           title: "#{color.to_s.capitalize} Modal",
           description: "This is a #{color} colored modal"
@@ -79,7 +79,7 @@ class ::Decor::Modals::ModalLayoutPreview < ::Lookbook::Preview
   def size_variants
     div(class: "space-y-4") do
       %i[small medium large extra_large].each do |size|
-        render ::Decor::ModalLayout.new(
+        render ::Decor::Modals::ModalLayout.new(
           size: size,
           title: "#{size.to_s.humanize} Modal",
           description: "This modal uses the #{size} size variant"
@@ -94,7 +94,7 @@ class ::Decor::Modals::ModalLayoutPreview < ::Lookbook::Preview
   def variant_styles
     div(class: "space-y-4") do
       %i[filled outlined ghost].each do |variant|
-        render ::Decor::ModalLayout.new(
+        render ::Decor::Modals::ModalLayout.new(
           variant: variant,
           color: :primary,
           title: "#{variant.to_s.capitalize} Variant",

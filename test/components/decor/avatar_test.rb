@@ -41,7 +41,7 @@ class Decor::AvatarTest < ActiveSupport::TestCase
     component = Decor::Avatar.new(initials: "AB", border: true)
     rendered = render_component(component)
 
-    assert_includes rendered, "ring-primary"
+    assert_includes rendered, "ring-neutral"  # Default color is neutral
     assert_includes rendered, "ring-offset-base-100"
     assert_includes rendered, "ring-2"
     assert_includes rendered, "ring-offset-2"
@@ -331,5 +331,39 @@ class Decor::AvatarTest < ActiveSupport::TestCase
     assert_includes rendered, "text-neutral-content"
     assert_includes rendered, "w-10" # default size
     assert_includes rendered, "rounded-full" # default shape
+  end
+
+  test "border ring color matches avatar color" do
+    Decor::Avatar::COLOR_OPTIONS.each do |color|
+      component = Decor::Avatar.new(initials: "BC", color: color, border: true)
+      rendered = render_component(component)
+
+      expected_ring_class = case color
+      when :base then "ring-base"
+      when :primary then "ring-primary"
+      when :secondary then "ring-secondary"
+      when :accent then "ring-accent"
+      when :success then "ring-success"
+      when :error then "ring-error"
+      when :warning then "ring-warning"
+      when :info then "ring-info"
+      when :neutral then "ring-neutral"
+      end
+
+      assert_includes rendered, expected_ring_class, "Expected #{expected_ring_class} for color #{color}"
+      assert_includes rendered, "ring-offset-base-100"
+      assert_includes rendered, "ring-2"
+      assert_includes rendered, "ring-offset-2"
+    end
+  end
+
+  test "no border ring classes when border is false" do
+    component = Decor::Avatar.new(initials: "NB", color: :primary, border: false)
+    rendered = render_component(component)
+
+    refute_includes rendered, "ring-primary"
+    refute_includes rendered, "ring-offset-base-100"
+    refute_includes rendered, "ring-2"
+    refute_includes rendered, "ring-offset-2"
   end
 end

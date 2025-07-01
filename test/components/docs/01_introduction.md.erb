@@ -26,7 +26,7 @@ Decor components are organized into two main collections:
 #### 🎨 **Decor Components**
 Core UI components including buttons, forms, modals, notifications, data displays, and utility components.
 
-#### 🧭 **Navigo Components**
+#### 🧭 **Navigation Components**
 Navigation-focused components for building application layouts, sidebars, headers, footers, and navigation systems.
 
 ### Design Principles
@@ -82,7 +82,7 @@ Navigation-focused components for building application layouts, sidebars, header
 - **Progress**: Progress indicators and step flows
 - **Tabs**: Tabbed content interfaces
 
-### Navigation (Navigo)
+### Navigation (Decor::Nav)
 - **SideNavbar**: Responsive sidebar navigation with sections and items
 - **TopNavbar**: Top navigation bars
 - **SecondaryNavbar**: Secondary navigation bars
@@ -124,7 +124,7 @@ render Decor::Forms::TextField.new(
 )
 
 # Navigation
-render Navigo::SideNavbar.new do |navbar|
+render Decor::Nav::SideNavbar.new do |navbar|
   navbar.with_section(title: "Main") do |section|
     section.with_item(title: "Dashboard", href: "/dashboard")
   end

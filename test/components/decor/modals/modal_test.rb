@@ -1,8 +1,8 @@
 require "test_helper"
 
-class Decor::ModalTest < ActiveSupport::TestCase
+class Decor::Modals::ModalTest < ActiveSupport::TestCase
   test "renders successfully with default attributes" do
-    component = Decor::Modal.new(id: "test-modal")
+    component = Decor::Modals::Modal.new(id: "test-modal")
     rendered = render_component(component)
 
     assert_includes rendered, "test-modal"
@@ -10,7 +10,7 @@ class Decor::ModalTest < ActiveSupport::TestCase
   end
 
   test "renders with daisyUI modal classes" do
-    component = Decor::Modal.new(id: "modal-1")
+    component = Decor::Modals::Modal.new(id: "modal-1")
     rendered = render_component(component)
 
     assert_includes rendered, "modal"
@@ -18,14 +18,14 @@ class Decor::ModalTest < ActiveSupport::TestCase
   end
 
   test "renders with Stimulus controller" do
-    component = Decor::Modal.new(id: "stimulus-modal")
+    component = Decor::Modals::Modal.new(id: "stimulus-modal")
     rendered = render_component(component)
 
     assert_includes rendered, 'data-controller="decor--modal"'
   end
 
   test "renders with correct modal structure" do
-    component = Decor::Modal.new(id: "structured-modal")
+    component = Decor::Modals::Modal.new(id: "structured-modal")
     fragment = render_fragment(component)
 
     modal_div = fragment.at_css(".modal")
@@ -35,7 +35,7 @@ class Decor::ModalTest < ActiveSupport::TestCase
   end
 
   test "renders with backdrop" do
-    component = Decor::Modal.new(id: "backdrop-modal")
+    component = Decor::Modals::Modal.new(id: "backdrop-modal")
     fragment = render_fragment(component)
 
     backdrop = fragment.at_css(".modal-backdrop")
@@ -44,7 +44,7 @@ class Decor::ModalTest < ActiveSupport::TestCase
   end
 
   test "renders modal box container" do
-    component = Decor::Modal.new(id: "box-modal")
+    component = Decor::Modals::Modal.new(id: "box-modal")
     fragment = render_fragment(component)
 
     modal_box = fragment.at_css(".modal-box")
@@ -53,7 +53,7 @@ class Decor::ModalTest < ActiveSupport::TestCase
   end
 
   test "supports content slot" do
-    component = Decor::Modal.new(id: "content-modal")
+    component = Decor::Modals::Modal.new(id: "content-modal")
     rendered = render_component(component) do |c|
       c.with_content { "Modal content here" }
     end
@@ -62,19 +62,19 @@ class Decor::ModalTest < ActiveSupport::TestCase
   end
 
   test "handles id attribute requirement" do
-    component = Decor::Modal.new(id: "required-id")
+    component = Decor::Modals::Modal.new(id: "required-id")
 
     assert_equal "required-id", component.id
   end
 
   test "component inherits from PhlexComponent" do
-    component = Decor::Modal.new(id: "inheritance-test")
+    component = Decor::Modals::Modal.new(id: "inheritance-test")
 
     assert component.is_a?(Decor::PhlexComponent)
   end
 
   test "renders with CSS classes for styling" do
-    component = Decor::Modal.new(id: "styled-modal")
+    component = Decor::Modals::Modal.new(id: "styled-modal")
     rendered = render_component(component)
 
     assert_includes rendered, "modal"
@@ -82,7 +82,7 @@ class Decor::ModalTest < ActiveSupport::TestCase
   end
 
   test "modal backdrop has correct data attributes" do
-    component = Decor::Modal.new(id: "data-modal")
+    component = Decor::Modals::Modal.new(id: "data-modal")
     fragment = render_fragment(component)
 
     backdrop = fragment.at_css(".modal-backdrop")
@@ -92,7 +92,7 @@ class Decor::ModalTest < ActiveSupport::TestCase
   end
 
   test "renders empty modal when no content provided" do
-    component = Decor::Modal.new(id: "empty-modal")
+    component = Decor::Modals::Modal.new(id: "empty-modal")
     rendered = render_component(component)
 
     assert_includes rendered, "modal-box"

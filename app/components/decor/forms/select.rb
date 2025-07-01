@@ -3,6 +3,9 @@
 module Decor
   module Forms
     class Select < FormField
+      include ::Phlex::Rails::Helpers::OptionsForSelect
+      include ::Phlex::Rails::Helpers::GroupedOptionsForSelect
+
       class << self
         def map_options_for_select(options)
           {

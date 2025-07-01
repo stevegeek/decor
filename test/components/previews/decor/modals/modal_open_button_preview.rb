@@ -30,7 +30,7 @@ class ::Decor::Modals::ModalOpenButtonPreview < ::Lookbook::Preview
     disabled: false,
     full_width: false
   )
-    render ::Decor::ModalOpenButton.new(
+    render ::Decor::Modals::ModalOpenButton.new(
       content_href: content_href,
       initial_content: initial_content,
       close_on_overlay_click: close_on_overlay_click,

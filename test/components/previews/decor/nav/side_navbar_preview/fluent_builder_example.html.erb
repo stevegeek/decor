@@ -1,5 +1,5 @@
 <%=
-  render ::Navigo::SideNavbar.new(
+  render ::Decor::Nav::SideNavbar.new(
     landscape_logo_url: "https://via.placeholder.com/220x64/8B5CF6/FFFFFF.png?text=FLUENT",
     avatar_logo_url: "https://via.placeholder.com/64x64/8B5CF6/FFFFFF.png?text=F",
     collapsed: false
@@ -60,7 +60,7 @@
         This example demonstrates the new method-based composition API that replaces Phlex slots.
       </p>
       <div class="mockup-code">
-        <pre data-prefix=">" class="text-warning"><code>render Navigo::SideNavbar.new(...) do |navbar|</code></pre>
+        <pre data-prefix=">" class="text-warning"><code>render Decor::Nav::SideNavbar.new(...) do |navbar|</code></pre>
         <pre data-prefix="" class="text-success"><code>  navbar.with_section(title: "Sales") do |section|</code></pre>
         <pre data-prefix="" class="text-success"><code>    section.with_item(title: "Orders") do |item|</code></pre>
         <pre data-prefix="" class="text-success"><code>      item.with_sub_item(title: "Recent")</code></pre>

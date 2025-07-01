@@ -30,7 +30,7 @@ class Decor::TooltipTest < ActiveSupport::TestCase
 
     assert_includes rendered.text, "Main content"
     # For backward compatibility, it should still work but use fallback data-tip
-    assert_equal "Custom content", rendered.at_css(".tooltip")["data-tip"]
+    assert_equal "Custom tip content", rendered.at_css(".tooltip")["data-tip"]
   end
 
   def test_default_position_is_top

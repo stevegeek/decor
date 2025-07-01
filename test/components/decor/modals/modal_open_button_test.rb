@@ -1,8 +1,8 @@
 require "test_helper"
 
-class Decor::ModalOpenButtonTest < ActiveSupport::TestCase
+class Decor::Modals::ModalOpenButtonTest < ActiveSupport::TestCase
   test "renders successfully with required modal_id" do
-    component = Decor::ModalOpenButton.new(modal_id: "test-modal")
+    component = Decor::Modals::ModalOpenButton.new(modal_id: "test-modal")
     rendered = render_component(component)
 
     assert_includes rendered, "test-modal"
@@ -10,13 +10,13 @@ class Decor::ModalOpenButtonTest < ActiveSupport::TestCase
   end
 
   test "inherits from Button component" do
-    component = Decor::ModalOpenButton.new(modal_id: "modal-1")
+    component = Decor::Modals::ModalOpenButton.new(modal_id: "modal-1")
 
     assert component.is_a?(Decor::Button)
   end
 
   test "renders with modal-opening data attributes" do
-    component = Decor::ModalOpenButton.new(modal_id: "my-modal")
+    component = Decor::Modals::ModalOpenButton.new(modal_id: "my-modal")
     rendered = render_component(component)
 
     # Should have data attributes for opening modal
@@ -24,14 +24,14 @@ class Decor::ModalOpenButtonTest < ActiveSupport::TestCase
   end
 
   test "renders with correct modal target" do
-    component = Decor::ModalOpenButton.new(modal_id: "target-modal")
+    component = Decor::Modals::ModalOpenButton.new(modal_id: "target-modal")
     rendered = render_component(component)
 
     assert_includes rendered, "target-modal"
   end
 
   test "supports button text content" do
-    component = Decor::ModalOpenButton.new(modal_id: "text-modal")
+    component = Decor::Modals::ModalOpenButton.new(modal_id: "text-modal")
     rendered = render_component(component) do
       "Open Modal"
     end
@@ -40,9 +40,10 @@ class Decor::ModalOpenButtonTest < ActiveSupport::TestCase
   end
 
   test "supports button styling options" do
-    component = Decor::ModalOpenButton.new(
+    component = Decor::Modals::ModalOpenButton.new(
       modal_id: "styled-modal",
-      variant: :primary,
+      variant: :contained,
+      color: :primary,
       size: :large
     )
     rendered = render_component(component)
@@ -53,13 +54,13 @@ class Decor::ModalOpenButtonTest < ActiveSupport::TestCase
   end
 
   test "handles modal_id as required attribute" do
-    component = Decor::ModalOpenButton.new(modal_id: "required-modal")
+    component = Decor::Modals::ModalOpenButton.new(modal_id: "required-modal")
 
     assert_equal "required-modal", component.modal_id
   end
 
   test "renders as button element" do
-    component = Decor::ModalOpenButton.new(modal_id: "button-modal")
+    component = Decor::Modals::ModalOpenButton.new(modal_id: "button-modal")
     fragment = render_fragment(component)
 
     button = fragment.at_css("button")
@@ -68,7 +69,7 @@ class Decor::ModalOpenButtonTest < ActiveSupport::TestCase
   end
 
   test "component passes through Button attributes" do
-    component = Decor::ModalOpenButton.new(
+    component = Decor::Modals::ModalOpenButton.new(
       modal_id: "passthrough-modal",
       disabled: true,
       type: "button"
@@ -80,7 +81,7 @@ class Decor::ModalOpenButtonTest < ActiveSupport::TestCase
   end
 
   test "supports custom CSS classes" do
-    component = Decor::ModalOpenButton.new(
+    component = Decor::Modals::ModalOpenButton.new(
       modal_id: "custom-modal",
       class: "custom-button-class"
     )
@@ -91,7 +92,7 @@ class Decor::ModalOpenButtonTest < ActiveSupport::TestCase
   end
 
   test "renders with Stimulus data attributes for modal interaction" do
-    component = Decor::ModalOpenButton.new(modal_id: "stimulus-modal")
+    component = Decor::Modals::ModalOpenButton.new(modal_id: "stimulus-modal")
     fragment = render_fragment(component)
 
     button = fragment.at_css("button")
@@ -107,7 +108,7 @@ class Decor::ModalOpenButtonTest < ActiveSupport::TestCase
     test_ids = ["modal-1", "my_modal", "userSettingsModal", "modal:123"]
 
     test_ids.each do |modal_id|
-      component = Decor::ModalOpenButton.new(modal_id: modal_id)
+      component = Decor::Modals::ModalOpenButton.new(modal_id: modal_id)
       rendered = render_component(component)
 
       assert_includes rendered, modal_id

@@ -5,17 +5,16 @@ class ::Decor::Nav::CompactFooterPreview < ::Lookbook::Preview
   # Default compact footer with social links
   def default
     render ::Decor::Nav::CompactFooter.new(
-      supplier_name: "Example Company",
-      supplier_support_email_address: "support@example.com",
+      company_name: "Example Company",
       social_links: [
-        {platform: :twitter, url: "https://twitter.com/example"},
-        {platform: :github, url: "https://github.com/example"},
-        {platform: :linkedin, url: "https://linkedin.com/company/example"}
+        ::Decor::Nav::Footer::SocialLink.new(platform: :twitter, url: "https://twitter.com/example"),
+        ::Decor::Nav::Footer::SocialLink.new(platform: :github, url: "https://github.com/example"),
+        ::Decor::Nav::Footer::SocialLink.new(platform: :linkedin, url: "https://linkedin.com/company/example")
       ],
       footer_links: [
-        {label: "Support", href: "/support"},
-        {label: "Privacy", href: "/privacy"},
-        {label: "Terms", href: "/terms"}
+        ::Decor::Nav::Footer::FooterLink.new(label: "Support", href: "/support"),
+        ::Decor::Nav::Footer::FooterLink.new(label: "Privacy", href: "/privacy"),
+        ::Decor::Nav::Footer::FooterLink.new(label: "Terms", href: "/terms")
       ]
     )
   end
@@ -23,15 +22,14 @@ class ::Decor::Nav::CompactFooterPreview < ::Lookbook::Preview
   # Compact footer with all social platforms
   def all_social_platforms
     render ::Decor::Nav::CompactFooter.new(
-      supplier_name: "Example Company",
-      supplier_support_email_address: "support@example.com",
+      company_name: "Example Company",
       social_links: [
-        {platform: :facebook, url: "https://facebook.com/example", label: "Follow us on Facebook"},
-        {platform: :twitter, url: "https://twitter.com/example", label: "Follow us on Twitter"},
-        {platform: :instagram, url: "https://instagram.com/example", label: "Follow us on Instagram"},
-        {platform: :linkedin, url: "https://linkedin.com/company/example", label: "Connect on LinkedIn"},
-        {platform: :youtube, url: "https://youtube.com/@example", label: "Subscribe on YouTube"},
-        {platform: :github, url: "https://github.com/example", label: "View our code on GitHub"}
+        ::Decor::Nav::Footer::SocialLink.new(platform: :facebook, url: "https://facebook.com/example", label: "Follow us on Facebook"),
+        ::Decor::Nav::Footer::SocialLink.new(platform: :twitter, url: "https://twitter.com/example", label: "Follow us on Twitter"),
+        ::Decor::Nav::Footer::SocialLink.new(platform: :instagram, url: "https://instagram.com/example", label: "Follow us on Instagram"),
+        ::Decor::Nav::Footer::SocialLink.new(platform: :linkedin, url: "https://linkedin.com/company/example", label: "Connect on LinkedIn"),
+        ::Decor::Nav::Footer::SocialLink.new(platform: :youtube, url: "https://youtube.com/@example", label: "Subscribe on YouTube"),
+        ::Decor::Nav::Footer::SocialLink.new(platform: :github, url: "https://github.com/example", label: "View our code on GitHub")
       ]
     )
   end
@@ -39,12 +37,11 @@ class ::Decor::Nav::CompactFooterPreview < ::Lookbook::Preview
   # Dark theme compact footer
   def dark_theme
     render ::Decor::Nav::CompactFooter.new(
-      supplier_name: "Example Company",
-      supplier_support_email_address: "support@example.com",
+      company_name: "Example Company",
       theme: :dark,
       social_links: [
-        {platform: :twitter, url: "https://twitter.com/example"},
-        {platform: :github, url: "https://github.com/example"}
+        ::Decor::Nav::Footer::SocialLink.new(platform: :twitter, url: "https://twitter.com/example"),
+        ::Decor::Nav::Footer::SocialLink.new(platform: :github, url: "https://github.com/example")
       ]
     )
   end
@@ -52,12 +49,11 @@ class ::Decor::Nav::CompactFooterPreview < ::Lookbook::Preview
   # Compact footer without logo
   def without_logo
     render ::Decor::Nav::CompactFooter.new(
-      supplier_name: "Example Company",
-      supplier_support_email_address: "support@example.com",
+      company_name: "Example Company",
       show_logo: false,
       social_links: [
-        {platform: :twitter, url: "https://twitter.com/example"},
-        {platform: :linkedin, url: "https://linkedin.com/company/example"}
+        ::Decor::Nav::Footer::SocialLink.new(platform: :twitter, url: "https://twitter.com/example"),
+        ::Decor::Nav::Footer::SocialLink.new(platform: :linkedin, url: "https://linkedin.com/company/example")
       ]
     )
   end
@@ -68,8 +64,7 @@ class ::Decor::Nav::CompactFooterPreview < ::Lookbook::Preview
   # Compact footer with custom content areas
   def custom_content
     render ::Decor::Nav::CompactFooter.new(
-      supplier_name: "Example Company",
-      supplier_support_email_address: "support@example.com",
+      company_name: "Example Company",
       show_logo: false
     ) do |component|
       component.with_logo do
@@ -105,32 +100,16 @@ class ::Decor::Nav::CompactFooterPreview < ::Lookbook::Preview
   # Compact footer with visibility controls
   def visibility_controls
     render ::Decor::Nav::CompactFooter.new(
-      supplier_name: "Example Company",
-      supplier_support_email_address: "support@example.com",
+      company_name: "Example Company",
       social_links: [
-        {platform: :twitter, url: "https://twitter.com/example", visible: true},
-        {platform: :facebook, url: "https://facebook.com/example", visible: false},
-        {platform: :github, url: "https://github.com/example", visible: true}
+        ::Decor::Nav::Footer::SocialLink.new(platform: :twitter, url: "https://twitter.com/example", visible: true),
+        ::Decor::Nav::Footer::SocialLink.new(platform: :facebook, url: "https://facebook.com/example", visible: false),
+        ::Decor::Nav::Footer::SocialLink.new(platform: :github, url: "https://github.com/example", visible: true)
       ],
       footer_links: [
-        {label: "Support", href: "/support"},
-        {label: "Privacy", href: "/privacy", external: true}
+        ::Decor::Nav::Footer::FooterLink.new(label: "Support", href: "/support"),
+        ::Decor::Nav::Footer::FooterLink.new(label: "Privacy", href: "/privacy", external: true)
       ]
-    )
-  end
-
-  # Legacy attribute support (backward compatibility)
-  def legacy_attributes
-    render ::Decor::Nav::CompactFooter.new(
-      supplier_name: "Example Company",
-      supplier_support_email_address: "support@example.com",
-      facebook_url: "https://www.facebook.com/example",
-      instagram_url: "https://www.instagram.com/example",
-      twitter_url: "https://www.twitter.com/example",
-      youtube_url: "https://www.youtube.com/example",
-      linkedin_url: "https://www.linkedin.com/example",
-      github_url: "https://www.github.com/example",
-      status_site_url: "https://www.status.example.com"
     )
   end
 
@@ -140,8 +119,7 @@ class ::Decor::Nav::CompactFooterPreview < ::Lookbook::Preview
   # Interactive playground for testing
   def playground
     render ::Decor::Nav::CompactFooter.new(
-      supplier_name: "Example Company",
-      supplier_support_email_address: "support@example.com",
+      company_name: "Example Company",
       theme: :light,
       show_logo: true
     )

@@ -334,7 +334,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
   # @!endgroup
   # @!group Integration Examples
 
-  # Integration with other Navigo components
+  # Integration with other Decor components
   def with_navigo_components
     render ::Decor::PageHeader.new(
       title: "Dashboard",

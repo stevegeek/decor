@@ -33,9 +33,9 @@ module Decor
       end
     end
 
-    private
-
     attr_reader :file_name
+
+    private
 
     def svg_attributes
       {

@@ -2,35 +2,11 @@
 
 module Decor
   module Nav
-    class CompactFooter < PhlexComponent
+    class CompactFooter < Footer
       include Phlex::Rails::Helpers::ImagePath
-      no_stimulus_controller
 
-      class SocialLink < ::Literal::Data
-        prop :platform, Symbol
-        prop :url, String
-        prop :label, _Nilable(String)
-        prop :visible, _Boolean, default: true
-      end
-
-      class FooterLink < ::Literal::Data
-        prop :label, String
-        prop :href, String
-        prop :external, _Boolean, default: false, predicate: :public
-      end
-
-      attribute :supplier_name, String, allow_blank: false
-      attribute :supplier_support_email_address, String, allow_blank: false
-      attribute :facebook_url, String
-      attribute :instagram_url, String
-      attribute :twitter_url, String
-      attribute :youtube_url, String
-      attribute :linkedin_url, String
-      attribute :github_url, String
       attribute :status_site_url, String
-      attribute :social_links, Array, default: [].freeze
       attribute :footer_links, Array, default: [].freeze
-      attribute :theme, Symbol, default: :light, in: [:light, :dark]
       attribute :show_logo, :boolean, default: true
 
       def with_logo(&block)
@@ -45,12 +21,8 @@ module Decor
         @copyright_content = block
       end
 
-      def initialize(**attrs)
-        super
-        convert_data_structures
-      end
-
-      def view_template
+      def view_template(&)
+        vanish(&)
         render parent_element do
           div(class: "container mx-auto px-4 py-6") do
             render_social_section
@@ -101,7 +73,7 @@ module Decor
             render @logo_content
           else
             div(class: "mx-auto h-16 w-auto flex items-center justify-center bg-primary text-primary-content rounded") do
-              span(class: "font-bold text-lg") { @supplier_name }
+              span(class: "font-bold text-lg") { @company_name }
             end
           end
         end
@@ -113,7 +85,7 @@ module Decor
             render @copyright_content
           else
             p(class: "text-xs opacity-70") do
-              plain "© #{Time.zone.today.year} #{@supplier_name}. All rights reserved."
+              plain "© #{Time.zone.today.year} #{@company_name}. All rights reserved."
             end
           end
         end
@@ -141,47 +113,19 @@ module Decor
       end
 
       def show_social_links?
-        @social_links.any? || legacy_social_links.any?
+        @social_links.any?
       end
 
       def show_footer_links?
-        @footer_links.any? || legacy_footer_links.any?
+        @footer_links.any? || @custom_links
       end
 
       def social_links_to_render
-        if @social_links.any?
-          @social_links.select(&:visible)
-        else
-          legacy_social_links
-        end
+        @social_links.select(&:visible)
       end
 
       def footer_links_to_render
-        if @footer_links.any?
-          @footer_links
-        else
-          legacy_footer_links
-        end
-      end
-
-      def legacy_social_links
-        links = []
-        links << SocialLink.new(platform: :facebook, url: @facebook_url) if @facebook_url.present?
-        links << SocialLink.new(platform: :instagram, url: @instagram_url) if @instagram_url.present?
-        links << SocialLink.new(platform: :twitter, url: @twitter_url) if @twitter_url.present?
-        links << SocialLink.new(platform: :youtube, url: @youtube_url) if @youtube_url.present?
-        links << SocialLink.new(platform: :linkedin, url: @linkedin_url) if @linkedin_url.present?
-        links << SocialLink.new(platform: :github, url: @github_url) if @github_url.present?
-        links
-      end
-
-      def legacy_footer_links
-        links = []
-        links << FooterLink.new(label: "Get Support", href: "/support")
-        links << FooterLink.new(label: "Status", href: @status_site_url) if @status_site_url.present?
-        links << FooterLink.new(label: "Privacy", href: "https://www.example.com/privacy/", external: true)
-        links << FooterLink.new(label: "Terms", href: "https://www.example.com/terms/", external: true)
-        links
+        @footer_links
       end
 
       def render_social_icon(platform)
@@ -209,39 +153,6 @@ module Decor
         when :github
           svg(class: "w-4 h-4 fill-current", viewBox: "0 0 24 24") do |s|
             s.path(d: "M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z")
-          end
-        end
-      end
-
-      def convert_data_structures
-        @social_links = @social_links.map do |link|
-          case link
-          when Hash
-            SocialLink.new(
-              platform: (link[:platform] || link["platform"]).to_sym,
-              url: link[:url] || link["url"],
-              label: link[:label] || link["label"],
-              visible: link.fetch(:visible, link.fetch("visible", true))
-            )
-          when SocialLink
-            link
-          else
-            link
-          end
-        end
-
-        @footer_links = @footer_links.map do |link|
-          case link
-          when Hash
-            FooterLink.new(
-              label: link[:label] || link["label"],
-              href: link[:href] || link["href"],
-              external: link.fetch(:external, link.fetch("external", false))
-            )
-          when FooterLink
-            link
-          else
-            link
           end
         end
       end

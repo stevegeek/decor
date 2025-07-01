@@ -5,37 +5,37 @@ class ::Decor::Nav::FooterPreview < ::Lookbook::Preview
   # Default footer with link groups and social links
   def default
     render ::Decor::Nav::Footer.new(
-      supplier_name: "Example Company",
+      company_name: "Example Company",
       link_groups: [
-        {
+        ::Decor::Nav::Footer::LinkGroup.new(
           title: "Products",
           links: [
-            {label: "Features", href: "/features"},
-            {label: "Pricing", href: "/pricing"},
-            {label: "Enterprise", href: "/enterprise"}
+            ::Decor::Nav::Footer::FooterLink.new(label: "Features", href: "/features"),
+            ::Decor::Nav::Footer::FooterLink.new(label: "Pricing", href: "/pricing"),
+            ::Decor::Nav::Footer::FooterLink.new(label: "Enterprise", href: "/enterprise")
           ]
-        },
-        {
+        ),
+        ::Decor::Nav::Footer::LinkGroup.new(
           title: "Resources",
           links: [
-            {label: "Documentation", href: "/docs"},
-            {label: "API Reference", href: "/api", external: true},
-            {label: "Support", href: "/support", icon: "support"}
+            ::Decor::Nav::Footer::FooterLink.new(label: "Documentation", href: "/docs"),
+            ::Decor::Nav::Footer::FooterLink.new(label: "API Reference", href: "/api", external: true),
+            ::Decor::Nav::Footer::FooterLink.new(label: "Support", href: "/support", icon: "support")
           ]
-        },
-        {
+        ),
+        ::Decor::Nav::Footer::LinkGroup.new(
           title: "Company",
           links: [
-            {label: "About", href: "/about"},
-            {label: "Blog", href: "/blog"},
-            {label: "Careers", href: "/careers"}
+            ::Decor::Nav::Footer::FooterLink.new(label: "About", href: "/about"),
+            ::Decor::Nav::Footer::FooterLink.new(label: "Blog", href: "/blog"),
+            ::Decor::Nav::Footer::FooterLink.new(label: "Careers", href: "/careers")
           ]
-        }
+        )
       ],
       social_links: [
-        {platform: :twitter, url: "https://twitter.com/example"},
-        {platform: :github, url: "https://github.com/example"},
-        {platform: :linkedin, url: "https://linkedin.com/company/example"}
+        ::Decor::Nav::Footer::SocialLink.new(platform: :twitter, url: "https://twitter.com/example"),
+        ::Decor::Nav::Footer::SocialLink.new(platform: :github, url: "https://github.com/example"),
+        ::Decor::Nav::Footer::SocialLink.new(platform: :linkedin, url: "https://linkedin.com/company/example")
       ]
     )
   end
@@ -43,22 +43,22 @@ class ::Decor::Nav::FooterPreview < ::Lookbook::Preview
   # Footer with newsletter signup
   def with_newsletter
     render ::Decor::Nav::Footer.new(
-      supplier_name: "Example Company",
+      company_name: "Example Company",
       show_newsletter: true,
       leads_submit_path: "/leads",
       link_groups: [
-        {
+        ::Decor::Nav::Footer::LinkGroup.new(
           title: "Quick Links",
           links: [
-            {label: "Home", href: "/"},
-            {label: "About", href: "/about"},
-            {label: "Contact", href: "/contact"}
+            ::Decor::Nav::Footer::FooterLink.new(label: "Home", href: "/"),
+            ::Decor::Nav::Footer::FooterLink.new(label: "About", href: "/about"),
+            ::Decor::Nav::Footer::FooterLink.new(label: "Contact", href: "/contact")
           ]
-        }
+        )
       ],
       social_links: [
-        {platform: :facebook, url: "https://facebook.com/example"},
-        {platform: :instagram, url: "https://instagram.com/example"}
+        ::Decor::Nav::Footer::SocialLink.new(platform: :facebook, url: "https://facebook.com/example"),
+        ::Decor::Nav::Footer::SocialLink.new(platform: :instagram, url: "https://instagram.com/example")
       ]
     )
   end
@@ -66,21 +66,21 @@ class ::Decor::Nav::FooterPreview < ::Lookbook::Preview
   # Light theme footer
   def light_theme
     render ::Decor::Nav::Footer.new(
-      supplier_name: "Example Company",
+      company_name: "Example Company",
       theme: :light,
       link_groups: [
-        {
+        ::Decor::Nav::Footer::LinkGroup.new(
           title: "Services",
           links: [
-            {label: "Web Development", href: "/web"},
-            {label: "Mobile Apps", href: "/mobile"},
-            {label: "Consulting", href: "/consulting"}
+            ::Decor::Nav::Footer::FooterLink.new(label: "Web Development", href: "/web"),
+            ::Decor::Nav::Footer::FooterLink.new(label: "Mobile Apps", href: "/mobile"),
+            ::Decor::Nav::Footer::FooterLink.new(label: "Consulting", href: "/consulting")
           ]
-        }
+        )
       ],
       social_links: [
-        {platform: :github, url: "https://github.com/example"},
-        {platform: :youtube, url: "https://youtube.com/@example"}
+        ::Decor::Nav::Footer::SocialLink.new(platform: :github, url: "https://github.com/example"),
+        ::Decor::Nav::Footer::SocialLink.new(platform: :youtube, url: "https://youtube.com/@example")
       ]
     )
   end
@@ -91,7 +91,7 @@ class ::Decor::Nav::FooterPreview < ::Lookbook::Preview
   # Footer with custom content areas
   def custom_content
     render ::Decor::Nav::Footer.new(
-      supplier_name: "Example Company",
+      company_name: "Example Company",
       show_newsletter: false
     ) do |component|
       component.with_logo do
@@ -136,26 +136,26 @@ class ::Decor::Nav::FooterPreview < ::Lookbook::Preview
   # Footer with hidden link groups
   def with_visibility_control
     render ::Decor::Nav::Footer.new(
-      supplier_name: "Example Company",
+      company_name: "Example Company",
       link_groups: [
-        {
+        ::Decor::Nav::Footer::LinkGroup.new(
           title: "Visible Group",
           visible: true,
           links: [
-            {label: "Public Link", href: "/public"}
+            ::Decor::Nav::Footer::FooterLink.new(label: "Public Link", href: "/public")
           ]
-        },
-        {
+        ),
+        ::Decor::Nav::Footer::LinkGroup.new(
           title: "Hidden Group",
           visible: false,
           links: [
-            {label: "Hidden Link", href: "/hidden"}
+            ::Decor::Nav::Footer::FooterLink.new(label: "Hidden Link", href: "/hidden")
           ]
-        }
+        )
       ],
       social_links: [
-        {platform: :twitter, url: "https://twitter.com/example", visible: true},
-        {platform: :facebook, url: "https://facebook.com/example", visible: false}
+        ::Decor::Nav::Footer::SocialLink.new(platform: :twitter, url: "https://twitter.com/example", visible: true),
+        ::Decor::Nav::Footer::SocialLink.new(platform: :facebook, url: "https://facebook.com/example", visible: false)
       ]
     )
   end
@@ -166,20 +166,20 @@ class ::Decor::Nav::FooterPreview < ::Lookbook::Preview
   # Interactive playground for testing
   def playground
     render ::Decor::Nav::Footer.new(
-      supplier_name: "Example Company",
+      company_name: "Example Company",
       theme: :dark,
       link_groups: [
-        {
+        ::Decor::Nav::Footer::LinkGroup.new(
           title: "Company",
           links: [
-            {label: "About", href: "/about"},
-            {label: "Careers", href: "/careers"}
+            ::Decor::Nav::Footer::FooterLink.new(label: "About", href: "/about"),
+            ::Decor::Nav::Footer::FooterLink.new(label: "Careers", href: "/careers")
           ]
-        }
+        )
       ],
       social_links: [
-        {platform: :twitter, url: "https://twitter.com/company"},
-        {platform: :github, url: "https://github.com/company"}
+        ::Decor::Nav::Footer::SocialLink.new(platform: :twitter, url: "https://twitter.com/company"),
+        ::Decor::Nav::Footer::SocialLink.new(platform: :github, url: "https://github.com/company")
       ]
     )
   end
