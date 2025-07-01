@@ -47,7 +47,7 @@ module Decor
         aria_hidden: true,
         width: svg_width,
         height: svg_height,
-        data: ::Vident::ViewComponent::RootComponent.new(
+        data: ::Vident::Phlex::RootComponent.new(
           **stimulus_options_for_component({})
         ).send(:tag_data_attributes)
       }
