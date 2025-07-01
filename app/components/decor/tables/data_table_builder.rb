@@ -213,8 +213,11 @@ module Decor
       # Prepare the slots of the component
       def setup_component_slots(data_table_component)
         if search_or_filter_element?
-          data_table_component.with_search_and_filter(**resolved_search_and_filter_options) do |component|
-            component.with_actions(&@cta) if @cta
+          filter_options = resolved_search_and_filter_options
+          data_table_component.with_search_and_filter do
+            render ::Decor::SearchAndFilter.new(**filter_options) do |component|
+              component.with_actions(&@cta) if @cta
+            end
           end
         end
         data_table_component.with_data_table_header_row(selectable_as: rows_selectable_as_name) do |header_row_component|
@@ -227,21 +230,15 @@ module Decor
               row_component.with_expanded_content { expanded_content } unless expanded_content.nil?
             end
             row.cells.each do |cell|
-              row_component.with_data_table_cell(**cell.component) do |cell_component|
-                exec_row_render_method(
-                  cell_component,
-                  row_component,
-                  cell.render_block,
-                  cell.data,
-                  row.item_index,
-                  cell.untransformed
-                )
-              end
+              row_component.with_data_table_cell(**cell.component)
             end
           end
         end
         if paginated?
-          data_table_component.with_pagination(**resolved_pagination_options)
+          pagination_options = resolved_pagination_options
+          data_table_component.with_pagination do
+            render ::Decor::Pagination.new(**pagination_options)
+          end
         end
 
         @slots.each do |name, configuration|
@@ -587,28 +584,24 @@ module Decor
         item_index = nil,
         untransformed = nil
       )
-        # Wrap the method that capture will call to ensure we are returning strings
-        # as capture only returns string types.
-        case block.arity
+        # Execute the block and output the result
+        result = case block.arity
         when -2, -1, 1
-          wrapper = ->(item, block) { block.call(item).to_s }
-          cell_component.capture(item, block, &wrapper)
+          block.call(item).to_s
         when 2
-          wrapper = ->(item, index, block) { block.call(item, index).to_s }
-          cell_component.capture(item, item_index, block, &wrapper)
+          block.call(item, item_index).to_s
         when 3
-          wrapper = ->(item, index, untransformed, block) { block.call(item, index, untransformed).to_s }
-          cell_component.capture(item, item_index, untransformed, block, &wrapper)
+          block.call(item, item_index, untransformed).to_s
         when 4
-          wrapper = ->(item, index, untransformed, row_component, block) { block.call(item, index, untransformed, row_component).to_s }
-          cell_component.capture(item, item_index, untransformed, row_component, block, &wrapper)
+          block.call(item, item_index, untransformed, row_component).to_s
         when 5
-          wrapper = ->(item, index, untransformed, row_component, builder, block) { block.call(item, index, untransformed, row_component, builder).to_s }
-          cell_component.capture(item, item_index, untransformed, row_component, self, block, &wrapper)
+          block.call(item, item_index, untransformed, row_component, self).to_s
         else
-          wrapper = ->(block) { block.call.to_s }
-          cell_component.capture(block, &wrapper)
+          block.call.to_s
         end
+
+        # Output the result directly
+        cell_component.plain(result)
       end
     end
   end

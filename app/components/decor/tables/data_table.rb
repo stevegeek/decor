@@ -5,7 +5,7 @@ module Decor
     # A table which can include filters and pagination. Setup options using the DataTableBuilder to make life
     # easier.
     class DataTable < PhlexComponent
-      attr_reader :data_table_header, :search_and_filter, :data_table_header_rows, :data_table_rows, :pagination, :data_table_footer
+      attr_reader :data_table_header, :data_table_header_rows, :data_table_rows, :data_table_footer
 
       def initialize(**attributes)
         super

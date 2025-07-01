@@ -155,6 +155,12 @@ class Decor::Tables::DataTableBuilderTest < ActiveSupport::TestCase
     builder = create_builder(paginated: true) do |b|
       b.column(:name, title: "Name") { |item| item[:name] }
     end
+
+    # Override pagination_options to provide a path
+    def builder.pagination_options
+      {path: "/test"}
+    end
+
     component = builder.component
     rendered = render_component(component)
 

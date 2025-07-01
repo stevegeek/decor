@@ -53,7 +53,7 @@ module Decor
       end
 
       def resolved_content
-        @value || (block_given? ? yield : "")
+        @value || ""
       end
 
       def element_classes

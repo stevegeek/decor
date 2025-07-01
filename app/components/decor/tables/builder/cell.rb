@@ -37,8 +37,24 @@ module Decor
             weight: weight || column.weight,
             row_height: row_height,
             content_clickable: content_clickable,
-            stop_propagation: stop_propagation
+            stop_propagation: stop_propagation,
+            value: rendered_content
           }.compact
+        end
+
+        def rendered_content
+          return nil unless column.cell_block
+
+          case column.cell_block.arity
+          when -2, -1, 1
+            column.cell_block.call(data).to_s
+          when 2
+            column.cell_block.call(data, item_index).to_s
+          when 3
+            column.cell_block.call(data, item_index, untransformed).to_s
+          else
+            column.cell_block.call.to_s
+          end
         end
       end
     end

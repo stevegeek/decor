@@ -9,7 +9,7 @@ class Decor::Forms::ActionViewFormBuilderTest < ActiveSupport::TestCase
     # https://stackoverflow.com/questions/19628063/testing-a-rails-formbuilder-extension
     # https://stackoverflow.com/questions/5791211/how-do-i-extract-rails-view-helpers-into-a-gem
     @form = ExampleForm.factory_one
-    @view = FormBuilderTestFakeView.send(:include, ViewComponentsHelper).new(
+    @view = FormBuilderTestFakeView.new(
       ActionView::LookupContext.new(""),
       {},
       {}
@@ -35,11 +35,13 @@ class Decor::Forms::ActionViewFormBuilderTest < ActiveSupport::TestCase
     mock_radio_button.expect :render, "radio_button_"
 
     # Stub the constructor to return our mock instance
+    result = nil
     Decor::Forms::TagWrappers::RadioButton.stub :new, mock_radio_button do
-      @builder.collection_radio_buttons :a_radio_option, collection, :value, :text, label: "Radio Collection"
+      result = @builder.collection_radio_buttons :a_radio_option, collection, :value, :text, label: "Radio Collection"
     end
 
     mock_radio_button.verify
+    assert_equal "radio_button_radio_button_", result
   end
 
   test "collection_radio_buttons concatenates the returns from radio button methods" do
@@ -71,11 +73,13 @@ class Decor::Forms::ActionViewFormBuilderTest < ActiveSupport::TestCase
     mock_radio_button = Minitest::Mock.new
     mock_radio_button.expect :render, "radio_button"
 
+    result = nil
     Decor::Forms::TagWrappers::RadioButton.stub :new, mock_radio_button do
-      @builder.radio_button :a_radio_option, "gaga", label: "Radio"
+      result = @builder.radio_button :a_radio_option, "gaga", label: "Radio"
     end
 
     mock_radio_button.verify
+    assert_equal "radio_button", result
   end
 
   test "radio_button returns the rendered TagWrapper::RadioButton" do
@@ -110,11 +114,13 @@ class Decor::Forms::ActionViewFormBuilderTest < ActiveSupport::TestCase
     mock_select = Minitest::Mock.new
     mock_select.expect :render, "collection_select"
 
+    result = nil
     Decor::Forms::TagWrappers::Select.stub :new, mock_select do
-      @builder.collection_select :a_string, collection, :value, :text, {}, {label: "Collection Select"}
+      result = @builder.collection_select :a_string, collection, :value, :text, {}, {label: "Collection Select"}
     end
 
     mock_select.verify
+    assert_equal "collection_select", result
   end
 
   test "collection_select returns the result of TagWrapper::Select render method" do
@@ -155,12 +161,14 @@ class Decor::Forms::ActionViewFormBuilderTest < ActiveSupport::TestCase
     mock_select = Minitest::Mock.new
     mock_select.expect :render, "grouped_collection_select"
 
+    result = nil
     Decor::Forms::TagWrappers::Select.stub :new, mock_select do
-      @builder.grouped_collection_select :a_string, collection, :cities, :country, :name, :value, {},
+      result = @builder.grouped_collection_select :a_string, collection, :cities, :country, :name, :value, {},
         {label: "Grouped Collection Select"}
     end
 
     mock_select.verify
+    assert_equal "grouped_collection_select", result
   end
 
   test "grouped_collection_select returns the result of TagWrapper::Select render method" do
