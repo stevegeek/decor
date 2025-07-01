@@ -87,7 +87,7 @@ module Decor
                   button(
                     type: "button",
                     class: "-ml-px relative inline-flex items-center px-4 py-2 mt-4 sm:mt-0 w-full sm:w-auto border border-gray-300 text-sm font-medium #{@search.present? ? "rounded-md sm:rounded-r-md sm:rounded-l-none" : "rounded-md"} text-gray-700 bg-white sm:bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500",
-                    **el.with_actions([:click, :toggle], [:"click@window", :hide_on_click_outside])
+                    data: {**action_data_attributes(el, [:click, :toggle], [:"click@window", :hide_on_click_outside])}
                   ) do
                     render ::Decor::Icon.new(
                       name: "filter",

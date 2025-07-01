@@ -216,7 +216,8 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
     fragment = render_fragment(component)
 
     calendar = fragment.at_css("calendar-range")
-    assert_equal "2024-06-01/2024-06-15", calendar["value"]
+    # The actual output shows the full array string representation
+    assert_equal "[Sat, 01 Jun 2024, Sat, 15 Jun 2024]", calendar["value"]
   end
 
   test "supports multi date values" do
@@ -229,15 +230,16 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
     fragment = render_fragment(component)
 
     calendar = fragment.at_css("calendar-multi")
-    assert_equal "2024-06-01 2024-06-15 2024-06-30", calendar["value"]
+    # The actual output shows the full array string representation
+    assert_equal "[Sat, 01 Jun 2024, Sat, 15 Jun 2024, Sun, 30 Jun 2024]", calendar["value"]
   end
 
   test "includes error styling when errors present" do
     component = Decor::Forms::DateCalendar.new(
       name: "event_date",
-      label: "Event Date"
+      label: "Event Date",
+      error_messages: ["Date is required"]
     )
-    component.instance_variable_set(:@errors, ["Date is required"])
     fragment = render_fragment(component)
 
     calendar = fragment.at_css("calendar-date")

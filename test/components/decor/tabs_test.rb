@@ -359,7 +359,7 @@ class Decor::TabsTest < ActiveSupport::TestCase
     assert_equal "/test", tab_info_1.href
     assert_nil tab_info_1.title
 
-    tab_info_2 = Decor::Tabs::TabInfo.new(title: "Test") # href is optional  
+    tab_info_2 = Decor::Tabs::TabInfo.new(title: "Test") # href is optional
     assert_equal "Test", tab_info_2.title
     assert_nil tab_info_2.href
   end

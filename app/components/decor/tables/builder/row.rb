@@ -7,7 +7,7 @@ module Decor
         prop :id, _Nilable(String)
         prop :cells, _Array(::Decor::Tables::Builder::Cell), default: proc { [] }
         prop :item_index, _Nilable(Integer)
-        prop :path, _Any
+        prop :path, _Nilable(_Any)
 
         prop :hover_highlight, _Nilable(_Boolean)
         prop :highlight, _Nilable(Symbol)
@@ -19,7 +19,7 @@ module Decor
 
         prop :expanded_content_renderer, _Nilable(Proc)
 
-        prop :prepared_form_builder, _Any
+        prop :prepared_form_builder, _Nilable(_Any)
 
         def component
           {

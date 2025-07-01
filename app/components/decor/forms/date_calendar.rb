@@ -108,7 +108,7 @@ module Decor
 
         attrs[:min] = format_date_for_cally(@min_date) if @min_date
         attrs[:max] = format_date_for_cally(@max_date) if @max_date
-        attrs[:disabled] = nil if @disabled
+        attrs[:disabled] = true if @disabled
 
         attrs
       end

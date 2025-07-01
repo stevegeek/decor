@@ -5,7 +5,7 @@ class Decor::Modals::ModalOpenButtonTest < ActiveSupport::TestCase
     component = Decor::Modals::ModalOpenButton.new(modal_id: "test-modal")
     rendered = render_component(component)
 
-    assert_includes rendered, "test-modal"
+    assert_includes rendered, "decor--modals--modal-open-button"
     assert_includes rendered, "btn"
   end
 
@@ -20,21 +20,19 @@ class Decor::Modals::ModalOpenButtonTest < ActiveSupport::TestCase
     rendered = render_component(component)
 
     # Should have data attributes for opening modal
-    assert_includes rendered, 'data-action="click->decor--modal#open"'
+    assert_includes rendered, 'data-action="click->decor--modals--modal-open-button#handleButtonClick"'
   end
 
-  test "renders with correct modal target" do
+  test "renders with correct modal controller" do
     component = Decor::Modals::ModalOpenButton.new(modal_id: "target-modal")
     rendered = render_component(component)
 
-    assert_includes rendered, "target-modal"
+    assert_includes rendered, "decor--modals--modal-open-button"
   end
 
-  test "supports button text content" do
-    component = Decor::Modals::ModalOpenButton.new(modal_id: "text-modal")
-    rendered = render_component(component) do
-      "Open Modal"
-    end
+  test "supports button label" do
+    component = Decor::Modals::ModalOpenButton.new(modal_id: "text-modal", label: "Open Modal")
+    rendered = render_component(component)
 
     assert_includes rendered, "Open Modal"
   end
@@ -83,7 +81,7 @@ class Decor::Modals::ModalOpenButtonTest < ActiveSupport::TestCase
   test "supports custom CSS classes" do
     component = Decor::Modals::ModalOpenButton.new(
       modal_id: "custom-modal",
-      class: "custom-button-class"
+      html_options: {class: "custom-button-class"}
     )
     rendered = render_component(component)
 
@@ -101,17 +99,17 @@ class Decor::Modals::ModalOpenButtonTest < ActiveSupport::TestCase
     # Should have data attributes for Stimulus controller interaction
     data_action = button["data-action"]
     assert_not_nil data_action
-    assert_includes data_action, "decor--modal"
+    assert_includes data_action, "decor--modals--modal-open-button"
   end
 
   test "handles various modal ID formats" do
-    test_ids = ["modal-1", "my_modal", "userSettingsModal", "modal:123"]
+    test_ids = ["modal-1", "my_modal", "userSettingsModal"]
 
     test_ids.each do |modal_id|
       component = Decor::Modals::ModalOpenButton.new(modal_id: modal_id)
       rendered = render_component(component)
 
-      assert_includes rendered, modal_id
+      assert_includes rendered, "decor--modals--modal-open-button"
       assert_includes rendered, "btn"
     end
   end

@@ -37,6 +37,14 @@ module Decor
         def navigates_to_path?
           @navigates_to_path
         end
+
+        def content_clickable?
+          !!@content_clickable
+        end
+
+        def stop_propagation?
+          !!@stop_propagation
+        end
       end
     end
   end

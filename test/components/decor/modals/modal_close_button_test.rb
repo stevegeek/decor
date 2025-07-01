@@ -20,7 +20,7 @@ class Decor::Modals::ModalCloseButtonTest < ActiveSupport::TestCase
     rendered = render_component(component)
 
     # Should have data attributes for closing modal
-    assert_includes rendered, 'data-action="click->decor--modal#close"'
+    assert_includes rendered, 'data-action="click->decor--modals--modal-close-button#handleButtonClick"'
   end
 
   test "renders with close icon by default" do
@@ -70,7 +70,7 @@ class Decor::Modals::ModalCloseButtonTest < ActiveSupport::TestCase
 
     data_action = button["data-action"]
     assert_not_nil data_action
-    assert_includes data_action, "decor--modal#close"
+    assert_includes data_action, "decor--modals--modal-close-button#handleButtonClick"
   end
 
   test "supports disabled state" do
@@ -99,8 +99,7 @@ class Decor::Modals::ModalCloseButtonTest < ActiveSupport::TestCase
 
   test "component passes through Button attributes" do
     component = Decor::Modals::ModalCloseButton.new(
-      type: "button",
-      form: "my-form"
+      html_options: {form: "my-form"}
     )
     rendered = render_component(component)
 
@@ -125,6 +124,6 @@ class Decor::Modals::ModalCloseButtonTest < ActiveSupport::TestCase
     data_action = button["data-action"]
 
     # Should specifically target modal close action
-    assert_includes data_action, "click->decor--modal#close"
+    assert_includes data_action, "click->decor--modals--modal-close-button#handleButtonClick"
   end
 end

@@ -1,5 +1,6 @@
-import { Controller } from "@hotwired/stimulus";
+import ModalController from "controllers/decor/modals/modal_controller";
 import { safelySetInnerHTML } from "controllers/decor";
+
 export var ModalConfirmEvents;
 (function (ModalConfirmEvents) {
     ModalConfirmEvents["Open"] = "decor--confirm-modal:open";
@@ -10,53 +11,26 @@ export var ModalConfirmEvents;
     ModalConfirmEvents["Closing"] = "decor--confirm-modal:closing";
     ModalConfirmEvents["Closed"] = "decor--confirm-modal:closed";
 })(ModalConfirmEvents || (ModalConfirmEvents = {}));
-export default class extends Controller {
-    constructor() {
-        super();
-        this.modalVisible = false;
-        this.closeOnOverlayClick = false;
-    }
 
+export default class extends ModalController {
     static targets = [
         "overlay",
-        "modal", 
+        "modal",
         "title",
         "message",
         "negativeButton",
-        "positiveButton",
+        "positiveButton"
     ];
 
-    reveal() {
-        this.modalVisible = true;
-        this.element.classList.remove("hidden");
-    }
-
-    hide() {
-        this.modalVisible = false;
-        this.element.classList.add("hidden");
-    }
-
-    overlayClicked() {
-        if (this.closeOnOverlayClick) {
-            this.close();
-        }
-    }
-
-    dispatchLifecycleEvent(type, detail) {
-        const evt = new CustomEvent(type, {
-            bubbles: true,
-            cancelable: false,
-            detail: detail,
-        });
-        window.dispatchEvent(evt);
-    }
     negativeButton() {
         this.close(this.negativeButtonReason);
     }
+
     positiveButton() {
         this.close(this.positiveButtonReason);
     }
-    // Open the modal and load its content if needed
+
+    // Override the base modal's open method to use confirm-specific events
     async open(showOptions) {
         this.dispatchLifecycleEvent(ModalConfirmEvents.Opening, {
             shownWith: showOptions,
@@ -66,41 +40,59 @@ export default class extends Controller {
             shownWith: showOptions,
         });
     }
-    prepareConfirmModalAndLoad(showOptions) {
-        const { title, message, messageHTML, defaultReason, positiveButtonLabel, positiveButtonReason, negativeButtonLabel, negativeButtonReason, } = showOptions;
-        // Setup buttons etc
-        this.closeOnOverlayClick = !!showOptions.closeOnOverlayClick;
-        if (title) {
-            this.titleTarget.innerText = title;
-        }
-        if (messageHTML) {
-            safelySetInnerHTML(this.messageTarget, messageHTML);
-        }
-        else if (message) {
-            this.messageTarget.innerText = message;
-        }
-        if (positiveButtonLabel) {
-            this.positiveButtonTarget.innerText = positiveButtonLabel;
-        }
-        if (negativeButtonLabel) {
-            this.negativeButtonTarget.innerText = negativeButtonLabel;
-        }
-        this.negativeButtonReason = negativeButtonReason;
-        this.positiveButtonReason = positiveButtonReason;
-        if (defaultReason) {
-            if (defaultReason == this.negativeButtonReason) {
-                this.negativeButtonTarget.focus();
-            }
-            else if (defaultReason == this.positiveButtonReason) {
-                this.positiveButtonTarget.focus();
-            }
-        }
-        this.reveal();
-    }
-    // Close the modal
+
+    // Override the base modal's close method to use confirm-specific events
     close(closeReason) {
         this.dispatchLifecycleEvent(ModalConfirmEvents.Closing, { closeReason });
         this.hide();
         this.dispatchLifecycleEvent(ModalConfirmEvents.Closed, { closeReason });
+    }
+
+    // Custom preparation method for confirm modals
+    prepareConfirmModalAndLoad(showOptions) {
+        const { 
+            title, 
+            message, 
+            messageHTML, 
+            defaultReason, 
+            positiveButtonLabel, 
+            positiveButtonReason, 
+            negativeButtonLabel, 
+            negativeButtonReason 
+        } = showOptions;
+
+        // Setup buttons etc
+        this.closeOnOverlayClick = !!showOptions.closeOnOverlayClick;
+
+        if (title) {
+            this.titleTarget.innerText = title;
+        }
+
+        if (messageHTML) {
+            safelySetInnerHTML(this.messageTarget, messageHTML);
+        } else if (message) {
+            this.messageTarget.innerText = message;
+        }
+
+        if (positiveButtonLabel) {
+            this.positiveButtonTarget.innerText = positiveButtonLabel;
+        }
+
+        if (negativeButtonLabel) {
+            this.negativeButtonTarget.innerText = negativeButtonLabel;
+        }
+
+        this.negativeButtonReason = negativeButtonReason;
+        this.positiveButtonReason = positiveButtonReason;
+
+        if (defaultReason) {
+            if (defaultReason == this.negativeButtonReason) {
+                this.negativeButtonTarget.focus();
+            } else if (defaultReason == this.positiveButtonReason) {
+                this.positiveButtonTarget.focus();
+            }
+        }
+
+        this.reveal();
     }
 }

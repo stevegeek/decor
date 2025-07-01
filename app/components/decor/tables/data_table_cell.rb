@@ -152,7 +152,7 @@ module Decor
             class: "cell-row-link-overlay absolute inset-0 no-underline cursor-pointer",
             tabindex: "-1",
             href: @path,
-            **s.with_actions(:handle_link_click)
+            data: {**action_data_attributes(s, :handle_link_click)}
           )
           if @content_clickable
             div(class: "absolute inset-0") do

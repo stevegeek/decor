@@ -43,8 +43,10 @@ module Decor
                 input(
                   data_controller: form_control_controller,
                   **input_html_attributes(idx, value),
-                  **(control_actions? ? el.with_actions(control_actions) : {}),
-                  **(control_targets? ? el.as_targets(*control_targets) : {})
+                  data: {
+                    **(control_actions? ? action_data_attributes(el, control_actions) : {}),
+                    **(control_targets? ? target_data_attributes(el, *control_targets) : {})
+                  }
                 )
                 label(
                   class: button_classes(value),

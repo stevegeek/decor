@@ -252,7 +252,7 @@ module Decor
       def header_cell_attributes
         @header_cell_attributes ||=
           visible_header_columns.map do |col|
-            col.attributes.slice(
+            col.to_h.slice(
               :weight,
               :title,
               :numeric,
@@ -262,7 +262,7 @@ module Decor
             ).compact_blank!.merge(
               row_height: header_height,
               stretch_divisor: col.stretch ? visible_columns.count(&:stretch) : nil,
-              sort_key: (col.sortable? && !search_enabled?) ? col.name : nil,
+              sort_key: (col.sortable && !search_enabled?) ? col.name : nil,
               sorted_direction: resolved_sort_direction(col)
             )
           end
@@ -461,7 +461,7 @@ module Decor
           if search_enabled?
             q
           else
-            col_for_sort&.sortable? ?
+            col_for_sort&.sortable ?
               apply_sort(
                 query: q,
                 sort_by: sanitised_sort_by,

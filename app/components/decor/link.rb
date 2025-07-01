@@ -19,7 +19,7 @@ module Decor
       if @disabled
         ["text-gray-400", "cursor-not-allowed"]
       else
-        case @theme
+        case @color
         when :primary
           ["link-primary"]
         when :secondary

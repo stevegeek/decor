@@ -73,20 +73,6 @@ module Decor
             [:"#{js_event_name_prefix}:open@window", :handleOpenEvent],
             [:"#{js_event_name_prefix}:close@window", :handleCloseEvent]
           ],
-          named_classes: {
-            overlay_entering: "ease-out duration-300",
-            overlay_entering_from: "opacity-0",
-            overlay_entering_to: "opacity-50",
-            overlay_leaving: "ease-in duration-200",
-            overlay_leaving_from: "opacity-50",
-            overlay_leaving_to: "opacity-0",
-            modal_entering: "ease-out duration-300",
-            modal_entering_from: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95",
-            modal_entering_to: "opacity-100 translate-y-0 sm:scale-100",
-            modal_leaving: "ease-in duration-200",
-            modal_leaving_from: "opacity-100 translate-y-0 sm:scale-100",
-            modal_leaving_to: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-          },
           values: [@close_on_overlay_click ? {close_on_overlay_click: true} : {}],
           html_options: {
             aria_modal: true,

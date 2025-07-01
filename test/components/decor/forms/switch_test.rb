@@ -93,7 +93,7 @@ class Decor::Forms::SwitchTest < ActiveSupport::TestCase
 
   test "renders with error styling when errors present" do
     component = Decor::Forms::Switch.new(
-      name: "error_switch", 
+      name: "error_switch",
       label: "Error",
       error_messages: ["Something went wrong"]
     )

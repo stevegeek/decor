@@ -141,7 +141,7 @@ class Decor::FormattedEncodedIdTest < ActiveSupport::TestCase
   test "handles various encoded ID formats" do
     # Test IDs without separators (no prefix splitting)
     simple_ids = ["ABC123", "XYZ789", "item123"]
-    
+
     simple_ids.each do |test_id|
       component = Decor::FormattedEncodedId.new(encoded_id: test_id)
       rendered = render_component(component)
@@ -149,11 +149,11 @@ class Decor::FormattedEncodedIdTest < ActiveSupport::TestCase
       assert_includes rendered, test_id
       assert_includes rendered, "text-primary"
     end
-    
+
     # Test ID with separator (will be split into prefix and ID)
     component = Decor::FormattedEncodedId.new(encoded_id: "USER_456")
     rendered = render_component(component)
-    
+
     # Should split into "USER_" (prefix) and "456" (ID)
     assert_includes rendered, "USER_"
     assert_includes rendered, "456"

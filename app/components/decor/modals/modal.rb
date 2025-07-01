@@ -31,7 +31,7 @@ module Decor
               data: {**s.send(:build_target_data_attributes, s.send(:parse_targets, [:modal]))}
             ) do
               if @initial_content.present?
-                raw(@initial_content)
+                plain(@initial_content)
               else
                 render ::Decor::Spinner.new(html_options: {class: "mx-auto w-8 h-8"})
               end
@@ -49,11 +49,11 @@ module Decor
             [:"#{js_event_name_prefix}:open@window", :handle_open_event],
             [:"#{js_event_name_prefix}:close@window", :handle_close_event]
           ],
-          values: [
-            @start_shown ? {show_initial: true} : {},
-            @close_on_overlay_click ? {close_on_overlay_click: true} : {},
-            @content_href ? {content_href: @content_href} : {}
-          ],
+          values: [{
+            show_initial: @start_shown,
+            close_on_overlay_click: @close_on_overlay_click,
+            content_href: @content_href
+          }],
           html_options: {
             aria_modal: true,
             role: "dialog",

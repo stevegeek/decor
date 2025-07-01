@@ -112,9 +112,8 @@ module Decor
                 if @data_table_header_rows.any?
                   thead(class: "bg-base-200 ltr:text-left rtl:text-right") do
                     @data_table_header_rows.each do |header_row_data|
-                      header_row, _ = header_row_data
-                      # instance_eval(header_row).html_safe
-                      render header_row
+                      header_row, block = header_row_data
+                      render(header_row, &block)
                     end
                   end
                 end

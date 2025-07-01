@@ -14,7 +14,7 @@ module Decor
         prop :weight, _Nilable(Symbol)
 
         # Path that row navigates to, used to create an anchor around cell contents
-        prop :path, _Any
+        prop :path, _Nilable(_Any)
         # If clickable the content is placed in an absolutely positioned div over the cell, thus
         # allowing it first dibs on events
         prop :content_clickable, _Boolean, default: false

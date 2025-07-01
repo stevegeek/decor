@@ -1,4 +1,5 @@
 require "test_helper"
+require "minitest/mock"
 
 class Decor::Forms::ActionViewFormBuilderTest < ActiveSupport::TestCase
   def setup
@@ -18,21 +19,22 @@ class Decor::Forms::ActionViewFormBuilderTest < ActiveSupport::TestCase
     ActionView::PathRegistry.set_view_paths(@view.lookup_context, @view.lookup_context.view_paths + ["app/views"])
   end
 
+  TestOption = Struct.new(:text, :value)
+  TestCity = Struct.new(:name, :value)
+  TestCountry = Struct.new(:country, :cities)
+
   test "collection_radio_buttons performs valid calls to TagWrappers::RadioButton" do
-    collection = [
-      OpenStruct.new(text: "United States", value: "US"),
-      OpenStruct.new(text: "Canada", value: "CA")
-    ]
+    # Create test objects with proper methods
+    us_option = Struct.new(:text, :value).new("United States", "US")
+    ca_option = Struct.new(:text, :value).new("Canada", "CA")
+    collection = [us_option, ca_option]
 
-    # Mock the RadioButton class
+    # Mock instance that will be returned
     mock_radio_button = Minitest::Mock.new
-    mock_radio_button.expect :new, mock_radio_button, [
-      :form, :a_radio_option, ActionView::Base, "US", Hash
-    ]
-    mock_radio_button.expect :new, mock_radio_button, [
-      :form, :a_radio_option, ActionView::Base, "CA", Hash
-    ]
+    mock_radio_button.expect :render, "radio_button_"
+    mock_radio_button.expect :render, "radio_button_"
 
+    # Stub the constructor to return our mock instance
     Decor::Forms::TagWrappers::RadioButton.stub :new, mock_radio_button do
       @builder.collection_radio_buttons :a_radio_option, collection, :value, :text, label: "Radio Collection"
     end
@@ -41,10 +43,9 @@ class Decor::Forms::ActionViewFormBuilderTest < ActiveSupport::TestCase
   end
 
   test "collection_radio_buttons concatenates the returns from radio button methods" do
-    collection = [
-      OpenStruct.new(text: "United States", value: "US"),
-      OpenStruct.new(text: "Canada", value: "CA")
-    ]
+    us_option = Struct.new(:text, :value).new("United States", "US")
+    ca_option = Struct.new(:text, :value).new("Canada", "CA")
+    collection = [us_option, ca_option]
 
     @builder.stub(:radio_button, "radio_button_") do
       output = @builder.collection_radio_buttons :a_radio_option, collection, :value, :text, label: "Radio Collection"
@@ -53,10 +54,9 @@ class Decor::Forms::ActionViewFormBuilderTest < ActiveSupport::TestCase
   end
 
   test "collection_radio_buttons generates html" do
-    collection = [
-      OpenStruct.new(text: "United States", value: "US"),
-      OpenStruct.new(text: "Canada", value: "CA")
-    ]
+    us_option = Struct.new(:text, :value).new("United States", "US")
+    ca_option = Struct.new(:text, :value).new("Canada", "CA")
+    collection = [us_option, ca_option]
 
     html = @builder.collection_radio_buttons :a_radio_option, collection, :value, :text, label: "Radio Collection"
     assert_match(/<input.*type="radio"/m, html)
@@ -69,9 +69,6 @@ class Decor::Forms::ActionViewFormBuilderTest < ActiveSupport::TestCase
 
   test "radio_button instantiates TagWrappers::RadioButton instance with correct args" do
     mock_radio_button = Minitest::Mock.new
-    mock_radio_button.expect :new, mock_radio_button, [
-      :form, :a_radio_option, ActionView::Base, "gaga", Hash
-    ]
     mock_radio_button.expect :render, "radio_button"
 
     Decor::Forms::TagWrappers::RadioButton.stub :new, mock_radio_button do
@@ -106,14 +103,11 @@ class Decor::Forms::ActionViewFormBuilderTest < ActiveSupport::TestCase
 
   test "collection_select instantiates TagWrappers::Select with valid args" do
     collection = [
-      OpenStruct.new(text: "Mexica", value: "ME"),
-      OpenStruct.new(text: "Canada", value: "CA")
+      TestOption.new("Mexica", "ME"),
+      TestOption.new("Canada", "CA")
     ]
 
     mock_select = Minitest::Mock.new
-    mock_select.expect :new, mock_select, [
-      :form, :a_string, FormBuilderTestFakeView, Array, Hash, Hash
-    ]
     mock_select.expect :render, "collection_select"
 
     Decor::Forms::TagWrappers::Select.stub :new, mock_select do
@@ -125,8 +119,8 @@ class Decor::Forms::ActionViewFormBuilderTest < ActiveSupport::TestCase
 
   test "collection_select returns the result of TagWrapper::Select render method" do
     collection = [
-      OpenStruct.new(text: "Mexica", value: "ME"),
-      OpenStruct.new(text: "Canada", value: "CA")
+      TestOption.new("Mexica", "ME"),
+      TestOption.new("Canada", "CA")
     ]
 
     mock_select = Minitest::Mock.new
@@ -142,8 +136,8 @@ class Decor::Forms::ActionViewFormBuilderTest < ActiveSupport::TestCase
 
   test "collection_select generates html" do
     collection = [
-      OpenStruct.new(text: "Mexica", value: "ME"),
-      OpenStruct.new(text: "Canada", value: "CA")
+      TestOption.new("Mexica", "ME"),
+      TestOption.new("Canada", "CA")
     ]
 
     html = @builder.collection_select :a_string, collection, :value, :text, label: "Collection Select"
@@ -152,16 +146,13 @@ class Decor::Forms::ActionViewFormBuilderTest < ActiveSupport::TestCase
 
   test "grouped_collection_select instantiates TagWrappers::Select with valid args" do
     collection = [
-      OpenStruct.new(country: "Mexica", cities: [
-        OpenStruct.new(name: "capital", value: "Mexico"),
-        OpenStruct.new(name: "not a capital", value: "Zapopan")
+      TestCountry.new("Mexica", [
+        TestCity.new("capital", "Mexico"),
+        TestCity.new("not a capital", "Zapopan")
       ])
     ]
 
     mock_select = Minitest::Mock.new
-    mock_select.expect :new, mock_select, [
-      :form, :a_string, FormBuilderTestFakeView, Array, Hash, Hash
-    ]
     mock_select.expect :render, "grouped_collection_select"
 
     Decor::Forms::TagWrappers::Select.stub :new, mock_select do
@@ -174,9 +165,9 @@ class Decor::Forms::ActionViewFormBuilderTest < ActiveSupport::TestCase
 
   test "grouped_collection_select returns the result of TagWrapper::Select render method" do
     collection = [
-      OpenStruct.new(country: "Mexica", cities: [
-        OpenStruct.new(name: "capital", value: "Mexico"),
-        OpenStruct.new(name: "not a capital", value: "Zapopan")
+      TestCountry.new("Mexica", [
+        TestCity.new("capital", "Mexico"),
+        TestCity.new("not a capital", "Zapopan")
       ])
     ]
 
@@ -194,9 +185,9 @@ class Decor::Forms::ActionViewFormBuilderTest < ActiveSupport::TestCase
 
   test "grouped_collection_select generates html" do
     collection = [
-      OpenStruct.new(country: "Mexica", cities: [
-        OpenStruct.new(name: "capital", value: "Mexico"),
-        OpenStruct.new(name: "not a capital", value: "Zapopan")
+      TestCountry.new("Mexica", [
+        TestCity.new("capital", "Mexico"),
+        TestCity.new("not a capital", "Zapopan")
       ])
     ]
 

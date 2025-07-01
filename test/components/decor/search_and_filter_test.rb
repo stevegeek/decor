@@ -87,7 +87,7 @@ class Decor::SearchAndFilterTest < ActiveSupport::TestCase
   test "handles empty search term" do
     empty_search = Decor::SearchAndFilter::Search.new(
       name: "search",
-      label: "Search", 
+      label: "Search",
       value: ""
     )
     component = Decor::SearchAndFilter.new(
