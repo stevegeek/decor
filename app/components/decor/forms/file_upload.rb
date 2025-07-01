@@ -80,6 +80,7 @@ module Decor
                     accept: @file_mime_types,
                     required: @required,
                     disabled: @disabled,
+                    name: @name,
                     data: {
                       :controller => form_control_controller,
                       "#{stimulus_identifier}-target" => "input"

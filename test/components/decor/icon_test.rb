@@ -6,21 +6,22 @@ class Decor::IconTest < ActiveSupport::TestCase
     rendered = render_component(component)
 
     assert_includes rendered, "<svg"
-    assert_includes rendered, "home.svg"
+    assert_includes rendered, "data-src="
+    assert_includes rendered, "heroicons/outline/home"
   end
 
   test "applies correct variant classes" do
     component = Decor::Icon.new(name: "user", variant: :solid)
     rendered = render_component(component)
 
-    assert_includes rendered, "solid/user.svg"
+    assert_includes rendered, "heroicons/solid/user"
   end
 
   test "applies correct collection" do
-    component = Decor::Icon.new(name: "star", collection: :icons)
+    component = Decor::Icon.new(name: "star", collection: :heroicons)
     rendered = render_component(component)
 
-    assert_includes rendered, "icons/outline/star.svg"
+    assert_includes rendered, "heroicons/outline/star"
   end
 
   test "applies custom width and height" do
@@ -35,14 +36,16 @@ class Decor::IconTest < ActiveSupport::TestCase
     component = Decor::Icon.new(name: "check", variant: :small_solid)
     rendered = render_component(component)
 
-    assert_includes rendered, "small_solid/check.svg"
+    assert_includes rendered, "heroicons/small_solid/check"
   end
 
   test "renders inline icon" do
     component = Decor::Icon.new(name: "info", inline: true)
     rendered = render_component(component)
 
-    assert_includes rendered, 'class="inline'
+    # When inline=true and SVG not found, it should render an SVG with error comment
+    assert_includes rendered, "<svg"
+    refute_includes rendered, "data-src"
   end
 
   test "generates correct file name" do

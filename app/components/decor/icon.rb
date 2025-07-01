@@ -11,7 +11,7 @@ module Decor
 
     attribute :name, String, allow_nil: false
     attribute :file_name, String, allow_nil: true
-    attribute :collection, Symbol, default: :heroicons, in: [:heroicons, :icons]
+    attribute :collection, Symbol, default: :heroicons, in: [:heroicons]
     attribute :variant, Symbol, default: :outline, in: [:outline, :solid, :small_solid]
 
     def file_name

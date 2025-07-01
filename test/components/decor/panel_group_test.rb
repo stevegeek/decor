@@ -327,8 +327,8 @@ class Decor::PanelGroupTest < ActiveSupport::TestCase
     assert_nothing_raised { Decor::PanelGroup.new(title: "Test", variant: :ghost) }
 
     # Should raise for invalid values
-    assert_raises(ArgumentError) { Decor::PanelGroup.new(title: "Test", size: :invalid) }
-    assert_raises(ArgumentError) { Decor::PanelGroup.new(title: "Test", color: :invalid) }
-    assert_raises(ArgumentError) { Decor::PanelGroup.new(title: "Test", variant: :invalid) }
+    assert_raises(Dry::Struct::Error) { Decor::PanelGroup.new(title: "Test", size: :invalid) }
+    assert_raises(Dry::Struct::Error) { Decor::PanelGroup.new(title: "Test", color: :invalid) }
+    assert_raises(Dry::Struct::Error) { Decor::PanelGroup.new(title: "Test", variant: :invalid) }
   end
 end

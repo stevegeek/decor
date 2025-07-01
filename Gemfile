@@ -31,6 +31,7 @@ gem "vident-phlex", ">= 0.13.1"
 gem "vident-typed-phlex", ">= 0.13.1"
 gem "vident-tailwind", ">= 0.13.1"
 gem "lookbook"
+gem "js_regex", "~> 3.5"
 
 gem "claude_swarm", github: "parruda/claude-swarm", branch: "main"
 

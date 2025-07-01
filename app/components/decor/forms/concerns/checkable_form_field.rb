@@ -13,7 +13,7 @@ module Decor
         end
 
         def label_with_required
-          (label || "") + ((required_individual? && !hide_required_asterisk?) ? " *" : "")
+          (label || "") + ((required_individual? && !@hide_required_asterisk) ? " *" : "")
         end
 
         def required_individual?

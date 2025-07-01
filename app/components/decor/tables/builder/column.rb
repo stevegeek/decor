@@ -22,7 +22,7 @@ module Decor
         prop :content_clickable, _Nilable(_Boolean)
         # By setting navigates to path to false the cell will not have its path attribute
         # set to the path of the row.
-        prop :navigates_to_path, _Boolean, default: true, predicate: :public
+        prop :navigates_to_path, _Boolean, default: true
         # If the cell is meant to stop propagation of events, then a click in the cell will
         # prevent the event from propagating to the row.
         prop :stop_propagation, _Boolean, default: false
@@ -33,6 +33,10 @@ module Decor
         prop :numeric, _Boolean, default: false
         prop :emphasis, _Nilable(Symbol)
         prop :weight, _Nilable(Symbol)
+
+        def navigates_to_path?
+          @navigates_to_path
+        end
       end
     end
   end

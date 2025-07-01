@@ -82,8 +82,8 @@ module Decor
                   **html_attributes,
                   data: {
                     **target_data_attributes(el, :input),
-                    **(control_actions? ? action_data_attributes(el, control_actions) : {}),
-                    **(control_targets? ? target_data_attributes(el, *control_targets) : {}),
+                    **(control_actions? ? action_data_attributes(el, @control_actions) : {}),
+                    **(control_targets? ? target_data_attributes(el, *@control_targets) : {}),
                     **(control_data_attributes || {})
                   }
                 )

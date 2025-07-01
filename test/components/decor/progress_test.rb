@@ -46,7 +46,8 @@ class Decor::ProgressTest < ActiveSupport::TestCase
 
     assert_includes rendered, "<progress"
     assert_includes rendered, "progress-primary"
-    refute_includes rendered, "steps"
+    refute_includes rendered, "class=\"steps"
+    refute_includes rendered, "<ul"
   end
 
   test "renders both progress bar and steps in both variant" do
@@ -172,16 +173,15 @@ class Decor::ProgressTest < ActiveSupport::TestCase
     assert_includes rendered, "duration-300"
   end
 
-  test "excludes animation classes when animated is false" do
+  test "always includes animation classes" do
     component = Decor::Progress.new(
       steps: @steps,
-      animated: false,
       variant: :progress
     )
     rendered = render_component(component)
 
-    refute_includes rendered, "transition-all"
-    refute_includes rendered, "duration-300"
+    assert_includes rendered, "transition-all"
+    assert_includes rendered, "duration-300"
   end
 
   # Accessibility tests
@@ -261,7 +261,6 @@ class Decor::ProgressTest < ActiveSupport::TestCase
     assert_equal :md, component.instance_variable_get(:@size)
     assert_equal :steps, component.instance_variable_get(:@variant)
     assert_equal true, component.instance_variable_get(:@show_numbers)
-    assert_equal true, component.instance_variable_get(:@animated)
     assert_equal false, component.instance_variable_get(:@vertical)
   end
 end

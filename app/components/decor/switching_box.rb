@@ -41,17 +41,19 @@ module Decor
         end
       end
 
-      # Set up the right content block for the Box
-      right do
-        render(::Decor::Forms::Form.new(model: @model, url: @url, local: true, http_method: @http_method)) do |form_component|
-          render(::Decor::Forms::Switch.new(
-            model: @model,
-            disabled: @model.nil?,
-            property_name: @property_name,
-            name: @model ? "#{@model.class.name.underscore}[#{@property_name}]" : @property_name.to_s,
-            submit_on_change: true,
-            **@switch_options
-          ))
+      # Set up the right content block for the Box (only if model is present)
+      if @model.present?
+        right do
+          render(::Decor::Forms::Form.new(model: @model, url: @url, local: true, http_method: @http_method)) do |form_component|
+            render(::Decor::Forms::Switch.new(
+              model: @model,
+              disabled: false,
+              property_name: @property_name,
+              name: "#{@model.class.name.underscore}[#{@property_name}]",
+              submit_on_change: true,
+              **@switch_options
+            ))
+          end
         end
       end
     end

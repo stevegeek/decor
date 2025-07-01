@@ -220,11 +220,11 @@ class Decor::TagTest < ActiveSupport::TestCase
     component = Decor::Tag.new(label: "Test", color: :success)
     fragment = render_fragment(component)
 
-    # The outermost element should be a div with DaisyUI success classes
-    div = fragment.at_css("div")
-    assert_not_nil div
-    assert_includes div["class"], "bg-success"
-    assert_includes div["class"], "rounded-full"
+    # The outermost element should be a span with DaisyUI success classes
+    span = fragment.at_css("span")
+    assert_not_nil span
+    assert_includes span["class"], "bg-success"
+    assert_includes span["class"], "rounded-full"
 
     # The span should contain the text
     span = fragment.at_css("span")

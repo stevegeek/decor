@@ -21,8 +21,8 @@ module Decor
     end
 
     def view_template(&)
-      # Execute the block in the context of this component to collect panels and cta
-      vanish(&) if block_given?
+      # Execute the block to collect panels, cta, and main content
+      @main_content = capture(&) if block_given?
 
       render parent_element do
         render ::Decor::Card.new(size: @size, color: @color, variant: @variant, html_options: card_html_options) do |card|
@@ -43,8 +43,15 @@ module Decor
           @panels.each_with_index do |panel_row, idx|
             card.div(class: section_classes(idx)) do
               card.div(class: "grid #{grid_size(panel_row)} gap-4 md:gap-5") do
-                panel_row.each { render it }
+                panel_row.each { |panel| card.render panel }
               end
+            end
+          end
+
+          # Render main content if provided (this will go into the card-body automatically)
+          if @main_content.present?
+            card.div(class: "p-4 lg:p-6") do
+              card.render @main_content
             end
           end
         end

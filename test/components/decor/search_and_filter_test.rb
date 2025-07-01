@@ -3,17 +3,18 @@ require "ostruct"
 
 class Decor::SearchAndFilterTest < ActiveSupport::TestCase
   def setup
-    @mock_query = OpenStruct.new(
-      search_term: "test search",
-      filters: {category: "electronics", status: "active"}
+    @search = Decor::SearchAndFilter::Search.new(
+      name: "search",
+      label: "Search",
+      value: "test search"
     )
-    @base_url = "/products"
+    @url = "/products"
   end
 
   test "renders successfully with required attributes" do
     component = Decor::SearchAndFilter.new(
-      query: @mock_query,
-      base_url: @base_url
+      search: @search,
+      url: @url
     )
     rendered = render_component(component)
 
@@ -23,8 +24,8 @@ class Decor::SearchAndFilterTest < ActiveSupport::TestCase
 
   test "renders search field with current search term" do
     component = Decor::SearchAndFilter.new(
-      query: @mock_query,
-      base_url: @base_url
+      search: @search,
+      url: @url
     )
     rendered = render_component(component)
 
@@ -34,21 +35,21 @@ class Decor::SearchAndFilterTest < ActiveSupport::TestCase
 
   test "renders with form structure" do
     component = Decor::SearchAndFilter.new(
-      query: @mock_query,
-      base_url: @base_url
+      search: @search,
+      url: @url
     )
     fragment = render_fragment(component)
 
     form = fragment.at_css("form")
     assert_not_nil form
     assert_equal "get", form["method"]
-    assert_equal @base_url, form["action"]
+    assert_equal @url, form["action"]
   end
 
   test "renders filters slot when provided" do
     component = Decor::SearchAndFilter.new(
-      query: @mock_query,
-      base_url: @base_url
+      search: @search,
+      url: @url
     )
     rendered = render_component(component) do |c|
       c.with_filters { "<select name='category'>...</select>" }
@@ -59,8 +60,8 @@ class Decor::SearchAndFilterTest < ActiveSupport::TestCase
 
   test "renders actions slot when provided" do
     component = Decor::SearchAndFilter.new(
-      query: @mock_query,
-      base_url: @base_url
+      search: @search,
+      url: @url
     )
     rendered = render_component(component) do |c|
       c.with_actions { "<button type='submit'>Search</button>" }
@@ -71,8 +72,8 @@ class Decor::SearchAndFilterTest < ActiveSupport::TestCase
 
   test "supports both filters and actions slots" do
     component = Decor::SearchAndFilter.new(
-      query: @mock_query,
-      base_url: @base_url
+      search: @search,
+      url: @url
     )
     rendered = render_component(component) do |c|
       c.with_filters { "Filter content" }
@@ -84,10 +85,14 @@ class Decor::SearchAndFilterTest < ActiveSupport::TestCase
   end
 
   test "handles empty search term" do
-    empty_query = OpenStruct.new(search_term: "", filters: {})
+    empty_search = Decor::SearchAndFilter::Search.new(
+      name: "search",
+      label: "Search", 
+      value: ""
+    )
     component = Decor::SearchAndFilter.new(
-      query: empty_query,
-      base_url: @base_url
+      search: empty_search,
+      url: @url
     )
     rendered = render_component(component)
 
@@ -97,8 +102,8 @@ class Decor::SearchAndFilterTest < ActiveSupport::TestCase
 
   test "component inherits from PhlexComponent" do
     component = Decor::SearchAndFilter.new(
-      query: @mock_query,
-      base_url: @base_url
+      search: @search,
+      url: @url
     )
 
     assert component.is_a?(Decor::PhlexComponent)
@@ -106,8 +111,8 @@ class Decor::SearchAndFilterTest < ActiveSupport::TestCase
 
   test "renders with correct CSS classes" do
     component = Decor::SearchAndFilter.new(
-      query: @mock_query,
-      base_url: @base_url
+      search: @search,
+      url: @url
     )
     rendered = render_component(component)
 
@@ -116,8 +121,8 @@ class Decor::SearchAndFilterTest < ActiveSupport::TestCase
 
   test "form has GET method by default" do
     component = Decor::SearchAndFilter.new(
-      query: @mock_query,
-      base_url: @base_url
+      search: @search,
+      url: @url
     )
     fragment = render_fragment(component)
 
@@ -127,8 +132,8 @@ class Decor::SearchAndFilterTest < ActiveSupport::TestCase
 
   test "search input has correct attributes" do
     component = Decor::SearchAndFilter.new(
-      query: @mock_query,
-      base_url: @base_url
+      search: @search,
+      url: @url
     )
     fragment = render_fragment(component)
 
@@ -139,10 +144,14 @@ class Decor::SearchAndFilterTest < ActiveSupport::TestCase
   end
 
   test "handles query with nil search_term" do
-    nil_query = OpenStruct.new(search_term: nil, filters: {})
+    nil_search = Decor::SearchAndFilter::Search.new(
+      name: "search",
+      label: "Search",
+      value: ""
+    )
     component = Decor::SearchAndFilter.new(
-      query: nil_query,
-      base_url: @base_url
+      search: nil_search,
+      url: @url
     )
     rendered = render_component(component)
 
@@ -156,8 +165,8 @@ class Decor::SearchAndFilterTest < ActiveSupport::TestCase
 
     test_urls.each do |url|
       component = Decor::SearchAndFilter.new(
-        query: @mock_query,
-        base_url: url
+        search: @search,
+        url: url
       )
       fragment = render_fragment(component)
 

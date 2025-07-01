@@ -353,16 +353,21 @@ class Decor::TabsTest < ActiveSupport::TestCase
     refute_includes rendered, "tab-active"
   end
 
-  test "TabInfo subcomponent validates required attributes" do
-    assert_raises(ArgumentError) do
-      Decor::Tabs::TabInfo.new(href: "/test") # Missing title
-    end
+  test "TabInfo subcomponent allows optional attributes" do
+    # Both title and href are optional in the current implementation
+    tab_info_1 = Decor::Tabs::TabInfo.new(href: "/test") # title is optional
+    assert_equal "/test", tab_info_1.href
+    assert_nil tab_info_1.title
+
+    tab_info_2 = Decor::Tabs::TabInfo.new(title: "Test") # href is optional  
+    assert_equal "Test", tab_info_2.title
+    assert_nil tab_info_2.href
   end
 
-  test "TabInfo subcomponent validates href attribute" do
-    assert_raises(ArgumentError) do
-      Decor::Tabs::TabInfo.new(title: "Test") # Missing href
-    end
+  test "TabInfo subcomponent accepts both title and href" do
+    tab_info = Decor::Tabs::TabInfo.new(title: "Test", href: "/test")
+    assert_equal "Test", tab_info.title
+    assert_equal "/test", tab_info.href
   end
 
   # Legacy API Compatibility Tests

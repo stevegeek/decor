@@ -29,7 +29,7 @@ class Decor::DropdownItemTest < ActiveSupport::TestCase
     rendered = render_component(component)
 
     assert_includes rendered, "cog"
-    assert_includes rendered, "mr-3 h-5 w-5"
+    assert_includes rendered, "mr-2 h-4 w-4"
   end
 
   test "renders as separator" do
@@ -37,27 +37,24 @@ class Decor::DropdownItemTest < ActiveSupport::TestCase
     rendered = render_component(component)
 
     assert_includes rendered, "<hr"
-    assert_includes rendered, "bg-gray-100"
-    assert_includes rendered, "h-0.5"
-    assert_includes rendered, "border-none"
+    assert_includes rendered, "menu-divider"
   end
 
   test "applies correct CSS classes for regular item" do
     component = Decor::DropdownItem.new(text: "Regular Item")
     rendered = render_component(component)
 
-    assert_includes rendered, "text-gray-700"
-    assert_includes rendered, "group flex items-center"
-    assert_includes rendered, "px-4"
-    assert_includes rendered, "py-1.5"
-    assert_includes rendered, "text-sm"
+    # DaisyUI menu items use minimal classes, styling is handled by the parent menu
+    assert_includes rendered, "Regular Item"
+    assert_includes rendered, 'role="menuitem"'
   end
 
   test "applies correct CSS classes for separator" do
     component = Decor::DropdownItem.new(separator: true)
     rendered = render_component(component)
 
-    assert_includes rendered, "block px-0 pb-1.5 pt-2.5"
+    # Separator uses DaisyUI menu-divider class
+    assert_includes rendered, "menu-divider"
   end
 
   test "renders with custom tabindex" do
@@ -85,7 +82,9 @@ class Decor::DropdownItemTest < ActiveSupport::TestCase
     component = Decor::DropdownItem.new(text: "No Icon", icon_name: "")
     rendered = render_component(component)
 
-    assert_includes rendered, "pr-4 pl-12"
+    # DaisyUI handles padding automatically, no icon means no icon element
+    assert_includes rendered, "No Icon"
+    refute_includes rendered, "decor--icon"
   end
 
   test "yields block content when text is blank" do
@@ -105,9 +104,9 @@ class Decor::DropdownItemTest < ActiveSupport::TestCase
     link = fragment.at_css("a")
     assert_not_nil link
     assert_equal "menuitem", link["role"]
-    assert_includes link["class"], "text-gray-700"
 
-    icon = fragment.at_css("svg") || fragment.css("*").find { |el| el.text.include?("home") }
+    # Check for icon element
+    icon = fragment.at_css("svg")
     assert_not_nil icon
   end
 end

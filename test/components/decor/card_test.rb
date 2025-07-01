@@ -295,7 +295,7 @@ class Decor::CardTest < ActiveSupport::TestCase
   def test_card_with_size_attribute
     card = ::Decor::Card.new(size: :xs)
     output = card.call
-    assert_includes output, "card-compact"
+    assert_includes output, "card-xs"
   end
 
   def test_card_with_variant_outlined

@@ -75,9 +75,9 @@ module Decor
           name: @name,
           value: @value
         }
-        attrs[:checked] = nil if @checked
-        attrs[:required] = nil if required_individual?
-        attrs[:disabled] = nil if @disabled
+        attrs[:checked] = true if @checked
+        attrs[:required] = true if required_individual?
+        attrs[:disabled] = true if @disabled
         attrs
       end
 

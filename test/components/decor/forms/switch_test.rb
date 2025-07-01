@@ -92,8 +92,11 @@ class Decor::Forms::SwitchTest < ActiveSupport::TestCase
   end
 
   test "renders with error styling when errors present" do
-    component = Decor::Forms::Switch.new(name: "error_switch", label: "Error")
-    component.instance_variable_set(:@errors, ["Something went wrong"])
+    component = Decor::Forms::Switch.new(
+      name: "error_switch", 
+      label: "Error",
+      error_messages: ["Something went wrong"]
+    )
     fragment = render_fragment(component)
 
     input = fragment.at_css('input[type="checkbox"]')
