@@ -7,7 +7,7 @@ module Decor
 
       included do
         include Phlex::Rails::Helpers::Request
-        include Phlex::Rails::Helpers::UrlFor
+        include Phlex::Rails::Helpers::URLFor
 
         # The name of the query params used for the pagination options
         attribute :page_parameter_name, Symbol, default: :page, allow_blank: false

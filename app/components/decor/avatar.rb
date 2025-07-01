@@ -88,7 +88,22 @@ module Decor
     end
 
     def border_classes
-      @border ? "ring-primary ring-offset-base-100 ring-2 ring-offset-2" : ""
+      return "" unless @border
+
+      ring_color = case @color
+      when :base then "ring-base"
+      when :primary then "ring-primary"
+      when :secondary then "ring-secondary"
+      when :accent then "ring-accent"
+      when :success then "ring-success"
+      when :error then "ring-error"
+      when :warning then "ring-warning"
+      when :info then "ring-info"
+      when :neutral then "ring-neutral"
+      else "ring-primary"
+      end
+
+      "#{ring_color} ring-offset-base-100 ring-2 ring-offset-2"
     end
 
     def color_classes

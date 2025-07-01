@@ -39,6 +39,16 @@ module Decor
       @tab_buttons = block
     end
 
+    def with_tab_buttons(&block)
+      @tab_buttons = block
+      self
+    end
+
+    def with_tab_content(&block)
+      @tab_content = block
+      self
+    end
+
     def view_template(&)
       @content = capture(&) if block_given?
 
@@ -57,13 +67,10 @@ module Decor
       nav(class: tabs_container_classes, **tabs_container_attributes) do
         # Tab buttons
         if @tab_buttons.present?
-          div(role: "tablist", class: tabs_list_classes) do
-            # result = instance_eval(&@tab_buttons)
-            # raw result.html_safe if result.is_a?(String)
-            render @tab_buttons
-          end
+          result = @tab_buttons.call
+          raw result.html_safe if result.is_a?(String)
         else
-          @links.each do |link|
+          (@links || []).each do |link|
             render_tab_link(link)
           end
         end
@@ -73,12 +80,13 @@ module Decor
             p(class: "text-sm text-base-content/70") { @status }
           end
         end
+      end
 
-        # Tab content
-        if @content.present?
-          div(class: "tab-content bg-base-100 border-base-300 p-6") do
-            render @content
-          end
+      # Tab content (render outside nav for proper DOM structure)
+      if @tab_content.present?
+        div(class: "tab-content bg-base-100 border-base-300 p-6") do
+          result = @tab_content.call
+          raw result.html_safe if result.is_a?(String)
         end
       end
     end
@@ -230,6 +238,10 @@ module Decor
 
     def select_on_mobile?
       @links&.size.to_i > 3
+    end
+
+    def use_slot_api?
+      @tab_buttons.present? || @tab_content.present? || @links.blank?
     end
 
     def map_badge_color_to_style(color)

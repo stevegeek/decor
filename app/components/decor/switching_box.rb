@@ -12,6 +12,17 @@ module Decor
     attribute :url
     attribute :http_method, default: :patch
 
+    attr_reader :model
+
+    attr_reader :url
+
+    attr_reader :property_name
+
+    def with_left(&block)
+      left(&block)
+      self
+    end
+
     def initialize(**attributes)
       super
 

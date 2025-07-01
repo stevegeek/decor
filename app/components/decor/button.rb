@@ -22,8 +22,18 @@ module Decor
       @before_label = block
     end
 
+    def with_before_label(&block)
+      @before_label = block
+      self
+    end
+
     def after_label(&block)
       @after_label = block
+    end
+
+    def with_after_label(&block)
+      @after_label = block
+      self
     end
 
     private

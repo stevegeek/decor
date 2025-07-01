@@ -2,14 +2,18 @@
 
 module Decor
   class Flash < PhlexComponent
+    include Phlex::Rails::Helpers::Flash
+    include Phlex::Rails::Helpers::ControllerPath
+    include Phlex::Rails::Helpers::ActionName
+
     attribute :title, String
     attribute :text, String
     attribute :preserve_flash, :boolean, default: false
     attribute :collapse_if_empty, :boolean, default: true
 
-    attribute :flash
-    attribute :controller_path, String
-    attribute :action_name, String
+    attribute :flash_override, Hash, default: {}
+    attribute :controller_path, String, default: ->(_) { try(:controller_path) }
+    attribute :action_name, String, default: ->(_) { try(:action_name) }
 
     attribute :variant, Symbol, in: %i[warning info error notice success], default: :info
 
@@ -71,7 +75,7 @@ module Decor
     # the flash based on the controller and action name
     def title_with_defaults
       return @title if @title.present?
-      string_key = "#{@controller_path || @helpers.controller_path}.#{@action_name || helpers.action_name}.flash.title.#{resolved_variant}"
+      string_key = "#{@controller_path}.#{@action_name}.flash.title.#{resolved_variant}"
       return I18n.t(string_key) if I18n.exists?(string_key)
 
       case resolved_variant
@@ -107,8 +111,9 @@ module Decor
       @text_with_default ||= if @text.present?
         @text
       else
+        flash = resolved_flash
         set_variant(flash)
-        text_sentences(flash[:success], flash.notice, flash.alert, flash[:errors]).tap do
+        text_sentences(flash[:success], flash_notice(flash), flash_alert(flash), flash[:errors]).tap do
           flash.clear unless @preserve_flash
         end
       end
@@ -124,9 +129,9 @@ module Decor
           :error
         elsif flash[:success].present?
           :success
-        elsif flash.notice.present?
+        elsif flash_notice(flash).present?
           :notice
-        elsif flash.alert.present?
+        elsif flash_alert(flash).present?
           :warning
         else
           :info
@@ -137,8 +142,16 @@ module Decor
       @forced_variant || @variant
     end
 
-    def flash
-      @flash || helpers.flash
+    def resolved_flash
+      @flash_override || flash
+    end
+
+    def flash_notice(flash_obj)
+      flash_obj.respond_to?(:notice) ? flash_obj.notice : flash_obj[:notice]
+    end
+
+    def flash_alert(flash_obj)
+      flash_obj.respond_to?(:alert) ? flash_obj.alert : flash_obj[:alert]
     end
   end
 end

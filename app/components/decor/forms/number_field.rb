@@ -21,7 +21,7 @@ module Decor
         default: ->(_) do
           ->(instance) {
             # TODO: support for locales which use a comma as a decimal point
-            instance.allow_float_input ? "[0-9-.]*" : "[0-9]*"
+            instance.instance_variable_get(:@allow_float_input) ? "[0-9-.]*" : "[0-9]*"
           }
         end
 

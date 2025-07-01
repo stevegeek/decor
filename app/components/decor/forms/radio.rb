@@ -90,9 +90,9 @@ module Decor
           name: @name,
           value: @value
         }
-        attrs[:checked] = nil if @checked
-        attrs[:required] = nil if @required
-        attrs[:disabled] = nil if @disabled
+        attrs[:checked] = true if @checked
+        attrs[:required] = true if @required
+        attrs[:disabled] = true if @disabled
         attrs
       end
     end

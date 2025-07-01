@@ -3,9 +3,12 @@
 module Decor
   module Modals
     class ModalOpenButton < Button
+      attribute :modal_id, String
       attribute :initial_content, String
       attribute :content_href, String
       attribute :close_on_overlay_click, :boolean, default: false
+
+      attr_reader :modal_id
 
       def view_template
         render ::Decor::Button.new(

@@ -12,6 +12,20 @@ module Decor
     attribute :url
     attribute :http_method, default: :patch
 
+    attr_reader :switch_options
+
+    attr_reader :model
+
+    attr_reader :property_name
+
+    attr_reader :http_method
+
+    attr_reader :checked_value
+
+    attr_reader :unchecked_value
+
+    attr_reader :url
+
     def view_template(&block)
       render parent_element do
         render ::Decor::Forms::Form.new(model: @model, url: @url, local: false, http_method: @http_method) do |form_component|

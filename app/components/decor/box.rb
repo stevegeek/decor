@@ -19,6 +19,10 @@ module Decor
       @right = block
     end
 
+    def right?
+      @right.present?
+    end
+
     private
 
     def view_template(&)

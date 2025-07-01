@@ -204,20 +204,7 @@ module Decor
     end
 
     def paginated
-      return @collection if collection_query? || collection_collection_backed_query?
-      raise StandardError, "Pagination requires a collection which can be paginated!"
-    end
-
-    def collection_relation?
-      @collection.is_a? ActiveRecord::Relation
-    end
-
-    def collection_query?
-      @collection.is_a?(Quo::Query) && @collection.relation?
-    end
-
-    def collection_collection_backed_query?
-      @collection.is_a?(Quo::Query) && @collection.collection?
+      @collection
     end
 
     def current_per_page

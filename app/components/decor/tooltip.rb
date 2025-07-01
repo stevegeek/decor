@@ -17,9 +17,26 @@ module Decor
     # Visual variant
     attribute :variant, Symbol, default: :filled, in: [:filled, :outlined, :ghost]
 
+    # Offset customization
+    attribute :offset_percent_x, Integer, default: 0
+    attribute :offset_percent_y, Integer, default: 0
+
     # Backward compatibility method for old slots usage
     def tip_content(&block)
       @tip_content = block
+    end
+
+    def with_tip_content(&block)
+      @tip_content = block
+      self
+    end
+
+    def translate_x
+      "#{@offset_percent_x}%"
+    end
+
+    def translate_y
+      "#{@offset_percent_y - 190}%"
     end
 
     def view_template(&)
@@ -87,10 +104,16 @@ module Decor
         element_tag: :div,
         html_options: {
           data: {
-            tip: @tip_text || @tip_content
+            tip: @tip_text || rendered_tip_content
           }
         }
       }
+    end
+
+    def rendered_tip_content
+      return nil unless @tip_content
+      # Render the block content to a string
+      capture(&@tip_content)
     end
 
     def tooltip_content_classes

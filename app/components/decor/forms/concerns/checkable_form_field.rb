@@ -20,6 +20,10 @@ module Decor
           required? && !in_group?
         end
 
+        def in_group?
+          @in_group
+        end
+
         def cursor_classes
           disabled? ? "cursor-not-allowed" : "cursor-pointer disabled:cursor-not-allowed"
         end

@@ -12,6 +12,11 @@ module Decor
       @slides << block
     end
 
+    def with_items(&block)
+      @items = block
+      self
+    end
+
     private
 
     def view_template(&)
@@ -19,6 +24,11 @@ module Decor
 
       render parent_element do |s|
         div(class: "carousel w-full") do
+          # Render items from with_items slot
+          if @items.present?
+            render @items
+          end
+
           @slides&.each_with_index do |slide, index|
             div(class: "carousel-item w-full", id: "slide#{index + 1}") do
               render slide

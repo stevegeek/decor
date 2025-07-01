@@ -112,8 +112,7 @@ class Decor::Forms::RadioTest < ActiveSupport::TestCase
   end
 
   test "renders with error styling when errors present" do
-    component = Decor::Forms::Radio.new(name: "error_radio", label: "Error", value: "test")
-    component.instance_variable_set(:@errors, ["Something went wrong"])
+    component = Decor::Forms::Radio.new(name: "error_radio", label: "Error", value: "test", error_messages: ["Something went wrong"])
     fragment = render_fragment(component)
 
     input = fragment.at_css('input[type="radio"]')

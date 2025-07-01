@@ -14,7 +14,7 @@ class Decor::Forms::TextFieldTest < ActiveSupport::TestCase
       assert_includes rendered, 'type="text"'
       assert_includes rendered, 'value="Wow!"'
       assert_includes rendered, 'name="my_text"'
-      assert_includes rendered, 'class="w-full"'
+      assert_includes rendered, 'class="input w-full"'
     end
   end
 

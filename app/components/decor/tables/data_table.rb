@@ -19,7 +19,7 @@ module Decor
       end
 
       def with_search_and_filter(component = nil, **attributes, &block)
-        @search_and_filter = component || block
+        @search_and_filter = component || block || ::Decor::SearchAndFilter.new(**attributes)
         self
       end
 
