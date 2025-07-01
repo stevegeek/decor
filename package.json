@@ -1,0 +1,11 @@
+{
+  "name": "decor",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:stevegeek/decor.git",
+  "author": "Stephen Ierodiaconou <stevegeek@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "daisyui": "^5.0.43"
+  }
+}
