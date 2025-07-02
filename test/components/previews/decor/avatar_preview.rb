@@ -6,7 +6,7 @@ class ::Decor::AvatarPreview < ::Lookbook::Preview
   # An avatar is a small image that represents a user. It can display the
   # initials of the user's name or the user's profile picture. It can be
   # square or circular, and of many different sizes.
-
+  #
   # @group Examples
   # @label Initials
   def only_initials
