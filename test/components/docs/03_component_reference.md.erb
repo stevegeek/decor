@@ -27,11 +27,17 @@ render Decor::Button.new(
 **Key Attributes:**
 - `label` (String) - Button text
 - `icon` (String) - Icon name
+- `icon_variant` (Symbol) - Icon variant (`:solid`, `:outline`, `:mini`)
+- `icon_only_on_mobile` (Boolean) - Show only icon on mobile
 - `variant` (Symbol) - `:contained`, `:outlined`, `:text`
 - `color` (Symbol) - `:primary`, `:secondary`, `:danger`, `:warning`, `:neutral`
-- `size` (Symbol) - `:large`, `:medium`, `:wide`, `:small`, `:micro`, `:xs`
+- `size` (Symbol) - `:large`, `:medium`, `:wide`, `:small`, `:micro`, `:xs`, `:lg`, `:md`, `:sm`
 - `disabled` (Boolean) - Disable button interaction
 - `full_width` (Boolean) - Span full container width
+
+**Slot Methods:**
+- `with_before_label` - Content before button label
+- `with_after_label` - Content after button label
 
 ---
 
@@ -70,10 +76,14 @@ end
 **Key Attributes:**
 - `title` (String) - Card title
 - `image_url` (String) - Image URL
+- `image_alt` (String) - Image alt text (default: "")
 - `image_position` (Symbol) - `:top`, `:bottom`, `:left`, `:right`
 - `size` (Symbol) - `:xs`, `:sm`, `:md`, `:lg`, `:xl`
-- `color` (Symbol) - DaisyUI semantic colors
+- `color` (Symbol) - `:base`, `:primary`, `:secondary`, `:accent`, `:neutral`, `:info`, `:success`, `:warning`, `:error`
 - `variant` (Symbol) - `:filled`, `:outlined`, `:ghost`
+
+**Slot Methods:**
+- `with_header` - Alias for card header content
 
 ---
 
@@ -91,10 +101,17 @@ end
 
 **Key Attributes:**
 - `size` (Symbol) - `:xs`, `:sm`, `:md`, `:lg`, `:xl`
-- `color` (Symbol) - DaisyUI semantic colors
+- `color` (Symbol) - `:base` (default), `:primary`, `:secondary`, `:accent`, `:neutral`, `:info`, `:success`, `:warning`, `:error`
 - `variant` (Symbol) - `:default`, `:bordered`, `:filled`
 - `position` (Symbol) - `:left`, `:right`, `:top`, `:bottom`, `:end`, `:center`, `:start`
 - `trigger` (Symbol) - `:click`, `:hover`, `:focus`
+- `force_open` (Symbol) - `:auto`, `:open`, `:closed`
+- `button_classes` (String) - Custom button CSS classes
+- `button_active_classes` (String) - Active state CSS classes
+
+**Content Methods:**
+- `card_content` - Non-menu card-style content
+- `custom_content` - Custom dropdown content
 
 ---
 
@@ -294,6 +311,11 @@ render Decor::Progress.new(
 - `color` (Symbol) - `:primary`, `:secondary`, `:success`, `:error`, `:warning`, `:info`
 - `size` (Symbol) - `:xs`, `:sm`, `:md`, `:lg`
 - `variant` (Symbol) - `:steps`, `:progress`, `:both`
+- `show_numbers` (Boolean) - Show step numbers
+- `vertical` (Boolean) - Vertical layout
+
+**Step Configuration:**
+Steps use `ProgressItem` class with detailed configuration options.
 
 ---
 
@@ -305,6 +327,10 @@ Loading spinner component.
 ```ruby
 render Decor::Spinner.new(size: :md, color: :primary)
 ```
+
+**Key Attributes:**
+- `size` (Symbol) - `:xs`, `:sm`, `:md`, `:lg`, `:xl`
+- `color` (Symbol) - `:white`, `:black`, `:primary`, `:secondary`, `:accent`, `:neutral`, `:info`, `:success`, `:warning`, `:error`
 
 ---
 
@@ -320,6 +346,14 @@ render Decor::Tag.new(
   removable: true
 )
 ```
+
+**Key Attributes:**
+- `label` (String) - Tag text
+- `icon` (String) - Icon name
+- `color` (Symbol) - DaisyUI semantic colors
+- `size` (Symbol) - `:xs`, `:sm`, `:md`, `:lg`, `:xl`
+- `variant` (Symbol) - `:filled`, `:outlined`, `:ghost`
+- `removable` (Boolean) - Show remove button
 
 ---
 
@@ -494,42 +528,71 @@ Radio buttons styled as button group.
 ```ruby
 render Decor::Forms::ButtonRadioGroup.new(
   name: "size",
-  options: [
-    {label: "Small", value: "sm"},
-    {label: "Medium", value: "md"},
-    {label: "Large", value: "lg"}
+  choices: [
+    ["sm", "Small"],
+    ["md", "Medium"], 
+    ["lg", "Large"]
   ]
 )
 ```
+
+**Key Attributes:**
+- `choices` (Array) - Array of [value, label] pairs
+- `selected_choice` (String) - Selected value
+- `show_label` (Boolean) - Show field label
+- `variant` (Symbol) - Styling variant
 
 ---
 
 ### DateCalendar
 
-Calendar component for date selection.
+Advanced calendar component for date selection.
 
 **Basic Usage:**
 ```ruby
 render Decor::Forms::DateCalendar.new(
   name: "date",
-  label: "Select Date"
+  label: "Select Date",
+  calendar_type: :date
 )
 ```
+
+**Key Attributes:**
+- `calendar_type` (Symbol) - `:date`, `:range`, `:multi`, `:month`
+- `min_date`/`max_date` (Date/Time/DateTime) - Date constraints
+- `months` (Integer) - Number of months to display
+- `first_day_of_week` (Integer) - Week start day (0-6)
+- `locale` (String) - Locale for calendar
+- `disabled_dates`/`enabled_dates` (Array) - Date filtering
+- `disabled_days_of_week`/`enabled_days_of_week` (Array) - Day filtering
 
 ---
 
 ### FileUpload
 
-File upload component with preview support.
+Advanced file upload component with preview support.
 
 **Basic Usage:**
 ```ruby
 render Decor::Forms::FileUpload.new(
   name: "avatar",
   label: "Upload Avatar",
+  variant: :avatar,
   accept: "image/*"
 )
 ```
+
+**Key Attributes:**
+- `variant` (Symbol) - `:file`, `:image`, `:avatar`
+- `preview_layout` (Symbol) - `:stacked`, `:inline`
+- `file_mime_types` (String) - Accepted MIME types
+- `aspect_w`/`aspect_h` (Integer) - Aspect ratio constraints
+- `clear_checkbox` (Boolean) - Show clear option
+- `existing_file_url` (String) - URL for existing file
+- `theme` (Symbol) - Color theme
+- `initials` (String) - Avatar initials fallback
+- `shape` (Symbol) - `:circle`, `:square` for avatar
+- `max_size_in_mb` (Integer) - File size limit
 
 ---
 
@@ -572,9 +635,15 @@ Checkbox collection with show more functionality.
 render Decor::Forms::ExpandingCheckboxCollection.new(
   name: "tags",
   options: checkbox_options,
-  show_more_threshold: 5
+  hide_after_showing: 5
 )
 ```
+
+**Key Attributes:**
+- `size` (Integer) - Collection size
+- `hide_after_showing` (Integer) - Show more threshold
+- `variant` (Symbol) - Styling variant
+- `color` (Symbol) - Color theme
 
 ---
 
@@ -585,6 +654,81 @@ Form wrapper component with Stimulus integration.
 **Basic Usage:**
 ```ruby
 render Decor::Forms::Form.new(model: @user) do |form|
+  # Form fields
+end
+```
+
+**Key Attributes:**
+- `namespace` (String) - Form namespace
+- `form_builder_class` (Class) - Custom form builder
+- `on_before`/`on_success`/`on_error` (String) - UJS/Turbo event handlers
+
+---
+
+### FormFieldLayout
+
+Layout wrapper for form fields with label positioning.
+
+**Basic Usage:**
+```ruby
+render Decor::Forms::FormFieldLayout.new(
+  label_position: :top
+) do
+  # Form field content
+end
+```
+
+---
+
+### HelperTextSection
+
+Helper text and error text display component.
+
+**Basic Usage:**
+```ruby
+render Decor::Forms::HelperTextSection.new(
+  helper_text: "Enter your email address",
+  error_messages: ["is required"]
+)
+```
+
+---
+
+### ErrorIconSection
+
+Error icon display with floating messages.
+
+**Basic Usage:**
+```ruby
+render Decor::Forms::ErrorIconSection.new(
+  error_messages: ["Field is required"]
+)
+```
+
+---
+
+### LayoutContainer
+
+Form layout container component.
+
+**Basic Usage:**
+```ruby
+render Decor::Forms::LayoutContainer.new do
+  # Form sections
+end
+```
+
+---
+
+### LayoutSection
+
+Form section wrapper component.
+
+**Basic Usage:**
+```ruby
+render Decor::Forms::LayoutSection.new(
+  title: "Personal Information"
+) do
   # Form fields
 end
 ```
@@ -615,6 +759,14 @@ render Decor::Tables::DataTable.new(
 end
 ```
 
+**Key Attributes:**
+- `title`/`subtitle` (String) - Table headers
+- `variant` (Symbol) - `:default`, `:bordered`, `:minimal`
+- `compact` (Boolean) - Compact styling
+- `pin_cols` (Boolean) - Pin columns
+- `striped` (Boolean, default: true) - Row striping
+- `zebra` (Boolean, default: false) - Zebra striping
+
 **Key Features:**
 - Sortable columns with sort indicators
 - Selectable rows with checkboxes
@@ -623,23 +775,53 @@ end
 - Zebra striping and pinned rows
 - Expandable row content
 - Typography and cell emphasis options
+- Search and filter integration
+- Footer support
+
+**Slot Methods:**
+- `with_search_and_filter` - Add search/filter controls
+- `with_data_table_footer` - Add table footer
 
 ---
 
 ### DataTableBuilder
 
-Advanced table builder with query integration.
+Advanced table builder with query integration and extensive features.
 
 **Basic Usage:**
 ```ruby
 render Decor::Tables::DataTableBuilder.new(
   query: User.all,
-  title: "Users"
+  title: "Users",
+  paginated: true
 ) do |builder|
   builder.column :name, "Name"
   builder.column :email, "Email"
 end
 ```
+
+**Key Attributes:**
+- `query` (ActiveRecord relation) - Data query
+- `paginated` (Boolean, default: true) - Enable pagination
+- `rows_selectable_as_name` (Symbol) - Row selection name
+- `alternating`/`hover_highlight` (Boolean) - Table styling
+- `header_height`/`row_height` (Symbol) - Height variants
+- `download_path` (String) - Download functionality
+- `row_nested_form` (Boolean) - Enable nested forms
+
+**Advanced Features:**
+- Search and filtering integration
+- Download/export functionality
+- Row selection with bulk actions
+- Nested form support
+- Complex query transformation
+- Call-to-action buttons
+
+**Methods:**
+- `configure_slot` - Slot configuration
+- `transform_row` - Row transformation
+- `path_for_row` - Row navigation
+- `row_attributes` - Custom row attributes
 
 ---
 
@@ -663,6 +845,25 @@ render Decor::Pagination.new(
 - High page number handling with ellipsis
 - Integration with data tables
 - Result count display
+
+---
+
+### DataTableFooter
+
+Table footer component with summary calculations.
+
+**Basic Usage:**
+```ruby
+render Decor::Tables::DataTableFooter.new do |footer|
+  footer.with_left { "Total: #{count} items" }
+  footer.with_right { "Sum: $#{total}" }
+end
+```
+
+**Slot Methods:**
+- `with_left` - Left-aligned footer content
+- `with_right` - Right-aligned footer content
+- `FooterSummaryLine` - Summary line calculations
 
 ---
 
@@ -717,13 +918,22 @@ Responsive sidebar navigation with hierarchical menu structure and search functi
 
 **Basic Usage:**
 ```ruby
-render Decor::Nav::SideNavbar.new do |navbar|
+render Decor::Nav::SideNavbar.new(
+  landscape_logo_url: "/logo.png",
+  avatar_logo_url: "/avatar-logo.png"
+) do |navbar|
   navbar.with_section(title: "Main") do |section|
-    section.with_item(title: "Dashboard", href: "/dashboard", icon: "home")
-    section.with_item(title: "Users", href: "/users", icon: "users")
+    section.with_item(title: "Dashboard", path: "/dashboard", icon: "home")
+    section.with_item(title: "Users", path: "/users", icon: "users")
   end
 end
 ```
+
+**Key Attributes:**
+- `landscape_logo_url` (String, required) - Main logo URL
+- `avatar_logo_url` (String, required) - Avatar/compact logo URL
+- `menu_items` (Array) - Array of menu items
+- `collapsed` (Boolean) - Collapsed state
 
 **Key Features:**
 - Collapsible sidebar with desktop/mobile modes
@@ -732,6 +942,8 @@ end
 - Avatar and logo support
 - DaisyUI menu styling
 - Active states and badges
+
+**Note:** Use `path` (not `href`) for navigation items.
 
 ---
 
@@ -773,7 +985,7 @@ Comprehensive footer with link groups, social media, and newsletter signup.
 **Basic Usage:**
 ```ruby
 render Decor::Footer.new(
-  supplier_name: "Company Name",
+  company_name: "Company Name",
   link_groups: [
     {
       title: "Products",
@@ -963,17 +1175,17 @@ end
 
 # Confirmation Modal
 render Decor::Modals::ConfirmModal.new(
-  title: "Confirm Action",
-  message: "Are you sure?"
+  # No title/message parameters - content is predefined
+  # Only accepts Modal base attributes
 )
 ```
 
 **Available Components:**
-- `Modal` - Basic modal dialog
-- `ModalLayout` - Structured modal with header/body/footer
-- `ConfirmModal` - Confirmation dialog
-- `ModalOpenButton` - Button that opens a modal
-- `ModalCloseButton` - Button that closes a modal
+- `Modal` - Basic modal dialog with `initial_content`, `content_href`, `start_shown`, `close_on_overlay_click`
+- `ModalLayout` - Structured modal with `title`, `description`, `icon`, `color`, `variant`, `size`
+- `ConfirmModal` - Predefined confirmation dialog (extends Modal, no custom title/message)
+- `ModalOpenButton` - Button that opens a modal (extends Button with `modal_id`, `initial_content`, `content_href`)
+- `ModalCloseButton` - Button that closes a modal (extends Button with `close_reason`)
 
 ---
 
@@ -1100,6 +1312,53 @@ render Decor::Toggle.new(name: "feature-enabled")
 
 ---
 
+### ClickToCopy
+
+Copy-to-clipboard functionality wrapper.
+
+**Basic Usage:**
+```ruby
+render Decor::ClickToCopy.new do
+  "Click to copy me!"
+end
+```
+
+---
+
+### Map
+
+Interactive map component with Google Maps integration.
+
+**Basic Usage:**
+```ruby
+render Decor::Map.new(
+  center: {lat: 37.7749, lng: -122.4194},
+  points: [{lat: 37.7749, lng: -122.4194, title: "San Francisco"}]
+)
+```
+
+**Key Attributes:**
+- `center` (Hash) - Map center coordinates
+- `points` (Array) - Array of point objects with lat/lng/title
+- Advanced Google Maps integration
+
+---
+
+### SVG
+
+SVG component with size and color support.
+
+**Basic Usage:**
+```ruby
+render Decor::SVG.new(size: :lg) { "<svg>...</svg>" }
+```
+
+**Key Attributes:**
+- `size` (Symbol) - `:xs`, `:sm`, `:md`, `:lg`, `:xl`
+- `color` (Symbol) - DaisyUI semantic colors
+
+---
+
 ## Interactive Examples
 
 For live, interactive examples of all components with adjustable parameters, explore the component previews in the sidebar. Each component includes:
@@ -1122,14 +1381,37 @@ Most components support these common styling attributes:
 
 ### Form Field Attributes
 
-Form components inherit these common attributes:
+Form components inherit extensive common attributes from `FormField` base class:
 
+**Basic Attributes:**
 - `name` (String) - Input name attribute
 - `label` (String) - Field label
 - `required` (Boolean) - Required field indicator
 - `disabled` (Boolean) - Disabled state
 - `helper_text` (String) - Help text below field
 - `placeholder` (String) - Placeholder text
+
+**Extended FormField Attributes (available on most form components):**
+- `description` (String) - Description under label
+- `autocomplete` (String) - Autocomplete hint
+- `compact` (Boolean) - Compact styling
+- `collapsing_helper_text` (Boolean) - Collapsible helper text
+- `floating_error_text` (Boolean) - Floating error messages
+- `hide_required_asterisk` (Boolean) - Hide required indicator
+- `valid_label_classes`/`invalid_label_classes` (String) - Custom label styling
+- `control_actions`/`control_targets` (Array) - Stimulus configuration
+- `control_html_options` (Hash) - Additional HTML options
+- `form_control_controller_path` (String) - Custom Stimulus controller
+- `error_messages` (Array) - Error message array
+- `validations`/`validation_messages` (Hash) - Validation configuration
+
+**FormChild Attributes (layout):**
+- `label_position` (Symbol) - `:top`, `:left`, `:right`, `:inline`, `:inside`
+- `grid_span` (Symbol) - Grid layout spans
+
+**CheckableFormField (Checkbox/Radio):**
+- `label_position` (Symbol) - Label positioning
+- Additional checkable-specific attributes
 
 ### Navigation Patterns
 
@@ -1139,10 +1421,12 @@ Navigation components use consistent slot patterns:
 # Common navigation pattern
 render Decor::Nav::SideNavbar.new do |navbar|
   navbar.with_section(title: "Section") do |section|
-    section.with_item(title: "Item", href: "/path")
+    section.with_item(title: "Item", path: "/path")  # Use 'path', not 'href'
   end
 end
 ```
+
+**Note:** Page components (`Page`, `PageHeader`, `PageSection`) are in the root `Decor` namespace, not `Decor::Nav`.
 
 ### DaisyUI Integration
 

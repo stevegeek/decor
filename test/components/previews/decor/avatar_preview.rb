@@ -6,7 +6,70 @@ class ::Decor::AvatarPreview < ::Lookbook::Preview
   # An avatar is a small image that represents a user. It can display the
   # initials of the user's name or the user's profile picture. It can be
   # square or circular, and of many different sizes.
-  #
+
+  # @group Examples
+  # @label Initials
+  def only_initials
+    render ::Decor::Avatar.new(initials: "JD", size: :sm)
+  end
+
+  # @group Examples
+  # @label Initials - Colored
+  def only_initials_colored
+    render ::Decor::Avatar.new(initials: "JD", size: :sm, color: :error)
+  end
+
+  # @group Examples
+  # @label Circular
+  def circular
+    render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", size: :md)
+  end
+
+  # @group Examples
+  # @label Circular - Outlined
+  def circular_outlined
+    render ::Decor::Avatar.new(initials: "AB", size: :md, variant: :outlined)
+  end
+
+  # @group Examples
+  # @label Comment Author
+  def usecase_comment_author
+    render ::Decor::Avatar.new(initials: "CA", size: :xs)
+  end
+
+  # @group Examples
+  # @label Large Circle with Border
+  def combo_large_circle_border
+    render ::Decor::Avatar.new(
+      initials: "LCB",
+      size: :lg,
+      shape: :circle,
+      border: true
+    )
+  end
+
+  # @group Examples
+  # @label Large Square Image
+  def combo_large_square_image
+    render ::Decor::Avatar.new(
+      url: "https://i.pravatar.cc/300",
+      size: :lg,
+      shape: :square
+    )
+  end
+
+  # @group Examples
+  # @label X-Large Circle Image with Border
+  def combo_xlarge_circle_image_border
+    render ::Decor::Avatar.new(
+      url: "https://i.pravatar.cc/300",
+      size: :xl,
+      shape: :circle,
+      border: true
+    )
+  end
+
+  # @group Playground
   # @label Playground
   # @param initials text
   # @param image select [~, "https://i.pravatar.cc/300", "https://cataas.com/cat"]
@@ -145,66 +208,10 @@ class ::Decor::AvatarPreview < ::Lookbook::Preview
     render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", border: true)
   end
 
-  # @group Combinations
-  # @label Large Circle with Border
-  def combo_large_circle_border
-    render ::Decor::Avatar.new(
-      initials: "LCB",
-      size: :lg,
-      shape: :circle,
-      border: true
-    )
-  end
-
-  # @group Combinations
-  # @label Large Square Image
-  def combo_large_square_image
-    render ::Decor::Avatar.new(
-      url: "https://i.pravatar.cc/300",
-      size: :lg,
-      shape: :square
-    )
-  end
-
-  # @group Combinations
-  # @label X-Large Circle Image with Border
-  def combo_xlarge_circle_image_border
-    render ::Decor::Avatar.new(
-      url: "https://i.pravatar.cc/300",
-      size: :xl,
-      shape: :circle,
-      border: true
-    )
-  end
-
-  # @group Use Cases
-  # @label User Profile
-  def usecase_user_profile
-    render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", size: :lg, border: true)
-  end
-
-  # @group Use Cases
-  # @label Chat Message
-  def usecase_chat_message
-    render ::Decor::Avatar.new(initials: "JD", size: :sm)
-  end
-
-  # @group Use Cases
-  # @label Navigation Bar
-  def usecase_navbar
-    render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", size: :md)
-  end
-
-  # @group Use Cases
-  # @label Team Member Card
-  def usecase_team_member
-    render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", size: :lg, border: true)
-  end
-
-  # @group Use Cases
-  # @label Comment Author
-  def usecase_comment_author
-    render ::Decor::Avatar.new(initials: "CA", size: :xs)
+  # @group With Borders
+  # @label Initials, Outlined, with Border
+  def border_outlined_initials
+    render ::Decor::Avatar.new(initials: "OB", border: true, variant: :outlined, size: :md)
   end
 
   # @group Colors
@@ -249,6 +256,28 @@ class ::Decor::AvatarPreview < ::Lookbook::Preview
     render ::Decor::Avatar.new(initials: "IN", color: :info)
   end
 
+  # @group Colors
+  # @label Colorful Team
+  def advanced_colorful_team
+    render ::Decor::Element.new(html_options: {class: "flex space-x-2"}) do |el|
+      el.render ::Decor::Avatar.new(initials: "JD", color: :primary, variant: :filled)
+      el.render ::Decor::Avatar.new(initials: "SM", color: :secondary, variant: :outlined)
+      el.render ::Decor::Avatar.new(initials: "AK", color: :accent, variant: :ghost)
+      el.render ::Decor::Avatar.new(initials: "TL", color: :success, variant: :filled)
+    end
+  end
+
+  # @group Colors
+  # @label Color does not affect images unless there is a border
+  def advanced_image_color_no_effect
+    render ::Decor::Element.new(html_options: {class: "flex space-x-2"}) do |el|
+      el.render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :primary)
+      el.render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :primary, border: true)
+      el.render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :secondary)
+      el.render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :secondary, border: true)
+    end
+  end
+
   # @group Variants
   # @label Filled Variant
   def variant_filled
@@ -265,27 +294,5 @@ class ::Decor::AvatarPreview < ::Lookbook::Preview
   # @label Ghost Variant
   def variant_ghost
     render ::Decor::Avatar.new(initials: "GV", variant: :ghost, color: :primary)
-  end
-
-  # @group Advanced Examples
-  # @label Colorful Team
-  def advanced_colorful_team
-    render ::Decor::Element.new(html_options: {class: "flex space-x-2"}) do |el|
-      el.render ::Decor::Avatar.new(initials: "JD", color: :primary, variant: :filled)
-      el.render ::Decor::Avatar.new(initials: "SM", color: :secondary, variant: :outlined)
-      el.render ::Decor::Avatar.new(initials: "AK", color: :accent, variant: :ghost)
-      el.render ::Decor::Avatar.new(initials: "TL", color: :success, variant: :filled)
-    end
-  end
-
-  # @group Advanced Examples
-  # @label Color does not affect images unless there is a border
-  def advanced_image_color_no_effect
-    render ::Decor::Element.new(html_options: {class: "flex space-x-2"}) do |el|
-      el.render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :primary)
-      el.render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :primary, border: true)
-      el.render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :secondary)
-      el.render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :secondary, border: true)
-    end
   end
 end
