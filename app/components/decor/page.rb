@@ -122,6 +122,7 @@ module Decor
 
     def element_classes
       [
+        "w-full",
         (@full_height ? "min-h-screen" : nil),
         padding_classes,
         "space-y-4",

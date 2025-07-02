@@ -11,7 +11,7 @@ module Decor
     attribute :preserve_flash, :boolean, default: false
     attribute :collapse_if_empty, :boolean, default: true
 
-    attribute :flash_override, Hash, default: {}
+    attribute :flash_override, Hash
     attribute :controller_path, String, default: ->(_) { try(:controller_path) }
     attribute :action_name, String, default: ->(_) { try(:action_name) }
 
