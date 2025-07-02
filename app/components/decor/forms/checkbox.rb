@@ -29,15 +29,13 @@ module Decor
           end
 
           render layout do
-            label(class: "inline-flex items-center #{cursor_classes}") do
-              input(
-                type: "checkbox",
-                data_controller: form_control_controller,
-                class: checkbox_classes,
-                **input_html_attributes,
-                data: input_data_attributes(el, target_name: :checkbox)
-              )
-            end
+            input(
+              type: "checkbox",
+              data_controller: form_control_controller,
+              class: checkbox_classes,
+              **input_html_attributes,
+              data: input_data_attributes(el, target_name: :checkbox)
+            )
           end
         end
       end

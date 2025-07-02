@@ -50,7 +50,7 @@ module Decor
             end
 
             div(class: input_section_layout_classes) do
-              div(class: @input_container_classes) do
+              div(class: @input_container_classes + (label_right? ? "flex flex-row items-center" : "")) do
                 raw @content.html_safe if @content.present?
                 if label_inline? || label_right?
                   div(class: "ml-4") do

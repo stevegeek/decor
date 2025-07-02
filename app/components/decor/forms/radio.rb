@@ -29,15 +29,13 @@ module Decor
           end
 
           render layout do
-            label(class: "inline-flex items-center #{cursor_classes}") do
-              input(
-                type: "radio",
-                data_controller: form_control_controller,
-                class: radio_classes,
-                **html_attributes,
-                data: input_data_attributes(el, target_name: :radio)
-              )
-            end
+            input(
+              type: "radio",
+              data_controller: form_control_controller,
+              class: radio_classes,
+              **html_attributes,
+              data: input_data_attributes(el, target_name: :radio)
+            )
           end
         end
       end

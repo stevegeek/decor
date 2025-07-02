@@ -107,14 +107,14 @@ class ::Decor::Forms::CheckboxPreview < ::Lookbook::Preview
         "TestClass"
       end
 
-      prop :chosen, _Boolean
-      prop :chosen_other, _Boolean
+      prop :chosen, _Boolean, default: false
+      prop :chosen_other, _Boolean, default: false
     end
 
     render_with_template(
       locals: {
         stacked_form: stacked_form,
-        model: klass.new(chosen: value, chosen_other: false),
+        model: klass.new(chosen: !!value, chosen_other: false),
         label: label,
         description: description,
         show_label: show_label,
