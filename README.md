@@ -11,6 +11,8 @@ A comprehensive Ruby on Rails UI component library built for flexibility, mainta
 - (well... not yet...) **Production Ready**: Comprehensive test coverage and battle-tested in production applications
 - **MIT Licensed**: Free for commercial and personal use
 
+![Decor Component Library](test/components/docs/lookbook.png)
+
 ### A note on the state of the project
 
 This project is extracted from a production application and has been in use for years (starting out on a [custom view component system](https://github.com/stevegeek/vc) with my own [typed attributes](https://github.com/stevegeek/typed_support), moving to [ViewComponent](https://viewcomponent.org), and now finally to [Phlex](https://phlex.fun))
@@ -23,7 +25,7 @@ Once I port my production application to this version and battle test it, I will
 
 ## Main TODOs
 
-- [ ] Add all components
+- [x] Add all components
 - [x] Add more tests / previews
 - [ ] Update vident, review vident API
 - [x] Stop using slots
