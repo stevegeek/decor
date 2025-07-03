@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/parruda/claude-swarm.git
-  revision: 02fe79fca22f1f3d1c21061a548c6f82c6c1ef53
+  revision: 68a5a73f2a02f3aad0698295e7a4787f46b0f587
   branch: main
   specs:
     claude_swarm (0.1.20)
@@ -271,7 +271,7 @@ GEM
     mime-types (3.7.0)
       logger
       mime-types-data (~> 3.2025, >= 3.2025.0507)
-    mime-types-data (3.2025.0624)
+    mime-types-data (3.2025.0701)
     mini_mime (1.1.5)
     minitest (5.25.5)
     msgpack (1.8.0)
