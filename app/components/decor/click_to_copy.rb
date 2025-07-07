@@ -2,12 +2,16 @@
 
 module Decor
   class ClickToCopy < PhlexComponent
+    stimulus do
+      actions [:click, :copy]
+    end
+
     private
 
     def view_template
-      render parent_element do |el|
+      root_element do |el|
         div(class: "flex items-center", title: "Click to copy this.") do
-          el.target_tag(:div, :content) do
+          el.tag(:div, stimulus_target: :content) do
             yield if block_given?
           end
           render ::Decor::Icon.new(
@@ -18,11 +22,6 @@ module Decor
       end
     end
 
-    def root_element_attributes
-      {
-        actions: [[:click, :copy]]
-      }
-    end
 
     def element_classes
       "cursor-pointer"

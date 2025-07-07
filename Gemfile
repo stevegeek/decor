@@ -20,13 +20,12 @@ gem "tailwindcss-rails"
 gem "quo", github: "stevegeek/quo", branch: "main"
 gem "encoded_id-rails", "1.0.0.rc6", github: "stevegeek/encoded_id", branch: "main"
 
-gem "dry-struct" # TODO: change to Literal
 gem "literal"
-
 gem "phlex-rails", ">= 2.0.0"
 gem "inline_svg" # used by Decor::Svg if inline: true
 gem "vident", github: "stevegeek/vident", branch: "main"
 gem "vident-phlex", github: "stevegeek/vident", branch: "main"
+
 gem "lookbook"
 gem "js_regex", "~> 3.5"
 

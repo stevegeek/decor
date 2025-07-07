@@ -2,10 +2,13 @@
 
 module Decor
   class Carousel < PhlexComponent
-    attribute :images, type: Array, sub_type: Hash
-    attribute :slides_per_view, Integer
+    prop :images, _Nilable(_Array(Hash))
+    prop :slides_per_view, _Nilable(Integer)
+    prop :max_height, _Nilable(Integer)
 
-    attribute :max_height, Integer
+    stimulus do
+      values_from_props :slides_per_view
+    end
 
     def slide(&block)
       @slides ||= []
@@ -22,7 +25,7 @@ module Decor
     def view_template(&)
       @content = capture(&) if block_given?
 
-      render parent_element do |s|
+      root_element do |s|
         div(class: "carousel w-full") do
           # Render items from with_items slot
           if @items.present?
@@ -59,11 +62,6 @@ module Decor
       end
     end
 
-    def root_element_attributes
-      {
-        values: [{slides_per_view: @slides_per_view}]
-      }
-    end
 
     def element_classes
       "relative"
