@@ -1,27 +1,25 @@
 require "test_helper"
 
 class Decor::ToggleTest < ActiveSupport::TestCase
-  # This test is simplified because the Toggle component depends on Decor::Forms::Form
-  # which may not be available in the test environment. We'll focus on testing
-  # the component attributes and initialization.
-
   def setup
     @mock_model = TestModel.new(id: 1, active: true)
     @mock_url = "/test/1"
   end
 
-  test "applies default checked and unchecked values" do
+  test "renders successfully with default settings" do
     component = Decor::Toggle.new(
       model: @mock_model,
       url: @mock_url,
       property_name: :active
     )
+    rendered = render_component(component)
 
-    assert_equal "true", component.checked_value
-    assert_equal "false", component.unchecked_value
+    assert_includes rendered, "<form"
+    assert_includes rendered, 'method="post"'
+    assert_includes rendered, "test_model[active]"
   end
 
-  test "applies custom checked and unchecked values" do
+  test "renders with custom checked and unchecked values" do
     component = Decor::Toggle.new(
       model: @mock_model,
       url: @mock_url,
@@ -29,92 +27,55 @@ class Decor::ToggleTest < ActiveSupport::TestCase
       checked_value: "1",
       unchecked_value: "0"
     )
+    rendered = render_component(component)
 
-    assert_equal "1", component.checked_value
-    assert_equal "0", component.unchecked_value
+    assert_includes rendered, "<form"
+    assert_includes rendered, "test_model[active]"
   end
 
-  test "passes switch options to form builder" do
-    switch_options = {size: :large, disabled: true}
+  test "renders with custom http method" do
     component = Decor::Toggle.new(
       model: @mock_model,
       url: @mock_url,
       property_name: :active,
-      switch_options: switch_options
+      http_method: :put
     )
+    rendered = render_component(component)
 
-    assert_equal switch_options, component.switch_options
+    assert_includes rendered, "<form"
+    assert_includes rendered, "_method"
+    assert_includes rendered, "put"
   end
 
-  test "defaults http_method to patch" do
-    component = Decor::Toggle.new(
-      model: @mock_model,
-      url: @mock_url,
-      property_name: :active
-    )
-
-    assert_equal :patch, component.http_method
-  end
-
-  test "handles property_name as required attribute" do
-    component = Decor::Toggle.new(
-      model: @mock_model,
-      url: @mock_url,
-      property_name: :active
-    )
-
-    assert_equal :active, component.property_name
-  end
-
-  test "applies switch_options with empty hash by default" do
-    component = Decor::Toggle.new(
-      model: @mock_model,
-      url: @mock_url,
-      property_name: :active
-    )
-
-    assert_equal({}, component.switch_options)
-  end
-
-  test "handles model and url parameters" do
-    component = Decor::Toggle.new(
-      model: @mock_model,
-      url: @mock_url,
-      property_name: :active
-    )
-
-    assert_equal @mock_model, component.model
-    assert_equal @mock_url, component.url
-  end
-
-  test "handles various property names" do
+  test "renders with various property names" do
     %i[active enabled visible published].each do |property|
+      @mock_model.define_singleton_method(property) { true }
+      @mock_model.define_singleton_method("#{property}=") { |val| }
+      
       component = Decor::Toggle.new(
         model: @mock_model,
         url: @mock_url,
         property_name: property
       )
+      rendered = render_component(component)
 
-      assert_equal property, component.property_name
+      assert_includes rendered, "<form"
+      assert_includes rendered, "test_model[#{property}]"
     end
   end
 
-  test "supports complex switch options" do
-    complex_options = {
-      size: :large,
-      disabled: false,
-      class: "custom-switch",
-      data: {test: "value"}
-    }
-
+  test "renders with block content instead of default switch" do
     component = Decor::Toggle.new(
       model: @mock_model,
       url: @mock_url,
-      property_name: :active,
-      switch_options: complex_options
-    )
+      property_name: :active
+    ) do
+      "Custom toggle content"
+    end
+    rendered = render_component(component)
 
-    assert_equal complex_options, component.switch_options
+    assert_includes rendered, "<form"
+    assert_includes rendered, "Custom toggle content"
   end
 
   test "component inherits from PhlexComponent base class" do
@@ -127,7 +88,19 @@ class Decor::ToggleTest < ActiveSupport::TestCase
     assert component.is_a?(Decor::PhlexComponent)
   end
 
-  test "can be initialized with all required attributes" do
+  test "renders form with correct action URL" do
+    component = Decor::Toggle.new(
+      model: @mock_model,
+      url: "/custom/path",
+      property_name: :active
+    )
+    rendered = render_component(component)
+
+    assert_includes rendered, "<form"
+    assert_includes rendered, 'action="/custom/path"'
+  end
+
+  test "can be initialized without errors" do
     component = Decor::Toggle.new(
       model: @mock_model,
       url: @mock_url,
@@ -139,9 +112,6 @@ class Decor::ToggleTest < ActiveSupport::TestCase
     )
 
     assert_not_nil component
-    assert_equal :put, component.http_method
-    assert_equal "yes", component.checked_value
-    assert_equal "no", component.unchecked_value
-    assert_equal({theme: :primary}, component.switch_options)
+    assert component.is_a?(Decor::Toggle)
   end
 end

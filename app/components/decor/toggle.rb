@@ -1,33 +1,21 @@
+# frozen_string_literal: true
+
 module Decor
   class Toggle < PhlexComponent
     no_stimulus_controller
 
-    attribute :switch_options, Hash, default: {}
-    attribute :checked_value, String, default: "true", allow_nil: false
-    attribute :unchecked_value, String, default: "false", allow_nil: false
+    prop :switch_options, Hash, default: -> { {} }
+    prop :checked_value, String, default: "true"
+    prop :unchecked_value, String, default: "false"
 
     # The property to toggle - or use the content block to create the toggle
-    attribute :property_name
-    attribute :model
-    attribute :url
-    attribute :http_method, default: :patch
-
-    attr_reader :switch_options
-
-    attr_reader :model
-
-    attr_reader :property_name
-
-    attr_reader :http_method
-
-    attr_reader :checked_value
-
-    attr_reader :unchecked_value
-
-    attr_reader :url
+    prop :property_name, _Nilable(_Interface(:to_s))
+    prop :model, _Nilable(Object)
+    prop :url, _Nilable(_Interface(:to_s))
+    prop :http_method, Symbol, default: :patch
 
     def view_template(&block)
-      render parent_element do
+      root_element do
         render ::Decor::Forms::Form.new(model: @model, url: @url, local: false, http_method: @http_method) do |form_component|
           if block_given?
             capture(&block)
