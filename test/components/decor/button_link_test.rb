@@ -84,7 +84,7 @@ class Decor::ButtonLinkTest < ActiveSupport::TestCase
     component = Decor::ButtonLink.new(
       label: "Styled Link",
       href: "/test",
-      theme: :primary,
+      color: :primary,
       size: :large
     )
 

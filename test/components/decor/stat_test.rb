@@ -165,7 +165,7 @@ class Decor::StatTest < ActiveSupport::TestCase
     # Simulate block content
     component.instance_eval do
       def view_template(&block)
-        render parent_element do
+        root_element do
           render_title if @title
           div(class: "stat-value") { "Custom Block Content" }
         end

@@ -6,31 +6,31 @@ module Decor
     no_stimulus_controller
 
     # Main display value for the statistic
-    attribute :value, String, allow_nil: true
+    prop :value, _Nilable(String)
 
     # Title/label for the statistic
-    attribute :title, String, allow_nil: true
+    prop :title, _Nilable(String)
 
     # Description text below the value
-    attribute :description, String, allow_nil: true
+    prop :description, _Nilable(String)
 
     # Color theme for the statistic value
-    attribute :color, Symbol, default: :neutral, in: %i[primary secondary accent success error warning info neutral]
+    prop :color, _Union(:primary, :secondary, :accent, :success, :error, :warning, :info, :neutral), default: :neutral
 
     # Whether to center align the content
-    attribute :centered, :boolean, default: false
+    prop :centered, _Boolean, default: false
 
     # Icon to display in the figure area
-    attribute :icon, String
+    prop :icon, _Nilable(String)
 
     # Icon color (if different from value color)
-    attribute :icon_color, Symbol, in: %i[primary secondary accent success error warning info neutral]
+    prop :icon_color, _Nilable(_Union(:primary, :secondary, :accent, :success, :error, :warning, :info, :neutral))
 
     # Whether to include a figure area
-    attribute :with_figure, :boolean, default: false
+    prop :with_figure, _Boolean, default: false
 
     # Whether to include an actions area
-    attribute :with_actions, :boolean, default: false
+    prop :with_actions, _Boolean, default: false
 
     def figure(&block)
       @figure_content = block
@@ -51,7 +51,7 @@ module Decor
     end
 
     def view_template(&block)
-      render parent_element do
+      root_element do
         render_figure if should_render_figure?
         render_title if @title
         render_value(&block) if @value || block_given?

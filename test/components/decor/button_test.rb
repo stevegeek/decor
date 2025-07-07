@@ -179,7 +179,7 @@ class Decor::ButtonTest < ActiveSupport::TestCase
     assert_nothing_raised { Decor::Button.new(label: "Test", size: :xs) }
 
     # Should raise for invalid values
-    assert_raises(Dry::Struct::Error) { Decor::Button.new(label: "Test", size: :invalid) }
+    assert_raises(Literal::TypeError) { Decor::Button.new(label: "Test", size: :invalid) }
   end
 
   # Icon size tests

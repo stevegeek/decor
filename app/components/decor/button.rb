@@ -2,21 +2,21 @@
 
 module Decor
   class Button < PhlexComponent
-    attribute :label, String
+    prop :label, _Nilable(String)
 
     # An icon name to render before the label
-    attribute :icon, String
-    attribute :icon_variant, Symbol
-    attribute :icon_only_on_mobile, :boolean, default: false
+    prop :icon, _Nilable(String)
+    prop :icon_variant, _Nilable(Symbol)
+    prop :icon_only_on_mobile, _Boolean, default: false
 
-    attribute :variant, Symbol, default: :contained, in: %i[contained outlined text]
-    attribute :color, Symbol, default: :primary, in: %i[primary secondary danger warning neutral]
-    attribute :size, Symbol, default: :medium, in: %i[large medium wide small micro xs lg md sm]
+    prop :variant, _Union(:contained, :outlined, :text), default: :contained
+    prop :color, _Union(:primary, :secondary, :danger, :warning, :neutral), default: :primary
+    prop :size, _Union(:large, :medium, :wide, :small, :micro, :xs, :lg, :md, :sm), default: :medium
 
-    attribute :disabled, :boolean, default: false
+    prop :disabled, _Boolean, default: false
 
     # Whether button should span the entire width of the container or not
-    attribute :full_width, :boolean, default: false
+    prop :full_width, _Boolean, default: false
 
     def before_label(&block)
       @before_label = block
@@ -40,11 +40,13 @@ module Decor
 
     def view_template(&)
       @content = block_given? ? capture(&) : @label
-      render parent_element do
+      root_element do
         span(class: "text-center") do
           render @before_label if @before_label.present?
           if @icon
-            render ::Decor::Icon.new(name: @icon, variant: @icon_variant, html_options: {class: icon_classes})
+            icon_options = {name: @icon, html_options: {class: icon_classes}}
+            icon_options[:variant] = @icon_variant if @icon_variant
+            render ::Decor::Icon.new(**icon_options)
           end
           span(class: @icon_only_on_mobile ? "hidden md:inline" : "") do
             render @content
