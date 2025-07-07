@@ -2,26 +2,26 @@
 
 module Decor
   class Flash < PhlexComponent
-    include Phlex::Rails::Helpers::Flash
-    include Phlex::Rails::Helpers::ControllerPath
-    include Phlex::Rails::Helpers::ActionName
+    stimulus do
+      actions ["decor-flash:open@window", :handle_show_event], ["decor-flash:close@window", :handle_close_event]
+    end
 
-    attribute :title, String
-    attribute :text, String
-    attribute :preserve_flash, :boolean, default: false
-    attribute :collapse_if_empty, :boolean, default: true
+    prop :title, _Nilable(String)
+    prop :text, _Nilable(String)
+    prop :preserve_flash, _Boolean, default: false
+    prop :collapse_if_empty, _Boolean, default: true
 
-    attribute :flash_override, Hash
-    attribute :controller_path, String, default: ->(_) { try(:controller_path) }
-    attribute :action_name, String, default: ->(_) { try(:action_name) }
+    prop :flash_data, _Nilable(Hash)
+    prop :controller_path, _Nilable(String)
+    prop :action_name, _Nilable(String)
 
-    attribute :variant, Symbol, in: %i[warning info error notice success], default: :info
+    prop :variant, _Union(:warning, :info, :error, :notice, :success), default: :info
 
     def view_template
       if block_given? && !show_initial?
         yield
       else
-        render parent_element do
+        root_element do
           if show_initial?
             div(class: "alert #{alert_variant_class}") do
               div(class: "flex") do
@@ -44,13 +44,10 @@ module Decor
     private
 
     def root_element_attributes
+      show = show_initial?
       {
-        actions: [
-          [:"decor-flash:open@window", :handle_show_event],
-          [:"decor-flash:close@window", :handle_close_event]
-        ],
-        values: [show_initial? ? {show_initial: true} : {}],
-        html_options: show_initial? ? {} : {hidden: true}
+        values: [show ? {show_initial: true} : {}],
+        html_options: show ? {} : {hidden: true}
       }
     end
 
@@ -75,8 +72,10 @@ module Decor
     # the flash based on the controller and action name
     def title_with_defaults
       return @title if @title.present?
-      string_key = "#{@controller_path}.#{@action_name}.flash.title.#{resolved_variant}"
-      return I18n.t(string_key) if I18n.exists?(string_key)
+      if @controller_path && @action_name
+        string_key = "#{@controller_path}.#{@action_name}.flash.title.#{resolved_variant}"
+        return I18n.t(string_key) if I18n.exists?(string_key)
+      end
 
       case resolved_variant
       when :success
@@ -143,7 +142,7 @@ module Decor
     end
 
     def resolved_flash
-      @flash_override || flash
+      @flash_data || {}
     end
 
     def flash_notice(flash_obj)

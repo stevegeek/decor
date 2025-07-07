@@ -4,12 +4,12 @@ module Decor
   class FormattedEncodedId < PhlexComponent
     no_stimulus_controller
 
-    attribute :encoded_id, String, allow_blank: false
-    attribute :prefix, String, allow_nil: true, allow_blank: true
+    prop :encoded_id, _String(&:present?)
+    prop :prefix, _Nilable(String)
 
     def view_template(&)
       # wrap the prefix in a span so we can style it separately
-      render parent_element do
+      root_element do
         span(class: "text-base-500 font-extralight mr-0.5") { prefix_combined } if prefix_combined
         span(class: "text-primary font-medium tracking-wide") { cleaned_encoded_id }
       end

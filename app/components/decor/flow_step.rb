@@ -2,19 +2,21 @@
 
 module Decor
   class FlowStep < PhlexComponent
-    attribute :title, String
-    attribute :description, String
+    no_stimulus_controller
 
-    attribute :step, Integer
-    attribute :icon, String
+    prop :title, _Nilable(String)
+    prop :description, _Nilable(String)
+
+    prop :step, _Nilable(Integer)
+    prop :icon, _Nilable(String)
 
     # Modern attributes following daisyUI standards
-    attribute :size, Symbol, in: %i[xs sm md lg xl], default: :md
-    attribute :color, Symbol, in: %i[primary secondary accent success error warning info neutral], default: :info
-    attribute :variant, Symbol, in: %i[filled outlined ghost], default: :filled
+    prop :size, _Union(:xs, :sm, :md, :lg, :xl), default: :md
+    prop :color, _Union(:primary, :secondary, :accent, :success, :error, :warning, :info, :neutral), default: :info
+    prop :variant, _Union(:filled, :outlined, :ghost), default: :filled
 
     def view_template(&)
-      render parent_element do
+      root_element do
         render_step_indicator
 
         div(class: "space-y-4 md:space-y-6") do

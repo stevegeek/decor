@@ -4,24 +4,24 @@ module Decor
   class DropdownItem < PhlexComponent
     no_stimulus_controller
 
-    attribute :separator, :boolean, default: false
+    prop :separator, _Boolean, default: false
 
-    attribute :text, String
-    attribute :href, String, default: "#"
-    attribute :http_method, Symbol, in: [:get, :post, :patch, :delete]
-    attribute :tabindex, Integer, default: -1
+    prop :text, _Nilable(String)
+    prop :href, String, default: "#"
+    prop :http_method, _Nilable(_Union(:get, :post, :patch, :delete))
+    prop :tabindex, Integer, default: -1
 
     # Set to a blank string if you want to hide the icon. If nil the
     # icon is not rendered at all and the menu item is left aligned.
-    attribute :icon_name, String
+    prop :icon_name, _Nilable(String)
 
     def view_template
       if @separator
-        render parent_element do
+        root_element do
           hr(class: "menu-divider")
         end
       else
-        render parent_element do
+        root_element do
           a(
             href: @href,
             role: "menuitem",

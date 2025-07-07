@@ -2,16 +2,22 @@
 
 module Decor
   class Dropdown < PhlexComponent
-    # Modern attributes with DaisyUI integration
-    attribute :size, Symbol, default: :md, in: [:xs, :sm, :md, :lg, :xl]
-    attribute :color, Symbol, default: :base, in: [:base, :primary, :secondary, :accent, :success, :error, :warning, :info, :neutral]
-    attribute :variant, Symbol, default: :default, in: [:default, :bordered, :filled]
-    attribute :position, Symbol, default: :left, in: [:left, :right, :top, :bottom, :end, :center, :start]
-    attribute :trigger, Symbol, default: :click, in: [:click, :hover, :focus]
-    attribute :force_open, Symbol, default: :auto, in: [:auto, :open, :closed]
+    stimulus do
+      actions [:click, :toggle], ["click@window", :hide_on_click_outside]
+      classes active: -> { @button_active_classes }
+      values active_target: -> { "##{id}-menu-button" }, enter_timeout: 100, leave_timeout: 75
+    end
 
-    attribute :button_classes, Array, default: []
-    attribute :button_active_classes, Array, default: []
+    # Modern attributes with DaisyUI integration
+    prop :size, _Union(:xs, :sm, :md, :lg, :xl), default: :md
+    prop :color, _Union(:base, :primary, :secondary, :accent, :success, :error, :warning, :info, :neutral), default: :base
+    prop :variant, _Union(:default, :bordered, :filled), default: :default
+    prop :position, _Union(:left, :right, :top, :bottom, :end, :center, :start), default: :left
+    prop :trigger, _Union(:click, :hover, :focus), default: :click
+    prop :force_open, _Union(:auto, :open, :closed), default: :auto
+
+    prop :button_classes, _Array(String), default: -> { [] }
+    prop :button_active_classes, _Array(String), default: -> { [] }
 
     def trigger_button(&block)
       @trigger_button = block
@@ -45,13 +51,13 @@ module Decor
     def view_template(&)
       @content = capture(&) if block_given?
 
-      render parent_element do |s|
+      root_element do |s|
         if @trigger_button.present?
           instance_eval(&@trigger_button)
         else
-          s.target_tag(
+          s.tag(
             :button,
-            :button,
+            stimulus_target: :button,
             type: "button",
             tabindex: "0",
             role: "button",
@@ -69,9 +75,9 @@ module Decor
 
         if @card_content.present? || @custom_content.present?
           # Non-menu content (cards, custom elements)
-          s.target_tag(
+          s.tag(
             :div,
-            :content,
+            stimulus_target: :content,
             class: dropdown_content_classes_non_menu,
             role: "dialog",
             aria_labelledby: "#{id}-menu-button",
@@ -82,9 +88,9 @@ module Decor
           end
         else
           # Traditional menu content
-          s.target_tag(
+          s.tag(
             :ul,
-            :menu,
+            stimulus_target: :menu,
             tabindex: "0",
             class: dropdown_content_classes
           ) do
@@ -106,19 +112,6 @@ module Decor
 
     private
 
-    def root_element_attributes
-      {
-        named_classes: {
-          active: @button_active_classes
-        },
-        values: [{
-          active_target: "##{id}-menu-button",
-          enter_timeout: "100",
-          leave_timeout: "75"
-        }],
-        actions: [[:click, :toggle], [:"click@window", :hide_on_click_outside]]
-      }
-    end
 
     def element_classes
       [
