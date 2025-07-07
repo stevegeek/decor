@@ -25,11 +25,8 @@ gem "literal"
 
 gem "phlex-rails", ">= 2.0.0"
 gem "inline_svg" # used by Decor::Svg if inline: true
-gem "vident", ">= 0.13.1"
-gem "vident-typed", ">= 0.13.1"
-gem "vident-phlex", ">= 0.13.1"
-gem "vident-typed-phlex", ">= 0.13.1"
-gem "vident-tailwind", ">= 0.13.1"
+gem "vident", github: "stevegeek/vident", branch: "main"
+gem "vident-phlex", github: "stevegeek/vident", branch: "main"
 gem "lookbook"
 gem "js_regex", "~> 3.5"
 

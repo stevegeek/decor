@@ -11,16 +11,16 @@ module Decor
 
     register_output_helper :inline_svg_tag
 
-    attribute :inline, :boolean, default: true
+    prop :inline, _Boolean, default: true
 
-    attribute :file_name, String, allow_nil: false
-    attribute :title, String
-    attribute :description, String
+    prop :file_name, String
+    prop :title, _Nilable(String)
+    prop :description, _Nilable(String)
 
-    attribute :size, Symbol, default: :md, in: [:xs, :sm, :md, :lg, :xl]
+    prop :size, _Union(:xs, :sm, :md, :lg, :xl), default: :md
 
-    attribute :width, Integer
-    attribute :height, Integer
+    prop :width, _Nilable(Integer)
+    prop :height, _Nilable(Integer)
 
     def view_template
       if @inline
@@ -47,9 +47,7 @@ module Decor
         aria_hidden: true,
         width: svg_width,
         height: svg_height,
-        data: ::Vident::Phlex::RootComponent.new(
-          **stimulus_options_for_component({})
-        ).send(:tag_data_attributes)
+        **stimulus_data_attributes
       }
     end
 

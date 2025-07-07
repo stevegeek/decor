@@ -7,12 +7,12 @@ module Decor
 
     depends_on ::Decor::Svg
 
-    attribute :inline, :boolean, default: false
+    prop :inline, _Boolean, default: false
 
-    attribute :name, String, allow_nil: false
-    attribute :file_name, String, allow_nil: true
-    attribute :collection, Symbol, default: :heroicons, in: [:heroicons]
-    attribute :variant, Symbol, default: :outline, in: [:outline, :solid, :small_solid]
+    prop :name, String
+    prop :file_name, _Nilable(String)
+    prop :collection, _Union(:heroicons), default: :heroicons
+    prop :variant, _Union(:outline, :solid, :small_solid), default: :outline
 
     def file_name
       @file_name ||= "#{@collection}/#{@variant}/#{@name}.svg"

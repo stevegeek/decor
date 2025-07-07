@@ -1,9 +1,6 @@
 require "test_helper"
 
 class Decor::SvgTest < ActiveSupport::TestCase
-  # Test only the method-based functionality since rendering requires
-  # asset paths and inline_svg gem which may not be available in test environment
-
   test "file_name method returns correct path" do
     component = Decor::Svg.new(file_name: "svgs/test-icon.svg")
 
@@ -103,5 +100,14 @@ class Decor::SvgTest < ActiveSupport::TestCase
     component = Decor::Svg.new(file_name: "svgs/test.svg", inline: false)
 
     assert_equal false, component.instance_variable_get(:@inline)
+  end
+
+  test "renders successfully when inline is false" do
+    component = Decor::Svg.new(file_name: "heroicons/outline/home.svg", inline: false)
+    rendered = render_component(component)
+
+    assert_includes rendered, "<svg"
+    assert_includes rendered, "data-src="
+    assert_includes rendered, "heroicons/outline/home"  # Don't check for .svg extension due to asset digests
   end
 end

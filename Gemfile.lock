@@ -31,6 +31,22 @@ GIT
       activesupport (>= 7.2, < 9)
       literal (>= 1.6.0, < 2)
 
+GIT
+  remote: https://github.com/stevegeek/vident.git
+  revision: 0ace45db013e870e4e14ef2ecff647e08e747a17
+  branch: main
+  specs:
+    vident (1.0.0.alpha1)
+      activesupport (>= 7.2, < 9)
+      literal (>= 1.0, < 2)
+      railties (>= 7.2, < 9)
+    vident-phlex (1.0.0.alpha1)
+      activesupport (>= 7.2, < 9)
+      phlex (>= 2.0, < 3)
+      phlex-rails (>= 0.8.1, < 3)
+      railties (>= 7.2, < 9)
+      vident (~> 1.0.0.alpha1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -267,7 +283,6 @@ GEM
       net-smtp
     marcel (1.0.4)
     matrix (0.4.3)
-    method_source (1.1.0)
     mime-types (3.7.0)
       logger
       mime-types-data (~> 3.2025, >= 3.2025.0507)
@@ -426,7 +441,6 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    sin_lru_redux (2.5.2)
     solid_cable (3.0.11)
       actioncable (>= 7.2)
       activejob (>= 7.2)
@@ -471,8 +485,6 @@ GEM
     stimulus-rails (1.3.4)
       railties (>= 6.0.0)
     stringio (3.1.7)
-    tailwind_merge (1.3.1)
-      sin_lru_redux (~> 2.5)
     tailwindcss-rails (4.2.3)
       railties (>= 7.0.0)
       tailwindcss-ruby (~> 4.0)
@@ -496,33 +508,9 @@ GEM
     unicode-emoji (4.0.4)
     uri (1.0.3)
     useragent (0.16.11)
-    vident (0.13.1)
-      activesupport (>= 7.2, < 9)
-      railties (>= 7.2, < 9)
-    vident-phlex (0.13.1)
-      activesupport (>= 7.2, < 9)
-      phlex (>= 1.5.0, < 3)
-      phlex-rails (>= 0.8.1, < 3)
-      railties (>= 7.2, < 9)
-      vident (~> 0.13.1)
-    vident-tailwind (0.13.1)
-      activesupport (>= 7.2, < 9)
-      railties (>= 7.2, < 9)
-      tailwind_merge (>= 0.5.2, < 2)
-      vident (~> 0.13.1)
-    vident-typed (0.13.1)
-      activesupport (>= 7.2, < 9)
-      dry-struct (>= 1.5.0, < 2)
-      railties (>= 7.2, < 9)
-      vident (~> 0.13.1)
-    vident-typed-phlex (0.13.1)
-      railties (>= 7.2, < 9)
-      vident-phlex (~> 0.13.1)
-      vident-typed (~> 0.13.1)
-    view_component (3.23.2)
-      activesupport (>= 5.2.0, < 8.1)
+    view_component (4.0.0.rc2)
+      activesupport (>= 7.1.0, < 8.1)
       concurrent-ruby (~> 1)
-      method_source (~> 1.0)
     web-console (4.2.1)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -581,11 +569,8 @@ DEPENDENCIES
   thruster
   turbo-rails
   tzinfo-data
-  vident (>= 0.13.1)
-  vident-phlex (>= 0.13.1)
-  vident-tailwind (>= 0.13.1)
-  vident-typed (>= 0.13.1)
-  vident-typed-phlex (>= 0.13.1)
+  vident!
+  vident-phlex!
   web-console
 
 BUNDLED WITH

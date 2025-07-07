@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 module Decor
-  class PhlexComponent < ::Vident::Typed::Phlex::HTML
+  class PhlexComponent < ::Vident::Phlex::HTML
     include ::Vident::Caching
-    include ::Vident::Tailwind
 
     include Phlex::Rails::Helpers::Routes
     include Phlex::Rails::Helpers::ImagePath
@@ -14,10 +13,6 @@ module Decor
     include ::Phlex::Rails::Helpers::LinkTo
     include ::Phlex::Rails::Helpers::ContentTag
 
-    # TODO: part of transition to Literal
-    class << self
-      alias_method :prop_names, :attribute_names
-    end
 
     def target_data_attributes(el, name, controller: nil)
       return {} unless el
