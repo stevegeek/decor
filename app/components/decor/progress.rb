@@ -8,7 +8,7 @@ module Decor
     end
 
     prop :steps, _Array(ProgressItem), default: -> { [] } do |items|
-      items.map { |item| item.is_a?(ProgressItem) ? item : ProgressItem.new(item) }
+      items.map { |item| item.is_a?(ProgressItem) ? item : ProgressItem.new(**item) }
     end
     prop :i18n_key, _Nilable(String)
     prop :current_step, Integer, default: 1

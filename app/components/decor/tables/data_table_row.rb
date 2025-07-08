@@ -55,14 +55,14 @@ module Decor
           if @selectable_as.present?
             td(class: "px-4") do
               render ::Decor::Forms::Checkbox.new(
-                targets: [el.target(:checkbox)],
-                actions: [el.action(:change, :row_selected)],
+                stimulus_targets: [stimulus_target(:checkbox)],
+                stimulus_actions: [stimulus_action(:change, :row_selected)],
                 show_label: false,
                 name: @selectable_as,
                 checked: @selected,
                 disabled: @disabled,
                 collapsing_helper_text: true,
-                outlet_host: el
+                stimulus_outlet_host: el
               )
             end
           end

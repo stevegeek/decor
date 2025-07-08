@@ -93,7 +93,7 @@ module Decor
           label_position: @label_position,
           grid_span: @grid_span,
           input_container_classes: input_container_classes,
-          named_classes: {
+          stimulus_classes: {
             valid_label: resolved_valid_label_classes,
             invalid_label: resolved_invalid_label_classes
           }

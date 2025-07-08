@@ -63,7 +63,7 @@ module Decor
                 end
 
                 svg(
-                  class: "#{component_name}-arrow flex-shrink-0 w-5 h-5 ml-auto transform duration-150 #{resolve_selected? ? el.named_classes(:arrow_up) : el.named_classes(:arrow_down)}",
+                  class: "#{component_name}-arrow flex-shrink-0 w-5 h-5 ml-auto transform duration-150 #{resolve_selected? ? class_list_for_stimulus_classes(:arrow_up) : class_list_for_stimulus_classes(:arrow_down)}",
                   **el.stimulus_target(:arrow),
                   viewBox: "0 0 20 20",
                   fill: "none"

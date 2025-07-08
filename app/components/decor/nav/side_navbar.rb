@@ -34,10 +34,10 @@ module Decor
         root_element do |el|
           # Mobile menu overlay
           div(class: "fixed inset-0 flex z-40 hidden", role: "dialog", aria_modal: "true", data: {**el.stimulus_target(:mobile_menu)}) do
-            div(class: "fixed inset-0 bg-gray-600 bg-opacity-75 #{el.named_classes(:mobile_menu_overlay_entering_from)}", aria_hidden: "true", data: {**el.stimulus_target(:mobile_menu_overlay)})
+            div(class: "fixed inset-0 bg-gray-600 bg-opacity-75 #{class_list_for_stimulus_classes(:mobile_menu_overlay_entering_from)}", aria_hidden: "true", data: {**el.stimulus_target(:mobile_menu_overlay)})
 
-            div(class: "relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-base-300 #{el.named_classes(:mobile_menu_canvas_entering_from)}", data: {**el.stimulus_target(:mobile_menu_canvas)}) do
-              div(class: "absolute top-0 right-0 -mr-12 pt-2 #{el.named_classes(:mobile_menu_close_button_entering_from)}", data: {**el.stimulus_target(:mobile_menu_close_button)}) do
+            div(class: "relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-base-300 #{class_list_for_stimulus_classes(:mobile_menu_canvas_entering_from)}", data: {**el.stimulus_target(:mobile_menu_canvas)}) do
+              div(class: "absolute top-0 right-0 -mr-12 pt-2 #{class_list_for_stimulus_classes(:mobile_menu_close_button_entering_from)}", data: {**el.stimulus_target(:mobile_menu_close_button)}) do
                 button(
                   type: "button",
                   data: {**el.stimulus_action(:click, :toggle_mobile_menu)},

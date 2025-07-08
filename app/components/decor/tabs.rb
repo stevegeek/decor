@@ -22,7 +22,7 @@ module Decor
 
     # Array of links in navigation. Each link must have a `title` and `href` specified
     prop :links, _Nilable(_Array(TabInfo)), default: -> { [] } do |attrs|
-      attrs.map { |link| link.is_a?(TabInfo) ? link : TabInfo.new(link) }
+      attrs.map { |link| link.is_a?(TabInfo) ? link : TabInfo.new(**link) }
     end
 
     # Status text is displayed to the right of the tabs

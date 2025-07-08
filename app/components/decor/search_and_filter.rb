@@ -93,7 +93,7 @@ module Decor
                 menu_position: :aligned_to_right,
                 menu_classes: ["top-10"],
                 dropdown_size_classes: ["min-w-[250px]"],
-                outlet_host: el
+                stimulus_outlet_host: el
               ) do |dropdown|
                 dropdown.with_button do
                   button(
@@ -128,8 +128,8 @@ module Decor
                           disable_blank_option: false,
                           label_position: :inside,
                           collapsing_helper_text: true,
-                          html_options: {class: "pt-2 w-full"},
-                          outlet_host: el
+                          classes: "pt-2 w-full",
+                          stimulus_outlet_host: el
                         )
                       when :checkbox
                         render ::Decor::Forms::Checkbox.new(
@@ -138,8 +138,8 @@ module Decor
                           checked: filter.value == "true",
                           disabled: filter.disabled?,
                           collapsing_helper_text: true,
-                          html_options: {class: "pt-2 w-full"},
-                          outlet_host: el
+                          classes: "pt-2 w-full",
+                          stimulus_outlet_host: el
                         )
                       when :date_range
                         render ::Decor::Forms::TextField.new(
@@ -152,8 +152,8 @@ module Decor
                           control_actions: [
                             stimulus_action(:focus, :handle_range_picker)
                           ],
-                          html_options: {class: "pt-2 w-full"},
-                          outlet_host: el
+                          classes: "pt-2 w-full",
+                          stimulus_outlet_host: el
                         )
                       end
                     end

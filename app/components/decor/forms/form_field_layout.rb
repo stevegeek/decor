@@ -85,7 +85,7 @@ module Decor
       end
 
       def container_classes
-        produce_style_classes(layout_classes || [])
+        (layout_classes || []).compact.join(" ")
       end
 
       def layout_classes
@@ -105,9 +105,9 @@ module Decor
       end
 
       def input_section_layout_classes
-        produce_style_classes(
+        (
           grid_span_class + (label_left? ? ["mt-1", "sm:mt-0"] : [])
-        )
+        ).compact.join(" ")
       end
 
       def render_helper_text_section

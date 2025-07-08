@@ -66,7 +66,7 @@ module Decor
             elsif @variant == :image
               div(class: "decor--image-upload--image-container") do
                 if file_url
-                  img(src: file_url, class: el.named_classes(:image))
+                  img(src: file_url, class: class_list_for_stimulus_classes(:image))
                 else
                   div(class: "bg-white relative block border-2 border-gray-200 border-dashed rounded-md py-12 text-center hover:border-gray-300") do
                     span(class: "mt-2 block text-sm text-low-emphasis") { "No image selected..." }
