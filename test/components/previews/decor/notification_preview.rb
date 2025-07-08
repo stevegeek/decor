@@ -20,15 +20,15 @@ class ::Decor::NotificationPreview < ::Lookbook::Preview
       icon: icon,
       color: color,
       **(has_action_buttons ? {action_buttons: [
-        {
+        ::Decor::Notification::ActionButton.new(
           label: "Action",
           href: "#",
           primary: true
-        },
-        {
+        ),
+        ::Decor::Notification::ActionButton.new(
           label: "Dismiss",
           action_name: "dismiss"
-        }
+        )
       ]} : {})
     ) do |notification|
       if has_avatar
@@ -91,6 +91,7 @@ class ::Decor::NotificationPreview < ::Lookbook::Preview
   def content_title_only
     render ::Decor::Notification.new(
       title: "Simple notification",
+      description: "",
       icon: "bell",
       color: :info
     )
@@ -100,6 +101,7 @@ class ::Decor::NotificationPreview < ::Lookbook::Preview
   # @label Description Only
   def content_description_only
     render ::Decor::Notification.new(
+      title: "",
       description: "Just a simple message without a title.",
       icon: "information-circle",
       color: :info
@@ -159,11 +161,11 @@ class ::Decor::NotificationPreview < ::Lookbook::Preview
       icon: "exclamation-triangle",
       color: :warning,
       action_buttons: [
-        {
+        ::Decor::Notification::ActionButton.new(
           label: "Confirm",
           href: "#",
           primary: true
-        }
+        )
       ]
     )
   end
@@ -177,15 +179,15 @@ class ::Decor::NotificationPreview < ::Lookbook::Preview
       icon: "exclamation-triangle",
       color: :warning,
       action_buttons: [
-        {
+        ::Decor::Notification::ActionButton.new(
           label: "Save",
           href: "#",
           primary: true
-        },
-        {
+        ),
+        ::Decor::Notification::ActionButton.new(
           label: "Discard",
           action_name: "discard"
-        }
+        )
       ]
     )
   end
@@ -199,24 +201,24 @@ class ::Decor::NotificationPreview < ::Lookbook::Preview
       icon: "information-circle",
       color: :info,
       action_buttons: [
-        {
+        ::Decor::Notification::ActionButton.new(
           label: "Primary",
           href: "#",
           color: :primary,
           variant: :contained
-        },
-        {
+        ),
+        ::Decor::Notification::ActionButton.new(
           label: "Outlined",
           href: "#",
           color: :secondary,
           variant: :outlined
-        },
-        {
+        ),
+        ::Decor::Notification::ActionButton.new(
           label: "Text",
           action_name: "text_action",
           color: :neutral,
           variant: :text
-        }
+        )
       ]
     )
   end
@@ -230,18 +232,18 @@ class ::Decor::NotificationPreview < ::Lookbook::Preview
       icon: "exclamation-triangle",
       color: :error,
       action_buttons: [
-        {
+        ::Decor::Notification::ActionButton.new(
           label: "Delete",
           href: "#",
           color: :danger,
           variant: :contained
-        },
-        {
+        ),
+        ::Decor::Notification::ActionButton.new(
           label: "Cancel",
           action_name: "cancel",
           color: :neutral,
           variant: :outlined
-        }
+        )
       ]
     )
   end
@@ -255,11 +257,11 @@ class ::Decor::NotificationPreview < ::Lookbook::Preview
       icon: "check-circle",
       color: :success,
       action_buttons: [
-        {
+        ::Decor::Notification::ActionButton.new(
           label: "Get Started",
           href: "#",
           primary: true
-        }
+        )
       ]
     )
   end
@@ -273,16 +275,16 @@ class ::Decor::NotificationPreview < ::Lookbook::Preview
       icon: "x-circle",
       color: :error,
       action_buttons: [
-        {
+        ::Decor::Notification::ActionButton.new(
           label: "Update Payment",
           href: "#",
-          color: :error,
+          color: :danger,
           primary: true
-        },
-        {
+        ),
+        ::Decor::Notification::ActionButton.new(
           label: "Try Again",
           action_name: "retry"
-        }
+        )
       ]
     )
   end
@@ -295,11 +297,11 @@ class ::Decor::NotificationPreview < ::Lookbook::Preview
       description: "You received a message from Sarah Johnson.",
       color: :info,
       action_buttons: [
-        {
+        ::Decor::Notification::ActionButton.new(
           label: "Reply",
           href: "#",
           primary: true
-        }
+        )
       ]
     ) do |notification|
       notification.avatar do
@@ -331,12 +333,12 @@ class ::Decor::NotificationPreview < ::Lookbook::Preview
       icon: "check-circle",
       color: :success,
       action_buttons: [
-        {
+        ::Decor::Notification::ActionButton.new(
           label: "View File",
           href: "#",
-          color: :success,
+          color: :primary,
           primary: true
-        }
+        )
       ]
     )
   end

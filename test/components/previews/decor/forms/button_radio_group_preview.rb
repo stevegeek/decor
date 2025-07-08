@@ -26,17 +26,17 @@ class ::Decor::Forms::ButtonRadioGroupPreview < ::Lookbook::Preview
     label: "Select one",
     description: nil,
     selected_choice: "yes",
-    color: nil,
-    size: nil,
-    variant: nil,
-    label_position: nil,
+    color: :primary,
+    size: :md,
+    variant: :outline,
+    label_position: :top,
     grid_span: nil,
-    floating_error_text: nil,
+    floating_error_text: false,
     value: nil,
-    required: nil,
-    disabled: nil,
+    required: false,
+    disabled: false,
     helper_text: nil,
-    hide_label_required_asterisk: nil
+    hide_label_required_asterisk: false
   )
     render ::Decor::Forms::ButtonRadioGroup.new(
       choices: [["yes", "Yes"], ["no", "No"], ["maybe", "Maybe"]],
@@ -81,18 +81,18 @@ class ::Decor::Forms::ButtonRadioGroupPreview < ::Lookbook::Preview
     label: "In a form!",
     description: nil,
     selected_choice: nil,
-    color: nil,
-    size: nil,
-    variant: nil,
+    color: :primary,
+    size: :md,
+    variant: :outline,
     show_label: true,
     label_position: :left,
     grid_span: nil,
-    floating_error_text: nil,
+    floating_error_text: false,
     value: nil,
-    required: nil,
-    disabled: nil,
+    required: false,
+    disabled: false,
     helper_text: nil,
-    hide_label_required_asterisk: nil
+    hide_label_required_asterisk: false
   )
     klass = Class.new(TypedForm) do
       def self.name
@@ -105,7 +105,7 @@ class ::Decor::Forms::ButtonRadioGroupPreview < ::Lookbook::Preview
     render_with_template(
       locals: {
         stacked_form: stacked_form,
-        model: klass.new(chosen: selected_choice),
+        model: klass.new(chosen: selected_choice || ""),
         choices: [["yes", "Yes"], ["no", "No"], ["maybe", "Maybe"]],
         label: label,
         description: description,

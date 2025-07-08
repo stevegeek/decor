@@ -2,7 +2,9 @@
 class ::Decor::SearchResultsDropdownPreview < ::Lookbook::Preview
   # Mock nav element class that implements the required interface
   class MockNavElement
-    def as_stimulus_target(target_name)
+    include Vident::StimulusComponent
+    
+    def stimulus_target(target_name)
       {"data-target" => "nav--#{target_name}"}
     end
 
@@ -16,15 +18,6 @@ class ::Decor::SearchResultsDropdownPreview < ::Lookbook::Preview
         result[:target] = "nav--#{target}"
       end
       result
-    end
-
-    # Pretend it's the right type for testing purposes
-    def is_a?(klass)
-      klass == Vident::RootComponent || super
-    end
-
-    def kind_of?(klass)
-      klass == Vident::RootComponent || super
     end
   end
 

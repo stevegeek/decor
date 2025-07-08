@@ -1,0 +1,7 @@
+<div class="space-y-4">
+  <% modals.each do |modal_data| %>
+    <%= render modal_data[:modal] do %>
+      <%= modal_data[:content] %>
+    <% end %>
+  <% end %>
+</div>

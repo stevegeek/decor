@@ -9,15 +9,15 @@ class ::Decor::LinkPreview < ::Lookbook::Preview
   # @label Playground
   # @param label text
   # @param href text
-  # @param theme select {choices: [primary, secondary, danger, warning, neutral]}
+  # @param color select {choices: [primary, secondary, danger, warning, neutral]}
   # @param size select {choices: [large, medium, small, micro]}
   # @param disabled toggle
   # @param icon select [~, check-circle, x, check, download, play]
-  def playground(label: "Click me", href: "#", theme: :primary, size: :medium, disabled: false, icon: nil)
+  def playground(label: "Click me", href: "#", color: :primary, size: :medium, disabled: false, icon: nil)
     render ::Decor::Link.new(
       label: label,
       href: href,
-      theme: theme.to_sym,
+      color: color.to_sym,
       size: size.to_sym,
       disabled: disabled,
       icon: icon.present? ? icon : nil
@@ -27,31 +27,31 @@ class ::Decor::LinkPreview < ::Lookbook::Preview
   # @group Themes
   # @label Primary Theme
   def theme_primary
-    render ::Decor::Link.new(label: "Primary Link", href: "#", theme: :primary)
+    render ::Decor::Link.new(label: "Primary Link", href: "#", color: :primary)
   end
 
   # @group Themes
   # @label Secondary Theme
   def theme_secondary
-    render ::Decor::Link.new(label: "Secondary Link", href: "#", theme: :secondary)
+    render ::Decor::Link.new(label: "Secondary Link", href: "#", color: :secondary)
   end
 
   # @group Themes
   # @label Danger Theme
   def theme_danger
-    render ::Decor::Link.new(label: "Danger Link", href: "#", theme: :danger)
+    render ::Decor::Link.new(label: "Danger Link", href: "#", color: :danger)
   end
 
   # @group Themes
   # @label Warning Theme
   def theme_warning
-    render ::Decor::Link.new(label: "Warning Link", href: "#", theme: :warning)
+    render ::Decor::Link.new(label: "Warning Link", href: "#", color: :warning)
   end
 
   # @group Themes
   # @label Neutral Theme
   def theme_neutral
-    render ::Decor::Link.new(label: "Neutral Link", href: "#", theme: :neutral)
+    render ::Decor::Link.new(label: "Neutral Link", href: "#", color: :neutral)
   end
 
   # @group Sizes
@@ -99,19 +99,19 @@ class ::Decor::LinkPreview < ::Lookbook::Preview
   # @group Disabled States
   # @label Disabled Primary
   def disabled_primary
-    render ::Decor::Link.new(label: "Disabled Primary", href: "#", theme: :primary, disabled: true)
+    render ::Decor::Link.new(label: "Disabled Primary", href: "#", color: :primary, disabled: true)
   end
 
   # @group Disabled States
   # @label Disabled Secondary
   def disabled_secondary
-    render ::Decor::Link.new(label: "Disabled Secondary", href: "#", theme: :secondary, disabled: true)
+    render ::Decor::Link.new(label: "Disabled Secondary", href: "#", color: :secondary, disabled: true)
   end
 
   # @group Disabled States
   # @label Disabled Danger
   def disabled_danger
-    render ::Decor::Link.new(label: "Disabled Danger", href: "#", theme: :danger, disabled: true)
+    render ::Decor::Link.new(label: "Disabled Danger", href: "#", color: :danger, disabled: true)
   end
 
   # @group External Links
@@ -135,19 +135,19 @@ class ::Decor::LinkPreview < ::Lookbook::Preview
   # @group Turbo Methods
   # @label DELETE Request
   def turbo_delete
-    render ::Decor::Link.new(label: "DELETE request", href: "/delete-item", http_method: :delete, theme: :danger)
+    render ::Decor::Link.new(label: "DELETE request", href: "/delete-item", http_method: :delete, color: :danger)
   end
 
   # @group Turbo Methods
   # @label POST Request
   def turbo_post
-    render ::Decor::Link.new(label: "POST request", href: "/create-item", http_method: :post, theme: :primary)
+    render ::Decor::Link.new(label: "POST request", href: "/create-item", http_method: :post, color: :primary)
   end
 
   # @group Turbo Methods
   # @label PATCH Request
   def turbo_patch
-    render ::Decor::Link.new(label: "PATCH request", href: "/update-item", http_method: :patch, theme: :secondary)
+    render ::Decor::Link.new(label: "PATCH request", href: "/update-item", http_method: :patch, color: :secondary)
   end
 
   # @group Turbo Frames
@@ -176,7 +176,7 @@ class ::Decor::LinkPreview < ::Lookbook::Preview
       href: "/dangerous-action",
       http_method: :delete,
       turbo_confirm: "Are you sure you want to delete this?",
-      theme: :danger
+      color: :danger
     )
   end
 

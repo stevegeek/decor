@@ -5,7 +5,7 @@ module Decor
     class Form < PhlexComponent
       include ::Phlex::Rails::Helpers::FormWith
 
-      prop :model, _Any, default: -> { false }
+      prop :model, _Nilable(_Any), default: -> { false }
       prop :url, _Nilable(String)
       prop :local, _Boolean, default: true
       prop :http_method, _Nilable(_Interface(:to_s))

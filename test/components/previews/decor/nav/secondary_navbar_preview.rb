@@ -31,7 +31,7 @@ class ::Decor::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
 
       if has_center_element
         navbar.with_center do
-          render ::Decor::Element.new(options: {element_tag: :span, html_options: {class: "text-sm font-medium text-base-content"}}) do
+          render ::Decor::Element.new(root_element_attributes: {element_tag: :span, html_root_element_attributes: {class: "text-sm font-medium text-base-content"}}) do
             "Secondary Navigation Center"
           end
         end
@@ -39,7 +39,7 @@ class ::Decor::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
 
       if has_right_element
         navbar.with_right do
-          render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "flex gap-2"}}) do
+          render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "flex gap-2"}}) do
             render ::Decor::Button.new(label: "Action", size: :sm, variant: :outlined)
             render ::Decor::Button.new(label: "Primary", size: :sm)
           end
@@ -52,22 +52,22 @@ class ::Decor::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
 
   # @label DaisyUI Secondary Navigation
   def daisyui_styling
-    render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "space-y-6"}}) do
+    render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "space-y-6"}}) do
       # Wide variant with border
       render ::Decor::Nav::SecondaryNavbar.new(variant: :wide, bottom_border: true) do |navbar|
         navbar.with_left do
-          render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "flex items-center gap-3"}}) do
-            render ::Decor::Element.new(options: {element_tag: :h1, html_options: {class: "text-lg font-semibold text-base-content"}}) do
+          render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "flex items-center gap-3"}}) do
+            render ::Decor::Element.new(root_element_attributes: {element_tag: :h1, html_root_element_attributes: {class: "text-lg font-semibold text-base-content"}}) do
               "Dashboard Overview"
             end
-            render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "badge badge-primary badge-sm"}}) do
+            render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "badge badge-primary badge-sm"}}) do
               "New"
             end
           end
         end
 
         navbar.with_right do
-          render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "flex items-center gap-2"}}) do
+          render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "flex items-center gap-2"}}) do
             render ::Decor::Button.new(label: "Export", size: :sm, variant: :outlined, icon: "download")
             render ::Decor::Button.new(label: "Settings", size: :sm, icon: "cog")
           end
@@ -87,25 +87,25 @@ class ::Decor::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
         end
 
         navbar.with_center do
-          render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "tabs tabs-boxed"}}) do
-            render ::Decor::Element.new(options: {element_tag: :a, html_options: {class: "tab tab-active"}}) { "Overview" }
-            render ::Decor::Element.new(options: {element_tag: :a, html_options: {class: "tab"}}) { "Details" }
-            render ::Decor::Element.new(options: {element_tag: :a, html_options: {class: "tab"}}) { "Charts" }
+          render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "tabs tabs-boxed"}}) do
+            render ::Decor::Element.new(root_element_attributes: {element_tag: :a, html_root_element_attributes: {class: "tab tab-active"}}) { "Overview" }
+            render ::Decor::Element.new(root_element_attributes: {element_tag: :a, html_root_element_attributes: {class: "tab"}}) { "Details" }
+            render ::Decor::Element.new(root_element_attributes: {element_tag: :a, html_root_element_attributes: {class: "tab"}}) { "Charts" }
           end
         end
 
         navbar.with_right do
-          render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "dropdown dropdown-end"}}) do
-            render ::Decor::Element.new(options: {element_tag: :button, html_options: {class: "btn btn-sm btn-ghost", tabindex: "0"}}) do
-              render ::Decor::Icon.new(name: "chevron-down", html_options: {class: "h-4 w-4 ml-1"})
+          render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "dropdown dropdown-end"}}) do
+            render ::Decor::Element.new(root_element_attributes: {element_tag: :button, html_root_element_attributes: {class: "btn btn-sm btn-ghost", tabindex: "0"}}) do
+              render ::Decor::Icon.new(name: "chevron-down", html_root_element_attributes: {class: "h-4 w-4 ml-1"})
             end
           end
         end
       end
 
       # DaisyUI feature explanation
-      render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "alert alert-info"}}) do
-        render ::Decor::Element.new(options: {element_tag: :div}) do
+      render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "alert alert-info"}}) do
+        render ::Decor::Element.new(root_element_attributes: {element_tag: :div}) do
           strong { "DaisyUI Features:" }
           ul(class: "list-disc list-inside mt-2 space-y-1") do
             li { code(class: "bg-base-200 px-2 py-1 rounded text-sm") { "navbar" } + " base component with semantic structure" }
@@ -134,7 +134,7 @@ class ::Decor::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
       end
 
       navbar.with_right do
-        render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "flex items-center gap-1"}}) do
+        render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "flex items-center gap-1"}}) do
           render ::Decor::Button.new(label: "Edit", size: :sm, variant: :outlined, icon: "pencil")
           render ::Decor::Button.new(label: "Add Product", size: :sm, icon: "plus")
         end
@@ -146,22 +146,22 @@ class ::Decor::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
   def action_toolbar
     render ::Decor::Nav::SecondaryNavbar.new(variant: :wide, bottom_border: true) do |navbar|
       navbar.with_left do
-        render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "flex items-center gap-4"}}) do
-          render ::Decor::Element.new(options: {element_tag: :h2, html_options: {class: "text-xl font-bold text-base-content"}}) do
+        render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "flex items-center gap-4"}}) do
+          render ::Decor::Element.new(root_element_attributes: {element_tag: :h2, html_root_element_attributes: {class: "text-xl font-bold text-base-content"}}) do
             "User Management"
           end
-          render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "stats stats-horizontal shadow-sm"}}) do
-            render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "stat"}}) do
-              render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "stat-title text-xs"}}) { "Total Users" }
-              render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "stat-value text-sm text-primary"}}) { "1,234" }
+          render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "stats stats-horizontal shadow-sm"}}) do
+            render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "stat"}}) do
+              render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "stat-title text-xs"}}) { "Total Users" }
+              render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "stat-value text-sm text-primary"}}) { "1,234" }
             end
           end
         end
       end
 
       navbar.with_right do
-        render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "flex items-center gap-2"}}) do
-          render ::Decor::Element.new(options: {element_tag: :input, html_options: {
+        render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "flex items-center gap-2"}}) do
+          render ::Decor::Element.new(root_element_attributes: {element_tag: :input, html_root_element_attributes: {
             type: "search",
             placeholder: "Search users...",
             class: "input input-bordered input-sm w-64"
@@ -177,17 +177,17 @@ class ::Decor::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
   def with_tabs
     render ::Decor::Nav::SecondaryNavbar.new(variant: :narrow, bottom_border: true) do |navbar|
       navbar.with_left do
-        render ::Decor::Element.new(options: {element_tag: :h3, html_options: {class: "text-lg font-semibold text-base-content"}}) do
+        render ::Decor::Element.new(root_element_attributes: {element_tag: :h3, html_root_element_attributes: {class: "text-lg font-semibold text-base-content"}}) do
           "Project Settings"
         end
       end
 
       navbar.with_center do
-        render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "tabs tabs-lifted"}}) do
-          render ::Decor::Element.new(options: {element_tag: :a, html_options: {class: "tab tab-active"}}) { "General" }
-          render ::Decor::Element.new(options: {element_tag: :a, html_options: {class: "tab"}}) { "Team" }
-          render ::Decor::Element.new(options: {element_tag: :a, html_options: {class: "tab"}}) { "Integrations" }
-          render ::Decor::Element.new(options: {element_tag: :a, html_options: {class: "tab"}}) { "Advanced" }
+        render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "tabs tabs-lifted"}}) do
+          render ::Decor::Element.new(root_element_attributes: {element_tag: :a, html_root_element_attributes: {class: "tab tab-active"}}) { "General" }
+          render ::Decor::Element.new(root_element_attributes: {element_tag: :a, html_root_element_attributes: {class: "tab"}}) { "Team" }
+          render ::Decor::Element.new(root_element_attributes: {element_tag: :a, html_root_element_attributes: {class: "tab"}}) { "Integrations" }
+          render ::Decor::Element.new(root_element_attributes: {element_tag: :a, html_root_element_attributes: {class: "tab"}}) { "Advanced" }
         end
       end
 
@@ -205,7 +205,7 @@ class ::Decor::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
   def minimal_left
     render ::Decor::Nav::SecondaryNavbar.new(variant: :narrow) do |navbar|
       navbar.with_left do
-        render ::Decor::Element.new(options: {element_tag: :h2, html_options: {class: "text-lg font-semibold text-base-content"}}) do
+        render ::Decor::Element.new(root_element_attributes: {element_tag: :h2, html_root_element_attributes: {class: "text-lg font-semibold text-base-content"}}) do
           "Page Title"
         end
       end
@@ -216,10 +216,10 @@ class ::Decor::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
   def center_only
     render ::Decor::Nav::SecondaryNavbar.new(variant: :narrow) do |navbar|
       navbar.with_center do
-        render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "tabs tabs-boxed"}}) do
-          render ::Decor::Element.new(options: {element_tag: :a, html_options: {class: "tab tab-active"}}) { "Tab 1" }
-          render ::Decor::Element.new(options: {element_tag: :a, html_options: {class: "tab"}}) { "Tab 2" }
-          render ::Decor::Element.new(options: {element_tag: :a, html_options: {class: "tab"}}) { "Tab 3" }
+        render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "tabs tabs-boxed"}}) do
+          render ::Decor::Element.new(root_element_attributes: {element_tag: :a, html_root_element_attributes: {class: "tab tab-active"}}) { "Tab 1" }
+          render ::Decor::Element.new(root_element_attributes: {element_tag: :a, html_root_element_attributes: {class: "tab"}}) { "Tab 2" }
+          render ::Decor::Element.new(root_element_attributes: {element_tag: :a, html_root_element_attributes: {class: "tab"}}) { "Tab 3" }
         end
       end
     end
@@ -229,7 +229,7 @@ class ::Decor::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
   def right_actions
     render ::Decor::Nav::SecondaryNavbar.new(variant: :narrow) do |navbar|
       navbar.with_right do
-        render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "flex gap-2"}}) do
+        render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "flex gap-2"}}) do
           render ::Decor::Button.new(label: "Cancel", size: :sm, variant: :outlined)
           render ::Decor::Button.new(label: "Save", size: :sm)
         end

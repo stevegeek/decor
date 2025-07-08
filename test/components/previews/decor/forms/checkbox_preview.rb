@@ -30,18 +30,18 @@ class ::Decor::Forms::CheckboxPreview < ::Lookbook::Preview
     name: "checkbox-1",
     label: "Check me!",
     description: nil,
-    label_position: nil,
+    label_position: :right,
     grid_span: nil,
-    compact: nil,
-    floating_error_text: nil,
+    compact: false,
+    floating_error_text: false,
     placeholder: nil,
     value: nil,
-    required: nil,
-    disabled: nil,
+    required: false,
+    disabled: false,
     helper_text: nil,
-    hide_label_required_asterisk: nil,
-    checked: nil,
-    part_of_group: nil,
+    hide_label_required_asterisk: false,
+    checked: false,
+    part_of_group: false,
     color: :primary,
     size: :md
   )
@@ -92,15 +92,15 @@ class ::Decor::Forms::CheckboxPreview < ::Lookbook::Preview
     show_label: true,
     label_position: :left,
     grid_span: nil,
-    compact: nil,
-    floating_error_text: nil,
+    compact: false,
+    floating_error_text: false,
     placeholder: nil,
     value: nil,
-    required: nil,
-    disabled: nil,
+    required: false,
+    disabled: false,
     helper_text: nil,
-    hide_label_required_asterisk: nil,
-    checked: nil
+    hide_label_required_asterisk: false,
+    checked: false
   )
     klass = Class.new(TypedForm) do
       def self.name

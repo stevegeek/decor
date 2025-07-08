@@ -31,26 +31,26 @@ class ::Decor::Forms::FileUploadPreview < ::Lookbook::Preview
   # @param size select [xs, sm, md, lg, xl]
   def playground(
     variant: :file,
-    preview_layout: nil,
+    preview_layout: :inline,
     name: "file-upload-1",
     label: "Upload a file!",
-    label_position: nil,
+    label_position: :top,
     grid_span: nil,
     floating_error_text: false,
     value: nil,
-    required: nil,
-    disabled: nil,
+    required: false,
+    disabled: false,
     helper_text: nil,
-    hide_label_required_asterisk: nil,
+    hide_label_required_asterisk: false,
     description: "Max 1MB",
-    file_mime_types: nil,
+    file_mime_types: "image/*",
     initials: "-",
     shape: :circle,
     image: nil,
-    max_size_in_mb: nil,
+    max_size_in_mb: 5,
     aspect_w: nil,
     aspect_h: nil,
-    clear_checkbox: nil,
+    clear_checkbox: false,
     existing_file_url: nil,
     color: :primary,
     size: :md
@@ -116,11 +116,11 @@ class ::Decor::Forms::FileUploadPreview < ::Lookbook::Preview
     helper_text: nil,
     hide_label_required_asterisk: nil,
     description: "Max 1MB",
-    file_mime_types: nil,
+    file_mime_types: "image/*",
     initials: "-",
     shape: :circle,
     profile_image: nil,
-    max_size_in_mb: nil,
+    max_size_in_mb: 5,
     button_label: nil,
     has_clear_checkbox: nil
   )
@@ -129,12 +129,12 @@ class ::Decor::Forms::FileUploadPreview < ::Lookbook::Preview
         "TestClass"
       end
 
-      prop :pic, :any
+      prop :pic, _Nilable(_Any)
     end
 
     render_with_template(
       locals: {
-        model: klass.new,
+        model: klass.new(pic: ""),
         stacked_form: stacked_form,
         label: label,
         label_position: label_position,

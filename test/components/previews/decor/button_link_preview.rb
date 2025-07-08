@@ -13,7 +13,7 @@ class ::Decor::ButtonLinkPreview < ::Lookbook::Preview
   # @param disabled toggle
   # @param icon select [~, check-circle, x, check, download, play]
   # @param variant select [contained, outlined, text]
-  # @param theme select [primary, secondary, danger, warning, neutral]
+  # @param color select [primary, secondary, danger, warning, neutral]
   # @param size select [medium, large, wide, small, micro]
   # @param full_width toggle
   def playground(
@@ -22,7 +22,7 @@ class ::Decor::ButtonLinkPreview < ::Lookbook::Preview
     http_method: :get,
     icon: nil,
     variant: :contained,
-    theme: :primary,
+    color: :primary,
     size: :medium,
     disabled: false,
     full_width: false
@@ -33,7 +33,7 @@ class ::Decor::ButtonLinkPreview < ::Lookbook::Preview
       http_method: http_method,
       icon: icon,
       variant: variant,
-      theme: theme,
+      color: color,
       size: size,
       disabled: disabled,
       full_width: full_width
@@ -43,31 +43,31 @@ class ::Decor::ButtonLinkPreview < ::Lookbook::Preview
   # @group Themes
   # @label Primary Theme
   def theme_primary
-    render ::Decor::ButtonLink.new(label: "Primary Link", href: "#", theme: :primary)
+    render ::Decor::ButtonLink.new(label: "Primary Link", href: "#", color: :primary)
   end
 
   # @group Themes
   # @label Secondary Theme
   def theme_secondary
-    render ::Decor::ButtonLink.new(label: "Secondary Link", href: "#", theme: :secondary)
+    render ::Decor::ButtonLink.new(label: "Secondary Link", href: "#", color: :secondary)
   end
 
   # @group Themes
   # @label Danger Theme
   def theme_danger
-    render ::Decor::ButtonLink.new(label: "Danger Link", href: "#", theme: :danger)
+    render ::Decor::ButtonLink.new(label: "Danger Link", href: "#", color: :danger)
   end
 
   # @group Themes
   # @label Warning Theme
   def theme_warning
-    render ::Decor::ButtonLink.new(label: "Warning Link", href: "#", theme: :warning)
+    render ::Decor::ButtonLink.new(label: "Warning Link", href: "#", color: :warning)
   end
 
   # @group Themes
   # @label Neutral Theme
   def theme_neutral
-    render ::Decor::ButtonLink.new(label: "Neutral Link", href: "#", theme: :neutral)
+    render ::Decor::ButtonLink.new(label: "Neutral Link", href: "#", color: :neutral)
   end
 
   # @group Variants
@@ -139,19 +139,19 @@ class ::Decor::ButtonLinkPreview < ::Lookbook::Preview
   # @group Disabled States
   # @label Disabled Primary (renders as button)
   def disabled_primary
-    render ::Decor::ButtonLink.new(label: "Disabled Primary", href: "#", theme: :primary, disabled: true)
+    render ::Decor::ButtonLink.new(label: "Disabled Primary", href: "#", color: :primary, disabled: true)
   end
 
   # @group Disabled States
   # @label Disabled Secondary (renders as button)
   def disabled_secondary
-    render ::Decor::ButtonLink.new(label: "Disabled Secondary", href: "#", theme: :secondary, disabled: true)
+    render ::Decor::ButtonLink.new(label: "Disabled Secondary", href: "#", color: :secondary, disabled: true)
   end
 
   # @group Disabled States
   # @label Disabled Danger (renders as button)
   def disabled_danger
-    render ::Decor::ButtonLink.new(label: "Disabled Danger", href: "#", theme: :danger, disabled: true)
+    render ::Decor::ButtonLink.new(label: "Disabled Danger", href: "#", color: :danger, disabled: true)
   end
 
   # @group HTTP Methods
@@ -163,19 +163,19 @@ class ::Decor::ButtonLinkPreview < ::Lookbook::Preview
   # @group HTTP Methods
   # @label POST Request
   def http_post
-    render ::Decor::ButtonLink.new(label: "POST request", href: "/create-item", http_method: :post, theme: :primary)
+    render ::Decor::ButtonLink.new(label: "POST request", href: "/create-item", http_method: :post, color: :primary)
   end
 
   # @group HTTP Methods
   # @label DELETE Request
   def http_delete
-    render ::Decor::ButtonLink.new(label: "DELETE request", href: "/delete-item", http_method: :delete, theme: :danger)
+    render ::Decor::ButtonLink.new(label: "DELETE request", href: "/delete-item", http_method: :delete, color: :danger)
   end
 
   # @group HTTP Methods
   # @label PATCH Request
   def http_patch
-    render ::Decor::ButtonLink.new(label: "PATCH request", href: "/update-item", http_method: :patch, theme: :secondary)
+    render ::Decor::ButtonLink.new(label: "PATCH request", href: "/update-item", http_method: :patch, color: :secondary)
   end
 
   # @group Turbo Features
@@ -192,7 +192,7 @@ class ::Decor::ButtonLinkPreview < ::Lookbook::Preview
       href: "/dangerous-action",
       http_method: :delete,
       turbo_confirm: "Are you sure?",
-      theme: :danger
+      color: :danger
     )
   end
 
@@ -227,7 +227,7 @@ class ::Decor::ButtonLinkPreview < ::Lookbook::Preview
   # @group External Links
   # @label Email Link
   def external_email
-    render ::Decor::ButtonLink.new(label: "Email Link", href: "mailto:test@example.com", theme: :secondary)
+    render ::Decor::ButtonLink.new(label: "Email Link", href: "mailto:test@example.com", color: :secondary)
   end
 
   # @group Combinations
@@ -237,7 +237,7 @@ class ::Decor::ButtonLinkPreview < ::Lookbook::Preview
       label: "Delete Item",
       href: "/delete",
       variant: :outlined,
-      theme: :danger,
+      color: :danger,
       http_method: :delete,
       icon: "x"
     )
@@ -250,7 +250,7 @@ class ::Decor::ButtonLinkPreview < ::Lookbook::Preview
       label: "Download File",
       href: "/download",
       variant: :text,
-      theme: :primary,
+      color: :primary,
       icon: "download"
     )
   end

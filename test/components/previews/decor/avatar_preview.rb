@@ -259,23 +259,31 @@ class ::Decor::AvatarPreview < ::Lookbook::Preview
   # @group Colors
   # @label Colorful Team
   def advanced_colorful_team
-    render ::Decor::Element.new(html_options: {class: "flex space-x-2"}) do |el|
-      el.render ::Decor::Avatar.new(initials: "JD", color: :primary, variant: :filled)
-      el.render ::Decor::Avatar.new(initials: "SM", color: :secondary, variant: :outlined)
-      el.render ::Decor::Avatar.new(initials: "AK", color: :accent, variant: :ghost)
-      el.render ::Decor::Avatar.new(initials: "TL", color: :success, variant: :filled)
-    end
+    render_with_template(
+      locals: {
+        avatars: [
+          ::Decor::Avatar.new(initials: "JD", color: :primary, variant: :filled),
+          ::Decor::Avatar.new(initials: "SM", color: :secondary, variant: :outlined),
+          ::Decor::Avatar.new(initials: "AK", color: :accent, variant: :ghost),
+          ::Decor::Avatar.new(initials: "TL", color: :success, variant: :filled)
+        ]
+      }
+    )
   end
 
   # @group Colors
   # @label Color does not affect images unless there is a border
   def advanced_image_color_no_effect
-    render ::Decor::Element.new(html_options: {class: "flex space-x-2"}) do |el|
-      el.render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :primary)
-      el.render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :primary, border: true)
-      el.render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :secondary)
-      el.render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :secondary, border: true)
-    end
+    render_with_template(
+      locals: {
+        avatars: [
+          ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :primary),
+          ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :primary, border: true),
+          ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :secondary),
+          ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :secondary, border: true)
+        ]
+      }
+    )
   end
 
   # @group Variants

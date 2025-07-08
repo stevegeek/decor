@@ -5,8 +5,8 @@ module Decor
     module Builder
       class Cell < ::Literal::Struct
         prop :column, ::Decor::Tables::Builder::Column
-        prop :data, _Any
-        prop :untransformed, _Any
+        prop :data, _Nilable(_Any)
+        prop :untransformed, _Nilable(_Any)
         prop :item_index, _Nilable(Integer)
         prop :row_height, _Nilable(Symbol)
 

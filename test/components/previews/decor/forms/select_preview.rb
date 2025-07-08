@@ -32,17 +32,17 @@ class ::Decor::Forms::SelectPreview < ::Lookbook::Preview
     label: "Select one:",
     description: nil,
     value: nil,
-    required: nil,
-    disabled: nil,
+    required: false,
+    disabled: false,
     helper_text: nil,
-    hide_label_required_asterisk: nil,
+    hide_label_required_asterisk: false,
     compact: false,
     label_position: :top,
     grid_span: nil,
-    floating_error_text: nil,
+    floating_error_text: false,
     placeholder: nil,
     selected_option: nil,
-    include_blank_option: nil,
+    include_blank_option: false,
     disable_blank_option: true,
     color: :primary,
     size: :md
@@ -74,7 +74,7 @@ class ::Decor::Forms::SelectPreview < ::Lookbook::Preview
       required: required,
       disabled: disabled,
       helper_text: helper_text,
-      hide_label_required_asterisk: hide_label_required_asterisk,
+      hide_required_asterisk: hide_label_required_asterisk,
       compact: compact,
       label_position: label_position,
       grid_span: grid_span,
@@ -139,7 +139,7 @@ class ::Decor::Forms::SelectPreview < ::Lookbook::Preview
 
     render_with_template(
       locals: {
-        model: klass.new(option: selected_option),
+        model: klass.new(option: selected_option || ""),
         options: ::Decor::Forms::Select.map_options_for_select(
           [
             {
@@ -169,7 +169,7 @@ class ::Decor::Forms::SelectPreview < ::Lookbook::Preview
         required: required,
         disabled: disabled,
         helper_text: helper_text,
-        hide_label_required_asterisk: hide_label_required_asterisk,
+        hide_required_asterisk: hide_label_required_asterisk,
         compact: compact,
         label_position: label_position,
         grid_span: grid_span,

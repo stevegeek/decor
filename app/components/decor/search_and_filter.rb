@@ -90,12 +90,12 @@ module Decor
 
             if @filters.present?
               render ::Decor::Dropdown.new(
-                menu_position: :aligned_to_right,
-                menu_classes: ["top-10"],
-                dropdown_size_classes: ["min-w-[250px]"],
+                position: :right,
                 stimulus_outlet_host: el
               ) do |dropdown|
-                dropdown.with_button do
+                filters_active = filters_on?
+                component_filters = @filters
+                dropdown.trigger_button do
                   button(
                     type: "button",
                     class: "-ml-px relative inline-flex items-center px-4 py-2 mt-4 sm:mt-0 w-full sm:w-auto border border-gray-300 text-sm font-medium #{@search.present? ? "rounded-md sm:rounded-r-md sm:rounded-l-none" : "rounded-md"} text-gray-700 bg-white sm:bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500",
@@ -103,7 +103,7 @@ module Decor
                   ) do
                     render ::Decor::Icon.new(
                       name: "filter",
-                      variant: filters_on? ? :solid : :outline,
+                      variant: filters_active ? :solid : :outline,
                       html_options: {class: "h-5 w-5 text-gray-400"}
                     )
 
@@ -112,9 +112,9 @@ module Decor
                   end
                 end
 
-                dropdown.with_menu_content do
+                dropdown.menu_content do
                   div(class: "space-y-2 p-4") do
-                    @filters.each do |filter|
+                    component_filters.each do |filter|
                       case filter.type
                       when :select
                         render ::Decor::Forms::Select.new(
@@ -123,7 +123,7 @@ module Decor
                           value: filter.value,
                           options_array: filter.options,
                           selected_option: filter.value,
-                          disabled: filter.disabled?,
+                          disabled: filter.disabled,
                           disabled_options: filter.disabled_options,
                           disable_blank_option: false,
                           label_position: :inside,
@@ -136,7 +136,7 @@ module Decor
                           name: filter.name,
                           label: filter.label,
                           checked: filter.value == "true",
-                          disabled: filter.disabled?,
+                          disabled: filter.disabled,
                           collapsing_helper_text: true,
                           classes: "pt-2 w-full",
                           stimulus_outlet_host: el
@@ -147,7 +147,7 @@ module Decor
                           name: filter.name,
                           label: filter.label,
                           value: filter.value,
-                          disabled: filter.disabled?,
+                          disabled: filter.disabled,
                           collapsing_helper_text: true,
                           control_actions: [
                             stimulus_action(:focus, :handle_range_picker)
@@ -160,7 +160,7 @@ module Decor
                   end
 
                   div(class: "space-y-4 p-4 border-t border-gray-200") do
-                    if filters_on?
+                    if filters_active
                       render ::Decor::Button.new(
                         label: "Clear filters",
                         stimulus_targets: [stimulus_target(:clear_filters_button)],

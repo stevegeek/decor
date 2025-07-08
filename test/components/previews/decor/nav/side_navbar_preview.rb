@@ -78,7 +78,7 @@ class ::Decor::Nav::SideNavbarPreview < ::Lookbook::Preview
 
   # @label DaisyUI Menu Components
   def expanded_daisyui
-    render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "flex h-screen"}}) do
+    render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "flex h-screen"}}) do
       render ::Decor::Nav::SideNavbar.new(
         landscape_logo_url: "https://via.placeholder.com/200x50/00D7FF/FFFFFF?text=DaisyUI",
         avatar_logo_url: "https://via.placeholder.com/50x50/00D7FF/FFFFFF?text=D",
@@ -106,12 +106,12 @@ class ::Decor::Nav::SideNavbarPreview < ::Lookbook::Preview
         end
       end
 
-      render ::Decor::Element.new(options: {element_tag: :main, html_options: {class: "flex-1 p-6 bg-base-100 ml-72"}}) do
-        render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "max-w-4xl"}}) do
+      render ::Decor::Element.new(root_element_attributes: {element_tag: :main, html_root_element_attributes: {class: "flex-1 p-6 bg-base-100 ml-72"}}) do
+        render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "max-w-4xl"}}) do
           h1(class: "text-3xl font-bold text-base-content mb-4") { "DaisyUI Menu Classes" }
 
-          render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "alert alert-info mb-6"}}) do
-            render ::Decor::Element.new(options: {element_tag: :div}) do
+          render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "alert alert-info mb-6"}}) do
+            render ::Decor::Element.new(root_element_attributes: {element_tag: :div}) do
               strong { "DaisyUI Features:" }
               ul(class: "list-disc list-inside mt-2 space-y-1") do
                 li { code(class: "bg-base-200 px-2 py-1 rounded text-sm") { "menu" } + " and " + code(class: "bg-base-200 px-2 py-1 rounded text-sm") { "menu-vertical" } + " for structure" }
@@ -129,7 +129,7 @@ class ::Decor::Nav::SideNavbarPreview < ::Lookbook::Preview
 
   # @label Collapsed Icon-Only Mode
   def collapsed_daisyui
-    render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "flex h-screen"}}) do
+    render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "flex h-screen"}}) do
       render ::Decor::Nav::SideNavbar.new(
         landscape_logo_url: "https://via.placeholder.com/200x50/00D7FF/FFFFFF?text=DaisyUI",
         avatar_logo_url: "https://via.placeholder.com/50x50/00D7FF/FFFFFF?text=D",
@@ -143,7 +143,7 @@ class ::Decor::Nav::SideNavbarPreview < ::Lookbook::Preview
         end
       end
 
-      render ::Decor::Element.new(options: {element_tag: :main, html_options: {class: "flex-1 p-6 bg-base-100 ml-20"}}) do
+      render ::Decor::Element.new(root_element_attributes: {element_tag: :main, html_root_element_attributes: {class: "flex-1 p-6 bg-base-100 ml-20"}}) do
         h1(class: "text-3xl font-bold text-base-content mb-4") { "Collapsed Sidebar Mode" }
         p(class: "text-base-content/70") { "Icons only, titles appear on hover. Click the expand button to see full menu." }
       end
@@ -152,7 +152,7 @@ class ::Decor::Nav::SideNavbarPreview < ::Lookbook::Preview
 
   # @label Active States and Badges
   def active_states_and_badges
-    render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "flex h-screen"}}) do
+    render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "flex h-screen"}}) do
       render ::Decor::Nav::SideNavbar.new(
         landscape_logo_url: "https://via.placeholder.com/200x50/570DF8/FFFFFF?text=ACTIVE",
         avatar_logo_url: "https://via.placeholder.com/50x50/570DF8/FFFFFF?text=A",
@@ -180,37 +180,37 @@ class ::Decor::Nav::SideNavbarPreview < ::Lookbook::Preview
         end
       end
 
-      render ::Decor::Element.new(options: {element_tag: :main, html_options: {class: "flex-1 p-6 bg-base-100 ml-72"}}) do
-        render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "bg-primary text-primary-content p-6 rounded-lg mb-6"}}) do
+      render ::Decor::Element.new(root_element_attributes: {element_tag: :main, html_root_element_attributes: {class: "flex-1 p-6 bg-base-100 ml-72"}}) do
+        render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "bg-primary text-primary-content p-6 rounded-lg mb-6"}}) do
           h1(class: "text-2xl font-bold") { "Active States & Badge Examples" }
           p(class: "opacity-90 mt-2") { "Demonstrating DaisyUI active states and badge styling" }
         end
 
-        render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6"}}) do
-          render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "stat bg-base-100 shadow rounded-lg"}}) do
-            render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "stat-title"}}) { "Active Items" }
-            render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "stat-value text-primary"}}) { "2" }
-            render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "stat-desc"}}) { "Currently selected" }
+        render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6"}}) do
+          render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "stat bg-base-100 shadow rounded-lg"}}) do
+            render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "stat-title"}}) { "Active Items" }
+            render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "stat-value text-primary"}}) { "2" }
+            render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "stat-desc"}}) { "Currently selected" }
           end
 
-          render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "stat bg-base-100 shadow rounded-lg"}}) do
-            render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "stat-title"}}) { "Badge Count" }
-            render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "stat-value text-secondary"}}) { "1339" }
-            render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "stat-desc"}}) { "Total notifications" }
+          render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "stat bg-base-100 shadow rounded-lg"}}) do
+            render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "stat-title"}}) { "Badge Count" }
+            render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "stat-value text-secondary"}}) { "1339" }
+            render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "stat-desc"}}) { "Total notifications" }
           end
 
-          render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "stat bg-base-100 shadow rounded-lg"}}) do
-            render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "stat-title"}}) { "Menu Items" }
-            render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "stat-value text-accent"}}) { "8" }
-            render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "stat-desc"}}) { "Total available" }
+          render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "stat bg-base-100 shadow rounded-lg"}}) do
+            render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "stat-title"}}) { "Menu Items" }
+            render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "stat-value text-accent"}}) { "8" }
+            render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "stat-desc"}}) { "Total available" }
           end
         end
 
-        render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "space-y-4"}}) do
+        render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "space-y-4"}}) do
           h2(class: "text-xl font-semibold text-base-content") { "DaisyUI Features in Action" }
 
-          render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "grid grid-cols-1 md:grid-cols-2 gap-4"}}) do
-            render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "alert alert-success"}}) do
+          render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "grid grid-cols-1 md:grid-cols-2 gap-4"}}) do
+            render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "alert alert-success"}}) do
               strong { "Active States: " }
               plain "Items with "
               code(class: "bg-base-200 px-1 rounded") { "selected: true" }
@@ -220,7 +220,7 @@ class ::Decor::Nav::SideNavbarPreview < ::Lookbook::Preview
               code(class: "bg-base-200 px-1 rounded") { "text-primary-content" }
             end
 
-            render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "alert alert-info"}}) do
+            render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "alert alert-info"}}) do
               strong { "Badges: " }
               plain "Counter values styled with "
               code(class: "bg-base-200 px-1 rounded") { "badge-primary" }

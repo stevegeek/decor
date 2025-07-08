@@ -5,7 +5,7 @@ module Decor
     class FormFieldLayout < FormChild
       prop :input_container_classes, _Nilable(String), default: "", reader: :private
 
-      prop :form_field_element, _Any
+      prop :form_field_element, _Nilable(_Any)
 
       # The HTML ID of the form field.
       prop :field_id, _String(&:present?)

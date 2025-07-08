@@ -102,9 +102,7 @@ class ::Decor::Forms::FormPreview < ::Lookbook::Preview
     render ::Decor::Forms::Form.new(
       model: model,
       url: "#",
-      local: false, # AJAX form
-      on_success: "form--feedback#onSuccess",
-      on_error: "form--feedback#onError"
+      local: false # AJAX form
     ) do |form|
       form.render ::Decor::Element.new do |el|
         el.h3(class: "text-md font-medium") { "AJAX Form Example" }

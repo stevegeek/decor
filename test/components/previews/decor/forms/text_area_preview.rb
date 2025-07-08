@@ -33,16 +33,16 @@ class ::Decor::Forms::TextAreaPreview < ::Lookbook::Preview
     label: "What is your story?",
     description: nil,
     value: nil,
-    required: nil,
-    disabled: nil,
+    required: false,
+    disabled: false,
     helper_text: nil,
-    hide_label_required_asterisk: nil,
+    hide_label_required_asterisk: false,
     compact: false,
     label_position: :top,
     grid_span: nil,
-    floating_error_text: nil,
+    floating_error_text: false,
     placeholder: nil,
-    rows: nil,
+    rows: 5,
     cols: nil,
     pattern: nil,
     maximum_length: nil,
@@ -81,7 +81,6 @@ class ::Decor::Forms::TextAreaPreview < ::Lookbook::Preview
   # Form field attrs
   # @param label text
   # @param description text
-  # @param show_label toggle
   # @param compact toggle
   # @param label_position select [~, top, left, right, inline, inside]
   # @param grid_span [Symbol] select [~, span_1, span_2, span_half, span_4, span_5, span_full]
@@ -101,7 +100,6 @@ class ::Decor::Forms::TextAreaPreview < ::Lookbook::Preview
     stacked_form: true,
     label: "What is your story?",
     description: nil,
-    show_label: true,
     value: nil,
     required: nil,
     disabled: nil,
@@ -126,11 +124,10 @@ class ::Decor::Forms::TextAreaPreview < ::Lookbook::Preview
 
     render_with_template(
       locals: {
-        model: klass.new,
+        model: klass.new(text: ""),
         stacked_form: stacked_form,
         label: label,
         description: description,
-        show_label: show_label,
         value: value,
         required: required,
         disabled: disabled,

@@ -13,7 +13,6 @@ class ::Decor::Forms::ExpandingCheckboxCollectionPreview < ::Lookbook::Preview
   # @param hide_after_showing number
   # @param variant [Symbol] select [~, default, joined]
   # @param color [Symbol] select [~, primary, secondary, accent, neutral, success, warning, info, error]
-  # @param show_label toggle
   # @param required toggle
   # @param hide_label_required_asterisk toggle
   # @param disabled toggle
@@ -22,21 +21,19 @@ class ::Decor::Forms::ExpandingCheckboxCollectionPreview < ::Lookbook::Preview
   def playground(
     name: "checkbox-group-1",
     label: "Select options...",
-    show_label: true,
     size: 5,
     hide_after_showing: 3,
-    variant: nil,
-    color: nil,
+    variant: :default,
+    color: :primary,
     value: nil,
-    required: nil,
-    disabled: nil,
+    required: false,
+    disabled: false,
     helper_text: nil,
-    hide_label_required_asterisk: nil
+    hide_label_required_asterisk: false
   )
     component = ::Decor::Forms::ExpandingCheckboxCollection.new(
       name: name,
       label: label,
-      show_label: show_label,
       size: size,
       hide_after_showing: hide_after_showing,
       variant: variant,
@@ -53,7 +50,6 @@ class ::Decor::Forms::ExpandingCheckboxCollectionPreview < ::Lookbook::Preview
 
   # Form field attrs
   # @param label text
-  # @param show_label toggle
   # @param size number
   # @param hide_after_showing number
   # @param variant [Symbol] select [~, default, joined]
@@ -65,28 +61,27 @@ class ::Decor::Forms::ExpandingCheckboxCollectionPreview < ::Lookbook::Preview
   # @param value text
   def in_form(
     label: "In a form!",
-    show_label: true,
     value: nil,
     size: 5,
     hide_after_showing: 3,
-    variant: nil,
+    variant: :default,
     color: nil,
-    required: nil,
-    disabled: nil,
+    required: false,
+    disabled: false,
     helper_text: nil,
-    hide_label_required_asterisk: nil
+    hide_label_required_asterisk: false
   )
     klass = Class.new(TypedForm) do
       def self.name
         "TestClass"
       end
 
-      prop :chosen, Array, sub_type: String
+      prop :chosen, Array
     end
 
     render_with_template(
       locals: {
-        model: klass.new(chosen: nil),
+        model: klass.new(chosen: []),
         choices: [
           {value: "yes", label: "Yes"},
           {value: "no", label: "No"},
@@ -99,7 +94,6 @@ class ::Decor::Forms::ExpandingCheckboxCollectionPreview < ::Lookbook::Preview
         hide_after_showing: hide_after_showing,
         variant: variant,
         color: color,
-        show_label: show_label,
         value: value,
         required: required,
         disabled: disabled,

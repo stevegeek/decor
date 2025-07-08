@@ -110,15 +110,17 @@ class ::Decor::PaginationPreview < ::Lookbook::Preview
   def mobile_layout
     @collection = ::ApplicationCollectionBackedQuery.wrap((1..100).to_a).new(page: 3, page_size: 10)
 
-    div(class: "max-w-sm mx-auto") do
-      render ::Decor::Pagination.new(
-        current_page: 3,
-        page_size: 10,
-        path: "/",
-        page_size_selector: true,
-        collection: @collection
-      )
-    end
+    render_with_template(
+      locals: {
+        pagination: ::Decor::Pagination.new(
+          current_page: 3,
+          page_size: 10,
+          path: "/",
+          page_size_selector: true,
+          collection: @collection
+        )
+      }
+    )
   end
 
   # @group Integration
@@ -126,25 +128,16 @@ class ::Decor::PaginationPreview < ::Lookbook::Preview
   def with_data_table
     @collection = ::ApplicationCollectionBackedQuery.wrap((1..200).to_a).new(page: 4, page_size: 15)
 
-    div(class: "bg-base-100 border border-base-300 rounded-lg") do
-      div(class: "px-4 py-3 border-b border-base-300") do
-        h3(class: "text-lg font-medium text-base-content") { "Product Inventory" }
-        p(class: "text-sm text-base-content/70") { "Manage your product catalog" }
-      end
-
-      div(class: "p-4") do
-        div(class: "text-center text-base-content/70 py-8") do
-          "Table content would go here..."
-        end
-      end
-
-      render ::Decor::Pagination.new(
-        current_page: 4,
-        page_size: 15,
-        path: "/admin/products",
-        page_size_selector: true,
-        collection: @collection
-      )
-    end
+    render_with_template(
+      locals: {
+        pagination: ::Decor::Pagination.new(
+          current_page: 4,
+          page_size: 15,
+          path: "/admin/products",
+          page_size_selector: true,
+          collection: @collection
+        )
+      }
+    )
   end
 end

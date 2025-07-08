@@ -159,7 +159,7 @@ class ::Decor::BannerPreview < ::Lookbook::Preview
   def action_slot_custom
     render ::Decor::Banner.new(style: :warning) do |banner|
       banner.call_to_action do
-        banner.render ::Decor::Button.new(label: "Update Now", theme: :warning, size: :small)
+        banner.render ::Decor::Button.new(label: "Update Now", color: :warning, size: :small)
       end
       "A new version is available."
     end
@@ -171,7 +171,7 @@ class ::Decor::BannerPreview < ::Lookbook::Preview
     render ::Decor::Banner.new(style: :info) do |banner|
       banner.call_to_action do
         banner.content_tag(:div, class: "flex gap-2") do
-          banner.render ::Decor::Button.new(label: "Accept", theme: :primary, size: :small)
+          banner.render ::Decor::Button.new(label: "Accept", color: :primary, size: :small)
           banner.render ::Decor::Button.new(label: "Decline", variant: :outlined, size: :small)
         end
       end
@@ -216,7 +216,7 @@ class ::Decor::BannerPreview < ::Lookbook::Preview
   def usecase_cookie_consent
     render ::Decor::Banner.new(style: :info, link: "/privacy") do |banner|
       banner.call_to_action do
-        render ::Decor::Button.new(label: "Accept", theme: :primary, size: :small)
+        render ::Decor::Button.new(label: "Accept", color: :primary, size: :small)
       end
       "We use cookies to improve your experience."
     end

@@ -12,7 +12,7 @@ class ::Decor::Forms::HiddenFieldPreview < ::Lookbook::Preview
   # @param value text
   def playground(
     name: "text-field-1",
-    disabled: nil,
+    disabled: false,
     value: nil
   )
     render ::Decor::Forms::HiddenField.new(
@@ -28,7 +28,7 @@ class ::Decor::Forms::HiddenFieldPreview < ::Lookbook::Preview
   # @param disabled toggle
   # @param value text
   def in_form(
-    disabled: nil,
+    disabled: false,
     value: nil
   )
     klass = Class.new(TypedForm) do
@@ -41,7 +41,7 @@ class ::Decor::Forms::HiddenFieldPreview < ::Lookbook::Preview
 
     render_with_template(
       locals: {
-        model: klass.new,
+        model: klass.new(text: value || ""),
         value: value,
         disabled: disabled
       }

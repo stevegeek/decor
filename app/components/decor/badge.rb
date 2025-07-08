@@ -112,11 +112,11 @@ module Decor
     def avatar_size
       case @size
       when :small
-        :nano
+        :xs
       when :medium
-        :micro
+        :sm
       else
-        :tiny
+        :md
       end
     end
   end

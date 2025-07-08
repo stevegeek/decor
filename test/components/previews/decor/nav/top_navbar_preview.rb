@@ -4,7 +4,7 @@ class ::Decor::Nav::TopNavbarPreview < ::Lookbook::Preview
   # @param has_search toggle
   def playground(has_search: true)
     render ::Decor::Nav::TopNavbar.new(has_search: has_search) do |navbar|
-      navbar.with_account_menu(position: :right, html_options: {class: "ml-3"}) do |menu|
+      navbar.with_account_menu(position: :right, html_root_element_attributes: {class: "ml-3"}) do |menu|
         menu.trigger_button_content do
           render ::Decor::Avatar.new(initials: "CC", size: :sm)
         end
@@ -15,11 +15,11 @@ class ::Decor::Nav::TopNavbarPreview < ::Lookbook::Preview
 
       navbar.with_notifications_menu(
         position: :right,
-        html_options: {class: "mr-2"}
+        html_root_element_attributes: {class: "mr-2"}
       ) do |menu|
         menu.trigger_button_content do
           span(class: "sr-only") { "View notifications" }
-          render ::Decor::Icon.new(name: "bell", html_options: {class: "h-6 w-6"})
+          render ::Decor::Icon.new(name: "bell", html_root_element_attributes: {class: "h-6 w-6"})
         end
         menu.menu_item(render(::Decor::DropdownItem.new(text: "New message from John", href: "#")))
         menu.menu_item(render(::Decor::DropdownItem.new(text: "System update available", href: "#")))
@@ -46,7 +46,7 @@ class ::Decor::Nav::TopNavbarPreview < ::Lookbook::Preview
       # Custom brand with logo
       navbar.with_brand do
         a(href: "/", class: "btn btn-ghost text-xl font-bold") do
-          render ::Decor::Icon.new(name: "cube", html_options: {class: "h-8 w-8 mr-2"})
+          render ::Decor::Icon.new(name: "cube", html_root_element_attributes: {class: "h-8 w-8 mr-2"})
           "My App"
         end
       end
@@ -76,12 +76,12 @@ class ::Decor::Nav::TopNavbarPreview < ::Lookbook::Preview
       # Notifications menu
       navbar.with_notifications_menu(
         position: :right,
-        html_options: {class: "mr-2"}
+        html_root_element_attributes: {class: "mr-2"}
       ) do |menu|
         menu.trigger_button_content do
           div(class: "indicator") do
             span(class: "indicator-item badge badge-secondary badge-sm") { "3" }
-            render ::Decor::Icon.new(name: "bell", html_options: {class: "h-6 w-6"})
+            render ::Decor::Icon.new(name: "bell", html_root_element_attributes: {class: "h-6 w-6"})
           end
         end
         menu.menu_item(render(::Decor::DropdownItem.new(text: "📧 New message from Sarah", href: "#")))
@@ -93,10 +93,10 @@ class ::Decor::Nav::TopNavbarPreview < ::Lookbook::Preview
   end
 
   def mobile_responsive
-    render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "mockup-phone"}}) do
-      render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "camera"}})
-      render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "display"}}) do
-        render ::Decor::Element.new(options: {element_tag: :div, html_options: {class: "artboard artboard-demo phone-1"}}) do
+    render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "mockup-phone"}}) do
+      render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "camera"}})
+      render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "display"}}) do
+        render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "artboard artboard-demo phone-1"}}) do
           render ::Decor::Nav::TopNavbar.new(has_search: true) do |navbar|
             navbar.with_account_menu do |menu|
               menu.trigger_button_content do
@@ -137,8 +137,7 @@ class ::Decor::Nav::TopNavbarPreview < ::Lookbook::Preview
   def with_custom_styling
     render ::Decor::Nav::TopNavbar.new(
       has_search: true,
-      brand_text: "Dark Theme",
-      html_options: {class: "bg-primary text-primary-content"}
+      brand_text: "Dark Theme"
     ) do |navbar|
       navbar.with_nav_items do
         li { a(href: "/", class: "btn btn-ghost text-primary-content") { "Home" } }
@@ -147,7 +146,7 @@ class ::Decor::Nav::TopNavbarPreview < ::Lookbook::Preview
 
       navbar.with_account_menu(
         position: :right,
-        html_options: {class: "dropdown-end"}
+        html_root_element_attributes: {class: "dropdown-end"}
       ) do |menu|
         menu.trigger_button_content do
           render ::Decor::Avatar.new(
@@ -173,7 +172,7 @@ class ::Decor::Nav::TopNavbarPreview < ::Lookbook::Preview
     render ::Decor::Nav::TopNavbar.new(has_search: false) do |navbar|
       navbar.with_brand do
         a(href: "/", class: "btn btn-ghost text-xl") do
-          render ::Decor::Icon.new(name: "sparkles", html_options: {class: "h-8 w-8 text-accent"})
+          render ::Decor::Icon.new(name: "sparkles", html_root_element_attributes: {class: "h-8 w-8 text-accent"})
           span(class: "ml-2 font-bold text-gradient bg-gradient-to-r from-primary to-accent") { "Design Co" }
         end
       end

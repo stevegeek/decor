@@ -58,9 +58,9 @@ class ::Decor::IconPreview < ::Lookbook::Preview
   def collection_icons
     render ::Decor::Icon.new(
       name: "star",
-      collection: :icons,
+      collection: :heroicons,
       variant: :outline,
-      title: "Star Icon from Icons Collection"
+      title: "Star Icon from Heroicons Collection"
     )
   end
 
@@ -190,34 +190,46 @@ class ::Decor::IconPreview < ::Lookbook::Preview
   # @group Common Icons
   # @label Navigation Icons
   def common_navigation
-    div(class: "flex gap-4 items-center") do
-      render ::Decor::Icon.new(name: "home", title: "Home")
-      render ::Decor::Icon.new(name: "user", title: "User")
-      render ::Decor::Icon.new(name: "chevron-right", title: "Next")
-      render ::Decor::Icon.new(name: "x", title: "Close")
-    end
+    render_with_template(
+      locals: {
+        icons: [
+          { name: "home", title: "Home" },
+          { name: "user", title: "User" },
+          { name: "chevron-right", title: "Next" },
+          { name: "x", title: "Close" }
+        ]
+      }
+    )
   end
 
   # @group Common Icons
   # @label Action Icons
   def common_actions
-    div(class: "flex gap-4 items-center") do
-      render ::Decor::Icon.new(name: "plus", title: "Add")
-      render ::Decor::Icon.new(name: "minus", title: "Remove")
-      render ::Decor::Icon.new(name: "check", title: "Confirm")
-      render ::Decor::Icon.new(name: "download", title: "Download")
-    end
+    render_with_template(
+      locals: {
+        icons: [
+          ::Decor::Icon.new(name: "plus", title: "Add"),
+          ::Decor::Icon.new(name: "minus", title: "Remove"),
+          ::Decor::Icon.new(name: "check", title: "Confirm"),
+          ::Decor::Icon.new(name: "download", title: "Download")
+        ]
+      }
+    )
   end
 
   # @group Common Icons
   # @label Social Icons
   def common_social
-    div(class: "flex gap-4 items-center") do
-      render ::Decor::Icon.new(name: "heart", variant: :outline, title: "Like")
-      render ::Decor::Icon.new(name: "star", variant: :outline, title: "Favorite")
-      render ::Decor::Icon.new(name: "bell", title: "Notifications")
-      render ::Decor::Icon.new(name: "gift", title: "Gift")
-    end
+    render_with_template(
+      locals: {
+        icons: [
+          ::Decor::Icon.new(name: "heart", variant: :outline, title: "Like"),
+          ::Decor::Icon.new(name: "star", variant: :outline, title: "Favorite"),
+          ::Decor::Icon.new(name: "bell", title: "Notifications"),
+          ::Decor::Icon.new(name: "gift", title: "Gift")
+        ]
+      }
+    )
   end
 
   # @group Combinations
@@ -249,21 +261,25 @@ class ::Decor::IconPreview < ::Lookbook::Preview
   # @group Combinations
   # @label Small Solid Collection Icons
   def combo_small_solid_icons
-    div(class: "flex gap-2 items-center") do
-      render ::Decor::Icon.new(
-        name: "star",
-        collection: :icons,
-        variant: :small_solid,
-        size: :sm,
-        title: "Small Solid Star"
-      )
-      render ::Decor::Icon.new(
-        name: "heart",
-        collection: :icons,
-        variant: :small_solid,
-        size: :sm,
-        title: "Small Solid Heart"
-      )
-    end
+    render_with_template(
+      locals: {
+        icons: [
+          ::Decor::Icon.new(
+            name: "star",
+            collection: :heroicons,
+            variant: :small_solid,
+            size: :sm,
+            title: "Small Solid Star"
+          ),
+          ::Decor::Icon.new(
+            name: "heart",
+            collection: :heroicons,
+            variant: :small_solid,
+            size: :sm,
+            title: "Small Solid Heart"
+          )
+        ]
+      }
+    )
   end
 end
