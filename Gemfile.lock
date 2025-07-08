@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/parruda/claude-swarm.git
-  revision: a490398af1e5068f02673d042e97b96b314eb1de
+  revision: 0d5744a1ed5b9a33f02e9205f7fbbbc07c381881
   branch: main
   specs:
     claude_swarm (0.1.20)
