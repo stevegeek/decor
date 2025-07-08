@@ -132,8 +132,8 @@ module Decor
           # Search results dropdown (outside navbar sections)
           render ::Decor::SearchResultsDropdown.new(
             nav_element: el,
-            actions: [[:click, :clicked_search_content]],
-            targets: [:search_dropdown]
+            stimulus_actions: [[:click, :clicked_search_content]],
+            stimulus_targets: [:search_dropdown]
           )
         end
       end

@@ -124,7 +124,7 @@ module Decor
           element_tag: :td
         }
         if @colspan&.positive?
-          options[:html_options] = {colspan: @colspan}
+          attrs[:html_options] = {colspan: @colspan}
         end
         attrs
       end

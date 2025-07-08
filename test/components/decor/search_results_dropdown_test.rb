@@ -2,32 +2,8 @@ require "test_helper"
 
 class Decor::SearchResultsDropdownTest < ActiveSupport::TestCase
   def setup
-    # Create a simple object that responds to the methods we need
-    @nav_element = Object.new
-    def @nav_element.as_target(target_name)
-      {"data-target" => "nav--#{target_name}"}
-    end
-
-    def @nav_element.parse_targets(targets)
-      {controller: "nav", targets: targets}
-    end
-
-    def @nav_element.build_target_data_attributes(attrs)
-      result = {}
-      attrs[:targets]&.each do |target|
-        result[:target] = "nav--#{target}"
-      end
-      result
-    end
-
-    # Pretend it's the right type for testing purposes
-    def @nav_element.is_a?(klass)
-      klass == Vident::RootComponent || super
-    end
-
-    def @nav_element.kind_of?(klass)
-      klass == Vident::RootComponent || super
-    end
+    # Create a proper vident component for testing
+    @nav_element = Decor::Nav::TopNavbar.new
   end
 
   test "renders successfully with nav element" do
@@ -52,7 +28,7 @@ class Decor::SearchResultsDropdownTest < ActiveSupport::TestCase
     rendered = render_component(component)
 
     assert_includes rendered, "flex items-center h-full"
-    assert_includes rendered, 'data-target="nav--search_spinner"'
+    assert_includes rendered, 'data-decor--nav--top-navbar-target="searchSpinner"'
   end
 
   test "includes search dropdown content area" do
@@ -60,7 +36,7 @@ class Decor::SearchResultsDropdownTest < ActiveSupport::TestCase
     rendered = render_component(component)
 
     assert_includes rendered, "hidden max-w-7xl mx-auto px-8 h-full overflow-y-scroll lg:overflow-auto"
-    assert_includes rendered, 'data-target="nav--search_dropdown_content"'
+    assert_includes rendered, 'data-decor--nav--top-navbar-target="searchDropdownContent"'
   end
 
   test "renders spinner component" do
@@ -85,8 +61,8 @@ class Decor::SearchResultsDropdownTest < ActiveSupport::TestCase
     rendered = render_component(component)
 
     # Verify the nav element target method was called with correct parameters
-    assert_includes rendered, 'data-target="nav--search_spinner"'
-    assert_includes rendered, 'data-target="nav--search_dropdown_content"'
+    assert_includes rendered, 'data-decor--nav--top-navbar-target="searchSpinner"'
+    assert_includes rendered, 'data-decor--nav--top-navbar-target="searchDropdownContent"'
   end
 
   test "uses nokogiri for parsing" do
@@ -104,12 +80,12 @@ class Decor::SearchResultsDropdownTest < ActiveSupport::TestCase
     assert_equal "true", shadow["aria-hidden"]
 
     # Check spinner container
-    spinner_container = fragment.at_css('[data-target="nav--search_spinner"]')
+    spinner_container = fragment.at_css('[data-decor--nav--top-navbar-target="searchSpinner"]')
     assert_not_nil spinner_container
     assert_includes spinner_container["class"], "flex items-center h-full"
 
     # Check content area
-    content_area = fragment.at_css('[data-target="nav--search_dropdown_content"]')
+    content_area = fragment.at_css('[data-decor--nav--top-navbar-target="searchDropdownContent"]')
     assert_not_nil content_area
     assert_includes content_area["class"], "hidden"
   end

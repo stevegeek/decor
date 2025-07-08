@@ -11,7 +11,7 @@ module Decor
       prop :color, _Union(:primary, :secondary, :accent, :neutral, :success, :warning, :info, :error), default: :primary
 
       stimulus do
-        outlets ::Decor::Forms::Checkbox.stimulus_identifier
+        outlets checkbox: ::Decor::Forms::Checkbox.stimulus_identifier
         values label: "collection", required: -> { @required }
         classes(
           valid_label: -> { @disabled ? "text-disabled" : "text-gray-900" },

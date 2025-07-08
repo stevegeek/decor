@@ -14,7 +14,7 @@ module Decor
                 [:mouseenter, :handle_mouse_over],
                 [:mouseleave, :handle_mouse_away]
         values_from_props :collapsed
-        outlets ::Decor::Nav::SideNavbarSection.stimulus_identifier
+        outlets navbar_section: ::Decor::Nav::SideNavbarSection.stimulus_identifier
       end
 
       def with_section(**attributes, &block)
@@ -94,12 +94,12 @@ module Decor
             div(class: "flex-1 flex flex-col min-h-0 bg-base-300") do
               div(class: "h-20 flex-shrink-0 flex items-center font-righteous px-5 relative") do
                 render ::Decor::Avatar.new(
-                  targets: [el.target(:desktop_avatar_logo)],
                   size: :md,
                   initials: "C",
                   border: false,
                   url: @avatar_logo_url,
-                  html_options: {class: "hidden"}
+                  html_options: {class: "hidden"},
+                  stimulus_targets: [el.stimulus_target(:desktop_avatar_logo)]
                 )
 
                 el.tag(:div, stimulus_target: :desktop_logo) do
@@ -115,12 +115,12 @@ module Decor
                   render ::Decor::Icon.new(
                     name: "menu-alt-2",
                     html_options: {class: "h-6 w-6 #{@collapsed ? "hidden" : nil}"},
-                    targets: [el.target(:desktop_collapse_icon)]
+                    stimulus_targets: [el.stimulus_target(:desktop_collapse_icon)]
                   )
                   render ::Decor::Icon.new(
                     name: "chevron-right",
                     html_options: {class: "h-6 w-6 #{@collapsed ? "" : "hidden"}"},
-                    targets: [el.target(:desktop_expand_icon)]
+                    stimulus_targets: [el.stimulus_target(:desktop_expand_icon)]
                   )
                 end
               end

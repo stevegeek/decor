@@ -2,7 +2,7 @@
 class ::Decor::SearchResultsDropdownPreview < ::Lookbook::Preview
   # Mock nav element class that implements the required interface
   class MockNavElement
-    def as_target(target_name)
+    def as_stimulus_target(target_name)
       {"data-target" => "nav--#{target_name}"}
     end
 

@@ -27,7 +27,8 @@ module Decor
           elsif options["show_label"] == false
             base[:label] = nil
           end
-          base
+          # Filter out view_context and other non-component options
+          base.except(:view_context).compact
         end
 
         def validation_attrs

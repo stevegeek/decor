@@ -25,7 +25,7 @@ module Decor
         prop :visible, _Boolean, default: true
       end
 
-      prop :company_name, _String(&:present?)
+      prop :company_name, _String(_Predicate("present", &:present?))
       prop :leads_model, _Nilable(Object)
       prop :leads_submit_path, _Nilable(String)
       prop :link_groups, Array, default: [].freeze

@@ -31,6 +31,22 @@ GIT
       activesupport (>= 7.2, < 9)
       literal (>= 1.6.0, < 2)
 
+GIT
+  remote: https://github.com/stevegeek/vident.git
+  revision: 21a95139de16133349fdf47948dc981469570ac5
+  branch: main
+  specs:
+    vident (1.0.0.alpha1)
+      activesupport (>= 7.2, < 9)
+      literal (>= 1.0, < 2)
+      railties (>= 7.2, < 9)
+    vident-phlex (1.0.0.alpha1)
+      activesupport (>= 7.2, < 9)
+      phlex (>= 2.0, < 3)
+      phlex-rails (>= 0.8.1, < 3)
+      railties (>= 7.2, < 9)
+      vident (~> 1.0.0.alpha1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -264,7 +280,7 @@ GEM
     mime-types (3.7.0)
       logger
       mime-types-data (~> 3.2025, >= 3.2025.0507)
-    mime-types-data (3.2025.0701)
+    mime-types-data (3.2025.0708)
     mini_mime (1.1.5)
     minitest (5.25.5)
     msgpack (1.8.0)
@@ -486,16 +502,6 @@ GEM
     unicode-emoji (4.0.4)
     uri (1.0.3)
     useragent (0.16.11)
-    vident (1.0.0.alpha1)
-      activesupport (>= 7.2, < 9)
-      literal (>= 1.0, < 2)
-      railties (>= 7.2, < 9)
-    vident-phlex (1.0.0.alpha1)
-      activesupport (>= 7.2, < 9)
-      phlex (>= 2.0, < 3)
-      phlex-rails (>= 0.8.1, < 3)
-      railties (>= 7.2, < 9)
-      vident (~> 1.0.0.alpha1)
     view_component (4.0.0.rc2)
       activesupport (>= 7.1.0, < 8.1)
       concurrent-ruby (~> 1)
@@ -556,8 +562,8 @@ DEPENDENCIES
   thruster
   turbo-rails
   tzinfo-data
-  vident (= 1.0.0.alpha1)
-  vident-phlex (= 1.0.0.alpha1)
+  vident!
+  vident-phlex!
   web-console
 
 BUNDLED WITH

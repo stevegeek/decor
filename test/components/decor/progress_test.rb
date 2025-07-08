@@ -161,10 +161,9 @@ class Decor::ProgressTest < ActiveSupport::TestCase
   end
 
   # Animation tests
-  test "includes animation classes when animated is true" do
+  test "includes animation classes by default" do
     component = Decor::Progress.new(
       steps: @steps,
-      animated: true,
       variant: :progress
     )
     rendered = render_component(component)

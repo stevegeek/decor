@@ -42,7 +42,7 @@ module Decor
     def view_template(&)
       @content = capture(&) if block_given?
 
-      root_element do |tip|
+      root_element do
         raw @content.html_safe if @content.present?
       end
     end
@@ -104,13 +104,14 @@ module Decor
         element_tag: :div,
         html_options: {
           data: {
-            tip: @tip_text || rendered_tip_content
+            tip: rendered_tip_content
           }
         }
       }
     end
 
     def rendered_tip_content
+      return @tip_text if @tip_text.present?
       return nil unless @tip_content
       # Render the block content to a string
       capture(&@tip_content)

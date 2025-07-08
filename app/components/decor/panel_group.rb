@@ -16,7 +16,7 @@ module Decor
     # Visual variant
     prop :variant, _Union(:filled, :outlined, :ghost), default: :filled
 
-    def after_initialize
+    def after_component_initialize
       @panels = []
     end
 

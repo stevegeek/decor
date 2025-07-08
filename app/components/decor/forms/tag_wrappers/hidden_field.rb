@@ -13,7 +13,7 @@ module Decor
         end
 
         def component_options(options)
-          merge_options({value: value}, options, FIELD_ATTRS, {type: :hidden})
+          merge_options({value: value}, options, FIELD_ATTRS, {type: :hidden}).except(:view_context).compact
         end
 
         def validation_attrs

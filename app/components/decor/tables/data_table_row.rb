@@ -67,7 +67,7 @@ module Decor
             end
           end
           @data_table_cells.each do |cell|
-            el.connect_outlet(cell)
+            add_stimulus_outlets(cell)
             render cell
           end
         end

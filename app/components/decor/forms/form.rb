@@ -9,7 +9,7 @@ module Decor
       prop :url, _Nilable(String)
       prop :local, _Boolean, default: true
       prop :http_method, _Nilable(_Interface(:to_s))
-      prop :form_builder_class, ActionView::Helpers::FormBuilder, default: -> { ActionViewFormBuilder }
+      prop :form_builder_class, _Class(ActionView::Helpers::FormBuilder), default: -> { ActionViewFormBuilder }
 
       prop :on_before, _Nilable(_Interface(:to_s))
       prop :on_before_send, _Nilable(_Interface(:to_s))
@@ -24,7 +24,6 @@ module Decor
       stimulus do
         targets :form
       end
-
 
       # The form builder is accessible as it is used to render the form fields of the form when rendering
       # component content blocks.
@@ -63,9 +62,9 @@ module Decor
             type: (@local != true) ? "json" : nil,
             **stimulus_data_attributes,
             **stimulus_actions(
-              stimulus_scoped_event(:submit, :handle_custom_submit_event),
-              stimulus_scoped_event(:validate, :handle_validate_fields_event),
-              local? ? [:submit, :handle_submit_event] : remote_form_actions
+              [stimulus_scoped_event(:submit), :handle_custom_submit_event],
+               [stimulus_scoped_event(:validate), :handle_validate_fields_event],
+              *(local? ? [[:submit, :handle_submit_event]] : remote_form_actions)
             )
           },
           builder: @form_builder_class,

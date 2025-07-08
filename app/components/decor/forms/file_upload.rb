@@ -78,8 +78,8 @@ module Decor
               div(data: {**el.stimulus_action(:change, :file_selected)}) do
                 raw(
                   file_field(
-                    attribute(:object_name),
-                    attribute(:method_name),
+                    @object_name,
+                    @method_name,
                     accept: @file_mime_types,
                     required: @required,
                     disabled: @disabled,
@@ -97,7 +97,7 @@ module Decor
             if @clear_checkbox && (file_url || @existing_file_url.present?)
               div(class: "flex items-center") do
                 checkbox = ::Decor::Forms::Checkbox.new(
-                  name: field_name(attribute(:object_name), :"#{attribute(:method_name)}_delete"),
+                  name: field_name(@object_name, :"#{@method_name}_delete"),
                   disabled: @disabled,
                   collapsing_helper_text: true,
                   classes: "#{(@preview_layout == :inline) ? "md:pl-6" : ""} inline-block w-auto",

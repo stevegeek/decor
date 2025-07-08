@@ -23,8 +23,9 @@ class Decor::TooltipTest < ActiveSupport::TestCase
   end
 
   def test_renders_custom_tooltip_content_with_slot
-    component = Decor::Tooltip.new(position: :top)
-    component.with_tip_content { "Custom tip content" }
+    component = Decor::Tooltip.new(position: :top) do |c|
+      c.with_tip_content { "Custom tip content" }
+    end
 
     rendered = render_fragment(component) { "Main content" }
 

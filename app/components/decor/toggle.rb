@@ -21,12 +21,10 @@ module Decor
             capture(&block)
           else
             render(::Decor::Forms::Switch.new(
-              model: @model,
-              property_name: @property_name,
               name: @model ? "#{@model.class.name.underscore}[#{@property_name}]" : @property_name.to_s,
+              checked: @model ? @model.public_send(@property_name) : false,
+              value: @checked_value,
               submit_on_change: true,
-              checked_value: @checked_value,
-              unchecked_value: @unchecked_value,
               **@switch_options
             ))
           end

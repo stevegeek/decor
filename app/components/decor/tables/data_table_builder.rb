@@ -1,12 +1,11 @@
 module Decor
   module Tables
-    class DataTableBuilder
-      include ::Literal::Properties
+    class DataTableBuilder < Literal::Struct
       include ::Decor::Concerns::SanitisedPaginationParams
       include ::Decor::Concerns::SanitisedSortAndFilterParams
 
       # An optional query object that the table is backed by
-      prop :query, Object, default: nil
+      prop :query, Object, default: -> { nil }
 
       # Title to display top left of table header
       prop :title, _Nilable(String)
@@ -20,9 +19,9 @@ module Decor
       # Table has pagination
       prop :paginated, _Boolean, default: true
       # The header row height
-      prop :header_height, _Nilable(_Union(:comfortable, :standard, :tight))
+      prop :header_height, _Nilable(_Union(:comfortable, :standard, :tight)), default: :standard
       # The rows height
-      prop :row_height, _Nilable(_Union(:comfortable, :standard, :tight))
+      prop :row_height, _Nilable(_Union(:comfortable, :standard, :tight)), default: :standard
       # The name of the checkbox inputs (as a group) which will be used for the row
       # selection checkboxes
       prop :rows_selectable_as_name, _Nilable(Symbol)
@@ -134,6 +133,10 @@ module Decor
       end
 
       private
+
+      def paginated?
+        @paginated
+      end
 
       # Hooks & methods to override as needed
 

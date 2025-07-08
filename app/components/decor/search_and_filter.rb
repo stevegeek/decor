@@ -78,7 +78,7 @@ module Decor
                   control_actions: [
                     stimulus_action(:keydown, :handle_search_input_keydown)
                   ],
-                  outlet_host: el,
+                  stimulus_outlet_host: el,
                   control_html_options: {class: @filters.present? ? "rounded-md sm:rounded-l-md sm:rounded-r-none pl-10" : "rounded-md"},
                   object: nil,
                   object_name: nil,

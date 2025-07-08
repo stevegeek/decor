@@ -46,10 +46,9 @@ module Decor
         right do
           render(::Decor::Forms::Form.new(model: @model, url: @url, local: true, http_method: @http_method)) do |form_component|
             render(::Decor::Forms::Switch.new(
-              model: @model,
               disabled: false,
-              property_name: @property_name,
               name: "#{@model.class.name.underscore}[#{@property_name}]",
+              checked: @model.public_send(@property_name),
               submit_on_change: true,
               **@switch_options
             ))

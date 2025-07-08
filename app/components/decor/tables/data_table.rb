@@ -68,7 +68,7 @@ module Decor
       prop :pin_cols, _Boolean, default: false
 
       stimulus do
-        outlets ::Decor::Tables::DataTableHeaderRow.stimulus_identifier, ::Decor::Tables::DataTableRow.stimulus_identifier
+        outlets header_row: ::Decor::Tables::DataTableHeaderRow.stimulus_identifier, row: ::Decor::Tables::DataTableRow.stimulus_identifier
       end
 
       def view_template(&)
