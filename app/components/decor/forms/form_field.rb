@@ -63,11 +63,11 @@ module Decor
 
       # To override the Stimulus controller used for this field.
       # Format: "decor/forms/form_control" (which represents decor/forms/form_control_controller.ts)
-      attribute :form_control_controller_path, String, default: "decor/forms/form_control"
+      prop :form_control_controller_path, String, default: "decor/forms/form_control"
 
       # DaisyUI styling attributes
-      attribute :color, Symbol, default: :primary, choice: [:primary, :secondary, :accent, :success, :error, :warning, :info, :ghost, :neutral]
-      attribute :size, Symbol, default: :md, choice: [:xs, :sm, :md, :lg, :xl]
+      prop :color, _Union(:primary, :secondary, :accent, :success, :error, :warning, :info, :ghost, :neutral), default: :primary
+      prop :size, _Union(:xs, :sm, :md, :lg, :xl), default: :md
 
       private
 
@@ -92,7 +92,7 @@ module Decor
           disabled: disabled?,
           label_position: @label_position,
           grid_span: @grid_span,
-          input_container_classes: @input_container_classes,
+          input_container_classes: input_container_classes,
           named_classes: {
             valid_label: resolved_valid_label_classes,
             invalid_label: resolved_invalid_label_classes
@@ -163,9 +163,9 @@ module Decor
 
       def input_data_attributes(el, target_name: :input)
         {
-          **target_data_attributes(el, target_name),
-          **(control_actions? ? action_data_attributes(el, control_actions) : {}),
-          **(control_targets? ? target_data_attributes(el, *control_targets) : {}),
+          **el.stimulus_target(target_name),
+          **(control_actions? ? el.stimulus_action(*@control_actions) : {}),
+          **(control_targets? ? el.stimulus_target(*@control_targets) : {}),
           **(control_data_attributes || {})
         }
       end

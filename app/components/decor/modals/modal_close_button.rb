@@ -3,28 +3,45 @@
 module Decor
   module Modals
     class ModalCloseButton < Button
-      attribute :close_reason, String
+      prop :close_reason, _Nilable(String)
+
+      # Configure Stimulus controller
+      stimulus do
+        actions [:click, :handle_button_click]
+        values_from_props :close_reason
+      end
 
       def view_template(&block)
         @content = capture(&block) if block_given?
 
-        render ::Decor::Button.new(
-          label: @content || @label,
-          icon: @icon || "x-mark",
-          variant: @variant,
-          color: @theme,
-          full_width: @full_width,
-          size: @size,
-          controllers: [default_controller_path],
-          actions: [
-            [:click, default_controller_path, :handle_button_click]
-          ],
-          values: [
-            [default_controller_path, {close_reason: @close_reason}]
-          ],
-          disabled: @disabled,
-          html_options: {type: :button, **(@html_options || {}), class: [render_classes, @html_options&.dig(:class)].compact.join(" ")}
-        )
+        root_element do
+          span(class: "text-center") do
+            render @before_label if @before_label.present?
+
+            # Always show close icon or use provided icon
+            icon_name = @icon || "x-mark"
+            icon_options = {name: icon_name, html_options: {class: icon_classes}}
+            icon_options[:variant] = @icon_variant if @icon_variant
+            render ::Decor::Icon.new(**icon_options)
+
+            span(class: @icon_only_on_mobile ? "hidden md:inline" : "") do
+              render @content || @label
+            end
+            render @after_label if @after_label.present?
+          end
+        end
+      end
+
+      private
+
+      def root_element_attributes
+        {
+          element_tag: :button,
+          html_options: {
+            type: :button,
+            disabled: @disabled ? "disabled" : nil
+          }
+        }
       end
     end
   end

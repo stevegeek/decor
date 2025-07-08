@@ -3,14 +3,14 @@
 module Decor
   module Modals
     class ModalLayout < PhlexComponent
-      attribute :title, String
-      attribute :description, String
-      attribute :icon, String
+      prop :title, _Nilable(String)
+      prop :description, _Nilable(String)
+      prop :icon, _Nilable(String)
 
       # Standard attributes following Button/Notification patterns
-      attribute :color, Symbol, default: :base, in: [:base, :primary, :secondary, :accent, :info, :success, :warning, :error, :neutral]
-      attribute :variant, Symbol, default: :filled, in: [:filled, :outlined, :ghost]
-      attribute :size, Symbol, default: :medium, in: [:small, :medium, :large, :extra_large]
+      prop :color, _Union(:base, :primary, :secondary, :accent, :info, :success, :warning, :error, :neutral), default: :base
+      prop :variant, _Union(:filled, :outlined, :ghost), default: :filled
+      prop :size, _Union(:small, :medium, :large, :extra_large), default: :medium
 
       # Slot definitions
       def with_header(&block)
@@ -26,7 +26,7 @@ module Decor
       end
 
       def view_template
-        render parent_element do
+        root_element do
           # Header slot
           if @header
             div(class: "modal-header") do

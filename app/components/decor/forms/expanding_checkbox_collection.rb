@@ -25,7 +25,7 @@ module Decor
         root_element do |el|
           layout = ::Decor::Forms::FormFieldLayout.new(
             **form_field_layout_options(el),
-            named_classes: {
+            stimulus_classes: {
               valid_label: @disabled ? "text-disabled" : "text-gray-900",
               invalid_label: "text-error-dark"
             }
@@ -52,8 +52,8 @@ module Decor
                   class: show_more_button_classes,
                   type: "button",
                   data: {
-                    **action_data_attributes(el, :show_more),
-                    **target_data_attributes(el, :show_more_link)
+                    **el.stimulus_action(:show_more),
+                    **el.stimulus_target(:show_more_link)
                   }
                 ) { "Show more..." }
               end

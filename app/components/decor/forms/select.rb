@@ -37,24 +37,30 @@ module Decor
       end
 
       # The <option>s in the select
-      attribute :options_array, Array, default: [], allow_nil: false
-      attribute :selected_option, String, convert: true
-      attribute :disabled_options, Array, allow_nil: true, default: []
+      prop :options_array, _Array(_Any), default: -> { [] }
+      prop :selected_option, _Nilable(String) do |value|
+        value.to_s if value
+      end
+      prop :disabled_options, _Nilable(_Array(_Any)), default: -> { [] }
 
       # Include a blank options (when a placeholder of label is inside the placeholder is also a blank option).
       # This is useful for when you have no placeholder but want to include a blank option.
-      attribute :include_blank_option, :boolean, default: false
+      prop :include_blank_option, _Boolean, default: false
 
       # This option will disable selecting the blank option
-      attribute :disable_blank_option, :boolean, default: true
+      prop :disable_blank_option, _Boolean, default: true
 
-      attribute :compact, :boolean, default: false
+      prop :compact, _Boolean, default: false
+
+      stimulus do
+        values has_blank_or_placeholder: -> { @include_blank_option || label_inside? || @placeholder.present? }
+      end
 
       def view_template
-        render parent_element do |el|
+        root_element do |el|
           layout = ::Decor::Forms::FormFieldLayout.new(
             **form_field_layout_options(el),
-            named_classes: {
+            stimulus_classes: {
               valid_label: @disabled ? "text-disabled" : "text-gray-900",
               invalid_label: "text-error-dark"
             }
@@ -97,17 +103,6 @@ module Decor
       end
 
       private
-
-      def root_element_attributes
-        values = []
-        if @include_blank_option || label_inside? || @placeholder.present?
-          values = [{has_blank_or_placeholder: true}]
-        end
-
-        {
-          values: values
-        }
-      end
 
       def html_attributes
         attrs = {

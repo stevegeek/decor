@@ -26,7 +26,7 @@ module Decor
       prop :shape, _Union(:circle, :square), default: :circle
 
       prop :max_size_in_mb, Integer, default: 5
-      
+
       stimulus do
         values_from_props :max_size_in_mb
         classes image: -> { preview_classes }
@@ -36,7 +36,7 @@ module Decor
         root_element do |el|
           layout = ::Decor::Forms::FormFieldLayout.new(
             **form_field_layout_options(el),
-            named_classes: {
+            stimulus_classes: {
               valid_label: @disabled ? "text-disabled" : "text-gray-900",
               invalid_label: "text-error-dark"
             }
@@ -77,7 +77,7 @@ module Decor
 
             label(class: "block") do
               span(class: "sr-only") { "Choose file to upload" }
-              div(data: {**action_data_attributes(el, [:change, :file_selected])}) do
+              div(data: {**el.stimulus_action(:change, :file_selected)}) do
                 raw(
                   file_field(
                     attribute(:object_name),

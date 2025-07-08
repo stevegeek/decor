@@ -3,22 +3,30 @@
 module Decor
   module Modals
     class Modal < PhlexComponent
-      attribute :initial_content, String
-      attribute :content_href, String
-      attribute :start_shown, :boolean, default: false
-      attribute :close_on_overlay_click, :boolean, default: false
+      prop :initial_content, _Nilable(String)
+      prop :content_href, _Nilable(String)
+      prop :start_shown, _Boolean, default: false
+      prop :close_on_overlay_click, _Boolean, default: false
+
+      stimulus do
+        targets :overlay, :modal
+        actions [stimulus_scoped_event_on_window(:open), :handle_open_event],
+                [stimulus_scoped_event_on_window(:close), :handle_close_event]
+        values_from_props :close_on_overlay_click, :content_href
+        values show_initial: -> { @start_shown }
+      end
 
       def view_template
-        render parent_element do |s|
+        root_element do
           div(class: "flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:p-0") do
             # The background overlay
             div(
-              id: "#{component_class_name}__overlay",
-              class: "fixed hidden inset-0 bg-gray-700 #{@start_shown ? s.named_classes(:overlay_entering_to) : s.named_classes(:overlay_leaving_to)} transition-opacity",
+              id: "decor--modals--modal__overlay",
+              class: "fixed hidden inset-0 bg-gray-700 transition-opacity",
               aria_hidden: true,
               data: {
-                action: s.send(:parse_actions, [[:click, :overlay_clicked]]).join(" "),
-                **s.send(:build_target_data_attributes, s.send(:parse_targets, [:overlay]))
+                **stimulus_action(:click, :overlay_clicked),
+                **stimulus_target(:overlay)
               }
             )
 
@@ -27,8 +35,8 @@ module Decor
 
             div(
               id: "#{id}-content",
-              class: "#{@start_shown ? s.named_classes(:modal_entering_to) : s.named_classes(:modal_entering_from)} relative inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 lg:align-middle sm:p-6",
-              data: {**s.send(:build_target_data_attributes, s.send(:parse_targets, [:modal]))}
+              class: "relative inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 lg:align-middle sm:p-6",
+              data: stimulus_target(:modal)
             ) do
               if @initial_content.present?
                 plain(@initial_content)
@@ -45,15 +53,6 @@ module Decor
       def root_element_attributes
         {
           element_tag: :aside,
-          actions: [
-            [:"#{js_event_name_prefix}:open@window", :handle_open_event],
-            [:"#{js_event_name_prefix}:close@window", :handle_close_event]
-          ],
-          values: [{
-            show_initial: @start_shown,
-            close_on_overlay_click: @close_on_overlay_click,
-            content_href: @content_href
-          }],
           html_options: {
             aria_modal: true,
             role: "dialog",

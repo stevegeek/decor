@@ -3,7 +3,7 @@
 module Decor
   module Forms
     class FormFieldLayout < FormChild
-      prop :input_container_classes, _Nilable(String), default: ""
+      prop :input_container_classes, _Nilable(String), default: "", reader: :private
 
       prop :form_field_element, _Any
 
@@ -30,14 +30,14 @@ module Decor
       def view_template(&)
         @content = capture(&) if block_given?
 
-        render parent_element do |el|
-          div(class: container_classes, data: {**target_data_attributes(@form_field_element, :container)}) do
+        root_element do
+          div(class: container_classes, data: {**@form_field_element.stimulus_target(:container)}) do
             div(class: label_section_layout_classes) do
               if @label.present? && (label_left? || label_top?)
                 label(
                   for: "#{@field_id}-control",
-                  data: {**target_data_attributes(el, :label)},
-                  class: "label #{label_element_classes(el)}"
+                  data: {**stimulus_target(:label)},
+                  class: "label #{label_element_classes}"
                 ) do
                   span(class: "label-text") { @label }
                 end
@@ -50,14 +50,14 @@ module Decor
             end
 
             div(class: input_section_layout_classes) do
-              div(class: @input_container_classes + (label_right? ? "flex flex-row items-center" : "")) do
+              div(class: input_container_classes + (label_right? ? "flex flex-row items-center" : "")) do
                 raw @content.html_safe if @content.present?
                 if label_inline? || label_right?
                   div(class: "ml-4") do
                     label(
                       for: "#{@field_id}-control",
-                      data: {**target_data_attributes(@form_field_element, :label)},
-                      class: "label #{label_element_classes(el)}"
+                      data: {**@form_field_element.stimulus_target(:label)},
+                      class: "label #{label_element_classes}"
                     ) do
                       span(class: "label-text") { @label }
                     end
@@ -116,8 +116,8 @@ module Decor
         end
       end
 
-      def label_element_classes(el)
-        color = el.named_classes(:valid_label)
+      def label_element_classes
+        color = class_list_for_stimulus_classes(:valid_label)
         "#{label_left? ? "font-medium" : ""} #{color}"
       end
     end

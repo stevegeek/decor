@@ -51,7 +51,7 @@ class Decor::ToggleTest < ActiveSupport::TestCase
     %i[active enabled visible published].each do |property|
       @mock_model.define_singleton_method(property) { true }
       @mock_model.define_singleton_method("#{property}=") { |val| }
-      
+
       component = Decor::Toggle.new(
         model: @mock_model,
         url: @mock_url,

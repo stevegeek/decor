@@ -8,9 +8,9 @@ module Decor
   # One NotificationManager is created on page, and controlled by JS.
   class NotificationManager < PhlexComponent
     stimulus do
-      actions [:"#{js_event_name_prefix}:show@window", :handle_show_event],
-        [:"#{js_event_name_prefix}:dismissAll@window", :handle_dismiss_all_event],
-        [:"#{js_event_name_prefix}:dismiss@window", :handle_dismiss_single_event]
+      actions [stimulus_scoped_event_on_window(:show), :handle_show_event],
+        [stimulus_scoped_event_on_window(:dismiss_all), :handle_dismiss_all_event],
+        [stimulus_scoped_event_on_window(:dismiss), :handle_dismiss_single_event]
     end
 
     def notifications(&block)

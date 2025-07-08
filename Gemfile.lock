@@ -33,7 +33,7 @@ GIT
 
 GIT
   remote: https://github.com/stevegeek/vident.git
-  revision: 632e024962cfe0f0ce560ddff3d8025608f20752
+  revision: cfe32da778ed0c5eac489349f0f9c7b9bc8aaa80
   branch: main
   specs:
     vident (1.0.0.alpha1)

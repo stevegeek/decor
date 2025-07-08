@@ -14,11 +14,18 @@ module Decor
       prop :size, _Union(:xs, :sm, :md, :lg, :xl), default: :md
       prop :color, _Union(:primary, :secondary, :accent, :neutral, :success, :warning, :info, :error), default: :primary
 
+      stimulus do
+        classes valid_label: -> { @disabled ? "text-disabled" : "text-gray-900" },
+                invalid_label: "text-error-dark",
+                valid_helper_text: -> { @disabled ? "text-disabled" : "text-gray-500" },
+                invalid_helper_text: "text-error"
+      end
+
       def view_template
         root_element do |el|
           layout = ::Decor::Forms::FormFieldLayout.new(
             **form_field_layout_options(el),
-            named_classes: {
+            stimulus_classes: {
               valid_label: @disabled ? "text-disabled" : "text-gray-900",
               invalid_label: "text-error-dark"
             },
@@ -44,8 +51,8 @@ module Decor
                   data_controller: form_control_controller,
                   **input_html_attributes(idx, value),
                   data: {
-                    **(control_actions? ? action_data_attributes(el, control_actions) : {}),
-                    **(control_targets? ? target_data_attributes(el, *control_targets) : {})
+                    **(control_actions? ? stimulus_action(*@control_actions) : {}),
+                    **(control_targets? ? stimulus_target(*@control_targets) : {})
                   }
                 )
                 label(
@@ -69,17 +76,6 @@ module Decor
       end
 
       private
-
-      def root_element_attributes
-        {
-          named_classes: {
-            valid_label: @disabled ? "text-disabled" : "text-gray-900",
-            invalid_label: "text-error",
-            valid_helper_text: @disabled ? "text-disabled" : "text-gray-500",
-            invalid_helper_text: "text-error"
-          }
-        }
-      end
 
       def input_html_attributes(idx, value)
         attrs = {

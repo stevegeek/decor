@@ -3,7 +3,12 @@
 module Decor
   module Nav
     class SideNavbarSection < PhlexComponent
-      attribute :title, String
+      prop :title, _Nilable(String)
+
+      stimulus do
+        classes shown: "", filtered: "hidden"
+        outlets ::Decor::Nav::SideNavbarItem.stimulus_identifier
+      end
 
       def with_item(**attributes, &block)
         @items ||= []
@@ -18,9 +23,9 @@ module Decor
       end
 
       def view_template
-        render parent_element do |el|
+        root_element do |el|
           if @title.present?
-            el.target_tag(:li, :title, class: "#{component_class_name}-title menu-title text-base-content/70 uppercase") do
+            el.tag(:li, stimulus_target: :title, class: "#{component_name}-title menu-title text-base-content/70 uppercase") do
               @title
             end
           end
@@ -36,9 +41,7 @@ module Decor
 
       def root_element_attributes
         {
-          element_tag: :ul,
-          named_classes: {shown: "", filtered: "hidden"},
-          outlets: [::Decor::Nav::SideNavbarItem.stimulus_identifier]
+          element_tag: :ul
         }
       end
     end

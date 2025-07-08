@@ -44,7 +44,7 @@ class Decor::NotificationTest < ActiveSupport::TestCase
       label: "Action",
       primary: true
     )
-    
+
     component = Decor::Notification.new(
       title: "Test Title",
       description: "Test Description",
@@ -63,7 +63,7 @@ class Decor::NotificationTest < ActiveSupport::TestCase
       href: "https://example.com",
       primary: true
     )
-    
+
     component = Decor::Notification.new(
       title: "Test Title",
       description: "Test Description",
@@ -116,11 +116,11 @@ class Decor::NotificationTest < ActiveSupport::TestCase
       title: "Test Title",
       description: "Test Description"
     )
-    
+
     component.avatar do
       "Avatar content"
     end
-    
+
     rendered = render_component(component)
 
     assert_includes rendered, "Test Title"

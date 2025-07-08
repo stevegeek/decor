@@ -3,6 +3,7 @@
 module Decor
   module Nav
     class Footer < PhlexComponent
+      no_stimulus_controller
 
       class FooterLink < ::Literal::Data
         prop :label, String

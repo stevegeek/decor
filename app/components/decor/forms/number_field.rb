@@ -5,9 +5,9 @@ module Decor
     class NumberField < TextField
       # A number field is a input that allows only number values to be entered. However it is essentially a TextField so
       # `value` attribute is actually a string
-      attribute :type, Symbol, default: :number
-      attribute :numerical, :boolean, default: true
-      attribute :allow_float_input, :boolean, default: false
+      prop :type, Symbol, default: :number
+      prop :numerical, _Boolean, default: true
+      prop :allow_float_input, _Boolean, default: false
 
       # When dealing with mobile keyboards, we can bring up a numbers-only soft keyboard on iOS
       # by setting a pattern of (exactly) [0-9]*
@@ -17,13 +17,12 @@ module Decor
       # which is set inside the template view.
       # https://www.filamentgroup.com/lab/type-number.html
       # May want to consider the following in the future: https://github.com/filamentgroup/formcore#numeric-input
-      attribute :pattern, String,
-        default: ->(_) do
-          ->(instance) {
-            # TODO: support for locales which use a comma as a decimal point
-            instance.instance_variable_get(:@allow_float_input) ? "[0-9-.]*" : "[0-9]*"
-          }
-        end
+      prop :pattern, String, default: -> {
+        # TODO: support for locales which use a comma as a decimal point
+        # Also, this will only work if the allow_float_input is set before this is called, ie
+        # does this enforce an order of props when initializing?
+        @allow_float_input ? "[0-9-.]*" : "[0-9]*"
+      }
 
       def control_html_options_classes
         "text-right #{super}"

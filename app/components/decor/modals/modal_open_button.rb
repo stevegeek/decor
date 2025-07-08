@@ -3,35 +3,25 @@
 module Decor
   module Modals
     class ModalOpenButton < Button
-      attribute :modal_id, String
-      attribute :initial_content, String
-      attribute :content_href, String
-      attribute :close_on_overlay_click, :boolean, default: false
+      prop :modal_id, String, reader: :public
+      prop :initial_content, _Nilable(String)
+      prop :content_href, _Nilable(String)
+      prop :close_on_overlay_click, _Boolean, default: false
+      prop :type, _Nilable(String), default: "button"
 
-      attr_reader :modal_id
+      stimulus do
+        actions [:click, :handle_button_click]
+        values_from_props :initial_content, :content_href, :close_on_overlay_click, :modal_id
+      end
 
-      def view_template
-        render ::Decor::Button.new(
-          label: @label,
-          variant: @variant,
-          color: @theme,
-          full_width: @full_width,
-          size: @size,
-          icon: @icon,
-          controllers: [default_controller_path],
-          actions: [
-            [:click, default_controller_path, :handle_button_click]
-          ],
-          values: [
-            [default_controller_path, {
-              initial_content: @initial_content,
-              content_href: @content_href,
-              close_on_overlay_click: @close_on_overlay_click
-            }]
-          ],
-          disabled: @disabled,
-          html_options: {type: :button, class: render_classes}
+      private
+
+      def root_element_attributes
+        attributes = super
+        attributes[:html_options] = (attributes[:html_options] || {}).merge(
+          type: @type
         )
+        attributes
       end
     end
   end

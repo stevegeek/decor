@@ -32,7 +32,7 @@ module Decor
 
       stimulus do
         values_from_props :calendar_type, :locale, :months, :disabled_dates, :disabled_days_of_week, :enabled_dates, :enabled_days_of_week
-        
+
         classes invalid_input: "invalid:border-error-dark"
       end
 
@@ -40,7 +40,7 @@ module Decor
         root_element do |el|
           layout = ::Decor::Forms::FormFieldLayout.new(
             **form_field_layout_options(el),
-            named_classes: {
+            stimulus_classes: {
               valid_label: @disabled ? "text-disabled" : "text-gray-900",
               invalid_label: "text-error-dark"
             }
@@ -62,7 +62,7 @@ module Decor
               type: "hidden",
               name: @name,
               value: formatted_value,
-              data: input_data_attributes(el, target_name: :hidden_input)
+              data: el.stimulus_target(:hidden_input)
             )
 
             # Cally calendar component
@@ -110,8 +110,8 @@ module Decor
           months: @months,
           firstDayOfWeek: @first_day_of_week,
           data: {
-            **target_data_attributes(el, :calendar),
-            **action_data_attributes(el, [:change, :handle_change]),
+            **el.stimulus_target(:calendar),
+            **el.stimulus_action(:change, :handle_change),
             **date_filtering_data_attributes
           }
         }
@@ -186,7 +186,6 @@ module Decor
 
         dates.map { |date| format_date_for_cally(date) }.compact.join(",")
       end
-
 
       def mapped_attrs
         {

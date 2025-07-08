@@ -5,21 +5,21 @@ module Decor
   class Tooltip < PhlexComponent
     no_stimulus_controller
 
-    attribute :position, Symbol, in: [:top, :bottom, :left, :right], default: :top
-    attribute :tip_text, String
+    prop :position, _Union(:top, :bottom, :left, :right), default: :top
+    prop :tip_text, _Nilable(String)
 
     # Size of the tooltip
-    attribute :size, Symbol, default: :md, in: [:xs, :sm, :md, :lg, :xl]
+    prop :size, _Union(:xs, :sm, :md, :lg, :xl), default: :md
 
     # Color scheme using DaisyUI semantic colors
-    attribute :color, Symbol, default: :base, in: [:base, :primary, :secondary, :accent, :success, :error, :warning, :info, :neutral]
+    prop :color, _Union(:base, :primary, :secondary, :accent, :success, :error, :warning, :info, :neutral), default: :base
 
     # Visual variant
-    attribute :variant, Symbol, default: :filled, in: [:filled, :outlined, :ghost]
+    prop :variant, _Union(:filled, :outlined, :ghost), default: :filled
 
     # Offset customization
-    attribute :offset_percent_x, Integer, default: 0
-    attribute :offset_percent_y, Integer, default: 0
+    prop :offset_percent_x, Integer, default: 0
+    prop :offset_percent_y, Integer, default: 0
 
     # Backward compatibility method for old slots usage
     def tip_content(&block)
@@ -42,7 +42,7 @@ module Decor
     def view_template(&)
       @content = capture(&) if block_given?
 
-      render parent_element do |tip|
+      root_element do |tip|
         raw @content.html_safe if @content.present?
       end
     end

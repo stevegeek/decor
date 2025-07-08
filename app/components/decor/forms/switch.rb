@@ -5,18 +5,27 @@ module Decor
     class Switch < FormField
       include ::Decor::Forms::Concerns::CheckableFormField
 
-      attribute :label_position, Symbol, default: :right
+      prop :label_position, _Union(:top, :left, :right, :inline, :inside), default: :right
 
-      attribute :submit_on_change, :boolean, default: false
-      attribute :confirm_on_submit, String, default: nil, allow_nil: true, allow_blank: false
-      attribute :confirm_on_submit_yes, String, default: "Yes, continue", allow_nil: true, allow_blank: false
-      attribute :confirm_on_submit_no, String, default: "Cancel", allow_nil: true, allow_blank: false
+      prop :submit_on_change, _Boolean, default: false
+      prop :confirm_on_submit, _Nilable(_String(&:present?))
+      prop :confirm_on_submit_yes, _Nilable(_String(&:present?)), default: "Yes, continue"
+      prop :confirm_on_submit_no, _Nilable(_String(&:present?)), default: "Cancel"
+
+      stimulus do
+        actions [:change, :handle_change]
+        values_from_props :label,
+                          :submit_on_change
+        values confirm_on_submit: -> { @confirm_on_submit.present? ? @confirm_on_submit : nil },
+               confirm_on_submit_yes: -> { @confirm_on_submit.present? ? @confirm_on_submit_yes : nil },
+               confirm_on_submit_no: -> { @confirm_on_submit.present? ? @confirm_on_submit_no : nil }
+      end
 
       def view_template
-        render parent_element do |el|
+        root_element do |el|
           layout = ::Decor::Forms::FormFieldLayout.new(
             **form_field_layout_options(el),
-            named_classes: {
+            stimulus_classes: {
               valid_label: @disabled ? "text-disabled" : "text-gray-900",
               invalid_label: "text-error-dark"
             }
@@ -48,25 +57,6 @@ module Decor
       end
 
       private
-
-      def root_element_attributes
-        values = [
-          {label: @label}
-        ]
-
-        values << {submit_on_change: true} if @submit_on_change
-
-        if @confirm_on_submit.present?
-          values << {confirm_on_submit: @confirm_on_submit}
-          values << {confirm_on_submit_yes: @confirm_on_submit_yes}
-          values << {confirm_on_submit_no: @confirm_on_submit_no}
-        end
-
-        {
-          actions: [[:change, :handle_change]],
-          values: values
-        }
-      end
 
       def html_attributes
         attrs = {

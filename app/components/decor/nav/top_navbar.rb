@@ -3,10 +3,14 @@
 module Decor
   module Nav
     class TopNavbar < PhlexComponent
-      attribute :has_search, :boolean, default: true
-      attribute :instant_search_path, String
-      attribute :brand_text, String
-      attribute :brand_href, String, default: "/"
+      prop :has_search, _Boolean, default: true
+      prop :instant_search_path, _Nilable(String)
+      prop :brand_text, _Nilable(String)
+      prop :brand_href, String, default: "/"
+
+      stimulus do
+        values_from_props :instant_search_path
+      end
 
       # Manual slot implementations
       def with_brand(&block)
@@ -33,7 +37,7 @@ module Decor
 
       def view_template(&)
         vanish(&)
-        render parent_element do |el|
+        root_element do |el|
           # navbar-start section
           div(class: "navbar-start") do
             # Mobile menu button (only show if we have nav items)
@@ -46,7 +50,7 @@ module Decor
                 }
               ) do
                 span(class: "sr-only") { "Open sidebar" }
-                render ::Decor::Icon.new(name: "bars-3", html_options: {class: "h-6 w-6"})
+                render ::Decor::Icon.new(name: "bars-3", classes: "h-6 w-6")
               end
             end
 
@@ -72,9 +76,10 @@ module Decor
           # navbar-center section (search)
           div(class: "navbar-center flex-1 px-2 lg:px-4") do
             if @has_search
-              div(
-                class: "form-control w-full max-w-xs sm:max-w-md lg:max-w-lg",
-                data: {"#{stimulus_identifier}_target": "search"}
+              el.tag(
+                :div,
+                stimulus_target: :search,
+                class: "form-control w-full max-w-xs sm:max-w-md lg:max-w-lg"
               ) do
                 form(class: "relative w-full") do
                   div(class: "relative") do
@@ -82,10 +87,11 @@ module Decor
                       render ::Decor::Icon.new(
                         name: "search",
                         variant: :solid,
-                        html_options: {class: "h-5 w-5 text-base-content/40"}
+                        classes: "h-5 w-5 text-base-content/40"
                       )
                     end
-                    input(
+                    el.tag(
+                      :input,
                       id: "search-input",
                       name: "search",
                       type: "search",
@@ -93,17 +99,15 @@ module Decor
                       value: "",
                       class: "input input-bordered w-full pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary",
                       placeholder: "Search",
-                      data: {
-                        "#{stimulus_identifier}_target": "search_input",
-                        action: [
-                          "focus->#{stimulus_identifier}#got_search_focus",
-                          "focusout->#{stimulus_identifier}#lost_search_focus",
-                          "keyup->#{stimulus_identifier}#search",
-                          "search->#{stimulus_identifier}#search",
-                          "input->#{stimulus_identifier}#search",
-                          "click->#{stimulus_identifier}#clicked_search_input"
-                        ].join(" ")
-                      }
+                      stimulus_target: :search_input,
+                      stimulus_actions: [
+                        [:click, :clicked_search_input],
+                        [:keyup, :search],
+                        [:search, :search],
+                        [:input, :search],
+                        [:focus, :got_search_focus],
+                        [:focusout, :lost_search_focus]
+                      ]
                     )
                   end
                 end
@@ -136,23 +140,12 @@ module Decor
 
       def root_element_attributes
         {
-          element_tag: :header,
-          values: [{search_url: @instant_search_path}],
-          actions: [],
-          html_options: @html_options
+          element_tag: :header
         }
       end
 
       def element_classes
-        [
-          "navbar",
-          "sticky",
-          "top-0",
-          "z-10",
-          "bg-base-100",
-          "shadow-lg",
-          "min-h-16"
-        ].join(" ")
+        "navbar sticky top-0 z-10 bg-base-100 shadow-lg min-h-16"
       end
     end
   end

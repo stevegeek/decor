@@ -7,11 +7,15 @@ module Decor
 
       prop :label_position, _Union(:left, :right), default: :right
 
+      stimulus do
+        classes invalid_input: "invalid:border-error-dark"
+      end
+
       def view_template
         root_element do |el|
           layout = ::Decor::Forms::FormFieldLayout.new(
             **form_field_layout_options(el),
-            named_classes: {
+            stimulus_classes: {
               valid_label: @disabled ? "text-disabled" : "text-gray-900",
               invalid_label: "text-error-dark"
             }
@@ -41,14 +45,6 @@ module Decor
       end
 
       private
-
-      def root_element_attributes
-        {
-          named_classes: {
-            invalid_input: "invalid:border-error-dark"
-          }
-        }
-      end
 
       def radio_classes
         classes = ["radio"]

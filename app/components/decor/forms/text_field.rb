@@ -50,11 +50,15 @@ module Decor
       prop :greater_than, _Nilable(Numeric)
       prop :less_than, _Nilable(Numeric)
 
+      stimulus do
+        classes invalid_input: "invalid:border-error-dark"
+      end
+
       def view_template
         root_element do |el|
           layout = ::Decor::Forms::FormFieldLayout.new(
             **form_field_layout_options(el),
-            named_classes: {
+            stimulus_classes: {
               valid_label: @disabled ? "text-disabled" : "text-gray-900",
               invalid_label: "text-error-dark"
             }
@@ -81,9 +85,9 @@ module Decor
                   class: daisyui_input_classes,
                   **html_attributes,
                   data: {
-                    **target_data_attributes(el, :input),
-                    **(control_actions? ? action_data_attributes(el, @control_actions) : {}),
-                    **(control_targets? ? target_data_attributes(el, *@control_targets) : {}),
+                    **el.stimulus_target(:input),
+                    **(control_actions? ? el.stimulus_action(*@control_actions) : {}),
+                    **(control_targets? ? el.stimulus_target(*@control_targets) : {}),
                     **(control_data_attributes || {})
                   }
                 )
@@ -96,7 +100,12 @@ module Decor
                 data_controller: form_control_controller,
                 class: input_classes + " " + daisyui_input_classes,
                 **html_attributes,
-                data: input_data_attributes(el)
+                data: {
+                  **el.stimulus_target(:input),
+                  **(control_actions? ? el.stimulus_action(*@control_actions) : {}),
+                  **(control_targets? ? el.stimulus_target(*@control_targets) : {}),
+                  **(control_data_attributes || {})
+                }
               )
             end
 
@@ -112,14 +121,6 @@ module Decor
       end
 
       private
-
-      def root_element_attributes
-        {
-          named_classes: {
-            invalid_input: "invalid:border-error-dark"
-          }
-        }
-      end
 
       def html_attributes
         attrs = {
@@ -186,7 +187,7 @@ module Decor
         elsif @leading_text_add_on.present?
           span(
             class: "opacity-50",
-            **target_data_attributes(el, :leading_text_add_on)
+            data: el.stimulus_target(:leading_text_add_on)
           ) do
             @leading_text_add_on
           end
@@ -201,7 +202,7 @@ module Decor
         elsif @trailing_text_add_on.present?
           span(
             class: "opacity-50",
-            data: {**target_data_attributes(el, :trailing_text_add_on)}
+            data: el.stimulus_target(:trailing_text_add_on)
           ) do
             @trailing_text_add_on
           end

@@ -3,10 +3,19 @@
 module Decor
   module Nav
     class SideNavbar < PhlexComponent
-      attribute :landscape_logo_url, String, allow_blank: false
-      attribute :avatar_logo_url, String, allow_blank: false
-      attribute :menu_items, Array, default: []
-      attribute :collapsed, :boolean, default: false
+      prop :landscape_logo_url, _String(&:present?)
+      prop :avatar_logo_url, _String(&:present?)
+      prop :menu_items, _Array(Hash), default: -> { [] }
+      prop :collapsed, _Boolean, default: false
+
+      stimulus do
+        actions [:"#{stimulus_identifier}:toggle_mobile_menu@window", :toggle_mobile_menu],
+                [:touchstart, :handle_mouse_over],
+                [:mouseenter, :handle_mouse_over],
+                [:mouseleave, :handle_mouse_away]
+        values_from_props :collapsed
+        outlets ::Decor::Nav::SideNavbarSection.stimulus_identifier
+      end
 
       def with_section(**attributes, &block)
         @sections ||= []
@@ -22,16 +31,16 @@ module Decor
       def view_template(&)
         vanish(&)
         build_from_menu_items(@menu_items) if @menu_items&.any?
-        render parent_element do |el|
+        root_element do |el|
           # Mobile menu overlay
-          div(class: "fixed inset-0 flex z-40 hidden", role: "dialog", aria_modal: "true", data: {**target_data_attributes(el, :mobile_menu)}) do
-            div(class: "fixed inset-0 bg-gray-600 bg-opacity-75 #{el.named_classes(:mobile_menu_overlay_entering_from)}", aria_hidden: "true", data: {**target_data_attributes(el, :mobile_menu_overlay)})
+          div(class: "fixed inset-0 flex z-40 hidden", role: "dialog", aria_modal: "true", data: {**el.stimulus_target(:mobile_menu)}) do
+            div(class: "fixed inset-0 bg-gray-600 bg-opacity-75 #{el.named_classes(:mobile_menu_overlay_entering_from)}", aria_hidden: "true", data: {**el.stimulus_target(:mobile_menu_overlay)})
 
-            div(class: "relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-base-300 #{el.named_classes(:mobile_menu_canvas_entering_from)}", data: {**target_data_attributes(el, :mobile_menu_canvas)}) do
-              div(class: "absolute top-0 right-0 -mr-12 pt-2 #{el.named_classes(:mobile_menu_close_button_entering_from)}", data: {**target_data_attributes(el, :mobile_menu_close_button)}) do
+            div(class: "relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-base-300 #{el.named_classes(:mobile_menu_canvas_entering_from)}", data: {**el.stimulus_target(:mobile_menu_canvas)}) do
+              div(class: "absolute top-0 right-0 -mr-12 pt-2 #{el.named_classes(:mobile_menu_close_button_entering_from)}", data: {**el.stimulus_target(:mobile_menu_close_button)}) do
                 button(
                   type: "button",
-                  data: {**action_data_attributes(el, [:click, :toggle_mobile_menu])},
+                  data: {**el.stimulus_action(:click, :toggle_mobile_menu)},
                   class: "ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
                 ) do
                   span(class: "sr-only") { "Close sidebar" }
@@ -57,8 +66,8 @@ module Decor
                       id: "mobile-search",
                       autocomplete: "on",
                       data: {
-                        **target_data_attributes(el, :mobile_search_navigation),
-                        **action_data_attributes(el, [:keyup, :search])
+                        **el.stimulus_target(:mobile_search_navigation),
+                        **el.stimulus_action(:keyup, :search)
                       },
                       placeholder: "I want to...",
                       type: "text",
@@ -78,7 +87,7 @@ module Decor
 
           # Desktop sidebar
           div(
-            data: {**target_data_attributes(el, :desktop_menu)},
+            data: {**el.stimulus_target(:desktop_menu)},
             id: "side-navbar-desktop",
             class: "side-navbar-desktop hidden lg:fixed lg:flex lg:flex-col #{@collapsed ? "lg:w-20" : "lg:w-72"} lg:inset-y-0 transition-all duration-300 z-50"
           ) do
@@ -93,14 +102,14 @@ module Decor
                   html_options: {class: "hidden"}
                 )
 
-                el.target_tag(:div, :desktop_logo) do
+                el.tag(:div, stimulus_target: :desktop_logo) do
                   img(src: @landscape_logo_url, alt: "Logo", class: "h-16 pt-3 object-contain max-w-[220px]")
                 end
 
                 button(
                   type: "button",
                   id: "side-navbar-desktop-collapse-button",
-                  data: {**action_data_attributes(el, [:click, :toggle_collapse_desktop_menu])},
+                  data: {**el.stimulus_action(:click, :toggle_collapse_desktop_menu)},
                   class: "absolute right-5 top-6 text-white"
                 ) do
                   render ::Decor::Icon.new(
@@ -128,8 +137,8 @@ module Decor
                       id: "side-navbar-desktop-search-input",
                       autocomplete: "on",
                       data: {
-                        **target_data_attributes(el, :search_navigation),
-                        **action_data_attributes(el, [:keyup, :search])
+                        **el.stimulus_target(:search_navigation),
+                        **el.stimulus_action(:keyup, :search)
                       },
                       placeholder: "I want to...",
                       type: "text",
@@ -149,23 +158,6 @@ module Decor
 
       def id
         "decor--nav-sidebar"
-      end
-
-      def root_element_attributes
-        {
-          actions: [
-            [:"#{component_class_name}:toggle-mobile-overlay@window", :toggle_mobile_menu],
-            [:touchstart, :handle_mouse_over],
-            [:mouseenter, :handle_mouse_over],
-            [:mouseleave, :handle_mouse_away]
-          ],
-          values: [
-            {
-              collapsed: @collapsed
-            }
-          ],
-          outlets: [::Decor::Nav::SideNavbarSection.stimulus_identifier]
-        }
       end
 
       private
