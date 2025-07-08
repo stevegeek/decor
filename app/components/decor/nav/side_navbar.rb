@@ -9,7 +9,7 @@ module Decor
       prop :collapsed, _Boolean, default: false
 
       stimulus do
-        actions [:"#{stimulus_identifier}:toggle_mobile_menu@window", :toggle_mobile_menu],
+        actions -> { [stimulus_scoped_event_on_window(:toggle_mobile_menu), :toggle_mobile_menu] },
                 [:touchstart, :handle_mouse_over],
                 [:mouseenter, :handle_mouse_over],
                 [:mouseleave, :handle_mouse_away]

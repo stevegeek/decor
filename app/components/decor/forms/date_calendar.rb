@@ -62,7 +62,7 @@ module Decor
               type: "hidden",
               name: @name,
               value: formatted_value,
-              data: el.stimulus_target(:hidden_input)
+              data: {**el.stimulus_target(:hidden_input)}
             )
 
             # Cally calendar component

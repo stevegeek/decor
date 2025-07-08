@@ -187,7 +187,7 @@ module Decor
         elsif @leading_text_add_on.present?
           span(
             class: "opacity-50",
-            data: el.stimulus_target(:leading_text_add_on)
+            data: {**el.stimulus_target(:leading_text_add_on)}
           ) do
             @leading_text_add_on
           end
@@ -202,7 +202,7 @@ module Decor
         elsif @trailing_text_add_on.present?
           span(
             class: "opacity-50",
-            data: el.stimulus_target(:trailing_text_add_on)
+            data: {**el.stimulus_target(:trailing_text_add_on)}
           ) do
             @trailing_text_add_on
           end

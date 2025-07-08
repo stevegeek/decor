@@ -10,8 +10,8 @@ module Decor
 
       stimulus do
         targets :overlay, :modal
-        actions [stimulus_scoped_event_on_window(:open), :handle_open_event],
-                [stimulus_scoped_event_on_window(:close), :handle_close_event]
+        actions -> { [stimulus_scoped_event_on_window(:open), :handle_open_event] },
+                -> { [stimulus_scoped_event_on_window(:close), :handle_close_event] }
         values_from_props :close_on_overlay_click, :content_href
         values show_initial: -> { @start_shown }
       end
@@ -36,7 +36,7 @@ module Decor
             div(
               id: "#{id}-content",
               class: "relative inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 lg:align-middle sm:p-6",
-              data: stimulus_target(:modal)
+              data: {**stimulus_target(:modal)}
             ) do
               if @initial_content.present?
                 plain(@initial_content)

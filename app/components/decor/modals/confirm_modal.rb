@@ -7,8 +7,8 @@ module Decor
 
       stimulus do
         targets :positive_button, :negative_button, :title, :message
-        actions [stimulus_scoped_event_on_window(:open), :handle_open_event],
-                [stimulus_scoped_event_on_window(:close), :handle_close_event]
+        actions -> { [stimulus_scoped_event_on_window(:open), :handle_open_event] },
+                -> { [stimulus_scoped_event_on_window(:close), :handle_close_event] }
         values_from_props :close_on_overlay_click
       end
 
@@ -31,7 +31,7 @@ module Decor
             div(
               id: "#{id}-content",
               class: "#{class_list_for_stimulus_classes(:modal_entering_from)} relative inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 lg:align-middle max-w-xl sm:w-full sm:p-6",
-              data: stimulus_target(:modal)
+              data: {**stimulus_target(:modal)}
             ) do
               div(class: "bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4") do
                 div(class: "sm:flex sm:items-start") do
@@ -41,11 +41,11 @@ module Decor
                     end
                   end
                   div(class: "mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left") do
-                    h3(id: "#{id}-title", class: "text-lg leading-6 font-medium text-gray-900", data: stimulus_target(:title)) do
+                    h3(id: "#{id}-title", class: "text-lg leading-6 font-medium text-gray-900", data: {**stimulus_target(:title)}) do
                       "Are you sure?"
                     end
                     div(class: "mt-2") do
-                      p(id: "#{id}-message", class: "text-sm text-gray-500", data: stimulus_target(:message))
+                      p(id: "#{id}-message", class: "text-sm text-gray-500", data: {**stimulus_target(:message)})
                     end
                   end
                 end

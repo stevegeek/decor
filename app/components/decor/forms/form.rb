@@ -5,11 +5,11 @@ module Decor
     class Form < PhlexComponent
       include ::Phlex::Rails::Helpers::FormWith
 
-      prop :model, default: -> { false }
+      prop :model, _Any, default: -> { false }
       prop :url, _Nilable(String)
       prop :local, _Boolean, default: true
       prop :http_method, _Nilable(_Interface(:to_s))
-      prop :form_builder_class, ActionView::Helpers::FormBuilder, default: ActionViewFormBuilder
+      prop :form_builder_class, ActionView::Helpers::FormBuilder, default: -> { ActionViewFormBuilder }
 
       prop :on_before, _Nilable(_Interface(:to_s))
       prop :on_before_send, _Nilable(_Interface(:to_s))

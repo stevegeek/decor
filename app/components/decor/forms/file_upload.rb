@@ -59,9 +59,7 @@ module Decor
                 shape: @shape,
                 size: :lg,
                 url: file_url,
-                html_options: {
-                  class: "decor--image-upload--image-container shrink-0"
-                }
+                classes: "decor--image-upload--image-container shrink-0"
               )
             elsif @variant == :image
               div(class: "decor--image-upload--image-container") do
@@ -87,8 +85,8 @@ module Decor
                     disabled: @disabled,
                     name: @name,
                     data: {
-                      :controller => form_control_controller,
-                      "#{stimulus_identifier}-target" => "input"
+                      **stimulus_controllers(form_control_controller),
+                      **stimulus_target(:input)
                     },
                     class: file_input_classes
                   )
@@ -102,9 +100,7 @@ module Decor
                   name: field_name(attribute(:object_name), :"#{attribute(:method_name)}_delete"),
                   disabled: @disabled,
                   collapsing_helper_text: true,
-                  html_options: {
-                    class: "#{(@preview_layout == :inline) ? "md:pl-6" : ""} inline-block w-auto"
-                  },
+                  classes: "#{(@preview_layout == :inline) ? "md:pl-6" : ""} inline-block w-auto",
                   value: "true"
                 )
                 render checkbox
@@ -117,9 +113,7 @@ module Decor
             render ::Decor::Forms::ErrorIconSection.new(
               error_text: error_text,
               show_floating_message: floating_error_text?,
-              html_options: {
-                class: "#{errors? ? "" : "hidden"} right-3"
-              }
+              classes: "#{errors? ? "" : "hidden"} right-3"
             )
           end
         end

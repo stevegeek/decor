@@ -23,8 +23,8 @@ gem "encoded_id-rails", "1.0.0.rc6", github: "stevegeek/encoded_id", branch: "ma
 gem "literal"
 gem "phlex-rails", ">= 2.0.0"
 gem "inline_svg" # used by Decor::Svg if inline: true
-gem "vident", github: "stevegeek/vident", branch: "main"
-gem "vident-phlex", github: "stevegeek/vident", branch: "main"
+gem "vident", "1.0.0.alpha1"
+gem "vident-phlex", "1.0.0.alpha1"
 
 gem "lookbook"
 gem "js_regex", "~> 3.5"
