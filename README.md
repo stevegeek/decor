@@ -27,9 +27,9 @@ Once I port my production application to this version and battle test it, I will
 
 - [x] Add all components
 - [x] Add more tests / previews
-- [ ] Update vident, review vident API
+- [x] Update vident, review vident API
 - [x] Stop using slots
-- [ ] Change `dry-struct` to `Literal` (via vident-typed)
+- [x] Change `dry-struct` to `Literal` (via vident-typed)
 - [ ] simplify naming of sizes (e.g. `micro` to `xs`, `small` to `sm`, etc.) and unify across components
 - [ ] Unify variant naming
 - [ ] Unify style attribute naming (sometimes we use `style`, sometimes `theme`)
@@ -51,13 +51,8 @@ avoid modifying the provided components, and simply pull changes from this repos
 Add to Gemfile:
 
 ```ruby
-gem "dry-struct" # TODO: change to Literal
 gem "phlex-rails"
-gem "vident"
-gem "vident-typed" # TODO: change to Literal
-gem "vident-phlex" 
-gem "vident-typed-phlex" # TODO: change to Literal
-gem "vident-tailwind"
+gem "vident-phlex"
 
 # In development and test environments
 gem "lookbook"
@@ -71,17 +66,13 @@ Copy `app/components`, `app/javascript/controllers` and `test/components` direct
 
 Copy over `app/assets/tailwind/application.css` or at least merge the contents into your existing Tailwind CSS setup.
 
-### External SVG Loader Setup
-
-For external SVG loading functionality, add the following:
-
-1. **Add to `config/importmap.rb`:**
+Add to `config/importmap.rb`:
 ```ruby
 # External SVG loader for dynamic SVG loading
 pin "external-svg-loader", to: "https://ga.jspm.io/npm:external-svg-loader@1.7.1/dist/svg-loader.min.js"
 ```
 
-2. **Add to `app/javascript/application.js`:**
+Add to `app/javascript/application.js`:
 ```javascript
 import "external-svg-loader"
 ```
