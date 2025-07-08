@@ -4,18 +4,18 @@ module Decor
   class Page < PhlexComponent
     no_stimulus_controller
 
-    attribute :title, String
-    attribute :subtitle, String
-    attribute :description, String
-    attribute :include_flash, :boolean, default: true
-    attribute :cta_snap_large, :boolean, default: false
-    attribute :full_height, :boolean, default: false
+    prop :title, _Nilable(String)
+    prop :subtitle, _Nilable(String)
+    prop :description, _Nilable(String)
+    prop :include_flash, _Boolean, default: true
+    prop :cta_snap_large, _Boolean, default: false
+    prop :full_height, _Boolean, default: false
 
     # Modern attributes following Decor patterns
-    attribute :size, Symbol, default: :md, in: [:xs, :sm, :md, :lg, :xl]
-    attribute :background, Symbol, default: :default, in: [:default, :primary, :secondary, :hero, :neutral]
-    attribute :padding, Symbol, default: :md, in: [:none, :sm, :md, :lg, :xl]
-    attribute :spacing, Symbol, default: :md, in: [:none, :sm, :md, :lg, :xl]
+    prop :size, _Union(:xs, :sm, :md, :lg, :xl), default: :md
+    prop :background, _Union(:default, :primary, :secondary, :hero, :neutral), default: :default
+    prop :padding, _Union(:none, :sm, :md, :lg, :xl), default: :md
+    prop :spacing, _Union(:none, :sm, :md, :lg, :xl), default: :md
 
     # Manual slot implementations
     def with_hero(&block)
@@ -54,7 +54,7 @@ module Decor
     end
 
     def view_template
-      render parent_element do
+      root_element do
         render_hero if @hero
 
         if has_header_content?

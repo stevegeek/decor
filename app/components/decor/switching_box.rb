@@ -4,13 +4,13 @@ module Decor
   class SwitchingBox < Box
     no_stimulus_controller
 
-    attribute :switch_options, Hash, default: {}
+    prop :switch_options, Hash, default: -> { {} }
 
     # The property to switch - or use the content block to create the switch
-    attribute :property_name, Symbol, allow_nil: false
-    attribute :model
-    attribute :url
-    attribute :http_method, default: :patch
+    prop :property_name, _Nilable(Symbol)
+    prop :model, _Nilable(Object)
+    prop :url, _Nilable(String)
+    prop :http_method, Symbol, default: :patch
 
     attr_reader :model
 

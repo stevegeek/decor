@@ -5,8 +5,8 @@ module Decor
     class SecondaryNavbar < PhlexComponent
       no_stimulus_controller
 
-      attribute :bottom_border, :boolean, default: false
-      attribute :variant, Symbol, in: [:wide, :narrow], default: :narrow
+      prop :bottom_border, _Boolean, default: false
+      prop :variant, _Union(:wide, :narrow), default: :narrow
 
       def with_left(&block)
         @left_block = block
@@ -25,7 +25,7 @@ module Decor
 
       def view_template(&)
         vanish(&)
-        render parent_element do
+        root_element do
           div(class: "flex-1 flex items-center") do
             instance_eval(&@left_block) if @left_block
           end

@@ -13,12 +13,12 @@ module Decor
         prop :disabled, _Boolean, default: false
       end
 
-      attribute :breadcrumbs, Array, default: [].freeze
-      attribute :show_home, :boolean, default: true
-      attribute :home_path, String, default: "/"
-      attribute :home_icon, String, default: "home"
-      attribute :mobile_select, :boolean, default: true
-      attribute :separator, String, default: "chevron-right"
+      prop :breadcrumbs, Array, default: -> { [] }
+      prop :show_home, _Boolean, default: true
+      prop :home_path, String, default: "/"
+      prop :home_icon, String, default: "home"
+      prop :mobile_select, _Boolean, default: true
+      prop :separator, String, default: "chevron-right"
 
       def initialize(**attrs)
         super
@@ -26,7 +26,7 @@ module Decor
       end
 
       def view_template
-        render parent_element do
+        root_element do
           div(class: "breadcrumbs") do
             ul do
               render_home_item if @show_home

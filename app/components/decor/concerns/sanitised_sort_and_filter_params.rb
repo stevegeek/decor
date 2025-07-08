@@ -6,12 +6,12 @@ module Decor
       extend ActiveSupport::Concern
 
       included do
-        attribute :sort_parameter_name, Symbol, default: :sort_by
-        attribute :sorted_direction_parameter_name, Symbol, default: :sorted_direction
+        prop :sort_parameter_name, Symbol, default: :sort_by
+        prop :sorted_direction_parameter_name, Symbol, default: :sorted_direction
 
-        attribute :sorted_direction, Symbol
-        attribute :sort_by, Symbol
-        attribute :sorting_keys, Array, sub_type: Symbol, default: []
+        prop :sorted_direction, _Nilable(Symbol)
+        prop :sort_by, _Nilable(Symbol)
+        prop :sorting_keys, _Array(Symbol), default: -> { [] }
       end
 
       private

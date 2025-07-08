@@ -6,17 +6,10 @@ module Decor
       # Labels are either on top, or off to the left of the input on anything wider than a phone. The
       # label can sometimes be 'inside' too, on textfields and select boxes. Checkbox and radios can also have
       # the label on the right.
-      attribute :label_position, Symbol, default: :top, in: [:top, :left, :right, :inline, :inside]
+      prop :label_position, _Union(:top, :left, :right, :inline, :inside), default: :top
 
       # The layout of the form field, if in a grid (eg FormSection/Container)
-      attribute :grid_span, Symbol, in: [
-        :span_1,
-        :span_2,
-        :span_half,
-        :span_4,
-        :span_5,
-        :span_full
-      ]
+      prop :grid_span, _Nilable(_Union(:span_1, :span_2, :span_half, :span_4, :span_5, :span_full))
 
       private
 

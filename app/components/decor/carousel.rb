@@ -62,7 +62,6 @@ module Decor
       end
     end
 
-
     def element_classes
       "relative"
     end

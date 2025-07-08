@@ -11,7 +11,7 @@ module Decor
       end
 
       def view_template
-        render parent_element do
+        root_element do
           # form body
           div(class: "space-y-8 sm:space-y-5 divide-y divide-gray-200") do
             yield if block_given?

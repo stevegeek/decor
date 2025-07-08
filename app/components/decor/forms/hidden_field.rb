@@ -4,7 +4,7 @@ module Decor
   module Forms
     class HiddenField < FormField
       def view_template
-        render parent_element do |el|
+        root_element do |el|
           input(
             data_controller: form_control_controller,
             class: input_classes,

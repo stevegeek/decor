@@ -36,11 +36,11 @@ module Decor
         end
       end
 
-      attribute :summary_lines, type: Array, sub_type: FooterSummaryLine
-      attribute :message, String
+      prop :summary_lines, _Nilable(_Array(FooterSummaryLine))
+      prop :message, _Nilable(String)
 
       def view_template
-        render parent_element do
+        root_element do
           if @left.present?
             div(class: "px-6 flex-1 sm:max-w-md") do
               instance_eval(@left)

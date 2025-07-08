@@ -6,16 +6,16 @@ module Decor
     no_stimulus_controller
 
     # Layout orientation for the stats
-    attribute :orientation, Symbol, default: :horizontal, in: %i[horizontal vertical]
+    prop :orientation, _Union(:horizontal, :vertical), default: :horizontal
 
     # Whether to add shadow styling
-    attribute :shadow, :boolean, default: true
+    prop :shadow, _Boolean, default: true
 
     # Whether to add background styling
-    attribute :background, :boolean, default: false
+    prop :background, _Boolean, default: false
 
     # Responsive behavior - vertical on mobile, horizontal on desktop
-    attribute :responsive, :boolean, default: false
+    prop :responsive, _Boolean, default: false
 
     private
 
@@ -30,7 +30,7 @@ module Decor
     end
 
     def view_template
-      render parent_element do
+      root_element do
         yield if block_given?
       end
     end

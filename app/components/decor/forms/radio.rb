@@ -5,10 +5,10 @@ module Decor
     class Radio < FormField
       include ::Decor::Forms::Concerns::CheckableFormField
 
-      attribute :label_position, Symbol, default: :right
+      prop :label_position, _Union(:left, :right), default: :right
 
       def view_template
-        render parent_element do |el|
+        root_element do |el|
           layout = ::Decor::Forms::FormFieldLayout.new(
             **form_field_layout_options(el),
             named_classes: {

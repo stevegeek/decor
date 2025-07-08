@@ -5,14 +5,14 @@ module Decor
   class PageSection < PhlexComponent
     no_stimulus_controller
 
-    attribute :title, String
-    attribute :description, String
-    attribute :separator, :boolean, default: false
+    prop :title, _Nilable(String)
+    prop :description, _Nilable(String)
+    prop :separator, _Boolean, default: false
 
     # Modern attributes following Decor patterns
-    attribute :size, Symbol, default: :md, in: [:xs, :sm, :md, :lg, :xl]
-    attribute :background, Symbol, default: :default, in: [:default, :primary, :secondary, :neutral]
-    attribute :padding, Symbol, default: :md, in: [:none, :sm, :md, :lg, :xl]
+    prop :size, _Union(:xs, :sm, :md, :lg, :xl), default: :md
+    prop :background, _Union(:default, :primary, :secondary, :neutral), default: :default
+    prop :padding, _Union(:none, :sm, :md, :lg, :xl), default: :md
 
     # Manual slot implementations for Phlex
     def with_hero(&block)
@@ -44,7 +44,7 @@ module Decor
     end
 
     def view_template
-      render parent_element do
+      root_element do
         # Render hero slot if present
         if @hero
           result = @hero.call

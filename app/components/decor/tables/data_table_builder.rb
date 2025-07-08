@@ -1,39 +1,54 @@
 module Decor
   module Tables
     class DataTableBuilder
-      include Vident::Typed::Attributes
-
+      include ::Literal::Properties
       include ::Decor::Concerns::SanitisedPaginationParams
       include ::Decor::Concerns::SanitisedSortAndFilterParams
 
       # An optional query object that the table is backed by
-      attribute :query, delegates: false
+      prop :query, Object, default: nil
 
       # Title to display top left of table header
-      attribute :title, String
-      attribute :subtitle, String
+      prop :title, _Nilable(String)
+      prop :subtitle, _Nilable(String)
 
       # Table settings
       # Whether rows should be striped or not
-      attribute :alternating, :boolean, default: false
+      prop :alternating, _Boolean, default: false
       # Whether rows should be striped or not
-      attribute :hover_highlight, :boolean, default: false
+      prop :hover_highlight, _Boolean, default: false
       # Table has pagination
-      attribute :paginated, :boolean, default: true
+      prop :paginated, _Boolean, default: true
       # The header row height
-      attribute :header_height, Symbol, in: [:comfortable, :standard, :tight]
+      prop :header_height, _Nilable(_Union(:comfortable, :standard, :tight))
       # The rows height
-      attribute :row_height, Symbol, in: [:comfortable, :standard, :tight]
+      prop :row_height, _Nilable(_Union(:comfortable, :standard, :tight))
       # The name of the checkbox inputs (as a group) which will be used for the row
       # selection checkboxes
-      attribute :rows_selectable_as_name, Symbol
+      prop :rows_selectable_as_name, _Nilable(Symbol)
 
-      attribute :download_path, String
+      prop :download_path, _Nilable(String)
 
-      attribute :row_nested_form
-      attribute :row_nested_form_attribute_name, Symbol
+      prop :row_nested_form, Object, default: nil
+      prop :row_nested_form_attribute_name, _Nilable(Symbol)
 
-      attribute :html_options, Hash, default: {}
+      prop :html_options, Hash, default: -> { {} }
+
+      # Pagination props (set by merge_pagination_params)
+      prop :current_page, _Nilable(Integer)
+      prop :page_size, _Nilable(Integer)
+
+      # Pagination parameter names
+      prop :page_parameter_name, Symbol, default: :page
+      prop :page_size_parameter_name, Symbol, default: :page_size
+      prop :custom_page_sizes, _Array(Integer), default: -> { [] }
+
+      # Sorting props (set by merge_sort_and_filter_params)
+      prop :sorted_direction, _Nilable(Symbol)
+      prop :sort_by, _Nilable(Symbol)
+      prop :sort_parameter_name, Symbol, default: :sort_by
+      prop :sorted_direction_parameter_name, Symbol, default: :sorted_direction
+      prop :sorting_keys, _Array(Symbol), default: -> { [] }
 
       # Relevance data virtual attribute
       attr_reader :page_relevance_scores
@@ -44,7 +59,7 @@ module Decor
         # These methods rely on us overriding the *_name attrs with methods that return before attributes are set
         merge_pagination_params(attributes, params)
         merge_sort_and_filter_params(attributes, params)
-        prepare_attributes(attributes) unless @__attributes
+        super(**attributes)
         @helpers = helpers
         @params = params.permit(keys_for_permit)
         @columns_hash = {}
@@ -127,8 +142,8 @@ module Decor
       end
 
       # The block returns the base Query object or AR query
-      def query(collection = nil)
-        @query ||= attribute(:query) || collection
+      def resolved_query(collection = nil)
+        @resolved_query ||= @query || collection
       end
 
       # Default sort to apply to table if none is provided
@@ -372,7 +387,7 @@ module Decor
       def prepared_query_objects
         @prepared_query_objects ||=
           begin
-            q = query
+            q = resolved_query
             # If not a query object, wrap it
             query_object = if q.is_a? ::Quo::Query
               q

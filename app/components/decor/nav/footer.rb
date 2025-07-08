@@ -3,7 +3,6 @@
 module Decor
   module Nav
     class Footer < PhlexComponent
-      no_stimulus_controller
 
       class FooterLink < ::Literal::Data
         prop :label, String
@@ -25,14 +24,14 @@ module Decor
         prop :visible, _Boolean, default: true
       end
 
-      attribute :company_name, String, allow_blank: false
-      attribute :leads_model
-      attribute :leads_submit_path
-      attribute :link_groups, Array, default: [].freeze
-      attribute :social_links, Array, default: [].freeze
-      attribute :theme, Symbol, default: :dark, in: [:light, :dark]
-      attribute :show_newsletter, :boolean, default: true
-      attribute :show_social, :boolean, default: true
+      prop :company_name, _String(&:present?)
+      prop :leads_model, _Nilable(Object)
+      prop :leads_submit_path, _Nilable(String)
+      prop :link_groups, Array, default: [].freeze
+      prop :social_links, Array, default: [].freeze
+      prop :theme, _Union(:light, :dark), default: :dark
+      prop :show_newsletter, _Boolean, default: true
+      prop :show_social, _Boolean, default: true
 
       def with_logo(&block)
         @logo_content = block
@@ -52,7 +51,7 @@ module Decor
 
       def view_template(&)
         vanish(&)
-        render parent_element do
+        root_element do
           div(class: "container mx-auto px-4 py-8 lg:py-12") do
             div(class: "grid grid-cols-1 lg:grid-cols-3 gap-8") do
               render_content_section

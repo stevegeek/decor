@@ -7,17 +7,24 @@ module Decor
       prop :href, _Nilable(String)
     end
 
-    attribute :steps, Array, sub_type: ProgressItem, allow_nil: false, convert: true
-    attribute :i18n_key, String
-    attribute :current_step, Integer, default: 1
-    attribute :color, Symbol, default: :primary, choice: [:primary, :secondary, :accent, :success, :error, :warning, :info]
-    attribute :size, Symbol, default: :md, choice: [:xs, :sm, :md, :lg]
-    attribute :variant, Symbol, default: :steps, choice: [:steps, :progress, :both]
-    attribute :show_numbers, :boolean, default: true
-    attribute :vertical, :boolean, default: false
+    prop :steps, _Array(ProgressItem), default: -> { [] } do |items|
+      items.map { |item| item.is_a?(ProgressItem) ? item : ProgressItem.new(item) }
+    end
+    prop :i18n_key, _Nilable(String)
+    prop :current_step, Integer, default: 1
+    prop :color, _Union(:primary, :secondary, :accent, :success, :error, :warning, :info), default: :primary
+    prop :size, _Union(:xs, :sm, :md, :lg), default: :md
+    prop :variant, _Union(:steps, :progress, :both), default: :steps
+    prop :show_numbers, _Boolean, default: true
+    prop :vertical, _Boolean, default: false
+
+    stimulus do
+      values_from_props :current_step
+      values total_steps: -> { @steps.size }
+    end
 
     def view_template
-      render parent_element do
+      root_element do
         case @variant
         when :progress
           render_progress_bar
@@ -39,14 +46,16 @@ module Decor
         value: progress_value,
         max: "100",
         aria_label: "Progress: #{progress_value}% complete",
-        data_decor__progress_target: "progress" # FIXME: use Vident?
+        data: {
+          **stimulus_target(:progress)
+        }
       )
     end
 
     def render_steps_indicator
       ul(class: steps_classes) do
         @steps.each_with_index do |step, idx|
-          li(class: step_classes(idx), data_content: step_data_content(idx), data_decor__progress_target: "step") do
+          li(class: step_classes(idx), data: {content: step_data_content(idx), **stimulus_target(:step)}) do
             if step.href.present? && step_completed?(idx)
               a(href: step.href, class: "text-sm font-medium") { step_full_label(step) }
             else
@@ -59,17 +68,6 @@ module Decor
 
     def element_classes
       "w-full"
-    end
-
-    def root_element_attributes
-      {
-        values: [
-          {
-            current_step: @current_step,
-            total_steps: @steps.size
-          }
-        ]
-      }
     end
 
     def progress_classes

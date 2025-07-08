@@ -3,21 +3,21 @@
 module Decor
   module Forms
     class FormFieldLayout < FormChild
-      attribute :input_container_classes, String, default: ""
+      prop :input_container_classes, _Nilable(String), default: ""
 
-      attribute :form_field_element, Vident::RootComponent
+      prop :form_field_element, _Any
 
       # The HTML ID of the form field.
-      attribute :field_id, String, allow_blank: false
+      prop :field_id, _String(&:present?)
 
       # If the label is not set, no label will be rendered
-      attribute :label, String
+      prop :label, _Nilable(String)
 
       # Renders under the label
-      attribute :description, String
+      prop :description, _Nilable(String)
 
       # If the field is disabled
-      attribute :disabled, :boolean, default: false
+      prop :disabled, _Boolean, default: false
 
       def inline_label(&block)
         @inline_label = block

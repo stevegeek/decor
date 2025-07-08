@@ -3,14 +3,14 @@
 module Decor
   module Forms
     class ErrorIconSection < PhlexComponent
-      attribute :error_text, String
-      attribute :show_floating_message, :boolean, default: false
+      prop :error_text, _Nilable(String)
+      prop :show_floating_message, _Boolean, default: false
 
-      attribute :tip_position, Symbol, default: :right
-      attribute :tip_offset_percent, Integer, default: 30
+      prop :tip_position, _Union(:top, :bottom, :left, :right), default: :right
+      prop :tip_offset_percent, Integer, default: 30
 
       def view_template
-        render parent_element do |el|
+        root_element do |el|
           if @show_floating_message
             render ::Decor::Tooltip.new(position: @tip_position, offset_percent_x: @tip_offset_percent, offset_percent_y: @tip_offset_percent) do |tip|
               tip.tip_content do

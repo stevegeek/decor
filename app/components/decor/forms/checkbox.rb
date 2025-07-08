@@ -5,10 +5,14 @@ module Decor
     class Checkbox < FormField
       include ::Decor::Forms::Concerns::CheckableFormField
 
-      attribute :label_position, Symbol, default: :right
+      prop :label_position, _Union(:left, :right, :top), default: :right
+
+      stimulus do
+        classes invalid_input: "invalid:border-error-dark"
+      end
 
       def view_template
-        render parent_element do |el|
+        root_element do |el|
           layout = ::Decor::Forms::FormFieldLayout.new(
             **form_field_layout_options(el),
             named_classes: {
@@ -41,14 +45,6 @@ module Decor
       end
 
       private
-
-      def root_element_attributes
-        {
-          named_classes: {
-            invalid_input: "invalid:border-error-dark"
-          }
-        }
-      end
 
       def checkbox_classes
         classes = ["checkbox"]

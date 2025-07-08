@@ -4,17 +4,17 @@ module Decor
   class PanelGroup < PhlexComponent
     no_stimulus_controller
 
-    attribute :title, String
-    attribute :description, String
+    prop :title, String
+    prop :description, _Nilable(String)
 
     # Size of the panel group
-    attribute :size, Symbol, default: :md, in: [:xs, :sm, :md, :lg, :xl]
+    prop :size, _Union(:xs, :sm, :md, :lg, :xl), default: :md
 
     # Color scheme using DaisyUI semantic colors
-    attribute :color, Symbol, default: :base, in: [:base, :primary, :secondary, :accent, :success, :error, :warning, :info, :neutral]
+    prop :color, _Union(:base, :primary, :secondary, :accent, :success, :error, :warning, :info, :neutral), default: :base
 
     # Visual variant
-    attribute :variant, Symbol, default: :filled, in: [:filled, :outlined, :ghost]
+    prop :variant, _Union(:filled, :outlined, :ghost), default: :filled
 
     def after_initialize
       @panels = []
@@ -24,7 +24,7 @@ module Decor
       # Execute the block to collect panels, cta, and main content
       @main_content = capture(&) if block_given?
 
-      render parent_element do
+      root_element do
         render ::Decor::Card.new(size: @size, color: @color, variant: @variant, html_options: card_html_options) do |card|
           card.card_header do
             card.div(class: "p-4 lg:p-6") do
@@ -75,11 +75,11 @@ module Decor
       @cta_content = block
     end
 
-    private
-
     def element_classes
       "space-y-4"
     end
+
+    private
 
     def card_html_options
       {class: "overflow-hidden"}

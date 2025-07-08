@@ -206,7 +206,9 @@ class ::Decor::Forms::NumberFieldPreview < ::Lookbook::Preview
         "TestClass"
       end
 
-      prop :count, Numeric, convert: true
+      prop :count, Numeric do |value|
+        value.to_i
+      end
     end
 
     render_with_template(

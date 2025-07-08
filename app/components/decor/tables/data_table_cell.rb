@@ -5,40 +5,45 @@ module Decor
     class DataTableCell < PhlexComponent
       # The value to be rendered in the cell
       # Could be a string or a number, or anything that will be coerced to a string
-      attribute :value, String, convert: true
+      prop :value, _Nilable(_Interface(:to_s))
 
       # Whether the cell contains numeric content or not
-      attribute :numeric, :boolean, default: false
+      prop :numeric, _Boolean, default: false
 
       # Number of columns to span. For a column header a colspan of zero means hide the column header
-      attribute :colspan, Integer
+      prop :colspan, _Nilable(Integer)
       # Min width in rem of the cell
-      attribute :min_width_rem, Numeric
+      prop :min_width_rem, _Nilable(Numeric)
       # Max width in pixel of the cell # TODO: change to rem
-      attribute :max_width, Numeric
+      prop :max_width, _Nilable(Numeric)
 
       # If 'clickable' the contents is placed in an absolutely positioned div over the cell to
       # ensure the contents capture the mouse click event.
-      attribute :content_clickable, :boolean, default: false
+      prop :content_clickable, _Boolean, default: false
 
       # The cell is meant to stop propagation of events
-      attribute :stop_propagation, :boolean, default: false
+      prop :stop_propagation, _Boolean, default: false
 
       # A cell can optionally link to another page.
-      attribute :path, String
+      prop :path, _Nilable(String)
 
       # Typography emphasis
-      attribute :emphasis, Symbol, default: :regular, in: [:regular, :low]
+      prop :emphasis, _Union(:regular, :low), default: :regular
       # Typography weight
-      attribute :weight, Symbol, default: :regular, in: [:light, :regular, :medium]
+      prop :weight, _Union(:light, :regular, :medium), default: :regular
       # Row height
-      attribute :row_height, Symbol, default: :standard, in: [:comfortable, :standard, :tight]
+      prop :row_height, _Union(:comfortable, :standard, :tight), default: :standard
 
       # DaisyUI color options (in addition to existing emphasis system)
-      attribute :color, Symbol, in: [:primary, :secondary, :accent, :neutral, :info, :success, :warning, :error]
+      prop :color, _Nilable(_Union(:primary, :secondary, :accent, :neutral, :info, :success, :warning, :error))
+
+      stimulus do
+        actions -> { [:click, :handle_cell_click_to_stop_propagation] if @stop_propagation }
+        values no_path_navigation: -> { @path.nil? }
+      end
 
       def view_template(&block)
-        render parent_element do |s|
+        root_element do |s|
           if @max_width.present? || @min_width_rem.present?
             div(
               style: "#{@max_width ? "max-width: #{@max_width}px;" : ""}#{@min_width_rem ? "min-width: #{@min_width_rem}rem;" : ""}",
@@ -115,21 +120,13 @@ module Decor
       end
 
       def root_element_attributes
-        options = {
-          element_tag: :td,
-          actions: [
-            @stop_propagation ? [:click, :handle_cell_click_to_stop_propagation] : nil
-          ].compact,
-          values: [
-            @path ? nil : {no_path_navigation: true}
-          ].compact
+        attrs = {
+          element_tag: :td
         }
-
         if @colspan&.positive?
           options[:html_options] = {colspan: @colspan}
         end
-
-        options
+        attrs
       end
 
       private
@@ -152,7 +149,7 @@ module Decor
             class: "cell-row-link-overlay absolute inset-0 no-underline cursor-pointer",
             tabindex: "-1",
             href: @path,
-            data: {**action_data_attributes(s, :handle_link_click)}
+            data: {**stimulus_action(:click, :handle_link_click)}
           )
           if @content_clickable
             div(class: "absolute inset-0") do

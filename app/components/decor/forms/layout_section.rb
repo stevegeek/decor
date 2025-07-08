@@ -14,17 +14,17 @@ module Decor
         @cta = block
       end
 
-      attribute :title, String
-      attribute :description, String
+      prop :title, String
+      prop :description, String
 
-      attribute :flash, :boolean, default: false
-      attribute :flash_message, String
+      prop :flash, _Boolean, default: false
+      prop :flash_message, _Nilable(String)
 
-      attribute :stacked, :boolean, default: false
-      attribute :custom_content_wrapper, :boolean, default: false
+      prop :stacked, _Boolean, default: false
+      prop :custom_content_wrapper, _Boolean, default: false
 
       def view_template
-        render parent_element do
+        root_element do
           render @hero if @hero.present?
 
           if @flash

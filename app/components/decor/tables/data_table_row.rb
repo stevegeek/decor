@@ -3,11 +3,39 @@
 module Decor
   module Tables
     class DataTableRow < PhlexComponent
-      attr_reader :expanded_content, :data_table_cells
+      attr_reader :expanded_content
 
-      def initialize(**attributes)
-        super
-        @data_table_cells = []
+      # Background changes on hover
+      prop :hover_highlight, _Nilable(_Boolean)
+
+      # Background is highlighted
+      prop :highlight, _Nilable(_Union(:gray_low, :gray_medium, :gray_high, :low, :medium, :high, :primary, :secondary, :accent, :info, :success, :warning, :error))
+
+      # Whether the row should get lower opacity or not
+      prop :disabled, _Boolean, default: false
+
+      # Whether the row should be hidden or not
+      prop :hidden, _Boolean, default: false
+
+      # If row has a select box next to it
+      prop :selectable_as, _Nilable(String)
+      # Whether the row should get an indicator on the left side
+      prop :selected, _Boolean, default: false
+
+      # A row can optionally link to another page.
+      prop :path, _Nilable(String)
+
+      prop :data_table_cells, _Array(::Decor::Tables::DataTableCell), default: -> { [] }
+
+      # A row can optionally have a form builder which can then be used to created nested forms per row. The form builder
+      # is normally prepared by the data table builder when preparing the table row data.
+      prop :form_builder, _Nilable(::ActionView::Helpers::FormBuilder)
+
+      stimulus do
+        actions [:click, :handle_row_click]
+        classes selected: "bg-base-200"
+        values_from_props :id
+        values href: -> { @path }
       end
 
       def with_expanded_content(&block)
@@ -21,33 +49,9 @@ module Decor
         cell
       end
 
-      # Background changes on hover
-      attribute :hover_highlight, :boolean
-
-      # Background is highlighted
-      attribute :highlight, Symbol, in: [:gray_low, :gray_medium, :gray_high, :low, :medium, :high, :primary, :secondary, :accent, :info, :success, :warning, :error]
-
-      # Whether the row should get lower opacity or not
-      attribute :disabled, :boolean, default: false
-
-      # Whether the row should be hidden or not
-      attribute :hidden, :boolean, default: false
-
-      # If row has a select box next to it
-      attribute :selectable_as, String, convert: true
-      # Whether the row should get an indicator on the left side
-      attribute :selected, :boolean, default: false
-
-      # A row can optionally link to another page.
-      attribute :path, String
-
-      # A row can optionally have a form builder which can then be used to created nested forms per row. The form builder
-      # is normally prepared by the data table builder when preparing the table row data.
-      attribute :form_builder, ::ActionView::Helpers::FormBuilder
-
       def view_template(&)
         vanish(&)
-        render parent_element do |el|
+        root_element do |el|
           if @selectable_as.present?
             td(class: "px-4") do
               render ::Decor::Forms::Checkbox.new(
@@ -78,12 +82,7 @@ module Decor
 
       def root_element_attributes
         {
-          element_tag: :tr,
-          actions: [[:click, :handle_row_click]],
-          named_classes: {
-            selected: "bg-base-200"
-          },
-          values: [{id: id}.merge(@path ? {href: @path} : {})]
+          element_tag: :tr
         }
       end
 

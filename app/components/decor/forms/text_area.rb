@@ -4,18 +4,18 @@ module Decor
   module Forms
     class TextArea < FormField
       # HTML textarea size attributes by character rows and columns
-      attribute :rows, Integer, default: 5
-      attribute :cols, Integer
+      prop :rows, Integer, default: 5
+      prop :cols, _Nilable(Integer)
 
       # A pattern to test against (a JavaScript Regex in a string)
-      attribute :pattern, String
+      prop :pattern, _Nilable(String)
 
       # The min and max length HTML5 attributes are set with the following
-      attribute :maximum_length, Integer
-      attribute :minimum_length, Integer
+      prop :maximum_length, _Nilable(Integer)
+      prop :minimum_length, _Nilable(Integer)
 
       def view_template
-        render parent_element do |el|
+        root_element do |el|
           layout = ::Decor::Forms::FormFieldLayout.new(
             **form_field_layout_options(el),
             named_classes: {

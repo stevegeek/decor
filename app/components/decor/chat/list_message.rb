@@ -3,17 +3,17 @@
 module Decor
   module Chat
     class ListMessage < PhlexComponent
-      attribute :author_name, String, allow_nil: false
-      attribute :author_initials, String
-      attribute :author_profile_image_url, String
+      prop :author_name, _String(&:present?)
+      prop :author_initials, _Nilable(String)
+      prop :author_profile_image_url, _Nilable(String)
 
-      attribute :localised_created_at, Time, default: ->(_) { Time.zone.now }
-      attribute :message, String
+      prop :localised_created_at, Time, default: -> { Time.zone.now }
+      prop :message, _Nilable(String)
 
-      attribute :is_current_user, :boolean, default: false
-      attribute :show_avatar, :boolean, default: true
-      attribute :show_timestamp, :boolean, default: true
-      attribute :footer_text, String
+      prop :is_current_user, _Boolean, default: false
+      prop :show_avatar, _Boolean, default: true
+      prop :show_timestamp, _Boolean, default: true
+      prop :footer_text, _Nilable(String)
 
       def initialize(**attributes)
         @attachment_block = nil
@@ -26,7 +26,7 @@ module Decor
 
       def view_template
         yield(self) if block_given?
-        render parent_element do
+        root_element do
           if @show_timestamp || (!@is_current_user && @author_name.present?)
             div(class: "chat-header") do
               span { @author_name } unless @is_current_user

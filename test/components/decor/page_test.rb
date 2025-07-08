@@ -173,7 +173,7 @@ class Decor::PageTest < ActiveSupport::TestCase
 
   test "supports badges" do
     component = Decor::Page.new(title: "Test")
-    component.with_badge(label: "Test Badge", color: :primary)
+    component.with_badge(label: "Test Badge", style: :success)
     rendered = render_component(component)
 
     assert_includes rendered, "Test Badge"

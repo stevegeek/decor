@@ -112,7 +112,6 @@ module Decor
 
     private
 
-
     def element_classes
       [
         "dropdown",

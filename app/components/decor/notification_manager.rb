@@ -7,15 +7,21 @@ module Decor
   #
   # One NotificationManager is created on page, and controlled by JS.
   class NotificationManager < PhlexComponent
+    stimulus do
+      actions [:"#{js_event_name_prefix}:show@window", :handle_show_event],
+        [:"#{js_event_name_prefix}:dismissAll@window", :handle_dismiss_all_event],
+        [:"#{js_event_name_prefix}:dismiss@window", :handle_dismiss_single_event]
+    end
+
     def notifications(&block)
       @notifications = block
     end
 
     def view_template
-      render parent_element do |el|
+      root_element do
         div(
           class: "w-full flex flex-col items-center space-y-4 sm:items-end",
-          data: {**el.send(:build_target_data_attributes, el.send(:parse_targets, [:notification_container]))}
+          data: {**stimulus_target(:notification_container)}
         ) do
           if @notifications.present?
             instance_eval(&@notifications)
@@ -28,11 +34,6 @@ module Decor
 
     def root_element_attributes
       {
-        actions: [
-          [:"#{js_event_name_prefix}:show@window", :handleShowEvent],
-          [:"#{js_event_name_prefix}:dismissAll@window", :handleDismissAllEvent],
-          [:"#{js_event_name_prefix}:dismiss@window", :handleDismissSingleEvent]
-        ],
         html_options: {
           aria_live: "assertive"
         }

@@ -5,9 +5,9 @@ module Decor
     class CompactFooter < Footer
       include Phlex::Rails::Helpers::ImagePath
 
-      attribute :status_site_url, String
-      attribute :footer_links, Array, default: [].freeze
-      attribute :show_logo, :boolean, default: true
+      prop :status_site_url, _Nilable(String)
+      prop :footer_links, _Array(Object), default: -> { [].freeze }
+      prop :show_logo, _Boolean, default: true
 
       def with_logo(&block)
         @logo_content = block
@@ -23,7 +23,7 @@ module Decor
 
       def view_template(&)
         vanish(&)
-        render parent_element do
+        root_element do
           div(class: "container mx-auto px-4 py-6") do
             render_social_section
             render_links_section

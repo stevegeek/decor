@@ -4,13 +4,13 @@ module Decor
   module Forms
     class TextField < FormField
       # Optionally specify the HTML size attribute to control the width in characters of the textbox
-      attribute :size, Integer
+      prop :size, _Nilable(Integer)
 
       # Leading or trailing add-ons: text, icon or slot
-      attribute :leading_text_add_on, String
-      attribute :trailing_text_add_on, String
-      attribute :leading_icon_name, String
-      attribute :trailing_icon_name, String
+      prop :leading_text_add_on, _Nilable(String)
+      prop :trailing_text_add_on, _Nilable(String)
+      prop :leading_icon_name, _Nilable(String)
+      prop :trailing_icon_name, _Nilable(String)
 
       def leading_add_on(&block)
         @leading_add_on = block
@@ -21,37 +21,37 @@ module Decor
       end
 
       # The attached on-adds can either appear as text, or boxed in a gray container
-      attribute :add_on_style, Symbol, in: %i[text boxed], default: :text
+      prop :add_on_style, _Union(:text, :boxed), default: :text
 
       # Allows one to change the type of input. However normally you should use the specific ViewComponent (eg
       # NumberField or PasswordField)
-      attribute :type, Symbol, default: :text
+      prop :type, Symbol, default: :text
 
       # A pattern to test against (a JavaScript Regex in a string)
-      attribute :pattern, String
+      prop :pattern, _Nilable(String)
 
       # HTML inputmode attribute
-      attribute :inputmode, String
+      prop :inputmode, _Nilable(String)
 
       # A numerical text field is a text field which only accepts numbers
-      attribute :numerical, :boolean, default: false
+      prop :numerical, _Boolean, default: false
 
       # The min and max length HTML5 attributes are set with the following
-      attribute :maximum_length, Integer
-      attribute :minimum_length, Integer
+      prop :maximum_length, _Nilable(Integer)
+      prop :minimum_length, _Nilable(Integer)
 
       # If set this will apply validation that value is same as value in field with ID
-      attribute :validate_value_equal_to_id, String
+      prop :validate_value_equal_to_id, _Nilable(String)
 
       # Attributes for text fields of type 'number'
-      attribute :min, Numeric
-      attribute :max, Numeric
-      attribute :step, Numeric
-      attribute :greater_than, Numeric
-      attribute :less_than, Numeric
+      prop :min, _Nilable(Numeric)
+      prop :max, _Nilable(Numeric)
+      prop :step, _Nilable(Numeric)
+      prop :greater_than, _Nilable(Numeric)
+      prop :less_than, _Nilable(Numeric)
 
       def view_template
-        render parent_element do |el|
+        root_element do |el|
           layout = ::Decor::Forms::FormFieldLayout.new(
             **form_field_layout_options(el),
             named_classes: {

@@ -21,19 +21,21 @@ module Decor
     end
 
     # Array of links in navigation. Each link must have a `title` and `href` specified
-    attribute :links, Array, sub_type: TabInfo, convert: true, allow_nil: true
+    prop :links, _Nilable(_Array(TabInfo)), default: -> { [] } do |attrs|
+      attrs.map { |link| link.is_a?(TabInfo) ? link : TabInfo.new(link) }
+    end
 
     # Status text is displayed to the right of the tabs
-    attribute :status, String
+    prop :status, _Nilable(String)
 
     # Size of the tabs
-    attribute :size, Symbol, default: :md, in: [:xs, :sm, :md, :lg, :xl]
+    prop :size, _Union(:xs, :sm, :md, :lg, :xl), default: :md
 
     # Color scheme using DaisyUI semantic colors
-    attribute :color, Symbol, default: :base, in: [:base, :primary, :secondary, :accent, :success, :error, :warning, :info, :neutral]
+    prop :color, _Union(:base, :primary, :secondary, :accent, :success, :error, :warning, :info, :neutral), default: :base
 
     # Visual variant
-    attribute :variant, Symbol, default: :bordered, in: [:ghost, :bordered, :lifted, :boxed]
+    prop :variant, _Union(:ghost, :bordered, :lifted, :boxed), default: :bordered
 
     def tab_buttons(&block)
       @tab_buttons = block
@@ -52,7 +54,7 @@ module Decor
     def view_template(&)
       @content = capture(&) if block_given?
 
-      render parent_element do
+      root_element do
         render_tabs
       end
     end

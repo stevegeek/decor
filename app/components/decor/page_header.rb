@@ -5,18 +5,18 @@ module Decor
     no_stimulus_controller
 
     # Content attributes
-    attribute :title, String
-    attribute :subtitle, String
-    attribute :description, String
+    prop :title, _Nilable(String)
+    prop :subtitle, _Nilable(String)
+    prop :description, _Nilable(String)
 
     # Layout configuration
-    attribute :layout, Symbol, default: :default, in: [:default, :centered, :minimal, :hero, :compact]
-    attribute :size, Symbol, default: :md, in: [:xs, :sm, :md, :lg, :xl]  # Added :xs for consistency
-    attribute :background, Symbol, default: :default, in: [:default, :hero, :gradient, :transparent]
+    prop :layout, _Union(:default, :centered, :minimal, :hero, :compact), default: :default
+    prop :size, _Union(:xs, :sm, :md, :lg, :xl), default: :md
+    prop :background, _Union(:default, :hero, :gradient, :transparent), default: :default
 
     # Visual options
-    attribute :border, :boolean, default: true
-    attribute :padding, Symbol, default: :md, in: [:none, :sm, :md, :lg, :xl]  # Added :xl for consistency
+    prop :border, _Boolean, default: true
+    prop :padding, _Union(:none, :sm, :md, :lg, :xl), default: :md
 
     def with_avatar(&block)
       @avatar_content = block
@@ -47,7 +47,7 @@ module Decor
     end
 
     def view_template
-      render parent_element do
+      root_element do
         render_breadcrumbs if @breadcrumbs_content
         render_layout
       end

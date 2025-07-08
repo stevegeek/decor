@@ -7,9 +7,8 @@ module Decor
         extend ActiveSupport::Concern
 
         included do
-          attribute :checked, :boolean, default: false, convert: true
-
-          attribute :in_group, :boolean, default: false
+          prop :checked, _Boolean, default: false
+          prop :in_group, _Boolean, default: false
         end
 
         def label_with_required

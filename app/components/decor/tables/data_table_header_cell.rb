@@ -4,22 +4,27 @@ module Decor
   module Tables
     class DataTableHeaderCell < DataTableCell
       # The string title to be rendered in the cell
-      attribute :title, String
+      prop :title, _Nilable(String)
 
       # Whether the cell should stretch to fill the remaining space or not.
       # The stretch divisor, setting the stretch based on how many other stretch columns are present.
-      attribute :stretch_divisor, Integer
+      prop :stretch_divisor, _Nilable(Integer)
 
       # Change default weight to medium
-      attribute :weight, Symbol, default: :medium, in: [:light, :regular, :medium]
+      prop :weight, _Union(:light, :regular, :medium), default: :medium
 
       # Sort key, if nil then column is not sortable
-      attribute :sort_key, Symbol, convert: true
+      prop :sort_key, _Nilable(Symbol)
       # Current sort direction of the column
-      attribute :sorted_direction, Symbol, in: [:asc, :desc], convert: true
+      prop :sorted_direction, _Nilable(_Union(:asc, :desc))
+
+      stimulus do
+        actions -> { [:click, :handle_sortable_click] if sort_key? }
+        values sort_key: -> { @sort_key }, sorted_direction: -> { @sorted_direction }
+      end
 
       def view_template
-        render parent_element do
+        root_element do
           div(class: "group flex items-center") do
             if sort_key?
               render ::Decor::Icon.new(
@@ -74,19 +79,12 @@ module Decor
       def root_element_attributes
         attrs = {
           element_tag: :th,
-          html_options: {
-            role: "columnheader",
-            scope: "col"
-          }
+          role: "columnheader",
+          scope: "col"
         }
 
         if @colspan&.positive?
-          attrs[:html_options][:colspan] = @colspan
-        end
-
-        if sort_key?
-          attrs[:actions] = [[:click, :handle_sortable_click]]
-          attrs[:values] = [{sort_key: @sort_key, sorted_direction: @sorted_direction}]
+          attrs[:colspan] = @colspan
         end
 
         attrs

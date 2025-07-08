@@ -5,21 +5,21 @@ module Decor
     class Form < PhlexComponent
       include ::Phlex::Rails::Helpers::FormWith
 
-      attribute :model, default: proc { false }
-      attribute :url, String
-      attribute :local, :boolean, default: true
-      attribute :http_method, Set[Symbol, String]
-      attribute :form_builder_class, ActionView::Helpers::FormBuilder, default: ActionViewFormBuilder
+      prop :model, default: -> { false }
+      prop :url, _Nilable(String)
+      prop :local, _Boolean, default: true
+      prop :http_method, _Nilable(_Interface(:to_s))
+      prop :form_builder_class, ActionView::Helpers::FormBuilder, default: ActionViewFormBuilder
 
-      attribute :on_before, Set[Symbol, String]
-      attribute :on_before_send, Set[Symbol, String]
-      attribute :on_send, Set[Symbol, String]
-      attribute :on_stopped, Set[Symbol, String]
-      attribute :on_success, Set[Symbol, String]
-      attribute :on_error, Set[Symbol, String]
-      attribute :on_complete, Set[Symbol, String]
+      prop :on_before, _Nilable(_Interface(:to_s))
+      prop :on_before_send, _Nilable(_Interface(:to_s))
+      prop :on_send, _Nilable(_Interface(:to_s))
+      prop :on_stopped, _Nilable(_Interface(:to_s))
+      prop :on_success, _Nilable(_Interface(:to_s))
+      prop :on_error, _Nilable(_Interface(:to_s))
+      prop :on_complete, _Nilable(_Interface(:to_s))
 
-      attribute :namespace, Set[Symbol, String]
+      prop :namespace, _Nilable(_Interface(:to_s))
 
       # The form builder is accessible as it is used to render the form fields of the form when rendering
       # component content blocks.

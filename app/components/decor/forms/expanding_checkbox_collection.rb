@@ -3,15 +3,26 @@
 module Decor
   module Forms
     class ExpandingCheckboxCollection < FormField
-      attribute :size, Integer
-      attribute :hide_after_showing, Integer
+      prop :size, _Nilable(Integer)
+      prop :hide_after_showing, _Nilable(Integer)
 
       # Variant styling options
-      attribute :variant, Symbol, default: :default
-      attribute :color, Symbol, default: :primary
+      prop :variant, _Union(:default, :joined), default: :default
+      prop :color, _Union(:primary, :secondary, :accent, :neutral, :success, :warning, :info, :error), default: :primary
+
+      stimulus do
+        outlets ::Decor::Forms::Checkbox.stimulus_identifier
+        values label: "collection", required: -> { @required }
+        classes(
+          valid_label: -> { @disabled ? "text-disabled" : "text-gray-900" },
+          invalid_label: "text-error",
+          valid_helper_text: -> { @disabled ? "text-disabled" : "text-gray-500" },
+          invalid_helper_text: "text-error"
+        )
+      end
 
       def view_template
-        render parent_element do |el|
+        root_element do |el|
           layout = ::Decor::Forms::FormFieldLayout.new(
             **form_field_layout_options(el),
             named_classes: {
@@ -49,22 +60,6 @@ module Decor
             end
           end
         end
-      end
-
-      def root_element_attributes
-        {
-          values: [
-            {label: "collection"},
-            @required && {required: @required}
-          ].compact_blank,
-          outlets: [::Decor::Forms::Checkbox.stimulus_identifier],
-          named_classes: {
-            valid_label: @disabled ? "text-disabled" : "text-gray-900",
-            invalid_label: "text-error",
-            valid_helper_text: @disabled ? "text-disabled" : "text-gray-500",
-            invalid_helper_text: "text-error"
-          }
-        }
       end
 
       def checkboxes(&block)

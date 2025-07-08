@@ -5,13 +5,13 @@ module Decor
     class SideNavbarSubItem < PhlexComponent
       include Phlex::Rails::Helpers::LinkTo
 
-      attribute :title, String, allow_blank: false
-      attribute :icon, String
-      attribute :path, String, default: "#"
-      attribute :selected, :boolean, default: false
+      prop :title, _String(&:present?)
+      prop :icon, _Nilable(String)
+      prop :path, String, default: "#"
+      prop :selected, _Boolean, default: false
 
       def view_template
-        render parent_element do |el|
+        root_element do |el|
           raw(
             link_to(
               @path,
@@ -28,7 +28,7 @@ module Decor
               end
 
               content += "<span class=\"#{component_class_name}-text\">"
-              content += el.target_tag(:p, :title) { @title }.to_s
+              content += el.tag(:p, stimulus_target: :title) { @title }.to_s
               content += "</span>"
               content.html_safe
             end

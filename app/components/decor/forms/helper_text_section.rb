@@ -3,15 +3,15 @@
 module Decor
   module Forms
     class HelperTextSection < PhlexComponent
-      attribute :helper_text, String
-      attribute :error_text, String
+      prop :helper_text, _Nilable(String)
+      prop :error_text, _Nilable(String)
 
-      attribute :disabled, :boolean, default: false
-      attribute :error_section, :boolean, default: true
-      attribute :collapsing_helper_text, :boolean, default: false
+      prop :disabled, _Boolean, default: false
+      prop :error_section, _Boolean, default: true
+      prop :collapsing_helper_text, _Boolean, default: false
 
       def view_template
-        render parent_element do |el|
+        root_element do |el|
           if @helper_text.present? && @error_text.blank?
             div(
               class: "validator-hint #{@disabled ? "opacity-50" : ""}",

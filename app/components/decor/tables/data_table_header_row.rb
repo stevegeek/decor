@@ -17,16 +17,16 @@ module Decor
       end
 
       # Whether the row should get lower opacity or not
-      attribute :disabled, :boolean, default: false
+      prop :disabled, _Boolean, default: false
 
       # If row has a select box next to it
-      attribute :selectable_as, String, convert: true
+      prop :selectable_as, _Nilable(String)
       # Whether the row should get an indicator on the left side
-      attribute :selected, :boolean, default: false
+      prop :selected, _Boolean, default: false
 
       def view_template(&)
         vanish(&)
-        render parent_element do |el|
+        root_element do |el|
           if @selectable_as.present?
             td(class: "px-4") do
               render ::Decor::Forms::Checkbox.new(

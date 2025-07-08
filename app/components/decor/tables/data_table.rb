@@ -53,24 +53,28 @@ module Decor
         self
       end
 
-      attribute :title, String
-      attribute :subtitle, String
+      prop :title, _Nilable(String)
+      prop :subtitle, _Nilable(String)
 
       # Table styling variants
-      attribute :variant, Symbol, default: :default, in: [:default, :bordered, :minimal]
-      attribute :striped, :boolean, default: true
-      attribute :compact, :boolean, default: false
+      prop :variant, _Union(:default, :bordered, :minimal), default: :default
+      prop :striped, _Boolean, default: true
+      prop :compact, _Boolean, default: false
 
       # DaisyUI enhancements
-      attribute :size, Symbol, default: :md, in: [:xs, :sm, :md, :lg, :xl]
-      attribute :zebra, :boolean, default: false
-      attribute :pin_rows, :boolean, default: false
-      attribute :pin_cols, :boolean, default: false
+      prop :size, _Union(:xs, :sm, :md, :lg, :xl), default: :md
+      prop :zebra, _Boolean, default: false
+      prop :pin_rows, _Boolean, default: false
+      prop :pin_cols, _Boolean, default: false
+
+      stimulus do
+        outlets ::Decor::Tables::DataTableHeaderRow.stimulus_identifier, ::Decor::Tables::DataTableRow.stimulus_identifier
+      end
 
       def view_template(&)
         vanish(&)
 
-        render parent_element do |el|
+        root_element do |el|
           # Data table header section
           if @title.present? || @data_table_header.present? || @search_and_filter_block.present?
             if @data_table_header.present?
@@ -100,8 +104,8 @@ module Decor
             div(
               class: "overflow-x-auto",
               data: {
-                action: el.send(:parse_actions, [[:scroll, :content_scrolled]]).join(" "),
-                **el.send(:build_target_data_attributes, el.send(:parse_targets, [:table_content_container]))
+                **stimulus_target(:table_content_container),
+                **stimulus_action(:scroll, :content_scrolled)
               }
             ) do
               table(class: table_classes) do
@@ -115,9 +119,7 @@ module Decor
                 end
                 tbody(
                   class: tbody_classes,
-                  data: {
-                    **el.send(:build_target_data_attributes, el.send(:parse_targets, [:table_body]))
-                  }
+                  data: {**stimulus_target(:table_body)}
                 ) do
                   @data_table_rows.each do |row_data|
                     row, block = row_data
@@ -145,15 +147,6 @@ module Decor
       end
 
       private
-
-      def root_element_attributes
-        {
-          outlets: [
-            ::Decor::Tables::DataTableHeaderRow.stimulus_identifier,
-            ::Decor::Tables::DataTableRow.stimulus_identifier
-          ]
-        }
-      end
 
       def element_classes
         [

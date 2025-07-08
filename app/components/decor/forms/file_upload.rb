@@ -6,29 +6,34 @@ module Decor
       include ::Phlex::Rails::Helpers::FileField
       include ::Phlex::Rails::Helpers::FieldName
 
-      attribute :preview_layout, Symbol, in: [:stacked, :inline], default: :inline
-      attribute :description, String, default: "Upload a .jpg or .png file, smaller than 5MB"
-      attribute :file_mime_types, String, default: "image/png,image/gif,image/jpeg"
+      prop :preview_layout, _Union(:stacked, :inline), default: :inline
+      prop :description, String, default: "Upload a .jpg or .png file, smaller than 5MB"
+      prop :file_mime_types, String, default: "image/png,image/gif,image/jpeg"
 
-      attribute :aspect_w, Integer
-      attribute :aspect_h, Integer
+      prop :aspect_w, _Nilable(Integer)
+      prop :aspect_h, _Nilable(Integer)
 
-      attribute :clear_checkbox, :boolean, default: true
+      prop :clear_checkbox, _Boolean, default: true
 
-      attribute :existing_file_url, String
-      attribute :file
+      prop :existing_file_url, _Nilable(String)
+      prop :file, _Nilable(_Any)
 
-      attribute :variant, Symbol, in: %i[file image avatar], default: :file
+      prop :variant, _Union(:file, :image, :avatar), default: :file
 
-      attribute :theme, Symbol, in: %i[primary secondary], default: :secondary
+      prop :theme, _Union(:primary, :secondary), default: :secondary
 
-      attribute :initials, String
-      attribute :shape, Symbol, in: %i[circle square], default: :circle
+      prop :initials, _Nilable(String)
+      prop :shape, _Union(:circle, :square), default: :circle
 
-      attribute :max_size_in_mb, Integer, default: 5
+      prop :max_size_in_mb, Integer, default: 5
+      
+      stimulus do
+        values_from_props :max_size_in_mb
+        classes image: -> { preview_classes }
+      end
 
       def view_template
-        render parent_element do |el|
+        root_element do |el|
           layout = ::Decor::Forms::FormFieldLayout.new(
             **form_field_layout_options(el),
             named_classes: {
@@ -121,15 +126,6 @@ module Decor
       end
 
       private
-
-      def root_element_attributes
-        {
-          values: [{max_size_in_mb: @max_size_in_mb}],
-          named_classes: {
-            image: preview_classes
-          }
-        }
-      end
 
       def input_container_classes
         "#{(@preview_layout == :inline) ? "flex items-end space-x-6" : "space-y-2"} relative " + super

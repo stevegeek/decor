@@ -3,19 +3,19 @@
 module Decor
   module Forms
     class ButtonRadioGroup < FormField
-      attribute :choices, Array, allow_nil: false
-      attribute :selected_choice, String
+      prop :choices, Array
+      prop :selected_choice, _Nilable(String)
 
       # Button groups mostly don't have labels
-      attribute :show_label, :boolean, default: false
+      prop :show_label, _Boolean, default: false
 
       # Variant styling options
-      attribute :variant, Symbol, default: :outline
-      attribute :size, Symbol, default: :md
-      attribute :color, Symbol, default: :primary
+      prop :variant, _Union(:outline, :solid, :ghost, :link), default: :outline
+      prop :size, _Union(:xs, :sm, :md, :lg, :xl), default: :md
+      prop :color, _Union(:primary, :secondary, :accent, :neutral, :success, :warning, :info, :error), default: :primary
 
       def view_template
-        render parent_element do |el|
+        root_element do |el|
           layout = ::Decor::Forms::FormFieldLayout.new(
             **form_field_layout_options(el),
             named_classes: {

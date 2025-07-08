@@ -10,15 +10,15 @@ module Decor
         include Phlex::Rails::Helpers::URLFor
 
         # The name of the query params used for the pagination options
-        attribute :page_parameter_name, Symbol, default: :page, allow_blank: false
-        attribute :page_size_parameter_name, Symbol, default: :page_size, allow_blank: false
+        prop :page_parameter_name, Symbol, default: :page
+        prop :page_size_parameter_name, Symbol, default: :page_size
 
         # Current page number
-        attribute :current_page, Integer
+        prop :current_page, _Nilable(Integer)
         # You can optionally pass the paging size
-        attribute :page_size, Integer
+        prop :page_size, _Nilable(Integer)
         # An array of page sizes that are normal options
-        attribute :custom_page_sizes, Array, sub_type: Integer
+        prop :custom_page_sizes, _Nilable(_Array(Integer))
       end
 
       private

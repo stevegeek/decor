@@ -4,30 +4,40 @@ module Decor
   module Forms
     class DateCalendar < FormField
       # Calendar type - single date, range, or multi-select
-      attribute :calendar_type, Symbol, default: :date, choice: [:date, :range, :multi, :month]
+      prop :calendar_type, _Union(:date, :range, :multi, :month), default: :date
 
       # Date constraints
-      attribute :min_date, Set[Date, Time, DateTime]
-      attribute :max_date, Set[Date, Time, DateTime]
+      prop :min_date, _Nilable(_Union(Date, Time, DateTime))
+      prop :max_date, _Nilable(_Union(Date, Time, DateTime))
 
       # Display options
-      attribute :months, Integer, default: 1
-      attribute :first_day_of_week, Integer, default: 0, choice: (0..6).to_a
-      attribute :locale, String, default: "en-US"
+      prop :months, Integer, default: 1
+      prop :first_day_of_week, _Integer(0..6), default: 0
+      prop :locale, String, default: "en-US"
 
       # Date filtering options
-      attribute :disabled_dates, Array, default: []
-      attribute :disabled_days_of_week, Array, default: []
-      attribute :enabled_dates, Array, default: []
-      attribute :enabled_days_of_week, Array, default: (0..6).to_a
+      prop :disabled_dates, _Array(String), default: -> { [] } do |dates|
+        dates.map { |date| format_date_for_cally(date) }.compact
+      end
+      prop :disabled_days_of_week, _Array(Integer), default: -> { [] }
+      prop :enabled_dates, _Array(String), default: -> { [] } do |dates|
+        dates.map { |date| format_date_for_cally(date) }.compact
+      end
+      prop :enabled_days_of_week, _Array(Integer), default: -> { (0..6).to_a }
 
       register_element :calendar_range
       register_element :calendar_multi
       register_element :calendar_date
       register_element :calendar_month
 
+      stimulus do
+        values_from_props :calendar_type, :locale, :months, :disabled_dates, :disabled_days_of_week, :enabled_dates, :enabled_days_of_week
+        
+        classes invalid_input: "invalid:border-error-dark"
+      end
+
       def view_template
-        render parent_element do |el|
+        root_element do |el|
           layout = ::Decor::Forms::FormFieldLayout.new(
             **form_field_layout_options(el),
             named_classes: {
@@ -177,28 +187,6 @@ module Decor
         dates.map { |date| format_date_for_cally(date) }.compact.join(",")
       end
 
-      def root_element_attributes
-        {
-          values: [
-            {calendar_type: @calendar_type},
-            {locale: @locale},
-            {months: @months},
-            {disabled_dates: format_dates_for_stimulus(@disabled_dates)},
-            {disabled_days_of_week: @disabled_days_of_week},
-            {enabled_dates: format_dates_for_stimulus(@enabled_dates)},
-            {enabled_days_of_week: @enabled_days_of_week}
-          ],
-          named_classes: {
-            invalid_input: "invalid:border-error-dark"
-          }
-        }
-      end
-
-      def format_dates_for_stimulus(dates)
-        return [] if dates.blank?
-
-        dates.map { |date| format_date_for_cally(date) }.compact
-      end
 
       def mapped_attrs
         {

@@ -16,7 +16,7 @@ class Decor::StatsTest < ActiveSupport::TestCase
     # Simulate block content
     component.instance_eval do
       def view_template(&block)
-        render parent_element do
+        root_element do
           div(class: "stat") { "Test Stat Content" }
         end
       end
@@ -227,7 +227,7 @@ class Decor::StatsTest < ActiveSupport::TestCase
     # Simulate nested stats
     stats_component.instance_eval do
       def view_template(&block)
-        render parent_element do
+        root_element do
           div(class: "stat") do
             div(class: "stat-title") { "Test Title" }
             div(class: "stat-value") { "123" }
@@ -255,7 +255,7 @@ class Decor::StatsTest < ActiveSupport::TestCase
 
     component.instance_eval do
       def view_template(&block)
-        render parent_element do
+        root_element do
           # Empty block
         end
       end

@@ -22,7 +22,6 @@ module Decor
       end
     end
 
-
     def element_classes
       "cursor-pointer"
     end

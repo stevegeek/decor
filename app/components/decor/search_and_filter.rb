@@ -25,12 +25,20 @@ module Decor
       prop :apply, _Nilable(Proc)
     end
 
-    attribute :url, String
-    attribute :filters, Array, default: [], sub_type: ::Decor::SearchAndFilter::Filter
+    prop :url, String
+    prop :filters, _Array(::Decor::SearchAndFilter::Filter), default: -> { [] }
 
-    attribute :search, Search
+    prop :search, Search
 
-    attribute :download_path, String
+    prop :download_path, _Nilable(String)
+
+    stimulus do
+      actions [:click, :toggle], ["click@window", :hide_on_click_outside],
+        [:keydown, :handle_search_input_keydown],
+        [:focus, :handle_range_picker],
+        [:click, :handle_clear_filters],
+        [:click, :handle_apply]
+    end
 
     def actions(&block)
       @actions = block
@@ -52,7 +60,7 @@ module Decor
 
     def view_template(&block)
       vanish(&block) if block
-      render parent_element do |el|
+      root_element do |el|
         form(method: "get", action: @url) do
           div(class: "sm:flex sm:rounded-md sm:shadow-sm") do
             div(class: "relative flex-grow focus-within:z-10") do
@@ -65,13 +73,17 @@ module Decor
                   leading_icon_name: "search",
                   collapsing_helper_text: true,
                   control_targets: [
-                    el.target(:search_input)
+                    stimulus_target(:search_input)
                   ],
                   control_actions: [
-                    el.action(:keydown, :handle_search_input_keydown)
+                    stimulus_action(:keydown, :handle_search_input_keydown)
                   ],
+                  outlet_host: el,
                   control_html_options: {class: @filters.present? ? "rounded-md sm:rounded-l-md sm:rounded-r-none pl-10" : "rounded-md"},
-                  outlet_host: el
+                  object: nil,
+                  object_name: nil,
+                  method_name: nil,
+                  validations: nil
                 )
               end
             end
@@ -87,7 +99,7 @@ module Decor
                   button(
                     type: "button",
                     class: "-ml-px relative inline-flex items-center px-4 py-2 mt-4 sm:mt-0 w-full sm:w-auto border border-gray-300 text-sm font-medium #{@search.present? ? "rounded-md sm:rounded-r-md sm:rounded-l-none" : "rounded-md"} text-gray-700 bg-white sm:bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500",
-                    data: {**action_data_attributes(el, [:click, :toggle], [:"click@window", :hide_on_click_outside])}
+                    data: {**stimulus_actions([:click, :toggle], [:"click@window", :hide_on_click_outside])}
                   ) do
                     render ::Decor::Icon.new(
                       name: "filter",
@@ -138,7 +150,7 @@ module Decor
                           disabled: filter.disabled?,
                           collapsing_helper_text: true,
                           control_actions: [
-                            el.action(:focus, :handle_range_picker)
+                            stimulus_action(:focus, :handle_range_picker)
                           ],
                           html_options: {class: "pt-2 w-full"},
                           outlet_host: el
@@ -151,8 +163,8 @@ module Decor
                     if filters_on?
                       render ::Decor::Button.new(
                         label: "Clear filters",
-                        targets: [el.target(:clear_filters_button)],
-                        actions: [el.action(:click, :handle_clear_filters)],
+                        stimulus_targets: [stimulus_target(:clear_filters_button)],
+                        stimulus_actions: [stimulus_action(:click, :handle_clear_filters)],
                         icon: "x",
                         size: :small,
                         color: :danger,
@@ -163,8 +175,8 @@ module Decor
 
                     render ::Decor::Button.new(
                       label: "Apply",
-                      targets: [el.target(:apply_button)],
-                      actions: [el.action(:click, :handle_apply)],
+                      stimulus_targets: [stimulus_target(:apply_button)],
+                      stimulus_actions: [stimulus_action(:click, :handle_apply)],
                       size: :small,
                       color: :primary,
                       full_width: true

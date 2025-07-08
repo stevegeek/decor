@@ -255,7 +255,7 @@ class Decor::TagTest < ActiveSupport::TestCase
     # This simulates passing a block to the component
     component.instance_eval do
       def view_template
-        render parent_element do
+        root_element do
           span(class: "whitespace-nowrap") { "Custom Content" }
         end
       end

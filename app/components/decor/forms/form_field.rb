@@ -4,60 +4,62 @@ module Decor
   module Forms
     class FormField < FormChild
       # The name attribute of the form field
-      attribute :name, String, allow_blank: false
+      prop :name, _String(&:present?)
 
       # If the label is not set, no label will be rendered
-      attribute :label, String
+      prop :label, _Nilable(String)
 
       # Optional description line under the label, useful on :left layouts
-      attribute :description, String
+      prop :description, _Nilable(String)
 
       # Optional placeholder used when there is no value/label inside
-      attribute :placeholder, String
+      prop :placeholder, _Nilable(String)
 
       # Hint for form autofill feature (note not available on button, checkbox & radio)
-      attribute :autocomplete, String
+      prop :autocomplete, _Nilable(String)
 
       # Compact style
-      attribute :compact, :boolean, default: false
+      prop :compact, _Boolean, default: false
 
       # The value of the form field
-      attribute :value, String, convert: true
+      prop :value, _Nilable(String) do |v|
+        v.to_s if v
+      end
 
       # Whether the field is required or not
-      attribute :required, :boolean, default: false
+      prop :required, _Boolean, default: false
 
       # If the field is disabled
-      attribute :disabled, :boolean, default: false
+      prop :disabled, _Boolean, default: false
 
       # Specify some helper text, this will temporarily disappear when validation text from the front end overrides it
-      attribute :helper_text, String
-      attribute :collapsing_helper_text, :boolean, default: false
-      attribute :floating_error_text, :boolean, default: false
+      prop :helper_text, _Nilable(String)
+      prop :collapsing_helper_text, _Boolean, default: false
+      prop :floating_error_text, _Boolean, default: false
 
       # Whether to hide the asterisk that is displayed after a label for a required field or not
-      attribute :hide_required_asterisk, :boolean, default: false
+      prop :hide_required_asterisk, _Boolean, default: false
 
       # Additional style classes for label, passed to FormFieldLayout
-      attribute :valid_label_classes, String
-      attribute :invalid_label_classes, String
+      prop :valid_label_classes, _Nilable(String)
+      prop :invalid_label_classes, _Nilable(String)
 
       # Allows stimulus targets and actions to be set on the actual form control
-      attribute :control_actions, Array, default: []
-      attribute :control_targets, Array, default: []
+      prop :control_actions, Array, default: -> { [] }
+      prop :control_targets, Array, default: -> { [] }
       # Additional HTML classes to add to control
-      attribute :control_html_options, Hash, default: {}
+      prop :control_html_options, Hash, default: -> { {} }
 
       # Internals
-      attribute :error_messages, Array, delegates: false
-      attribute :object, :any, delegates: false
-      attribute :object_name, :any, delegates: false
-      attribute :method_name, :any, delegates: false
-      attribute :type, :any, delegates: false
+      prop :error_messages, _Nilable(Array)
+      prop :object, _Nilable(_Any)
+      prop :object_name, _Nilable(_Any)
+      prop :method_name, _Nilable(_Any)
+      prop :type, _Nilable(_Any)
 
       # Optional messages for component validations
-      attribute :validations, :any, delegates: false
-      attribute :validation_messages, Hash, delegates: false
+      prop :validations, _Nilable(_Any)
+      prop :validation_messages, _Nilable(Hash)
 
       # To override the Stimulus controller used for this field.
       # Format: "decor/forms/form_control" (which represents decor/forms/form_control_controller.ts)

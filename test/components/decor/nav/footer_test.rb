@@ -174,8 +174,8 @@ class Decor::Nav::FooterTest < ActiveSupport::TestCase
   end
 
   test "validates required company_name attribute" do
-    assert_raises(Dry::Struct::Error) do
-      Decor::Nav::Footer.new(company_name: "")
+    assert_raises(Literal::TypeError) do
+      Decor::Nav::Footer.new(company_name: nil)
     end
   end
 end

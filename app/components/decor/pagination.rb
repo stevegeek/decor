@@ -6,21 +6,21 @@ module Decor
 
     no_stimulus_controller
 
-    attribute :page_size_selector, :boolean
+    prop :page_size_selector, _Boolean, default: false
 
     # Pagination requires you pass a Quo::Query
-    attribute :collection, ::Quo::Query, allow_nil: false
+    prop :collection, ::Quo::Query
 
     # Total count can be optionally set to override or set the total from the collection.
     # Also note if current_page is not set, it will be taken from the collection.
-    attribute :total_count, Integer
+    prop :total_count, _Nilable(Integer)
 
     # Optionally set the path that the pagination links are for, else `url_for` is used
     # and thus the path is implicit based on controller and action
-    attribute :path, String
+    prop :path, _Nilable(String)
 
     def view_template
-      render parent_element do
+      root_element do
         # Mobile pagination - simplified DaisyUI join pattern
         div(class: "flex justify-center sm:hidden") do
           div(class: "join") do

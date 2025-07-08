@@ -99,10 +99,10 @@ class Decor::TooltipTest < ActiveSupport::TestCase
     assert_nothing_raised { Decor::Tooltip.new(tip_text: "Test", variant: :outlined) }
     assert_nothing_raised { Decor::Tooltip.new(tip_text: "Test", variant: :ghost) }
 
-    # Should raise for invalid values - using Dry::Struct::Error which is what the attribute system raises
-    assert_raises(Dry::Struct::Error) { Decor::Tooltip.new(tip_text: "Test", size: :invalid) }
-    assert_raises(Dry::Struct::Error) { Decor::Tooltip.new(tip_text: "Test", color: :invalid) }
-    assert_raises(Dry::Struct::Error) { Decor::Tooltip.new(tip_text: "Test", variant: :invalid) }
+    # Should raise for invalid values - using Literal::TypeError which is what the prop system raises
+    assert_raises(Literal::TypeError) { Decor::Tooltip.new(tip_text: "Test", size: :invalid) }
+    assert_raises(Literal::TypeError) { Decor::Tooltip.new(tip_text: "Test", color: :invalid) }
+    assert_raises(Literal::TypeError) { Decor::Tooltip.new(tip_text: "Test", variant: :invalid) }
   end
 
   def test_inherits_from_phlex_component

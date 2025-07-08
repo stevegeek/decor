@@ -68,11 +68,11 @@ class Decor::FormattedEncodedIdTest < ActiveSupport::TestCase
     assert_equal "", prefix_combined
   end
 
-  test "renders as p element by default (uses parent_element)" do
+  test "renders as p element by default (uses root_element)" do
     component = Decor::FormattedEncodedId.new(encoded_id: "ABC123DEF456")
     rendered = render_component(component)
 
-    # Component uses render parent_element with element_tag: :p
+    # Component uses render root_element with element_tag: :p
     assert_includes rendered, "<p"
     assert_includes rendered, "class="
   end

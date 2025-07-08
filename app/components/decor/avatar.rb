@@ -6,27 +6,27 @@ module Decor
 
     with_cache_key :attributes
 
-    attribute :url, String, allow_nil: true, allow_blank: false
-    attribute :initials, String, allow_blank: false, allow_nil: true
+    prop :url, _Nilable(_String(&:present?))
+    prop :initials, _Nilable(_String(&:present?))
 
     SHAPE_OPTIONS = %i[circle square].freeze
-    attribute :shape, Symbol, in: SHAPE_OPTIONS, default: :circle
+    prop :shape, _Union(:circle, :square), default: :circle
 
-    attribute :border, :boolean, default: false
+    prop :border, _Boolean, default: false
 
     SIZE_OPTIONS = %i[xs sm md lg xl].freeze
-    attribute :size, Symbol, in: SIZE_OPTIONS, default: :md
+    prop :size, _Union(:xs, :sm, :md, :lg, :xl), default: :md
 
     COLOR_OPTIONS = %i[base primary secondary accent success error warning info neutral].freeze
-    attribute :color, Symbol, in: COLOR_OPTIONS, default: :neutral
+    prop :color, _Union(:base, :primary, :secondary, :accent, :success, :error, :warning, :info, :neutral), default: :neutral
 
     VARIANT_OPTIONS = %i[filled outlined ghost].freeze
-    attribute :variant, Symbol, in: VARIANT_OPTIONS, default: :filled
+    prop :variant, _Union(:filled, :outlined, :ghost), default: :filled
 
     private
 
     def view_template
-      render parent_element do
+      root_element do
         if @url
           div(class: "avatar") do
             div(class: "#{size_classes} #{shape_class} #{border_classes}") do
