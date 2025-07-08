@@ -55,7 +55,7 @@ class ::Decor::FlowStepPreview < ::Lookbook::Preview
       variant: :filled
     ) do
       content_tag :div, class: "mt-2" do
-        render ::Decor::Button.new(label: "Continue", variant: :primary, size: :sm)
+        render ::Decor::Button.new(label: "Continue", color: :primary, size: :sm)
       end
     end
   end
@@ -156,13 +156,13 @@ class ::Decor::FlowStepPreview < ::Lookbook::Preview
               content_tag(:div, class: "flex items-center justify-between p-2 bg-gray-50 rounded") do
                 safe_join([
                   content_tag(:span, "ID Document", class: "text-sm"),
-                  render(::Decor::Badge.new(label: "Required", color: :warning))
+                  render(::Decor::Badge.new(label: "Required", style: :warning))
                 ])
               end,
               content_tag(:div, class: "flex items-center justify-between p-2 bg-gray-50 rounded") do
                 safe_join([
                   content_tag(:span, "Proof of Address", class: "text-sm"),
-                  render(::Decor::Badge.new(label: "Optional", color: :neutral))
+                  render(::Decor::Badge.new(label: "Optional", style: :standard))
                 ])
               end
             ])
@@ -170,7 +170,7 @@ class ::Decor::FlowStepPreview < ::Lookbook::Preview
           content_tag(:div, class: "flex gap-2") do
             safe_join([
               render(::Decor::Button.new(label: "Upload Files", color: :primary, size: :sm)),
-              render(::Decor::Button.new(label: "Skip for Now", variant: :outline, size: :sm))
+              render(::Decor::Button.new(label: "Skip for Now", variant: :outlined, size: :sm))
             ])
           end
         ])

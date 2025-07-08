@@ -1,6 +1,6 @@
 <%= render ::Decor::Forms::Form.new(model: model, url: "#", local: true) do |form_component| %>
   <%= render ::Decor::Forms::LayoutContainer.new do |container| %>
-    <%= render ::Decor::Forms::LayoutSection.new(stacked: stacked_form) do %>
+    <%= render ::Decor::Forms::LayoutSection.new(title: "Button Radio Group", description: "Select one of the available options", stacked: stacked_form) do %>
       <%= form_component.builder.button_radio_group :chosen,
                                choices,
                                label: label,

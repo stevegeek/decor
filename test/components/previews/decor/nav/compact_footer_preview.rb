@@ -63,9 +63,23 @@ class ::Decor::Nav::CompactFooterPreview < ::Lookbook::Preview
 
   # Compact footer with custom content areas
   def custom_content
+    # Create simple link objects for the footer_links
+    link_struct = Struct.new(:href, :label, :external) do
+      def external?
+        external
+      end
+    end
+
+    custom_links = [
+      link_struct.new("/help", "Help Center", false),
+      link_struct.new("/status", "Service Status", false),
+      link_struct.new("/api", "API Docs", false)
+    ]
+
     render ::Decor::Nav::CompactFooter.new(
       company_name: "Example Company",
-      show_logo: false
+      show_logo: false,
+      footer_links: custom_links
     ) do |component|
       component.with_logo do
         div(class: "flex items-center justify-center mb-4") do
@@ -75,14 +89,6 @@ class ::Decor::Nav::CompactFooterPreview < ::Lookbook::Preview
             end
           end
           span(class: "text-lg font-bold") { "Custom Brand" }
-        end
-      end
-
-      component.with_links do
-        nav(class: "flex flex-wrap justify-center gap-x-6 gap-y-2 mb-4") do
-          a(href: "/help", class: "text-sm link link-hover") { "Help Center" }
-          a(href: "/status", class: "text-sm link link-hover") { "Service Status" }
-          a(href: "/api", class: "text-sm link link-hover") { "API Docs" }
         end
       end
 

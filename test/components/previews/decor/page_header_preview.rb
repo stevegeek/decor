@@ -29,8 +29,8 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
 
       header.with_meta_content do
         div(class: "flex flex-wrap gap-2") do
-          render ::Decor::Badge.new(label: "Active", color: :success)
-          render ::Decor::Badge.new(label: "Premium", color: :primary)
+          render ::Decor::Badge.new(label: "Active", style: :success)
+          render ::Decor::Badge.new(label: "Premium", style: :standard)
           render ::Decor::Tag.new(label: "Admin", color: :warning)
         end
       end
@@ -65,7 +65,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
 
       header.with_meta_content do
         div(class: "flex justify-center gap-3") do
-          render ::Decor::Badge.new(label: "Available", color: :success)
+          render ::Decor::Badge.new(label: "Available", style: :success)
           render ::Decor::Tag.new(label: "React", color: :info)
           render ::Decor::Tag.new(label: "TypeScript", color: :info)
           render ::Decor::Tag.new(label: "Rails", color: :error)
@@ -115,7 +115,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
 
       header.with_meta_content do
         div(class: "flex justify-center gap-2 text-primary-content/80") do
-          render ::Decor::Badge.new(label: "New", color: :accent)
+          render ::Decor::Badge.new(label: "New", style: :standard)
           span(class: "text-sm") { "Over 10,000 happy customers" }
         end
       end
@@ -319,8 +319,8 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
 
       header.with_meta_content do
         div(class: "flex flex-wrap gap-2") do
-          render ::Decor::Badge.new(label: "Mobile", color: :primary)
-          render ::Decor::Badge.new(label: "Responsive", color: :success)
+          render ::Decor::Badge.new(label: "Mobile", style: :standard)
+          render ::Decor::Badge.new(label: "Responsive", style: :success)
         end
       end
 
@@ -419,7 +419,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
 
       header.with_meta_content do
         div(class: "flex flex-wrap gap-2") do
-          render ::Decor::Badge.new(label: "Live", color: :success)
+          render ::Decor::Badge.new(label: "Live", style: :success)
           render ::Decor::Tag.new(label: "Interactive", color: :primary)
         end
       end

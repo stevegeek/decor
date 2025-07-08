@@ -42,13 +42,15 @@ class ::Decor::Tables::DataTablePreview < ::Lookbook::Preview
       title: title
     ) do |table|
       if paginated
-        table.with_pagination(
-          path: "/", # Just for testing, to ensure url_for doesn't break
-          collection: collection,
-          page_size: 10,
-          current_page: 2,
-          total_count: 300
-        )
+        table.with_pagination do
+          render ::Decor::Pagination.new(
+            path: "/", # Just for testing, to ensure url_for doesn't break
+            collection: collection,
+            page_size: 10,
+            current_page: 2,
+            total_count: 300
+          )
+        end
       end
       table.with_data_table_header_row(selectable_as: selectable ? "header_checkbox" : nil) do |table_header|
         table_header.with_data_table_header_cell(
