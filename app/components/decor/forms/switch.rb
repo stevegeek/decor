@@ -15,10 +15,10 @@ module Decor
       stimulus do
         actions [:change, :handle_change]
         values_from_props :label,
-                          :submit_on_change
+          :submit_on_change
         values confirm_on_submit: -> { @confirm_on_submit.present? ? @confirm_on_submit : nil },
-               confirm_on_submit_yes: -> { @confirm_on_submit.present? ? @confirm_on_submit_yes : nil },
-               confirm_on_submit_no: -> { @confirm_on_submit.present? ? @confirm_on_submit_no : nil }
+          confirm_on_submit_yes: -> { @confirm_on_submit.present? ? @confirm_on_submit_yes : nil },
+          confirm_on_submit_no: -> { @confirm_on_submit.present? ? @confirm_on_submit_no : nil }
       end
 
       def view_template

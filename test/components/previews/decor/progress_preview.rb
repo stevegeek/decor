@@ -75,7 +75,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
       current_step: 2,
       variant: :progress,
       color: :success,
-      size: :lg,
+      size: :lg
     )
   end
 
@@ -273,7 +273,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
       current_step: 2,
       variant: :steps,
       color: :info,
-      size: :lg,
+      size: :lg
     )
   end
 
@@ -363,7 +363,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
         current_step:,
         variant: :both,
         color: :success,
-        size: :lg,
+        size: :lg
       )
     end
   end

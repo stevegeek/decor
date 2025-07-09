@@ -17,7 +17,7 @@ module Decor
     def self.prop_names
       literal_properties.properties_index.keys.map(&:to_sym)
     end
-    
+
     def prop_names
       self.class.prop_names
     end

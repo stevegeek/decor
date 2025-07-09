@@ -5,7 +5,7 @@ module Decor
       include ::Decor::Concerns::SanitisedSortAndFilterParams
 
       # An optional query object that the table is backed by
-      prop :query, Object, default: -> { nil }
+      prop :query, Object, default: -> {}
 
       # Title to display top left of table header
       prop :title, _Nilable(String)

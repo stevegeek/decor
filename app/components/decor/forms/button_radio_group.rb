@@ -16,9 +16,9 @@ module Decor
 
       stimulus do
         classes valid_label: -> { @disabled ? "text-disabled" : "text-gray-900" },
-                invalid_label: "text-error-dark",
-                valid_helper_text: -> { @disabled ? "text-disabled" : "text-gray-500" },
-                invalid_helper_text: "text-error"
+          invalid_label: "text-error-dark",
+          valid_helper_text: -> { @disabled ? "text-disabled" : "text-gray-500" },
+          invalid_helper_text: "text-error"
       end
 
       def view_template

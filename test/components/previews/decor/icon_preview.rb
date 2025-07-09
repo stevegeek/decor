@@ -193,10 +193,10 @@ class ::Decor::IconPreview < ::Lookbook::Preview
     render_with_template(
       locals: {
         icons: [
-          { name: "home", title: "Home" },
-          { name: "user", title: "User" },
-          { name: "chevron-right", title: "Next" },
-          { name: "x", title: "Close" }
+          {name: "home", title: "Home"},
+          {name: "user", title: "User"},
+          {name: "chevron-right", title: "Next"},
+          {name: "x", title: "Close"}
         ]
       }
     )

@@ -11,7 +11,7 @@ module Decor
       stimulus do
         targets :overlay, :modal
         actions -> { [stimulus_scoped_event_on_window(:open), :handle_open_event] },
-                -> { [stimulus_scoped_event_on_window(:close), :handle_close_event] }
+          -> { [stimulus_scoped_event_on_window(:close), :handle_close_event] }
         values_from_props :close_on_overlay_click, :content_href
         values show_initial: -> { @start_shown }
       end

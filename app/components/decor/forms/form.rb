@@ -63,7 +63,7 @@ module Decor
             **stimulus_data_attributes,
             **stimulus_actions(
               [stimulus_scoped_event(:submit), :handle_custom_submit_event],
-               [stimulus_scoped_event(:validate), :handle_validate_fields_event],
+              [stimulus_scoped_event(:validate), :handle_validate_fields_event],
               *(local? ? [[:submit, :handle_submit_event]] : remote_form_actions)
             )
           },

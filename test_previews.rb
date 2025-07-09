@@ -18,14 +18,14 @@ class PreviewTester
   def run
     puts "🔍 Testing all preview methods..."
     puts "=" * 60
-    
+
     # Get all preview classes
     preview_classes = find_preview_classes
-    
+
     preview_classes.each do |preview_class|
       test_preview_class(preview_class)
     end
-    
+
     print_summary
   end
 
@@ -36,7 +36,7 @@ class PreviewTester
     Dir.glob("test/components/previews/**/*_preview.rb").each do |file|
       require_relative file
     end
-    
+
     # Find all classes that inherit from Lookbook::Preview
     ObjectSpace.each_object(Class).select do |klass|
       klass < Lookbook::Preview
@@ -46,14 +46,14 @@ class PreviewTester
   def test_preview_class(preview_class)
     puts "\n📋 Testing #{preview_class.name}"
     puts "-" * 40
-    
+
     # Get all public instance methods that don't start with _ and aren't inherited
     preview_methods = preview_class.instance_methods(false).reject do |method|
-      method.to_s.start_with?('_') || 
-      method.to_s == 'initialize' ||
-      [:render_component, :render_with_template, :render].include?(method)
+      method.to_s.start_with?("_") ||
+        method.to_s == "initialize" ||
+        [:render_component, :render_with_template, :render].include?(method)
     end
-    
+
     preview_methods.each do |method_name|
       test_preview_method(preview_class, method_name)
     end
@@ -61,19 +61,19 @@ class PreviewTester
 
   def test_preview_method(preview_class, method_name)
     @results[:total] += 1
-    
+
     begin
       # Create a proper ActionView context with Rails application context
       controller = ActionController::Base.new
       controller.request = ActionDispatch::TestRequest.create
       view_context = controller.view_context
-      
+
       # Create an instance of the preview class
       preview_instance = preview_class.new
-      
+
       # Try to call the method
       result = preview_instance.send(method_name)
-      
+
       # If it's a component, try to render it with view context
       if result.is_a?(Hash) && result[:component]
         # Use Rails render method with view context
@@ -82,10 +82,9 @@ class PreviewTester
         # For direct component instances
         view_context.render(result)
       end
-      
+
       @results[:passed] << "#{preview_class.name}##{method_name}"
       puts "  ✅ #{method_name}"
-      
     rescue => e
       @results[:failed] << {
         method: "#{preview_class.name}##{method_name}",
@@ -104,11 +103,11 @@ class PreviewTester
     puts "Total methods tested: #{@results[:total]}"
     puts "Passed: #{@results[:passed].length} (#{(@results[:passed].length.to_f / @results[:total] * 100).round(1)}%)"
     puts "Failed: #{@results[:failed].length} (#{(@results[:failed].length.to_f / @results[:total] * 100).round(1)}%)"
-    
+
     if @results[:failed].any?
       puts "\n🚨 FAILED METHODS:"
       puts "-" * 40
-      
+
       @results[:failed].each do |failure|
         puts "\n❌ #{failure[:method]}"
         puts "   Error: #{failure[:error]}"
@@ -118,10 +117,10 @@ class PreviewTester
           puts "     #{line}"
         end
       end
-      
+
       puts "\n📋 FAILURE CATEGORIES:"
       puts "-" * 40
-      
+
       # Group failures by error type
       failures_by_error = @results[:failed].group_by { |f| f[:error] }
       failures_by_error.each do |error_type, failures|
@@ -131,7 +130,7 @@ class PreviewTester
         end
       end
     end
-    
+
     puts "\n✅ PASSED METHODS:" if @results[:passed].any?
     @results[:passed].each do |method|
       puts "  - #{method}"

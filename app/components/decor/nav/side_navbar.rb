@@ -10,9 +10,9 @@ module Decor
 
       stimulus do
         actions -> { [stimulus_scoped_event_on_window(:toggle_mobile_menu), :toggle_mobile_menu] },
-                [:touchstart, :handle_mouse_over],
-                [:mouseenter, :handle_mouse_over],
-                [:mouseleave, :handle_mouse_away]
+          [:touchstart, :handle_mouse_over],
+          [:mouseenter, :handle_mouse_over],
+          [:mouseleave, :handle_mouse_away]
         values_from_props :collapsed
         outlets navbar_section: ::Decor::Nav::SideNavbarSection.stimulus_identifier
       end
