@@ -81,7 +81,7 @@ class Decor::Modals::ModalOpenButtonTest < ActiveSupport::TestCase
   test "supports custom CSS classes" do
     component = Decor::Modals::ModalOpenButton.new(
       modal_id: "custom-modal",
-      html_options: {class: "custom-button-class"}
+      classes: "custom-button-class"
     )
     rendered = render_component(component)
 

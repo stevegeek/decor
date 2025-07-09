@@ -129,9 +129,7 @@ module Decor
       return {} unless button.action_name
 
       {
-        data: {
-          target: button.action_name
-        }
+        stimulus_actions: button.action_name
       }
     end
   end

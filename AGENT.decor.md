@@ -4,13 +4,81 @@
 
 Decor is a comprehensive UI component library built with [Phlex](https://phlex.dev/), [Vident](https://github.com/stevegeek/vident) and styled with [daisyUI](https://daisyui.com/). This document provides AI agents with complete guidelines for effectively using Decor components.
 
+## About Vident
+
+Vident is a Ruby component library that provides type-safe, interactive web components with robust Stimulus.js integration. Vident documentation can be found at: https://raw.githubusercontent.com/stevegeek/vident/refs/heads/main/llm.txt
+
+### Key Vident Features Used in Decor:
+- **Type-safe property definitions** using the Literal gem (`prop :name, String, default: "value"`)
+- **Declarative Stimulus integration** via `stimulus` blocks for interactive behavior
+- **Intelligent CSS class management** with automatic Tailwind CSS class merging
+- **Automatic Stimulus controller generation** (e.g., `ButtonComponent` → `button-component`)
+- **Component caching mechanisms** for performance optimization
+- **Scoped custom event handling** for component communication
+
+## Literal Properties System
+
+The Literal gem provides a robust property definition system for type-safe Ruby components. Full documentation: https://literal.fun/docs/properties.html
+
+### Basic Property Definition
+```ruby
+class MyComponent
+  extend Literal::Properties
+  prop :name, String
+  prop :age, Integer
+  prop :enabled, _Boolean
+end
+```
+
+Sets instance variables for each property.
+
+### Property Types
+- **Basic Types**: `String`, `Integer`, `Float`, `_Boolean`
+- **Collections**: `_Array(String)`, `_Hash(String, Integer)`
+- **Unions**: `_Union(:small, :medium, :large)` for enums
+- **Nilable**: `_Nilable(String)` for optional properties
+- **Complex Types**: Custom classes, modules, and interfaces, see full documentation for details.
+- **Predicates**: `_Nilable(_String(_Predicate("present", &:present?)))`
+
+### Default Values
+```ruby
+# Static defaults (frozen objects)
+prop :status, String, default: "active".freeze
+
+# Dynamic defaults (procs)
+prop :created_at, Time, default: -> { Time.now }
+prop :id, String, default: -> { SecureRandom.uuid }
+
+# Conditional defaults
+prop :theme, _Union(:light, :dark), default: -> { Rails.env.production? ? :light : :dark }
+```
+
+### Type Coercion
+```ruby
+# Transform input values
+prop :age, Integer do |value|
+  value.to_i
+end
+```
+
+### Advanced Features
+```ruby
+# Optional properties (can be nil)
+prop :description, _Nilable(String)
+
+# Reader/writer visibility
+prop :internal_id, String, reader: :private, writer: :protected
+```
+
 ## Core Principles
 
-### 1. Phlex-Based Components
-- Components are Ruby objects, not templates
-- Initialize with `ComponentName.new(attributes)`
+### 1. Vident + Phlex-Based Components
+- Components are Ruby objects extending `Vident::Phlex::HTML`, not templates
+- Initialize with `ComponentName.new(<keyword arguments attributes>)`
 - Render with `render component_instance`
 - Use blocks for content: `render Component.new(...) do |c| ... end`
+- Properties are defined with `prop :name, Type, default: value` for type safety, using the Literal gem
+- Stimulus integration is declarative via `stimulus` blocks
 
 ### 2. DaisyUI Styling System
 - Use semantic attributes: `color: :primary`, `size: :lg`, `variant: :outlined`
@@ -18,10 +86,18 @@ Decor is a comprehensive UI component library built with [Phlex](https://phlex.d
 - Colors: `:primary`, `:secondary`, `:accent`, `:success`, `:error`, `:warning`, `:info`, `:neutral`, `:base`
 - Sizes: `:xs`, `:sm`, `:md`, `:lg`, `:xl`
 
-### 3. Attribute-Driven Configuration
-- Components are configured through rich Ruby attributes
-- Always check component files for available attributes
+### 3. Type-Safe Attribute Configuration
+- Components are configured through type-safe Ruby properties using Vident's `prop` system
+- Properties are validated at runtime using the Literal gem
+- Always check component files for available properties and their types
 - Use semantic attributes before `html_options: { class: "..." }`
+- Properties support defaults, validation, and type coercion
+
+### 4. CSS Class Management
+- Use `classes:` parameter to **add** CSS classes to component defaults (additive)
+- Use `html_options: { class: "..." }` to **override** all component-defined classes (destructive)
+- **Recommended**: Use `classes:` for additional styling while preserving component defaults
+- **Avoid**: Using `html_options: { class: }` unless you need to completely replace component classes
 
 ## AI Agent Usage Guidelines
 
@@ -33,7 +109,8 @@ Decor is a comprehensive UI component library built with [Phlex](https://phlex.d
 ### Attribute Usage Priority
 1. **Semantic attributes first**: `color`, `size`, `variant`, `disabled`
 2. **Component-specific attributes**: `label`, `icon`, `required`
-3. **HTML options last**: `html_options: { class: "custom-class" }`
+3. **Additional CSS classes**: `classes: "custom-class"` (additive to component defaults)
+4. **HTML options last**: `html_options: { class: "custom-class" }` (overrides component classes)
 
 ### Common Attribute Patterns
 - **Sizing**: `size: :xs | :sm | :md | :lg | :xl`
@@ -145,6 +222,10 @@ Decor is a comprehensive UI component library built with [Phlex](https://phlex.d
 
 - **Title** - Page and section titles
   - Attributes: `title`, `description`, `size`
+
+- **FlowStep** - Individual step indicators for multi-step processes
+  - Attributes: `title`, `description`, `step`, `icon`, `size`, `color`, `variant`
+  - Features: step numbering, progress indication, completion states
 
 ### Form Components (Decor::Forms::)
 
@@ -342,6 +423,15 @@ render Decor::Button.new(
   color: :primary,
   variant: :contained,
   icon: "check"
+)
+
+# Action button with additional CSS classes (additive)
+render Decor::Button.new(
+  label: "Save Changes",
+  color: :primary,
+  variant: :contained,
+  icon: "check",
+  classes: "shadow-lg custom-spacing"
 )
 
 # Navigation link styled as button
@@ -624,18 +714,88 @@ render Decor::Notification.new(
 - **Set appropriate `variant`** (`:success`, `:error`, `:warning`)
 - **Provide clear, actionable messages**
 
-## Phlex Component Optimization Patterns
+## Vident + Phlex Component Optimization Patterns
 
 ### Single Element Components
-- Use `render parent_element` directly with `element_classes` rather than adding another element inside parent_element's block
-- Example: `render parent_element` (classes applied to parent) vs `render parent_element do; span(class: "..."); end` (extra nested element)
+- Use `root_element` directly with `element_classes` rather than adding another element inside root_element's block
+- Example: `root_element` (classes applied to root) vs `root_element do; span(class: "..."); end` (extra nested element)
+- Vident components use `root_element` method instead of `parent_element`
+- **Note**: You call `root_element` directly, not `render root_element`
+
+### Type-Safe Property Definitions
+- Always use `prop :name, Type, default: value` for component properties
+- Use Literal gem types: `String`, `Integer`, `_Boolean`, `_Array`, `_Hash`, etc.
+- Example: `prop :size, _Union[:xs, :sm, :md, :lg, :xl], default: :md`
+- Properties are automatically validated and provide better error messages
+
+### Stimulus Integration
+- Use `stimulus` blocks for declarative Stimulus controller configuration
+- Controllers are automatically named based on component class (e.g., `ButtonComponent` → `button-component`)
+- Use `stimulus_data_attributes` method to generate proper data attributes
+- Example:
+  ```ruby
+  stimulus do
+    actions [:click, :handle_click], :another_handler, -> { [:click, :handle_click_again] if handle_again? }
+    targets :label, -> { :my_conditional_target if condition? }
+    outlets my_outlet: MyComponent.stimulus_identifier
+    values enabled: false, random_num: -> { rand }
+    classes my_name: "my-class", another_name: "another-class"
+  end
+  ```
+  
+Set stimulus attributes at the render site too, and nested components can setup their attributes from the parent component's stimulus attributes
+using helper methods like `stimulus_targets`, `stimulus_actions`, and `stimulus_values`.
+
+```ruby
+root_element do |el|
+  render Decor::Button.new(
+    label: "Click Me",
+    stimulus_targets: [stimulus_target(:label)], # sets button as a target for outer components controller
+    stimulus_actions: [el.stimulus_action(:click, :handle_click)], # sets button click to call method on outer components controller, note you can be explicit about calling on the instance of the outer element (`el` here)
+    stimulus_values: {
+      my_value: "some value",
+      another_value: -> { "dynamic value" } # can be a proc for dynamic values
+    },
+    stimulus_outlets: {
+      my_outlet: Decor::Button.stimulus_identifier # sets up the outlet for this button component
+    },
+    stimulus_classes: {
+      loading: "loading", # sets up the stimulus class with the name "loading"
+      fetch_error: "bg-red-500"
+    }
+  )
+end
+```
 
 ### Memory Notes
-- Remember that parent_element takes element_classes, so if you just need to style one element, use that combo, like in Spinner, rather than adding another element to parent_elements block
 - Do not use OpenStruct in tests or anywhere
 - For SVG `path`s in phlex do `svg(...) do |s| s.path(...) end`
 
 ### Rendering Lookbook Previews
 - When creating lookbook previews, blocks passed to rendered components need to call methods on the component, eg `do |component| component.render...` or `component.div(...)`
+
+### Size System
+- **Current**: Components support both legacy naming (`micro`) and standardized naming (`xs`)
+- **Recommendation**: Use standardized DaisyUI sizes (`:xs`, `:sm`, `:md`, `:lg`, `:xl`)
+- **Button Component**: Already supports size aliases for backward compatibility
+
+### Testing Infrastructure
+- **Framework**: Comprehensive test suite with Minitest
+- **Coverage**: Unit tests for component rendering and behavior
+- **Lookbook**: Preview system for component development
+- **No OpenStruct**: Avoid using OpenStruct in tests or component code
+
+### Performance Considerations
+- **Caching**: Vident provides built-in component caching mechanisms
+- **CSS**: Intelligent Tailwind CSS class merging reduces redundant classes
+- **Stimulus**: Lazy-loaded controllers for better performance
+
+### Best Practices Summary
+1. **Use type-safe properties** with Literal gem types
+2. **Leverage Vident's Stimulus DSL** for interactive behavior
+3. **Follow DaisyUI conventions** for consistent styling
+4. **Prefer semantic attributes** over custom CSS classes
+5. **Use `root_element`** for single-element components
+6. **Test components thoroughly** with behavior-focused tests
 
 This comprehensive guide should enable AI agents to effectively use the Decor UI library with confidence and consistency.

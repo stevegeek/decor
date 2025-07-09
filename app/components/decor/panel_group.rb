@@ -25,7 +25,7 @@ module Decor
       @main_content = capture(&) if block_given?
 
       root_element do
-        render ::Decor::Card.new(size: @size, color: @color, variant: @variant, html_options: card_html_options) do |card|
+        render ::Decor::Card.new(size: @size, color: @color, variant: @variant, classes: "overflow-hidden") do |card|
           card.card_header do
             card.div(class: "p-4 lg:p-6") do
               card.div(class: "-ml-4 -mt-4 ml-4 mt-4") do
@@ -80,10 +80,6 @@ module Decor
     end
 
     private
-
-    def card_html_options
-      {class: "overflow-hidden"}
-    end
 
     def section_classes(idx)
       base_classes = "px-4 py-5 lg:px-6"

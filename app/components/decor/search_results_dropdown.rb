@@ -11,7 +11,7 @@ module Decor
 
         div(class: "relative bg-white h-full overflow-hidden") do
           div(class: "flex items-center h-full", data: {**@nav_element.stimulus_target(:search_spinner)}) do
-            render ::Decor::Spinner.new(html_options: {class: "mx-auto"})
+            render ::Decor::Spinner.new(classes: "mx-auto")
           end
           div(class: "hidden max-w-7xl mx-auto px-8 h-full overflow-y-scroll lg:overflow-auto", data: {**@nav_element.stimulus_target(:search_dropdown_content)}) do
             # Search results view goes here

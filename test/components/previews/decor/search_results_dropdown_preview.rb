@@ -2,22 +2,8 @@
 class ::Decor::SearchResultsDropdownPreview < ::Lookbook::Preview
   # Mock nav element class that implements the required interface
   class MockNavElement
-    include Vident::StimulusComponent
-    
     def stimulus_target(target_name)
-      {"data-target" => "nav--#{target_name}"}
-    end
-
-    def parse_targets(targets)
-      {controller: "nav", targets: targets}
-    end
-
-    def build_target_data_attributes(attrs)
-      result = {}
-      attrs[:targets]&.each do |target|
-        result[:target] = "nav--#{target}"
-      end
-      result
+      {"data-nav-target" => target_name.to_s.dasherize}
     end
   end
 

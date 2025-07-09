@@ -26,8 +26,9 @@ module Decor
       @tip_content = block
     end
 
+    # FIXME: continue migrating to the with_ syntax
     def with_tip_content(&block)
-      @tip_content = block
+      tip_content(&block)
       self
     end
 
@@ -40,10 +41,15 @@ module Decor
     end
 
     def view_template(&)
+      # TODO: should be vanish(&)?
       @content = capture(&) if block_given?
 
-      root_element do
-        raw @content.html_safe if @content.present?
+      root_element(
+        data: {
+          tip: rendered_tip_content # This is set after the capture
+        }
+      ) do
+        raw @content if @content.present?
       end
     end
 
@@ -101,12 +107,7 @@ module Decor
 
     def root_element_attributes
       {
-        element_tag: :div,
-        html_options: {
-          data: {
-            tip: rendered_tip_content
-          }
-        }
+        element_tag: :div
       }
     end
 

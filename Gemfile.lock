@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/parruda/claude-swarm.git
-  revision: 773672801140b11784faec6217f1e2e84ac9d7ca
+  revision: 87d6a109e48b621c08a1325314bdc5e450797696
   branch: main
   specs:
-    claude_swarm (0.1.20)
+    claude_swarm (0.2.0)
       fast-mcp-annotations (~> 1.5.3)
       ruby-mcp-client (~> 0.7)
       ruby-openai (~> 8.1)
@@ -33,19 +33,19 @@ GIT
 
 GIT
   remote: https://github.com/stevegeek/vident.git
-  revision: 63f9be283e98a065f49f2ac23080efb41a7fdf42
+  revision: 7e6225b463f901e9733f7c2edcc9af064d13fc96
   branch: main
   specs:
-    vident (1.0.0.alpha1)
+    vident (1.0.0.alpha2)
       activesupport (>= 7.2, < 9)
       literal (>= 1.0, < 2)
       railties (>= 7.2, < 9)
-    vident-phlex (1.0.0.alpha1)
+    vident-phlex (1.0.0.alpha2)
       activesupport (>= 7.2, < 9)
       phlex (>= 2.0, < 3)
       phlex-rails (>= 0.8.1, < 3)
       railties (>= 7.2, < 9)
-      vident (~> 1.0.0.alpha1)
+      vident (~> 1.0.0.alpha2)
 
 GEM
   remote: https://rubygems.org/
@@ -277,6 +277,7 @@ GEM
       net-smtp
     marcel (1.0.4)
     matrix (0.4.3)
+    method_source (1.1.0)
     mime-types (3.7.0)
       logger
       mime-types-data (~> 3.2025, >= 3.2025.0507)
@@ -502,9 +503,10 @@ GEM
     unicode-emoji (4.0.4)
     uri (1.0.3)
     useragent (0.16.11)
-    view_component (4.0.0.rc2)
-      activesupport (>= 7.1.0, < 8.1)
+    view_component (3.23.2)
+      activesupport (>= 5.2.0, < 8.1)
       concurrent-ruby (~> 1)
+      method_source (~> 1.0)
     web-console (4.2.1)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)

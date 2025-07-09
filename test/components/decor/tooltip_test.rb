@@ -23,12 +23,11 @@ class Decor::TooltipTest < ActiveSupport::TestCase
   end
 
   def test_renders_custom_tooltip_content_with_slot
-    component = Decor::Tooltip.new(position: :top) do |c|
+    component = Decor::Tooltip.new(position: :top)
+    rendered = render_fragment(component) do |c|
       c.with_tip_content { "Custom tip content" }
+      "Main content"
     end
-
-    rendered = render_fragment(component) { "Main content" }
-
     assert_includes rendered.text, "Main content"
     # For backward compatibility, it should still work but use fallback data-tip
     assert_equal "Custom tip content", rendered.at_css(".tooltip")["data-tip"]
@@ -49,9 +48,8 @@ class Decor::TooltipTest < ActiveSupport::TestCase
   end
 
   def test_renders_with_base_component_classes
-    component = Decor::Tooltip.new(tip_text: "Help", html_options: {class: "custom-class"})
+    component = Decor::Tooltip.new(tip_text: "Help", classes: "custom-class")
     rendered = render_fragment(component) { "Content" }
-
     assert rendered.css(".tooltip.custom-class").any?
   end
 
