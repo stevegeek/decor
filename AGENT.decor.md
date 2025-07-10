@@ -83,7 +83,7 @@ prop :internal_id, String, reader: :private, writer: :protected
 ### 2. DaisyUI Styling System
 - Use semantic attributes: `color: :primary`, `size: :lg`, `variant: :outlined`
 - Avoid custom CSS classes - leverage daisyUI's design system
-- Colors: `:primary`, `:secondary`, `:accent`, `:success`, `:error`, `:warning`, `:info`, `:neutral`, `:base`
+- Colors: `:primary`, `:secondary`, `:accent`, `:success`, `:error`, `:warning`, `:info`, `:standard`, `:base`
 - Sizes: `:xs`, `:sm`, `:md`, `:lg`, `:xl`
 
 ### 3. Type-Safe Attribute Configuration
@@ -330,6 +330,13 @@ prop :internal_id, String, reader: :private, writer: :protected
   - Attributes: `links`, `size`, `color`, `variant`
   - Features: icons, badges, mobile responsive, disabled states
 
+#### Search & Utility
+- **SearchResultsDropdown** - Search results display
+- **SearchAndFilter** - Search and filter controls
+  - Attributes: `url`, `filters`, `search`, `download_path`
+  - Classes: `Filter`, `Search` with apply methods
+  - Methods: `actions`, `with_actions`, `filters`, `with_filters`
+
 ### Navigation Components (Decor::Nav::)
 
 #### Primary Navigation
@@ -357,7 +364,7 @@ prop :internal_id, String, reader: :private, writer: :protected
 #### Page Structure
 - **Page** - Page layout component
   - Attributes: `title`, `size`, `background`, `padding`, `spacing`, `full_height`
-  - Slots: `with_hero`, `with_header`, `with_cta`, `with_tabs`, `with_body`, `with_badge`, `with_tag`
+  - Slots: `with_hero`, `with_header`, `with_cta`, `with_tabs`, `with_badge`, `with_tag`
 
 - **PageHeader** - Flexible page headers
   - Attributes: `title`, `subtitle`, `layout`, `size`, `background`
@@ -377,13 +384,6 @@ prop :internal_id, String, reader: :private, writer: :protected
 - **Breadcrumbs** - Navigation breadcrumbs
   - Attributes: `breadcrumbs` array with `title`, `href`
   - Features: mobile-friendly select dropdown
-
-#### Search & Utility
-- **SearchResultsDropdown** - Search results display
-- **SearchAndFilter** - Search and filter controls
-  - Attributes: `url`, `filters`, `search`, `download_path`
-  - Classes: `Filter`, `Search` with apply methods
-  - Methods: `actions`, `with_actions`, `filters`, `with_filters`
 
 ### Modal Components (Decor::Modals::)
 
@@ -595,7 +595,7 @@ render Decor::Nav::SideNavbar.new(
     section.with_item(title: "Dashboard", path: dashboard_path, icon: "home")
     section.with_item(title: "Users", path: users_path, icon: "users")
   end
-  
+
   navbar.with_section(title: "Admin") do |section|
     section.with_item(title: "Settings", path: settings_path, icon: "cog")
   end
@@ -614,10 +614,8 @@ render Decor::Page.new(title: "Dashboard") do |page|
       end
     end
   end
-  
-  page.with_body do
-    # Page content
-  end
+
+  # Page content
 end
 ```
 
@@ -671,8 +669,8 @@ render Decor::Notification.new(
   description: "You have received a new message",
   color: :info,
   action_buttons: [
-    {label: "View", href: "/messages", primary: true},
-    {label: "Dismiss", action_name: "dismiss"}
+          {label: "View", href: "/messages", primary: true},
+          {label: "Dismiss", action_name: "dismiss"}
   ]
 )
 ```
@@ -742,7 +740,7 @@ render Decor::Notification.new(
     classes my_name: "my-class", another_name: "another-class"
   end
   ```
-  
+
 Set stimulus attributes at the render site too, and nested components can setup their attributes from the parent component's stimulus attributes
 using helper methods like `stimulus_targets`, `stimulus_actions`, and `stimulus_values`.
 

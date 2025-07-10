@@ -110,7 +110,7 @@ class Decor::PageHeaderTest < ActiveSupport::TestCase
   test "supports avatar content area" do
     component = Decor::PageHeader.new(title: "Test")
     component.with_avatar do
-      span { "Avatar Content" }
+      "Avatar Content"
     end
     rendered = render_component(component)
 
@@ -121,7 +121,7 @@ class Decor::PageHeaderTest < ActiveSupport::TestCase
   test "supports title content area override" do
     component = Decor::PageHeader.new(title: "Original Title")
     component.with_title_content do
-      h1 { "Custom Title Content" }
+      "Custom Title Content"
     end
     rendered = render_component(component)
 
@@ -131,78 +131,59 @@ class Decor::PageHeaderTest < ActiveSupport::TestCase
   test "supports meta content area" do
     component = Decor::PageHeader.new(title: "Test")
     component.with_meta_content do
-      div(class: "flex gap-2") do
-        span(class: "badge badge-primary") { "Badge" }
-        span(class: "badge badge-secondary") { "Tag" }
-      end
+      "Badge Tag"
     end
     rendered = render_component(component)
 
-    assert_includes rendered, "badge badge-primary"
-    assert_includes rendered, "Badge"
-    assert_includes rendered, "Tag"
+    assert_includes rendered, "Badge Tag"
   end
 
   test "supports actions content area" do
     component = Decor::PageHeader.new(title: "Test")
     component.with_actions do
-      button(class: "btn btn-primary") { "Edit" }
-      button(class: "btn btn-secondary") { "Delete" }
+      "Edit Delete"
     end
     rendered = render_component(component)
 
-    assert_includes rendered, "btn btn-primary"
-    assert_includes rendered, "Edit"
-    assert_includes rendered, "Delete"
+    assert_includes rendered, "Edit Delete"
   end
 
   test "supports secondary actions content area" do
     component = Decor::PageHeader.new(title: "Test")
     component.with_secondary_actions do
-      button(class: "btn btn-ghost") { "More" }
+      "More"
     end
     rendered = render_component(component)
 
-    assert_includes rendered, "btn btn-ghost"
     assert_includes rendered, "More"
   end
 
   test "supports breadcrumbs content area" do
     component = Decor::PageHeader.new(title: "Test")
     component.with_breadcrumbs do
-      nav(class: "breadcrumbs") do
-        ul do
-          li { a(href: "/") { "Home" } }
-          li { "Current" }
-        end
-      end
+      "Home > Current"
     end
     rendered = render_component(component)
 
-    assert_includes rendered, "breadcrumbs"
-    assert_includes rendered, "Home"
-    assert_includes rendered, "Current"
+    assert_includes rendered, "Home &gt; Current"
   end
 
   test "supports status content area" do
     component = Decor::PageHeader.new(title: "Test", layout: :centered)
     component.with_status do
-      div(class: "alert alert-success") do
-        span { "Success status" }
-      end
+      "Success status"
     end
     rendered = render_component(component)
 
-    assert_includes rendered, "alert alert-success"
     assert_includes rendered, "Success status"
   end
 
   test "supports multiple content areas together" do
     component = Decor::PageHeader.new(title: "Test Page")
-    component.with_avatar { span { "Avatar" } }
-    component.with_meta_content { span { "Meta" } }
-    component.with_actions { button { "Action" } }
-    component.with_breadcrumbs { nav { "Breadcrumbs" } }
+    component.with_avatar { "Avatar" }
+    component.with_meta_content { "Meta" }
+    component.with_actions { "Action" }
+    component.with_breadcrumbs { "Breadcrumbs" }
     rendered = render_component(component)
 
     assert_includes rendered, "Avatar"

@@ -6,51 +6,15 @@ module Decor
       no_stimulus_controller
 
       class Breadcrumb < ::Literal::Data
-        prop :name, String
-        prop :path, String
+        prop :name, _Nilable(String)
+        prop :path, _Nilable(String)
         prop :current, _Boolean, default: false
         prop :icon, _Nilable(String)
         prop :disabled, _Boolean, default: false
       end
 
-      prop :breadcrumbs, Array, default: -> { [] }
-      prop :show_home, _Boolean, default: true
-      prop :home_path, String, default: "/"
-      prop :home_icon, String, default: "home"
-      prop :mobile_select, _Boolean, default: true
-      prop :separator, String, default: "chevron-right"
-
-      def initialize(**attrs)
-        super
-        convert_breadcrumbs
-      end
-
-      def view_template
-        root_element do
-          div(class: "breadcrumbs") do
-            ul do
-              render_home_item if @show_home
-              render_breadcrumb_items
-            end
-          end
-
-          if @mobile_select && @breadcrumbs.any?
-            render_mobile_select
-          end
-        end
-      end
-
-      private
-
-      def root_element_attributes
-        {
-          element_tag: :nav,
-          html_options: {"aria-label" => "Breadcrumb"}
-        }
-      end
-
-      def convert_breadcrumbs
-        @breadcrumbs = @breadcrumbs.map do |crumb|
+      prop(:breadcrumbs, _Array(Breadcrumb), default: -> { [] }) do |crumbs|
+        crumbs.map do |crumb|
           case crumb
           when Hash
             # Support both name/path and label/href formats for backward compatibility
@@ -84,6 +48,35 @@ module Decor
             end
           end
         end
+      end
+      prop :show_home, _Boolean, default: true
+      prop :home_path, String, default: "/"
+      prop :home_icon, String, default: "home"
+      prop :mobile_select, _Boolean, default: true
+      prop :separator, String, default: "chevron-right"
+
+      def view_template
+        root_element do
+          div(class: "breadcrumbs") do
+            ul do
+              render_home_item if @show_home
+              render_breadcrumb_items
+            end
+          end
+
+          if @mobile_select && @breadcrumbs.any?
+            render_mobile_select
+          end
+        end
+      end
+
+      private
+
+      def root_element_attributes
+        {
+          element_tag: :nav,
+          html_options: {"aria-label" => "Breadcrumb"}
+        }
       end
 
       def render_home_item

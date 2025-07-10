@@ -31,7 +31,7 @@ module Decor
           )
         end
         div(class: wrapper_classes) do
-          yield
+          yield if block_given?
         end
         if @link.present?
           link_to "Learn more", @link, class: button_classes

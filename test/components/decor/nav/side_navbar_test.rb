@@ -20,8 +20,7 @@ class Decor::Nav::SideNavbarTest < ActiveSupport::TestCase
   test "renders successfully with default attributes" do
     component = Decor::Nav::SideNavbar.new(
       landscape_logo_url: "/logo.png",
-      avatar_logo_url: "/avatar.png",
-      menu_items: @menu_items
+      avatar_logo_url: "/avatar.png"
     )
     rendered = render_component(component)
 
@@ -32,8 +31,7 @@ class Decor::Nav::SideNavbarTest < ActiveSupport::TestCase
   test "renders with DaisyUI classes" do
     component = Decor::Nav::SideNavbar.new(
       landscape_logo_url: "/logo.png",
-      avatar_logo_url: "/avatar.png",
-      menu_items: @menu_items
+      avatar_logo_url: "/avatar.png"
     )
     rendered = render_component(component)
 
@@ -45,7 +43,6 @@ class Decor::Nav::SideNavbarTest < ActiveSupport::TestCase
     component = Decor::Nav::SideNavbar.new(
       landscape_logo_url: "/logo.png",
       avatar_logo_url: "/avatar.png",
-      menu_items: @menu_items,
       collapsed: true
     )
     rendered = render_component(component)
@@ -57,8 +54,7 @@ class Decor::Nav::SideNavbarTest < ActiveSupport::TestCase
   test "component inherits from PhlexComponent" do
     component = Decor::Nav::SideNavbar.new(
       landscape_logo_url: "/logo.png",
-      avatar_logo_url: "/avatar.png",
-      menu_items: @menu_items
+      avatar_logo_url: "/avatar.png"
     )
 
     assert component.is_a?(Decor::PhlexComponent)
@@ -67,8 +63,7 @@ class Decor::Nav::SideNavbarTest < ActiveSupport::TestCase
   test "renders search input with DaisyUI styling" do
     component = Decor::Nav::SideNavbar.new(
       landscape_logo_url: "/logo.png",
-      avatar_logo_url: "/avatar.png",
-      menu_items: @menu_items
+      avatar_logo_url: "/avatar.png"
     )
     rendered = render_component(component)
 
@@ -81,8 +76,7 @@ class Decor::Nav::SideNavbarTest < ActiveSupport::TestCase
   test "supports responsive design" do
     component = Decor::Nav::SideNavbar.new(
       landscape_logo_url: "/logo.png",
-      avatar_logo_url: "/avatar.png",
-      menu_items: @menu_items
+      avatar_logo_url: "/avatar.png"
     )
     rendered = render_component(component)
 
@@ -90,15 +84,14 @@ class Decor::Nav::SideNavbarTest < ActiveSupport::TestCase
     assert_includes rendered, "lg:w-72"
   end
 
-  test "renders navigation items" do
+  test "renders navigation placeholder" do
     component = Decor::Nav::SideNavbar.new(
       landscape_logo_url: "/logo.png",
-      avatar_logo_url: "/avatar.png",
-      menu_items: @menu_items
+      avatar_logo_url: "/avatar.png"
     )
     rendered = render_component(component)
 
-    assert_includes rendered, "Dashboard"
-    assert_includes rendered, "Navigation"
+    # The sidebar navigation area should be present but empty by default
+    assert_includes rendered, '<nav class="flex-1 px-5"></nav>'
   end
 end

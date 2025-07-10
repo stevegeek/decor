@@ -53,7 +53,7 @@ module Decor
 
       root_element do |s|
         if @trigger_button.present?
-          instance_eval(&@trigger_button)
+          render @trigger_button
         else
           s.tag(
             :button,
@@ -66,7 +66,7 @@ module Decor
             class: dropdown_button_classes
           ) do
             if @trigger_button_content.present?
-              instance_eval(&@trigger_button_content)
+              render @trigger_button_content
             else
               plain "Menu"
             end
@@ -83,8 +83,8 @@ module Decor
             aria_labelledby: "#{id}-menu-button",
             tabindex: "-1"
           ) do
-            render instance_eval(&@card_content) if @card_content.present?
-            render instance_eval(&@custom_content) if @custom_content.present?
+            render @card_content if @card_content.present?
+            render @custom_content if @custom_content.present?
           end
         else
           # Traditional menu content
@@ -94,7 +94,7 @@ module Decor
             tabindex: "0",
             class: dropdown_content_classes
           ) do
-            render instance_eval(&@menu_header) if @menu_header.present?
+            render @menu_header if @menu_header.present?
 
             if @menu_items&.any?
               @menu_items.each do |item|
@@ -102,11 +102,11 @@ module Decor
               end
             end
 
-            render instance_eval(&@menu_content) if @menu_content.present?
+            render @menu_content if @menu_content.present?
           end
         end
 
-        render @content if @content
+        raw @content if @content
       end
     end
 

@@ -1,7 +1,7 @@
 <%= render ::Decor::Nav::SecondaryNavbar.new(bottom_border: has_bottom_border, variant: variant) do |nav| %>
   <% if has_left_element %>
     <% nav.with_left do %>
-      <%= render ::Decor::Breadcrumbs.new(
+      <%= render ::Decor::Nav::Breadcrumbs.new(
             breadcrumbs: [
               {name: "Home", path: "/"},
               {name: "Beef", path: "/beef"}

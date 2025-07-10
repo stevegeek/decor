@@ -81,4 +81,32 @@ class Decor::ClickToCopyTest < ActiveSupport::TestCase
     # Should still have duplicate icon
     assert_includes rendered.to_html, "duplicate"
   end
+
+  def test_with_to_copy_prop
+    component = Decor::ClickToCopy.new(to_copy: "Secret text to copy")
+
+    rendered = render_fragment(component) { "Display this text" }
+
+    # Should show the display text
+    assert_includes rendered.text, "Display this text"
+
+    # Should have the to_copy value as a stimulus value
+    root_element = rendered.children.first
+    assert root_element
+    assert_includes root_element["data-decor--click-to-copy-to-copy-value"], "Secret text to copy"
+  end
+
+  def test_without_to_copy_prop
+    component = Decor::ClickToCopy.new
+
+    rendered = render_fragment(component) { "Display and copy this" }
+
+    # Should show the display text
+    assert_includes rendered.text, "Display and copy this"
+
+    # Should have empty to_copy stimulus value
+    root_element = rendered.children.first
+    assert root_element
+    assert_equal "", root_element["data-decor--click-to-copy-to-copy-value"]
+  end
 end

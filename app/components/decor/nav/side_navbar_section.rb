@@ -22,7 +22,8 @@ module Decor
         @items ||= []
       end
 
-      def view_template
+      def view_template(&)
+        vanish(&)
         root_element do |el|
           if @title.present?
             el.tag(:li, stimulus_target: :title, class: "#{component_name}-title menu-title text-base-content/70 uppercase") do

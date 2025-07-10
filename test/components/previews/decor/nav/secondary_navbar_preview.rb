@@ -77,7 +77,7 @@ class ::Decor::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
       # Narrow variant with breadcrumbs
       render ::Decor::Nav::SecondaryNavbar.new(variant: :narrow, bottom_border: true) do |navbar|
         navbar.with_left do
-          render ::Decor::Breadcrumbs.new(
+          render ::Decor::Nav::Breadcrumbs.new(
             breadcrumbs: [
               {name: "Analytics", path: "/analytics"},
               {name: "Reports", path: "/analytics/reports"},
@@ -122,7 +122,7 @@ class ::Decor::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
   def with_breadcrumbs
     render ::Decor::Nav::SecondaryNavbar.new(variant: :narrow, bottom_border: true) do |navbar|
       navbar.with_left do
-        render ::Decor::Breadcrumbs.new(
+        render ::Decor::Nav::Breadcrumbs.new(
           breadcrumbs: [
             {name: "E-commerce", path: "/"},
             {name: "Products", path: "/products"},

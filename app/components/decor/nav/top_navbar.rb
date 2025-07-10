@@ -74,7 +74,7 @@ module Decor
           end
 
           # navbar-center section (search)
-          div(class: "navbar-center flex-1 px-2 lg:px-4") do
+          div(class: "navbar-center px-2 lg:px-4 min-w-36") do
             if @has_search
               el.tag(
                 :div,

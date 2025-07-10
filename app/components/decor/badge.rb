@@ -7,7 +7,7 @@ module Decor
     prop :label, _Nilable(String)
 
     prop :style, _Union(:warning, :info, :error, :standard, :success), default: :standard
-    prop :size, _Union(:small, :medium, :large), default: :medium
+    prop :size, _Union(:xs, :sm, :md, :lg), default: :md
     prop :variant, _Union(:outlined, :filled), default: :outlined
     prop :dashed, _Boolean, default: false
 
@@ -66,9 +66,9 @@ module Decor
 
     def size_classes
       case @size
-      when :small
+      when :sm
         "badge-sm"
-      when :large
+      when :lg
         "badge-lg"
       end
     end
@@ -100,20 +100,22 @@ module Decor
 
     def icon_size_classes
       case @size
-      when :small
+      when :xs
+        "h-2.5 w-2.5"
+      when :sm
         "h-3 w-3"
-      when :medium
+      when :md
         "h-3.5 w-3.5"
-      when :large
+      when :lg
         "h-4.5 w-4.5"
       end
     end
 
     def avatar_size
       case @size
-      when :small
+      when :sm, :xs
         :xs
-      when :medium
+      when :md
         :sm
       else
         :md

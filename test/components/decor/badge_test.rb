@@ -18,7 +18,7 @@ class Decor::BadgeTest < ActiveSupport::TestCase
   end
 
   test "applies correct size classes" do
-    component = Decor::Badge.new(label: "Large", size: :large)
+    component = Decor::Badge.new(label: "Large", size: :lg)
     rendered = render_component(component)
 
     assert_includes rendered, "badge-lg"

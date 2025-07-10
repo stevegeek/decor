@@ -39,7 +39,7 @@ module Decor
     private
 
     def view_template(&)
-      @content = block_given? ? capture(&) : @label
+      @content = capture(&) if block_given?
       root_element do
         span(class: "text-center") do
           render @before_label if @before_label.present?
@@ -49,7 +49,11 @@ module Decor
             render ::Decor::Icon.new(**icon_options)
           end
           span(class: @icon_only_on_mobile ? "hidden md:inline" : "") do
-            render @content
+            if @content
+              raw @content
+            elsif @label.present?
+              plain @label
+            end
           end
           render @after_label if @after_label.present?
         end

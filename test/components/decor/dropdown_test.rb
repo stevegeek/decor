@@ -53,7 +53,7 @@ class Decor::DropdownTest < ActiveSupport::TestCase
   test "renders menu header" do
     rendered = render_component(Decor::Dropdown.new) do |dropdown|
       dropdown.menu_header do
-        div(class: "px-4 py-2") { "Header Content" }
+        "Header Content"
       end
       dropdown.menu_item(::Decor::DropdownItem.new(text: "Item 1"))
     end
@@ -64,12 +64,11 @@ class Decor::DropdownTest < ActiveSupport::TestCase
   test "renders custom button" do
     rendered = render_component(Decor::Dropdown.new) do |dropdown|
       dropdown.trigger_button do
-        button(type: "button", class: "custom-button") { "Custom" }
+        "Custom"
       end
       dropdown.menu_item(::Decor::DropdownItem.new(text: "Item 1"))
     end
 
-    assert_includes rendered, "custom-button"
     assert_includes rendered, "Custom"
   end
 

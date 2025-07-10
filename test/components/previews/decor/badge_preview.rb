@@ -11,11 +11,11 @@ class ::Decor::BadgePreview < ::Lookbook::Preview
   # @param icon select [~, check-circle, x, check, download, play]
   # @param variant select [outlined, filled]
   # @param style select [warning, success, error, info, standard]
-  # @param size select [small, medium, large]
+  # @param size select [xs, sm, md, lg]
   # @param dashed toggle
   # @param image select [~, "https://i.pravatar.cc/300", "https://cataas.com/cat"]
   # @param initials text
-  def playground(label: "My Badge", size: :medium, icon: nil, style: :info, variant: :outlined, image: nil, initials: nil, dashed: false)
+  def playground(label: "My Badge", size: :md, icon: nil, style: :info, variant: :outlined, image: nil, initials: nil, dashed: false)
     render ::Decor::Badge.new(label: label, icon: icon, size: size, style: style, variant: variant, url: image, initials: initials, dashed: dashed)
   end
 
@@ -70,19 +70,19 @@ class ::Decor::BadgePreview < ::Lookbook::Preview
   # @group Sizes
   # @label Small Size
   def size_small
-    render ::Decor::Badge.new(label: "Small Badge", size: :small)
+    render ::Decor::Badge.new(label: "Small Badge", size: :sm)
   end
 
   # @group Sizes
   # @label Medium Size
   def size_medium
-    render ::Decor::Badge.new(label: "Medium Badge", size: :medium)
+    render ::Decor::Badge.new(label: "Medium Badge", size: :md)
   end
 
   # @group Sizes
   # @label Large Size
   def size_large
-    render ::Decor::Badge.new(label: "Large Badge", size: :large)
+    render ::Decor::Badge.new(label: "Large Badge", size: :lg)
   end
 
   # @group With Icons
@@ -112,13 +112,13 @@ class ::Decor::BadgePreview < ::Lookbook::Preview
   # @group With Icons
   # @label Small with Icon
   def icon_small
-    render ::Decor::Badge.new(label: "Small", icon: "star", size: :small)
+    render ::Decor::Badge.new(label: "Small", icon: "star", size: :sm)
   end
 
   # @group With Icons
   # @label Large with Icon
   def icon_large
-    render ::Decor::Badge.new(label: "Large", icon: "heart", size: :large)
+    render ::Decor::Badge.new(label: "Large", icon: "heart", size: :lg)
   end
 
   # @group With Avatars
@@ -136,13 +136,13 @@ class ::Decor::BadgePreview < ::Lookbook::Preview
   # @group With Avatars
   # @label Small Avatar
   def avatar_small
-    render ::Decor::Badge.new(label: "Small User", initials: "SU", size: :small)
+    render ::Decor::Badge.new(label: "Small User", initials: "SU", size: :sm)
   end
 
   # @group With Avatars
   # @label Large Avatar
   def avatar_large
-    render ::Decor::Badge.new(label: "Large User", initials: "LU", size: :large)
+    render ::Decor::Badge.new(label: "Large User", initials: "LU", size: :lg)
   end
 
   # @group With Avatars
@@ -169,7 +169,7 @@ class ::Decor::BadgePreview < ::Lookbook::Preview
       label: "Critical Issue",
       style: :error,
       variant: :outlined,
-      size: :large,
+      size: :lg,
       icon: "x"
     )
   end

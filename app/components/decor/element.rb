@@ -10,7 +10,7 @@ module Decor
 
     def view_template
       root_element do
-        yield
+        yield if block_given?
       end
     end
   end

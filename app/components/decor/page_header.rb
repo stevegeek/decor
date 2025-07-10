@@ -46,7 +46,8 @@ module Decor
       @status_content = block
     end
 
-    def view_template
+    def view_template(&)
+      vanish(&)
       root_element do
         render_breadcrumbs if @breadcrumbs_content
         render_layout
@@ -89,7 +90,7 @@ module Decor
 
     def render_breadcrumbs
       div(class: "mb-4") do
-        instance_exec(&@breadcrumbs_content) if @breadcrumbs_content
+        render @breadcrumbs_content if @breadcrumbs_content
       end
     end
 
@@ -159,7 +160,7 @@ module Decor
       classes << (centered ? "mb-4" : "")
 
       div(class: classes.compact.join(" ")) do
-        instance_exec(&@avatar_content) if @avatar_content
+        render @avatar_content if @avatar_content
       end
     end
 
@@ -179,7 +180,7 @@ module Decor
       return render_title_only(compact: compact) unless @title_content
 
       if @title_content
-        instance_exec(&@title_content)
+        render @title_content
       end
     end
 
@@ -233,7 +234,7 @@ module Decor
       classes << (centered ? "flex justify-center" : "")
 
       div(class: classes.compact.join(" ")) do
-        instance_exec(&@meta_content) if @meta_content
+        render @meta_content if @meta_content
       end
     end
 
@@ -258,13 +259,13 @@ module Decor
     def render_action_buttons(large: false, compact: false)
       if @actions_content
         div(class: "flex gap-2") do
-          instance_exec(&@actions_content)
+          render @actions_content
         end
       end
 
       if @secondary_actions_content
         div(class: "flex gap-2") do
-          instance_exec(&@secondary_actions_content)
+          render @secondary_actions_content
         end
       end
     end
@@ -276,7 +277,7 @@ module Decor
       classes << (centered ? "flex justify-center" : "")
 
       div(class: classes.compact.join(" ")) do
-        instance_exec(&@status_content) if @status_content
+        render @status_content if @status_content
       end
     end
   end

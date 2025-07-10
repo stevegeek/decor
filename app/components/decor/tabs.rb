@@ -159,7 +159,7 @@ module Decor
         render ::Decor::Badge.new(
           label: link.badge_text,
           style: map_badge_color_to_style(link.badge_color),
-          size: :small,
+          size: :sm,
           html_options: {class: "ml-2"}
         )
       end

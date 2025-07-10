@@ -9,10 +9,11 @@ class Decor::PageTest < ActiveSupport::TestCase
     refute_includes rendered, "min-h-screen" # Should not include by default
   end
 
-  test "supports body slot" do
+  test "supports body content via yield" do
     component = Decor::Page.new
-    component.with_body { "<div>Page content here</div>" }
-    rendered = render_component(component)
+    rendered = render_component(component) do
+      "<div>Page content here</div>"
+    end
 
     assert_includes rendered, "Page content here"
   end
@@ -51,9 +52,10 @@ class Decor::PageTest < ActiveSupport::TestCase
     component = Decor::Page.new
     component.with_hero { "Hero" }
     component.with_header { "Header" }
-    component.with_body { "Content" }
     component.with_cta { "CTA" }
-    rendered = render_component(component)
+    rendered = render_component(component) do
+      "Content"
+    end
 
     assert_includes rendered, "Hero"
     assert_includes rendered, "Header"
@@ -95,8 +97,9 @@ class Decor::PageTest < ActiveSupport::TestCase
     component = Decor::Page.new
     component.with_hero { "First" }
     component.with_header { "Second" }
-    component.with_body { "Third" }
-    fragment = render_fragment(component)
+    fragment = render_fragment(component) do
+      "Third"
+    end
 
     content = fragment.to_html
     first_pos = content.index("First")

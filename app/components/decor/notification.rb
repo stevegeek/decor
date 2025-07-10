@@ -70,7 +70,7 @@ module Decor
                   href: button.href,
                   variant: button.variant || (button.primary? ? :contained : :text),
                   color: button.color || (button.primary? ? :primary : :neutral),
-                  size: :small,
+                  size: :sm,
                   full_width: true
                 )
               else
@@ -78,7 +78,7 @@ module Decor
                   label: button.label,
                   variant: button.variant || (button.primary? ? :contained : :text),
                   color: button.color || (button.primary? ? :primary : :neutral),
-                  size: :small,
+                  size: :sm,
                   full_width: true,
                   **action_button_attributes(el, button)
                 )
@@ -129,7 +129,7 @@ module Decor
       return {} unless button.action_name
 
       {
-        stimulus_actions: button.action_name
+        stimulus_actions: [button.action_name]
       }
     end
   end

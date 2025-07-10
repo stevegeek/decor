@@ -2,8 +2,11 @@
 
 module Decor
   class ClickToCopy < PhlexComponent
+    prop :to_copy, _Nilable(String)
+
     stimulus do
       actions [:click, :copy]
+      values_from_props :to_copy
     end
 
     private

@@ -3,9 +3,9 @@
 module Decor
   module Nav
     class SideNavbar < PhlexComponent
-      prop :landscape_logo_url, _String(_Predicate("present", &:present?))
-      prop :avatar_logo_url, _String(_Predicate("present", &:present?))
-      prop :menu_items, _Array(Hash), default: -> { [] }
+      prop :app_title, _Nilable(_String(_Predicate("present", &:present?)))
+      prop :landscape_logo_url, _Nilable(String)
+      prop :avatar_logo_url, _Nilable(String)
       prop :collapsed, _Boolean, default: false
 
       stimulus do
@@ -31,6 +31,7 @@ module Decor
       def view_template(&)
         vanish(&)
         build_from_menu_items(@menu_items) if @menu_items&.any?
+        @sections_html = render_sections
         root_element do |el|
           # Mobile menu overlay
           div(class: "fixed inset-0 flex z-40 hidden", role: "dialog", aria_modal: "true", data: {**el.stimulus_target(:mobile_menu)}) do
@@ -49,8 +50,9 @@ module Decor
               end
 
               div(class: "flex-shrink-0 flex items-center font-righteous px-4") do
-                div(class: "h-20 flex-shrink-0 flex items-center font-righteous px-5 relative") do
-                  img(src: @landscape_logo_url, alt: "Logo", class: "h-16 pt-3")
+                div(class: "h-20 flex-shrink-0 flex items-center gap-3 font-righteous px-5 relative") do
+                  img(src: @landscape_logo_url, alt: "Logo", class: "h-12 object-contain")
+                  span(class: "text-lg font-semibold text-base-content") { @app_title } if @app_title.present?
                 end
               end
 
@@ -77,7 +79,7 @@ module Decor
                 end
 
                 nav(class: "flex-1 px-5") do
-                  render_mobile_sections
+                  raw @sections_html
                 end
               end
             end
@@ -92,25 +94,29 @@ module Decor
             class: "side-navbar-desktop hidden lg:fixed lg:flex lg:flex-col #{@collapsed ? "lg:w-20" : "lg:w-72"} lg:inset-y-0 transition-all duration-300 z-50"
           ) do
             div(class: "flex-1 flex flex-col min-h-0 bg-base-300") do
-              div(class: "h-20 flex-shrink-0 flex items-center font-righteous px-5 relative") do
-                render ::Decor::Avatar.new(
-                  size: :md,
-                  initials: "C",
-                  border: false,
-                  url: @avatar_logo_url,
-                  html_options: {class: "hidden"},
-                  stimulus_targets: [el.stimulus_target(:desktop_avatar_logo)]
-                )
+              div(class: "h-20 flex-shrink-0 flex items-center justify-between font-righteous px-5 relative") do
+                div(class: "flex items-center gap-3") do
+                  render ::Decor::Avatar.new(
+                    size: :md,
+                    initials: "C",
+                    border: false,
+                    url: @avatar_logo_url,
+                    classes: "hidden",
+                    stimulus_targets: [el.stimulus_target(:desktop_avatar_logo)]
+                  )
 
-                el.tag(:div, stimulus_target: :desktop_logo) do
-                  img(src: @landscape_logo_url, alt: "Logo", class: "h-16 pt-3 object-contain max-w-[220px]")
+                  el.tag(:div, stimulus_target: :desktop_logo) do
+                    img(src: @landscape_logo_url, alt: "Logo", class: "h-12 object-contain max-w-[180px]")
+                  end
+
+                  span(class: "text-lg font-semibold text-base-content") { @app_title } if @app_title.present?
                 end
 
                 button(
                   type: "button",
                   id: "side-navbar-desktop-collapse-button",
                   data: {**el.stimulus_action(:click, :toggle_collapse_desktop_menu)},
-                  class: "absolute right-5 top-6 text-white"
+                  class: "text-base-content/70 hover:text-base-content"
                 ) do
                   render ::Decor::Icon.new(
                     name: "menu-alt-2",
@@ -148,7 +154,7 @@ module Decor
                 end
 
                 nav(class: "flex-1 pl-5 pr-3") do
-                  render_desktop_sections
+                  raw @sections_html
                 end
               end
             end
@@ -162,53 +168,12 @@ module Decor
 
       private
 
-      def render_mobile_sections
-        build_sections_from_menu_items(@menu_items)
-      end
-
-      def render_desktop_sections
-        build_sections_from_menu_items(@menu_items)
-      end
-
-      def build_sections_from_menu_items(menu_items)
-        return unless menu_items&.any?
-
-        menu_items.each do |nav_section|
-          section_attrs = nav_section.dup
-          section_attrs.delete(:items)
-          section_component = SideNavbarSection.new(**section_attrs)
-
-          nav_section[:items]&.each do |item|
-            item_attrs = item.dup
-            item_attrs.delete(:sub_items)
-            section_component.with_item(**item_attrs) do |item_component|
-              item[:sub_items]&.each do |sub_item|
-                item_component.with_sub_item(**sub_item)
-              end
-            end
-          end
-
-          render section_component
-        end
-      end
-
-      def build_from_menu_items(menu_items)
-        menu_items.each do |nav_section|
-          section_attrs = nav_section.dup
-          section_attrs.delete(:items)
-          with_section(**section_attrs) do |section_component|
-            nav_section[:items]&.each do |item|
-              item_attrs = item.dup
-              item_attrs.delete(:sub_items)
-              section_component.with_item(**item_attrs) do |item_component|
-                item[:sub_items]&.each do |sub_item|
-                  item_component.with_sub_item(**sub_item)
-                end
-              end
-            end
+      def render_sections
+        capture do
+          sections.each do |section, block|
+            render(section, &block)
           end
         end
-        self
       end
     end
   end

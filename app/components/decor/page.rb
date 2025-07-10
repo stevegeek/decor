@@ -34,10 +34,6 @@ module Decor
       @tabs = block
     end
 
-    def with_body(&block)
-      @body = block
-    end
-
     # Manual many relationship implementations
     def with_badge(**attributes, &block)
       @badges ||= []
@@ -54,14 +50,14 @@ module Decor
     end
 
     def view_template
+      content = capture { yield(self) } if block_given?
       root_element do
         render_hero if @hero
 
         if has_header_content?
           header(class: header_classes) do
             if @header
-              result = capture { @header.call }
-              plain result
+              render @header
             else
               div(class: header_content_wrapper_classes) do
                 div(class: "sm:flex items-center sm:space-x-3") do
@@ -98,8 +94,7 @@ module Decor
 
         if @tabs
           div(class: tabs_wrapper_classes) do
-            result = capture { @tabs.call }
-            plain result
+            render @tabs
           end
         end
 
@@ -107,13 +102,7 @@ module Decor
           if @include_flash
             render ::Decor::Flash.new(collapse_if_empty: true)
           end
-
-          if @body
-            result = capture { @body.call }
-            plain result
-          elsif block_given?
-            yield
-          end
+          raw content if content
         end
       end
     end
