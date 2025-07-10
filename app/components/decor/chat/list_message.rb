@@ -3,7 +3,7 @@
 module Decor
   module Chat
     class ListMessage < PhlexComponent
-      prop :author_name, _String(&:present?)
+      prop :author_name, _String(_Predicate("present", &:present?))
       prop :author_initials, _Nilable(String)
       prop :author_profile_image_url, _Nilable(String)
 

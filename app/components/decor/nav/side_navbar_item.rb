@@ -5,7 +5,7 @@ module Decor
     class SideNavbarItem < PhlexComponent
       include Phlex::Rails::Helpers::LinkTo
 
-      prop :title, _String(&:present?)
+      prop :title, _String(_Predicate("present", &:present?))
       prop :icon, _Nilable(String)
       prop :path, _Nilable(String)
       prop :counter, _Nilable(Integer)

@@ -8,7 +8,7 @@ module Decor
       prop :form_field_element, _Nilable(_Any)
 
       # The HTML ID of the form field.
-      prop :field_id, _String(&:present?)
+      prop :field_id, _String(_Predicate("present", &:present?))
 
       # If the label is not set, no label will be rendered
       prop :label, _Nilable(String)

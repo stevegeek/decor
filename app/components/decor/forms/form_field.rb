@@ -4,7 +4,7 @@ module Decor
   module Forms
     class FormField < FormChild
       # The name attribute of the form field
-      prop :name, _String(&:present?)
+      prop :name, _String(_Predicate("present", &:present?))
 
       # If the label is not set, no label will be rendered
       prop :label, _Nilable(String)

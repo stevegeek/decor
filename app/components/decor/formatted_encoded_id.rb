@@ -4,7 +4,7 @@ module Decor
   class FormattedEncodedId < PhlexComponent
     no_stimulus_controller
 
-    prop :encoded_id, _String(&:present?)
+    prop :encoded_id, _String(_Predicate("present", &:present?))
     prop :prefix, _Nilable(String)
 
     def view_template(&)

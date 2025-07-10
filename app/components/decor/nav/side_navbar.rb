@@ -3,8 +3,8 @@
 module Decor
   module Nav
     class SideNavbar < PhlexComponent
-      prop :landscape_logo_url, _String(&:present?)
-      prop :avatar_logo_url, _String(&:present?)
+      prop :landscape_logo_url, _String(_Predicate("present", &:present?))
+      prop :avatar_logo_url, _String(_Predicate("present", &:present?))
       prop :menu_items, _Array(Hash), default: -> { [] }
       prop :collapsed, _Boolean, default: false
 
