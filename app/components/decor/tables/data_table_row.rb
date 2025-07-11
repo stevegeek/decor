@@ -45,7 +45,7 @@ module Decor
 
       def with_data_table_cell(component = nil, **attributes, &block)
         cell = component || ::Decor::Tables::DataTableCell.new(**attributes)
-        @data_table_cells << cell
+        @data_table_cells << [cell, block]
         cell
       end
 
@@ -66,9 +66,10 @@ module Decor
               )
             end
           end
-          @data_table_cells.each do |cell|
+          @data_table_cells.each do |cell_info|
+            cell, block = cell_info
             add_stimulus_outlets(cell)
-            render cell
+            render(cell, &block)
           end
         end
         if @expanded_content.present?

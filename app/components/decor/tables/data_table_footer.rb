@@ -8,10 +8,6 @@ module Decor
 
       attr_reader :left, :right
 
-      def initialize(**attributes)
-        super
-      end
-
       def with_left(&block)
         @left = block
         self

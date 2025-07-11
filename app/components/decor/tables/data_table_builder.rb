@@ -5,7 +5,7 @@ module Decor
       include ::Decor::Concerns::SanitisedSortAndFilterParams
 
       # An optional query object that the table is backed by
-      prop :query, Object, default: -> {}
+      prop :query, _Nilable(_Union(::Quo::Query, ::ActiveRecord::Relation, Array))
 
       # Title to display top left of table header
       prop :title, _Nilable(String)
@@ -54,7 +54,7 @@ module Decor
 
       # The builder takes both the params to be able to get sort and filter query params, and the
       # view helpers to expose to subclasses to use as needed
-      def initialize(attributes, params, helpers)
+      def initialize(params:, helpers:, **attributes)
         # These methods rely on us overriding the *_name attrs with methods that return before attributes are set
         merge_pagination_params(attributes, params)
         merge_sort_and_filter_params(attributes, params)
@@ -65,6 +65,11 @@ module Decor
         @slots = {}
         yield(self) if block_given?
         setup_data_table
+      end
+
+      # Can be overridden in subclasses to set up the table
+      def query
+        @query || raise(ArgumentError, "No query provided for DataTableBuilder")
       end
 
       # Public so controllers can use the builder as a way to filter params
@@ -146,7 +151,7 @@ module Decor
 
       # The block returns the base Query object or AR query
       def resolved_query(collection = nil)
-        @resolved_query ||= @query || collection
+        @resolved_query ||= query || collection
       end
 
       # Default sort to apply to table if none is provided
@@ -248,14 +253,23 @@ module Decor
               row_component.with_expanded_content { expanded_content } unless expanded_content.nil?
             end
             row.cells.each do |cell|
-              row_component.with_data_table_cell(**cell.component)
+              row_component.with_data_table_cell(**cell.component) do |cell_component|
+                exec_row_render_method(
+                  cell_component,
+                  row_component,
+                  cell.render_block,
+                  cell.data,
+                  row.item_index,
+                  cell.untransformed
+                )
+              end
             end
           end
         end
         if paginated?
           pagination_options = resolved_pagination_options
           data_table_component.with_pagination do
-            render ::Decor::Pagination.new(**pagination_options)
+            ::Decor::Pagination.new(**pagination_options)
           end
         end
 
@@ -619,7 +633,11 @@ module Decor
         end
 
         # Output the result directly
-        cell_component.plain(result)
+        if result.html_safe?
+          cell_component.raw(result)
+        else
+          cell_component.plain(result)
+        end
       end
     end
   end

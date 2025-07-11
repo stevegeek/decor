@@ -3,7 +3,7 @@ class ::Decor::SearchResultsDropdownPreview < ::Lookbook::Preview
   # Mock nav element class that implements the required interface
   class MockNavElement < Decor::PhlexComponent
     no_stimulus_controller
-    
+
     def stimulus_target(target_name)
       {"data-nav-target" => target_name.to_s.dasherize}
     end

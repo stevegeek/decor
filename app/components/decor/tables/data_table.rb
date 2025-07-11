@@ -7,8 +7,7 @@ module Decor
     class DataTable < PhlexComponent
       attr_reader :data_table_header, :data_table_header_rows, :data_table_rows, :data_table_footer
 
-      def initialize(**attributes)
-        super
+      def after_component_initialize
         @data_table_header_rows = []
         @data_table_rows = []
       end
@@ -78,7 +77,7 @@ module Decor
           # Data table header section
           if @title.present? || @data_table_header.present? || @search_and_filter_block.present?
             if @data_table_header.present?
-              instance_eval(@data_table_header).html_safe
+              render @data_table_header
             end
             div(class: "bg-base-200 px-3 sm:px-6 py-5") do
               div(class: "sm:flex sm:items-center sm:justify-between") do
@@ -93,7 +92,7 @@ module Decor
                   end
                 end
                 if @search_and_filter_block.present?
-                  instance_eval(&@search_and_filter_block)
+                  render @search_and_filter_block
                 end
               end
             end
@@ -137,7 +136,7 @@ module Decor
           end
 
           if @pagination_block.present?
-            instance_eval(&@pagination_block)
+            render @pagination_block
           end
 
           if @data_table_footer.present?

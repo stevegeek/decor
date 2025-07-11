@@ -19,9 +19,9 @@ class Decor::Tables::DataTableBuilderTest < ActiveSupport::TestCase
       paginated: false
     }
     Decor::Tables::DataTableBuilder.new(
-      default_attributes.merge(attributes),
-      @mock_params,
-      @mock_helpers,
+      params: @mock_params,
+      helpers: @mock_helpers,
+      **default_attributes.merge(attributes),
       &block
     )
   end

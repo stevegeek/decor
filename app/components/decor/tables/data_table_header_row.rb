@@ -5,8 +5,7 @@ module Decor
     class DataTableHeaderRow < PhlexComponent
       attr_reader :data_table_header_cells
 
-      def initialize(**attributes)
-        super
+      def after_component_initialize
         @data_table_header_cells = []
       end
 

@@ -159,7 +159,7 @@ class Decor::Tables::DataTableTest < ActiveSupport::TestCase
     component = Decor::Tables::DataTable.new
     rendered = render_component(component) do |c|
       c.with_search_and_filter do
-        div(class: "decor--search-and-filter") { "Search and Filter Content" }
+        c.div(class: "decor--search-and-filter") { "Search and Filter Content" }
       end
     end
 
@@ -170,7 +170,7 @@ class Decor::Tables::DataTableTest < ActiveSupport::TestCase
     component = Decor::Tables::DataTable.new
     rendered = render_component(component) do |c|
       c.with_pagination do
-        div(class: "decor--pagination") { "Pagination Content" }
+        c.div(class: "decor--pagination") { "Pagination Content" }
       end
     end
 
