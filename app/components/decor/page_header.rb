@@ -10,13 +10,14 @@ module Decor
     prop :description, _Nilable(String)
 
     # Layout configuration
-    prop :layout, _Union(:default, :centered, :minimal, :hero, :compact), default: :default
+    prop :layout, _Union(:default, :centered, :minimal, :hero, :compact, :page_like), default: :default
     prop :size, _Union(:xs, :sm, :md, :lg, :xl), default: :md
     prop :background, _Union(:default, :hero, :gradient, :transparent), default: :default
 
     # Visual options
     prop :border, _Boolean, default: true
     prop :padding, _Union(:none, :sm, :md, :lg, :xl), default: :md
+    prop :cta_snap_large, _Boolean, default: false
 
     def with_avatar(&block)
       @avatar_content = block
@@ -46,6 +47,25 @@ module Decor
       @status_content = block
     end
 
+    def with_cta(&block)
+      @cta_content = block
+    end
+
+    # Manual many relationship implementations
+    def with_badge(**attributes, &block)
+      @badges ||= []
+      badge = ::Decor::Badge.new(**attributes)
+      @badges << badge
+      badge
+    end
+
+    def with_tag(**attributes, &block)
+      @tags ||= []
+      tag = ::Decor::Tag.new(**attributes)
+      @tags << tag
+      tag
+    end
+
     def view_template(&)
       vanish(&)
       root_element do
@@ -55,6 +75,10 @@ module Decor
     end
 
     private
+
+    def root_element_attributes
+      {element_tag: :header}
+    end
 
     def element_classes
       classes = ["page-header"]
@@ -100,6 +124,7 @@ module Decor
       when :minimal then render_minimal_layout
       when :hero then render_hero_layout
       when :compact then render_compact_layout
+      when :page_like then render_page_like_layout
       else render_default_layout
       end
     end
@@ -110,7 +135,22 @@ module Decor
           render_avatar_section if @avatar_content
           render_content_section
         end
-        render_actions_section if @actions_content || @secondary_actions_content
+        render_actions_section if @actions_content || @secondary_actions_content || @cta_content
+      end
+    end
+
+    def render_page_like_layout
+      classes = ["bg-base-100"]
+      classes << (@cta_snap_large ? "xl:flex" : "md:flex")
+      classes << (@cta_snap_large ? "xl:items-center" : "md:items-center")
+      classes << (@cta_snap_large ? "xl:justify-between" : "md:justify-between")
+      
+      div(class: classes.join(" ")) do
+        div(class: "space-y-2.5 #{@cta_snap_large ? 'xl:pr-6' : 'md:pr-6'} pb-4 sm:pb-0 border-b sm:border-b-0 border-base-300") do
+          render_avatar_section if @avatar_content
+          render_content_section
+        end
+        render_actions_section if @actions_content || @secondary_actions_content || @cta_content
       end
     end
 
@@ -169,9 +209,27 @@ module Decor
       classes << (centered ? "text-center" : "")
 
       div(class: classes.compact.join(" ")) do
-        render_title_section(centered: centered, large: large, compact: compact)
-        render_subtitle_section(centered: centered, compact: compact) if @subtitle.present?
-        render_description_section(centered: centered, compact: compact) if @description.present?
+        if @layout == :page_like
+          # Page-like layout: Title and badges together
+          div(class: "sm:flex items-center sm:space-x-3") do
+            render_title_section(centered: centered, large: large, compact: compact)
+            render_badges_section
+          end
+          
+          render_subtitle_section(centered: centered, compact: compact) if @subtitle.present?
+          
+          # Description and tags together
+          div(class: "sm:flex items-center sm:space-x-3") do
+            render_description_section(centered: centered, compact: compact) if @description.present?
+            render_tags_section
+          end
+        else
+          # Default layout: simpler structure
+          render_title_section(centered: centered, large: large, compact: compact)
+          render_subtitle_section(centered: centered, compact: compact) if @subtitle.present?
+          render_description_section(centered: centered, compact: compact) if @description.present?
+        end
+        
         render_meta_section(centered: centered, compact: compact) if @meta_content
       end
     end
@@ -189,7 +247,18 @@ module Decor
 
       size_classes = if compact
         "text-lg font-semibold"
+      elsif @layout == :page_like
+        # Page-like layout uses different size mapping
+        case @size
+        when :xs then "text-sm"
+        when :sm then "text-base"
+        when :md then "text-lg"
+        when :lg then "text-xl"
+        when :xl then "text-2xl"
+        else "text-lg"
+        end
       else
+        # Original PageHeader size mapping
         case @size
         when :xs then "text-lg font-bold"
         when :sm then "text-xl font-bold"
@@ -200,7 +269,10 @@ module Decor
         end
       end
 
-      h1(class: "#{size_classes} text-base-content truncate") do
+      tag_name = (@layout == :page_like) ? :h3 : :h1
+      font_weight = (@layout == :page_like) ? "font-medium" : ""
+      
+      public_send(tag_name, class: "#{size_classes} text-base-content #{font_weight} truncate".strip) do
         plain @title
       end
     end
@@ -208,10 +280,19 @@ module Decor
     def render_subtitle_section(centered: false, compact: false)
       return if compact && @subtitle.blank?
 
-      classes = ["text-sm text-base-content/70 mt-1"]
+      size_classes = case @size
+      when :xs then "text-xs"
+      when :sm then "text-xs"
+      when :md then "text-xs"
+      when :lg then "text-sm"
+      when :xl then "text-base"
+      else "text-xs"
+      end
+
+      classes = ["py-2 sm:py-0 text-base-content/70 #{size_classes}"]
       classes << (centered ? "text-center" : "")
 
-      div(class: classes.compact.join(" ")) do
+      h4(class: classes.compact.join(" ")) do
         plain @subtitle if @subtitle.present?
       end
     end
@@ -219,7 +300,16 @@ module Decor
     def render_description_section(centered: false, compact: false)
       return if compact || @description.blank?
 
-      classes = ["text-base text-base-content/80 mt-2"]
+      size_classes = case @size
+      when :xs then "text-xs"
+      when :sm then "text-sm"
+      when :md then "text-sm"
+      when :lg then "text-base"
+      when :xl then "text-lg"
+      else "text-sm"
+      end
+
+      classes = ["text-base-content/70 #{size_classes}"]
       classes << (centered ? "text-center" : "")
 
       p(class: classes.compact.join(" ")) do
@@ -239,7 +329,10 @@ module Decor
     end
 
     def render_actions_section(centered: false, large: false, compact: false)
-      return unless @actions_content || @secondary_actions_content
+      return unless @actions_content || @secondary_actions_content || @cta_content
+
+      classes = ["mt-4"]
+      classes << (@cta_snap_large ? "xl:mt-0" : "md:mt-0")
 
       if centered
         div(class: "mt-6 flex flex-col sm:flex-row gap-3 justify-center") do
@@ -250,7 +343,7 @@ module Decor
           render_action_buttons(compact: true)
         end
       else
-        div(class: "flex flex-col sm:flex-row gap-3") do
+        div(class: classes.join(" ")) do
           render_action_buttons
         end
       end
@@ -268,6 +361,10 @@ module Decor
           render @secondary_actions_content
         end
       end
+
+      if @cta_content
+        render @cta_content
+      end
     end
 
     def render_status_section(centered: false)
@@ -278,6 +375,22 @@ module Decor
 
       div(class: classes.compact.join(" ")) do
         render @status_content if @status_content
+      end
+    end
+
+    def render_badges_section
+      return unless @badges&.any?
+
+      @badges.each do |badge|
+        render badge
+      end
+    end
+
+    def render_tags_section
+      return unless @tags&.any?
+
+      @tags.each do |tag|
+        render tag
       end
     end
   end

@@ -51,17 +51,23 @@ class ::Decor::PagePreview < ::Lookbook::Preview
 
   def extra_small
     render ::Decor::Page.new(
-      title: "Extra Small Page",
-      subtitle: "Compact layout",
-      description: "This page uses the smallest text sizes and spacing.",
       size: :xs,
       spacing: :sm
     ) do |page|
-      page.with_badge(label: "XS Size", color: :primary)
-      page.with_tag(label: "Compact", color: :info, size: :xs)
-
-      page.with_cta do
-        render ::Decor::Button.new(label: "Action", size: :sm, color: :primary)
+      page.with_header do
+        header = ::Decor::PageHeader.new(
+          title: "Extra Small Page",
+          subtitle: "Compact layout",
+          description: "This page uses the smallest text sizes and spacing.",
+          size: :xs,
+          layout: :page_like
+        )
+        header.with_badge(label: "XS Size", color: :primary)
+        header.with_tag(label: "Compact", color: :info, size: :xs)
+        header.with_cta do
+          render ::Decor::Button.new(label: "Action", size: :sm, color: :primary)
+        end
+        header
       end
 
       page.div(class: "prose prose-sm") do
@@ -72,17 +78,22 @@ class ::Decor::PagePreview < ::Lookbook::Preview
 
   def large
     render ::Decor::Page.new(
-      title: "Large Page Layout",
-      subtitle: "Spacious design",
-      description: "This page uses larger text sizes and increased spacing between elements.",
       size: :lg,
       spacing: :lg
     ) do |page|
-      page.with_badge(label: "Premium", color: :accent)
-      page.with_tag(label: "Featured", color: :warning)
-
-      page.with_cta do
-        render ::Decor::Button.new(label: "Get Started", size: :lg, color: :primary)
+      page.with_header do
+        header = ::Decor::PageHeader.new(
+          title: "Large Page Layout",
+          subtitle: "Spacious design",
+          description: "This page uses larger text sizes and increased spacing between elements.",
+          size: :lg
+        )
+        header.with_badge(label: "Premium", color: :accent)
+        header.with_tag(label: "Featured", color: :warning)
+        header.with_cta do
+          render ::Decor::Button.new(label: "Get Started", size: :lg, color: :primary)
+        end
+        header
       end
 
       page.div(class: "prose prose-lg") do
@@ -97,9 +108,6 @@ class ::Decor::PagePreview < ::Lookbook::Preview
 
   def hero_background
     render ::Decor::Page.new(
-      title: "Hero Background Page",
-      subtitle: "Subtle background styling",
-      description: "This page uses a hero background color for subtle visual separation.",
       background: :hero
     ) do |page|
       page.with_hero do
@@ -109,7 +117,15 @@ class ::Decor::PagePreview < ::Lookbook::Preview
         end
       end
 
-      page.with_badge(label: "New", color: :success)
+      page.with_header do
+        header = ::Decor::PageHeader.new(
+          title: "Hero Background Page",
+          subtitle: "Subtle background styling",
+          description: "This page uses a hero background color for subtle visual separation."
+        )
+        header.with_badge(label: "New", color: :success)
+        header
+      end
 
       page.div(class: "grid grid-cols-1 md:grid-cols-2 gap-6") do
         page.div(class: "card bg-base-100 shadow-lg p-6") do
@@ -126,14 +142,19 @@ class ::Decor::PagePreview < ::Lookbook::Preview
 
   def primary_background
     render ::Decor::Page.new(
-      title: "Primary Themed Page",
-      subtitle: "Brand-colored background",
-      description: "Uses a subtle primary color background tint.",
       background: :primary,
       padding: :lg
     ) do |page|
-      page.with_badge(label: "Featured", color: :primary, variant: :filled)
-      page.with_tag(label: "Popular", color: :warning)
+      page.with_header do
+        header = ::Decor::PageHeader.new(
+          title: "Primary Themed Page",
+          subtitle: "Brand-colored background",
+          description: "Uses a subtle primary color background tint."
+        )
+        header.with_badge(label: "Featured", color: :primary, variant: :filled)
+        header.with_tag(label: "Popular", color: :warning)
+        header
+      end
 
       page.div(class: "alert alert-info") do
         page.p { "This page demonstrates the primary background theme." }
@@ -147,12 +168,18 @@ class ::Decor::PagePreview < ::Lookbook::Preview
 
   def with_tabs
     render ::Decor::Page.new(
-      title: "Page with Tabs",
-      subtitle: "Tabbed navigation example",
-      description: "Demonstrates how tabs integrate with the page header.",
       size: :lg
     ) do |page|
-      page.with_badge(label: "Beta", color: :info)
+      page.with_header do
+        header = ::Decor::PageHeader.new(
+          title: "Page with Tabs",
+          subtitle: "Tabbed navigation example",
+          description: "Demonstrates how tabs integrate with the page header.",
+          size: :lg
+        )
+        header.with_badge(label: "Beta", color: :info)
+        header
+      end
 
       page.with_tabs do
         render ::Decor::Tabs.new do |tabs|
@@ -171,14 +198,10 @@ class ::Decor::PagePreview < ::Lookbook::Preview
 
   def full_featured
     render ::Decor::Page.new(
-      title: "Full-Featured Page",
-      subtitle: "All components demonstrated",
-      description: "This example shows all available page features working together.",
       size: :lg,
       background: :hero,
       padding: :lg,
-      spacing: :lg,
-      cta_snap_large: true
+      spacing: :lg
     ) do |page|
       page.with_hero do
         page.div(class: "hero min-h-[200px] bg-gradient-to-r from-primary to-secondary rounded-lg") do
@@ -192,17 +215,25 @@ class ::Decor::PagePreview < ::Lookbook::Preview
         end
       end
 
-      page.with_badge(label: "Pro", color: :accent)
-      page.with_badge(label: "New", color: :success)
-
-      page.with_tag(label: "Featured", color: :warning, icon: "star")
-      page.with_tag(label: "Popular", color: :info, icon: "trending-up")
-
-      page.with_cta do
-        page.div(class: "flex gap-2") do
-          render ::Decor::Button.new(label: "Secondary", variant: :outlined, color: :secondary)
-          render ::Decor::Button.new(label: "Primary Action", color: :primary)
+      page.with_header do
+        header = ::Decor::PageHeader.new(
+          title: "Full-Featured Page",
+          subtitle: "All components demonstrated",
+          description: "This example shows all available page features working together.",
+          size: :lg,
+          cta_snap_large: true
+        )
+        header.with_badge(label: "Pro", color: :accent)
+        header.with_badge(label: "New", color: :success)
+        header.with_tag(label: "Featured", color: :warning, icon: "star")
+        header.with_tag(label: "Popular", color: :info, icon: "trending-up")
+        header.with_cta do
+          page.div(class: "flex gap-2") do
+            render ::Decor::Button.new(label: "Secondary", variant: :outlined, color: :secondary)
+            render ::Decor::Button.new(label: "Primary Action", color: :primary)
+          end
         end
+        header
       end
 
       page.with_tabs do
@@ -236,11 +267,16 @@ class ::Decor::PagePreview < ::Lookbook::Preview
 
   def no_spacing
     render ::Decor::Page.new(
-      title: "Compact Page",
-      description: "Minimal spacing between elements",
       spacing: :none,
       padding: :none
     ) do |page|
+      page.with_header do
+        ::Decor::PageHeader.new(
+          title: "Compact Page",
+          description: "Minimal spacing between elements"
+        )
+      end
+      
       page.div { "First content block" }
       page.div { "Second content block" }
       page.div { "Third content block" }
@@ -249,11 +285,16 @@ class ::Decor::PagePreview < ::Lookbook::Preview
 
   def extra_large_spacing
     render ::Decor::Page.new(
-      title: "Spacious Page",
-      description: "Maximum spacing for better visual separation",
       spacing: :xl,
       padding: :xl
     ) do |page|
+      page.with_header do
+        ::Decor::PageHeader.new(
+          title: "Spacious Page",
+          description: "Maximum spacing for better visual separation"
+        )
+      end
+      
       page.div(class: "card bg-base-100 shadow p-6") { "First section with extra spacing" }
       page.div(class: "card bg-base-100 shadow p-6") { "Second section with extra spacing" }
     end
@@ -265,40 +306,60 @@ class ::Decor::PagePreview < ::Lookbook::Preview
 
   def no_padding
     render ::Decor::Page.new(
-      title: "No Padding Page",
-      description: "Page with no internal padding",
       padding: :none
     ) do |page|
+      page.with_header do
+        ::Decor::PageHeader.new(
+          title: "No Padding Page",
+          description: "Page with no internal padding"
+        )
+      end
+      
       page.div(class: "bg-primary/10 p-4 rounded") { "This content shows the page has no padding around it." }
     end
   end
 
   def small_padding
     render ::Decor::Page.new(
-      title: "Small Padding",
-      description: "Minimal padding for compact layouts",
       padding: :sm
     ) do |page|
+      page.with_header do
+        ::Decor::PageHeader.new(
+          title: "Small Padding",
+          description: "Minimal padding for compact layouts"
+        )
+      end
+      
       page.div(class: "bg-secondary/10 p-4 rounded") { "Small padding around the page content." }
     end
   end
 
   def large_padding
     render ::Decor::Page.new(
-      title: "Large Padding",
-      description: "Generous padding for spacious layouts",
       padding: :lg
     ) do |page|
+      page.with_header do
+        ::Decor::PageHeader.new(
+          title: "Large Padding",
+          description: "Generous padding for spacious layouts"
+        )
+      end
+      
       page.div(class: "bg-accent/10 p-4 rounded") { "Large padding creates more breathing room." }
     end
   end
 
   def extra_large_padding
     render ::Decor::Page.new(
-      title: "Extra Large Padding",
-      description: "Maximum padding for very spacious layouts",
       padding: :xl
     ) do |page|
+      page.with_header do
+        ::Decor::PageHeader.new(
+          title: "Extra Large Padding",
+          description: "Maximum padding for very spacious layouts"
+        )
+      end
+      
       page.div(class: "bg-info/10 p-4 rounded") { "Extra large padding for maximum visual space." }
     end
   end
@@ -309,11 +370,16 @@ class ::Decor::PagePreview < ::Lookbook::Preview
 
   def with_full_height
     render ::Decor::Page.new(
-      title: "Full Height Page",
-      description: "This page uses the full viewport height",
       full_height: true,
       padding: :lg
     ) do |page|
+      page.with_header do
+        ::Decor::PageHeader.new(
+          title: "Full Height Page",
+          description: "This page uses the full viewport height"
+        )
+      end
+      
       page.div(class: "flex items-center justify-center bg-neutral/10 rounded-lg h-64") do
         page.div(class: "text-center") do
           page.h3(class: "text-xl font-semibold mb-2") { "Full Height Layout" }
@@ -325,11 +391,16 @@ class ::Decor::PagePreview < ::Lookbook::Preview
 
   def without_full_height
     render ::Decor::Page.new(
-      title: "Normal Height Page",
-      description: "This page uses natural content height (default)",
       full_height: false,
       padding: :lg
     ) do |page|
+      page.with_header do
+        ::Decor::PageHeader.new(
+          title: "Normal Height Page",
+          description: "This page uses natural content height (default)"
+        )
+      end
+      
       page.div(class: "bg-warning/10 p-6 rounded-lg") do
         page.h3(class: "text-lg font-semibold mb-2") { "Natural Height" }
         page.p { "This page only takes up the space needed for its content." }

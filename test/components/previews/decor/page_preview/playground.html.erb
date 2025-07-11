@@ -1,13 +1,9 @@
 <%= render ::Decor::Page.new(
-  title: title,
-  subtitle: subtitle,
-  description: description,
   include_flash: include_flash,
   size: size,
   background: background,
   padding: padding,
   spacing: spacing,
-  cta_snap_large: cta_snap_large,
   full_height: full_height
 ) do |page| %>
   <% if show_hero_slot %>
@@ -22,14 +18,26 @@
       </div>
     <% end %>
   <% end %>
-  <% if show_example_badge %>
-    <% page.with_badge(label: "Public Catalog", style: :primary) %>
-  <% end %>
-  <% if show_example_tag %>
-    <% page.with_tag(label: "Active", icon: "check-circle", color: :success) %>
-  <% end %>
-  <% page.with_cta do %>
-    <%= render ::Decor::Button.new(label: "Add new", variant: :outlined, color: :secondary) %>
+  
+  <% page.with_header do %>
+    <% header = ::Decor::PageHeader.new(
+      title: title,
+      subtitle: subtitle,
+      description: description,
+      size: size,
+      cta_snap_large: cta_snap_large,
+      layout: :page_like
+    ) %>
+    <% if show_example_badge %>
+      <% header.with_badge(label: "Public Catalog", style: :primary) %>
+    <% end %>
+    <% if show_example_tag %>
+      <% header.with_tag(label: "Active", icon: "check-circle", color: :success) %>
+    <% end %>
+    <% header.with_cta do %>
+      <%= render ::Decor::Button.new(label: "Add new", variant: :outlined, color: :secondary) %>
+    <% end %>
+    <%= header %>
   <% end %>
 
   <div class="prose">

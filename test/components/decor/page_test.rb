@@ -52,7 +52,6 @@ class Decor::PageTest < ActiveSupport::TestCase
     component = Decor::Page.new
     component.with_hero { "Hero" }
     component.with_header { "Header" }
-    component.with_cta { "CTA" }
     rendered = render_component(component) do
       "Content"
     end
@@ -60,7 +59,6 @@ class Decor::PageTest < ActiveSupport::TestCase
     assert_includes rendered, "Hero"
     assert_includes rendered, "Header"
     assert_includes rendered, "Content"
-    assert_includes rendered, "CTA"
   end
 
   test "component inherits from PhlexComponent" do
@@ -111,7 +109,10 @@ class Decor::PageTest < ActiveSupport::TestCase
   end
 
   test "uses daisyUI semantic classes" do
-    component = Decor::Page.new(title: "Test Title", description: "Test description")
+    component = Decor::Page.new
+    component.with_header do
+      ::Decor::PageHeader.new(title: "Test Title", description: "Test description")
+    end
     rendered = render_component(component)
 
     assert_includes rendered, "bg-base-100"
@@ -126,7 +127,10 @@ class Decor::PageTest < ActiveSupport::TestCase
 
   # Modern attribute tests
   test "applies correct size classes" do
-    component = Decor::Page.new(title: "Test", size: :lg)
+    component = Decor::Page.new(size: :lg)
+    component.with_header do
+      ::Decor::PageHeader.new(title: "Test", size: :lg, layout: :page_like)
+    end
     rendered = render_component(component)
 
     assert_includes rendered, "text-xl" # lg title size
@@ -164,38 +168,52 @@ class Decor::PageTest < ActiveSupport::TestCase
     assert_includes rendered, "space-y-12"
   end
 
-  # Tag and badge tests
-  test "supports tags" do
-    component = Decor::Page.new(title: "Test")
-    component.with_tag(label: "Test Tag", color: :success)
+  # Tag and badge tests (now through PageHeader)
+  test "supports tags through PageHeader" do
+    component = Decor::Page.new
+    component.with_header do
+      header = ::Decor::PageHeader.new(title: "Test", layout: :page_like)
+      header.with_tag(label: "Test Tag", color: :success)
+      header
+    end
     rendered = render_component(component)
 
     assert_includes rendered, "Test Tag"
     assert_includes rendered, "bg-success"
   end
 
-  test "supports badges" do
-    component = Decor::Page.new(title: "Test")
-    component.with_badge(label: "Test Badge", style: :success)
+  test "supports badges through PageHeader" do
+    component = Decor::Page.new
+    component.with_header do
+      header = ::Decor::PageHeader.new(title: "Test", layout: :page_like)
+      header.with_badge(label: "Test Badge", style: :success)
+      header
+    end
     rendered = render_component(component)
 
     assert_includes rendered, "Test Badge"
   end
 
-  # Backward compatibility tests
-  test "maintains backward compatibility" do
-    component = Decor::Page.new(
-      title: "Legacy Title",
-      subtitle: "Legacy Subtitle",
-      description: "Legacy description",
-      cta_snap_large: true,
-      include_flash: false
-    )
+  # Using PageHeader for title, subtitle, description, and CTA
+  test "supports PageHeader with all features" do
+    component = Decor::Page.new(include_flash: false)
+    component.with_header do
+      header = ::Decor::PageHeader.new(
+        title: "Legacy Title",
+        subtitle: "Legacy Subtitle",
+        description: "Legacy description",
+        cta_snap_large: true,
+        layout: :page_like
+      )
+      header.with_cta { "CTA Content" }
+      header
+    end
     rendered = render_component(component)
 
     assert_includes rendered, "Legacy Title"
     assert_includes rendered, "Legacy Subtitle"
     assert_includes rendered, "Legacy description"
+    assert_includes rendered, "CTA Content"
     assert_includes rendered, "xl:flex" # cta_snap_large behavior
     refute_includes rendered, "decor--flash" # flash disabled
   end
@@ -216,7 +234,6 @@ class Decor::PageTest < ActiveSupport::TestCase
     assert_equal :md, component.instance_variable_get(:@padding)
     assert_equal :md, component.instance_variable_get(:@spacing)
     assert_equal true, component.instance_variable_get(:@include_flash)
-    assert_equal false, component.instance_variable_get(:@cta_snap_large)
     assert_equal false, component.instance_variable_get(:@full_height)
   end
 end
