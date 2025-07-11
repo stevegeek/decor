@@ -276,7 +276,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
           description: "Minimal spacing between elements"
         )
       end
-      
+
       page.div { "First content block" }
       page.div { "Second content block" }
       page.div { "Third content block" }
@@ -294,7 +294,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
           description: "Maximum spacing for better visual separation"
         )
       end
-      
+
       page.div(class: "card bg-base-100 shadow p-6") { "First section with extra spacing" }
       page.div(class: "card bg-base-100 shadow p-6") { "Second section with extra spacing" }
     end
@@ -314,7 +314,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
           description: "Page with no internal padding"
         )
       end
-      
+
       page.div(class: "bg-primary/10 p-4 rounded") { "This content shows the page has no padding around it." }
     end
   end
@@ -329,7 +329,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
           description: "Minimal padding for compact layouts"
         )
       end
-      
+
       page.div(class: "bg-secondary/10 p-4 rounded") { "Small padding around the page content." }
     end
   end
@@ -344,7 +344,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
           description: "Generous padding for spacious layouts"
         )
       end
-      
+
       page.div(class: "bg-accent/10 p-4 rounded") { "Large padding creates more breathing room." }
     end
   end
@@ -359,7 +359,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
           description: "Maximum padding for very spacious layouts"
         )
       end
-      
+
       page.div(class: "bg-info/10 p-4 rounded") { "Extra large padding for maximum visual space." }
     end
   end
@@ -379,7 +379,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
           description: "This page uses the full viewport height"
         )
       end
-      
+
       page.div(class: "flex items-center justify-center bg-neutral/10 rounded-lg h-64") do
         page.div(class: "text-center") do
           page.h3(class: "text-xl font-semibold mb-2") { "Full Height Layout" }
@@ -400,7 +400,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
           description: "This page uses natural content height (default)"
         )
       end
-      
+
       page.div(class: "bg-warning/10 p-6 rounded-lg") do
         page.h3(class: "text-lg font-semibold mb-2") { "Natural Height" }
         page.p { "This page only takes up the space needed for its content." }

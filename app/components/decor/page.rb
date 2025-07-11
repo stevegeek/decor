@@ -22,11 +22,9 @@ module Decor
       @header = block
     end
 
-
     def with_tabs(&block)
       @tabs = block
     end
-
 
     def view_template
       content = capture { yield(self) } if block_given?
@@ -69,7 +67,6 @@ module Decor
       ].compact.join(" ")
     end
 
-
     def tabs_wrapper_classes
       case @spacing
       when :none then ""
@@ -100,7 +97,6 @@ module Decor
       end
     end
 
-
     def background_classes
       case @background
       when :primary then "bg-primary/10"
@@ -109,7 +105,6 @@ module Decor
       when :neutral then "bg-neutral/10"
       end
     end
-
 
     def render_hero
       if @background != :default
@@ -122,6 +117,5 @@ module Decor
         plain result
       end
     end
-
   end
 end

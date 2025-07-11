@@ -144,9 +144,9 @@ module Decor
       classes << (@cta_snap_large ? "xl:flex" : "md:flex")
       classes << (@cta_snap_large ? "xl:items-center" : "md:items-center")
       classes << (@cta_snap_large ? "xl:justify-between" : "md:justify-between")
-      
+
       div(class: classes.join(" ")) do
-        div(class: "space-y-2.5 #{@cta_snap_large ? 'xl:pr-6' : 'md:pr-6'} pb-4 sm:pb-0 border-b sm:border-b-0 border-base-300") do
+        div(class: "space-y-2.5 #{@cta_snap_large ? "xl:pr-6" : "md:pr-6"} pb-4 sm:pb-0 border-b sm:border-b-0 border-base-300") do
           render_avatar_section if @avatar_content
           render_content_section
         end
@@ -215,9 +215,9 @@ module Decor
             render_title_section(centered: centered, large: large, compact: compact)
             render_badges_section
           end
-          
+
           render_subtitle_section(centered: centered, compact: compact) if @subtitle.present?
-          
+
           # Description and tags together
           div(class: "sm:flex items-center sm:space-x-3") do
             render_description_section(centered: centered, compact: compact) if @description.present?
@@ -229,7 +229,7 @@ module Decor
           render_subtitle_section(centered: centered, compact: compact) if @subtitle.present?
           render_description_section(centered: centered, compact: compact) if @description.present?
         end
-        
+
         render_meta_section(centered: centered, compact: compact) if @meta_content
       end
     end
@@ -271,7 +271,7 @@ module Decor
 
       tag_name = (@layout == :page_like) ? :h3 : :h1
       font_weight = (@layout == :page_like) ? "font-medium" : ""
-      
+
       public_send(tag_name, class: "#{size_classes} text-base-content #{font_weight} truncate".strip) do
         plain @title
       end
