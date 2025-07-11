@@ -25,7 +25,7 @@ module Decor
     end
 
     prop :title, String
-    prop :description, String
+    prop :description, _Nilable(String)
     prop :icon, _Nilable(String)
     prop :color, _Union(:warning, :success, :error, :info), default: :info
     prop :action_buttons, _Array(ActionButton), default: -> { [] }
