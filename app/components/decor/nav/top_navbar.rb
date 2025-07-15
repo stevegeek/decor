@@ -3,6 +3,8 @@
 module Decor
   module Nav
     class TopNavbar < PhlexComponent
+      include ::Phlex::Rails::Helpers::ButtonTo # TODO: Remove need for this
+
       prop :has_search, _Boolean, default: true
       prop :instant_search_path, _Nilable(String)
       prop :brand_text, _Nilable(String)

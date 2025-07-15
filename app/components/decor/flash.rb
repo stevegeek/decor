@@ -4,6 +4,7 @@ module Decor
   class Flash < PhlexComponent
     stimulus do
       actions ["decor-flash:open@window", :handle_show_event], ["decor-flash:close@window", :handle_close_event]
+      values show_initial: -> { show_initial? }
     end
 
     prop :title, _Nilable(String)
@@ -11,7 +12,7 @@ module Decor
     prop :preserve_flash, _Boolean, default: false
     prop :collapse_if_empty, _Boolean, default: true
 
-    prop :flash_data, _Nilable(Hash)
+    prop :flash_data, _Nilable(ActionDispatch::Flash::FlashHash)
     prop :controller_path, _Nilable(String)
     prop :action_name, _Nilable(String)
 
@@ -44,10 +45,8 @@ module Decor
     private
 
     def root_element_attributes
-      show = show_initial?
       {
-        values: [show ? {show_initial: true} : {}],
-        html_options: show ? {} : {hidden: true}
+        html_options: show_initial? ? {} : {hidden: true}
       }
     end
 

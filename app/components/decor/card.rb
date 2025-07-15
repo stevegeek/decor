@@ -95,10 +95,10 @@ module Decor
     end
 
     def render_header_and_body
-      if @card_header.present?
-        render @card_header
-      end
       div(class: "card-body") do
+        if @card_header.present?
+          render @card_header
+        end
         if @title.present?
           span(class: "card-title") { @title }
         end

@@ -37,7 +37,7 @@ module Decor
 
       def element_classes
         classes = ["footer", "footer-center"]
-        classes << ((@theme == :dark) ? "bg-neutral text-neutral-content" : "bg-base-200")
+        classes << ((@theme == :dark) ? "bg-neutral text-neutral-content" : "bg-base-300")
         classes.join(" ")
       end
 
@@ -72,7 +72,7 @@ module Decor
           if @logo_content
             render @logo_content
           else
-            div(class: "mx-auto h-16 w-auto flex items-center justify-center bg-primary text-primary-content rounded") do
+            div(class: "mx-auto h-16 w-auto flex items-center justify-center rounded") do
               span(class: "font-bold text-lg") { @company_name }
             end
           end

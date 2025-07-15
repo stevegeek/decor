@@ -3,6 +3,7 @@
 module Decor
   class Page < PhlexComponent
     no_stimulus_controller
+    prop :flash_data, ActionDispatch::Flash::FlashHash, default: -> { ActionDispatch::Flash::FlashHash.new }, reader: :private
 
     prop :include_flash, _Boolean, default: true
     prop :full_height, _Boolean, default: false
@@ -48,7 +49,7 @@ module Decor
 
         div(class: content_area_classes) do
           if @include_flash
-            render ::Decor::Flash.new(collapse_if_empty: true)
+            render ::Decor::Flash.new(collapse_if_empty: true, flash_data:)
           end
           raw content if content
         end

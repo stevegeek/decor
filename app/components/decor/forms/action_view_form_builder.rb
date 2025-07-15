@@ -192,7 +192,7 @@ module Decor
         options = {},
         html_options = {}
       )
-        choices = collection.map { |el| [el.send(value_method), el.send(text_method)] }
+        choices = collection.map { |el| [el.send(text_method), el.send(value_method)] }
 
         TagWrappers::Select.new(
           object_name,

@@ -18,7 +18,8 @@ module Decor
           case crumb
           when Hash
             # Support both name/path and label/href formats for backward compatibility
-            name = crumb[:name] || crumb["name"] || crumb[:label] || crumb["label"]
+            # TODO: get rid of this backward compatibility in the future
+            name = crumb[:name] || crumb["name"] || crumb[:label] || crumb["label"] || crumb[:title] || crumb["title"]
             path = crumb[:path] || crumb["path"] || crumb[:href] || crumb["href"]
             current = crumb.fetch(:current, crumb.fetch("current", false))
             icon = crumb[:icon] || crumb["icon"]
@@ -100,7 +101,7 @@ module Decor
           li do
             if crumb.current || crumb.disabled || index == @breadcrumbs.size - 1
               span(
-                class: crumb.current ? "text-base-content font-medium" : "text-base-content/60",
+                class: crumb_text_classes(current: crumb.current),
                 aria_current: (crumb.current ? "page" : nil)
               ) do
                 render_icon(crumb.icon) if crumb.icon.present?
@@ -109,7 +110,7 @@ module Decor
             else
               a(
                 href: crumb.path,
-                class: "text-base-content/60 hover:text-base-content transition-colors"
+                class: crumb_text_classes
               ) do
                 render_icon(crumb.icon) if crumb.icon.present?
                 plain crumb.name
@@ -173,6 +174,10 @@ module Decor
         # In a real application, this would get the current path
         # For preview/test purposes, we'll return nil
         nil
+      end
+
+      def crumb_text_classes(current: false)
+        "#{current ? "font-medium" : ""} text-base-content/60 hover:text-base-content transition-colors text-sm"
       end
     end
   end

@@ -15,7 +15,7 @@ module Decor
       end
 
       prop :title, String
-      prop :description, String
+      prop :description, _Nilable(String)
 
       prop :flash, _Boolean, default: false
       prop :flash_message, _Nilable(String)

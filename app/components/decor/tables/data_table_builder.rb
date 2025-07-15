@@ -1,70 +1,77 @@
 module Decor
   module Tables
-    class DataTableBuilder < Literal::Struct
+    class DataTableBuilder < PhlexComponent
       include ::Decor::Concerns::SanitisedPaginationParams
       include ::Decor::Concerns::SanitisedSortAndFilterParams
 
+      prop :params, ActionController::Parameters, reader: :private
+      prop :helpers, _Any, reader: :private
+
       # An optional query object that the table is backed by
-      prop :query, _Nilable(_Union(::Quo::Query, ::ActiveRecord::Relation, Array))
+      prop :query, _Nilable(_Union(::Quo::Query, ::ActiveRecord::Relation, Array)), reader: :private
 
       # Title to display top left of table header
-      prop :title, _Nilable(String)
-      prop :subtitle, _Nilable(String)
+      prop :title, _Nilable(String), reader: :private
+      prop :subtitle, _Nilable(String), reader: :private
 
       # Table settings
       # Whether rows should be striped or not
-      prop :alternating, _Boolean, default: false
+      prop :alternating, _Boolean, default: false, reader: :private
       # Whether rows should be striped or not
-      prop :hover_highlight, _Boolean, default: false
+      prop :hover_highlight, _Boolean, default: false, reader: :private
       # Table has pagination
-      prop :paginated, _Boolean, default: true
+      prop :paginated, _Boolean, default: true, reader: :private
       # The header row height
-      prop :header_height, _Nilable(_Union(:comfortable, :standard, :tight)), default: :standard
+      prop :header_height, _Nilable(_Union(:comfortable, :standard, :tight)), default: :standard, reader: :private
       # The rows height
-      prop :row_height, _Nilable(_Union(:comfortable, :standard, :tight)), default: :standard
+      prop :row_height, _Nilable(_Union(:comfortable, :standard, :tight)), default: :standard, reader: :private
       # The name of the checkbox inputs (as a group) which will be used for the row
       # selection checkboxes
-      prop :rows_selectable_as_name, _Nilable(Symbol)
+      prop :rows_selectable_as_name, _Nilable(Symbol), reader: :private
 
-      prop :download_path, _Nilable(String)
+      prop :download_path, _Nilable(String), reader: :private
 
-      prop :row_nested_form, Object, default: nil
-      prop :row_nested_form_attribute_name, _Nilable(Symbol)
+      prop :row_nested_form, Object, default: nil, reader: :private
+      prop :row_nested_form_attribute_name, _Nilable(Symbol), reader: :private
 
-      prop :html_options, Hash, default: -> { {} }
+      prop :html_options, Hash, default: -> { {} }, reader: :private
 
       # Pagination props (set by merge_pagination_params)
-      prop :current_page, _Nilable(Integer)
-      prop :page_size, _Nilable(Integer)
+      prop :current_page, _Nilable(Integer), reader: :private
+      prop :page_size, _Nilable(Integer), reader: :private
 
       # Pagination parameter names
-      prop :page_parameter_name, Symbol, default: :page
-      prop :page_size_parameter_name, Symbol, default: :page_size
-      prop :custom_page_sizes, _Array(Integer), default: -> { [] }
+      prop :page_parameter_name, Symbol, default: :page, reader: :private
+      prop :page_size_parameter_name, Symbol, default: :page_size, reader: :private
+      prop :custom_page_sizes, _Array(Integer), default: -> { [] }, reader: :private
 
       # Sorting props (set by merge_sort_and_filter_params)
-      prop :sorted_direction, _Nilable(Symbol)
-      prop :sort_by, _Nilable(Symbol)
-      prop :sort_parameter_name, Symbol, default: :sort_by
-      prop :sorted_direction_parameter_name, Symbol, default: :sorted_direction
-      prop :sorting_keys, _Array(Symbol), default: -> { [] }
+      prop :sorted_direction, _Nilable(Symbol), reader: :private
+      prop :sort_by, _Nilable(Symbol), reader: :private
+      prop :sort_parameter_name, Symbol, default: :sort_by, reader: :private
+      prop :sorted_direction_parameter_name, Symbol, default: :sorted_direction, reader: :private
+      prop :sorting_keys, _Array(Symbol), default: -> { [] }, reader: :private
+
+      prop :columns_hash, Hash, default: -> { {} }, reader: :private
+      prop :slots, Hash, default: -> { {} }, reader: :private
 
       # Relevance data virtual attribute
       attr_reader :page_relevance_scores
 
       # The builder takes both the params to be able to get sort and filter query params, and the
       # view helpers to expose to subclasses to use as needed
-      def initialize(params:, helpers:, **attributes)
+      def after_component_initialize
+        @params = @params.permit(keys_for_permit)
         # These methods rely on us overriding the *_name attrs with methods that return before attributes are set
-        merge_pagination_params(attributes, params)
-        merge_sort_and_filter_params(attributes, params)
-        super(**attributes)
-        @helpers = helpers
-        @params = params.permit(keys_for_permit)
-        @columns_hash = {}
-        @slots = {}
-        yield(self) if block_given?
+        merge_pagination_params
+        merge_sort_and_filter_params
+
         setup_data_table
+      end
+
+      def view_template(&)
+        vanish(&)
+        render component
       end
 
       # Can be overridden in subclasses to set up the table
@@ -87,20 +94,18 @@ module Decor
         cleaned.to_i
       end
 
-      def merge_pagination_params(attrs, params)
-        attrs.merge!(
-          current_page: parse_current_page_param(params[attrs[:page_parameter_name] || :page]),
-          page_size: parse_page_size_param(params[attrs[:page_size_parameter_name] || :page_size])
-        )
+      def merge_pagination_params
+        p = params[@page_parameter_name || :page]
+        ps = params[@page_size_parameter_name || :page_size]
+        @current_page = parse_current_page_param(p) if p.present?
+        @page_size = parse_page_size_param(ps) if ps.present?
       end
 
-      def merge_sort_and_filter_params(attrs, params)
-        direction = params[attrs[:sorted_direction_parameter_name] || :sorted_direction]
-        key = params[attrs[:sort_parameter_name] || :sort_by]
-        attrs.merge!(
-          sorted_direction: direction&.to_sym,
-          sort_by: key&.to_sym
-        )
+      def merge_sort_and_filter_params
+        direction = params[@sorted_direction_parameter_name || :sorted_direction]
+        key = params[@sort_parameter_name || :sort_by]
+        @sorted_direction = direction.to_sym if direction.present?
+        @sort_by = key.to_sym if key.present?
       end
 
       def configure_slot(name, **attributes, &block)
