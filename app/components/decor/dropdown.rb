@@ -35,9 +35,15 @@ module Decor
       @menu_content = block
     end
 
-    def menu_item(item)
+    # @deprecated
+    def menu_item(item = nil, &block)
       @menu_items ||= []
-      @menu_items << item
+      @menu_items << (block_given? ? block : item)
+    end
+
+    def with_menu_item(&block)
+      @menu_items ||= []
+      @menu_items << block
     end
 
     def card_content(&block)
