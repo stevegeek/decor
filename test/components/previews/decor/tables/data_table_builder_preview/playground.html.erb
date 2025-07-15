@@ -19,4 +19,4 @@ dt = klass.new(
   dt.column(:col2, stretch: true, sortable: true) { Random.rand }
   dt.column(:col3, emphasis: :low) { Random.rand }
 end %>
-<%= render dt.component %>
+<%= render dt %>

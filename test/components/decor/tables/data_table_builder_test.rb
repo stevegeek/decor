@@ -31,8 +31,9 @@ class Decor::Tables::DataTableBuilderTest < ActiveSupport::TestCase
       b.column(:name, title: "Name")
       b.column(:email, title: "Email")
     end
-    component = builder.component
-    rendered = render_component(component)
+    
+    # Render the builder directly, not just the component
+    rendered = render_component(builder)
 
     assert_includes rendered, "table"
     assert_includes rendered, "Name"
@@ -44,8 +45,9 @@ class Decor::Tables::DataTableBuilderTest < ActiveSupport::TestCase
       b.column(:name, title: "Name") { |item| item[:name] }
       b.column(:email, title: "Email") { |item| item[:email] }
     end
-    component = builder.component
-    rendered = render_component(component)
+    
+    # Render the builder directly, not just the component
+    rendered = render_component(builder)
 
     assert_includes rendered, "John Doe"
     assert_includes rendered, "jane@example.com"
@@ -55,8 +57,9 @@ class Decor::Tables::DataTableBuilderTest < ActiveSupport::TestCase
     builder = create_builder do |b|
       b.column(:active, title: "Status") { |item| item[:active] ? "Active" : "Inactive" }
     end
-    component = builder.component
-    rendered = render_component(component)
+    
+    # Render the builder directly, not just the component
+    rendered = render_component(builder)
 
     assert_includes rendered, "Active"
     assert_includes rendered, "Inactive"
@@ -67,8 +70,9 @@ class Decor::Tables::DataTableBuilderTest < ActiveSupport::TestCase
       b.column(:name, title: "Full Name") { |item| item[:name] }
       b.column(:email, title: "Email Address") { |item| item[:email] }
     end
-    component = builder.component
-    rendered = render_component(component)
+    
+    # Render the builder directly, not just the component
+    rendered = render_component(builder)
 
     assert_includes rendered, "Full Name"
     assert_includes rendered, "Email Address"
@@ -78,8 +82,9 @@ class Decor::Tables::DataTableBuilderTest < ActiveSupport::TestCase
     builder = create_builder do |b|
       b.column(:name, title: "Name") { |item| item[:name] }
     end
-    component = builder.component
-    rendered = render_component(component)
+    
+    # Render the builder directly, not just the component
+    rendered = render_component(builder)
 
     # Should contain both names from our mock data
     assert_includes rendered, "John Doe"
@@ -97,8 +102,9 @@ class Decor::Tables::DataTableBuilderTest < ActiveSupport::TestCase
     builder = create_builder(query: []) do |b|
       b.column(:name, title: "Name") { |item| item[:name] }
     end
-    component = builder.component
-    rendered = render_component(component)
+    
+    # Render the builder directly, not just the component
+    rendered = render_component(builder)
 
     assert_includes rendered, "table"
     assert_includes rendered, "Name"
@@ -108,8 +114,9 @@ class Decor::Tables::DataTableBuilderTest < ActiveSupport::TestCase
     builder = create_builder do |b|
       b.column(:name, title: "Name", sortable: true) { |item| item[:name] }
     end
-    component = builder.component
-    rendered = render_component(component)
+    
+    # Render the builder directly, not just the component
+    rendered = render_component(builder)
 
     assert_includes rendered, "Name"
     assert_includes rendered, "table"
@@ -121,8 +128,9 @@ class Decor::Tables::DataTableBuilderTest < ActiveSupport::TestCase
       b.column(:name, title: "Name") { |item| item[:name] }
       b.column(:active, title: "Active") { |item| item[:active] }
     end
-    component = builder.component
-    rendered = render_component(component)
+    
+    # Render the builder directly, not just the component
+    rendered = render_component(builder)
 
     assert_includes rendered, "1"
     assert_includes rendered, "2"
@@ -134,8 +142,9 @@ class Decor::Tables::DataTableBuilderTest < ActiveSupport::TestCase
     builder = create_builder do |b|
       b.column(:email, title: "Contact") { |item| "📧 #{item[:email]}" }
     end
-    component = builder.component
-    rendered = render_component(component)
+    
+    # Render the builder directly, not just the component
+    rendered = render_component(builder)
 
     assert_includes rendered, "📧 john@example.com"
     assert_includes rendered, "📧 jane@example.com"
@@ -145,8 +154,9 @@ class Decor::Tables::DataTableBuilderTest < ActiveSupport::TestCase
     builder = create_builder do |b|
       b.column(:name, title: "Name") { |item| item[:name] }
     end
-    component = builder.component
-    rendered = render_component(component)
+    
+    # Render the builder directly, not just the component
+    rendered = render_component(builder)
 
     assert_includes rendered, "table"
   end
@@ -161,8 +171,8 @@ class Decor::Tables::DataTableBuilderTest < ActiveSupport::TestCase
       {path: "/test"}
     end
 
-    component = builder.component
-    rendered = render_component(component)
+    # Render the builder directly, not just the component
+    rendered = render_component(builder)
 
     assert_includes rendered, "table"
   end
