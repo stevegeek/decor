@@ -31,7 +31,7 @@ class Decor::Tables::DataTableBuilderTest < ActiveSupport::TestCase
       b.column(:name, title: "Name")
       b.column(:email, title: "Email")
     end
-    
+
     # Render the builder directly, not just the component
     rendered = render_component(builder)
 
@@ -45,7 +45,7 @@ class Decor::Tables::DataTableBuilderTest < ActiveSupport::TestCase
       b.column(:name, title: "Name") { |item| item[:name] }
       b.column(:email, title: "Email") { |item| item[:email] }
     end
-    
+
     # Render the builder directly, not just the component
     rendered = render_component(builder)
 
@@ -57,7 +57,7 @@ class Decor::Tables::DataTableBuilderTest < ActiveSupport::TestCase
     builder = create_builder do |b|
       b.column(:active, title: "Status") { |item| item[:active] ? "Active" : "Inactive" }
     end
-    
+
     # Render the builder directly, not just the component
     rendered = render_component(builder)
 
@@ -70,7 +70,7 @@ class Decor::Tables::DataTableBuilderTest < ActiveSupport::TestCase
       b.column(:name, title: "Full Name") { |item| item[:name] }
       b.column(:email, title: "Email Address") { |item| item[:email] }
     end
-    
+
     # Render the builder directly, not just the component
     rendered = render_component(builder)
 
@@ -82,7 +82,7 @@ class Decor::Tables::DataTableBuilderTest < ActiveSupport::TestCase
     builder = create_builder do |b|
       b.column(:name, title: "Name") { |item| item[:name] }
     end
-    
+
     # Render the builder directly, not just the component
     rendered = render_component(builder)
 
@@ -102,7 +102,7 @@ class Decor::Tables::DataTableBuilderTest < ActiveSupport::TestCase
     builder = create_builder(query: []) do |b|
       b.column(:name, title: "Name") { |item| item[:name] }
     end
-    
+
     # Render the builder directly, not just the component
     rendered = render_component(builder)
 
@@ -114,7 +114,7 @@ class Decor::Tables::DataTableBuilderTest < ActiveSupport::TestCase
     builder = create_builder do |b|
       b.column(:name, title: "Name", sortable: true) { |item| item[:name] }
     end
-    
+
     # Render the builder directly, not just the component
     rendered = render_component(builder)
 
@@ -128,7 +128,7 @@ class Decor::Tables::DataTableBuilderTest < ActiveSupport::TestCase
       b.column(:name, title: "Name") { |item| item[:name] }
       b.column(:active, title: "Active") { |item| item[:active] }
     end
-    
+
     # Render the builder directly, not just the component
     rendered = render_component(builder)
 
@@ -142,7 +142,7 @@ class Decor::Tables::DataTableBuilderTest < ActiveSupport::TestCase
     builder = create_builder do |b|
       b.column(:email, title: "Contact") { |item| "📧 #{item[:email]}" }
     end
-    
+
     # Render the builder directly, not just the component
     rendered = render_component(builder)
 
@@ -154,7 +154,7 @@ class Decor::Tables::DataTableBuilderTest < ActiveSupport::TestCase
     builder = create_builder do |b|
       b.column(:name, title: "Name") { |item| item[:name] }
     end
-    
+
     # Render the builder directly, not just the component
     rendered = render_component(builder)
 

@@ -31,7 +31,7 @@ module Decor
 
       prop :download_path, _Nilable(String), reader: :private
 
-      prop :row_nested_form, Object, default: nil, reader: :private
+      prop :row_nested_form, Object, reader: :private
       prop :row_nested_form_attribute_name, _Nilable(Symbol), reader: :private
 
       prop :html_options, Hash, default: -> { {} }, reader: :private
