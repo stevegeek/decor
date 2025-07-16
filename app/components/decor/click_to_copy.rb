@@ -15,12 +15,15 @@ module Decor
       root_element do |el|
         div(class: "flex items-center", title: "Click to copy this.") do
           el.tag(:div, stimulus_target: :content) do
-            yield if block_given?
+            if block_given?
+              yield
+            else
+              render ::Decor::Icon.new(
+                name: "duplicate",
+                html_options: {class: "ml-2 h-4 w-4"}
+              )
+            end
           end
-          render ::Decor::Icon.new(
-            name: "duplicate",
-            html_options: {class: "ml-2 h-4 w-4"}
-          )
         end
       end
     end

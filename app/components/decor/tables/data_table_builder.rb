@@ -53,7 +53,6 @@ module Decor
       prop :sorting_keys, _Array(Symbol), default: -> { [] }, reader: :private
 
       prop :columns_hash, Hash, default: -> { {} }, reader: :private
-      prop :slots, Hash, default: -> { {} }, reader: :private
 
       # Relevance data virtual attribute
       attr_reader :page_relevance_scores
@@ -106,10 +105,6 @@ module Decor
         key = params[@sort_parameter_name || :sort_by]
         @sorted_direction = direction.to_sym if direction.present?
         @sort_by = key.to_sym if key.present?
-      end
-
-      def configure_slot(name, **attributes, &block)
-        @slots[name] = {attributes: attributes, block: block}
       end
 
       # Returns the view component ready to render
@@ -274,12 +269,8 @@ module Decor
         if paginated?
           pagination_options = resolved_pagination_options
           data_table_component.with_pagination do
-            ::Decor::Pagination.new(**pagination_options)
+            render ::Decor::Pagination.new(**pagination_options)
           end
-        end
-
-        @slots.each do |name, configuration|
-          data_table_component.send(:"with_#{name}", **configuration[:attributes], &configuration[:block])
         end
       end
 

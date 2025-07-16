@@ -414,6 +414,24 @@ prop :internal_id, String, reader: :private, writer: :protected
 
 ## Key Usage Patterns
 
+### Modals and Notifications
+
+To use modals and the notification system, you need to render their main components in your layout or application view, so they can be used anywhere in your app.
+
+For example, before closing the body tag in your layout file (e.g., `application.html.erb`), you can add:
+
+```erb
+  <%= render ::Decor::Modals::Modal.new %>
+    <%= render ::Decor::Modals::ConfirmModal.new %>
+    <%= render ::Decor::NotificationManager.new(
+      stimulus_values: {
+        initial_notifications: [notice, alert].compact.map do |message|
+          {content: {content: render(::Decor::Notification.new(title: message)), __safe: true}}
+        end
+      }
+    ) %>
+```
+
 ### 1. Buttons & Links
 
 ```ruby
