@@ -69,7 +69,7 @@ module Decor
       [
         "btn",
         *color_classes,
-        *variant_classes,
+        *style_classes,
         *size_classes,
         *modifier_classes
       ].compact.join(" ")
@@ -122,14 +122,14 @@ module Decor
       end
     end
 
-    def variant_classes
-      classes = component_variant_classes(@variant) || []
-      classes << "bg-base-100" if @variant == :outlined
+    def style_classes
+      classes = component_style_classes(@style) || []
+      classes << "bg-base-100" if @style == :outlined
       classes
     end
 
-    def component_variant_classes(variant)
-      case variant
+    def component_style_classes(style)
+      case style
       when :filled
         [] # Default for buttons, no special class needed
       when :outlined

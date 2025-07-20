@@ -10,7 +10,7 @@ class ::Decor::ButtonPreview < ::Lookbook::Preview
   # @param label text
   # @param disabled toggle
   # @param icon select [~, check-circle, x, check, download, play]
-  # @param variant select [filled, outlined, ghost]
+  # @param style select [filled, outlined, ghost]
   # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
   # @param element_tag select [button, a]
   # @param size select [xs, sm, md, lg, xl]
@@ -18,7 +18,7 @@ class ::Decor::ButtonPreview < ::Lookbook::Preview
   def playground(
     label: "Button",
     icon: nil,
-    variant: :filled,
+    style: :filled,
     color: nil,
     size: :md,
     element_tag: :button,
@@ -200,7 +200,7 @@ class ::Decor::ButtonPreview < ::Lookbook::Preview
   def combo_outlined_primary_large
     render ::Decor::Button.new(
       label: "Outlined Primary Large",
-      variant: :outlined,
+      style: :outlined,
       color: :primary,
       size: :lg
     )
@@ -211,7 +211,7 @@ class ::Decor::ButtonPreview < ::Lookbook::Preview
   def combo_ghost_error_icon
     render ::Decor::Button.new(
       label: "Delete Item",
-      variant: :ghost,
+      style: :ghost,
       color: :error,
       icon: "x"
     )
@@ -222,7 +222,7 @@ class ::Decor::ButtonPreview < ::Lookbook::Preview
   def combo_large_secondary_outlined
     render ::Decor::Button.new(
       label: "Large Secondary",
-      variant: :outlined,
+      style: :outlined,
       color: :secondary,
       size: :lg
     )

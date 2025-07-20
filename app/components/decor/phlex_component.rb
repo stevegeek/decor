@@ -16,7 +16,7 @@ module Decor
     # Shared attribute helpers
     include Decor::Concerns::SizeClassHelper
     include Decor::Concerns::ColorClassHelper
-    include Decor::Concerns::VariantClassHelper
+    include Decor::Concerns::StyleClassHelper
 
     # TODO: upstream to Vident
     def self.prop_names

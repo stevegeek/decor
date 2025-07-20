@@ -28,7 +28,7 @@ class ::Decor::AvatarPreview < ::Lookbook::Preview
   # @group Examples
   # @label Circular - Outlined
   def circular_outlined
-    render ::Decor::Avatar.new(initials: "AB", size: :md, variant: :outlined)
+    render ::Decor::Avatar.new(initials: "AB", size: :md, style: :outlined)
   end
 
   # @group Examples
@@ -77,9 +77,9 @@ class ::Decor::AvatarPreview < ::Lookbook::Preview
   # @param size select [xs, sm, md, lg, xl]
   # @param border toggle
   # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
-  # @param variant select [filled, outlined, ghost]
-  def playground(image: nil, initials: "JG", shape: :circle, size: :md, border: true, color: :neutral, variant: :filled)
-    render ::Decor::Avatar.new(initials: initials, url: image, shape: shape, size: size, border: border, color: color, variant: variant)
+  # @param style select [filled, outlined, ghost]
+  def playground(image: nil, initials: "JG", shape: :circle, size: :md, border: true, color: :neutral, style: :filled)
+    render ::Decor::Avatar.new(initials: initials, url: image, shape: shape, size: size, border: border, color: color, style: style)
   end
 
   # @group Shapes
@@ -211,7 +211,7 @@ class ::Decor::AvatarPreview < ::Lookbook::Preview
   # @group With Borders
   # @label Initials, Outlined, with Border
   def border_outlined_initials
-    render ::Decor::Avatar.new(initials: "OB", border: true, variant: :outlined, size: :md)
+    render ::Decor::Avatar.new(initials: "OB", border: true, style: :outlined, size: :md)
   end
 
   # @group Colors
@@ -262,10 +262,10 @@ class ::Decor::AvatarPreview < ::Lookbook::Preview
     render_with_template(
       locals: {
         avatars: [
-          ::Decor::Avatar.new(initials: "JD", color: :primary, variant: :filled),
-          ::Decor::Avatar.new(initials: "SM", color: :secondary, variant: :outlined),
-          ::Decor::Avatar.new(initials: "AK", color: :accent, variant: :ghost),
-          ::Decor::Avatar.new(initials: "TL", color: :success, variant: :filled)
+          ::Decor::Avatar.new(initials: "JD", color: :primary, style: :filled),
+          ::Decor::Avatar.new(initials: "SM", color: :secondary, style: :outlined),
+          ::Decor::Avatar.new(initials: "AK", color: :accent, style: :ghost),
+          ::Decor::Avatar.new(initials: "TL", color: :success, style: :filled)
         ]
       }
     )
@@ -286,21 +286,21 @@ class ::Decor::AvatarPreview < ::Lookbook::Preview
     )
   end
 
-  # @group Variants
-  # @label Filled Variant
+  # @group Styles
+  # @label Filled Style
   def variant_filled
-    render ::Decor::Avatar.new(initials: "FV", variant: :filled, color: :primary)
+    render ::Decor::Avatar.new(initials: "FV", style: :filled, color: :primary)
   end
 
-  # @group Variants
-  # @label Outlined Variant
+  # @group Styles
+  # @label Outlined Style
   def variant_outlined
-    render ::Decor::Avatar.new(initials: "OV", variant: :outlined, color: :primary)
+    render ::Decor::Avatar.new(initials: "OV", style: :outlined, color: :primary)
   end
 
-  # @group Variants
-  # @label Ghost Variant
+  # @group Styles
+  # @label Ghost Style
   def variant_ghost
-    render ::Decor::Avatar.new(initials: "GV", variant: :ghost, color: :primary)
+    render ::Decor::Avatar.new(initials: "GV", style: :ghost, color: :primary)
   end
 end

@@ -18,8 +18,8 @@ class Decor::ButtonTest < ActiveSupport::TestCase
     assert_includes rendered, "btn"
   end
 
-  test "applies correct variant classes" do
-    component = Decor::Button.new(label: "Outlined", variant: :outlined)
+  test "applies correct style classes" do
+    component = Decor::Button.new(label: "Outlined", style: :outlined)
     rendered = render_component(component)
 
     assert_includes rendered, "btn-outline"
@@ -78,8 +78,8 @@ class Decor::ButtonTest < ActiveSupport::TestCase
     refute_includes rendered, "btn-neutral"
   end
 
-  test "applies ghost variant as ghost button" do
-    component = Decor::Button.new(label: "Ghost", variant: :ghost)
+  test "applies ghost style as ghost button" do
+    component = Decor::Button.new(label: "Ghost", style: :ghost)
     rendered = render_component(component)
 
     assert_includes rendered, "btn-ghost"

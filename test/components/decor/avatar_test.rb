@@ -115,36 +115,36 @@ class Decor::AvatarTest < ActiveSupport::TestCase
   end
 
   test "applies color classes to placeholder avatars" do
-    component = Decor::Avatar.new(initials: "PC", color: :primary, variant: :filled)
+    component = Decor::Avatar.new(initials: "PC", color: :primary, style: :filled)
     rendered = render_component(component)
     assert_includes rendered, "bg-primary"
     assert_includes rendered, "text-primary-content"
 
-    component = Decor::Avatar.new(initials: "SC", color: :secondary, variant: :filled)
+    component = Decor::Avatar.new(initials: "SC", color: :secondary, style: :filled)
     rendered = render_component(component)
     assert_includes rendered, "bg-secondary"
     assert_includes rendered, "text-secondary-content"
   end
 
-  test "applies no color classes when no variant specified" do
+  test "applies no color classes when no style specified" do
     component = Decor::Avatar.new(initials: "NV", color: :primary)
     rendered = render_component(component)
-    # Should not include any color classes without a variant
+    # Should not include any color classes without a style
     refute_includes rendered, "bg-primary"
     refute_includes rendered, "text-primary-content"
   end
 
-  test "applies variant styles" do
-    # Outlined variant
-    component = Decor::Avatar.new(initials: "OV", color: :primary, variant: :outlined)
+  test "applies style styles" do
+    # Outlined style
+    component = Decor::Avatar.new(initials: "OV", color: :primary, style: :outlined)
     rendered = render_component(component)
     assert_includes rendered, "border-2"
     assert_includes rendered, "border-primary"
     assert_includes rendered, "text-primary"
     refute_includes rendered, "bg-primary"
 
-    # Ghost variant
-    component = Decor::Avatar.new(initials: "GV", color: :primary, variant: :ghost)
+    # Ghost style
+    component = Decor::Avatar.new(initials: "GV", color: :primary, style: :ghost)
     rendered = render_component(component)
     assert_includes rendered, "hover:bg-primary"
     assert_includes rendered, "text-primary"
@@ -176,9 +176,9 @@ class Decor::AvatarTest < ActiveSupport::TestCase
 
   # COMPREHENSIVE COLOR_CLASSES VALIDATION TESTS
 
-  test "validates all color options with filled variant" do
+  test "validates all color options with filled style" do
     Decor::Concerns::ColorClassHelper::SEMANTIC_COLORS.each do |color|
-      component = Decor::Avatar.new(initials: "TC", color: color, variant: :filled)
+      component = Decor::Avatar.new(initials: "TC", color: color, style: :filled)
       rendered = render_component(component)
 
       case color
@@ -213,9 +213,9 @@ class Decor::AvatarTest < ActiveSupport::TestCase
     end
   end
 
-  test "validates all color options with outlined variant" do
+  test "validates all color options with outlined style" do
     Decor::Concerns::ColorClassHelper::SEMANTIC_COLORS.each do |color|
-      component = Decor::Avatar.new(initials: "TC", color: color, variant: :outlined)
+      component = Decor::Avatar.new(initials: "TC", color: color, style: :outlined)
       rendered = render_component(component)
 
       assert_includes rendered, "border-2"
@@ -252,9 +252,9 @@ class Decor::AvatarTest < ActiveSupport::TestCase
     end
   end
 
-  test "validates all color options with ghost variant" do
+  test "validates all color options with ghost style" do
     Decor::Concerns::ColorClassHelper::SEMANTIC_COLORS.each do |color|
-      component = Decor::Avatar.new(initials: "TC", color: color, variant: :ghost)
+      component = Decor::Avatar.new(initials: "TC", color: color, style: :ghost)
       rendered = render_component(component)
 
       case color
@@ -291,26 +291,26 @@ class Decor::AvatarTest < ActiveSupport::TestCase
 
   test "validates specific key combinations from requirements" do
     # Primary + filled: should output "bg-primary text-primary-content"
-    component = Decor::Avatar.new(initials: "PF", color: :primary, variant: :filled)
+    component = Decor::Avatar.new(initials: "PF", color: :primary, style: :filled)
     rendered = render_component(component)
     assert_includes rendered, "bg-primary"
     assert_includes rendered, "text-primary-content"
 
     # Secondary + outlined: should output "text-secondary border-2 border-secondary"
-    component = Decor::Avatar.new(initials: "SO", color: :secondary, variant: :outlined)
+    component = Decor::Avatar.new(initials: "SO", color: :secondary, style: :outlined)
     rendered = render_component(component)
     assert_includes rendered, "text-secondary"
     assert_includes rendered, "border-2"
     assert_includes rendered, "border-secondary"
 
     # Accent + ghost: should output "text-accent hover:bg-accent"
-    component = Decor::Avatar.new(initials: "AG", color: :accent, variant: :ghost)
+    component = Decor::Avatar.new(initials: "AG", color: :accent, style: :ghost)
     rendered = render_component(component)
     assert_includes rendered, "text-accent"
     assert_includes rendered, "hover:bg-accent"
 
     # Neutral + filled: should output "bg-neutral text-neutral-content" (default behavior)
-    component = Decor::Avatar.new(initials: "NF", color: :neutral, variant: :filled)
+    component = Decor::Avatar.new(initials: "NF", color: :neutral, style: :filled)
     rendered = render_component(component)
     assert_includes rendered, "bg-neutral"
     assert_includes rendered, "text-neutral-content"
@@ -319,8 +319,8 @@ class Decor::AvatarTest < ActiveSupport::TestCase
   test "ensures no dynamic string building or nil values in output" do
     # Test that all combinations produce valid class strings with no interpolation artifacts
     Decor::Concerns::ColorClassHelper::SEMANTIC_COLORS.each do |color|
-      Decor::Concerns::VariantClassHelper::STANDARD_VARIANTS.each do |variant|
-        component = Decor::Avatar.new(initials: "TC", color: color, variant: variant)
+      [:filled, :outlined, :ghost].each do |style|
+        component = Decor::Avatar.new(initials: "TC", color: color, style: style)
         rendered = render_component(component)
 
         # Should not contain dynamic interpolation artifacts
