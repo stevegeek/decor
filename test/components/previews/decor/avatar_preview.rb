@@ -76,7 +76,7 @@ class ::Decor::AvatarPreview < ::Lookbook::Preview
   # @param shape select [circle, square]
   # @param size select [xs, sm, md, lg, xl]
   # @param border toggle
-  # @param color select [base, primary, secondary, accent, success, error, warning, info, neutral]
+  # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
   # @param variant select [filled, outlined, ghost]
   def playground(image: nil, initials: "JG", shape: :circle, size: :md, border: true, color: :neutral, variant: :filled)
     render ::Decor::Avatar.new(initials: initials, url: image, shape: shape, size: size, border: border, color: color, variant: variant)

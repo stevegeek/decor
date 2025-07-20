@@ -8,8 +8,9 @@ class Decor::AvatarTest < ActiveSupport::TestCase
     assert_includes rendered, "AB"
     assert_includes rendered, "avatar"
     assert_includes rendered, "avatar-placeholder"
-    assert_includes rendered, "bg-neutral"
-    assert_includes rendered, "text-neutral-content"
+    # No color classes should be applied when color is not specified
+    refute_includes rendered, "bg-neutral"
+    refute_includes rendered, "text-neutral-content"
   end
 
   test "renders successfully with url" do
@@ -41,7 +42,9 @@ class Decor::AvatarTest < ActiveSupport::TestCase
     component = Decor::Avatar.new(initials: "AB", border: true)
     rendered = render_component(component)
 
-    assert_includes rendered, "ring-neutral"  # Default color is neutral
+    # No color-specific ring class when color not specified
+    refute_includes rendered, "ring-neutral"
+    refute_includes rendered, "ring-primary"
     assert_includes rendered, "ring-offset-base-100"
     assert_includes rendered, "ring-2"
     assert_includes rendered, "ring-offset-2"
@@ -112,15 +115,23 @@ class Decor::AvatarTest < ActiveSupport::TestCase
   end
 
   test "applies color classes to placeholder avatars" do
-    component = Decor::Avatar.new(initials: "PC", color: :primary)
+    component = Decor::Avatar.new(initials: "PC", color: :primary, variant: :filled)
     rendered = render_component(component)
     assert_includes rendered, "bg-primary"
     assert_includes rendered, "text-primary-content"
 
-    component = Decor::Avatar.new(initials: "SC", color: :secondary)
+    component = Decor::Avatar.new(initials: "SC", color: :secondary, variant: :filled)
     rendered = render_component(component)
     assert_includes rendered, "bg-secondary"
     assert_includes rendered, "text-secondary-content"
+  end
+
+  test "applies no color classes when no variant specified" do
+    component = Decor::Avatar.new(initials: "NV", color: :primary)
+    rendered = render_component(component)
+    # Should not include any color classes without a variant
+    refute_includes rendered, "bg-primary"
+    refute_includes rendered, "text-primary-content"
   end
 
   test "applies variant styles" do
@@ -154,8 +165,9 @@ class Decor::AvatarTest < ActiveSupport::TestCase
     # Default color and variant
     component = Decor::Avatar.new(initials: "DB")
     rendered = render_component(component)
-    assert_includes rendered, "bg-neutral"
-    assert_includes rendered, "text-neutral-content"
+    # No color classes when color not specified
+    refute_includes rendered, "bg-neutral"
+    refute_includes rendered, "text-neutral-content"
 
     # No unexpected classes from new features
     refute_includes rendered, "border-2"
@@ -165,7 +177,7 @@ class Decor::AvatarTest < ActiveSupport::TestCase
   # COMPREHENSIVE COLOR_CLASSES VALIDATION TESTS
 
   test "validates all color options with filled variant" do
-    Decor::Avatar::COLOR_OPTIONS.each do |color|
+    Decor::Concerns::ColorClassHelper::SEMANTIC_COLORS.each do |color|
       component = Decor::Avatar.new(initials: "TC", color: color, variant: :filled)
       rendered = render_component(component)
 
@@ -202,7 +214,7 @@ class Decor::AvatarTest < ActiveSupport::TestCase
   end
 
   test "validates all color options with outlined variant" do
-    Decor::Avatar::COLOR_OPTIONS.each do |color|
+    Decor::Concerns::ColorClassHelper::SEMANTIC_COLORS.each do |color|
       component = Decor::Avatar.new(initials: "TC", color: color, variant: :outlined)
       rendered = render_component(component)
 
@@ -241,7 +253,7 @@ class Decor::AvatarTest < ActiveSupport::TestCase
   end
 
   test "validates all color options with ghost variant" do
-    Decor::Avatar::COLOR_OPTIONS.each do |color|
+    Decor::Concerns::ColorClassHelper::SEMANTIC_COLORS.each do |color|
       component = Decor::Avatar.new(initials: "TC", color: color, variant: :ghost)
       rendered = render_component(component)
 
@@ -306,8 +318,8 @@ class Decor::AvatarTest < ActiveSupport::TestCase
 
   test "ensures no dynamic string building or nil values in output" do
     # Test that all combinations produce valid class strings with no interpolation artifacts
-    Decor::Avatar::COLOR_OPTIONS.each do |color|
-      Decor::Avatar::VARIANT_OPTIONS.each do |variant|
+    Decor::Concerns::ColorClassHelper::SEMANTIC_COLORS.each do |color|
+      Decor::Concerns::VariantClassHelper::STANDARD_VARIANTS.each do |variant|
         component = Decor::Avatar.new(initials: "TC", color: color, variant: variant)
         rendered = render_component(component)
 
@@ -323,18 +335,19 @@ class Decor::AvatarTest < ActiveSupport::TestCase
   end
 
   test "validates default behavior still works" do
-    # Default color :neutral + default variant :filled
+    # No default color when not specified
     component = Decor::Avatar.new(initials: "DB")
     rendered = render_component(component)
 
-    assert_includes rendered, "bg-neutral"
-    assert_includes rendered, "text-neutral-content"
+    # No color classes when color not specified
+    refute_includes rendered, "bg-neutral"
+    refute_includes rendered, "text-neutral-content"
     assert_includes rendered, "w-10" # default size
     assert_includes rendered, "rounded-full" # default shape
   end
 
   test "border ring color matches avatar color" do
-    Decor::Avatar::COLOR_OPTIONS.each do |color|
+    Decor::Concerns::ColorClassHelper::SEMANTIC_COLORS.each do |color|
       component = Decor::Avatar.new(initials: "BC", color: color, border: true)
       rendered = render_component(component)
 

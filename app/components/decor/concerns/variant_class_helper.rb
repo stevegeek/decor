@@ -3,82 +3,57 @@
 module Decor
   module Concerns
     module VariantClassHelper
-      COMMON_VARIANTS = %i[filled outlined ghost].freeze
-      BUTTON_VARIANTS = %i[contained outlined text ghost].freeze
-      BADGE_VARIANTS = %i[filled outlined].freeze
-      TAB_VARIANTS = %i[ghost bordered lifted boxed].freeze
+      module ClassMethods
+        def variants
+          [:filled, :outlined, :ghost]
+        end
 
-      def variant_color_classes(variant = @variant, color = @color)
+        # Default variant - components can override
+        def default_variant
+        end
+      end
+
+      def self.included(base)
+        base.extend(ClassMethods)
+        base.class_eval do
+          prop :variant, _Nilable(_Union(*variants)), default: default_variant.freeze
+        end
+      end
+
+      # Main method that handles common variant logic and delegates to component-specific implementation
+      def variant_classes(variant = @variant)
         return nil unless variant
+        
+        return nil unless valid_variant?(variant)
 
+        # Delegate to component-specific implementation
+        component_variant_classes(variant)
+      end
+
+      # Components should override this method to provide their specific variant classes
+      def component_variant_classes(variant)
+        raise NotImplementedError, "Components must implement #component_variant_classes"
+      end
+
+      # Check if variant is valid
+      def valid_variant?(variant)
+        self.class.variants.include?(variant)
+      end
+
+      # Helper method to get variant-specific color classes
+      def variant_color_classes(variant = @variant, color = @color)
+        return nil unless variant && color
+        
         case variant
-        when :filled, :contained
+        when :filled
           filled_color_classes(color)
-        when :outlined, :outline
+        when :outlined
           outline_color_classes(color)
-        when :ghost, :text
+        when :ghost
           ghost_color_classes(color)
         else
           nil
         end
-      end
-
-      def button_variant_classes(variant = @variant)
-        return [] unless variant
-
-        case variant
-        when :outlined, :outline
-          ["btn-outline"]
-        when :ghost, :text
-          ["btn-ghost"]
-        when :link
-          ["btn-link"]
-        else
-          []
-        end
-      end
-
-      def tab_variant_classes(variant = @variant)
-        return nil unless variant
-
-        case variant
-        when :ghost then "tabs-ghost"
-        when :bordered then "tabs-bordered"
-        when :lifted then "tabs-lifted"
-        when :boxed then "tabs-boxed"
-        else nil
-        end
-      end
-
-      def card_variant_classes(variant = @variant)
-        return nil unless variant
-
-        case variant
-        when :outlined then "card-bordered"
-        when :compact then "card-compact"
-        when :normal then "card-normal"
-        when :side then "card-side"
-        else nil
-        end
-      end
-
-      def validate_variant(variant, allowed_variants = COMMON_VARIANTS)
-        return nil if variant.nil?
-        
-        allowed_variants.include?(variant) ? variant : nil
-      end
-
-      def normalize_variant(variant)
-        case variant
-        when :outline then :outlined
-        when :text then :ghost
-        when :contained then :filled
-        else variant
-        end
-      end
-
-      def variant_supports_color?(variant)
-        %i[filled outlined ghost contained text].include?(variant)
       end
     end
   end
