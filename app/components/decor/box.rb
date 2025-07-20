@@ -4,8 +4,8 @@ module Decor
   class Box < PhlexComponent
     no_stimulus_controller
 
-    attribute :title, String
-    attribute :description, String
+    prop :title, _Nilable(String)
+    prop :description, _Nilable(String)
 
     def html_title(&block)
       @html_title = block
@@ -19,12 +19,16 @@ module Decor
       @right = block
     end
 
+    def right?
+      @right.present?
+    end
+
     private
 
     def view_template(&)
       @content = capture(&) if block_given?
 
-      render parent_element do
+      root_element do
         div(class: "card-body") do
           if @left.present? && @right.present?
             div(class: "flex justify-between items-start") do

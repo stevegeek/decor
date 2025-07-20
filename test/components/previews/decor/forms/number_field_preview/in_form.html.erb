@@ -1,0 +1,40 @@
+<%= render ::Decor::Forms::Form.new(model: model, url: "#", local: true) do |form_component| %>
+  <div class="space-y-3">
+    <%= form_component.builder.number_field :count,
+                       label: label,
+                       description: description,
+                       show_label: show_label,
+                       compact: compact,
+                       value: value,
+                       allow_float_input: allow_float_input,
+                       required: required,
+                       disabled: disabled,
+                       helper_text: helper_text,
+                       hide_required_asterisk: hide_label_required_asterisk,
+                       label_position: label_position,
+                       grid_span: grid_span,
+                       floating_error_text: floating_error_text,
+                       placeholder: placeholder,
+                       leading_icon_name: leading_icon_name,
+                       trailing_icon_name: trailing_icon_name,
+                       leading_text_add_on: leading_text_add_on,
+                       trailing_text_add_on: trailing_text_add_on,
+                       add_on_style: add_on_style,
+                       type: type,
+                       pattern: pattern,
+                       inputmode: inputmode,
+                       numerical: numerical,
+                       maximum_length: maximum_length,
+                       minimum_length: minimum_length,
+                       validate_value_equal_to_id: validate_value_equal_to_id,
+                       min: min,
+                       max: max,
+                       step: step,
+                       greater_than: greater_than,
+                       less_than: less_than,
+                       validation_messages: {
+                         required: "This is the custom validation message for the required field.",
+                       } %>
+    <%= form_component.builder.submit %>
+  </div>
+<% end %>

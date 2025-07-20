@@ -5,15 +5,15 @@ module Decor
   class Title < PhlexComponent
     no_stimulus_controller
 
-    attribute :title, String
-    attribute :description, String
-    attribute :icon, String
-    attribute :size, Symbol, default: :md, in: [:xs, :sm, :md, :lg, :xl]
+    prop :title, _Nilable(String)
+    prop :description, _Nilable(String)
+    prop :icon, _Nilable(String)
+    prop :size, _Union(:xs, :sm, :md, :lg, :xl), default: :md
 
     private
 
     def view_template(&)
-      render parent_element do
+      root_element do
         div(class: container_classes) do
           div(class: title_section_classes) do
             if @icon

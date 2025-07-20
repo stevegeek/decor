@@ -1,13 +1,13 @@
 <%= javascript_tag nonce: true do %>
   setTimeout(() => {
     function closingHandler(e) {
-      window.removeEventListener("decor--confirm-modal:closing", closingHandler);
+      window.removeEventListener("decor--modals--confirm-modal:closing", closingHandler);
       alert(e.detail.closeReason)
     }
 
-    window.addEventListener("decor--confirm-modal:closing", closingHandler);
+    window.addEventListener("decor--modals--confirm-modal:closing", closingHandler);
 
-    const evt = new CustomEvent("decor--confirm-modal:open", {
+    const evt = new CustomEvent("decor--modals--confirm-modal:open", {
       bubbles: true,
       cancelable: false,
       detail: {
@@ -23,5 +23,5 @@
     });
     console.log("Dispatching event", evt);
     window.dispatchEvent(evt);
-  }, 1500);
+  }, 3000);
 <% end %>

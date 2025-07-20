@@ -29,16 +29,28 @@ class Decor::ClickToCopyTest < ActiveSupport::TestCase
     assert_equal "Click to copy this.", flex_div["title"]
   end
 
-  def test_renders_duplicate_icon
+  def test_renders_duplicate_icon_without_block
     component = Decor::ClickToCopy.new
 
-    rendered = render_fragment(component) { "Content" }
+    rendered = render_fragment(component)
 
-    # Should render duplicate icon
+    # Should render duplicate icon when no block given
     assert_includes rendered.to_html, "duplicate"
 
     # Icon should have proper classes
     assert_includes rendered.to_html, "ml-2 h-4 w-4"
+  end
+
+  def test_renders_block_content_instead_of_icon
+    component = Decor::ClickToCopy.new
+
+    rendered = render_fragment(component) { "Content" }
+
+    # Should render block content
+    assert_includes rendered.text, "Content"
+
+    # Should NOT render duplicate icon when block is given
+    refute_includes rendered.to_html, "duplicate"
   end
 
   def test_has_stimulus_actions
@@ -64,12 +76,13 @@ class Decor::ClickToCopyTest < ActiveSupport::TestCase
     flex_container = rendered.css(".flex.items-center").first
     assert flex_container
 
-    # Should have content and icon
-    assert_includes rendered.text, "Target content"
-    assert_includes rendered.to_html, "duplicate"
+    # Should have content target
+    content_target = rendered.css("[data-decor--click-to-copy-target='content']").first
+    assert content_target
+    assert_includes content_target.text, "Target content"
   end
 
-  def test_empty_content
+  def test_empty_content_shows_default_icon
     component = Decor::ClickToCopy.new
 
     rendered = render_fragment(component)
@@ -78,7 +91,35 @@ class Decor::ClickToCopyTest < ActiveSupport::TestCase
     assert rendered.css(".cursor-pointer").any?
     assert rendered.css(".flex.items-center").any?
 
-    # Should still have duplicate icon
+    # Should show duplicate icon as default when no block given
     assert_includes rendered.to_html, "duplicate"
+  end
+
+  def test_with_to_copy_prop
+    component = Decor::ClickToCopy.new(to_copy: "Secret text to copy")
+
+    rendered = render_fragment(component) { "Display this text" }
+
+    # Should show the display text
+    assert_includes rendered.text, "Display this text"
+
+    # Should have the to_copy value as a stimulus value
+    root_element = rendered.children.first
+    assert root_element
+    assert_includes root_element["data-decor--click-to-copy-to-copy-value"], "Secret text to copy"
+  end
+
+  def test_without_to_copy_prop
+    component = Decor::ClickToCopy.new
+
+    rendered = render_fragment(component) { "Display and copy this" }
+
+    # Should show the display text
+    assert_includes rendered.text, "Display and copy this"
+
+    # Should have empty to_copy stimulus value
+    root_element = rendered.children.first
+    assert root_element
+    assert_equal "", root_element["data-decor--click-to-copy-to-copy-value"]
   end
 end

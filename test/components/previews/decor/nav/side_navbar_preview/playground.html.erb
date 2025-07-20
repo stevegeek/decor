@@ -1,0 +1,86 @@
+<%=
+  render ::Decor::Nav::SideNavbar.new(
+    landscape_logo_url: "https://i.pravatar.cc/300",
+    avatar_logo_url: "https://i.pravatar.cc/300",
+    collapsed: start_collapsed,
+    menu_items: [
+      {
+       items: [
+         {
+           title: "Home",
+           icon: "home",
+           path: "#",
+           selected: true
+         }
+       ]
+      },
+      {
+       title: "Sales",
+       items: [
+         {
+           title: "Recent Orders",
+           icon: "currency-dollar",
+           path: "#",
+           selected: false,
+           counter: 5
+         },
+         {
+           title: "Customers",
+           icon: "user",
+           selected: true,
+           sub_items: [
+             {
+               title: "Index",
+               icon: "users",
+               path: "#",
+               selected: true
+             },
+             {
+               title: "Reports",
+               icon: "document-report",
+               path: "#",
+               selected: false
+             }
+           ]
+         }
+       ]
+      },
+      {
+       title: "Catalog",
+       items: [
+         {
+           title: "Manage",
+           icon: "document-duplicate",
+           selected: false,
+           counter: 12,
+           sub_items: [
+             {
+               title: "Index",
+               icon: "users",
+               path: "#",
+               selected: false
+             },
+             {
+               title: "Reports",
+               icon: "document-report",
+               path: "#",
+               selected: false
+             }
+           ]
+         }
+       ]
+      }
+    ]
+  )
+%>
+<section id="main-content" class="transition-[padding] duration-300 flex flex-col h-full <%= start_collapsed ? "lg:pl-20" : "lg:pl-72" %>">
+  <%= render ::Decor::Nav::TopNavbar.new %>
+
+  <!-- Page content -->
+  <main class="px-4">
+    <p class="font-bold my-4">The top navbar above is a seperate component!</p>
+    <p>This is the page content, currently showing:</p>
+    <p class="hidden lg:block">Desktop layout</p>
+    <p class="lg:hidden">Mobile layout</p>
+  </main>
+</section>

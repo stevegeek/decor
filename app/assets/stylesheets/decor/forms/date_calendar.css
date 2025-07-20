@@ -1,0 +1,81 @@
+/* DaisyUI DateCalendar Component Styles */
+
+/* Ensure Cally calendar integrates well with DaisyUI */
+.cally {
+  @apply font-sans;
+}
+
+/* Calendar month styling */
+.cally calendar-month {
+  @apply block;
+}
+
+/* Button styling within calendar */
+.cally button {
+  @apply btn btn-ghost btn-sm;
+}
+
+/* Selected date styling */
+.cally button[aria-pressed="true"] {
+  @apply btn-primary;
+}
+
+/* Today's date styling */
+.cally button[data-today="true"] {
+  @apply font-bold;
+}
+
+/* Disabled date styling */
+.cally button:disabled {
+  @apply btn-disabled opacity-50;
+}
+
+/* Calendar navigation buttons */
+.cally button[slot="previous"],
+.cally button[slot="next"] {
+  @apply btn btn-ghost btn-circle btn-sm;
+}
+
+/* Calendar header styling */
+.cally h2 {
+  @apply text-lg font-semibold text-center;
+}
+
+/* Week day headers */
+.cally th {
+  @apply text-sm font-medium text-base-content/70 p-2;
+}
+
+/* Calendar grid */
+.cally table {
+  @apply w-full border-collapse;
+}
+
+.cally td {
+  @apply p-1;
+}
+
+/* Error state styling */
+.calendar-error {
+  @apply border-error;
+}
+
+/* Range selection styling for calendar-range */
+calendar-range button[aria-pressed="true"] {
+  @apply btn-primary;
+}
+
+/* Multi-selection styling for calendar-multi */
+calendar-multi button[aria-pressed="true"] {
+  @apply btn-accent;
+}
+
+/* Focus styles */
+.cally button:focus {
+  @apply focus:ring-2 focus:ring-primary focus:ring-offset-2;
+}
+
+/* Ensure proper spacing in form layouts */
+.cally {
+  @apply mt-1;
+}

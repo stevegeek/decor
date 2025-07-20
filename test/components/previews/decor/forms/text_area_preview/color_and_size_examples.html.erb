@@ -1,0 +1,42 @@
+<div class="space-y-8">
+  <div>
+    <h3 class="text-lg font-semibold mb-4">Colors</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <% [:primary, :secondary, :accent, :success, :error, :warning, :info].each do |color| %>
+        <%= render(::Decor::Forms::TextArea.new(
+          name: "textarea_#{color}",
+          label: "#{color.to_s.humanize} TextArea",
+          value: "This is a #{color} textarea",
+          color: color,
+          helper_text: "Color variant: #{color}"
+        )) %>
+      <% end %>
+    </div>
+  </div>
+
+  <div>
+    <h3 class="text-lg font-semibold mb-4">Sizes</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <% [:xs, :sm, :md, :lg].each do |size| %>
+        <%= render(::Decor::Forms::TextArea.new(
+          name: "textarea_#{size}",
+          label: "#{size.to_s.humanize} TextArea",
+          value: "This is a #{size} sized textarea",
+          size: size,
+          helper_text: "Size variant: #{size}"
+        )) %>
+      <% end %>
+    </div>
+  </div>
+
+  <div>
+    <h3 class="text-lg font-semibold mb-4">Error State</h3>
+    <%= render(::Decor::Forms::TextArea.new(
+      name: "textarea_error",
+      label: "TextArea with Error",
+      value: "Invalid content",
+      error_messages: ["This field contains invalid content"],
+      helper_text: "This shows how error styling works"
+    )) %>
+  </div>
+</div>

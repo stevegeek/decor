@@ -9,42 +9,46 @@ module Decor
       prop :lng, Float
     end
 
-    # Standard decor component attributes
-    attribute :color, Symbol, default: nil, in: [:primary, :secondary, :accent, :success, :error, :warning, :info, :neutral]
-    attribute :size, Symbol, default: :md, in: [:xs, :sm, :md, :lg, :xl, :full]
-    attribute :disabled, :boolean, default: false
+    # Standard decor component props
+    prop :color, _Nilable(_Union(:primary, :secondary, :accent, :success, :error, :warning, :info, :neutral))
+    prop :size, _Union(:xs, :sm, :md, :lg, :xl, :full), default: :md
+    prop :disabled, _Boolean, default: false
 
-    # Map-specific attributes
-    attribute :interactive, :boolean, default: true
-    attribute :show_controls, :boolean, default: true
-    attribute :map_type, Symbol, default: :roadmap, in: [:roadmap, :satellite, :hybrid, :terrain]
+    # Map-specific props
+    prop :interactive, _Boolean, default: true
+    prop :show_controls, _Boolean, default: true
+    prop :map_type, _Union(:roadmap, :satellite, :hybrid, :terrain), default: :roadmap
 
-    # Core map attributes
-    attribute :center, MapPoint
-    attribute :points, Array, sub_type: MapPoint, default: []
-    attribute :overlays, Array, default: []
-    attribute :zoom, Integer, default: 10
-    attribute :full_width, :boolean, default: true
-    attribute :api_key, String
+    # Core map props
+    prop :center, MapPoint
+    prop :points, _Array(MapPoint), default: -> { [] }
+    prop :overlays, _Array(Hash), default: -> { [] }
+    prop :zoom, Integer, default: 10
+    prop :full_width, _Boolean, default: true
+    prop :api_key, String
 
     # Support for custom CSS classes
-    attribute :class, String
+    prop :class, _Nilable(String)
 
     def view_template
-      render parent_element do |root|
+      root_element do
         div(
           class: map_container_classes,
-          data: root.send(:build_target_data_attributes, root.send(:parse_targets, [:map_container]))
+          data: {**stimulus_target(:map_container)}
         )
       end
     end
 
     private
 
-    def root_element_attributes
-      {
-        values: [stimulus_values]
-      }
+    stimulus do
+      targets :map_container
+      values_from_props :zoom, :api_key, :interactive, :show_controls, :map_type
+      values(
+        center: -> { @center.to_json },
+        points: -> { @points.to_json },
+        overlays: -> { @overlays.to_json }
+      )
     end
 
     def element_classes
@@ -90,19 +94,6 @@ module Decor
 
     def state_classes
       "cursor-not-allowed pointer-events-none" if @disabled
-    end
-
-    def stimulus_values
-      {
-        zoom: @zoom,
-        center: @center.to_json,
-        points: @points.to_json,
-        overlays: @overlays.to_json,
-        api_key: @api_key,
-        interactive: @interactive.to_s,
-        show_controls: @show_controls.to_s,
-        map_type: @map_type.to_s
-      }
     end
   end
 end

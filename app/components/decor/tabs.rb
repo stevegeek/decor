@@ -13,36 +13,48 @@ module Decor
 
       # Icon configuration
       prop :icon, _Nilable(String)
-      prop :icon_position, Symbol, default: :before, in: [:before, :after, :only]
+      prop :icon_position, _Union(:before, :after, :only), default: :before
 
       # Badge configuration
       prop :badge_text, _Nilable(String)
-      prop :badge_color, Symbol, default: :standard, in: [:standard, :warning, :info, :error, :success, :primary, :secondary, :accent]
+      prop :badge_color, _Union(:standard, :warning, :info, :error, :success, :primary, :secondary, :accent), default: :standard
     end
 
     # Array of links in navigation. Each link must have a `title` and `href` specified
-    attribute :links, Array, sub_type: TabInfo, convert: true, allow_nil: true
+    prop :links, _Nilable(_Array(TabInfo)), default: -> { [] } do |attrs|
+      attrs.map { |link| link.is_a?(TabInfo) ? link : TabInfo.new(**link) }
+    end
 
     # Status text is displayed to the right of the tabs
-    attribute :status, String
+    prop :status, _Nilable(String)
 
     # Size of the tabs
-    attribute :size, Symbol, default: :md, in: [:xs, :sm, :md, :lg, :xl]
+    prop :size, _Union(:xs, :sm, :md, :lg, :xl), default: :md
 
     # Color scheme using DaisyUI semantic colors
-    attribute :color, Symbol, default: :base, in: [:base, :primary, :secondary, :accent, :success, :error, :warning, :info, :neutral]
+    prop :color, _Union(:base, :primary, :secondary, :accent, :success, :error, :warning, :info, :neutral), default: :base
 
     # Visual variant
-    attribute :variant, Symbol, default: :bordered, in: [:ghost, :bordered, :lifted, :boxed]
+    prop :variant, _Union(:ghost, :bordered, :lifted, :boxed), default: :bordered
 
     def tab_buttons(&block)
       @tab_buttons = block
     end
 
+    def with_tab_buttons(&block)
+      @tab_buttons = block
+      self
+    end
+
+    def with_tab_content(&block)
+      @tab_content = block
+      self
+    end
+
     def view_template(&)
       @content = capture(&) if block_given?
 
-      render parent_element do
+      root_element do
         render_tabs
       end
     end
@@ -57,13 +69,10 @@ module Decor
       nav(class: tabs_container_classes, **tabs_container_attributes) do
         # Tab buttons
         if @tab_buttons.present?
-          div(role: "tablist", class: tabs_list_classes) do
-            # result = instance_eval(&@tab_buttons)
-            # raw result.html_safe if result.is_a?(String)
-            render @tab_buttons
-          end
+          result = @tab_buttons.call
+          raw result.html_safe if result.is_a?(String)
         else
-          @links.each do |link|
+          (@links || []).each do |link|
             render_tab_link(link)
           end
         end
@@ -73,12 +82,13 @@ module Decor
             p(class: "text-sm text-base-content/70") { @status }
           end
         end
+      end
 
-        # Tab content
-        if @content.present?
-          div(class: "tab-content bg-base-100 border-base-300 p-6") do
-            render @content
-          end
+      # Tab content (render outside nav for proper DOM structure)
+      if @tab_content.present?
+        div(class: "tab-content bg-base-100 border-base-300 p-6") do
+          result = @tab_content.call
+          raw result.html_safe if result.is_a?(String)
         end
       end
     end
@@ -149,7 +159,7 @@ module Decor
         render ::Decor::Badge.new(
           label: link.badge_text,
           style: map_badge_color_to_style(link.badge_color),
-          size: :small,
+          size: :sm,
           html_options: {class: "ml-2"}
         )
       end
@@ -230,6 +240,10 @@ module Decor
 
     def select_on_mobile?
       @links&.size.to_i > 3
+    end
+
+    def use_slot_api?
+      @tab_buttons.present? || @tab_content.present? || @links.blank?
     end
 
     def map_badge_color_to_style(color)

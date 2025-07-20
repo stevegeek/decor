@@ -3,9 +3,9 @@
 module Decor
   module Chat
     class List < PhlexComponent
-      attribute :messages, Array, sub_type: ::Decor::Chat::ListMessage, default: []
-      attribute :empty_state_title, String, default: "No messages yet."
-      attribute :empty_state_description, String, default: "Start a conversation by sending a message."
+      prop :messages, _Array(::Decor::Chat::ListMessage), default: -> { [] }
+      prop :empty_state_title, String, default: "No messages yet."
+      prop :empty_state_description, String, default: "Start a conversation by sending a message."
 
       def initialize(**attributes)
         @empty_state_action_block = nil
@@ -18,7 +18,7 @@ module Decor
 
       def view_template
         yield(self) if block_given?
-        render parent_element do
+        root_element do
           if @messages.any?
             @messages.each do |message|
               render message

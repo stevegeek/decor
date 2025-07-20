@@ -20,7 +20,6 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
   # @param size [Symbol] select [xs, sm, md, lg]
   # @param variant [Symbol] select [steps, progress, both]
   # @param show_numbers toggle
-  # @param animated toggle
   # @param vertical toggle
   def playground(
     i18n_key: "",
@@ -29,7 +28,6 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
     size: :md,
     variant: :steps,
     show_numbers: true,
-    animated: true,
     vertical: false
   )
     render ::Decor::Progress.new(
@@ -45,7 +43,6 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
       size: size,
       variant: variant,
       show_numbers: show_numbers,
-      animated: animated,
       vertical: vertical
     )
   end
@@ -78,8 +75,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
       current_step: 2,
       variant: :progress,
       color: :success,
-      size: :lg,
-      animated: true
+      size: :lg
     )
   end
 
@@ -277,8 +273,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
       current_step: 2,
       variant: :steps,
       color: :info,
-      size: :lg,
-      animated: true
+      size: :lg
     )
   end
 
@@ -353,7 +348,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
   def option_progress_bar_animation
     current_step = 2
     render ::Decor::Element.new(
-      options: {
+      root_element_attributes: {
         controllers: ["decor--progress-animation"]
       }
     ) do |el|
@@ -368,14 +363,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
         current_step:,
         variant: :both,
         color: :success,
-        size: :lg,
-        actions: [
-          # FIXME: vident syntax here is confusing, ie an event in this case from el, triggering an action in progress controller,
-          # (ok its more confusing as we are using a custom controller here
-          # could be at least [el.event(:"changed"), :handle_step_changed], better more explicit {event: el.event(:"changed"), action: :handle_step_changed}
-          # Note we listen on the window as we are a child of the Decor::Element here and since events are bubbled up, we can listen on the window.
-          [:"decor--progress-animation:changed@window", :handle_step_changed]
-        ]
+        size: :lg
       )
     end
   end

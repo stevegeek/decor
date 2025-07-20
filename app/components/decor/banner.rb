@@ -4,11 +4,11 @@ module Decor
   class Banner < PhlexComponent
     no_stimulus_controller
 
-    attribute :icon, String
-    attribute :link, String, allow_nil: true, allow_blank: false
-    attribute :style, Symbol, in: %i[warning info error notice standard success], default: :notice
+    prop :icon, _Nilable(String)
+    prop :link, _Nilable(_String(&:present?))
+    prop :style, _Union(:warning, :info, :error, :notice, :standard, :success), default: :notice
 
-    attribute :centered, :boolean, default: false
+    prop :centered, _Boolean, default: false
 
     def call_to_action(&block)
       @call_to_action = block
@@ -23,7 +23,7 @@ module Decor
     end
 
     def view_template
-      render parent_element do
+      root_element do
         if @icon
           render ::Decor::Icon.new(
             name: @icon,
@@ -31,7 +31,7 @@ module Decor
           )
         end
         div(class: wrapper_classes) do
-          yield
+          yield if block_given?
         end
         if @link.present?
           link_to "Learn more", @link, class: button_classes

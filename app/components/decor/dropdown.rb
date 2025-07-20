@@ -2,16 +2,22 @@
 
 module Decor
   class Dropdown < PhlexComponent
-    # Modern attributes with DaisyUI integration
-    attribute :size, Symbol, default: :md, in: [:xs, :sm, :md, :lg, :xl]
-    attribute :color, Symbol, default: :base, in: [:base, :primary, :secondary, :accent, :success, :error, :warning, :info, :neutral]
-    attribute :variant, Symbol, default: :default, in: [:default, :bordered, :filled]
-    attribute :position, Symbol, default: :left, in: [:left, :right, :top, :bottom, :end, :center, :start]
-    attribute :trigger, Symbol, default: :click, in: [:click, :hover, :focus]
-    attribute :force_open, Symbol, default: :auto, in: [:auto, :open, :closed]
+    stimulus do
+      actions [:click, :toggle], ["click@window", :hide_on_click_outside]
+      classes active: -> { @button_active_classes }
+      values active_target: -> { "##{id}-menu-button" }, enter_timeout: 100, leave_timeout: 75
+    end
 
-    # Backward compatibility attribute (still in use for active state)
-    attribute :button_active_classes, Array, default: []
+    # Modern attributes with DaisyUI integration
+    prop :size, _Union(:xs, :sm, :md, :lg, :xl), default: :md
+    prop :color, _Union(:base, :primary, :secondary, :accent, :success, :error, :warning, :info, :neutral), default: :base
+    prop :variant, _Union(:default, :bordered, :filled), default: :default
+    prop :position, _Union(:left, :right, :top, :bottom, :end, :center, :start), default: :left
+    prop :trigger, _Union(:click, :hover, :focus), default: :click
+    prop :force_open, _Union(:auto, :open, :closed), default: :auto
+
+    prop :button_classes, _Array(String), default: -> { [] }
+    prop :button_active_classes, _Array(String), default: -> { [] }
 
     def trigger_button(&block)
       @trigger_button = block
@@ -29,9 +35,15 @@ module Decor
       @menu_content = block
     end
 
-    def menu_item(item)
+    # @deprecated
+    def menu_item(item = nil, &block)
       @menu_items ||= []
-      @menu_items << item
+      @menu_items << (block_given? ? block : item)
+    end
+
+    def with_menu_item(&block)
+      @menu_items ||= []
+      @menu_items << block
     end
 
     def card_content(&block)
@@ -45,13 +57,13 @@ module Decor
     def view_template(&)
       @content = capture(&) if block_given?
 
-      render parent_element do |s|
+      root_element do |s|
         if @trigger_button.present?
-          instance_eval(&@trigger_button)
+          render @trigger_button
         else
-          s.target_tag(
+          s.tag(
             :button,
-            :button,
+            stimulus_target: :button,
             type: "button",
             tabindex: "0",
             role: "button",
@@ -60,35 +72,35 @@ module Decor
             class: dropdown_button_classes
           ) do
             if @trigger_button_content.present?
-              instance_eval(&@trigger_button_content)
+              render @trigger_button_content
             else
-              plain "Click"
+              plain "Menu"
             end
           end
         end
 
         if @card_content.present? || @custom_content.present?
           # Non-menu content (cards, custom elements)
-          s.target_tag(
+          s.tag(
             :div,
-            :content,
+            stimulus_target: :content,
             class: dropdown_content_classes_non_menu,
             role: "dialog",
             aria_labelledby: "#{id}-menu-button",
             tabindex: "-1"
           ) do
-            render instance_eval(&@card_content) if @card_content.present?
-            render instance_eval(&@custom_content) if @custom_content.present?
+            render @card_content if @card_content.present?
+            render @custom_content if @custom_content.present?
           end
         else
           # Traditional menu content
-          s.target_tag(
+          s.tag(
             :ul,
-            :menu,
+            stimulus_target: :menu,
             tabindex: "0",
             class: dropdown_content_classes
           ) do
-            render instance_eval(&@menu_header) if @menu_header.present?
+            render @menu_header if @menu_header.present?
 
             if @menu_items&.any?
               @menu_items.each do |item|
@@ -96,29 +108,15 @@ module Decor
               end
             end
 
-            render instance_eval(&@menu_content) if @menu_content.present?
+            render @menu_content if @menu_content.present?
           end
         end
 
-        render @content if @content
+        raw @content if @content
       end
     end
 
     private
-
-    def root_element_attributes
-      {
-        named_classes: {
-          active: @button_active_classes
-        },
-        values: [{
-          active_target: "##{id}-menu-button",
-          enter_timeout: "100",
-          leave_timeout: "75"
-        }],
-        actions: [[:click, :toggle], [:"click@window", :hide_on_click_outside]]
-      }
-    end
 
     def element_classes
       [
@@ -134,7 +132,8 @@ module Decor
         "btn",
         size_classes,
         color_classes,
-        variant_classes
+        variant_classes,
+        @button_classes
       ].compact.join(" ")
     end
 

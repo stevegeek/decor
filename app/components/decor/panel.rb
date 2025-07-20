@@ -4,11 +4,11 @@ module Decor
   class Panel < PhlexComponent
     no_stimulus_controller
 
-    attribute :title, String
-    attribute :icon, String
+    prop :title, String
+    prop :icon, _Nilable(String)
 
     def view_template(&)
-      render parent_element do
+      root_element do
         render ::Decor::Title.new(
           title: @title,
           icon: @icon,

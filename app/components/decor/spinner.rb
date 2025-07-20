@@ -4,11 +4,11 @@ module Decor
   class Spinner < PhlexComponent
     no_stimulus_controller
 
-    attribute :size, Symbol, default: :md, in: [:xs, :sm, :md, :lg]
-    attribute :color, Symbol, in: [:white, :black, :primary, :secondary, :accent, :neutral, :info, :success, :warning, :error]
+    prop :size, _Union(:xs, :sm, :md, :lg), default: :md
+    prop :color, _Nilable(_Union(:white, :black, :primary, :secondary, :accent, :neutral, :info, :success, :warning, :error))
 
     def view_template
-      render parent_element
+      root_element
     end
 
     private

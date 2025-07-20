@@ -34,26 +34,26 @@ class Decor::DropdownTest < ActiveSupport::TestCase
   end
 
   test "applies correct position classes" do
-    rendered = render_component(Decor::Dropdown.new(menu_position: :aligned_to_right)) do |dropdown|
+    rendered = render_component(Decor::Dropdown.new(position: :right)) do |dropdown|
       dropdown.menu_item(::Decor::DropdownItem.new(text: "Item 1"))
     end
 
-    assert_includes rendered, "right-0"
+    assert_includes rendered, "dropdown-end"
   end
 
   test "applies menu classes" do
-    rendered = render_component(Decor::Dropdown.new(menu_classes: ["bg-gray-100", "custom-class"])) do |dropdown|
+    rendered = render_component(Decor::Dropdown.new(color: :primary, variant: :filled)) do |dropdown|
       dropdown.menu_item(::Decor::DropdownItem.new(text: "Item 1"))
     end
 
-    assert_includes rendered, "bg-gray-100"
-    assert_includes rendered, "custom-class"
+    assert_includes rendered, "bg-primary"
+    assert_includes rendered, "text-primary-content"
   end
 
   test "renders menu header" do
     rendered = render_component(Decor::Dropdown.new) do |dropdown|
       dropdown.menu_header do
-        div(class: "px-4 py-2") { "Header Content" }
+        "Header Content"
       end
       dropdown.menu_item(::Decor::DropdownItem.new(text: "Item 1"))
     end
@@ -64,12 +64,11 @@ class Decor::DropdownTest < ActiveSupport::TestCase
   test "renders custom button" do
     rendered = render_component(Decor::Dropdown.new) do |dropdown|
       dropdown.trigger_button do
-        button(type: "button", class: "custom-button") { "Custom" }
+        "Custom"
       end
       dropdown.menu_item(::Decor::DropdownItem.new(text: "Item 1"))
     end
 
-    assert_includes rendered, "custom-button"
     assert_includes rendered, "Custom"
   end
 
@@ -154,35 +153,30 @@ class Decor::DropdownTest < ActiveSupport::TestCase
     assert_not_nil menu
   end
 
-  test "maintains backward compatibility with legacy attributes" do
+  test "applies custom button classes" do
     rendered = render_component(Decor::Dropdown.new(
-      menu_position: :aligned_to_right,
-      menu_classes: ["custom-bg", "custom-border"],
+      position: :right,
       button_classes: ["custom-button"]
     )) do |dropdown|
-      dropdown.trigger_button_content { "Legacy Dropdown" }
+      dropdown.trigger_button_content { "Custom Dropdown" }
       dropdown.menu_item(::Decor::DropdownItem.new(text: "Item 1"))
     end
 
-    # Should still use legacy classes when provided
-    assert_includes rendered, "custom-bg"
-    assert_includes rendered, "custom-border"
     assert_includes rendered, "custom-button"
-    assert_includes rendered, "right-0"
+    assert_includes rendered, "dropdown-end"
   end
 
-  test "modern attributes override legacy when both provided" do
+  test "combines color and button_classes correctly" do
     rendered = render_component(Decor::Dropdown.new(
-      color: :primary,  # modern
-      button_classes: ["legacy-button"]  # legacy
+      color: :primary,
+      button_classes: ["custom-button"]
     )) do |dropdown|
       dropdown.trigger_button_content { "Mixed Attributes" }
       dropdown.menu_item(::Decor::DropdownItem.new(text: "Item 1"))
     end
 
-    # Legacy button_classes should take precedence when provided
-    assert_includes rendered, "legacy-button"
-    # Modern classes shouldn't be applied when legacy classes are present
-    refute_includes rendered, "btn-primary"
+    # Both color classes and custom button classes should be applied
+    assert_includes rendered, "custom-button"
+    assert_includes rendered, "btn-primary"
   end
 end

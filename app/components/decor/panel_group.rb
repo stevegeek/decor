@@ -4,28 +4,28 @@ module Decor
   class PanelGroup < PhlexComponent
     no_stimulus_controller
 
-    attribute :title, String
-    attribute :description, String
+    prop :title, String
+    prop :description, _Nilable(String)
 
     # Size of the panel group
-    attribute :size, Symbol, default: :md, in: [:xs, :sm, :md, :lg, :xl]
+    prop :size, _Union(:xs, :sm, :md, :lg, :xl), default: :md
 
     # Color scheme using DaisyUI semantic colors
-    attribute :color, Symbol, default: :base, in: [:base, :primary, :secondary, :accent, :success, :error, :warning, :info, :neutral]
+    prop :color, _Union(:base, :primary, :secondary, :accent, :success, :error, :warning, :info, :neutral), default: :base
 
     # Visual variant
-    attribute :variant, Symbol, default: :filled, in: [:filled, :outlined, :ghost]
+    prop :variant, _Union(:filled, :outlined, :ghost), default: :filled
 
-    def after_initialize
+    def after_component_initialize
       @panels = []
     end
 
     def view_template(&)
-      # Execute the block in the context of this component to collect panels and cta
-      vanish(&) if block_given?
+      # Execute the block to collect panels, cta, and main content
+      @main_content = capture(&) if block_given?
 
-      render parent_element do
-        render ::Decor::Card.new(size: @size, color: @color, variant: @variant, html_options: card_html_options) do |card|
+      root_element do
+        render ::Decor::Card.new(size: @size, color: @color, variant: @variant, classes: "overflow-hidden") do |card|
           card.card_header do
             card.div(class: "p-4 lg:p-6") do
               card.div(class: "-ml-4 -mt-4 ml-4 mt-4") do
@@ -43,8 +43,15 @@ module Decor
           @panels.each_with_index do |panel_row, idx|
             card.div(class: section_classes(idx)) do
               card.div(class: "grid #{grid_size(panel_row)} gap-4 md:gap-5") do
-                panel_row.each { render it }
+                panel_row.each { |panel| card.render panel }
               end
+            end
+          end
+
+          # Render main content if provided (this will go into the card-body automatically)
+          if @main_content.present?
+            card.div(class: "p-4 lg:p-6") do
+              card.render @main_content
             end
           end
         end
@@ -68,15 +75,11 @@ module Decor
       @cta_content = block
     end
 
-    private
-
     def element_classes
       "space-y-4"
     end
 
-    def card_html_options
-      {class: "overflow-hidden"}
-    end
+    private
 
     def section_classes(idx)
       base_classes = "px-4 py-5 lg:px-6"

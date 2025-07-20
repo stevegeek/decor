@@ -7,28 +7,28 @@ module Decor
 
       included do
         # Link href
-        attribute :href, String, allow_nil: true, allow_blank: false
+        prop :href, _Nilable(_String(&:present?))
 
         # Link target
-        attribute :target, String, allow_nil: true, allow_blank: false
+        prop :target, _Nilable(_String(&:present?))
 
         # Data attributes for custom data
-        attribute :data, Hash, allow_nil: true
+        prop :data, _Nilable(Hash)
 
         # HTTP method for Turbo forms
-        attribute :http_method, Symbol, in: [:get, :put, :post, :patch, :delete], allow_nil: true
+        prop :http_method, _Nilable(_Union(:get, :put, :post, :patch, :delete))
 
         # Turbo frame target
-        attribute :turbo_frame, String, allow_nil: true
+        prop :turbo_frame, _Nilable(String)
 
         # Turbo prefetch behavior
-        attribute :turbo_prefetch, Symbol, in: [:hover, :viewport], allow_nil: true
+        prop :turbo_prefetch, _Nilable(_Union(:hover, :viewport))
 
         # Turbo confirmation prompt
-        attribute :turbo_confirm, String, allow_nil: true
+        prop :turbo_confirm, _Nilable(String)
 
         # Disable Turbo for this link
-        attribute :turbo, :boolean, default: true
+        prop :turbo, _Boolean, default: true
       end
 
       private

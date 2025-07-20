@@ -9,8 +9,8 @@ export default class extends Controller {
     static targets = ["menu", "button"];
     static values = {
         leaveTimeout: Number,
-        contentHref: String,
-        placeholder: String
+        contentHref: { type: String, default: null },
+        placeholder: { type: String, default: null }
     };
     static classes = [
         "entering",

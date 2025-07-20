@@ -18,7 +18,9 @@
     <link rel="apple-touch-icon" href="/icon.png">
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag :tailwind, "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/default.min.css" %>
     <%= javascript_importmap_tags %>
   </head>
 
@@ -30,13 +32,11 @@
     <%= render ::Decor::Modals::Modal.new %>
     <%= render ::Decor::Modals::ConfirmModal.new %>
     <%= render ::Decor::NotificationManager.new(
-      data_maps: [
-        {
-          initial_notifications: [notice, alert].compact.map do |message|
-            {content: {content: render(::Decor::Notification.new(title: message)), __safe: true}}
-          end
-        }
-      ]
+      stimulus_values: {
+        initial_notifications: [notice, alert].compact.map do |message|
+          {content: {content: render(::Decor::Notification.new(title: message)), __safe: true}}
+        end
+      }
     ) %>
 
     <%= tag.div nil, data: {controller: "util--dev-form-fill"} if Rails.env.development? %>

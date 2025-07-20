@@ -103,7 +103,7 @@ class ::Decor::TitlePreview < ::Lookbook::Preview
         description: "Main page title with large size",
         size: :xl
       ) do |title|
-        title.render ::Decor::Button.new(theme: :primary) { "Create New" }
+        title.render ::Decor::Button.new(color: :primary) { "Create New" }
       end
 
       box.div(class: "my-8")
@@ -124,7 +124,7 @@ class ::Decor::TitlePreview < ::Lookbook::Preview
       description: "Manage your account preferences and personal information",
       size: :md
     ) do |title|
-      title.render ::Decor::Button.new(theme: :primary, size: :small) { "Edit Profile" }
+      title.render ::Decor::Button.new(color: :primary, size: :small) { "Edit Profile" }
       title.render ::Decor::Button.new(variant: :text, size: :small) { "Export Data" }
     end
   end

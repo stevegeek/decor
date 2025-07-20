@@ -1,0 +1,153 @@
+---
+title: Decor UI Library
+label: Introduction
+---
+
+# Decor UI Library
+
+Welcome to **Decor**, a comprehensive UI component library built with [Phlex](https://phlex.dev/) and styled with [daisyUI](https://daisyui.com/). Decor provides a robust set of reusable components designed for modern Ruby on Rails applications.
+
+## Overview
+
+Decor combines the power of Phlex's Ruby-based component system with daisyUI's beautiful, semantic CSS framework built on Tailwind CSS. This combination provides:
+
+- **Type-safe components** with attribute typing (soon to be via Literal...)
+- **Beautiful, accessible styling** from daisyUI's design system
+- **Semantic color themes** that adapt automatically
+- **Responsive design** built-in by default
+- **Flexible and extensible** by leveraging Vident, a library over Phlex to help superpower your components libraries
+
+## Architecture
+
+### Component Structure
+
+Decor components are organized into two main collections:
+
+#### 🎨 **Decor Components**
+Core UI components including buttons, forms, modals, notifications, data displays, and utility components.
+
+#### 🧭 **Navigation Components**
+Navigation-focused components for building application layouts, sidebars, headers, footers, and navigation systems.
+
+### Design Principles
+
+(May not be complete yet, but aspiring to be)
+
+1. **Semantic First**: Components use daisyUI's semantic color system (`primary`, `secondary`, `success`, `error`, etc.)
+2. **Accessibility Built-in**: ARIA attributes and keyboard navigation support
+3. **Flexible**: Components accept both attributes and block content
+4. **Composable**: Components can be nested and combined
+5. **Themeable**: Automatic dark/light mode support via daisyUI themes
+
+## Component Categories
+
+### Core Components (Decor)
+- **Button/ButtonLink**: Interactive buttons and button-styled links
+- **Card**: Content containers with headers and images
+- **Dropdown/DropdownItem**: Contextual menus and action lists
+- **Avatar**: User profile representations
+- **Badge**: Status and category indicators
+- **Banner**: Large alert messages
+- **Box**: Simple content containers
+- **Carousel**: Image and content sliders
+- **ClickToCopy**: Copy-to-clipboard functionality
+- **FlowStep**: Step indicators for multi-step processes
+- **Icon/SVG**: Icon and SVG components
+- **Link**: Styled links with Turbo support
+- **Map**: Interactive Google Maps integration
+- **Tag**: Removable labels and tags
+- **Title**: Page and section titles
+- **Toggle**: Simple toggle switches
+
+### Form Components (Decor::Forms)
+- **TextField/TextArea**: Text input controls
+- **Select**: Dropdown selection controls
+- **Checkbox/Radio**: Boolean and single-choice inputs
+- **Switch**: Toggle controls with auto-submit
+- **ButtonRadioGroup**: Radio buttons styled as button groups
+- **DateCalendar**: Calendar date picker
+- **FileUpload**: File upload with preview support
+- **NumberField**: Number input with validation
+- **HiddenField**: Hidden form fields
+- **ExpandingCheckboxCollection**: Checkbox collections with show more
+- **Form**: Form wrapper with Stimulus integration
+- **FormFieldLayout**: Form field layout containers
+- **LayoutContainer/LayoutSection**: Form layout components
+
+### Data Display
+- **DataTable**: Feature-rich tables with sorting and filtering
+- **DataTableBuilder**: Advanced table builder with query integration
+- **Pagination**: Page navigation controls
+- **Stats/Stat**: Statistics display components
+- **Progress**: Progress indicators and step flows
+- **Tabs**: Tabbed content interfaces
+
+### Navigation (Decor::Nav)
+- **SideNavbar**: Responsive sidebar navigation with sections and items
+- **TopNavbar**: Top navigation bars
+- **SecondaryNavbar**: Secondary navigation bars
+- **Footer/CompactFooter**: Page footers
+- **Breadcrumbs**: Hierarchical navigation trails
+- **Page/PageSection/PageHeader**: Page layout components
+- **SearchResultsDropdown**: Search results display
+
+### Feedback & Modals
+- **Flash/Notification**: Alert and toast messages
+- **NotificationManager**: Notification container
+- **Modal/ModalLayout**: Dialog overlays
+- **ConfirmModal**: Confirmation dialogs
+- **ModalOpenButton/ModalCloseButton**: Modal control buttons
+- **Tooltip**: Contextual help text
+- **Spinner**: Loading indicators
+
+### Layout & Utility
+- **PanelGroup/Panel**: Information panels
+- **Element**: Generic Stimulus wrapper
+- **SearchAndFilter**: Search and filter controls
+- **Chat components**: Chat message displays (List/ListMessage)
+- **FormattedEncodedId**: Display formatted IDs
+- **SwitchingBox**: State-switching containers
+
+## Getting Started
+
+### Basic Usage
+
+```ruby
+# Simple button
+render Decor::Button.new(label: "Click Me", color: :primary)
+
+# Form field
+render Decor::Forms::TextField.new(
+  name: "email",
+  label: "Email Address",
+  required: true
+)
+
+# Navigation
+render Decor::Nav::SideNavbar.new do |navbar|
+  navbar.with_section(title: "Main") do |section|
+    section.with_item(title: "Dashboard", href: "/dashboard")
+  end
+end
+```
+
+### Interactive Examples
+
+All components include interactive examples in this Lookbook interface:
+
+- 🎮 **Playground**: Adjust parameters in real-time
+- 📱 **Responsive preview**: Test across device sizes
+- 🎨 **All variants**: See every color and style option
+- 📋 **Copy-paste code**: Ready-to-use examples
+
+## Resources
+
+- **[Component Reference](./04_component_reference)**: Complete component documentation
+- **[Quick Reference](./03_quick_reference)**: Common patterns and examples
+- **[Design System](./02_design_system)**: Styling and theming guide
+- **[daisyUI Documentation](https://daisyui.com/)**: Complete styling reference
+- **[Phlex Documentation](https://phlex.dev/)**: Component framework guide
+
+---
+
+Ready to start building? Explore the component previews in the sidebar or check out the [Component Reference](./04_component_reference) for detailed documentation.

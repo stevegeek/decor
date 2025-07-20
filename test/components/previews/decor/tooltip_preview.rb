@@ -114,7 +114,7 @@ class ::Decor::TooltipPreview < ::Lookbook::Preview
   # @label Primary Color
   def color_primary
     render ::Decor::Tooltip.new(tip_text: "Primary tooltip", color: :primary) do
-      render ::Decor::Button.new(label: "Primary", theme: :primary)
+      render ::Decor::Button.new(label: "Primary", color: :primary)
     end
   end
 
@@ -122,7 +122,7 @@ class ::Decor::TooltipPreview < ::Lookbook::Preview
   # @label Secondary Color
   def color_secondary
     render ::Decor::Tooltip.new(tip_text: "Secondary tooltip", color: :secondary) do
-      render ::Decor::Button.new(label: "Secondary", theme: :secondary)
+      render ::Decor::Button.new(label: "Secondary", color: :secondary)
     end
   end
 
@@ -146,7 +146,7 @@ class ::Decor::TooltipPreview < ::Lookbook::Preview
   # @label Error Color
   def color_error
     render ::Decor::Tooltip.new(tip_text: "Error tooltip", color: :error) do
-      render ::Decor::Button.new(label: "Error", theme: :danger)
+      render ::Decor::Button.new(label: "Error", color: :danger)
     end
   end
 
@@ -154,7 +154,7 @@ class ::Decor::TooltipPreview < ::Lookbook::Preview
   # @label Warning Color
   def color_warning
     render ::Decor::Tooltip.new(tip_text: "Warning tooltip", color: :warning) do
-      render ::Decor::Button.new(label: "Warning", theme: :warning)
+      render ::Decor::Button.new(label: "Warning", color: :warning)
     end
   end
 
@@ -170,7 +170,7 @@ class ::Decor::TooltipPreview < ::Lookbook::Preview
   # @label Neutral Color
   def color_neutral
     render ::Decor::Tooltip.new(tip_text: "Neutral tooltip", color: :neutral) do
-      render ::Decor::Button.new(label: "Neutral", theme: :neutral)
+      render ::Decor::Button.new(label: "Neutral", color: :neutral)
     end
   end
 
@@ -223,7 +223,7 @@ class ::Decor::TooltipPreview < ::Lookbook::Preview
       color: :primary,
       position: :left
     ) do
-      render ::Decor::Button.new(label: "Large Primary Left", theme: :primary, size: :large)
+      render ::Decor::Button.new(label: "Large Primary Left", color: :primary, size: :large)
     end
   end
 
@@ -236,7 +236,7 @@ class ::Decor::TooltipPreview < ::Lookbook::Preview
       color: :error,
       position: :bottom
     ) do
-      render ::Decor::Button.new(label: "Small Error Bottom", theme: :danger, size: :small)
+      render ::Decor::Button.new(label: "Small Error Bottom", color: :danger, size: :small)
     end
   end
 
@@ -249,7 +249,7 @@ class ::Decor::TooltipPreview < ::Lookbook::Preview
       color: :warning,
       position: :right
     ) do
-      render ::Decor::Button.new(label: "Ghost Warning Right", variant: :text, theme: :warning)
+      render ::Decor::Button.new(label: "Ghost Warning Right", variant: :text, color: :warning)
     end
   end
 end

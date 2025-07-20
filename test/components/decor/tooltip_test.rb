@@ -24,13 +24,13 @@ class Decor::TooltipTest < ActiveSupport::TestCase
 
   def test_renders_custom_tooltip_content_with_slot
     component = Decor::Tooltip.new(position: :top)
-    component.with_tip_content { "Custom tip content" }
-
-    rendered = render_fragment(component) { "Main content" }
-
+    rendered = render_fragment(component) do |c|
+      c.with_tip_content { "Custom tip content" }
+      "Main content"
+    end
     assert_includes rendered.text, "Main content"
     # For backward compatibility, it should still work but use fallback data-tip
-    assert_equal "Custom content", rendered.at_css(".tooltip")["data-tip"]
+    assert_equal "Custom tip content", rendered.at_css(".tooltip")["data-tip"]
   end
 
   def test_default_position_is_top
@@ -48,9 +48,8 @@ class Decor::TooltipTest < ActiveSupport::TestCase
   end
 
   def test_renders_with_base_component_classes
-    component = Decor::Tooltip.new(tip_text: "Help", html_options: {class: "custom-class"})
+    component = Decor::Tooltip.new(tip_text: "Help", classes: "custom-class")
     rendered = render_fragment(component) { "Content" }
-
     assert rendered.css(".tooltip.custom-class").any?
   end
 
@@ -99,10 +98,10 @@ class Decor::TooltipTest < ActiveSupport::TestCase
     assert_nothing_raised { Decor::Tooltip.new(tip_text: "Test", variant: :outlined) }
     assert_nothing_raised { Decor::Tooltip.new(tip_text: "Test", variant: :ghost) }
 
-    # Should raise for invalid values - using Dry::Struct::Error which is what the attribute system raises
-    assert_raises(Dry::Struct::Error) { Decor::Tooltip.new(tip_text: "Test", size: :invalid) }
-    assert_raises(Dry::Struct::Error) { Decor::Tooltip.new(tip_text: "Test", color: :invalid) }
-    assert_raises(Dry::Struct::Error) { Decor::Tooltip.new(tip_text: "Test", variant: :invalid) }
+    # Should raise for invalid values - using Literal::TypeError which is what the prop system raises
+    assert_raises(Literal::TypeError) { Decor::Tooltip.new(tip_text: "Test", size: :invalid) }
+    assert_raises(Literal::TypeError) { Decor::Tooltip.new(tip_text: "Test", color: :invalid) }
+    assert_raises(Literal::TypeError) { Decor::Tooltip.new(tip_text: "Test", variant: :invalid) }
   end
 
   def test_inherits_from_phlex_component

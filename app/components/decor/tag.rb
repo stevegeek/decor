@@ -5,22 +5,22 @@ module Decor
   class Tag < PhlexComponent
     no_stimulus_controller
 
-    attribute :label, String, allow_nil: true
+    prop :label, _Nilable(String)
 
     # Icon to display before the label
-    attribute :icon, String
+    prop :icon, _Nilable(String)
 
     # Size of the tag
-    attribute :size, Symbol, default: :md, in: [:xs, :sm, :md, :lg, :xl]
+    prop :size, _Union(:xs, :sm, :md, :lg, :xl), default: :md
 
     # Color scheme using DaisyUI semantic colors
-    attribute :color, Symbol, default: :neutral, in: [:primary, :secondary, :accent, :success, :error, :warning, :info, :neutral]
+    prop :color, _Union(:primary, :secondary, :accent, :success, :error, :warning, :info, :neutral), default: :neutral
 
     # Visual variant
-    attribute :variant, Symbol, default: :filled, in: [:filled, :outlined, :ghost]
+    prop :variant, _Union(:filled, :outlined, :ghost), default: :filled
 
     # Whether the tag can be removed with a close button
-    attribute :removable, :boolean, default: false
+    prop :removable, _Boolean, default: false
 
     private
 
@@ -31,7 +31,7 @@ module Decor
     end
 
     def view_template
-      render parent_element do
+      root_element do
         # Icon (if present)
         if @icon.present?
           render ::Decor::Icon.new(

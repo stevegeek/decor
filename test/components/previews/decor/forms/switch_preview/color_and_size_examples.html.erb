@@ -1,0 +1,73 @@
+<div class="space-y-6">
+  <div>
+    <h3 class="text-lg font-semibold mb-4">Colors</h3>
+    <div class="grid grid-cols-2 gap-4">
+      <% %w[primary secondary accent success error warning info].each do |color| %>
+        <div class="p-4 border rounded-lg">
+          <p class="text-sm font-medium mb-2 capitalize"><%= color %></p>
+          <%= render ::Decor::Forms::Switch.new(
+            name: "color_#{color}",
+            label: "#{color.capitalize} toggle",
+            color: color.to_sym,
+            checked: true
+          ) %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div>
+    <h3 class="text-lg font-semibold mb-4">Sizes</h3>
+    <div class="grid grid-cols-2 gap-4">
+      <% %w[xs sm md lg].each do |size| %>
+        <div class="p-4 border rounded-lg">
+          <p class="text-sm font-medium mb-2 capitalize"><%= size %></p>
+          <%= render ::Decor::Forms::Switch.new(
+            name: "size_#{size}",
+            label: "#{size.upcase} toggle",
+            size: size.to_sym,
+            checked: true
+          ) %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div>
+    <h3 class="text-lg font-semibold mb-4">States</h3>
+    <div class="grid grid-cols-2 gap-4">
+      <div class="p-4 border rounded-lg">
+        <p class="text-sm font-medium mb-2">Checked</p>
+        <%= render ::Decor::Forms::Switch.new(
+          name: "checked_state",
+          label: "This is checked",
+          checked: true
+        ) %>
+      </div>
+      <div class="p-4 border rounded-lg">
+        <p class="text-sm font-medium mb-2">Unchecked</p>
+        <%= render ::Decor::Forms::Switch.new(
+          name: "unchecked_state",
+          label: "This is unchecked",
+          checked: false
+        ) %>
+      </div>
+      <div class="p-4 border rounded-lg">
+        <p class="text-sm font-medium mb-2">Disabled</p>
+        <%= render ::Decor::Forms::Switch.new(
+          name: "disabled_state",
+          label: "This is disabled",
+          disabled: true
+        ) %>
+      </div>
+      <div class="p-4 border rounded-lg">
+        <p class="text-sm font-medium mb-2">With Helper Text</p>
+        <%= render ::Decor::Forms::Switch.new(
+          name: "helper_state",
+          label: "Switch with help",
+          helper_text: "This toggle has helpful information"
+        ) %>
+      </div>
+    </div>
+  </div>
+</div>

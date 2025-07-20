@@ -2,6 +2,7 @@ import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
   static targets = ["content"];
+  static values = { toCopy: String };
 
   async copy() {
     try {
@@ -15,6 +16,10 @@ export default class extends Controller {
   }
 
   #getTextContent() {
+    // Use the toCopy value if provided, otherwise fall back to target content
+    if (this.hasToCopyValue && this.toCopyValue) {
+      return this.toCopyValue;
+    }
     return this.contentTarget.textContent || this.contentTarget.innerText || "";
   }
 

@@ -1,0 +1,133 @@
+<%=
+  render ::Decor::Nav::SideNavbar.new(
+    landscape_logo_url: "https://via.placeholder.com/220x64/06B6D4/FFFFFF.png?text=MIXED+API",
+    avatar_logo_url: "https://via.placeholder.com/64x64/06B6D4/FFFFFF.png?text=M",
+    collapsed: false,
+    # Backward compatible: menu_items array still works
+    menu_items: [
+      {
+        title: "Legacy Section",
+        items: [
+          {
+            title: "Old API Item",
+            icon: "archive",
+            path: "/legacy",
+            selected: false
+          }
+        ]
+      }
+    ]
+  ) do |navbar|
+    # New API: can be mixed with legacy menu_items
+    navbar.with_section(title: "New API Section") do |section|
+      section.with_item(
+        title: "Modern Item",
+        icon: "sparkles",
+        path: "/modern",
+        selected: true
+      ) do |item|
+        item.with_sub_item(title: "Sub Item 1", path: "/modern/sub1")
+        item.with_sub_item(title: "Sub Item 2", path: "/modern/sub2", selected: true)
+      end
+    end
+
+    # Programmatic building with conditionals
+    navbar.with_section(title: "Dynamic Section") do |section|
+      # Example: conditionally add items
+      [
+        { title: "Always Present", icon: "check", path: "/always" },
+        { title: "Conditional Item", icon: "question-mark-circle", path: "/maybe" }
+      ].each do |item_config|
+        section.with_item(**item_config)
+      end
+    end
+  end
+%>
+
+<section id="main-content" class="transition-[padding] duration-300 flex flex-col h-full lg:pl-72">
+  <div class="px-6 py-4">
+    <div class="bg-warning/10 border border-warning rounded-lg p-4 mb-6">
+      <h2 class="text-lg font-semibold text-warning mb-2">🔄 Mixed API Compatibility</h2>
+      <p class="text-sm text-base-content/80 mb-3">
+        This example shows how both the legacy menu_items array and the new builder API can be used together.
+      </p>
+      
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div class="mockup-code">
+          <pre data-prefix="📊" class="text-info"><code>Legacy Array API</code></pre>
+          <pre data-prefix="" class="text-neutral"><code>menu_items: [</code></pre>
+          <pre data-prefix="" class="text-neutral"><code>  { title: "Section",</code></pre>
+          <pre data-prefix="" class="text-neutral"><code>    items: [...] }</code></pre>
+          <pre data-prefix="" class="text-neutral"><code>]</code></pre>
+        </div>
+        
+        <div class="mockup-code">
+          <pre data-prefix="🔥" class="text-success"><code>New Builder API</code></pre>
+          <pre data-prefix="" class="text-neutral"><code>do |navbar|</code></pre>
+          <pre data-prefix="" class="text-neutral"><code>  navbar.with_section</code></pre>
+          <pre data-prefix="" class="text-neutral"><code>    .with_item(...)</code></pre>
+          <pre data-prefix="" class="text-neutral"><code>end</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col space-y-4">
+      <div class="alert alert-info">
+        <div>
+          <h3 class="font-bold">Migration Strategy</h3>
+          <div class="text-xs">
+            Start with the legacy API, then gradually migrate sections to the new builder pattern as needed.
+          </div>
+        </div>
+      </div>
+
+      <div class="alert alert-success">
+        <div>
+          <h3 class="font-bold">Best of Both Worlds</h3>
+          <div class="text-xs">
+            Use arrays for static data, use builders for dynamic/conditional logic.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card bg-base-200 shadow-xl mt-6">
+      <div class="card-body">
+        <h2 class="card-title">API Comparison</h2>
+        <div class="overflow-x-auto">
+          <table class="table table-zebra">
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Legacy Array</th>
+                <th>New Builder</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Simple Setup</td>
+                <td class="text-success">✓ Easy</td>
+                <td class="text-warning">~ Moderate</td>
+              </tr>
+              <tr>
+                <td>Dynamic Logic</td>
+                <td class="text-error">✗ Limited</td>
+                <td class="text-success">✓ Excellent</td>
+              </tr>
+              <tr>
+                <td>Type Safety</td>
+                <td class="text-warning">~ Hash-based</td>
+                <td class="text-success">✓ Method-based</td>
+              </tr>
+              <tr>
+                <td>Performance</td>
+                <td class="text-neutral">Baseline</td>
+                <td class="text-success">✓ Improved</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

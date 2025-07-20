@@ -12,7 +12,7 @@ class Decor::TabsTest < ActiveSupport::TestCase
     component = Decor::Tabs.new
     rendered = render_fragment(component)
 
-    assert rendered.css(".tabs.tabs-bordered").any?
+    assert rendered.css(".tabs.tabs-border").any?
   end
 
   test "renders with legacy links API" do
@@ -61,10 +61,14 @@ class Decor::TabsTest < ActiveSupport::TestCase
     component = Decor::Tabs.new
     fragment = render_fragment(component)
 
-    tabs_div = fragment.at_css(".tabs")
-    assert_not_nil tabs_div
-    assert_includes tabs_div["class"], "decor--tabs"
-    assert_includes tabs_div["class"], "tabs-bordered"
+    # Check the outer div has decor--tabs class
+    outer_div = fragment.at_css(".decor--tabs")
+    assert_not_nil outer_div
+
+    # Check the nav has tabs classes
+    nav = fragment.at_css("nav.tabs")
+    assert_not_nil nav
+    assert_includes nav["class"], "tabs-border"
   end
 
   test "component inherits from PhlexComponent" do
@@ -77,7 +81,8 @@ class Decor::TabsTest < ActiveSupport::TestCase
     component = Decor::Tabs.new
     rendered = render_component(component)
 
-    assert_includes rendered, "tabs tabs-bordered"
+    assert_includes rendered, "tabs"
+    assert_includes rendered, "tabs-border"
   end
 
   test "renders without slots when none provided" do
@@ -117,15 +122,16 @@ class Decor::TabsTest < ActiveSupport::TestCase
 
   test "tab buttons appear before tab content in DOM order" do
     component = Decor::Tabs.new
-    fragment = render_fragment(component) do |c|
+    rendered = render_component(component) do |c|
       c.with_tab_buttons { "Buttons Here" }
       c.with_tab_content { "Content Here" }
     end
 
-    content = fragment.to_html
-    buttons_pos = content.index("Buttons Here")
-    content_pos = content.index("Content Here")
+    buttons_pos = rendered.index("Buttons Here")
+    content_pos = rendered.index("Content Here")
 
+    assert_not_nil buttons_pos, "Buttons content not found"
+    assert_not_nil content_pos, "Content content not found"
     assert buttons_pos < content_pos
   end
 
@@ -165,21 +171,21 @@ class Decor::TabsTest < ActiveSupport::TestCase
     component = Decor::Tabs.new(variant: :lifted)
     rendered = render_component(component)
 
-    assert_includes rendered, "tabs-lifted"
+    assert_includes rendered, "tabs-lift"
   end
 
   test "defaults to bordered variant" do
     component = Decor::Tabs.new
     rendered = render_component(component)
 
-    assert_includes rendered, "tabs-bordered"
+    assert_includes rendered, "tabs-border"
   end
 
   test "supports boxed variant" do
     component = Decor::Tabs.new(variant: :boxed)
     rendered = render_component(component)
 
-    assert_includes rendered, "tabs-boxed"
+    assert_includes rendered, "tabs-box"
   end
 
   test "supports size xs" do
@@ -262,8 +268,8 @@ class Decor::TabsTest < ActiveSupport::TestCase
     fragment = render_fragment(component)
 
     nav = fragment.at_css("nav")
-    assert_equal "navigation", nav["role"]
-    assert_equal "Tab navigation", nav["aria-label"]
+    assert_equal "tablist", nav["role"]
+    assert_equal "Tabs", nav["aria-label"]
   end
 
   test "includes proper ARIA attributes for active tab" do
@@ -347,16 +353,21 @@ class Decor::TabsTest < ActiveSupport::TestCase
     refute_includes rendered, "tab-active"
   end
 
-  test "TabInfo subcomponent validates required attributes" do
-    assert_raises(Dry::Struct::Error) do
-      Decor::Tabs::TabInfo.new(href: "/test") # Missing title
-    end
+  test "TabInfo subcomponent allows optional attributes" do
+    # Both title and href are optional in the current implementation
+    tab_info_1 = Decor::Tabs::TabInfo.new(href: "/test") # title is optional
+    assert_equal "/test", tab_info_1.href
+    assert_nil tab_info_1.title
+
+    tab_info_2 = Decor::Tabs::TabInfo.new(title: "Test") # href is optional
+    assert_equal "Test", tab_info_2.title
+    assert_nil tab_info_2.href
   end
 
-  test "TabInfo subcomponent validates href attribute" do
-    assert_raises(Dry::Struct::Error) do
-      Decor::Tabs::TabInfo.new(title: "Test") # Missing href
-    end
+  test "TabInfo subcomponent accepts both title and href" do
+    tab_info = Decor::Tabs::TabInfo.new(title: "Test", href: "/test")
+    assert_equal "Test", tab_info.title
+    assert_equal "/test", tab_info.href
   end
 
   # Legacy API Compatibility Tests

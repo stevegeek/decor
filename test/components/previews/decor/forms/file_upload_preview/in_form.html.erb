@@ -1,0 +1,28 @@
+<%= render ::Decor::Forms::Form.new(model: model, url: "#", local: true) do |form_component| %>
+  <%= render ::Decor::Forms::LayoutContainer.new do |container| %>
+    <%= render ::Decor::Forms::LayoutSection.new(stacked: stacked_form) do %>
+      <%= form_component.builder.image_upload :pic,
+                         label: label,
+                         description: description,
+                         label_position: label_position,
+                         grid_span: grid_span,
+                         floating_error_text: floating_error_text,
+                         value: value,
+                         required: required,
+                         disabled: disabled,
+                         helper_text: helper_text,
+                         hide_required_asterisk: hide_required_asterisk,
+                         file_mime_types: file_mime_types,
+                         shape: shape,
+                         initials: initials,
+                         clear_checkbox: clear_checkbox,
+                         existing_file_url: existing_file_url,
+                         file: image,
+                         max_size_in_mb: max_size_in_mb,
+                         button_label: button_label %>
+    <% end %>
+    <% container.with_buttons do %>
+      <%= form_component.builder.submit %>
+    <% end %>
+  <% end %>
+<% end %>

@@ -14,7 +14,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @param trigger select [click, hover, focus] "Interaction mode"
   # @param force_open select [auto, open, closed] "Force open/closed state"
   # @param button_active_classes [Array] text "Legacy button classes (for backward compatibility)"
-  def playground(size: :md, color: :base, variant: :default, position: :left, trigger: :click, force_open: :auto, button_active_classes: nil)
+  def playground(size: :md, color: :base, variant: :default, position: :left, trigger: :click, force_open: :auto, button_active_classes: [])
     render ::Decor::Dropdown.new(
       size: size,
       color: color,

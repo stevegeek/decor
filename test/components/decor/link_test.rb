@@ -12,7 +12,7 @@ class Decor::LinkTest < ActiveSupport::TestCase
   end
 
   test "renders with different themes" do
-    component = Decor::Link.new(label: "Link", href: "#", theme: :danger)
+    component = Decor::Link.new(label: "Link", href: "#", color: :danger)
     rendered = render_component(component)
 
     assert_includes rendered, "link-error"
@@ -73,7 +73,7 @@ class Decor::LinkTest < ActiveSupport::TestCase
   end
 
   test "applies correct daisyUI link classes" do
-    component = Decor::Link.new(label: "Test", href: "#", theme: :primary, size: :medium)
+    component = Decor::Link.new(label: "Test", href: "#", color: :primary, size: :medium)
     rendered = render_component(component)
 
     assert_includes rendered, "btn-link"

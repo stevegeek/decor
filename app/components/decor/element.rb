@@ -4,17 +4,14 @@
 # Useful to add custom Stimulus controllers/attributes around other components.
 module Decor
   class Element < PhlexComponent
-    # TODO: use literal ** ?
-    attribute :options
+    no_stimulus_controller
+
+    prop :root_element_attributes, Hash, default: -> { {} }, reader: :private
 
     def view_template
-      render parent_element do
-        yield
+      root_element do
+        yield if block_given?
       end
-    end
-
-    def root_element_attributes
-      @options
     end
   end
 end

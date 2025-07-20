@@ -5,19 +5,19 @@ module Decor
   class Card < PhlexComponent
     no_stimulus_controller
 
-    attribute :title, String
-    attribute :image_url, String
-    attribute :image_position, Symbol, default: :top, in: [:top, :bottom, :left, :right]
-    attribute :image_alt, String, default: ""
+    prop :title, _Nilable(String)
+    prop :image_url, _Nilable(String)
+    prop :image_position, _Union(:top, :bottom, :left, :right), default: :top
+    prop :image_alt, String, default: ""
 
     # Size of the card
-    attribute :size, Symbol, default: :md, in: [:xs, :sm, :md, :lg, :xl]
+    prop :size, _Union(:xs, :sm, :md, :lg, :xl), default: :md
 
     # Color scheme using DaisyUI semantic colors
-    attribute :color, Symbol, default: :base, in: [:base, :primary, :secondary, :accent, :success, :error, :warning, :info, :neutral]
+    prop :color, _Union(:base, :primary, :secondary, :accent, :success, :error, :warning, :info, :neutral), default: :base
 
     # Visual variant
-    attribute :variant, Symbol, default: :filled, in: [:filled, :outlined, :ghost]
+    prop :variant, _Union(:filled, :outlined, :ghost), default: :filled
 
     def card_header(&block)
       @card_header = block
@@ -31,7 +31,7 @@ module Decor
     def view_template(&)
       @content = capture(&) if block_given?
 
-      render parent_element do
+      root_element do
         if @image_url.present? && (@image_position == :left || @image_position == :top)
           image_element
         end
@@ -95,10 +95,10 @@ module Decor
     end
 
     def render_header_and_body
-      if @card_header.present?
-        render @card_header
-      end
       div(class: "card-body") do
+        if @card_header.present?
+          render @card_header
+        end
         if @title.present?
           span(class: "card-title") { @title }
         end

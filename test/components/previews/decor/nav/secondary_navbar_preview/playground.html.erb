@@ -1,0 +1,22 @@
+<%= render ::Decor::Nav::SecondaryNavbar.new(bottom_border: has_bottom_border, variant: variant) do |nav| %>
+  <% if has_left_element %>
+    <% nav.with_left do %>
+      <%= render ::Decor::Nav::Breadcrumbs.new(
+            breadcrumbs: [
+              {name: "Home", path: "/"},
+              {name: "Beef", path: "/beef"}
+            ]
+          ) %>
+    <% end %>
+  <% end %>
+  <% if has_center_element %>
+    <% nav.with_center do %>
+      <span class="text-sm">Center!</span>
+    <% end %>
+  <% end %>
+  <% if has_right_element %>
+    <% nav.with_right do %>
+      <%= render ::Decor::Button.new(label: "Button!", size: :micro) %>
+    <% end %>
+  <% end %>
+<% end %>

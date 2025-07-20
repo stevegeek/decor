@@ -5,28 +5,51 @@ module Decor
   class Tooltip < PhlexComponent
     no_stimulus_controller
 
-    attribute :position, Symbol, in: [:top, :bottom, :left, :right], default: :top
-    attribute :tip_text, String
+    prop :position, _Union(:top, :bottom, :left, :right), default: :top
+    prop :tip_text, _Nilable(String)
 
     # Size of the tooltip
-    attribute :size, Symbol, default: :md, in: [:xs, :sm, :md, :lg, :xl]
+    prop :size, _Union(:xs, :sm, :md, :lg, :xl), default: :md
 
     # Color scheme using DaisyUI semantic colors
-    attribute :color, Symbol, default: :base, in: [:base, :primary, :secondary, :accent, :success, :error, :warning, :info, :neutral]
+    prop :color, _Union(:base, :primary, :secondary, :accent, :success, :error, :warning, :info, :neutral), default: :base
 
     # Visual variant
-    attribute :variant, Symbol, default: :filled, in: [:filled, :outlined, :ghost]
+    prop :variant, _Union(:filled, :outlined, :ghost), default: :filled
+
+    # Offset customization
+    prop :offset_percent_x, Integer, default: 0
+    prop :offset_percent_y, Integer, default: 0
 
     # Backward compatibility method for old slots usage
     def tip_content(&block)
       @tip_content = block
     end
 
+    # FIXME: continue migrating to the with_ syntax
+    def with_tip_content(&block)
+      tip_content(&block)
+      self
+    end
+
+    def translate_x
+      "#{@offset_percent_x}%"
+    end
+
+    def translate_y
+      "#{@offset_percent_y - 190}%"
+    end
+
     def view_template(&)
+      # TODO: should be vanish(&)?
       @content = capture(&) if block_given?
 
-      render parent_element do |tip|
-        raw @content.html_safe if @content.present?
+      root_element(
+        data: {
+          tip: rendered_tip_content # This is set after the capture
+        }
+      ) do
+        raw @content if @content.present?
       end
     end
 
@@ -78,13 +101,15 @@ module Decor
 
     def root_element_attributes
       {
-        element_tag: :div,
-        html_options: {
-          data: {
-            tip: @tip_text || @tip_content
-          }
-        }
+        element_tag: :div
       }
+    end
+
+    def rendered_tip_content
+      return @tip_text if @tip_text.present?
+      return nil unless @tip_content
+      # Render the block content to a string
+      capture(&@tip_content)
     end
 
     def tooltip_content_classes

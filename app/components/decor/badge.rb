@@ -4,18 +4,18 @@ module Decor
   class Badge < PhlexComponent
     no_stimulus_controller
 
-    attribute :label, String, allow_blank: false, allow_nil: true
+    prop :label, _Nilable(String)
 
-    attribute :style, Symbol, in: %i[warning info error standard success], default: :standard
-    attribute :size, Symbol, default: :medium, in: %i[small medium large]
-    attribute :variant, Symbol, default: :outlined, in: %i[outlined filled]
-    attribute :dashed, :boolean, default: false
+    prop :style, _Union(:warning, :info, :error, :standard, :success), default: :standard
+    prop :size, _Union(:xs, :sm, :md, :lg), default: :md
+    prop :variant, _Union(:outlined, :filled), default: :outlined
+    prop :dashed, _Boolean, default: false
 
-    attribute :icon, String
+    prop :icon, _Nilable(String)
 
     # Optional avatar
-    attribute :url, String, allow_blank: false, allow_nil: true
-    attribute :initials, String, allow_blank: false, allow_nil: true
+    prop :url, _Nilable(String)
+    prop :initials, _Nilable(String)
 
     private
 
@@ -36,7 +36,7 @@ module Decor
     end
 
     def view_template(&block)
-      render parent_element do
+      root_element do
         if @icon.present?
           render(
             ::Decor::Icon.new(
@@ -66,9 +66,9 @@ module Decor
 
     def size_classes
       case @size
-      when :small
+      when :sm
         "badge-sm"
-      when :large
+      when :lg
         "badge-lg"
       end
     end
@@ -100,23 +100,25 @@ module Decor
 
     def icon_size_classes
       case @size
-      when :small
+      when :xs
+        "h-2.5 w-2.5"
+      when :sm
         "h-3 w-3"
-      when :medium
+      when :md
         "h-3.5 w-3.5"
-      when :large
+      when :lg
         "h-4.5 w-4.5"
       end
     end
 
     def avatar_size
       case @size
-      when :small
-        :nano
-      when :medium
-        :micro
+      when :sm, :xs
+        :xs
+      when :md
+        :sm
       else
-        :tiny
+        :md
       end
     end
   end

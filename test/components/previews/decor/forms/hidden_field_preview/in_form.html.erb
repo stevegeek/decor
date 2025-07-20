@@ -1,0 +1,12 @@
+<%= render ::Decor::Forms::Form.new(model: model, url: "#", local: true) do |form_component| %>
+  <%= render ::Decor::Forms::LayoutContainer.new do |container| %>
+    <%= render ::Decor::Forms::LayoutSection.new do %>
+      <%= form_component.builder.hidden_field :text,
+                       value: value,
+                       disabled: disabled %>
+    <% end %>
+    <% container.with_buttons do %>
+      <%= form_component.builder.submit %>
+    <% end %>
+  <% end %>
+<% end %>

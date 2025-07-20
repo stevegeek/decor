@@ -24,11 +24,11 @@ module Decor
       attr_reader :href
     end
 
-    attribute :title, String
-    attribute :description, String
-    attribute :icon, String
-    attribute :color, Symbol, in: %i[warning success error info].freeze, default: :info
-    attribute :action_buttons, Array, sub_type: ActionButton, default: [], convert: true
+    prop :title, String
+    prop :description, _Nilable(String)
+    prop :icon, _Nilable(String)
+    prop :color, _Union(:warning, :success, :error, :info), default: :info
+    prop :action_buttons, _Array(ActionButton), default: -> { [] }
 
     def avatar(&block)
       @avatar = block
@@ -37,7 +37,7 @@ module Decor
     def view_template(&)
       @content = capture(&) if block_given?
 
-      render parent_element do |el|
+      root_element do |el|
         # Icon section
         if @icon
           div(class: "join-item p-4 #{icon_background_class} #{icon_text_class} text-xl") do
@@ -70,7 +70,7 @@ module Decor
                   href: button.href,
                   variant: button.variant || (button.primary? ? :contained : :text),
                   color: button.color || (button.primary? ? :primary : :neutral),
-                  size: :small,
+                  size: :sm,
                   full_width: true
                 )
               else
@@ -78,7 +78,7 @@ module Decor
                   label: button.label,
                   variant: button.variant || (button.primary? ? :contained : :text),
                   color: button.color || (button.primary? ? :primary : :neutral),
-                  size: :small,
+                  size: :sm,
                   full_width: true,
                   **action_button_attributes(el, button)
                 )
@@ -129,9 +129,7 @@ module Decor
       return {} unless button.action_name
 
       {
-        data: {
-          target: button.action_name
-        }
+        stimulus_actions: [button.action_name]
       }
     end
   end

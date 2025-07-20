@@ -7,11 +7,11 @@ class Decor::ActsAsLinkTest < ActiveSupport::TestCase
 
     no_stimulus_controller
 
-    attribute :label, String
-    attribute :disabled, :boolean, default: false
+    prop :label, String
+    prop :disabled, _Boolean, default: false
 
     def view_template
-      render parent_element do
+      root_element do
         @label
       end
     end

@@ -17,23 +17,19 @@ gem "stimulus-rails"
 # Use Tailwind CSS [https://github.com/rails/tailwindcss-rails]
 gem "tailwindcss-rails"
 
-gem "dry-struct" # TODO: change to Literal
-gem "literal"
+gem "quo", github: "stevegeek/quo", branch: "main"
+gem "encoded_id-rails", "1.0.0.rc6", github: "stevegeek/encoded_id", branch: "main"
 
-gem "view_component"
+gem "literal"
 gem "phlex-rails", ">= 2.0.0"
 gem "inline_svg" # used by Decor::Svg if inline: true
 gem "vident", github: "stevegeek/vident", branch: "main"
-gem "vident-typed", github: "stevegeek/vident", branch: "main"
 gem "vident-phlex", github: "stevegeek/vident", branch: "main"
-gem "vident-typed-phlex", github: "stevegeek/vident", branch: "main"
-gem "vident-tailwind", github: "stevegeek/vident", branch: "main"
-gem "vident-view_component", github: "stevegeek/vident", branch: "main"
-gem "vident-typed-view_component", github: "stevegeek/vident", branch: "main"
-gem "lookbook"
-gem "phlexing", github: "stevegeek/phlexing", branch: "main"
 
-gem "claude_swarm", github: "stevegeek/claude-swarm", branch: "tail"
+gem "lookbook"
+gem "js_regex", "~> 3.5"
+
+gem "claude_swarm", github: "parruda/claude-swarm", branch: "main"
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
@@ -70,13 +66,14 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  # Load environment variables from .env file
+  gem "dotenv-rails"
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
-
-  gem "tidewave"
 
   gem "standard", ">= 1.35.1"
 end

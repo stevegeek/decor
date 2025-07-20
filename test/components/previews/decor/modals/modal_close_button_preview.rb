@@ -12,8 +12,7 @@ class ::Decor::Modals::ModalCloseButtonPreview < ::Lookbook::Preview
   # @param icon select [~, check-circle, x, check, download, play]
   # @param disabled toggle
   # @param variant select [contained, outlined, text]
-  # @param theme select [primary, secondary, inverse]
-  # @param element_tag select [button, a]
+  # @param color select [primary, secondary, danger, warning, neutral]
   # @param size select [medium, large, wide, small, micro, link]
   # @param full_width toggle
   def playground(
@@ -21,20 +20,18 @@ class ::Decor::Modals::ModalCloseButtonPreview < ::Lookbook::Preview
     label: "OK",
     icon: nil,
     variant: :contained,
-    theme: :primary,
+    color: :primary,
     size: :medium,
-    element_tag: :button,
     disabled: false,
     full_width: false
   )
-    render ::Decor::ModalCloseButton.new(
+    render ::Decor::Modals::ModalCloseButton.new(
       close_reason: close_reason,
       label: label,
       icon: icon,
       variant: variant,
-      theme: theme,
+      color: color,
       size: size,
-      element_tag: element_tag,
       disabled: disabled,
       full_width: full_width
     )

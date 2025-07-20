@@ -87,4 +87,13 @@ Rails.application.configure do
   #
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+
+  config.lookbook.project_name = "Decor Components Kit"
+  config.lookbook.preview_layout = "component_preview"
+  config.lookbook.preview_inspector.sidebar_panels = [:pages, :previews]
+  config.lookbook.page_collection_label = "Docs"
+  config.lookbook.ui_theme = "rose"
+  config.lookbook.preview_display_options = {
+    theme: [["light", "decor-light"], ["dark", "decor-dark"]]
+  }
 end

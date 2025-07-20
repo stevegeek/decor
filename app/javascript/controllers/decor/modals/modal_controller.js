@@ -2,31 +2,27 @@ import { Controller } from "@hotwired/stimulus";
 import { markAsSafeHTML, safelySetInnerHTML, replaceContentsWithChildren, createAxiosInstance } from "controllers/decor";
 export var ModalEvents;
 (function (ModalEvents) {
-    ModalEvents["Open"] = "decor--modal:open";
-    ModalEvents["Opening"] = "decor--modal:opening";
-    ModalEvents["Loading"] = "decor--modal:loading";
-    ModalEvents["Loaded"] = "decor--modal:loaded";
-    ModalEvents["Ready"] = "decor--modal:ready";
-    ModalEvents["Opened"] = "decor--modal:opened";
-    ModalEvents["Close"] = "decor--modal:close";
-    ModalEvents["Closing"] = "decor--modal:closing";
-    ModalEvents["Closed"] = "decor--modal:closed";
+    ModalEvents["Open"] = "decor--modals--modal:open";
+    ModalEvents["Opening"] = "decor--modals--modal:opening";
+    ModalEvents["Loading"] = "decor--modals--modal:loading";
+    ModalEvents["Loaded"] = "decor--modals--modal:loaded";
+    ModalEvents["Ready"] = "decor--modals--modal:ready";
+    ModalEvents["Opened"] = "decor--modals--modal:opened";
+    ModalEvents["Close"] = "decor--modals--modal:close";
+    ModalEvents["Closing"] = "decor--modals--modal:closing";
+    ModalEvents["Closed"] = "decor--modals--modal:closed";
 })(ModalEvents || (ModalEvents = {}));
 export default class extends Controller {
-    constructor() {
-        super();
-        this.modalVisible = false;
-        this.closeOnOverlayClick = false;
-    }
-
     static targets = ["overlay", "modal"];
     static values = {
-        showInitial: Boolean,
-        contentHref: String,
-        closeOnOverlayClick: Boolean
+        showInitial: {type: Boolean, default: false},
+        contentHref: {type: String, default: null},
+        closeOnOverlayClick: {type: Boolean, default: false}
     };
 
     connect() {
+        this.modalVisible = false;
+        this.closeOnOverlayClick = false;
         if (this.showInitialValue) {
             this.open({
                 contentHref: this.contentHrefValue,

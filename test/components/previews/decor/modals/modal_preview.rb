@@ -21,7 +21,7 @@ class ::Decor::Modals::ModalPreview < ::Lookbook::Preview
     close_on_overlay_click: false,
     content_href: nil
   )
-    render ::Decor::Modal.new(
+    render ::Decor::Modals::Modal.new(
       initial_content: initial_content,
       content_href: content_href,
       start_shown: start_shown,

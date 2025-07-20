@@ -10,20 +10,20 @@ class Decor::TagTest < ActiveSupport::TestCase
     assert_includes rendered, "rounded-full"
   end
 
-  test "renders with deprecated text attribute" do
-    component = Decor::Tag.new(text: "Legacy Tag")
+  test "renders with label attribute" do
+    component = Decor::Tag.new(label: "Test Tag")
     rendered = render_component(component)
 
-    assert_includes rendered, "Legacy Tag"
+    assert_includes rendered, "Test Tag"
     assert_includes rendered, "rounded-full"
   end
 
-  test "label takes precedence over text" do
-    component = Decor::Tag.new(text: "Should be ignored", label: "This shows")
+  test "renders with label content" do
+    component = Decor::Tag.new(label: "Content Tag")
     rendered = render_component(component)
 
-    assert_includes rendered, "This shows"
-    refute_includes rendered, "Should be ignored"
+    assert_includes rendered, "Content Tag"
+    assert_includes rendered, "whitespace-nowrap"
   end
 
   # Color tests
@@ -220,11 +220,11 @@ class Decor::TagTest < ActiveSupport::TestCase
     component = Decor::Tag.new(label: "Test", color: :success)
     fragment = render_fragment(component)
 
-    # The outermost element should be a div with DaisyUI success classes
-    div = fragment.at_css("div")
-    assert_not_nil div
-    assert_includes div["class"], "bg-success"
-    assert_includes div["class"], "rounded-full"
+    # The outermost element should be a span with DaisyUI success classes
+    span = fragment.at_css("span")
+    assert_not_nil span
+    assert_includes span["class"], "bg-success"
+    assert_includes span["class"], "rounded-full"
 
     # The span should contain the text
     span = fragment.at_css("span")
@@ -255,7 +255,7 @@ class Decor::TagTest < ActiveSupport::TestCase
     # This simulates passing a block to the component
     component.instance_eval do
       def view_template
-        render parent_element do
+        root_element do
           span(class: "whitespace-nowrap") { "Custom Content" }
         end
       end
