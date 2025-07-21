@@ -2,7 +2,7 @@
 
 module Decor
   module Concerns
-    module SizeClassHelper
+    module SizeClasses
       STANDARD_SIZES = %i[xs sm md lg xl].freeze
       SIZE_ALIASES = {
         small: :sm,
@@ -14,15 +14,16 @@ module Decor
       }.freeze
 
       module ClassMethods
-        # Default variant - components can override
-        def default_size
+        def default_size(size = nil)
+          return self.config.default_size unless size
+          self.default_size = size
         end
       end
 
       def self.included(base)
         base.extend(ClassMethods)
         base.class_eval do
-          prop :size, _Nilable(_Union(*(SIZE_ALIASES.keys + STANDARD_SIZES))), default: default_size.freeze
+          prop :size, _Nilable(_Union(*(SIZE_ALIASES.keys + STANDARD_SIZES))), default: -> { self.config.default_size }
         end
       end
 
@@ -67,6 +68,29 @@ module Decor
         when :lg then 28
         when :xl then 32
         else 24
+        end
+      end
+
+      # Helper methods for common size-related CSS classes
+      def text_size_class(size = @size)
+        return nil unless size
+
+        normalized_size = normalize_size(size)
+        return nil unless valid_size?(normalized_size)
+
+        case normalized_size
+        when :xs
+          "text-xs"
+        when :sm
+          "text-sm"
+        when :md
+          "text-base"
+        when :lg
+          "text-xl"
+        when :xl
+          "text-2xl"
+        else
+          "text-base"
         end
       end
     end

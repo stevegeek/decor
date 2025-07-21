@@ -2,19 +2,20 @@
 
 module Decor
   module Concerns
-    module ColorClassHelper
+    module ColorClasses
       SEMANTIC_COLORS = %i[base primary secondary accent neutral success error warning info].freeze
 
       module ClassMethods
-        # Default variant - components can override
-        def default_color
+        def default_color(color = nil)
+          return self.config.default_color unless color
+          self.config.default_color = color
         end
       end
 
       def self.included(base)
         base.extend(ClassMethods)
         base.class_eval do
-          prop :color, _Nilable(_Union(*SEMANTIC_COLORS)), default: default_color.freeze
+          prop :color, _Nilable(_Union(*SEMANTIC_COLORS)), default: -> { self.config.default_color }
         end
       end
 
@@ -35,58 +36,6 @@ module Decor
       # Check if color is valid
       def valid_color?(color)
         SEMANTIC_COLORS.include?(color)
-      end
-
-      # Helper methods for common color patterns
-      def filled_color_classes(color = @color)
-        return nil unless valid_color?(color)
-        
-        case color
-        when :base then "bg-base-100 text-base-content"
-        when :primary then "bg-primary text-primary-content"
-        when :secondary then "bg-secondary text-secondary-content"
-        when :accent then "bg-accent text-accent-content"
-        when :success then "bg-success text-success-content"
-        when :error then "bg-error text-error-content"
-        when :warning then "bg-warning text-warning-content"
-        when :info then "bg-info text-info-content"
-        when :neutral then "bg-neutral text-neutral-content"
-        else nil
-        end
-      end
-
-      def outline_color_classes(color = @color)
-        return nil unless valid_color?(color)
-        
-        case color
-        when :base then "border border-base-300 text-base-content"
-        when :primary then "border border-primary text-primary"
-        when :secondary then "border border-secondary text-secondary"
-        when :accent then "border border-accent text-accent"
-        when :success then "border border-success text-success"
-        when :error then "border border-error text-error"
-        when :warning then "border border-warning text-warning"
-        when :info then "border border-info text-info"
-        when :neutral then "border border-neutral text-neutral"
-        else nil
-        end
-      end
-
-      def ghost_color_classes(color = @color)
-        return nil unless valid_color?(color)
-        
-        case color
-        when :base then "text-base-content hover:bg-base-200"
-        when :primary then "text-primary hover:bg-primary/10"
-        when :secondary then "text-secondary hover:bg-secondary/10"
-        when :accent then "text-accent hover:bg-accent/10"
-        when :success then "text-success hover:bg-success/10"
-        when :error then "text-error hover:bg-error/10"
-        when :warning then "text-warning hover:bg-warning/10"
-        when :info then "text-info hover:bg-info/10"
-        when :neutral then "text-neutral hover:bg-neutral/10"
-        else nil
-        end
       end
 
       def text_color_classes(color = @color)

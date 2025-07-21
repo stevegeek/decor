@@ -2,31 +2,48 @@
 
 module Decor
   class Avatar < PhlexComponent
+    include Decor::Concerns::StyleColorClasses
+
     no_stimulus_controller
 
-    with_cache_key :attributes
+    with_cache_key :attributes # FIXME: attributes is from vident but a opaque, lets change to to_h ?
+    # Also consider that as a defualt key method if cache key is added to component?
 
     prop :url, _Nilable(_String(&:present?))
     prop :initials, _Nilable(_String(&:present?))
 
-    SHAPE_OPTIONS = %i[circle square].freeze
     prop :shape, _Union(:circle, :square), default: :circle
 
-    prop :border, _Boolean, default: false
+    prop :ring, _Boolean, default: false
+
+    default_style :filled
+    default_color :neutral
 
     private
+
+
+    # TODO: a DSL way of definig defaults
+    #
+    # TODO: should size_classes be automatically included in classes given its defined on component
+    # or responds to component_size_classes
+    def element_classes
+      classes = []
+      classes << shape_class
+      classes.join(" ")
+    end
+
 
     def view_template
       root_element do
         if @url
           div(class: "avatar") do
-            div(class: "#{size_classes} #{shape_class} #{border_classes}") do
+            div(class: "#{size_classes} #{shape_class} #{avatar_ring_classes}") do
               image_tag @url, alt: t(".image")
             end
           end
         else
           div(class: "avatar avatar-placeholder") do
-            div(class: "#{color_classes} #{size_classes} #{shape_class} #{border_classes}") do
+            div(class: "#{color_classes} #{style_classes} #{size_classes} #{shape_class} #{avatar_ring_classes}") do
               span(class: text_size_class.to_s) { @initials }
             end
           end
@@ -36,16 +53,8 @@ module Decor
       end
     end
 
-    def element_classes
-      size_classes
-    end
-
     def shape_class
       (@shape == :circle) ? "rounded-full" : "rounded"
-    end
-
-    def size_classes
-      component_size_classes(@size)
     end
 
     def component_size_classes(size)
@@ -59,25 +68,8 @@ module Decor
       end
     end
 
-    def text_size_class
-      case @size
-      when :xs
-        "text-xs"
-      when :sm
-        "text-sm"
-      when :md
-        "text-base"
-      when :lg
-        "text-xl"
-      when :xl
-        "text-2xl"
-      else
-        "text-base"
-      end
-    end
-
-    def border_classes
-      return "" unless @border
+    def avatar_ring_classes
+      return "" unless @ring
       return "ring-offset-base-100 ring-2 ring-offset-2" unless @color
 
       ring_color = case @color
@@ -94,20 +86,6 @@ module Decor
       end
 
       "#{ring_color} ring-offset-base-100 ring-2 ring-offset-2"
-    end
-
-    def color_classes
-      component_color_classes(@color)
-    end
-
-    def component_color_classes(color)
-      # Avatar implements its own color logic using style_color_classes helper
-      style_color_classes(@style, color)
-    end
-
-    def component_style_classes(style)
-      # Avatar styles are handled through color classes
-      []
     end
   end
 end

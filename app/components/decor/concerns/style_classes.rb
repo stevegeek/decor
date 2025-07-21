@@ -2,21 +2,22 @@
 
 module Decor
   module Concerns
-    module StyleClassHelper
+    module StyleClasses
       module ClassMethods
         def styles
           [:filled, :outlined, :ghost]
         end
 
-        # Default style - components can override
-        def default_style
+        def default_style(style = nil)
+          return self.config.default_style unless style
+          self.config.default_style = style
         end
       end
 
       def self.included(base)
         base.extend(ClassMethods)
         base.class_eval do
-          prop :style, _Nilable(_Union(*styles)), default: default_style.freeze
+          prop :style, _Nilable(_Union(*styles)), default: -> { self.config.default_style }
         end
       end
 
@@ -38,22 +39,6 @@ module Decor
       # Check if style is valid
       def valid_style?(style)
         self.class.styles.include?(style)
-      end
-
-      # Helper method to get style-specific color classes
-      def style_color_classes(style = @style, color = @color)
-        return nil unless style && color
-        
-        case style
-        when :filled
-          filled_color_classes(color)
-        when :outlined
-          outline_color_classes(color)
-        when :ghost
-          ghost_color_classes(color)
-        else
-          nil
-        end
       end
     end
   end
