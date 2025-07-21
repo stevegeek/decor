@@ -14,9 +14,6 @@ module Decor
     # Description text below the value
     prop :description, _Nilable(String)
 
-    # Color theme for the statistic value
-    prop :color, _Union(:primary, :secondary, :accent, :success, :error, :warning, :info, :neutral), default: :neutral
-
     # Whether to center align the content
     prop :centered, _Boolean, default: false
 
@@ -24,7 +21,9 @@ module Decor
     prop :icon, _Nilable(String)
 
     # Icon color (if different from value color)
-    prop :icon_color, _Nilable(_Union(:primary, :secondary, :accent, :success, :error, :warning, :info, :neutral))
+    prop :icon_color, _Nilable(_Union(:base, :primary, :secondary, :accent, :success, :error, :warning, :info, :neutral))
+    
+    default_color :neutral
 
     # Whether to include a figure area
     prop :with_figure, _Boolean, default: false
@@ -60,7 +59,7 @@ module Decor
       end
     end
 
-    def element_classes
+    def root_element_classes
       classes = ["stat"]
       classes << "place-items-center" if @centered
       classes.join(" ")
@@ -108,18 +107,34 @@ module Decor
 
     def figure_classes
       classes = ["stat-figure"]
-      if @icon_color
-        classes << "text-#{@icon_color}"
-      elsif @color != :neutral
-        classes << "text-#{@color}"
+      color_to_use = @icon_color || @color
+      if color_to_use && color_to_use != :neutral
+        classes << figure_color_class(color_to_use)
       end
       classes.join(" ")
+    end
+    
+    def figure_color_class(color)
+      case color
+      when :base then "text-base-content"
+      when :primary then "text-primary"
+      when :secondary then "text-secondary"
+      when :accent then "text-accent"
+      when :success then "text-success"
+      when :error then "text-error"
+      when :warning then "text-warning"
+      when :info then "text-info"
+      when :neutral then "text-neutral"
+      else ""
+      end
     end
 
     def value_classes
       classes = ["stat-value"]
-      classes << "text-#{@color}" if @color != :neutral
-      classes.join(" ")
+      if @color && @color != :neutral
+        classes << text_color_classes(@color)
+      end
+      classes.compact.join(" ")
     end
 
     def should_render_figure?

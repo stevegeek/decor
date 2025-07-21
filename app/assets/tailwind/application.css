@@ -81,6 +81,7 @@
 }
 
 @theme {
+  --text-2xs: 0.6rem;
 }
 
 @custom-variant dark (&:where(.dark, .dark *));

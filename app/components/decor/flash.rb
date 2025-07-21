@@ -50,7 +50,7 @@ module Decor
       }
     end
 
-    def element_classes
+    def root_element_classes
       base_classes = ["invisible opacity-0"]
       base_classes << "hidden" if @collapse_if_empty && !show_initial?
       base_classes.join(" ")

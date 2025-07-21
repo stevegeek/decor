@@ -8,7 +8,8 @@ module Decor
     prop :title, _Nilable(String)
     prop :description, _Nilable(String)
     prop :icon, _Nilable(String)
-    prop :size, _Union(:xs, :sm, :md, :lg, :xl), default: :md
+    
+    default_size :md
 
     private
 
@@ -120,7 +121,7 @@ module Decor
       end
     end
 
-    def element_classes
+    def root_element_classes
       case @size
       when :xs, :sm
         "space-y-1"

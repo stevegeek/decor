@@ -10,7 +10,7 @@ class ::Decor::TagPreview < ::Lookbook::Preview
   # - **DaisyUI Integration**: Uses DaisyUI badge classes for consistent theming
   # - **Icon Support**: Optional leading icons using Decor::Icon
   # - **Removable Tags**: Optional close button (removal logic handled by parent components)
-  # - **Multiple Variants**: Filled, outline, and ghost styles
+  # - **Multiple Styles**: Filled, outlined, and ghost styles
   # - **Semantic Colors**: Full DaisyUI color palette support
   # - **Size Options**: 4 sizes from xs to lg
   #
@@ -18,19 +18,132 @@ class ::Decor::TagPreview < ::Lookbook::Preview
   # When `removable: true`, the tag renders a close button with an X icon. The actual removal
   # logic should be handled by parent components or separate controllers, not by the Tag itself.
   #
-  # @label Interactive Playground
+  # @group Examples
+  # @label Outline with Icon
+  def combo_outline_icon
+    render ::Decor::Tag.new(
+      label: "Featured",
+      icon: "star",
+      color: :accent,
+      style: :outlined
+    )
+  end
+
+  # @group Examples
+  # @label Outline with Icon and Removable
+  def combo_outline_icon_removable
+    render ::Decor::Tag.new(
+      label: "Draft",
+      icon: "document",
+      color: :warning,
+      style: :outlined,
+      removable: true
+    )
+  end
+
+  # @group Examples
+  # @label Large Filled Removable
+  def combo_large_filled_removable
+    render ::Decor::Tag.new(
+      label: "Important",
+      icon: "exclamation-triangle",
+      color: :error,
+      style: :filled,
+      size: :lg,
+      removable: true
+    )
+  end
+
+  # @group Examples
+  # @label Category Tag
+  def example_category
+    render ::Decor::Tag.new(
+      label: "Technology",
+      color: :info,
+      icon: "tag",
+      removable: true
+    )
+  end
+
+  # @group Examples
+  # @label Priority Tag
+  def example_priority
+    render ::Decor::Tag.new(
+      label: "High Priority",
+      color: :error,
+      style: :outlined,
+      size: :lg
+    )
+  end
+
+  # @group Examples
+  # @label User Role
+  def example_user_role
+    render ::Decor::Tag.new(
+      label: "Moderator",
+      color: :accent,
+      icon: "user",
+      style: :filled
+    )
+  end
+
+  # @group Examples
+  # @label Filter Tag
+  def example_filter
+    render ::Decor::Tag.new(
+      label: "JavaScript",
+      color: :warning,
+      removable: true
+    )
+  end
+
+  # @group Examples
+  # @label Product Labels
+  def usecase_product_labels
+    render ::Decor::Tag.new(
+      label: "Best Seller",
+      color: :success,
+      icon: "star",
+      style: :filled
+    )
+  end
+
+  # @group Examples
+  # @label Notification Badge
+  def usecase_notification
+    render ::Decor::Tag.new(
+      label: "New",
+      color: :error,
+      size: :xs,
+      style: :filled
+    )
+  end
+
+  # @group Examples
+  # @label Skill Tag
+  def usecase_skill
+    render ::Decor::Tag.new(
+      label: "Ruby on Rails",
+      color: :accent,
+      style: :outlined,
+      removable: true
+    )
+  end
+
+
+  # @group Playground
   # @param label text
   # @param icon select [~, check-circle, x-mark, check, star, heart, user, tag]
   # @param size select [xs, sm, md, lg, xl]
-  # @param color select [primary, secondary, accent, success, error, warning, info, neutral]
-  # @param variant select [filled, outlined, ghost]
+  # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
+  # @param style select [filled, outlined, ghost]
   # @param removable toggle
   def playground(
     label: "Sample Tag",
     icon: nil,
     size: :md,
     color: :primary,
-    variant: :filled,
+    style: :filled,
     removable: false
   )
     render ::Decor::Tag.new(
@@ -38,7 +151,7 @@ class ::Decor::TagPreview < ::Lookbook::Preview
       icon: icon,
       size: size,
       color: color,
-      variant: variant,
+      style: style,
       removable: removable
     )
   end
@@ -121,22 +234,22 @@ class ::Decor::TagPreview < ::Lookbook::Preview
     render ::Decor::Tag.new(icon: "heart", label: "XL Tag", size: :xl, removable: true)
   end
 
-  # @group Variants
+  # @group Styles
   # @label Filled (Default)
-  def variant_filled
-    render ::Decor::Tag.new(label: "Filled Tag", color: :primary, variant: :filled)
+  def style_filled
+    render ::Decor::Tag.new(label: "Filled Tag", color: :primary, style: :filled)
   end
 
-  # @group Variants
-  # @label Outline
-  def variant_outline
-    render ::Decor::Tag.new(label: "Outline Tag", color: :primary, variant: :outlined)
+  # @group Styles
+  # @label Outlined
+  def style_outlined
+    render ::Decor::Tag.new(label: "Outline Tag", color: :primary, style: :outlined)
   end
 
-  # @group Variants
+  # @group Styles
   # @label Ghost
-  def variant_ghost
-    render ::Decor::Tag.new(label: "Ghost Tag", color: :primary, variant: :ghost)
+  def style_ghost
+    render ::Decor::Tag.new(label: "Ghost Tag", color: :primary, style: :ghost)
   end
 
   # @group With Icons
@@ -211,118 +324,6 @@ class ::Decor::TagPreview < ::Lookbook::Preview
       label: "Large Removable",
       color: :warning,
       size: :lg,
-      removable: true
-    )
-  end
-
-  # @group Examples
-  # @label Outline with Icon
-  def combo_outline_icon
-    render ::Decor::Tag.new(
-      label: "Featured",
-      icon: "star",
-      color: :accent,
-      variant: :outlined
-    )
-  end
-
-  # @group Examples
-  # @label Outline with Icon and Removable
-  def combo_outline_icon_removable
-    render ::Decor::Tag.new(
-      label: "Draft",
-      icon: "document",
-      color: :warning,
-      variant: :outlined,
-      removable: true
-    )
-  end
-
-  # @group Examples
-  # @label Large Filled Removable
-  def combo_large_filled_removable
-    render ::Decor::Tag.new(
-      label: "Important",
-      icon: "exclamation-triangle",
-      color: :error,
-      variant: :filled,
-      size: :lg,
-      removable: true
-    )
-  end
-
-  # @group Examples
-  # @label Category Tag
-  def example_category
-    render ::Decor::Tag.new(
-      label: "Technology",
-      color: :info,
-      icon: "tag",
-      removable: true
-    )
-  end
-
-  # @group Examples
-  # @label Priority Tag
-  def example_priority
-    render ::Decor::Tag.new(
-      label: "High Priority",
-      color: :error,
-      variant: :outlined,
-      size: :lg
-    )
-  end
-
-  # @group Examples
-  # @label User Role
-  def example_user_role
-    render ::Decor::Tag.new(
-      label: "Moderator",
-      color: :accent,
-      icon: "user",
-      variant: :filled
-    )
-  end
-
-  # @group Examples
-  # @label Filter Tag
-  def example_filter
-    render ::Decor::Tag.new(
-      label: "JavaScript",
-      color: :warning,
-      removable: true
-    )
-  end
-
-  # @group Examples
-  # @label Product Labels
-  def usecase_product_labels
-    render ::Decor::Tag.new(
-      label: "Best Seller",
-      color: :success,
-      icon: "star",
-      variant: :filled
-    )
-  end
-
-  # @group Examples
-  # @label Notification Badge
-  def usecase_notification
-    render ::Decor::Tag.new(
-      label: "New",
-      color: :error,
-      size: :xs,
-      variant: :filled
-    )
-  end
-
-  # @group Examples
-  # @label Skill Tag
-  def usecase_skill
-    render ::Decor::Tag.new(
-      label: "Ruby on Rails",
-      color: :accent,
-      variant: :outlined,
       removable: true
     )
   end

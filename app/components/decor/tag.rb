@@ -3,21 +3,18 @@
 module Decor
   # A modern rounded tag/badge component with DaisyUI semantic colors
   class Tag < PhlexComponent
+    include Decor::Concerns::StyleColorClasses
+    
     no_stimulus_controller
 
     prop :label, _Nilable(String)
 
     # Icon to display before the label
     prop :icon, _Nilable(String)
-
-    # Size of the tag
-    prop :size, _Union(:xs, :sm, :md, :lg, :xl), default: :md
-
-    # Color scheme using DaisyUI semantic colors
-    prop :color, _Union(:primary, :secondary, :accent, :success, :error, :warning, :info, :neutral), default: :neutral
-
-    # Visual variant
-    prop :variant, _Union(:filled, :outlined, :ghost), default: :filled
+    
+    default_size :md
+    default_color :neutral
+    default_style :filled
 
     # Whether the tag can be removed with a close button
     prop :removable, _Boolean, default: false
@@ -57,22 +54,23 @@ module Decor
       end
     end
 
-    def element_classes
+    def root_element_classes
       classes = ["inline-flex", "items-center", "justify-center", "rounded-full", "whitespace-nowrap"]
       classes << size_classes
-      classes << color_classes
+      classes << style_classes
       classes << "gap-2" if @icon.present? || @removable
       classes.compact.join(" ")
     end
 
-    def size_classes
-      tag_size_classes
+    def component_size_classes(size)
+      case size
+      when :xs then "px-2 py-0.5 text-xs"
+      when :sm then "px-2.5 py-0.5 text-sm"
+      when :md then "px-3 py-1 text-sm"
+      when :lg then "px-4 py-1.5 text-base"
+      when :xl then "px-5 py-2 text-lg"
+      end
     end
-
-    def color_classes
-      variant_color_classes
-    end
-
 
     def icon_classes
       case @size
@@ -101,21 +99,7 @@ module Decor
     end
 
     def remove_button_classes
-      "ml-1 btn btn-xs btn-circle btn-ghost #{remove_button_border_classes} #{remove_button_size_classes}"
-    end
-
-    def remove_button_border_classes
-      return "border-white/50" if @variant == :filled
-      case @color
-      when :primary then "border-primary"
-      when :secondary then "border-secondary"
-      when :accent then "border-accent"
-      when :success then "border-success"
-      when :error then "border-error"
-      when :warning then "border-warning"
-      when :info then "border-info"
-      when :neutral then "border-neutral"
-      end
+      "ml-1 btn btn-xs btn-circle btn-ghost #{remove_button_size_classes}"
     end
 
     def remove_button_size_classes

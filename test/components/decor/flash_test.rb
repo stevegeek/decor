@@ -79,7 +79,7 @@ module Decor
       render_inline(component)
 
       # Check if the component has hidden class when collapsed and empty
-      assert_match(/hidden/, component.send(:element_classes))
+      assert_match(/hidden/, component.send(:root_element_classes))
     end
 
     def test_shows_when_collapse_if_empty_false_and_no_content

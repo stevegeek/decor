@@ -70,12 +70,11 @@ class ::Decor::AvatarPreview < ::Lookbook::Preview
   end
 
   # @group Playground
-  # @label Playground
   # @param initials text
   # @param image select [~, "https://i.pravatar.cc/300", "https://cataas.com/cat"]
   # @param shape select [circle, square]
-  # @param size select [xs, sm, md, lg, xl]
   # @param ring toggle
+  # @param size select [xs, sm, md, lg, xl]
   # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
   # @param style select [filled, outlined, ghost]
   def playground(image: nil, initials: "JG", shape: :circle, size: :md, ring: true, color: :neutral, style: :filled)

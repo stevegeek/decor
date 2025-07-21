@@ -61,12 +61,11 @@ module Decor
         normalized_size = normalize_size(size)
         
         case normalized_size
-        when :xs then 16
-        when :sm then 20
-        when :md then 24
-        when :lg then 28
-        when :xl then 32
-        else 24
+        when :xs then 10
+        when :sm then 12
+        when :md then 14
+        when :lg then 16
+        else 20
         end
       end
 

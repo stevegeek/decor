@@ -64,7 +64,7 @@ module Decor
                 render ::Decor::Button.new(
                   label: "Cancel",
                   color: :secondary,
-                  variant: :outlined,
+                  style: :outlined,
                   classes: "ml-3 w-auto text-sm",
                   html_options: {
                     data: {

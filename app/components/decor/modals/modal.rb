@@ -61,7 +61,7 @@ module Decor
         }
       end
 
-      def element_classes
+      def root_element_classes
         "#{@start_shown ? "fixed" : "fixed hidden"} z-10 inset-0 overflow-y-auto"
       end
     end

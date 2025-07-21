@@ -11,7 +11,7 @@ module Decor
     prop :icon, _Nilable(String)
 
     # Visual attributes
-    prop :size, _Union(:xs, :sm, :md, :lg, :xl), default: :md
+    default_size :md
 
     # Slots for flexible content
     def with_actions(&block)
@@ -43,7 +43,7 @@ module Decor
       end
     end
 
-    def element_classes
+    def root_element_classes
       "card-header"
     end
 

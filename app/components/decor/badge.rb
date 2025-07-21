@@ -5,11 +5,11 @@ module Decor
     no_stimulus_controller
 
     prop :label, _Nilable(String)
-
-    prop :style, _Union(:warning, :info, :error, :standard, :success), default: :standard
-    prop :size, _Union(:xs, :sm, :md, :lg), default: :md
-    prop :variant, _Union(:outlined, :filled), default: :outlined
     prop :dashed, _Boolean, default: false
+    
+    default_size :md
+    default_style :outlined
+    default_color :neutral
 
     prop :icon, _Nilable(String)
 
@@ -25,12 +25,12 @@ module Decor
       }
     end
 
-    def element_classes
+    def root_element_classes
       [
         "badge",
-        style_classes,
-        size_classes,
-        variant_classes,
+        component_color_classes(@color),
+        component_size_classes(@size),
+        component_style_classes(@style),
         dashed_classes
       ].compact.join(" ")
     end
@@ -64,34 +64,39 @@ module Decor
       end
     end
 
-    def size_classes
-      case @size
-      when :sm
-        "badge-sm"
-      when :lg
-        "badge-lg"
+    def component_size_classes(size)
+      case size
+      when :xs then "badge-xs"
+      when :sm then "badge-sm"
+      when :md then [] # default size, no class needed
+      when :lg then "badge-lg"
+      when :xl then "badge-xl"
+      else []
       end
     end
 
-    def style_classes
-      case @style
-      when :success
-        "badge-success"
-      when :error
-        "badge-error"
-      when :warning
-        "badge-warning"
-      when :info
-        "badge-info"
-      when :standard
-        "badge-neutral"
-      else
-        "badge-neutral"
+    def component_color_classes(color)
+      case color
+      when :base then "badge-base"
+      when :primary then "badge-primary"
+      when :secondary then "badge-secondary"
+      when :accent then "badge-accent"
+      when :success then "badge-success"
+      when :error then "badge-error"
+      when :warning then "badge-warning"
+      when :info then "badge-info"
+      when :neutral then "badge-neutral"
+      else []
       end
     end
 
-    def variant_classes
-      (@variant == :outlined) ? "badge-outline" : nil
+    def component_style_classes(style)
+      case style
+      when :outlined then "badge-outline"
+      when :filled then [] # default filled, no class needed
+      when :ghost then "badge-ghost"
+      else []
+      end
     end
 
     def dashed_classes
@@ -108,6 +113,8 @@ module Decor
         "h-3.5 w-3.5"
       when :lg
         "h-4.5 w-4.5"
+      when :xl
+        "h-5 w-5"
       end
     end
 
@@ -115,7 +122,7 @@ module Decor
       case @size
       when :sm, :xs
         :xs
-      when :md
+      when :md, :lg
         :sm
       else
         :md

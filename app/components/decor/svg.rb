@@ -17,10 +17,10 @@ module Decor
     prop :title, _Nilable(String)
     prop :description, _Nilable(String)
 
-    prop :size, _Union(:xs, :sm, :md, :lg, :xl), default: :md
-
     prop :width, _Nilable(Integer)
     prop :height, _Nilable(Integer)
+    
+    default_size :md
 
     def view_template
       if @inline

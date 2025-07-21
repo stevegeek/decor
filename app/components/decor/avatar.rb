@@ -52,12 +52,21 @@ module Decor
 
     def component_size_classes(size)
       case size
-      when :xs then "w-6"
-      when :sm then "w-8"
-      when :md then "w-10"
+      when :xs then "w-4"
+      when :sm then "w-6"
+      when :md then "w-8"
       when :lg then "w-16"
       when :xl then "w-24"
       else "w-10"
+      end
+    end
+
+    def text_size_class(size = @size)
+      text_size = super(size)
+      if text_size == "text-xs"
+        "text-2xs"
+      else
+        text_size
       end
     end
 

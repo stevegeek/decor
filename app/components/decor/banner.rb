@@ -44,7 +44,7 @@ module Decor
       end
     end
 
-    def element_classes
+    def root_element_classes
       "mb-4 w-full flex #{alert_classes}"
     end
 

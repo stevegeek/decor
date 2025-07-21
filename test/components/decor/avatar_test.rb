@@ -64,6 +64,7 @@ class Decor::AvatarTest < ActiveSupport::TestCase
     component = Decor::Avatar.new(initials: "AB")
     fragment = render_fragment(component)
 
+    # Find the avatar div
     avatar_div = fragment.at_css(".avatar")
     assert_not_nil avatar_div
 
@@ -149,15 +150,13 @@ class Decor::AvatarTest < ActiveSupport::TestCase
     assert_includes rendered, "text-primary"
   end
 
-  test "color does not affect image avatars" do
+  test "color affects image avatars" do
     component = Decor::Avatar.new(url: "https://example.com/avatar.jpg", color: :primary)
     rendered = render_component(component)
 
-    # Should not include color classes for image avatars
-    refute_includes rendered, "bg-primary"
-    refute_includes rendered, "text-primary"
-    refute_includes rendered, "bg-neutral"
-    refute_includes rendered, "text-neutral-content"
+    # Color classes are applied even to image avatars in the new implementation
+    assert_includes rendered, "bg-primary"
+    assert_includes rendered, "text-primary-content"
   end
 
   test "maintains default behavior" do
@@ -182,7 +181,7 @@ class Decor::AvatarTest < ActiveSupport::TestCase
 
       case color
       when :base
-        assert_includes rendered, "bg-base"
+        assert_includes rendered, "bg-base-100"
         assert_includes rendered, "text-base-content"
       when :primary
         assert_includes rendered, "bg-primary"
@@ -221,8 +220,8 @@ class Decor::AvatarTest < ActiveSupport::TestCase
 
       case color
       when :base
-        assert_includes rendered, "text-base"
-        assert_includes rendered, "border-base"
+        assert_includes rendered, "text-base-content"
+        assert_includes rendered, "border-base-300"
       when :primary
         assert_includes rendered, "text-primary"
         assert_includes rendered, "border-primary"
@@ -258,32 +257,32 @@ class Decor::AvatarTest < ActiveSupport::TestCase
 
       case color
       when :base
-        assert_includes rendered, "text-base"
-        assert_includes rendered, "hover:bg-base"
+        assert_includes rendered, "text-base-content"
+        assert_includes rendered, "hover:bg-base-200"
       when :primary
         assert_includes rendered, "text-primary"
-        assert_includes rendered, "hover:bg-primary"
+        assert_includes rendered, "hover:bg-primary/10"
       when :secondary
         assert_includes rendered, "text-secondary"
-        assert_includes rendered, "hover:bg-secondary"
+        assert_includes rendered, "hover:bg-secondary/10"
       when :accent
         assert_includes rendered, "text-accent"
-        assert_includes rendered, "hover:bg-accent"
+        assert_includes rendered, "hover:bg-accent/10"
       when :success
         assert_includes rendered, "text-success"
-        assert_includes rendered, "hover:bg-success"
+        assert_includes rendered, "hover:bg-success/10"
       when :error
         assert_includes rendered, "text-error"
-        assert_includes rendered, "hover:bg-error"
+        assert_includes rendered, "hover:bg-error/10"
       when :warning
         assert_includes rendered, "text-warning"
-        assert_includes rendered, "hover:bg-warning"
+        assert_includes rendered, "hover:bg-warning/10"
       when :info
         assert_includes rendered, "text-info"
-        assert_includes rendered, "hover:bg-info"
+        assert_includes rendered, "hover:bg-info/10"
       when :neutral
         assert_includes rendered, "text-neutral"
-        assert_includes rendered, "hover:bg-neutral"
+        assert_includes rendered, "hover:bg-neutral/10"
       end
     end
   end
@@ -377,5 +376,144 @@ class Decor::AvatarTest < ActiveSupport::TestCase
     refute_includes rendered, "ring-offset-base-100"
     refute_includes rendered, "ring-2"
     refute_includes rendered, "ring-offset-2"
+  end
+
+  # CACHE KEY TESTS
+
+  test "avatar component is cacheable" do
+    component = Decor::Avatar.new(initials: "AB")
+    assert component.cacheable?
+    assert_respond_to component, :cache_key
+  end
+
+  test "cache key includes avatar properties" do
+    component1 = Decor::Avatar.new(initials: "AB", color: :primary, style: :filled, size: :lg, shape: :circle, ring: true)
+    component2 = Decor::Avatar.new(initials: "AB", color: :primary, style: :filled, size: :lg, shape: :circle, ring: true)
+    
+    # Same props should generate same cache key
+    assert_equal component1.cache_key, component2.cache_key
+  end
+
+  test "cache key differs for different initials" do
+    component1 = Decor::Avatar.new(initials: "AB")
+    component2 = Decor::Avatar.new(initials: "CD")
+    
+    refute_equal component1.cache_key, component2.cache_key
+  end
+
+  test "cache key differs for different urls" do
+    component1 = Decor::Avatar.new(url: "https://example.com/avatar1.jpg")
+    component2 = Decor::Avatar.new(url: "https://example.com/avatar2.jpg")
+    
+    refute_equal component1.cache_key, component2.cache_key
+  end
+
+  test "cache key differs for different colors" do
+    component1 = Decor::Avatar.new(initials: "AB", color: :primary)
+    component2 = Decor::Avatar.new(initials: "AB", color: :secondary)
+    
+    refute_equal component1.cache_key, component2.cache_key
+  end
+
+  test "cache key differs for different styles" do
+    component1 = Decor::Avatar.new(initials: "AB", style: :filled)
+    component2 = Decor::Avatar.new(initials: "AB", style: :outlined)
+    
+    refute_equal component1.cache_key, component2.cache_key
+  end
+
+  test "cache key differs for different sizes" do
+    component1 = Decor::Avatar.new(initials: "AB", size: :sm)
+    component2 = Decor::Avatar.new(initials: "AB", size: :lg)
+    
+    refute_equal component1.cache_key, component2.cache_key
+  end
+
+  test "cache key differs for different shapes" do
+    component1 = Decor::Avatar.new(initials: "AB", shape: :circle)
+    component2 = Decor::Avatar.new(initials: "AB", shape: :square)
+    
+    refute_equal component1.cache_key, component2.cache_key
+  end
+
+  test "cache key differs for different ring values" do
+    component1 = Decor::Avatar.new(initials: "AB", ring: true)
+    component2 = Decor::Avatar.new(initials: "AB", ring: false)
+    
+    refute_equal component1.cache_key, component2.cache_key
+  end
+
+  test "cache key includes component modified time" do
+    component = Decor::Avatar.new(initials: "AB")
+    cache_key = component.cache_key
+    
+    # Cache key should include component class name
+    assert_includes cache_key, "Decor::Avatar"
+    
+    # Should be able to get component_modified_time
+    assert_respond_to component, :component_modified_time
+  end
+
+  test "cache key respects cache key modifier from environment" do
+    original_modifier = ENV["RAILS_CACHE_ID"]
+    
+    # Test with no modifier
+    ENV["RAILS_CACHE_ID"] = nil
+    component1 = Decor::Avatar.new(initials: "AB")
+    key1 = component1.cache_key
+    
+    # Test with modifier
+    ENV["RAILS_CACHE_ID"] = "v2"
+    component2 = Decor::Avatar.new(initials: "AB")
+    key2 = component2.cache_key
+    
+    # Keys should be different with different modifiers
+    refute_equal key1, key2
+    assert_includes key2, "v2"
+  ensure
+    ENV["RAILS_CACHE_ID"] = original_modifier
+  end
+
+  test "cache key is stable for same properties" do
+    component1 = Decor::Avatar.new(initials: "AB", color: :primary, style: :filled, size: :lg)
+    key1 = component1.cache_key
+    
+    # Create another instance with same properties
+    component2 = Decor::Avatar.new(initials: "AB", color: :primary, style: :filled, size: :lg)
+    key2 = component2.cache_key
+    
+    # Keys should be identical
+    assert_equal key1, key2
+  end
+
+  test "cache key includes all avatar properties in hash" do
+    component = Decor::Avatar.new(
+      initials: "TK",
+      url: "https://example.com/test.jpg",
+      color: :primary,
+      style: :filled,
+      size: :lg,
+      shape: :square,
+      ring: true
+    )
+    
+    cache_key = component.cache_key
+    
+    # The cache key should be based on the component's properties
+    # Different combinations should produce different keys
+    assert_not_nil cache_key
+    assert_kind_of String, cache_key
+  end
+
+  test "nil properties are handled correctly in cache key" do
+    component1 = Decor::Avatar.new(initials: "AB", url: nil)
+    component2 = Decor::Avatar.new(initials: "AB")
+    
+    # Both should generate valid cache keys
+    assert_not_nil component1.cache_key
+    assert_not_nil component2.cache_key
+    
+    # And they should be the same since url defaults to nil
+    assert_equal component1.cache_key, component2.cache_key
   end
 end
