@@ -11,8 +11,9 @@ module Decor
 
     # Layout configuration
     prop :layout, _Union(:default, :centered, :minimal, :hero, :compact, :page_like), default: :default
-    prop :size, _Union(:xs, :sm, :md, :lg, :xl), default: :md
     prop :background, _Union(:default, :hero, :gradient, :transparent), default: :default
+    
+    default_size :md
 
     # Visual options
     prop :border, _Boolean, default: true
@@ -80,7 +81,7 @@ module Decor
       {element_tag: :header}
     end
 
-    def element_classes
+    def root_element_classes
       classes = ["page-header"]
       classes << background_classes
       classes << padding_classes

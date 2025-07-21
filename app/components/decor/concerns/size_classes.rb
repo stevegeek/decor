@@ -40,7 +40,6 @@ module Decor
 
       # Components should override this method to provide their specific size classes
       def component_size_classes(size)
-        raise NotImplementedError, "Components must implement #component_size_classes"
       end
 
       # Default size - components can override

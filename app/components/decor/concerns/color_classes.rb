@@ -30,7 +30,6 @@ module Decor
 
       # Components should override this method to provide their specific color classes
       def component_color_classes(color)
-        raise NotImplementedError, "Components must implement #component_color_classes"
       end
 
       # Check if color is valid

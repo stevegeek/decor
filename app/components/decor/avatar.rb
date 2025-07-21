@@ -6,8 +6,7 @@ module Decor
 
     no_stimulus_controller
 
-    with_cache_key :attributes # FIXME: attributes is from vident but a opaque, lets change to to_h ?
-    # Also consider that as a defualt key method if cache key is added to component?
+    with_cache_key :to_h
 
     prop :url, _Nilable(_String(&:present?))
     prop :initials, _Nilable(_String(&:present?))
@@ -25,7 +24,6 @@ module Decor
     def root_element_classes
       shape_class
     end
-
 
     def view_template
       root_element do

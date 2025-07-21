@@ -8,8 +8,6 @@ module Decor
     prop :include_flash, _Boolean, default: true
     prop :full_height, _Boolean, default: false
 
-    # Modern attributes following Decor patterns
-    prop :size, _Union(:xs, :sm, :md, :lg, :xl), default: :md
     prop :background, _Union(:default, :primary, :secondary, :hero, :neutral), default: :default
     prop :padding, _Union(:none, :sm, :md, :lg, :xl), default: :md
     prop :spacing, _Union(:none, :sm, :md, :lg, :xl), default: :md

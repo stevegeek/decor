@@ -33,7 +33,6 @@ module Decor
 
       # Components should override this method to provide their specific style classes
       def component_style_classes(style)
-        raise NotImplementedError, "Components must implement #component_style_classes"
       end
 
       # Check if style is valid

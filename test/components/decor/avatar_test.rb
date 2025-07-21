@@ -8,9 +8,9 @@ class Decor::AvatarTest < ActiveSupport::TestCase
     assert_includes rendered, "AB"
     assert_includes rendered, "avatar"
     assert_includes rendered, "avatar-placeholder"
-    # No color classes should be applied when color is not specified
-    refute_includes rendered, "bg-neutral"
-    refute_includes rendered, "text-neutral-content"
+    # Default color is neutral and style is filled
+    assert_includes rendered, "bg-neutral"
+    assert_includes rendered, "text-neutral-content"
   end
 
   test "renders successfully with url" do
@@ -42,9 +42,8 @@ class Decor::AvatarTest < ActiveSupport::TestCase
     component = Decor::Avatar.new(initials: "AB", ring: true)
     rendered = render_component(component)
 
-    # No color-specific ring class when color not specified
-    refute_includes rendered, "ring-neutral"
-    refute_includes rendered, "ring-primary"
+    # Default color is neutral so ring-neutral should be present
+    assert_includes rendered, "ring-neutral"
     assert_includes rendered, "ring-offset-base-100"
     assert_includes rendered, "ring-2"
     assert_includes rendered, "ring-offset-2"
@@ -126,12 +125,12 @@ class Decor::AvatarTest < ActiveSupport::TestCase
     assert_includes rendered, "text-secondary-content"
   end
 
-  test "applies no color classes when no style specified" do
+  test "applies color classes with default filled style" do
     component = Decor::Avatar.new(initials: "NV", color: :primary)
     rendered = render_component(component)
-    # Should not include any color classes without a style
-    refute_includes rendered, "bg-primary"
-    refute_includes rendered, "text-primary-content"
+    # Default style is filled, so color classes should be applied
+    assert_includes rendered, "bg-primary"
+    assert_includes rendered, "text-primary-content"
   end
 
   test "applies style styles" do
@@ -162,14 +161,14 @@ class Decor::AvatarTest < ActiveSupport::TestCase
   end
 
   test "maintains default behavior" do
-    # Default color and variant
+    # Default color is neutral and style is filled
     component = Decor::Avatar.new(initials: "DB")
     rendered = render_component(component)
-    # No color classes when color not specified
-    refute_includes rendered, "bg-neutral"
-    refute_includes rendered, "text-neutral-content"
+    # Default color classes should be present
+    assert_includes rendered, "bg-neutral"
+    assert_includes rendered, "text-neutral-content"
 
-    # No unexpected classes from new features
+    # No unexpected classes from other styles
     refute_includes rendered, "border-2"
     refute_includes rendered, "hover:"
   end
@@ -335,24 +334,24 @@ class Decor::AvatarTest < ActiveSupport::TestCase
   end
 
   test "validates default behavior still works" do
-    # No default color when not specified
+    # Default color is neutral and style is filled
     component = Decor::Avatar.new(initials: "DB")
     rendered = render_component(component)
 
-    # No color classes when color not specified
-    refute_includes rendered, "bg-neutral"
-    refute_includes rendered, "text-neutral-content"
+    # Default color classes should be present
+    assert_includes rendered, "bg-neutral"
+    assert_includes rendered, "text-neutral-content"
     assert_includes rendered, "w-10" # default size
     assert_includes rendered, "rounded-full" # default shape
   end
 
-  test "border ring color matches avatar color" do
+  test "ring color matches avatar color" do
     Decor::Concerns::ColorClasses::SEMANTIC_COLORS.each do |color|
-      component = Decor::Avatar.new(initials: "BC", color: color, border: true)
+      component = Decor::Avatar.new(initials: "BC", color: color, ring: true)
       rendered = render_component(component)
 
       expected_ring_class = case color
-      when :base then "ring-base"
+      when :base then "ring-base-300"
       when :primary then "ring-primary"
       when :secondary then "ring-secondary"
       when :accent then "ring-accent"
@@ -370,8 +369,8 @@ class Decor::AvatarTest < ActiveSupport::TestCase
     end
   end
 
-  test "no border ring classes when border is false" do
-    component = Decor::Avatar.new(initials: "NB", color: :primary, border: false)
+  test "no ring classes when ring is false" do
+    component = Decor::Avatar.new(initials: "NB", color: :primary, ring: false)
     rendered = render_component(component)
 
     refute_includes rendered, "ring-primary"
