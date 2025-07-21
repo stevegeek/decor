@@ -19,14 +19,5 @@ module Decor
     include Decor::Concerns::SizeClasses
     include Decor::Concerns::ColorClasses
     include Decor::Concerns::StyleClasses
-
-    # TODO: upstream to Vident
-    def self.prop_names
-      literal_properties.properties_index.keys.map(&:to_sym)
-    end
-
-    def prop_names
-      self.class.prop_names
-    end
   end
 end

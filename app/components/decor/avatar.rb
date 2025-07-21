@@ -18,32 +18,27 @@ module Decor
 
     default_style :filled
     default_color :neutral
+    default_size :md
 
     private
 
-
-    # TODO: a DSL way of definig defaults
-    #
-    # TODO: should size_classes be automatically included in classes given its defined on component
-    # or responds to component_size_classes
-    def element_classes
-      classes = []
-      classes << shape_class
-      classes.join(" ")
+    def root_element_classes
+      shape_class
     end
 
 
     def view_template
       root_element do
+        classes = "#{color_classes} #{style_classes} #{size_classes} #{shape_class} #{avatar_ring_classes}"
         if @url
           div(class: "avatar") do
-            div(class: "#{size_classes} #{shape_class} #{avatar_ring_classes}") do
+            div(class: classes) do
               image_tag @url, alt: t(".image")
             end
           end
         else
           div(class: "avatar avatar-placeholder") do
-            div(class: "#{color_classes} #{style_classes} #{size_classes} #{shape_class} #{avatar_ring_classes}") do
+            div(class: classes) do
               span(class: text_size_class.to_s) { @initials }
             end
           end

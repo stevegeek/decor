@@ -38,8 +38,8 @@ class Decor::AvatarTest < ActiveSupport::TestCase
     refute_includes rendered, "rounded-full"
   end
 
-  test "applies ring classes when border is specified" do
-    component = Decor::Avatar.new(initials: "AB", border: true)
+  test "applies ring classes when ring is specified" do
+    component = Decor::Avatar.new(initials: "AB", ring: true)
     rendered = render_component(component)
 
     # No color-specific ring class when color not specified
@@ -177,7 +177,7 @@ class Decor::AvatarTest < ActiveSupport::TestCase
   # COMPREHENSIVE COLOR_CLASSES VALIDATION TESTS
 
   test "validates all color options with filled style" do
-    Decor::Concerns::ColorClassHelper::SEMANTIC_COLORS.each do |color|
+    Decor::Concerns::ColorClasses::SEMANTIC_COLORS.each do |color|
       component = Decor::Avatar.new(initials: "TC", color: color, style: :filled)
       rendered = render_component(component)
 
@@ -214,7 +214,7 @@ class Decor::AvatarTest < ActiveSupport::TestCase
   end
 
   test "validates all color options with outlined style" do
-    Decor::Concerns::ColorClassHelper::SEMANTIC_COLORS.each do |color|
+    Decor::Concerns::ColorClasses::SEMANTIC_COLORS.each do |color|
       component = Decor::Avatar.new(initials: "TC", color: color, style: :outlined)
       rendered = render_component(component)
 
@@ -253,7 +253,7 @@ class Decor::AvatarTest < ActiveSupport::TestCase
   end
 
   test "validates all color options with ghost style" do
-    Decor::Concerns::ColorClassHelper::SEMANTIC_COLORS.each do |color|
+    Decor::Concerns::ColorClasses::SEMANTIC_COLORS.each do |color|
       component = Decor::Avatar.new(initials: "TC", color: color, style: :ghost)
       rendered = render_component(component)
 
@@ -318,7 +318,7 @@ class Decor::AvatarTest < ActiveSupport::TestCase
 
   test "ensures no dynamic string building or nil values in output" do
     # Test that all combinations produce valid class strings with no interpolation artifacts
-    Decor::Concerns::ColorClassHelper::SEMANTIC_COLORS.each do |color|
+    Decor::Concerns::ColorClasses::SEMANTIC_COLORS.each do |color|
       [:filled, :outlined, :ghost].each do |style|
         component = Decor::Avatar.new(initials: "TC", color: color, style: style)
         rendered = render_component(component)
@@ -347,7 +347,7 @@ class Decor::AvatarTest < ActiveSupport::TestCase
   end
 
   test "border ring color matches avatar color" do
-    Decor::Concerns::ColorClassHelper::SEMANTIC_COLORS.each do |color|
+    Decor::Concerns::ColorClasses::SEMANTIC_COLORS.each do |color|
       component = Decor::Avatar.new(initials: "BC", color: color, border: true)
       rendered = render_component(component)
 

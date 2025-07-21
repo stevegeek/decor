@@ -16,7 +16,7 @@ module Decor
       module ClassMethods
         def default_size(size = nil)
           return self.config.default_size unless size
-          self.default_size = size
+          self.config.default_size = size
         end
       end
 

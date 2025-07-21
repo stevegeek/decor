@@ -29,8 +29,6 @@ gem "vident-phlex", github: "stevegeek/vident", branch: "main"
 gem "lookbook"
 gem "js_regex", "~> 3.5"
 
-gem "claude_swarm", github: "parruda/claude-swarm", branch: "main"
-
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
