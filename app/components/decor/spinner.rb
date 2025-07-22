@@ -4,8 +4,11 @@ module Decor
   class Spinner < PhlexComponent
     no_stimulus_controller
 
-    prop :size, _Union(:xs, :sm, :md, :lg), default: :md
-    prop :color, _Nilable(_Union(:white, :black, :primary, :secondary, :accent, :neutral, :info, :success, :warning, :error))
+    default_size :md
+    default_color :neutral
+    default_style :spinner
+
+    redefine_styles :spinner, :dots, :ring, :ball, :bars, :infinity
 
     def view_template
       root_element
@@ -13,28 +16,39 @@ module Decor
 
     private
 
-    def element_classes
+    def root_element_classes
       [
         "loading",
-        "loading-spinner",
-        size_class,
-        color_class
+        component_style_classes(@style),
+        component_size_classes(@size),
+        component_color_classes(@color)
       ].compact.join(" ")
     end
 
-    def size_class
-      case @size
+    def component_style_classes(style)
+      case style
+      when :spinner then "loading-spinner"
+      when :dots then "loading-dots"
+      when :ring then "loading-ring"
+      when :ball then "loading-ball"
+      when :bars then "loading-bars"
+      when :infinity then "loading-infinity"
+      end
+    end
+
+    def component_size_classes(size)
+      case size
       when :xs then "loading-xs"
       when :sm then "loading-sm"
       when :md then "loading-md"
       when :lg then "loading-lg"
+      when :xl then "loading-xl"
       end
     end
 
-    def color_class
-      case @color
-      when :white then "text-white"
-      when :black then "text-black"
+    def component_color_classes(color)
+      case color
+      when :base then "text-base-content"
       when :primary then "text-primary"
       when :secondary then "text-secondary"
       when :accent then "text-accent"

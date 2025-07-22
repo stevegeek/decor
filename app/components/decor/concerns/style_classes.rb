@@ -5,12 +5,19 @@ module Decor
     module StyleClasses
       module ClassMethods
         def styles
-          [:filled, :outlined, :ghost]
+          self.config.styles || [:filled, :outlined, :ghost]
         end
 
         def default_style(style = nil)
           return self.config.default_style unless style
           self.config.default_style = style
+        end
+
+        # DSL method to redefine styles for a component
+        def redefine_styles(*new_styles)
+          self.config.styles = new_styles
+          # Redefine the style prop with the new styles
+          prop :style, _Nilable(_Union(*new_styles)), default: -> { self.config.default_style }
         end
       end
 
