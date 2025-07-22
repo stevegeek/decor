@@ -14,16 +14,38 @@ module Decor
       }.freeze
 
       module ClassMethods
+        def sizes
+          self.config.sizes || STANDARD_SIZES
+        end
+
+        def size_aliases
+          self.config.size_aliases || SIZE_ALIASES
+        end
+
         def default_size(size = nil)
           return self.config.default_size unless size
           self.config.default_size = size
+        end
+
+        # DSL method to redefine sizes for a component
+        def redefine_sizes(*new_sizes)
+          self.config.sizes = new_sizes
+          # Redefine the size prop with the new sizes and current aliases
+          prop :size, _Nilable(_Union(*(size_aliases.keys + new_sizes))), default: -> { self.config.default_size }
+        end
+
+        # DSL method to redefine size aliases for a component
+        def redefine_size_aliases(new_aliases)
+          self.config.size_aliases = new_aliases
+          # Redefine the size prop with the current sizes and new aliases
+          prop :size, _Nilable(_Union(*(new_aliases.keys + sizes))), default: -> { self.config.default_size }
         end
       end
 
       def self.included(base)
         base.extend(ClassMethods)
         base.class_eval do
-          prop :size, _Nilable(_Union(*(SIZE_ALIASES.keys + STANDARD_SIZES))), default: -> { self.config.default_size }
+          prop :size, _Nilable(_Union(*(size_aliases.keys + sizes))), default: -> { self.config.default_size }
         end
       end
 
@@ -48,12 +70,12 @@ module Decor
 
       # Normalize size aliases to standard sizes
       def normalize_size(size)
-        SIZE_ALIASES[size] || size
+        self.class.size_aliases[size] || size
       end
 
       # Check if size is valid
       def valid_size?(size)
-        STANDARD_SIZES.include?(size)
+        self.class.sizes.include?(size)
       end
 
       # Helper methods for common size-related calculations

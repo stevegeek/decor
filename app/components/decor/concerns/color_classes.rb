@@ -6,16 +6,27 @@ module Decor
       SEMANTIC_COLORS = %i[base primary secondary accent neutral success error warning info].freeze
 
       module ClassMethods
+        def colors
+          self.config.colors || SEMANTIC_COLORS
+        end
+
         def default_color(color = nil)
           return self.config.default_color unless color
           self.config.default_color = color
+        end
+
+        # DSL method to redefine colors for a component
+        def redefine_colors(*new_colors)
+          self.config.colors = new_colors
+          # Redefine the color prop with the new colors
+          prop :color, _Nilable(_Union(*new_colors)), default: -> { self.config.default_color }
         end
       end
 
       def self.included(base)
         base.extend(ClassMethods)
         base.class_eval do
-          prop :color, _Nilable(_Union(*SEMANTIC_COLORS)), default: -> { self.config.default_color }
+          prop :color, _Nilable(_Union(*colors)), default: -> { self.config.default_color }
         end
       end
 
@@ -34,7 +45,7 @@ module Decor
 
       # Check if color is valid
       def valid_color?(color)
-        SEMANTIC_COLORS.include?(color)
+        self.class.colors.include?(color)
       end
 
       def text_color_classes(color = @color)
