@@ -99,7 +99,6 @@ module Decor
                   render ::Decor::Avatar.new(
                     size: :md,
                     initials: "C",
-                    border: false,
                     url: @avatar_logo_url,
                     classes: "hidden",
                     stimulus_targets: [el.stimulus_target(:desktop_avatar_logo)]

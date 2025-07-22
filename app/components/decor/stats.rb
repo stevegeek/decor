@@ -44,7 +44,10 @@ module Decor
         classes << "stats-vertical"
       end
 
-      classes.join(" ")
+      classes << component_shadow_classes if component_shadow_classes
+      classes << component_background_classes if component_background_classes
+
+      classes.compact.join(" ")
     end
 
     def component_shadow_classes

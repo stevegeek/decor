@@ -12,14 +12,14 @@ class Decor::LinkTest < ActiveSupport::TestCase
   end
 
   test "renders with different themes" do
-    component = Decor::Link.new(label: "Link", href: "#", color: :danger)
+    component = Decor::Link.new(label: "Link", href: "#", color: :error)
     rendered = render_component(component)
 
     assert_includes rendered, "link-error"
   end
 
   test "renders with different sizes" do
-    component = Decor::Link.new(label: "Link", href: "#", size: :large)
+    component = Decor::Link.new(label: "Link", href: "#", size: :lg)
     rendered = render_component(component)
 
     assert_includes rendered, "text-lg"
@@ -73,7 +73,7 @@ class Decor::LinkTest < ActiveSupport::TestCase
   end
 
   test "applies correct daisyUI link classes" do
-    component = Decor::Link.new(label: "Test", href: "#", color: :primary, size: :medium)
+    component = Decor::Link.new(label: "Test", href: "#", color: :primary, size: :md)
     rendered = render_component(component)
 
     assert_includes rendered, "btn-link"

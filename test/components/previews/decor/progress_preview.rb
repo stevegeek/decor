@@ -71,7 +71,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
   # @param vertical toggle
   # @param size [Symbol] select [~, xs, sm, md, lg, xl]
   # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
-  # @param style [Symbol] select [~, filled, outlined, ghost, steps, progress, both]
+  # @param style [Symbol] select [~, steps, progress, both]
   def playground(
     i18n_key: "",
     current_step: 3,

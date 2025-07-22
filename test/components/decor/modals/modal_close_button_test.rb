@@ -33,8 +33,8 @@ class Decor::Modals::ModalCloseButtonTest < ActiveSupport::TestCase
 
   test "supports custom button styling" do
     component = Decor::Modals::ModalCloseButton.new(
-      variant: :outlined,
-      size: :small
+      style: :outlined,
+      size: :sm
     )
     rendered = render_component(component)
 

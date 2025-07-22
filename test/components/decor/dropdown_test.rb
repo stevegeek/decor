@@ -42,7 +42,7 @@ class Decor::DropdownTest < ActiveSupport::TestCase
   end
 
   test "applies menu classes" do
-    rendered = render_component(Decor::Dropdown.new(color: :primary, variant: :filled)) do |dropdown|
+    rendered = render_component(Decor::Dropdown.new(color: :primary, style: :filled)) do |dropdown|
       dropdown.menu_item(::Decor::DropdownItem.new(text: "Item 1"))
     end
 
@@ -116,9 +116,9 @@ class Decor::DropdownTest < ActiveSupport::TestCase
     assert_includes rendered, "btn-primary"
   end
 
-  test "applies modern variant classes" do
-    rendered = render_component(Decor::Dropdown.new(variant: :bordered)) do |dropdown|
-      dropdown.trigger_button_content { "Bordered Button" }
+  test "applies modern style classes" do
+    rendered = render_component(Decor::Dropdown.new(style: :outlined)) do |dropdown|
+      dropdown.trigger_button_content { "Outlined Button" }
       dropdown.menu_item(::Decor::DropdownItem.new(text: "Item 1"))
     end
 

@@ -20,7 +20,8 @@ module Decor
         "px-2 py-1 rounded font-mono",
         # Use unified system
         size_classes,
-        style_classes
+        # Apply color classes if color is specified, otherwise use style classes
+        (@color && @color != :base) ? component_color_classes(@color) : style_classes
       ].compact.join(" ")
     end
 

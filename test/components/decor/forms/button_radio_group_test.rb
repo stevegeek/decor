@@ -65,7 +65,7 @@ class Decor::Forms::ButtonRadioGroupTest < ActiveSupport::TestCase
     component = Decor::Forms::ButtonRadioGroup.new(
       name: "preference",
       choices: @choices,
-      variant: :solid
+      style: :filled
     )
     rendered = render_component(component)
 

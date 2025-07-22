@@ -298,21 +298,21 @@ class Decor::CardTest < ActiveSupport::TestCase
     assert_includes output, "card-xs"
   end
 
-  def test_card_with_variant_outlined
-    card = ::Decor::Card.new(variant: :outlined, color: :primary)
+  def test_card_with_style_outlined
+    card = ::Decor::Card.new(style: :outlined, color: :primary)
     output = card.call
     assert_includes output, "border"
     assert_includes output, "border-primary"
     assert_includes output, "bg-base-100"
   end
 
-  def test_card_with_variant_ghost
-    card = ::Decor::Card.new(variant: :ghost)
+  def test_card_with_style_ghost
+    card = ::Decor::Card.new(style: :ghost)
     output = card.call
     assert_includes output, "shadow-none"
   end
 
-  def test_card_defaults_to_base_color_and_filled_variant
+  def test_card_defaults_to_base_color_and_filled_style
     card = ::Decor::Card.new
     output = card.call
     assert_includes output, "bg-base-100"

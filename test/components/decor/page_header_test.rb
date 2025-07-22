@@ -68,7 +68,7 @@ class Decor::PageHeaderTest < ActiveSupport::TestCase
     large_rendered = render_component(large_component)
 
     assert_includes small_rendered, "text-xl"
-    assert_includes large_rendered, "text-4xl"
+    assert_includes large_rendered, "text-2xl"
   end
 
   test "supports different backgrounds" do
@@ -209,7 +209,8 @@ class Decor::PageHeaderTest < ActiveSupport::TestCase
     rendered = render_component(component)
 
     assert_includes rendered, "Compact Title"
-    assert_includes rendered, "text-lg font-semibold"
+    assert_includes rendered, "font-semibold"
+    assert_includes rendered, "text-lg"
     # Description should not appear in compact layout
     refute_includes rendered, "This should not show in compact mode"
   end

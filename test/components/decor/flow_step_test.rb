@@ -102,21 +102,21 @@ module Decor
     end
 
     def test_modern_filled_variant
-      render_inline(FlowStep.new(title: "Test", step: 1, color: :primary, variant: :filled))
+      render_inline(FlowStep.new(title: "Test", step: 1, color: :primary, style: :filled))
 
       # Filled variant styling on span
       assert_selector "span.bg-primary.text-primary-content"
     end
 
     def test_modern_outlined_variant
-      render_inline(FlowStep.new(title: "Test", step: 1, color: :primary, variant: :outlined))
+      render_inline(FlowStep.new(title: "Test", step: 1, color: :primary, style: :outlined))
 
       # Outlined variant styling on span
       assert_selector "span.text-primary.border-2.border-primary"
     end
 
     def test_modern_ghost_variant
-      render_inline(FlowStep.new(title: "Test", step: 1, color: :primary, variant: :ghost))
+      render_inline(FlowStep.new(title: "Test", step: 1, color: :primary, style: :ghost))
 
       # Ghost variant styling on span
       assert_selector "span.text-primary.border-2.border-transparent"

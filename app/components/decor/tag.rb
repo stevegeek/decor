@@ -33,7 +33,7 @@ module Decor
         if @icon.present?
           render ::Decor::Icon.new(
             name: @icon,
-            variant: :outline,
+            style: :outline,
             html_options: {
               class: icon_classes
             }
@@ -90,7 +90,7 @@ module Decor
         span(class: "sr-only") { "Remove tag" }
         render ::Decor::Icon.new(
           name: "x-mark",
-          variant: :outline,
+          style: :outline,
           html_options: {
             class: remove_icon_classes
           }

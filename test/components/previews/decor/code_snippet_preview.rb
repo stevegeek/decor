@@ -91,9 +91,9 @@ class ::Decor::CodeSnippetPreview < ::Lookbook::Preview
   end
 
   # @group Sizes
-  # @label Normal Size
-  def size_normal
-    render ::Decor::CodeSnippet.new(size: :normal) { "normal_code()" }
+  # @label Medium Size (Default)
+  def size_md
+    render ::Decor::CodeSnippet.new(size: :md) { "medium_code()" }
   end
 
   # @group Sizes

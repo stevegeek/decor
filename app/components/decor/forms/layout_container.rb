@@ -30,7 +30,7 @@ module Decor
 
       private
 
-      def element_classes
+      def root_element_classes
         "space-y-8 divide-y divide-gray-200"
       end
     end

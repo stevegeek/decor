@@ -9,10 +9,12 @@ module Decor
       # Button groups mostly don't have labels
       prop :show_label, _Boolean, default: false
 
-      # Variant styling options
-      prop :variant, _Union(:outline, :solid, :ghost, :link), default: :outline
-      prop :size, _Union(:xs, :sm, :md, :lg, :xl), default: :md
-      prop :color, _Union(:primary, :secondary, :accent, :neutral, :success, :warning, :info, :error), default: :primary
+      # Use unified prop system
+      default_size :md
+      default_color :primary
+      default_style :outlined
+
+      redefine_styles :outlined, :filled, :ghost, :link
 
       stimulus do
         classes valid_label: -> { @disabled ? "text-disabled" : "text-gray-900" },
@@ -109,35 +111,36 @@ module Decor
 
       def button_classes(value)
         classes = ["join-item", "btn"]
-        classes << button_variant_class unless @variant == :outline
-        classes << button_size_class unless @size == :md
-        classes << button_color_class unless @color == :primary
+        classes << size_classes unless @size == :md
+        classes << color_classes unless @color == :primary
+        classes << style_classes unless @style == :outlined
         classes << "btn-active" if @selected_choice == value
         classes << "btn-disabled" if @disabled
         classes.compact.join(" ")
       end
 
-      def button_variant_class
-        case @variant
-        when :solid then "btn-primary"
+      def component_style_classes(style)
+        case style
+        when :filled then "btn-primary"
         when :ghost then "btn-ghost"
         when :link then "btn-link"
+        when :outlined then ""  # outline is default btn style
         else ""
         end
       end
 
-      def button_size_class
-        case @size
+      def component_size_classes(size)
+        case size
         when :xs then "btn-xs"
         when :sm then "btn-sm"
         when :lg then "btn-lg"
         when :xl then "btn-xl"
-        else ""
+        else ""  # md is default
         end
       end
 
-      def button_color_class
-        case @color
+      def component_color_classes(color)
+        case color
         when :secondary then "btn-secondary"
         when :accent then "btn-accent"
         when :neutral then "btn-neutral"
@@ -145,7 +148,8 @@ module Decor
         when :warning then "btn-warning"
         when :info then "btn-info"
         when :error then "btn-error"
-        else ""
+        when :base then ""
+        else ""  # primary is default
         end
       end
     end

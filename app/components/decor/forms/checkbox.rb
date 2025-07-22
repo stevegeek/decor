@@ -48,32 +48,34 @@ module Decor
 
       def checkbox_classes
         classes = ["checkbox"]
-        classes << checkbox_color_class if @color && @color != :primary
-        classes << checkbox_size_class unless @size == :md
+        classes << component_size_classes(@size).join(" ")
+        classes << component_color_classes(@color).join(" ")
         classes << "checkbox-error" if errors?
-        classes.compact.join(" ")
+        classes.compact.join(" ").strip
       end
 
-      def checkbox_color_class
-        case @color
-        when :secondary then "checkbox-secondary"
-        when :accent then "checkbox-accent"
-        when :neutral then "checkbox-neutral"
-        when :success then "checkbox-success"
-        when :warning then "checkbox-warning"
-        when :info then "checkbox-info"
-        when :error then "checkbox-error"
-        else ""
+      def component_size_classes(size)
+        case size
+        when :xs then ["checkbox-xs"]
+        when :sm then ["checkbox-sm"]
+        when :md then [] # default
+        when :lg then ["checkbox-lg"]
+        when :xl then ["checkbox-xl"]
+        else []
         end
       end
 
-      def checkbox_size_class
-        case @size
-        when :xs then "checkbox-xs"
-        when :sm then "checkbox-sm"
-        when :lg then "checkbox-lg"
-        when :xl then "checkbox-xl"
-        else ""
+      def component_color_classes(color)
+        case color
+        when :primary then ["checkbox-primary"]
+        when :secondary then ["checkbox-secondary"]
+        when :accent then ["checkbox-accent"]
+        when :success then ["checkbox-success"]
+        when :error then ["checkbox-error"]
+        when :warning then ["checkbox-warning"]
+        when :info then ["checkbox-info"]
+        when :neutral then ["checkbox-neutral"]
+        else [] # base/neutral
         end
       end
 

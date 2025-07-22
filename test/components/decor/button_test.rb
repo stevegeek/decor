@@ -33,7 +33,7 @@ class Decor::ButtonTest < ActiveSupport::TestCase
   end
 
   test "applies correct size classes" do
-    component = Decor::Button.new(label: "Large", size: :large)
+    component = Decor::Button.new(label: "Large", size: :lg)
     rendered = render_component(component)
 
     assert_includes rendered, "btn-lg"
@@ -86,19 +86,18 @@ class Decor::ButtonTest < ActiveSupport::TestCase
   end
 
   test "applies small size correctly" do
-    component = Decor::Button.new(label: "Small", size: :small)
+    component = Decor::Button.new(label: "Small", size: :sm)
     rendered = render_component(component)
 
     assert_includes rendered, "btn-sm"
   end
 
-  test "applies micro size correctly" do
-    component = Decor::Button.new(label: "Micro", size: :micro)
+  test "applies xs size correctly" do
+    component = Decor::Button.new(label: "XS", size: :xs)
     rendered = render_component(component)
 
     assert_includes rendered, "btn-xs"
   end
-
 
   test "applies xs size correctly (alias for micro)" do
     component = Decor::Button.new(label: "XS", size: :xs)
@@ -224,7 +223,6 @@ class Decor::ButtonTest < ActiveSupport::TestCase
     assert_includes rendered, "size-6"
     assert_includes rendered, "pr-1"
   end
-
 
   test "small size button icons get size-5.5 pr-1 classes" do
     component = Decor::Button.new(label: "Small", size: :small, icon: "home")

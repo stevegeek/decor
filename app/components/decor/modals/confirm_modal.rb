@@ -3,7 +3,13 @@
 module Decor
   module Modals
     class ConfirmModal < Modal
+      include Decor::Concerns::StyleColorClasses
       MODAL_TYPES = [:info, :warning, :error, :success].freeze
+
+      # Set defaults for the unified size/color/style system
+      default_size :md
+      default_color :base
+      default_style :filled
 
       stimulus do
         targets :positive_button, :negative_button, :title, :message
@@ -30,10 +36,10 @@ module Decor
 
             div(
               id: "#{id}-content",
-              class: "#{class_list_for_stimulus_classes(:modal_entering_from)} relative inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 lg:align-middle max-w-xl sm:w-full sm:p-6",
+              class: "#{class_list_for_stimulus_classes(:modal_entering_from)} relative inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 lg:align-middle #{component_size_classes(@size)} sm:w-full sm:p-6",
               data: {**stimulus_target(:modal)}
             ) do
-              div(class: "bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4") do
+              div(class: "#{component_style_classes(@style) || "bg-white"} px-4 pt-5 pb-4 sm:p-6 sm:pb-4") do
                 div(class: "sm:flex sm:items-start") do
                   modal_types.each do |type|
                     div(class: "#{component_name}-#{type}-icon hidden mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full #{icon_bg_color(type)} sm:mx-0 sm:h-10 sm:w-10") do
@@ -53,6 +59,7 @@ module Decor
               div(class: "bg-gray-50 px-4 py-3 sm:px-6 flex flex-row-reverse") do
                 render ::Decor::Button.new(
                   label: "Continue",
+                  color: :primary,
                   classes: "ml-3 w-auto text-sm",
                   html_options: {
                     data: {
@@ -91,8 +98,37 @@ module Decor
         }
       end
 
-      def element_classes
+      def root_element_classes
         "fixed hidden z-10 inset-0 overflow-y-auto"
+      end
+
+      # Implement unified system methods
+      def component_size_classes(size)
+        # Modal size affects the max-width of the modal content
+        case size
+        when :xs then "max-w-xs"
+        when :sm then "max-w-sm"
+        when :md then "max-w-md"
+        when :lg then "max-w-lg"
+        when :xl then "max-w-xl"
+        when :xxl then "max-w-2xl"
+        else
+          "max-w-md"
+        end
+      end
+
+      def component_style_classes(style)
+        # Modal styling affects the background and border of the modal content
+        case style
+        when :filled
+          filled_color_classes(@color)
+        when :outlined
+          "#{outline_color_classes(@color)} bg-base-100"
+        when :ghost
+          "#{ghost_color_classes(@color)} shadow-none"
+        else
+          ""
+        end
       end
 
       def modal_types

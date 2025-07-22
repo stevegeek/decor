@@ -78,7 +78,7 @@ class Decor::AvatarTest < ActiveSupport::TestCase
     component = Decor::Avatar.new(initials: "AB")
     rendered = render_component(component)
 
-    assert_includes rendered, "w-10"
+    assert_includes rendered, "w-8"
     assert_includes rendered, "text-base"
   end
 
@@ -86,19 +86,19 @@ class Decor::AvatarTest < ActiveSupport::TestCase
     # Test xs size
     component = Decor::Avatar.new(initials: "XS", size: :xs)
     rendered = render_component(component)
-    assert_includes rendered, "w-6"
-    assert_includes rendered, "text-xs"
+    assert_includes rendered, "w-4"
+    assert_includes rendered, "text-2xs"
 
     # Test sm size
     component = Decor::Avatar.new(initials: "SM", size: :sm)
     rendered = render_component(component)
-    assert_includes rendered, "w-8"
+    assert_includes rendered, "w-6"
     assert_includes rendered, "text-sm"
 
     # Test md size (default)
     component = Decor::Avatar.new(initials: "MD", size: :md)
     rendered = render_component(component)
-    assert_includes rendered, "w-10"
+    assert_includes rendered, "w-8"
     assert_includes rendered, "text-base"
 
     # Test lg size
@@ -340,7 +340,7 @@ class Decor::AvatarTest < ActiveSupport::TestCase
     # Default color classes should be present
     assert_includes rendered, "bg-neutral"
     assert_includes rendered, "text-neutral-content"
-    assert_includes rendered, "w-10" # default size
+    assert_includes rendered, "w-8" # default size
     assert_includes rendered, "rounded-full" # default shape
   end
 
@@ -389,7 +389,7 @@ class Decor::AvatarTest < ActiveSupport::TestCase
   test "cache key includes avatar properties" do
     component1 = Decor::Avatar.new(initials: "AB", color: :primary, style: :filled, size: :lg, shape: :circle, ring: true)
     component2 = Decor::Avatar.new(initials: "AB", color: :primary, style: :filled, size: :lg, shape: :circle, ring: true)
-    
+
     # Same props should generate same cache key
     assert_equal component1.cache_key, component2.cache_key
   end
@@ -397,76 +397,76 @@ class Decor::AvatarTest < ActiveSupport::TestCase
   test "cache key differs for different initials" do
     component1 = Decor::Avatar.new(initials: "AB")
     component2 = Decor::Avatar.new(initials: "CD")
-    
+
     refute_equal component1.cache_key, component2.cache_key
   end
 
   test "cache key differs for different urls" do
     component1 = Decor::Avatar.new(url: "https://example.com/avatar1.jpg")
     component2 = Decor::Avatar.new(url: "https://example.com/avatar2.jpg")
-    
+
     refute_equal component1.cache_key, component2.cache_key
   end
 
   test "cache key differs for different colors" do
     component1 = Decor::Avatar.new(initials: "AB", color: :primary)
     component2 = Decor::Avatar.new(initials: "AB", color: :secondary)
-    
+
     refute_equal component1.cache_key, component2.cache_key
   end
 
   test "cache key differs for different styles" do
     component1 = Decor::Avatar.new(initials: "AB", style: :filled)
     component2 = Decor::Avatar.new(initials: "AB", style: :outlined)
-    
+
     refute_equal component1.cache_key, component2.cache_key
   end
 
   test "cache key differs for different sizes" do
     component1 = Decor::Avatar.new(initials: "AB", size: :sm)
     component2 = Decor::Avatar.new(initials: "AB", size: :lg)
-    
+
     refute_equal component1.cache_key, component2.cache_key
   end
 
   test "cache key differs for different shapes" do
     component1 = Decor::Avatar.new(initials: "AB", shape: :circle)
     component2 = Decor::Avatar.new(initials: "AB", shape: :square)
-    
+
     refute_equal component1.cache_key, component2.cache_key
   end
 
   test "cache key differs for different ring values" do
     component1 = Decor::Avatar.new(initials: "AB", ring: true)
     component2 = Decor::Avatar.new(initials: "AB", ring: false)
-    
+
     refute_equal component1.cache_key, component2.cache_key
   end
 
   test "cache key includes component modified time" do
     component = Decor::Avatar.new(initials: "AB")
     cache_key = component.cache_key
-    
+
     # Cache key should include component class name
     assert_includes cache_key, "Decor::Avatar"
-    
+
     # Should be able to get component_modified_time
     assert_respond_to component, :component_modified_time
   end
 
   test "cache key respects cache key modifier from environment" do
     original_modifier = ENV["RAILS_CACHE_ID"]
-    
+
     # Test with no modifier
     ENV["RAILS_CACHE_ID"] = nil
     component1 = Decor::Avatar.new(initials: "AB")
     key1 = component1.cache_key
-    
+
     # Test with modifier
     ENV["RAILS_CACHE_ID"] = "v2"
     component2 = Decor::Avatar.new(initials: "AB")
     key2 = component2.cache_key
-    
+
     # Keys should be different with different modifiers
     refute_equal key1, key2
     assert_includes key2, "v2"
@@ -477,11 +477,11 @@ class Decor::AvatarTest < ActiveSupport::TestCase
   test "cache key is stable for same properties" do
     component1 = Decor::Avatar.new(initials: "AB", color: :primary, style: :filled, size: :lg)
     key1 = component1.cache_key
-    
+
     # Create another instance with same properties
     component2 = Decor::Avatar.new(initials: "AB", color: :primary, style: :filled, size: :lg)
     key2 = component2.cache_key
-    
+
     # Keys should be identical
     assert_equal key1, key2
   end
@@ -496,9 +496,9 @@ class Decor::AvatarTest < ActiveSupport::TestCase
       shape: :square,
       ring: true
     )
-    
+
     cache_key = component.cache_key
-    
+
     # The cache key should be based on the component's properties
     # Different combinations should produce different keys
     assert_not_nil cache_key
@@ -508,11 +508,11 @@ class Decor::AvatarTest < ActiveSupport::TestCase
   test "nil properties are handled correctly in cache key" do
     component1 = Decor::Avatar.new(initials: "AB", url: nil)
     component2 = Decor::Avatar.new(initials: "AB")
-    
+
     # Both should generate valid cache keys
     assert_not_nil component1.cache_key
     assert_not_nil component2.cache_key
-    
+
     # And they should be the same since url defaults to nil
     assert_equal component1.cache_key, component2.cache_key
   end

@@ -67,6 +67,8 @@ module Decor
         :h3
       when :lg
         :h2
+      when :xl
+        :h1
       else
         :h3
       end

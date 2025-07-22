@@ -6,9 +6,12 @@ module Decor
       prop :size, _Nilable(Integer)
       prop :hide_after_showing, _Nilable(Integer)
 
-      # Variant styling options
-      prop :variant, _Union(:default, :joined), default: :default
-      prop :color, _Union(:primary, :secondary, :accent, :neutral, :success, :warning, :info, :error), default: :primary
+      # Use unified color system for button styling
+      default_color :primary
+
+      # ExpandingCheckboxCollection uses domain-specific styles for layout
+      default_style :default
+      redefine_styles :default, :joined
 
       stimulus do
         outlets checkbox: ::Decor::Forms::Checkbox.stimulus_identifier
@@ -70,14 +73,14 @@ module Decor
 
       def checkbox_container_classes
         classes = ["space-y-2"]
-        classes << "join join-vertical" if @variant == :joined
+        classes << "join join-vertical" if @style == :joined
         classes.compact.join(" ")
       end
 
       def show_more_button_classes
         classes = ["btn", "btn-sm"]
         classes << show_more_color_class unless @color == :primary
-        classes << "btn-outline" unless @variant == :solid
+        classes << "btn-outline" unless @style == :solid
         classes.compact.join(" ")
       end
 
@@ -90,6 +93,7 @@ module Decor
         when :warning then "btn-warning"
         when :info then "btn-info"
         when :error then "btn-error"
+        when :base then ""
         else ""
         end
       end

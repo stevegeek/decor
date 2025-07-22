@@ -35,7 +35,7 @@ class Decor::SwitchingBoxTest < ActiveSupport::TestCase
     # Should include Box classes
     assert_includes rendered, "card"
     assert_includes rendered, "card-bordered"
-    assert_includes rendered, "bg-base-200"
+    assert_includes rendered, "bg-base-100"
   end
 
   test "renders with title and description" do
@@ -156,6 +156,6 @@ class Decor::SwitchingBoxTest < ActiveSupport::TestCase
 
     assert_includes rendered, "decor--switching-box"
     assert_includes rendered, "card-bordered"
-    assert_includes rendered, "bg-base-200"
+    assert_includes rendered, "bg-base-100"
   end
 end

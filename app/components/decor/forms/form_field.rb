@@ -65,9 +65,9 @@ module Decor
       # Format: "decor/forms/form_control" (which represents decor/forms/form_control_controller.ts)
       prop :form_control_controller_path, String, default: "decor/forms/form_control"
 
-      # DaisyUI styling attributes
-      prop :color, _Union(:primary, :secondary, :accent, :success, :error, :warning, :info, :ghost, :neutral), default: :primary
-      prop :size, _Union(:xs, :sm, :md, :lg, :xl), default: :md
+      default_size :md
+      default_color :primary
+      default_style :filled
 
       private
 
@@ -112,7 +112,7 @@ module Decor
         @floating_error_text
       end
 
-      def element_classes
+      def root_element_classes
         [::Decor::Forms::FormField.stimulus_identifier, "w-full", disabled? && "disabled"] + grid_span_class
       end
 

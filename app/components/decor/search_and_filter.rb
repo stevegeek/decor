@@ -103,7 +103,7 @@ module Decor
                   ) do
                     render ::Decor::Icon.new(
                       name: "filter",
-                      variant: filters_active ? :solid : :outline,
+                      style: filters_active ? :solid : :outline,
                       html_options: {class: "h-5 w-5 text-gray-400"}
                     )
 
@@ -168,7 +168,7 @@ module Decor
                         icon: "x",
                         size: :small,
                         color: :danger,
-                        variant: :outlined,
+                        style: :outlined,
                         full_width: true
                       )
                     end

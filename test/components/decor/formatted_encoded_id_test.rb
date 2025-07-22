@@ -85,11 +85,11 @@ class Decor::FormattedEncodedIdTest < ActiveSupport::TestCase
     assert_includes rendered, "inline-flex items-center"
   end
 
-  test "file_name method returns correct path structure" do
+  test "root_element_classes method returns correct classes" do
     component = Decor::FormattedEncodedId.new(encoded_id: "ABC123DEF456")
 
-    # Test that element_classes method returns expected classes
-    classes = component.send(:element_classes)
+    # Test that root_element_classes method returns expected classes
+    classes = component.send(:root_element_classes)
     assert_equal "inline-flex items-center", classes
   end
 

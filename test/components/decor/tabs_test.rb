@@ -167,22 +167,22 @@ class Decor::TabsTest < ActiveSupport::TestCase
     assert_includes rendered, "text-primary"
   end
 
-  test "supports visual variants" do
-    component = Decor::Tabs.new(variant: :lifted)
+  test "supports visual styles" do
+    component = Decor::Tabs.new(style: :lifted)
     rendered = render_component(component)
 
     assert_includes rendered, "tabs-lift"
   end
 
-  test "defaults to bordered variant" do
+  test "defaults to bordered style" do
     component = Decor::Tabs.new
     rendered = render_component(component)
 
     assert_includes rendered, "tabs-border"
   end
 
-  test "supports boxed variant" do
-    component = Decor::Tabs.new(variant: :boxed)
+  test "supports boxed style" do
+    component = Decor::Tabs.new(style: :boxed)
     rendered = render_component(component)
 
     assert_includes rendered, "tabs-box"

@@ -85,7 +85,7 @@ class Decor::ButtonLinkTest < ActiveSupport::TestCase
       label: "Styled Link",
       href: "/test",
       color: :primary,
-      size: :large
+      size: :lg
     )
 
     rendered = render_fragment(component)

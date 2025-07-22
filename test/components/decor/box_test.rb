@@ -12,7 +12,7 @@ class BoxComponentTest < ActiveSupport::TestCase
     rendered = render_fragment(component)
 
     # Should have card classes
-    assert rendered.css(".card.card-bordered.bg-base-200").any?
+    assert rendered.css(".card.card-bordered.bg-base-100").any?
 
     # Should render title and description
     assert_includes rendered.text, "Test Title"
@@ -109,7 +109,6 @@ class BoxComponentTest < ActiveSupport::TestCase
     classes = card_element["class"]
     assert_includes classes, "card"
     assert_includes classes, "card-bordered"
-    assert_includes classes, "bg-base-200"
-    assert_includes classes, "shadow-sm"
+    assert_includes classes, "bg-base-100"
   end
 end

@@ -11,7 +11,7 @@ class Decor::IconTest < ActiveSupport::TestCase
   end
 
   test "applies correct variant classes" do
-    component = Decor::Icon.new(name: "user", variant: :solid)
+    component = Decor::Icon.new(name: "user", style: :solid)
     rendered = render_component(component)
 
     assert_includes rendered, "heroicons/solid/user"
@@ -33,7 +33,7 @@ class Decor::IconTest < ActiveSupport::TestCase
   end
 
   test "renders small solid variant" do
-    component = Decor::Icon.new(name: "check", variant: :small_solid)
+    component = Decor::Icon.new(name: "check", style: :small_solid)
     rendered = render_component(component)
 
     assert_includes rendered, "heroicons/small_solid/check"
@@ -49,7 +49,7 @@ class Decor::IconTest < ActiveSupport::TestCase
   end
 
   test "generates correct file name" do
-    component = Decor::Icon.new(name: "arrow-left", collection: :heroicons, variant: :outline)
+    component = Decor::Icon.new(name: "arrow-left", collection: :heroicons, style: :outline)
     expected_filename = "heroicons/outline/arrow-left.svg"
 
     assert_equal expected_filename, component.file_name

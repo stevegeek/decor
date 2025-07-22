@@ -7,7 +7,8 @@
 require_relative "config/environment"
 
 class PreviewTester
-  def initialize
+  def initialize(verbose: ENV["VERBOSE"] == "true")
+    @verbose = verbose
     @results = {
       passed: [],
       failed: [],
@@ -44,8 +45,10 @@ class PreviewTester
   end
 
   def test_preview_class(preview_class)
-    puts "\n📋 Testing #{preview_class.name}"
-    puts "-" * 40
+    if @verbose
+      puts "\n📋 Testing #{preview_class.name}"
+      puts "-" * 40
+    end
 
     # Get all public instance methods that don't start with _ and aren't inherited
     preview_methods = preview_class.instance_methods(false).reject do |method|
@@ -84,7 +87,7 @@ class PreviewTester
       end
 
       @results[:passed] << "#{preview_class.name}##{method_name}"
-      puts "  ✅ #{method_name}"
+      puts "  ✅ #{method_name}" if @verbose
     rescue => e
       @results[:failed] << {
         method: "#{preview_class.name}##{method_name}",
@@ -92,7 +95,7 @@ class PreviewTester
         message: e.message,
         backtrace: e.backtrace.first(5)
       }
-      puts "  ❌ #{method_name} - #{e.class.name}: #{e.message}"
+      puts "  ❌ #{method_name} - #{e.class.name}: #{e.message}" if @verbose
     end
   end
 
@@ -131,9 +134,13 @@ class PreviewTester
       end
     end
 
-    puts "\n✅ PASSED METHODS:" if @results[:passed].any?
-    @results[:passed].each do |method|
-      puts "  - #{method}"
+    if @verbose
+      puts "\n✅ PASSED METHODS:" if @results[:passed].any?
+      @results[:passed].each do |method|
+        puts "  - #{method}"
+      end
+    else
+      puts "\n✅ All passed methods are logged above."
     end
   end
 end

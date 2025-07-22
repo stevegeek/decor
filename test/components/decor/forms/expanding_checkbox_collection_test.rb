@@ -53,11 +53,11 @@ class Decor::Forms::ExpandingCheckboxCollectionTest < ActiveSupport::TestCase
     assert_equal 2, checkboxes.length
   end
 
-  test "supports variant styling" do
+  test "supports style styling" do
     component = Decor::Forms::ExpandingCheckboxCollection.new(
       name: "checkbox-collection-preferences",
       size: 5,
-      variant: :joined
+      style: :joined
     )
     component.instance_variable_set(:@checkboxes, @checkbox_content)
     rendered = render_component(component)
@@ -154,7 +154,7 @@ class Decor::Forms::ExpandingCheckboxCollectionTest < ActiveSupport::TestCase
     assert_includes first_checkbox["name"], "preferences"
   end
 
-  test "supports custom color variants" do
+  test "supports custom color styles" do
     component = Decor::Forms::ExpandingCheckboxCollection.new(
       name: "checkbox-collection-preferences",
       size: 5,

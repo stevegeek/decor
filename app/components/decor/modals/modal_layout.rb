@@ -7,10 +7,13 @@ module Decor
       prop :description, _Nilable(String)
       prop :icon, _Nilable(String)
 
-      # Standard attributes following Button/Notification patterns
-      prop :color, _Union(:base, :primary, :secondary, :accent, :info, :success, :warning, :error, :neutral), default: :base
-      prop :variant, _Union(:filled, :outlined, :ghost), default: :filled
-      prop :size, _Union(:small, :medium, :large, :extra_large), default: :medium
+      # Use unified prop system
+      default_size :md  # medium maps to md
+      default_color :base
+      default_style :filled
+
+      # Modal uses custom size mapping for width classes
+      redefine_sizes :sm, :md, :lg, :xl  # small->sm, medium->md, large->lg, extra_large->xl
 
       # Slot definitions
       def with_header(&block)
@@ -73,59 +76,60 @@ module Decor
 
       private
 
-      def element_classes
+      def root_element_classes
         classes = ["modal-box", "relative"]
         classes << size_classes
-        classes << color_classes
-        classes << variant_classes
+        classes << style_classes
         classes.compact.join(" ")
       end
 
-      def size_classes
-        case @size
-        when :small
-          "max-w-md"
-        when :large
-          "max-w-5xl"
-        when :extra_large
-          "max-w-7xl"
-        else # :medium
-          "max-w-2xl"
+      def component_size_classes(size)
+        case size
+        when :xs then "max-w-sm"   # extra small - new
+        when :sm then "max-w-md"   # small -> sm
+        when :md then "max-w-2xl"  # medium -> md (default)
+        when :lg then "max-w-5xl"  # large -> lg
+        when :xl then "max-w-7xl"  # extra_large -> xl
+        else "max-w-2xl"
         end
       end
 
-      def color_classes
-        return "" if @variant == :ghost
+      def component_color_classes(color)
+        return "" if @style == :ghost
 
-        case @color
+        case color
         when :primary
-          (@variant == :outlined) ? "border-primary" : "bg-primary/10"
+          (@style == :outlined) ? "border-primary" : "bg-primary/10"
         when :secondary
-          (@variant == :outlined) ? "border-secondary" : "bg-secondary/10"
+          (@style == :outlined) ? "border-secondary" : "bg-secondary/10"
         when :accent
-          (@variant == :outlined) ? "border-accent" : "bg-accent/10"
+          (@style == :outlined) ? "border-accent" : "bg-accent/10"
         when :info
-          (@variant == :outlined) ? "border-info" : "bg-info/10"
+          (@style == :outlined) ? "border-info" : "bg-info/10"
         when :success
-          (@variant == :outlined) ? "border-success" : "bg-success/10"
+          (@style == :outlined) ? "border-success" : "bg-success/10"
         when :warning
-          (@variant == :outlined) ? "border-warning" : "bg-warning/10"
+          (@style == :outlined) ? "border-warning" : "bg-warning/10"
         when :error
-          (@variant == :outlined) ? "border-error" : "bg-error/10"
+          (@style == :outlined) ? "border-error" : "bg-error/10"
         when :neutral
-          (@variant == :outlined) ? "border-neutral" : "bg-neutral/10"
-        else # :base
+          (@style == :outlined) ? "border-neutral" : "bg-neutral/10"
+        when :base
+          ""
+        else
           ""
         end
       end
 
-      def variant_classes
-        case @variant
+      def component_style_classes(style)
+        case style
         when :outlined
           "border-2"
         when :ghost
           "bg-transparent border-0 shadow-none"
-        else # :filled
+        when :filled
+          ""  # Default filled style
+        else
           ""
         end
       end
