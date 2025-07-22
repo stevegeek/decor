@@ -17,8 +17,6 @@ module Decor
           outline_color_classes
         when :ghost
           ghost_color_classes
-        else
-          nil
         end
       end
 
@@ -36,7 +34,6 @@ module Decor
         when :warning then "bg-warning text-warning-content"
         when :info then "bg-info text-info-content"
         when :neutral then "bg-neutral text-neutral-content"
-        else nil
         end
       end
 
@@ -54,7 +51,6 @@ module Decor
         when :warning then "border-warning text-warning"
         when :info then "border-info text-info"
         when :neutral then "border-neutral text-neutral"
-        else nil
         end
         "#{classes} #{colors}"
       end
@@ -72,7 +68,6 @@ module Decor
         when :warning then "text-warning hover:bg-warning/10"
         when :info then "text-info hover:bg-info/10"
         when :neutral then "text-neutral hover:bg-neutral/10"
-        else nil
         end
       end
     end

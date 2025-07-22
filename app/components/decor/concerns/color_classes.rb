@@ -7,26 +7,26 @@ module Decor
 
       module ClassMethods
         def colors
-          self.config.colors || SEMANTIC_COLORS
+          config.colors || SEMANTIC_COLORS
         end
 
         def default_color(color = nil)
-          return self.config.default_color unless color
-          self.config.default_color = color
+          return config.default_color unless color
+          config.default_color = color
         end
 
         # DSL method to redefine colors for a component
         def redefine_colors(*new_colors)
-          self.config.colors = new_colors
+          config.colors = new_colors
           # Redefine the color prop with the new colors
-          prop :color, _Nilable(_Union(*new_colors)), default: -> { self.config.default_color }
+          prop :color, _Nilable(_Union(*new_colors)), default: -> { config.default_color }
         end
       end
 
       def self.included(base)
         base.extend(ClassMethods)
         base.class_eval do
-          prop :color, _Nilable(_Union(*colors)), default: -> { self.config.default_color }
+          prop :color, _Nilable(_Union(*colors)), default: -> { config.default_color }
         end
       end
 
@@ -34,7 +34,7 @@ module Decor
       def color_classes(color = @color)
         return nil unless color
         return nil unless valid_color?(color)
-        
+
         # Delegate to component-specific implementation
         component_color_classes(color)
       end
@@ -50,7 +50,7 @@ module Decor
 
       def text_color_classes(color = @color)
         return nil unless valid_color?(color)
-        
+
         case color
         when :base then "text-base-content"
         when :primary then "text-primary"
@@ -61,13 +61,12 @@ module Decor
         when :warning then "text-warning"
         when :info then "text-info"
         when :neutral then "text-neutral"
-        else nil
         end
       end
 
       def background_color_classes(color = @color)
         return nil unless valid_color?(color)
-        
+
         case color
         when :base then "bg-base-100"
         when :primary then "bg-primary"
@@ -78,13 +77,12 @@ module Decor
         when :warning then "bg-warning"
         when :info then "bg-info"
         when :neutral then "bg-neutral"
-        else nil
         end
       end
 
       def border_color_classes(color = @color)
         return nil unless valid_color?(color)
-        
+
         case color
         when :base then "border-base-300"
         when :primary then "border-primary"
@@ -95,7 +93,6 @@ module Decor
         when :warning then "border-warning"
         when :info then "border-info"
         when :neutral then "border-neutral"
-        else nil
         end
       end
     end
