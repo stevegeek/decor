@@ -29,38 +29,37 @@ class ::Decor::PanelPreview < ::Lookbook::Preview
     end
   end
 
-
   # @group Examples
   # @label System Status Panel
   def system_status
     render ::Decor::Panel.new(title: "System Status", icon: "server") do
       content_tag :div, class: "space-y-2" do
         safe_join([
-                    content_tag(:div, class: "flex justify-between") do
-                      safe_join([
-                                  content_tag(:span, "API Status:"),
-                                  content_tag(:span, "Operational", class: "text-success font-medium")
-                                ])
-                    end,
-                    content_tag(:div, class: "flex justify-between") do
-                      safe_join([
-                                  content_tag(:span, "Database:"),
-                                  content_tag(:span, "Connected", class: "text-success font-medium")
-                                ])
-                    end,
-                    content_tag(:div, class: "flex justify-between") do
-                      safe_join([
-                                  content_tag(:span, "Cache:"),
-                                  content_tag(:span, "Active", class: "text-success font-medium")
-                                ])
-                    end,
-                    content_tag(:div, class: "flex justify-between") do
-                      safe_join([
-                                  content_tag(:span, "Uptime:"),
-                                  content_tag(:span, "99.9%", class: "font-medium")
-                                ])
-                    end
-                  ])
+          content_tag(:div, class: "flex justify-between") do
+            safe_join([
+              content_tag(:span, "API Status:"),
+              content_tag(:span, "Operational", class: "text-success font-medium")
+            ])
+          end,
+          content_tag(:div, class: "flex justify-between") do
+            safe_join([
+              content_tag(:span, "Database:"),
+              content_tag(:span, "Connected", class: "text-success font-medium")
+            ])
+          end,
+          content_tag(:div, class: "flex justify-between") do
+            safe_join([
+              content_tag(:span, "Cache:"),
+              content_tag(:span, "Active", class: "text-success font-medium")
+            ])
+          end,
+          content_tag(:div, class: "flex justify-between") do
+            safe_join([
+              content_tag(:span, "Uptime:"),
+              content_tag(:span, "99.9%", class: "font-medium")
+            ])
+          end
+        ])
       end
     end
   end
@@ -71,22 +70,22 @@ class ::Decor::PanelPreview < ::Lookbook::Preview
     render ::Decor::Panel.new(title: "Contact Details", icon: "mail") do
       content_tag :address, class: "space-y-1 not-italic" do
         safe_join([
-                    content_tag(:p, class: "font-medium") { "John Doe" },
-                    content_tag(:p) { "123 Main Street" },
-                    content_tag(:p) { "New York, NY 10001" },
-                    content_tag(:p, class: "mt-2") do
-                      safe_join([
-                                  content_tag(:span, "Email: "),
-                                  content_tag(:a, "john@example.com", href: "mailto:john@example.com", class: "link link-primary")
-                                ])
-                    end,
-                    content_tag(:p) do
-                      safe_join([
-                                  content_tag(:span, "Phone: "),
-                                  content_tag(:a, "+1 (555) 123-4567", href: "tel:+15551234567", class: "link link-primary")
-                                ])
-                    end
-                  ])
+          content_tag(:p, class: "font-medium") { "John Doe" },
+          content_tag(:p) { "123 Main Street" },
+          content_tag(:p) { "New York, NY 10001" },
+          content_tag(:p, class: "mt-2") do
+            safe_join([
+              content_tag(:span, "Email: "),
+              content_tag(:a, "john@example.com", href: "mailto:john@example.com", class: "link link-primary")
+            ])
+          end,
+          content_tag(:p) do
+            safe_join([
+              content_tag(:span, "Phone: "),
+              content_tag(:a, "+1 (555) 123-4567", href: "tel:+15551234567", class: "link link-primary")
+            ])
+          end
+        ])
       end
     end
   end

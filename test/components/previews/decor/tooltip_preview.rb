@@ -30,7 +30,6 @@ class ::Decor::TooltipPreview < ::Lookbook::Preview
     end
   end
 
-
   # @group Examples
   # @label Large Primary Left
   def combo_large_primary_left

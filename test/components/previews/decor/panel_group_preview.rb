@@ -3,7 +3,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
   # PanelGroup
   # -------
   #
-  # A panel group is a box with a title and description that contains a list of panels 
+  # A panel group is a box with a title and description that contains a list of panels
   # displayed in a grid layout. Each panel is a Decor::Panel component with its own content.
   #
   # @group Examples
