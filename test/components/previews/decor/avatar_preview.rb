@@ -102,10 +102,10 @@ class ::Decor::AvatarPreview < ::Lookbook::Preview
   # @param image select [~, "https://i.pravatar.cc/300", "https://cataas.com/cat"]
   # @param shape select [circle, square]
   # @param ring toggle
-  # @param size select [xs, sm, md, lg, xl]
+  # @param size select [Symbol] [~, xs, sm, md, lg, xl]
   # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
-  # @param style select [filled, outlined, ghost]
-  def playground(image: nil, initials: "JG", shape: :circle, size: :md, ring: true, color: :neutral, style: :filled)
+  # @param style select [Symbol] [~, filled, outlined, ghost]
+  def playground(image: nil, initials: "JG", shape: nil, size: nil, ring: true, color: nil, style: nil)
     render ::Decor::Avatar.new(initials: initials, url: image, shape: shape, size: size, ring: ring, color: color, style: style)
   end
 
