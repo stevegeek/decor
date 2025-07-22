@@ -6,6 +6,30 @@ class ::Decor::BoxPreview < ::Lookbook::Preview
   # A daisyUI card-styled box component with title, description, and content areas.
   # Features light grey background for better visual separation.
   #
+  # @group Examples
+  # @label Simple Box
+  def simple_box
+    render ::Decor::Box.new(
+      title: "Simple Box",
+      description: "Just a title and description with light grey background."
+    )
+  end
+
+  # @group Examples
+  # @label Box with Actions
+  def with_actions
+    render ::Decor::Box.new(
+      title: "Box with Actions",
+      description: "This box has action buttons in the content area."
+    ) do
+      content_tag :div, class: "card-actions justify-end" do
+        content_tag(:button, "Cancel", class: "btn btn-ghost") +
+          content_tag(:button, "Save", class: "btn btn-primary")
+      end
+    end
+  end
+
+  # @group Playground
   # @label Playground
   # @param title text
   # @param description text
@@ -25,27 +49,6 @@ class ::Decor::BoxPreview < ::Lookbook::Preview
         content_tag :div, class: "card-actions justify-end" do
           content_tag :button, "Buy Now", class: "btn btn-primary"
         end
-      end
-    end
-  end
-
-  # @label Simple Box
-  def simple_box
-    render ::Decor::Box.new(
-      title: "Simple Box",
-      description: "Just a title and description with light grey background."
-    )
-  end
-
-  # @label Box with Actions
-  def with_actions
-    render ::Decor::Box.new(
-      title: "Box with Actions",
-      description: "This box has action buttons in the content area."
-    ) do
-      content_tag :div, class: "card-actions justify-end" do
-        content_tag(:button, "Cancel", class: "btn btn-ghost") +
-          content_tag(:button, "Save", class: "btn btn-primary")
       end
     end
   end

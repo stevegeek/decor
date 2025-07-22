@@ -32,12 +32,6 @@ class ::Decor::AvatarPreview < ::Lookbook::Preview
   end
 
   # @group Examples
-  # @label Comment Author
-  def usecase_comment_author
-    render ::Decor::Avatar.new(initials: "CA", size: :xs)
-  end
-
-  # @group Examples
   # @label Large Circle with ring
   def combo_large_circle_ring
     render ::Decor::Avatar.new(
@@ -66,6 +60,40 @@ class ::Decor::AvatarPreview < ::Lookbook::Preview
       size: :xl,
       shape: :circle,
       ring: true
+    )
+  end
+
+  # @group Examples
+  # @label Colorful Team
+  def colorful_team_example
+    render_with_template(
+      locals: {
+        avatars: [
+          ::Decor::Avatar.new(initials: "JD", color: :primary, style: :filled),
+          ::Decor::Avatar.new(initials: "SM", color: :secondary, style: :outlined),
+          ::Decor::Avatar.new(initials: "AK", color: :accent, style: :ghost),
+          ::Decor::Avatar.new(initials: "TL", color: :success, style: :filled)
+        ]
+      }
+    )
+  end
+
+  # @group Examples
+  # @label Color Effects on Image Avatars
+  def image_color_effects_example
+    render_with_template(
+      locals: {
+        avatars: [
+          ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :primary),
+          ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :primary, ring: true),
+          ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :secondary),
+          ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :secondary, ring: true),
+          ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :error),
+          ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :error, style: :outlined),
+          ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :error, style: :outlined, ring: true),
+          ::Decor::Avatar.new(url: "https://decor/404", color: :error, style: :filled)
+        ]
+      }
     )
   end
 
@@ -224,40 +252,6 @@ class ::Decor::AvatarPreview < ::Lookbook::Preview
   # @label Info Color
   def color_info
     render ::Decor::Avatar.new(initials: "IN", color: :info)
-  end
-
-  # @group Colors
-  # @label Colorful Team
-  def advanced_colorful_team
-    render_with_template(
-      locals: {
-        avatars: [
-          ::Decor::Avatar.new(initials: "JD", color: :primary, style: :filled),
-          ::Decor::Avatar.new(initials: "SM", color: :secondary, style: :outlined),
-          ::Decor::Avatar.new(initials: "AK", color: :accent, style: :ghost),
-          ::Decor::Avatar.new(initials: "TL", color: :success, style: :filled)
-        ]
-      }
-    )
-  end
-
-  # @group Colors
-  # @label Color affects avatars Image avatars if there is a ring or they are filled or outlined
-  def advanced_image_color_no_effect
-    render_with_template(
-      locals: {
-        avatars: [
-          ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :primary),
-          ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :primary, ring: true),
-          ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :secondary),
-          ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :secondary, ring: true),
-          ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :error),
-          ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :error, style: :outlined),
-          ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :error, style: :outlined, ring: true),
-          ::Decor::Avatar.new(url: "https://decor/404", color: :error, style: :filled)
-        ]
-      }
-    )
   end
 
   # @group Styles

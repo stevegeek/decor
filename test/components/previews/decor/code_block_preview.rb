@@ -3,22 +3,83 @@ class ::Decor::CodeBlockPreview < ::Lookbook::Preview
   # CodeBlock
   # ---------
   #
-  # Multi-line code blocks with syntax highlighting support
+  # Multi-line code blocks with syntax highlighting support.
+  # Features include line numbers, copy functionality, filename display, and terminal style.
+  # Supports highlighting specific lines and various programming languages.
   #
+  # @group Examples
+  # @label Basic Code Block
+  def basic_code_block
+    render ::Decor::CodeBlock.new do
+      <<~CODE
+        const numbers = [1, 2, 3, 4, 5];
+        const doubled = numbers.map(n => n * 2);
+        console.log("Doubled numbers:", doubled);
+      CODE
+    end
+  end
+
+  # @group Examples
+  # @label Code Highlight
+  def code_block_highlight
+    render ::Decor::CodeBlock.new(
+      language: "javascript",
+      highlight: true
+    ) do
+      <<~JS
+        const numbers = [1, 2, 3, 4, 5];
+        const doubled = numbers.map(n => n * 2);
+        console.log(doubled);
+      JS
+    end
+  end
+
+  # @group Examples
+  # @label Code with Line Numbers
+  def code_with_line_numbers
+    render ::Decor::CodeBlock.new(
+      language: "javascript",
+      show_line_numbers: true
+    ) do
+      <<~JS
+        function greet(name) {
+          console.log(`Hello, ${name}!`);
+          return `Welcome to our application, ${name}`;
+        }
+        
+        greet('World');
+      JS
+    end
+  end
+
+  # @group Examples
+  # @label Terminal Command
+  def terminal_command
+    render ::Decor::CodeBlock.new(style: :terminal) do
+      <<~TERMINAL
+        $ npm install
+        > added 27 packages in 2s
+        $ npm run dev
+        > Local: http://localhost:5173/
+      TERMINAL
+    end
+  end
+
+  # @group Playground
   # @label Playground
   # @param language text
   # @param highlight toggle
   # @param show_line_numbers toggle
   # @param copy_button toggle
   # @param filename text
-  # @param variant select [default, terminal]
+  # @param style select [default, terminal]
   def playground(
     language: "javascript",
     highlight: false,
     show_line_numbers: false,
     copy_button: false,
     filename: nil,
-    variant: :default
+    style: :default
   )
     render ::Decor::CodeBlock.new(
       language: language,
@@ -26,7 +87,7 @@ class ::Decor::CodeBlockPreview < ::Lookbook::Preview
       show_line_numbers: show_line_numbers,
       copy_button: copy_button,
       filename: filename,
-      variant: variant
+      style: style
     ) do
       <<~CODE
         function greet(name) {
@@ -39,61 +100,45 @@ class ::Decor::CodeBlockPreview < ::Lookbook::Preview
     end
   end
 
-  # @label Basic code block
-  def basic
-    render ::Decor::CodeBlock.new do
-      <<~CODE
-        const numbers = [1, 2, 3, 4, 5];
-        const doubled = numbers.map(n => n * 2);
-        console.log(doubled);
-      CODE
+  # @group Languages
+  # @label Ruby Code
+  def ruby_code
+    render ::Decor::CodeBlock.new(language: "ruby", highlight: true) do
+      <<~RUBY
+        class User < ApplicationRecord
+          has_many :posts
+          validates :email, presence: true, uniqueness: true
+          
+          def full_name
+            "\#{first_name} \#{last_name}"
+          end
+        end
+      RUBY
     end
   end
 
-  # @label With language
-  def with_language_highlighting
-    render Decor::Element.new(classes: "space-y-6") do |el|
-      el.div do
-        el.h4(class: "font-semibold mb-2") { "Ruby:" }
-        el.render ::Decor::CodeBlock.new(language: "ruby", highlight: true) do
-          <<~RUBY
-            class User < ApplicationRecord
-              has_many :posts
-              validates :email, presence: true, uniqueness: true
-              
-              def full_name
-                "\#{first_name} \#{last_name}"
-              end
-            end
-          RUBY
-        end
-      end
-
-      el.div do
-        el.h4(class: "font-semibold mb-2") { "Python:" }
-        el.render ::Decor::CodeBlock.new(language: "python", highlight: true) do
-          <<~PYTHON
-            def fibonacci(n):
-                if n <= 1:
-                    return n
-                return fibonacci(n-1) + fibonacci(n-2)
-            
-            # Calculate first 10 fibonacci numbers
-            for i in range(10):
-                print(f"F({i}) = {fibonacci(i)}")
-          PYTHON
-        end
-      end
+  # @group Languages
+  # @label Python Code
+  def python_code
+    render ::Decor::CodeBlock.new(language: "python", highlight: true) do
+      <<~PYTHON
+        def fibonacci(n):
+            if n <= 1:
+                return n
+            return fibonacci(n-1) + fibonacci(n-2)
+        
+        # Calculate first 10 fibonacci numbers
+        for i in range(10):
+            print(f"F({i}) = {fibonacci(i)}")
+      PYTHON
     end
   end
 
-  # @label With line numbers
-  def with_line_numbers
-    render ::Decor::CodeBlock.new(
-      language: "javascript",
-      show_line_numbers: true
-    ) do
-      <<~JS
+  # @group Languages
+  # @label JSX Component
+  def jsx_component
+    render ::Decor::CodeBlock.new(language: "jsx", highlight: true) do
+      <<~JSX
         import React, { useState } from 'react';
 
         function Counter() {
@@ -110,11 +155,12 @@ class ::Decor::CodeBlockPreview < ::Lookbook::Preview
         }
         
         export default Counter;
-      JS
+      JSX
     end
   end
 
-  # @label With highlighted lines
+  # @group Features
+  # @label With Highlighted Lines
   def with_highlighted_lines
     render ::Decor::CodeBlock.new(
       language: "ruby",
@@ -135,7 +181,8 @@ class ::Decor::CodeBlockPreview < ::Lookbook::Preview
     end
   end
 
-  # @label With filename
+  # @group Features
+  # @label With Filename
   def with_filename
     render ::Decor::CodeBlock.new(
       filename: "app/controllers/users_controller.rb",
@@ -157,7 +204,8 @@ class ::Decor::CodeBlockPreview < ::Lookbook::Preview
     end
   end
 
-  # @label With copy button
+  # @group Features
+  # @label With Copy Button
   def with_copy_button
     render ::Decor::CodeBlock.new(
       copy_button: true,
@@ -176,9 +224,10 @@ class ::Decor::CodeBlockPreview < ::Lookbook::Preview
     end
   end
 
-  # @label Terminal variant
-  def terminal_variant
-    render ::Decor::CodeBlock.new(variant: :terminal) do
+  # @group Terminal Style
+  # @label Terminal Output
+  def terminal_output
+    render ::Decor::CodeBlock.new(style: :terminal) do
       <<~TERMINAL
         $ npm create vite@latest my-app
         > Need to install the following packages:
@@ -200,10 +249,11 @@ class ::Decor::CodeBlockPreview < ::Lookbook::Preview
     end
   end
 
-  # @label Terminal with errors
+  # @group Terminal style
+  # @label Terminal with Errors
   def terminal_with_errors
     render ::Decor::CodeBlock.new(
-      variant: :terminal,
+      style: :terminal,
       highlight_lines: [4, 5]
     ) do
       <<~TERMINAL
@@ -219,7 +269,8 @@ class ::Decor::CodeBlockPreview < ::Lookbook::Preview
     end
   end
 
-  # @label Complete example
+  # @group Examples
+  # @label Complete Example
   def complete_example
     render ::Decor::CodeBlock.new(
       filename: "src/components/TodoList.jsx",

@@ -19,9 +19,9 @@ module Decor
     def root_element_classes
       [
         "loading",
-        component_style_classes(@style),
-        component_size_classes(@size),
-        component_color_classes(@color)
+        style_classes,
+        size_classes,
+        color_classes
       ].compact.join(" ")
     end
 

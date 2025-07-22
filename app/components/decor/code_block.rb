@@ -8,7 +8,10 @@ module Decor
     prop :highlight_lines, _Nilable(Array), default: [].freeze
     prop :filename, _Nilable(String)
     prop :copy_button, _Boolean, default: false
-    prop :variant, _Union(:default, :terminal), default: :default
+
+    # CodeBlock uses domain-specific styles for presentation modes
+    default_style :default
+    redefine_styles :default, :terminal
 
     stimulus do
       values_from_props :language, :highlight
@@ -43,7 +46,7 @@ module Decor
     end
 
     def render_code_content(&block)
-      if @variant == :terminal
+      if @style == :terminal
         render_terminal_content(&block)
       else
         render_standard_content(&block)
@@ -83,6 +86,7 @@ module Decor
       end
     end
 
+    # TODO: do a better implementation for line numbers
     def render_with_line_numbers
       content = capture { yield }
       lines = content.strip.split("\n")
@@ -106,11 +110,19 @@ module Decor
       end
     end
 
-    def element_classes
+    def root_element_classes
       [
         "rounded-lg overflow-hidden",
-        (@variant == :terminal) ? nil : "bg-base-200"
+        style_classes
       ].compact.join(" ")
+    end
+    
+    def component_style_classes(style)
+      case style
+      when :terminal then ""  # Terminal style has no background
+      when :default then "bg-base-200"
+      else "bg-base-200"
+      end
     end
 
     def pre_classes

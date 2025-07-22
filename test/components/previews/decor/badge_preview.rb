@@ -6,7 +6,66 @@ class ::Decor::BadgePreview < ::Lookbook::Preview
   # A Badge is a small rectangular element which can be used to label sections of the view.
   # Supports icons, avatars, different styles, sizes, and variants.
   #
-  # @label Playground
+  # @group Examples
+  # @label Example Badge
+  def status_online
+    render ::Decor::Badge.new(label: "Online", color: :success, style: :filled, icon: "check-circle")
+  end
+
+  # @group Examples
+  # @label Outlined Badge
+  def status_offline
+    render ::Decor::Badge.new(label: "Offline", color: :neutral, style: :outlined)
+  end
+
+  # @group Examples
+  # @label Dashed Badge
+  def status_pending
+    render ::Decor::Badge.new(label: "Pending", color: :warning, style: :outlined, dashed: true)
+  end
+
+  # @group Examples
+  # @label Bagde with Icon
+  def status_error
+    render ::Decor::Badge.new(label: "Error", color: :error, style: :filled, icon: "x")
+  end
+
+  # @group Examples
+  # @label Filled Success with Icon
+  def combo_filled_success_icon
+    render ::Decor::Badge.new(
+      label: "Approved",
+      icon: "check-circle",
+      color: :success,
+      style: :filled
+    )
+  end
+
+  # @group Examples
+  # @label Outlined Error Large
+  def combo_outlined_error_large
+    render ::Decor::Badge.new(
+      label: "Critical Issue",
+      color: :error,
+      style: :outlined,
+      size: :lg,
+      icon: "x"
+    )
+  end
+
+  # @group Examples
+  # @label Dashed Warning with Avatar
+  def combo_dashed_warning_avatar
+    render ::Decor::Badge.new(
+      label: "Needs Review",
+      color: :warning,
+      style: :outlined,
+      dashed: true,
+      initials: "NR"
+    )
+  end
+
+  # @group Playground
   # @param label text
   # @param icon select [~, check-circle, x, check, download, play]
   # @param style select [outlined, filled, ghost]
@@ -172,64 +231,5 @@ class ::Decor::BadgePreview < ::Lookbook::Preview
   # @label Extra Large with Avatar
   def avatar_xlarge
     render ::Decor::Badge.new(label: "Large User", initials: "LU", size: :xl)
-  end
-
-  # @group Combinations
-  # @label Filled Success with Icon
-  def combo_filled_success_icon
-    render ::Decor::Badge.new(
-      label: "Approved",
-      icon: "check-circle",
-      color: :success,
-      style: :filled
-    )
-  end
-
-  # @group Combinations
-  # @label Outlined Error Large
-  def combo_outlined_error_large
-    render ::Decor::Badge.new(
-      label: "Critical Issue",
-      color: :error,
-      style: :outlined,
-      size: :lg,
-      icon: "x"
-    )
-  end
-
-  # @group Combinations
-  # @label Dashed Warning with Avatar
-  def combo_dashed_warning_avatar
-    render ::Decor::Badge.new(
-      label: "Needs Review",
-      color: :warning,
-      style: :outlined,
-      dashed: true,
-      initials: "NR"
-    )
-  end
-
-  # @group Status Examples
-  # @label Online Status
-  def status_online
-    render ::Decor::Badge.new(label: "Online", color: :success, style: :filled, icon: "check-circle")
-  end
-
-  # @group Status Examples
-  # @label Offline Status
-  def status_offline
-    render ::Decor::Badge.new(label: "Offline", color: :neutral, style: :outlined)
-  end
-
-  # @group Status Examples
-  # @label Pending Status
-  def status_pending
-    render ::Decor::Badge.new(label: "Pending", color: :warning, style: :outlined, dashed: true)
-  end
-
-  # @group Status Examples
-  # @label Error Status
-  def status_error
-    render ::Decor::Badge.new(label: "Error", color: :error, style: :filled, icon: "x")
   end
 end

@@ -2,51 +2,59 @@
 
 module Decor
   class CodeSnippet < PhlexComponent
-    prop :variant, _Union(:default, :primary, :secondary, :accent), default: :default
-    prop :size, _Union(:xs, :sm, :normal, :lg), default: :normal
+    default_size :md
+    default_color :base
+    default_style :filled
 
     private
 
     def view_template(&)
-      code(class: element_classes) do
+      code(class: root_element_classes) do
         yield if block_given?
       end
     end
 
-    def element_classes
+    def root_element_classes
       [
         # Base styles
         "px-2 py-1 rounded font-mono",
-        # Size classes
+        # Use unified system
         size_classes,
-        # Variant classes
-        variant_classes
+        style_classes
       ].compact.join(" ")
     end
 
-    def size_classes
-      case @size
-      when :xs
-        "text-xs"
-      when :sm
-        "text-sm"
-      when :lg
-        "text-lg"
-      else
-        "text-base"
+    def component_size_classes(size)
+      case size
+      when :xs then "text-xs"
+      when :sm then "text-sm"
+      when :md then "text-base"
+      when :lg then "text-lg"
+      when :xl then "text-xl"
+      else "text-base"
       end
     end
 
-    def variant_classes
-      case @variant
-      when :primary
-        "bg-primary/20 text-primary"
-      when :secondary
-        "bg-secondary/20 text-secondary"
-      when :accent
-        "bg-accent/20 text-accent"
-      else
-        "bg-base-200 text-base-content"
+    def component_style_classes(style)
+      case style
+      when :filled then "bg-base-200 text-base-content"  # Default filled style
+      when :outlined then "border border-base-300 text-base-content bg-transparent"
+      when :ghost then "text-base-content bg-transparent"
+      else "bg-base-200 text-base-content"
+      end
+    end
+    
+    def component_color_classes(color)
+      # Color affects the background/text combination for code snippets
+      case color
+      when :primary then "bg-primary/20 text-primary"
+      when :secondary then "bg-secondary/20 text-secondary"
+      when :accent then "bg-accent/20 text-accent"
+      when :success then "bg-success/20 text-success"
+      when :error then "bg-error/20 text-error"
+      when :warning then "bg-warning/20 text-warning"
+      when :info then "bg-info/20 text-info"
+      else ""  # Base color handled by style
       end
     end
   end

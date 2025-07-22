@@ -16,11 +16,11 @@ class ::Decor::SpinnerPreview < ::Lookbook::Preview
   # Different sizes
   # @display bg_color white
   def sizes
-    div(class: "flex items-center gap-4") do
+    render Decor::Element.new(classes: "flex items-center gap-4") do |el|
       [:xs, :sm, :md, :lg, :xl].each do |size|
-        div(class: "flex flex-col items-center gap-2") do
-          render ::Decor::Spinner.new(size: size, color: :primary)
-          p(class: "text-xs text-gray-600") { size.to_s }
+        el.div(class: "flex flex-col items-center gap-2") do
+          el.render ::Decor::Spinner.new(size: size, color: :primary)
+          el.p(class: "text-xs text-gray-600") { size.to_s }
         end
       end
     end
@@ -29,11 +29,11 @@ class ::Decor::SpinnerPreview < ::Lookbook::Preview
   # Different colors
   # @display bg_color white
   def colors
-    div(class: "flex items-center gap-4") do
+    render Decor::Element.new(classes: "flex items-center gap-4") do |el|
       [:base, :primary, :secondary, :accent, :success, :error, :warning, :info].each do |color|
-        div(class: "flex flex-col items-center gap-2") do
-          render ::Decor::Spinner.new(size: :md, color: color)
-          p(class: "text-xs text-gray-600") { color.to_s }
+        el.div(class: "flex flex-col items-center gap-2") do
+          el.render ::Decor::Spinner.new(size: :md, color: color)
+          el.p(class: "text-xs text-gray-600") { color.to_s }
         end
       end
     end
@@ -42,11 +42,11 @@ class ::Decor::SpinnerPreview < ::Lookbook::Preview
   # Different styles
   # @display bg_color white
   def styles
-    div(class: "grid grid-cols-3 gap-8") do
+    render Decor::Element.new(classes: "grid grid-cols-3 gap-8") do |el|
       [:spinner, :dots, :ring, :ball, :bars, :infinity].each do |style|
-        div(class: "flex flex-col items-center gap-2") do
-          render ::Decor::Spinner.new(style: style, size: :lg, color: :primary)
-          p(class: "text-sm font-medium text-gray-700") { style.to_s }
+        el.div(class: "flex flex-col items-center gap-2") do
+          el.render ::Decor::Spinner.new(style: style, size: :lg, color: :primary)
+          el.p(class: "text-sm font-medium text-gray-700") { style.to_s }
         end
       end
     end
