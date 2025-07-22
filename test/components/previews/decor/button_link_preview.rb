@@ -5,38 +5,63 @@ class ::Decor::ButtonLinkPreview < ::Lookbook::Preview
   #
   # A button that is rendered with a link tag when enabled, or as a button when disabled.
   # Supports all Button styling with ActsAsLink functionality.
-  #
-  # @label Playground
+
+  # @group Examples
+  # @label Outlined Danger Delete
+  def combo_outlined_danger_delete
+    render ::Decor::ButtonLink.new(
+      label: "Delete Item",
+      href: "/delete",
+      style: :outlined,
+      color: :error,
+      http_method: :delete,
+      icon: "x"
+    )
+  end
+
+  # @group Examples
+  # @label Text Primary with Icon
+  def combo_text_primary_icon
+    render ::Decor::ButtonLink.new(
+      label: "Download File",
+      href: "/download",
+      style: :ghost,
+      color: :primary,
+      icon: "download"
+    )
+  end
+
+  # @group Playground
   # @param label text
   # @param href text
   # @param http_method select [~, get, post, put, patch, delete]
   # @param disabled toggle
   # @param icon select [~, check-circle, x, check, download, play]
-  # @param variant select [contained, outlined, text]
-  # @param color select [primary, secondary, danger, warning, neutral]
-  # @param size select [medium, large, wide, small, micro]
   # @param full_width toggle
+  # @param size [Symbol] select [~, xs, sm, md, lg, xl]
+  # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
+  # @param style [Symbol] select [~, filled, outlined, ghost]
   def playground(
     label: "Button Link",
     href: "https://www.google.com",
     http_method: :get,
     icon: nil,
-    variant: :contained,
-    color: :primary,
-    size: :medium,
     disabled: false,
-    full_width: false
+    full_width: false,
+    size: nil,
+    color: nil,
+    style: nil
   )
     render ::Decor::ButtonLink.new(
       label: label,
       href: href,
       http_method: http_method,
       icon: icon,
-      variant: variant,
-      color: color,
-      size: size,
       disabled: disabled,
-      full_width: full_width
+      full_width: full_width,
+      size: size,
+      color: color,
+      style: style
     )
   end
 
@@ -53,9 +78,9 @@ class ::Decor::ButtonLinkPreview < ::Lookbook::Preview
   end
 
   # @group Themes
-  # @label Danger Theme
-  def theme_danger
-    render ::Decor::ButtonLink.new(label: "Danger Link", href: "#", color: :danger)
+  # @label Error Theme
+  def theme_error
+    render ::Decor::ButtonLink.new(label: "Error Link", href: "#", color: :error)
   end
 
   # @group Themes
@@ -70,52 +95,52 @@ class ::Decor::ButtonLinkPreview < ::Lookbook::Preview
     render ::Decor::ButtonLink.new(label: "Neutral Link", href: "#", color: :neutral)
   end
 
-  # @group Variants
-  # @label Contained Variant
-  def variant_contained
-    render ::Decor::ButtonLink.new(label: "Contained Link", href: "#", variant: :contained)
+  # @group Styles
+  # @label Filled Style
+  def style_filled
+    render ::Decor::ButtonLink.new(label: "Filled Link", href: "#", style: :filled)
   end
 
-  # @group Variants
-  # @label Outlined Variant
-  def variant_outlined
-    render ::Decor::ButtonLink.new(label: "Outlined Link", href: "#", variant: :outlined)
+  # @group Styles
+  # @label Outlined Style
+  def style_outlined
+    render ::Decor::ButtonLink.new(label: "Outlined Link", href: "#", style: :outlined)
   end
 
-  # @group Variants
-  # @label Text Variant
-  def variant_text
-    render ::Decor::ButtonLink.new(label: "Text Link", href: "#", variant: :text)
+  # @group Styles
+  # @label Ghost Style
+  def style_ghost
+    render ::Decor::ButtonLink.new(label: "Ghost Link", href: "#", style: :ghost)
   end
 
   # @group Sizes
   # @label Large Size
   def size_large
-    render ::Decor::ButtonLink.new(label: "Large Link", href: "#", size: :large)
+    render ::Decor::ButtonLink.new(label: "Large Link", href: "#", size: :lg)
   end
 
   # @group Sizes
   # @label Medium Size
   def size_medium
-    render ::Decor::ButtonLink.new(label: "Medium Link", href: "#", size: :medium)
+    render ::Decor::ButtonLink.new(label: "Medium Link", href: "#", size: :md)
   end
 
   # @group Sizes
-  # @label Wide Size
-  def size_wide
-    render ::Decor::ButtonLink.new(label: "Wide Link", href: "#", size: :wide)
+  # @label Extra Large Size
+  def size_xl
+    render ::Decor::ButtonLink.new(label: "XL Link", href: "#", size: :xl)
   end
 
   # @group Sizes
   # @label Small Size
   def size_small
-    render ::Decor::ButtonLink.new(label: "Small Link", href: "#", size: :small)
+    render ::Decor::ButtonLink.new(label: "Small Link", href: "#", size: :sm)
   end
 
   # @group Sizes
-  # @label Micro Size
-  def size_micro
-    render ::Decor::ButtonLink.new(label: "Micro Link", href: "#", size: :micro)
+  # @label Extra Small Size
+  def size_xs
+    render ::Decor::ButtonLink.new(label: "XS Link", href: "#", size: :xs)
   end
 
   # @group With Icons
@@ -127,13 +152,13 @@ class ::Decor::ButtonLinkPreview < ::Lookbook::Preview
   # @group With Icons
   # @label Large with Icon
   def icon_large
-    render ::Decor::ButtonLink.new(label: "Large with icon", href: "#", icon: "heart", size: :large)
+    render ::Decor::ButtonLink.new(label: "Large with icon", href: "#", icon: "heart", size: :lg)
   end
 
   # @group With Icons
   # @label Small with Icon
   def icon_small
-    render ::Decor::ButtonLink.new(label: "Small with icon", href: "#", icon: "bell", size: :small)
+    render ::Decor::ButtonLink.new(label: "Small with icon", href: "#", icon: "bell", size: :sm)
   end
 
   # @group Disabled States
@@ -149,9 +174,9 @@ class ::Decor::ButtonLinkPreview < ::Lookbook::Preview
   end
 
   # @group Disabled States
-  # @label Disabled Danger (renders as button)
-  def disabled_danger
-    render ::Decor::ButtonLink.new(label: "Disabled Danger", href: "#", color: :danger, disabled: true)
+  # @label Disabled Error (renders as button)
+  def disabled_error
+    render ::Decor::ButtonLink.new(label: "Disabled Error", href: "#", color: :error, disabled: true)
   end
 
   # @group HTTP Methods
@@ -169,7 +194,7 @@ class ::Decor::ButtonLinkPreview < ::Lookbook::Preview
   # @group HTTP Methods
   # @label DELETE Request
   def http_delete
-    render ::Decor::ButtonLink.new(label: "DELETE request", href: "/delete-item", http_method: :delete, color: :danger)
+    render ::Decor::ButtonLink.new(label: "DELETE request", href: "/delete-item", http_method: :delete, color: :error)
   end
 
   # @group HTTP Methods
@@ -192,7 +217,7 @@ class ::Decor::ButtonLinkPreview < ::Lookbook::Preview
       href: "/dangerous-action",
       http_method: :delete,
       turbo_confirm: "Are you sure?",
-      color: :danger
+      color: :error
     )
   end
 
@@ -215,7 +240,7 @@ class ::Decor::ButtonLinkPreview < ::Lookbook::Preview
   # @group Layout
   # @label Full Width Large
   def layout_full_width_large
-    render ::Decor::ButtonLink.new(label: "Full Width Large", href: "#", full_width: true, size: :large)
+    render ::Decor::ButtonLink.new(label: "Full Width Large", href: "#", full_width: true, size: :lg)
   end
 
   # @group External Links
@@ -228,30 +253,5 @@ class ::Decor::ButtonLinkPreview < ::Lookbook::Preview
   # @label Email Link
   def external_email
     render ::Decor::ButtonLink.new(label: "Email Link", href: "mailto:test@example.com", color: :secondary)
-  end
-
-  # @group Combinations
-  # @label Outlined Danger Delete
-  def combo_outlined_danger_delete
-    render ::Decor::ButtonLink.new(
-      label: "Delete Item",
-      href: "/delete",
-      variant: :outlined,
-      color: :danger,
-      http_method: :delete,
-      icon: "x"
-    )
-  end
-
-  # @group Combinations
-  # @label Text Primary with Icon
-  def combo_text_primary_icon
-    render ::Decor::ButtonLink.new(
-      label: "Download File",
-      href: "/download",
-      variant: :text,
-      color: :primary,
-      icon: "download"
-    )
   end
 end

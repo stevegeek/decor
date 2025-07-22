@@ -20,82 +20,9 @@ class ::Decor::NotificationManagerPreview < ::Lookbook::Preview
   # - `content` - HTML content (must be marked safe)
   # - `contentHref` - URL for remote content
   # - `timeout` - Auto-dismiss timeout (default 3000ms, Infinity for persistent)
-
-  # @label Interactive Playground
-  # Interactive controls for testing different notification types and behaviors
-  def playground
-    render ::Decor::Card.new(title: "Notification Playground") do |p|
-      p.div(class: "grid grid-cols-2 md:grid-cols-4 gap-4") do
-        p.render ::Decor::Button.new(
-          label: "Success",
-          color: :primary,
-          html_options: {onclick: playground_notification_js("success", "Operation completed successfully!", "Your changes have been saved.", 3000, "check")}
-        )
-        p.render ::Decor::Button.new(
-          label: "Error",
-          color: :danger,
-          html_options: {onclick: playground_notification_js("error", "Something went wrong", "Please try again or contact support.", 5000, "x")}
-        )
-        p.render ::Decor::Button.new(
-          label: "Warning",
-          color: :warning,
-          html_options: {onclick: playground_notification_js("warning", "Action required", "Please review your settings.", 4000)}
-        )
-        p.render ::Decor::Button.new(
-          label: "Info",
-          color: :secondary,
-          html_options: {onclick: playground_notification_js("info", "New feature available", "Check out the latest updates.", 3000)}
-        )
-      end
-
-      p.div(class: "grid grid-cols-2 md:grid-cols-4 gap-4") do
-        p.render ::Decor::Button.new(
-          label: "No Timeout",
-          variant: :outlined,
-          html_options: {onclick: playground_notification_js("info", "Persistent notification", "This will stay until dismissed.", "Infinity")}
-        )
-        p.render ::Decor::Button.new(
-          label: "3 Seconds",
-          variant: :outlined,
-          html_options: {onclick: playground_notification_js("info", "Quick message", "Auto-dismisses in 3 seconds.", 3000)}
-        )
-        p.render ::Decor::Button.new(
-          label: "5 Seconds",
-          variant: :outlined,
-          html_options: {onclick: playground_notification_js("info", "Standard timeout", "Auto-dismisses in 5 seconds.", 5000)}
-        )
-        p.render ::Decor::Button.new(
-          label: "10 Seconds",
-          variant: :outlined,
-          html_options: {onclick: playground_notification_js("info", "Long message", "Auto-dismisses in 10 seconds.", 10000)}
-        )
-      end
-
-      p.div(class: "flex gap-4 flex-wrap") do
-        p.render ::Decor::Button.new(
-          label: "Dismiss All",
-          variant: :outlined,
-          color: :danger,
-          html_options: {onclick: playground_dismiss_all_js}
-        )
-        p.render ::Decor::Button.new(
-          label: "Show Multiple",
-          variant: :outlined,
-          color: :primary,
-          html_options: {onclick: playground_multiple_notifications_js}
-        )
-        p.render ::Decor::Button.new(
-          label: "With Actions",
-          variant: :outlined,
-          color: :secondary,
-          html_options: {onclick: playground_notification_with_actions_js}
-        )
-      end
-    end
-  end
-
-  # @!group Basic Examples
-
+  #
+  # @!group Examples
+  #
   # @label Simple Notifications
   # Basic text notifications with different content
   def simple_notifications
@@ -132,7 +59,7 @@ class ::Decor::NotificationManagerPreview < ::Lookbook::Preview
           p.render ::Decor::Button.new(
             label: "3 Second Message",
             color: :secondary,
-            size: :small,
+            size: :sm,
             html_options: {onclick: timeout_notification_js("Quick Update", "This message disappears in 3 seconds.", 3000)}
           )
         end
@@ -141,7 +68,7 @@ class ::Decor::NotificationManagerPreview < ::Lookbook::Preview
           p.render ::Decor::Button.new(
             label: "5 Second Message",
             color: :primary,
-            size: :small,
+            size: :sm,
             html_options: {onclick: timeout_notification_js("Standard Notice", "This message disappears in 5 seconds.", 5000)}
           )
         end
@@ -150,7 +77,7 @@ class ::Decor::NotificationManagerPreview < ::Lookbook::Preview
           p.render ::Decor::Button.new(
             label: "10 Second Message",
             color: :warning,
-            size: :small,
+            size: :sm,
             html_options: {onclick: timeout_notification_js("Extended Notice", "This message disappears in 10 seconds.", 10000)}
           )
         end
@@ -158,8 +85,8 @@ class ::Decor::NotificationManagerPreview < ::Lookbook::Preview
           p.p(class: "text-sm font-medium mb-2") { "No Timeout" }
           p.render ::Decor::Button.new(
             label: "Persistent Message",
-            color: :danger,
-            size: :small,
+            color: :error,
+            size: :sm,
             html_options: {onclick: timeout_notification_js("Persistent Alert", "This message stays until manually dismissed.", "Infinity")}
           )
         end
@@ -175,7 +102,7 @@ class ::Decor::NotificationManagerPreview < ::Lookbook::Preview
         p.div(class: "flex gap-3 flex-wrap") do
           p.render ::Decor::Button.new(
             label: "Critical Alert",
-            color: :danger,
+            color: :error,
             html_options: {onclick: persistent_notification_js("Critical System Alert", "Your account requires immediate attention. Please review your security settings.")}
           )
           p.render ::Decor::Button.new(
@@ -193,16 +120,16 @@ class ::Decor::NotificationManagerPreview < ::Lookbook::Preview
         p.div(class: "flex gap-3") do
           p.render ::Decor::Button.new(
             label: "Show Multiple Persistent",
-            variant: :outlined,
+            style: :outlined,
             color: :primary,
-            size: :small,
+            size: :sm,
             html_options: {onclick: multiple_persistent_notifications_js}
           )
           p.render ::Decor::Button.new(
             label: "Dismiss All",
-            variant: :outlined,
-            color: :danger,
-            size: :small,
+            style: :outlined,
+            color: :error,
+            size: :sm,
             html_options: {onclick: playground_dismiss_all_js}
           )
         end
@@ -211,6 +138,79 @@ class ::Decor::NotificationManagerPreview < ::Lookbook::Preview
   end
 
   # @!endgroup
+
+  # @group Playground
+  # Interactive controls for testing different notification types and behaviors
+  def playground
+    render ::Decor::Card.new(title: "Notification Playground") do |p|
+      p.div(class: "grid grid-cols-2 md:grid-cols-4 gap-4") do
+        p.render ::Decor::Button.new(
+          label: "Success",
+          color: :primary,
+          html_options: {onclick: playground_notification_js("success", "Operation completed successfully!", "Your changes have been saved.", 3000, "check")}
+        )
+        p.render ::Decor::Button.new(
+          label: "Error",
+          color: :error,
+          html_options: {onclick: playground_notification_js("error", "Something went wrong", "Please try again or contact support.", 5000, "x")}
+        )
+        p.render ::Decor::Button.new(
+          label: "Warning",
+          color: :warning,
+          html_options: {onclick: playground_notification_js("warning", "Action required", "Please review your settings.", 4000)}
+        )
+        p.render ::Decor::Button.new(
+          label: "Info",
+          color: :secondary,
+          html_options: {onclick: playground_notification_js("info", "New feature available", "Check out the latest updates.", 3000)}
+        )
+      end
+
+      p.div(class: "grid grid-cols-2 md:grid-cols-4 gap-4") do
+        p.render ::Decor::Button.new(
+          label: "No Timeout",
+          style: :outlined,
+          html_options: {onclick: playground_notification_js("info", "Persistent notification", "This will stay until dismissed.", "Infinity")}
+        )
+        p.render ::Decor::Button.new(
+          label: "3 Seconds",
+          style: :outlined,
+          html_options: {onclick: playground_notification_js("info", "Quick message", "Auto-dismisses in 3 seconds.", 3000)}
+        )
+        p.render ::Decor::Button.new(
+          label: "5 Seconds",
+          style: :outlined,
+          html_options: {onclick: playground_notification_js("info", "Standard timeout", "Auto-dismisses in 5 seconds.", 5000)}
+        )
+        p.render ::Decor::Button.new(
+          label: "10 Seconds",
+          style: :outlined,
+          html_options: {onclick: playground_notification_js("info", "Long message", "Auto-dismisses in 10 seconds.", 10000)}
+        )
+      end
+
+      p.div(class: "flex gap-4 flex-wrap") do
+        p.render ::Decor::Button.new(
+          label: "Dismiss All",
+          style: :outlined,
+          color: :error,
+          html_options: {onclick: playground_dismiss_all_js}
+        )
+        p.render ::Decor::Button.new(
+          label: "Show Multiple",
+          style: :outlined,
+          color: :primary,
+          html_options: {onclick: playground_multiple_notifications_js}
+        )
+        p.render ::Decor::Button.new(
+          label: "With Actions",
+          style: :outlined,
+          color: :secondary,
+          html_options: {onclick: playground_notification_with_actions_js}
+        )
+      end
+    end
+  end
 
   # @!group Styled Notifications
 
@@ -223,25 +223,25 @@ class ::Decor::NotificationManagerPreview < ::Lookbook::Preview
         p.render ::Decor::Button.new(
           label: "Profile Updated",
           color: :primary,
-          size: :small,
+          size: :sm,
           html_options: {onclick: styled_notification_js("success", "Profile Updated Successfully", "Your profile information has been saved and updated.")}
         )
         p.render ::Decor::Button.new(
           label: "Payment Processed",
-          color: :danger,
-          size: :small,
+          color: :error,
+          size: :sm,
           html_options: {onclick: styled_notification_js("success", "Payment Processed", "Your payment of $49.99 has been successfully processed.")}
         )
         p.render ::Decor::Button.new(
           label: "File Uploaded",
           color: :warning,
-          size: :small,
+          size: :sm,
           html_options: {onclick: styled_notification_js("success", "File Upload Complete", "document.pdf has been uploaded successfully.")}
         )
         p.render ::Decor::Button.new(
           label: "Account Created",
           color: :secondary,
-          size: :small,
+          size: :sm,
           html_options: {onclick: styled_notification_js("success", "Account Created", "Welcome! Your account has been successfully created.")}
         )
       end
@@ -262,25 +262,25 @@ class ::Decor::NotificationManagerPreview < ::Lookbook::Preview
           p.render ::Decor::Button.new(
             label: "Undo Delete",
             color: :warning,
-            size: :small,
+            size: :sm,
             html_options: {onclick: action_notification_js("File Deleted", "document.pdf has been moved to trash.", "Undo", "View Trash")}
           )
           p.render ::Decor::Button.new(
             label: "Confirm Action",
-            color: :danger,
-            size: :small,
+            color: :error,
+            size: :sm,
             html_options: {onclick: action_notification_js("Delete Confirmation", "Are you sure you want to permanently delete this item?", "Delete", "Cancel")}
           )
           p.render ::Decor::Button.new(
             label: "Retry Failed",
             color: :secondary,
-            size: :small,
+            size: :sm,
             html_options: {onclick: action_notification_js("Upload Failed", "Connection timed out while uploading your file.", "Retry", "Cancel")}
           )
           p.render ::Decor::Button.new(
             label: "View Details",
             color: :primary,
-            size: :small,
+            size: :sm,
             html_options: {onclick: action_notification_js("Payment Successful", "Your payment of $49.99 has been processed.", "View Receipt", "Download PDF")}
           )
         end
@@ -288,16 +288,16 @@ class ::Decor::NotificationManagerPreview < ::Lookbook::Preview
         p.div(class: "flex gap-3 flex-wrap") do
           p.render ::Decor::Button.new(
             label: "Single Action",
-            variant: :outlined,
+            style: :outlined,
             color: :primary,
-            size: :small,
+            size: :sm,
             html_options: {onclick: single_action_notification_js("Update Available", "A new version of the app is ready to install.", "Update Now")}
           )
           p.render ::Decor::Button.new(
             label: "Call to Action",
-            variant: :outlined,
+            style: :outlined,
             color: :neutral,
-            size: :small,
+            size: :sm,
             html_options: {onclick: single_action_notification_js("Welcome Bonus", "Complete your profile to receive 100 bonus points!", "Complete Profile")}
           )
         end
@@ -319,7 +319,7 @@ class ::Decor::NotificationManagerPreview < ::Lookbook::Preview
       title: title,
       description: description,
       icon: icon,
-      style: style.to_sym
+      color: style.to_sym
     )
   end
 

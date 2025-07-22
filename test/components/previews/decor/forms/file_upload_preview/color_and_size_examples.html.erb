@@ -30,25 +30,25 @@
   </div>
 
   <div>
-    <h3 class="text-lg font-semibold mb-4">Variants</h3>
+    <h3 class="text-lg font-semibold mb-4">Styles</h3>
     <div class="space-y-6">
       <div>
-        <h4 class="text-md font-medium mb-2">File Variant</h4>
+        <h4 class="text-md font-medium mb-2">File Style</h4>
         <%= render(::Decor::Forms::FileUpload.new(
           name: "file_upload_file",
           label: "Upload Document",
-          variant: :file,
+          style: :file,
           helper_text: "Standard file upload for documents",
           file_mime_types: ".pdf,.doc,.docx,.txt"
         )) %>
       </div>
 
       <div>
-        <h4 class="text-md font-medium mb-2">Image Variant</h4>
+        <h4 class="text-md font-medium mb-2">Image Style</h4>
         <%= render(::Decor::Forms::FileUpload.new(
           name: "file_upload_image",
           label: "Upload Image",
-          variant: :image,
+          style: :image,
           helper_text: "Image upload with preview",
           file_mime_types: "image/*",
           existing_file_url: "https://i.pravatar.cc/300"
@@ -56,11 +56,11 @@
       </div>
 
       <div>
-        <h4 class="text-md font-medium mb-2">Avatar Variant</h4>
+        <h4 class="text-md font-medium mb-2">Avatar Style</h4>
         <%= render(::Decor::Forms::FileUpload.new(
           name: "file_upload_avatar",
           label: "Upload Avatar",
-          variant: :avatar,
+          style: :avatar,
           helper_text: "Avatar upload with circular preview",
           file_mime_types: "image/*",
           initials: "AB",

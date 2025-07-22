@@ -45,9 +45,9 @@ class ::Decor::CodeSnippetPreview < ::Lookbook::Preview
 
   # @group Playground
   # @label Playground
-  # @param size select [Symbol] [~, xs, sm, md, lg, xl]
+  # @param size [Symbol] select [~, xs, sm, md, lg, xl]
   # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
-  # @param style select [Symbol] [~, filled, outlined, ghost]
+  # @param style [Symbol] select [~, filled, outlined, ghost]
   def playground(color: nil, style: nil, size: nil)
     render ::Decor::CodeSnippet.new(style: style, size: size) do
       "const greeting = 'Hello, World!';"
@@ -102,7 +102,7 @@ class ::Decor::CodeSnippetPreview < ::Lookbook::Preview
     render ::Decor::CodeSnippet.new(size: :lg) { "large_code()" }
   end
 
-  # @group Use Cases
+  # @group Examples
   # @label Authentication Header
   def authentication_header
     render ::Decor::Element.new(classes: "prose max-w-none") do |el|
@@ -117,7 +117,7 @@ class ::Decor::CodeSnippetPreview < ::Lookbook::Preview
     end
   end
 
-  # @group Use Cases
+  # @group Examples
   # @label React Hook Usage
   def react_hook_usage
     render ::Decor::Element.new do |el|
@@ -129,7 +129,7 @@ class ::Decor::CodeSnippetPreview < ::Lookbook::Preview
     end
   end
 
-  # @group Use Cases
+  # @group Examples
   # @label Special Characters
   def special_characters
     render ::Decor::Element.new(classes: "space-y-4") do |el|

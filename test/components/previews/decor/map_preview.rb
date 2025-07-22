@@ -1,12 +1,46 @@
 # @label Map
 class ::Decor::MapPreview < ::Lookbook::Preview
-  # Maps
+  # Map
   # -------
   #
   # An embedded Google Maps component with enhanced security, error handling, and standardized attributes.
   # Supports different sizes, colors, and states with markers, overlays, and various map types.
+  #
+  # @group Examples
+  # @label Basic Map
+  def basic_map
+    render ::Decor::Map.new(
+      center: san_francisco_center,
+      zoom: 12,
+      api_key: "YOUR_API_KEY_HERE"
+    )
+  end
 
-  # @label Playground
+  # @group Examples
+  # @label Map with Markers
+  def map_with_markers
+    render ::Decor::Map.new(
+      center: san_francisco_center,
+      points: san_francisco_points,
+      zoom: 13,
+      color: :primary,
+      api_key: "YOUR_API_KEY_HERE"
+    )
+  end
+
+  # @group Examples
+  # @label Satellite View
+  def satellite_view
+    render ::Decor::Map.new(
+      center: new_york_center,
+      map_type: :satellite,
+      zoom: 14,
+      size: :lg,
+      api_key: "YOUR_API_KEY_HERE"
+    )
+  end
+
+  # @group Playground
   # @param api_key text
   # @param zoom number
   # @param size select [xs, sm, md, lg, xl, full]
@@ -398,10 +432,10 @@ class ::Decor::MapPreview < ::Lookbook::Preview
     )
   end
 
-  # @group Combinations
+  # @group Examples
   # @label Large Primary with Markers
   # @param api_key text
-  def combo_large_primary_markers(api_key: "Key please")
+  def large_primary_markers(api_key: "Key please")
     render ::Decor::Map.new(
       center: london_center,
       points: london_points,
@@ -412,10 +446,10 @@ class ::Decor::MapPreview < ::Lookbook::Preview
     )
   end
 
-  # @group Combinations
-  # @label Satellite View Business Map
+  # @group Examples
+  # @label Satellite Business Map
   # @param api_key text
-  def combo_satellite_business(api_key: "Key please")
+  def satellite_business(api_key: "Key please")
     render ::Decor::Map.new(
       center: tokyo_center,
       points: tokyo_points,
@@ -427,10 +461,10 @@ class ::Decor::MapPreview < ::Lookbook::Preview
     )
   end
 
-  # @group Combinations
+  # @group Examples
   # @label Terrain Explorer
   # @param api_key text
-  def combo_terrain_explorer(api_key: "Key please")
+  def terrain_explorer(api_key: "Key please")
     render ::Decor::Map.new(
       center: mountain_center,
       points: mountain_points,
@@ -442,10 +476,10 @@ class ::Decor::MapPreview < ::Lookbook::Preview
     )
   end
 
-  # @group Combinations
+  # @group Examples
   # @label City Guide Hybrid
   # @param api_key text
-  def combo_city_guide_hybrid(api_key: "Key please")
+  def city_guide_hybrid(api_key: "Key please")
     render ::Decor::Map.new(
       center: paris_center,
       points: paris_points,
@@ -458,30 +492,30 @@ class ::Decor::MapPreview < ::Lookbook::Preview
     )
   end
 
-  # @group Error Scenarios
-  # @label Invalid API Key
+  # @group Examples
+  # @label Invalid API Key Demo
   # @param api_key text
-  def error_invalid_api_key(api_key: "Key please")
+  def invalid_api_key_demo(api_key: "Key please")
     render ::Decor::Map.new(
       center: san_francisco_center,
       api_key: "invalid_key_demo"
     )
   end
 
-  # @group Error Scenarios
-  # @label Network Error Simulation
+  # @group Examples
+  # @label Network Error Demo
   # @param api_key text
-  def error_network(api_key: "Key please")
+  def network_error_demo(api_key: "Key please")
     render ::Decor::Map.new(
       center: san_francisco_center,
       api_key: "demo_network_error"
     )
   end
 
-  # @group Advanced Features
-  # @label Custom Overlays
+  # @group Examples
+  # @label Map with Overlays
   # @param api_key text
-  def advanced_overlays(api_key: "Key please")
+  def map_with_overlays(api_key: "Key please")
     overlays = [
       {
         type: "polygon",
@@ -506,10 +540,10 @@ class ::Decor::MapPreview < ::Lookbook::Preview
     )
   end
 
-  # @group Advanced Features
+  # @group Examples
   # @label High Density Markers
   # @param api_key text
-  def advanced_high_density(api_key: "Key please")
+  def high_density_markers(api_key: "Key please")
     render ::Decor::Map.new(
       center: manhattan_center,
       points: manhattan_points,

@@ -3,13 +3,161 @@ class ::Decor::CarouselPreview < ::Lookbook::Preview
   # Carousel
   # -------
   #
-  # A Carousel is a swipable container for a series of elements. These can be images, or anything
-  # rendered to the slot `cards`
+  # A swipable container component for displaying a series of elements. Perfect for image galleries,
+  # testimonials, product showcases, or any content that benefits from horizontal scrolling.
+  # Built with DaisyUI carousel styling and supports both images and custom content.
   #
-  # @label Playground
+  # @group Examples
+  # @label Basic Image Carousel
+  def basic_carousel
+    render ::Decor::Carousel.new(
+      images: [
+        {url: "https://picsum.photos/400/300?random=1", alt: "Slide 1"},
+        {url: "https://picsum.photos/400/300?random=2", alt: "Slide 2"},
+        {url: "https://picsum.photos/400/300?random=3", alt: "Slide 3"}
+      ],
+      max_height: 300
+    )
+  end
+
+  # @group Examples
+  # @label Multiple Slides Per View
+  def multiple_slides
+    render ::Decor::Carousel.new(
+      images: [
+        {url: "https://picsum.photos/300/200?random=4", alt: "Product 1"},
+        {url: "https://picsum.photos/300/200?random=5", alt: "Product 2"},
+        {url: "https://picsum.photos/300/200?random=6", alt: "Product 3"},
+        {url: "https://picsum.photos/300/200?random=7", alt: "Product 4"},
+        {url: "https://picsum.photos/300/200?random=8", alt: "Product 5"}
+      ],
+      slides_per_view: 3,
+      max_height: 200
+    )
+  end
+
+  # @group Examples
+  # @label Custom Card Content
+  def custom_content_carousel
+    render ::Decor::Carousel.new(slides_per_view: 2, max_height: 250) do |carousel|
+      carousel.with_slide do
+        content_tag :div, class: "card bg-primary text-primary-content" do
+          content_tag :div, class: "card-body" do
+            safe_join([
+              content_tag(:h2, "Card 1", class: "card-title"),
+              content_tag(:p, "Custom content in a carousel card")
+            ])
+          end
+        end
+      end
+
+      carousel.with_slide do
+        content_tag :div, class: "card bg-secondary text-secondary-content" do
+          content_tag :div, class: "card-body" do
+            safe_join([
+              content_tag(:h2, "Card 2", class: "card-title"),
+              content_tag(:p, "Another custom carousel item")
+            ])
+          end
+        end
+      end
+
+      carousel.with_slide do
+        content_tag :div, class: "card bg-accent text-accent-content" do
+          content_tag :div, class: "card-body" do
+            safe_join([
+              content_tag(:h2, "Card 3", class: "card-title"),
+              content_tag(:p, "Third custom content card")
+            ])
+          end
+        end
+      end
+    end
+  end
+
+  # @group Examples
+  # @label Product Gallery
+  def product_gallery
+    render ::Decor::Carousel.new(slides_per_view: 1, max_height: 400) do |carousel|
+      [1, 2, 3, 4].each do |i|
+        carousel.with_slide do
+          content_tag :div, class: "relative" do
+            safe_join([
+              image_tag("https://picsum.photos/600/400?random=#{30 + i}", alt: "Product image #{i}", class: "w-full"),
+              content_tag(:div, class: "absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4") do
+                safe_join([
+                  content_tag(:h3, "Product #{i}", class: "text-white text-lg font-bold"),
+                  content_tag(:p, "$#{99 + i * 50}.00", class: "text-white")
+                ])
+              end
+            ])
+          end
+        end
+      end
+    end
+  end
+
+  # @group Examples
+  # @label Testimonials
+  def testimonial_carousel
+    render ::Decor::Carousel.new(slides_per_view: 1, max_height: 200) do |carousel|
+      [
+        {name: "Sarah Johnson", role: "CEO", quote: "This product has transformed our business operations."},
+        {name: "Mike Chen", role: "Developer", quote: "The best tool I've used for rapid development."},
+        {name: "Emily Davis", role: "Designer", quote: "Beautiful interface and incredibly intuitive."}
+      ].each do |testimonial|
+        carousel.with_slide do
+          content_tag :div, class: "card bg-base-200" do
+            content_tag :div, class: "card-body" do
+              safe_join([
+                content_tag(:p, "\"#{testimonial[:quote]}\"", class: "text-lg italic"),
+                content_tag(:div, class: "mt-4") do
+                  safe_join([
+                    content_tag(:p, testimonial[:name], class: "font-bold"),
+                    content_tag(:p, testimonial[:role], class: "text-sm text-base-content/70")
+                  ])
+                end
+              ])
+            end
+          end
+        end
+      end
+    end
+  end
+
+  # @group Examples
+  # @label Feature Showcase
+  def feature_showcase
+    render ::Decor::Carousel.new(slides_per_view: 3, max_height: 250) do |carousel|
+      [
+        {icon: "lightning-bolt", title: "Fast Performance", desc: "Lightning fast load times"},
+        {icon: "shield-check", title: "Secure", desc: "Bank-level security"},
+        {icon: "device-mobile", title: "Mobile Ready", desc: "Works on all devices"},
+        {icon: "users", title: "Team Collaboration", desc: "Work together seamlessly"},
+        {icon: "chart-bar", title: "Analytics", desc: "Detailed insights"}
+      ].each do |feature|
+        carousel.with_slide do
+          content_tag :div, class: "card bg-primary text-primary-content" do
+            content_tag :div, class: "card-body items-center text-center" do
+              safe_join([
+                content_tag(:div, class: "text-4xl mb-2") { "🚀" },
+                content_tag(:h3, feature[:title], class: "card-title"),
+                content_tag(:p, feature[:desc])
+              ])
+            end
+          end
+        end
+      end
+    end
+  end
+
+  # @group Playground
   # @param slides_per_view number
   # @param max_height number
-  def playground(slides_per_view: 1, max_height: 200)
+  # @param size [Symbol] select [~, xs, sm, md, lg, xl]
+  # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
+  # @param style [Symbol] select [~, filled, outlined, ghost]
+  def playground(slides_per_view: 1, max_height: 200, size: nil, color: nil, style: nil)
     render ::Decor::Carousel.new(
       images: [
         {path: "logo.png", alt: "Image 1"},
@@ -18,10 +166,95 @@ class ::Decor::CarouselPreview < ::Lookbook::Preview
         {url: "https://i.pravatar.cc/300", alt: "Image 4"}
       ],
       slides_per_view: slides_per_view,
-      max_height: max_height
+      max_height: max_height,
+      size: size,
+      color: color,
+      style: style
     )
   end
 
-  def with_slots
+  # @group Slides Per View
+  # @label Single Slide
+  def single_slide_view
+    render ::Decor::Carousel.new(
+      images: [
+        {url: "https://picsum.photos/600/400?random=10", alt: "Full width slide 1"},
+        {url: "https://picsum.photos/600/400?random=11", alt: "Full width slide 2"},
+        {url: "https://picsum.photos/600/400?random=12", alt: "Full width slide 3"}
+      ],
+      slides_per_view: 1,
+      max_height: 400
+    )
+  end
+
+  # @group Slides Per View
+  # @label Two Slides
+  def two_slides_view
+    render ::Decor::Carousel.new(
+      images: [
+        {url: "https://picsum.photos/350/250?random=13", alt: "Item 1"},
+        {url: "https://picsum.photos/350/250?random=14", alt: "Item 2"},
+        {url: "https://picsum.photos/350/250?random=15", alt: "Item 3"},
+        {url: "https://picsum.photos/350/250?random=16", alt: "Item 4"}
+      ],
+      slides_per_view: 2,
+      max_height: 250
+    )
+  end
+
+  # @group Slides Per View
+  # @label Four Slides
+  def four_slides_view
+    render ::Decor::Carousel.new(
+      images: [
+        {url: "https://picsum.photos/200/150?random=17", alt: "Thumbnail 1"},
+        {url: "https://picsum.photos/200/150?random=18", alt: "Thumbnail 2"},
+        {url: "https://picsum.photos/200/150?random=19", alt: "Thumbnail 3"},
+        {url: "https://picsum.photos/200/150?random=20", alt: "Thumbnail 4"},
+        {url: "https://picsum.photos/200/150?random=21", alt: "Thumbnail 5"},
+        {url: "https://picsum.photos/200/150?random=22", alt: "Thumbnail 6"}
+      ],
+      slides_per_view: 4,
+      max_height: 150
+    )
+  end
+
+  # @group Heights
+  # @label Small Height
+  def height_small
+    render ::Decor::Carousel.new(
+      images: [
+        {url: "https://picsum.photos/300/150?random=23", alt: "Small 1"},
+        {url: "https://picsum.photos/300/150?random=24", alt: "Small 2"},
+        {url: "https://picsum.photos/300/150?random=25", alt: "Small 3"}
+      ],
+      max_height: 150
+    )
+  end
+
+  # @group Heights
+  # @label Medium Height
+  def height_medium
+    render ::Decor::Carousel.new(
+      images: [
+        {url: "https://picsum.photos/400/300?random=26", alt: "Medium 1"},
+        {url: "https://picsum.photos/400/300?random=27", alt: "Medium 2"},
+        {url: "https://picsum.photos/400/300?random=28", alt: "Medium 3"}
+      ],
+      max_height: 300
+    )
+  end
+
+  # @group Heights
+  # @label Large Height
+  def height_large
+    render ::Decor::Carousel.new(
+      images: [
+        {url: "https://picsum.photos/800/500?random=29", alt: "Large 1"},
+        {url: "https://picsum.photos/800/500?random=30", alt: "Large 2"},
+        {url: "https://picsum.photos/800/500?random=31", alt: "Large 3"}
+      ],
+      max_height: 500
+    )
   end
 end

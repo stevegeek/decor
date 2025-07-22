@@ -68,14 +68,14 @@ class ::Decor::BadgePreview < ::Lookbook::Preview
   # @group Playground
   # @param label text
   # @param icon select [~, check-circle, x, check, download, play]
-  # @param style select [outlined, filled, ghost]
-  # @param color select [base, primary, secondary, accent, neutral, success, error, warning, info]
-  # @param size select [xs, sm, md, lg, xl]
   # @param dashed toggle
   # @param image select [~, "https://i.pravatar.cc/300", "https://cataas.com/cat"]
   # @param initials text
-  def playground(label: "My Badge", size: :md, icon: nil, color: :info, style: :outlined, image: nil, initials: nil, dashed: false)
-    render ::Decor::Badge.new(label: label, icon: icon, size: size, color: color, style: style, url: image, initials: initials, dashed: dashed)
+  # @param size [Symbol] select [~, xs, sm, md, lg, xl]
+  # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
+  # @param style [Symbol] select [~, filled, outlined, ghost]
+  def playground(label: "My Badge", icon: nil, dashed: false, image: nil, initials: nil, size: nil, color: nil, style: nil)
+    render ::Decor::Badge.new(label: label, icon: icon, dashed: dashed, url: image, initials: initials, size: size, color: color, style: style)
   end
 
   # @group Colors
@@ -215,6 +215,7 @@ class ::Decor::BadgePreview < ::Lookbook::Preview
   def avatar_small
     render ::Decor::Badge.new(label: "Small User", initials: "SU", size: :sm)
   end
+
   # @group With Avatars
   # @label Medium with Avatar
   def avatar_medium

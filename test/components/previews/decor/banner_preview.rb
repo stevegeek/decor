@@ -6,14 +6,83 @@ class ::Decor::BannerPreview < ::Lookbook::Preview
   # A banner is a large alert component that is used to display important messages to the user.
   # Supports different styles, icons, links, and layout options using daisyUI alert styling.
   #
-  # @label Playground
+  # @group Examples
+  # @label Success Centered with Icon and Link
+  def combo_success_centered_icon_link
+    render ::Decor::Banner.new(
+      style: :success,
+      centered: true,
+      icon: "check-circle",
+      link: "/dashboard"
+    ) do
+      "Welcome! Your account setup is complete."
+    end
+  end
+
+  # @group Examples
+  # @label Warning Left with Icon and Action
+  def combo_warning_left_icon_action
+    render ::Decor::Banner.new(style: :warning, icon: "exclamation-triangle") do |banner|
+      banner.call_to_action do
+        render ::Decor::Button.new(label: "Dismiss", style: :ghost, size: :sm)
+      end
+      "Please verify your email address to continue."
+    end
+  end
+
+  # @group Examples
+  # @label Site Maintenance Notice
+  def usecase_maintenance
+    render ::Decor::Banner.new(style: :warning, icon: "wrench", centered: true) do
+      "Scheduled maintenance will occur tonight from 2-4 AM EST."
+    end
+  end
+
+  # @group Examples
+  # @label Cookie Consent
+  def usecase_cookie_consent
+    render ::Decor::Banner.new(style: :info, link: "/privacy") do |banner|
+      banner.call_to_action do
+        render ::Decor::Button.new(label: "Accept", color: :primary, size: :sm)
+      end
+      "We use cookies to improve your experience."
+    end
+  end
+
+  # @group Examples
+  # @label Feature Announcement
+  def usecase_feature_announcement
+    render ::Decor::Banner.new(style: :success, icon: "star", link: "/features") do
+      "🎉 New features are now available! Check them out."
+    end
+  end
+
+  # @group Examples
+  # @label Account Verification
+  def usecase_account_verification
+    render ::Decor::Banner.new(style: :warning, icon: "exclamation-triangle", link: "/verify") do
+      "Please verify your email address to access all features."
+    end
+  end
+
+  # @group Examples
+  # @label System Error
+  def usecase_system_error
+    render ::Decor::Banner.new(style: :error, icon: "x", link: "/support") do
+      "We're experiencing technical difficulties. Contact support if issues persist."
+    end
+  end
+
+  # @group Playground
   # @param body text
   # @param centered toggle
   # @param icon select [~, check-circle, x, check, download, play]
   # @param link select [~, "https://example.com"]
-  # @param style select [warning, info, error, notice, success]
-  def playground(body: "Hi!", centered: false, icon: nil, link: nil, style: :notice)
-    render ::Decor::Banner.new(link: link, centered: centered, icon: icon, style: style) do
+  # @param size [Symbol] select [~, xs, sm, md, lg, xl]
+  # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
+  # @param style [Symbol] select [~, warning, info, error, notice, standard, success]
+  def playground(body: "Hi!", centered: false, icon: nil, link: nil, size: nil, color: nil, style: nil)
+    render ::Decor::Banner.new(link: link, centered: centered, icon: icon, size: size, color: color, style: style) do
       body
     end
   end
@@ -159,7 +228,7 @@ class ::Decor::BannerPreview < ::Lookbook::Preview
   def action_slot_custom
     render ::Decor::Banner.new(style: :warning) do |banner|
       banner.call_to_action do
-        banner.render ::Decor::Button.new(label: "Update Now", color: :warning, size: :small)
+        banner.render ::Decor::Button.new(label: "Update Now", color: :warning, size: :sm)
       end
       "A new version is available."
     end
@@ -170,79 +239,10 @@ class ::Decor::BannerPreview < ::Lookbook::Preview
   def action_slot_multiple
     render ::Decor::Banner.new(style: :info) do |banner|
       banner.call_to_action do
-        banner.content_tag(:div, class: "flex gap-2") do
-          banner.render ::Decor::Button.new(label: "Accept", color: :primary, size: :small)
-          banner.render ::Decor::Button.new(label: "Decline", variant: :outlined, size: :small)
-        end
+        banner.render ::Decor::Button.new(label: "Accept", color: :primary, size: :sm)
+        banner.render ::Decor::Button.new(label: "Decline", style: :outlined, size: :sm)
       end
       "Accept our updated terms of service."
-    end
-  end
-
-  # @group Combinations
-  # @label Success Centered with Icon and Link
-  def combo_success_centered_icon_link
-    render ::Decor::Banner.new(
-      style: :success,
-      centered: true,
-      icon: "check-circle",
-      link: "/dashboard"
-    ) do
-      "Welcome! Your account setup is complete."
-    end
-  end
-
-  # @group Combinations
-  # @label Warning Left with Icon and Action
-  def combo_warning_left_icon_action
-    render ::Decor::Banner.new(style: :warning, icon: "exclamation-triangle") do |banner|
-      banner.call_to_action do
-        render ::Decor::Button.new(label: "Dismiss", variant: :text, size: :small)
-      end
-      "Please verify your email address to continue."
-    end
-  end
-
-  # @group Use Cases
-  # @label Site Maintenance Notice
-  def usecase_maintenance
-    render ::Decor::Banner.new(style: :warning, icon: "wrench", centered: true) do
-      "Scheduled maintenance will occur tonight from 2-4 AM EST."
-    end
-  end
-
-  # @group Use Cases
-  # @label Cookie Consent
-  def usecase_cookie_consent
-    render ::Decor::Banner.new(style: :info, link: "/privacy") do |banner|
-      banner.call_to_action do
-        render ::Decor::Button.new(label: "Accept", color: :primary, size: :small)
-      end
-      "We use cookies to improve your experience."
-    end
-  end
-
-  # @group Use Cases
-  # @label Feature Announcement
-  def usecase_feature_announcement
-    render ::Decor::Banner.new(style: :success, icon: "star", link: "/features") do
-      "🎉 New features are now available! Check them out."
-    end
-  end
-
-  # @group Use Cases
-  # @label Account Verification
-  def usecase_account_verification
-    render ::Decor::Banner.new(style: :warning, icon: "exclamation-triangle", link: "/verify") do
-      "Please verify your email address to access all features."
-    end
-  end
-
-  # @group Use Cases
-  # @label System Error
-  def usecase_system_error
-    render ::Decor::Banner.new(style: :error, icon: "x", link: "/support") do
-      "We're experiencing technical difficulties. Contact support if issues persist."
     end
   end
 end

@@ -37,7 +37,7 @@ module Decor
           link_to "Learn more", @link, class: button_classes
         end
         if @call_to_action.present?
-          div do
+          div(class: "flex gap-2") do
             render @call_to_action
           end
         end

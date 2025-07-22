@@ -29,14 +29,18 @@ class ::Decor::ClickToCopyPreview < ::Lookbook::Preview
   end
 
   # @group Playground
-  # @label Playground
-  def playground
-    render ::Decor::ClickToCopy.new do
-      "Click to copy me!"
+  # @param text text
+  # @param to_copy text
+  # @param size [Symbol] select [~, xs, sm, md, lg, xl]
+  # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
+  # @param style [Symbol] select [~, filled, outlined, ghost]
+  def playground(text: "Click to copy me!", to_copy: nil, size: nil, color: nil, style: nil)
+    render ::Decor::ClickToCopy.new(to_copy: to_copy, size: size, color: color, style: style) do
+      text
     end
   end
 
-  # @group Use Cases
+  # @group Examples
   # @label API Key Copy
   def api_key_copy
     render ::Decor::Element.new do |el|
@@ -49,7 +53,7 @@ class ::Decor::ClickToCopyPreview < ::Lookbook::Preview
     end
   end
 
-  # @group Use Cases
+  # @group Examples
   # @label Share Link Copy
   def share_link_copy
     render ::Decor::Element.new do |el|
@@ -62,7 +66,7 @@ class ::Decor::ClickToCopyPreview < ::Lookbook::Preview
     end
   end
 
-  # @group Use Cases
+  # @group Examples
   # @label Quick Copy Icon
   def quick_copy_icon
     render ::Decor::Element.new do |el|

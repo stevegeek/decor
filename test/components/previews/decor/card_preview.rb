@@ -5,19 +5,121 @@ class ::Decor::CardPreview < ::Lookbook::Preview
   #
   # A card is a container for content which has a border and a shadow.
   # Cards can have a title attribute or use a header slot for more complex headers.
+  # They support images in different positions, various colors, sizes, and styles.
   #
-  # @param card_type [Symbol] select { choices: [basic, with_title, with_header_slot, with_image_top, with_image_left, with_image_right, with_image_bottom] }
-  # @param size [Symbol] select { choices: [xs, sm, md, lg, xl] }
-  # @param color [Symbol] select { choices: [base, primary, secondary, accent, success, error, warning, info, neutral] }
-  # @param variant [Symbol] select { choices: [filled, outlined, ghost] }
-  def playground(card_type: :basic, size: :md, color: :base, variant: :filled)
+  # @group Examples
+  # @label Basic Card
+  def basic_card
+    render ::Decor::Card.new do
+      "A simple card with just content"
+    end
+  end
+
+  # @group Examples
+  # @label Card with Title
+  def card_with_title_example
+    render ::Decor::Card.new(title: "User Profile") do |card|
+      card.plain("Name: John Doe")
+      card.br
+      card.plain("Email: john@example.com")
+      card.br
+      card.plain("Role: Administrator")
+    end
+  end
+
+  # @group Examples
+  # @label Card with Image
+  def card_with_image_example
+    render ::Decor::Card.new(
+      title: "Mountain Adventure",
+      image_url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=400&fit=crop",
+      image_position: :top
+    ) do
+      "Experience breathtaking mountain views and hiking trails."
+    end
+  end
+
+  # @group Examples
+  # @label Card with Image and Header
+  def card_with_image_and_header_slot
+    render ::Decor::Card.new(
+      image_url: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&h=400&fit=crop",
+      image_position: :top
+    ) do |card|
+      card.with_header do
+        card.div(class: "flex items-center justify-between p-4") do
+          card.div do
+            card.h3(class: "text-lg font-semibold") { "Company Dashboard" }
+            card.p(class: "text-sm text-gray-600") { "Real-time analytics" }
+          end
+          card.span(class: "badge badge-success") { "Live" }
+        end
+      end
+      "Monitor your business metrics with real-time data visualization and comprehensive reporting tools."
+    end
+  end
+
+  # @group Examples
+  # @label Card with Color and Image
+  def card_with_color_and_image
+    render ::Decor::Card.new(
+      title: "Featured Product",
+      image_url: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=800&h=400&fit=crop",
+      image_position: :top,
+      color: :primary,
+      style: :filled
+    ) do
+      "Limited edition sunglasses with UV protection and polarized lenses."
+    end
+  end
+
+  # @group Examples
+  # @label Card with Outlined Style and Image
+  def outlined_card_with_image
+    render ::Decor::Card.new(
+      title: "Team Leader",
+      image_url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop",
+      image_position: :left,
+      color: :secondary,
+      style: :outlined,
+      size: :lg
+    ) do |card|
+      card.strong { "Michael Chen" }
+      card.br
+      card.plain("Engineering Manager")
+      card.br
+      card.plain("10+ years experience")
+    end
+  end
+
+  # @group Examples
+  # @label Compact Info Card
+  def compact_info_card
+    render ::Decor::Card.new(
+      title: "Quick Tip",
+      color: :info,
+      size: :xs,
+      style: :filled
+    ) do
+      "Press Ctrl+K to open the command palette."
+    end
+  end
+
+  # @!endgroup
+
+  # @group Playground
+  # @param card_type select [basic, with_title, with_header_slot, with_image_top, with_image_left, with_image_right, with_image_bottom]
+  # @param size [Symbol] select [~, xs, sm, md, lg, xl]
+  # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
+  # @param style [Symbol] select [~, filled, outlined, ghost]
+  def playground(card_type: :basic, size: nil, color: nil, style: nil)
     case card_type
     when :with_title
-      render ::Decor::Card.new(title: "Card with Title", size: size, color: color, variant: variant) do
+      render ::Decor::Card.new(title: "Card with Title", size: size, color: color, style: style) do
         "This card uses the title attribute to display a simple title header."
       end
     when :with_header_slot
-      render ::Decor::Card.new(size: size, color: color, variant: variant) do |card|
+      render ::Decor::Card.new(size: size, color: color, style: style) do |card|
         card.with_header do
           card.render ::Decor::Progress.new(
             current_step: 1,
@@ -34,7 +136,7 @@ class ::Decor::CardPreview < ::Lookbook::Preview
         image_position: :top,
         size: size,
         color: color,
-        variant: variant
+        style: style
       ) do
         "Experience breathtaking mountain views and hiking trails. Perfect for outdoor enthusiasts looking for their next adventure."
       end
@@ -45,7 +147,7 @@ class ::Decor::CardPreview < ::Lookbook::Preview
         image_position: :left,
         size: size,
         color: color,
-        variant: variant
+        style: style
       ) do |card|
         card.plain("Premium quality product with excellent ratings.")
         card.br
@@ -60,7 +162,7 @@ class ::Decor::CardPreview < ::Lookbook::Preview
         image_position: :right,
         size: size,
         color: color,
-        variant: variant
+        style: style
       ) do |card|
         card.strong { "John Doe" }
         card.br
@@ -77,22 +179,14 @@ class ::Decor::CardPreview < ::Lookbook::Preview
         image_position: :bottom,
         size: size,
         color: color,
-        variant: variant
+        style: style
       ) do
         "Discover the latest trends in technology and innovation. This comprehensive article covers emerging technologies and their impact on various industries."
       end
     else
-      render ::Decor::Card.new(size: size, color: color, variant: variant) do
+      render ::Decor::Card.new(size: size, color: color, style: style) do
         "This is a basic card with just body content and no header."
       end
-    end
-  end
-
-  # @!group Examples
-
-  def basic_card
-    render ::Decor::Card.new do
-      "A simple card with just content"
     end
   end
 
@@ -182,44 +276,36 @@ class ::Decor::CardPreview < ::Lookbook::Preview
 
   # @!endgroup
 
-  # @!group Variants
+  # @!group Styles
 
   def filled_card
-    render ::Decor::Card.new(title: "Filled Card", variant: :filled) do
+    render ::Decor::Card.new(title: "Filled Card", style: :filled) do
       "Default filled card with shadow"
     end
   end
 
   def outlined_card
-    render ::Decor::Card.new(title: "Outlined Card", variant: :outlined) do
+    render ::Decor::Card.new(title: "Outlined Card", style: :outlined) do
       "Card with border outline instead of shadow"
     end
   end
 
   def ghost_card
-    render ::Decor::Card.new(title: "Ghost Card", variant: :ghost) do
+    render ::Decor::Card.new(title: "Ghost Card", style: :ghost) do
       "Minimal card with no shadow or border"
     end
   end
 
   def outlined_colored_card
-    render ::Decor::Card.new(title: "Outlined Primary", variant: :outlined, color: :primary) do
+    render ::Decor::Card.new(title: "Outlined Primary", style: :outlined, color: :primary) do
       "Outlined card with primary color border"
     end
   end
 
   # @!endgroup
 
-  def card_with_title
-    render ::Decor::Card.new(title: "User Profile") do |card|
-      card.plain("Name: John Doe")
-      card.br
-      card.plain("Email: john@example.com")
-      card.br
-      card.plain("Role: Administrator")
-    end
-  end
-
+  # @group Examples
+  # @label Card with Custom Header
   def card_with_custom_header
     render ::Decor::Card.new do |card|
       card.with_header do
@@ -287,70 +373,6 @@ class ::Decor::CardPreview < ::Lookbook::Preview
       "Learn the essential principles and best practices for developing modern applications. This guide covers architecture, design patterns, and development workflows that lead to maintainable and scalable software."
     end
   end
-
-  # @!endgroup
-
-  def card_with_image_and_header_slot
-    render ::Decor::Card.new(
-      image_url: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&h=400&fit=crop",
-      image_position: :top
-    ) do |card|
-      card.with_header do
-        card.div(class: "flex items-center justify-between p-4") do
-          card.div do
-            card.h3(class: "text-lg font-semibold") { "Company Dashboard" }
-            card.p(class: "text-sm text-gray-600") { "Real-time analytics" }
-          end
-          card.span(class: "badge badge-success") { "Live" }
-        end
-      end
-      "Monitor your business metrics with real-time data visualization and comprehensive reporting tools."
-    end
-  end
-
-  # @!group Combinations
-
-  def card_with_color_and_image
-    render ::Decor::Card.new(
-      title: "Featured Product",
-      image_url: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=800&h=400&fit=crop",
-      image_position: :top,
-      color: :primary,
-      variant: :filled
-    ) do
-      "Limited edition sunglasses with UV protection and polarized lenses."
-    end
-  end
-
-  def outlined_card_with_image
-    render ::Decor::Card.new(
-      title: "Team Leader",
-      image_url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop",
-      image_position: :left,
-      color: :secondary,
-      variant: :outlined,
-      size: :lg
-    ) do |card|
-      card.strong { "Michael Chen" }
-      card.br
-      card.plain("Engineering Manager")
-      card.br
-      card.plain("10+ years experience")
-    end
-  end
-
-  def compact_info_card
-    render ::Decor::Card.new(
-      title: "Quick Tip",
-      color: :info,
-      size: :xs,
-      variant: :filled
-    ) do
-      "Press Ctrl+K to open the command palette."
-    end
-  end
-
-  # @!endgroup
 
   # @!endgroup
 end

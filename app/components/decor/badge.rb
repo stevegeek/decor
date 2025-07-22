@@ -41,7 +41,7 @@ module Decor
           render(
             ::Decor::Icon.new(
               name: @icon,
-              variant: :solid,
+              style: :solid,
               html_options: {class: "-ml-1 mr-1.5 #{icon_size_classes}"}
             )
           )
