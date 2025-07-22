@@ -34,7 +34,7 @@ class ::Decor::LinkPreview < ::Lookbook::Preview
       href: "/reports/annual.pdf",
       icon: "download",
       color: :accent,
-      data: { turbo: false }
+      data: {turbo: false}
     )
   end
 

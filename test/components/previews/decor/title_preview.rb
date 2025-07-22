@@ -1,11 +1,46 @@
-## @label Title
+# @label Title
 class ::Decor::TitlePreview < ::Lookbook::Preview
   # Title
   # -------
   #
   # A reusable title component with configurable size, optional icon, description, and CTA area.
-  # Used across PanelGroup, Panel, and other components for consistent title styling.
+  # Used across components for consistent title styling.
   #
+  # @group Examples
+  # @label Basic Title
+  def basic_title
+    render ::Decor::Title.new(
+      title: "Page Title",
+      description: "A clear description of what this section contains",
+      size: :md
+    )
+  end
+
+  # @group Examples
+  # @label Title with Icon
+  def title_with_icon
+    render ::Decor::Title.new(
+      title: "Settings",
+      description: "Manage your application preferences",
+      icon: "cog",
+      size: :lg
+    )
+  end
+
+  # @group Examples
+  # @label Title with Actions
+  def title_with_actions
+    render ::Decor::Title.new(
+      title: "User Management",
+      description: "View and manage all users in your organization",
+      icon: "users",
+      size: :lg
+    ) do |title|
+      title.render ::Decor::Button.new(label: "Add User", color: :primary, size: :sm)
+    end
+  end
+
+  # @group Playground
   # @param size [Symbol] select { choices: [xs, sm, md, lg, xl] }
   # @param include_description [Boolean] toggle
   # @param include_icon [Boolean] toggle
@@ -18,131 +53,175 @@ class ::Decor::TitlePreview < ::Lookbook::Preview
       size: size
     ) do |title|
       if include_actions
-        title.render ::Decor::Button.new(variant: :outlined, size: :micro) { "Action" }
+        title.render ::Decor::Button.new(style: :outlined, size: :xs) { "Action" }
       end
     end
   end
 
-  # @!group Examples
+  # @group Sizes
+  # @label Extra Small
+  def size_xs
+    render ::Decor::Title.new(
+      title: "Extra Small Title",
+      description: "XS size for compact areas",
+      size: :xs
+    )
+  end
 
-  def all_sizes
-    render ::Decor::Box.new do |box|
-      [:xs, :sm, :md, :lg, :xl].each do |size|
-        box.render ::Decor::Title.new(
-          title: "#{size.to_s.upcase} Title Size",
-          description: "Description text for #{size} size",
-          size: size,
-          icon: "academic-cap"
-        ) do |title|
-          title.render ::Decor::Button.new(variant: :outlined, size: button_size_for(size)) { "Action" }
-        end
+  # @group Sizes
+  # @label Small
+  def size_sm
+    render ::Decor::Title.new(
+      title: "Small Title",
+      description: "Small size for secondary sections",
+      size: :sm
+    )
+  end
 
-        # Add spacing between examples
-        box.div(class: "my-6") unless size == :xl
-      end
+  # @group Sizes
+  # @label Medium (Default)
+  def size_md
+    render ::Decor::Title.new(
+      title: "Medium Title",
+      description: "Default size for most use cases",
+      size: :md
+    )
+  end
+
+  # @group Sizes
+  # @label Large
+  def size_lg
+    render ::Decor::Title.new(
+      title: "Large Title",
+      description: "Large size for main sections",
+      size: :lg
+    )
+  end
+
+  # @group Sizes
+  # @label Extra Large
+  def size_xl
+    render ::Decor::Title.new(
+      title: "Extra Large Title",
+      description: "XL size for hero sections and page headers",
+      size: :xl
+    )
+  end
+
+  # @group With Icons
+  # @label Small with Icon
+  def icon_small
+    render ::Decor::Title.new(
+      title: "Small Title with Icon",
+      description: "Icon scales appropriately with size",
+      icon: "star",
+      size: :sm
+    )
+  end
+
+  # @group With Icons
+  # @label Medium with Icon
+  def icon_medium
+    render ::Decor::Title.new(
+      title: "Medium Title with Icon",
+      description: "Icon scales appropriately with size",
+      icon: "star",
+      size: :md
+    )
+  end
+
+  # @group With Icons
+  # @label Large with Icon
+  def icon_large
+    render ::Decor::Title.new(
+      title: "Large Title with Icon",
+      description: "Icon scales appropriately with size",
+      icon: "star",
+      size: :lg
+    )
+  end
+
+  # @group Variations
+  # @label Title Only
+  def title_only
+    render ::Decor::Title.new(
+      title: "Simple Title Without Description",
+      size: :lg
+    )
+  end
+
+  # @group Variations
+  # @label With Multiple Actions
+  def multiple_actions
+    render ::Decor::Title.new(
+      title: "Multiple Actions",
+      description: "Example with multiple CTA elements",
+      size: :md
+    ) do |title|
+      title.render ::Decor::Button.new(label: "Secondary", style: :ghost, size: :sm)
+      title.render ::Decor::Button.new(label: "Primary", style: :outlined, size: :sm)
     end
   end
 
-  def with_icons
-    render ::Decor::Box.new do |box|
-      [:sm, :md, :lg].each do |size|
-        box.render ::Decor::Title.new(
-          title: "Title with Icon",
-          description: "Shows how icons scale with different sizes",
-          icon: "star",
-          size: size
-        )
-
-        box.div(class: "my-4") unless size == :lg
-      end
+  # @group Variations
+  # @label With Badge Actions
+  def badge_actions
+    render ::Decor::Title.new(
+      title: "Status Overview",
+      description: "Using badges as action elements",
+      size: :md
+    ) do |title|
+      title.render ::Decor::Badge.new(label: "Active", color: :success)
+      title.render ::Decor::Badge.new(label: "New", color: :info)
     end
   end
 
-  def simple_titles
-    render ::Decor::Box.new do |box|
-      box.render ::Decor::Title.new(title: "Simple Title Only", size: :lg)
-
-      box.div(class: "my-4")
-
-      box.render ::Decor::Title.new(
-        title: "Title with Description",
-        description: "No icon or actions, just title and description",
-        size: :md
-      )
+  # @group Examples
+  # @label Page Header
+  def page_header
+    render ::Decor::Title.new(
+      title: "Page Header",
+      description: "Main page title with large size",
+      size: :xl
+    ) do |title|
+      title.render ::Decor::Button.new(label: "Create New", color: :primary)
     end
   end
 
-  def with_different_actions
-    render ::Decor::Box.new do |box|
-      box.render ::Decor::Title.new(
-        title: "Multiple Actions",
-        description: "Example with multiple CTA elements",
-        size: :md
-      ) do |title|
-        title.render ::Decor::Button.new(variant: :text, size: :large) { "Secondary" }
-        title.render ::Decor::Button.new(variant: :outlined, size: :large) { "Primary" }
-      end
-
-      box.div(class: "my-6")
-
-      box.render ::Decor::Title.new(
-        title: "Custom Action Content",
-        description: "Using badges and other components as actions",
-        size: :md
-      ) do |title|
-        title.render ::Decor::Badge.new(style: :success) { "Active" }
-        title.render ::Decor::Badge.new(style: :info) { "New" }
-      end
+  # @group Examples
+  # @label Section Header
+  def section_header
+    render ::Decor::Title.new(
+      title: "Section Header",
+      description: "Secondary section with medium size",
+      size: :lg
+    ) do |title|
+      title.render ::Decor::Button.new(label: "Edit Section", style: :outlined)
     end
   end
 
-  def page_headers
-    render ::Decor::Box.new do |box|
-      box.render ::Decor::Title.new(
-        title: "Page Header",
-        description: "Main page title with large size",
-        size: :xl
-      ) do |title|
-        title.render ::Decor::Button.new(color: :primary) { "Create New" }
-      end
-
-      box.div(class: "my-8")
-
-      box.render ::Decor::Title.new(
-        title: "Section Header",
-        description: "Secondary section with medium size",
-        size: :lg
-      ) do |title|
-        title.render ::Decor::Button.new(variant: :outlined) { "Edit Section" }
-      end
-    end
-  end
-
-  def details_box_style
+  # @group Examples
+  # @label Settings Panel
+  def settings_panel
     render ::Decor::Title.new(
       title: "User Profile Settings",
       description: "Manage your account preferences and personal information",
       size: :md
     ) do |title|
-      title.render ::Decor::Button.new(color: :primary, size: :small) { "Edit Profile" }
-      title.render ::Decor::Button.new(variant: :text, size: :small) { "Export Data" }
+      title.render ::Decor::Button.new(label: "Edit Profile", color: :primary, size: :sm)
+      title.render ::Decor::Button.new(label: "Export Data", style: :ghost, size: :sm)
     end
   end
 
-  def panel_style
-    render ::Decor::Box.new do |box|
-      box.render ::Decor::Title.new(
-        title: "Active Users",
-        icon: "users",
-        size: :sm
-      )
-
-      box.div(class: "mt-2 text-2xl font-bold text-primary") { "1,234" }
-      box.div(class: "text-sm text-base-content/70") { "↗ 12% from last month" }
-    end
+  # @group Examples
+  # @label Stat Card Title
+  def stat_card_title
+    render ::Decor::Title.new(
+      title: "Active Users",
+      icon: "users",
+      size: :sm
+    )
   end
-
-  # @!endgroup
 
   private
 
@@ -164,11 +243,11 @@ class ::Decor::TitlePreview < ::Lookbook::Preview
   def button_size_for(title_size)
     case title_size
     when :xs, :sm
-      :micro
+      :xs
     when :md
-      :small
+      :sm
     when :lg, :xl
-      :large
+      :lg
     end
   end
 end

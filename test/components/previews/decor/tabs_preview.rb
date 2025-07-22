@@ -1,17 +1,53 @@
 # @label Tabs
 class ::Decor::TabsPreview < ::Lookbook::Preview
-  # Tabs Playground
+  # Tabs
   # ----
   #
-  # Interactive playground for testing tabs with all available options.
-  # Tabs can be configured with various sizes, colors, variants, and features.
+  # A navigation component that displays a horizontal list of tabs.
+  # Tabs allow users to switch between different views or sections of content.
+  # They support various styles, sizes, colors, and can include icons and badges.
   #
+  # @group Examples
+  # @label Basic Tabs
+  def basic_tabs
+    links = [
+      {title: "Home", href: "/", active: true},
+      {title: "About", href: "/about"},
+      {title: "Contact", href: "/contact"}
+    ]
+    render ::Decor::Tabs.new(links: links)
+  end
+
+  # @group Examples
+  # @label Tabs with Icons
+  def tabs_with_icons
+    links = [
+      {title: "Dashboard", href: "/dashboard", icon: "home", active: true},
+      {title: "Messages", href: "/messages", icon: "envelope", badge_text: "3", badge_color: :error},
+      {title: "Settings", href: "/settings", icon: "cog"}
+    ]
+    render ::Decor::Tabs.new(links: links, style: :bordered)
+  end
+
+  # @group Examples
+  # @label Lifted Style Tabs
+  def lifted_tabs
+    links = [
+      {title: "Overview", href: "#", active: true},
+      {title: "Analytics", href: "#"},
+      {title: "Reports", href: "#"},
+      {title: "Settings", href: "#"}
+    ]
+    render ::Decor::Tabs.new(links: links, style: :lifted, color: :primary)
+  end
+
+  # @group Playground
   # @param selected_link number
   # @param status text
-  # @param size select { choices: [xs, sm, md, lg, xl] }
-  # @param color select { choices: [base, primary, secondary, accent, success, error, warning, info, neutral] }
-  # @param variant select { choices: [ghost, bordered, lifted, boxed] }
-  def playground(selected_link: 1, status: "Optional status text", size: :md, color: :base, variant: :bordered)
+  # @param size [Symbol] select [~, xs, sm, md, lg, xl]
+  # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
+  # @param style [Symbol] select [~, ghost, bordered, lifted, boxed]
+  def playground(selected_link: 1, status: "Optional status text", size: nil, color: nil, style: nil)
     links = [
       {title: "Dashboard", href: "/dashboard", icon: "home"},
       {title: "Messages", href: "/messages", icon: "envelope", badge_text: "3", badge_color: :error},
@@ -19,20 +55,7 @@ class ::Decor::TabsPreview < ::Lookbook::Preview
       {title: "Disabled", href: "#", disabled: true}
     ]
     links[selected_link - 1][:active] = true if links[selected_link - 1]
-    render ::Decor::Tabs.new(links: links, status: status, size: size.to_sym, color: color.to_sym, variant: variant.to_sym)
-  end
-
-  # Basic Tabs
-  # ----
-  #
-  # Simple tabs with text-only links.
-  def basic
-    links = [
-      {title: "Home", href: "/", active: true},
-      {title: "About", href: "/about"},
-      {title: "Contact", href: "/contact"}
-    ]
-    render ::Decor::Tabs.new(links: links)
+    render ::Decor::Tabs.new(links: links, status: status, size: size, color: color, style: style)
   end
 
   # @group Icons
@@ -135,48 +158,48 @@ class ::Decor::TabsPreview < ::Lookbook::Preview
     render ::Decor::Tabs.new(links: links, size: :xl)
   end
 
-  # @group Variants
-  # @label Ghost Variant
-  def variant_ghost
+  # @group Styles
+  # @label Ghost Style
+  def style_ghost
     links = [
       {title: "Dashboard", href: "#", active: true},
       {title: "Analytics", href: "#"},
       {title: "Reports", href: "#"}
     ]
-    render ::Decor::Tabs.new(links: links, variant: :ghost)
+    render ::Decor::Tabs.new(links: links, style: :ghost)
   end
 
-  # @group Variants
-  # @label Bordered Variant
-  def variant_bordered
+  # @group Styles
+  # @label Bordered Style
+  def style_bordered
     links = [
       {title: "Dashboard", href: "#", active: true},
       {title: "Analytics", href: "#"},
       {title: "Reports", href: "#"}
     ]
-    render ::Decor::Tabs.new(links: links, variant: :bordered)
+    render ::Decor::Tabs.new(links: links, style: :bordered)
   end
 
-  # @group Variants
-  # @label Lifted Variant
-  def variant_lifted
+  # @group Styles
+  # @label Lifted Style
+  def style_lifted
     links = [
       {title: "Dashboard", href: "#", active: true},
       {title: "Analytics", href: "#"},
       {title: "Reports", href: "#"}
     ]
-    render ::Decor::Tabs.new(links: links, variant: :lifted)
+    render ::Decor::Tabs.new(links: links, style: :lifted)
   end
 
-  # @group Variants
-  # @label Boxed Variant
-  def variant_boxed
+  # @group Styles
+  # @label Boxed Style
+  def style_boxed
     links = [
       {title: "Dashboard", href: "#", active: true},
       {title: "Analytics", href: "#"},
       {title: "Reports", href: "#"}
     ]
-    render ::Decor::Tabs.new(links: links, variant: :boxed)
+    render ::Decor::Tabs.new(links: links, style: :boxed)
   end
 
   # @group Colors
@@ -319,7 +342,7 @@ class ::Decor::TabsPreview < ::Lookbook::Preview
   # @group Slot API
   # @label Custom Tab Buttons
   def slot_custom_buttons
-    render ::Decor::Tabs.new(variant: :boxed, size: :lg) do |component|
+    render ::Decor::Tabs.new(style: :boxed, size: :lg) do |component|
       component.with_tab_buttons do
         button(role: "tab", class: "tab tab-active") do
           svg(class: "w-5 h-5 mr-2", fill: "currentColor", viewBox: "0 0 20 20") do |s|
@@ -342,7 +365,7 @@ class ::Decor::TabsPreview < ::Lookbook::Preview
   # @group Slot API
   # @label With Content Panels
   def slot_with_content
-    render ::Decor::Tabs.new(variant: :lifted, color: :primary) do |component|
+    render ::Decor::Tabs.new(style: :lifted, color: :primary) do |component|
       component.with_tab_buttons do
         button(role: "tab", class: "tab tab-active") { "Overview" }
         button(role: "tab", class: "tab") { "Details" }
@@ -370,8 +393,8 @@ class ::Decor::TabsPreview < ::Lookbook::Preview
   end
 
   # @group Examples
-  # @label Complex Example
-  def complex_example
+  # @label Full Featured Tabs
+  def full_featured_tabs
     links = [
       {
         title: "Dashboard",
@@ -412,7 +435,7 @@ class ::Decor::TabsPreview < ::Lookbook::Preview
     render ::Decor::Tabs.new(
       links: links,
       size: :lg,
-      variant: :lifted,
+      style: :lifted,
       color: :primary,
       status: "5 notifications pending"
     )

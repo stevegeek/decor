@@ -130,13 +130,12 @@ class ::Decor::TagPreview < ::Lookbook::Preview
     )
   end
 
-
   # @group Playground
   # @param label text
   # @param icon select [~, check-circle, x-mark, check, star, heart, user, tag]
-  # @param size select [xs, sm, md, lg, xl]
+  # @param size [Symbol] select [~, xs, sm, md, lg, xl]
   # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
-  # @param style select [filled, outlined, ghost]
+  # @param style [Symbol] select [~, ghost, bordered, lifted, boxed]
   # @param removable toggle
   def playground(
     label: "Sample Tag",
