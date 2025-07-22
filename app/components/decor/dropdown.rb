@@ -8,10 +8,10 @@ module Decor
       values active_target: -> { "##{id}-menu-button" }, enter_timeout: 100, leave_timeout: 75
     end
 
-    # Modern attributes with DaisyUI integration
-    prop :size, _Union(:xs, :sm, :md, :lg, :xl), default: :md
-    prop :color, _Union(:base, :primary, :secondary, :accent, :success, :error, :warning, :info, :neutral), default: :base
-    prop :variant, _Union(:default, :bordered, :filled), default: :default
+    default_size :md
+    default_color :base
+    default_style :filled
+
     prop :position, _Union(:left, :right, :top, :bottom, :end, :center, :start), default: :left
     prop :trigger, _Union(:click, :hover, :focus), default: :click
     prop :force_open, _Union(:auto, :open, :closed), default: :auto
@@ -118,7 +118,7 @@ module Decor
 
     private
 
-    def element_classes
+    def root_element_classes
       [
         "dropdown",
         position_classes,
@@ -132,7 +132,7 @@ module Decor
         "btn",
         size_classes,
         color_classes,
-        variant_classes,
+        style_button_classes,
         @button_classes
       ].compact.join(" ")
     end
@@ -148,7 +148,7 @@ module Decor
         "p-2",
         "shadow-sm",
         color_content_classes,
-        variant_content_classes
+        style_content_classes
       ].compact.join(" ")
     end
 
@@ -195,22 +195,22 @@ module Decor
         "p-2",
         "shadow-sm",
         color_content_classes,
-        variant_content_classes
+        style_content_classes
       ].compact.join(" ")
     end
 
-    def size_classes
-      case @size
+    def component_size_classes(size)
+      case size
       when :xs then "btn-xs"
       when :sm then "btn-sm"
       when :lg then "btn-lg"
       when :xl then "btn-lg" # xl maps to lg for buttons
-      else nil # md is default
+      else "" # md is default
       end
     end
 
-    def color_classes
-      case @color
+    def component_color_classes(color)
+      case color
       when :primary then "btn-primary"
       when :secondary then "btn-secondary"
       when :accent then "btn-accent"
@@ -219,13 +219,13 @@ module Decor
       when :warning then "btn-warning"
       when :info then "btn-info"
       when :neutral then "btn-neutral"
-      else nil # base is default
+      else "" # base is default
       end
     end
 
-    def variant_classes
-      case @variant
-      when :bordered then "btn-outline"
+    def style_button_classes
+      case @style
+      when :outlined then "btn-outline"
       when :filled then nil # default filled style
       else nil # default
       end
@@ -255,9 +255,9 @@ module Decor
       end
     end
 
-    def variant_content_classes
-      case @variant
-      when :bordered then "border border-base-300"
+    def style_content_classes
+      case @style
+      when :outlined then "border border-base-300"
       when :filled then "bg-base-200"
       else nil # default
       end

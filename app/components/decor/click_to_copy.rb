@@ -28,7 +28,7 @@ module Decor
       end
     end
 
-    def element_classes
+    def root_element_classes
       "cursor-pointer"
     end
   end

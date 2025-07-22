@@ -4,14 +4,14 @@ module Decor
   # A modern rounded tag/badge component with DaisyUI semantic colors
   class Tag < PhlexComponent
     include Decor::Concerns::StyleColorClasses
-    
+
     no_stimulus_controller
 
     prop :label, _Nilable(String)
 
     # Icon to display before the label
     prop :icon, _Nilable(String)
-    
+
     default_size :md
     default_color :neutral
     default_style :filled

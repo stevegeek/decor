@@ -12,7 +12,7 @@ module Decor
     # Layout configuration
     prop :layout, _Union(:default, :centered, :minimal, :hero, :compact, :page_like), default: :default
     prop :background, _Union(:default, :hero, :gradient, :transparent), default: :default
-    
+
     default_size :md
 
     # Visual options
@@ -246,35 +246,44 @@ module Decor
     def render_title_only(compact: false)
       return unless @title.present?
 
-      size_classes = if compact
-        "text-lg font-semibold"
+      # Map PageHeader sizes to Decor::Title sizes
+      title_size = map_title_size(compact: compact)
+
+      # Determine the element tag based on layout
+      tag_name = (@layout == :page_like) ? :h3 : :h1
+
+      render ::Decor::Title.new(
+        title: @title,
+        size: title_size,
+        element_tag: tag_name
+      )
+    end
+
+    private
+
+    def map_title_size(compact: false)
+      if compact
+        :md
       elsif @layout == :page_like
-        # Page-like layout uses different size mapping
+        # Page-like layout uses more conservative sizing
         case @size
-        when :xs then "text-sm"
-        when :sm then "text-base"
-        when :md then "text-lg"
-        when :lg then "text-xl"
-        when :xl then "text-2xl"
-        else "text-lg"
+        when :xs then :xs
+        when :sm then :sm
+        when :md then :md
+        when :lg then :lg
+        when :xl then :xl
+        else :md
         end
       else
-        # Original PageHeader size mapping
+        # Original PageHeader uses larger sizes, map to Title component sizes
         case @size
-        when :xs then "text-lg font-bold"
-        when :sm then "text-xl font-bold"
-        when :md then "text-2xl font-bold"
-        when :lg then "text-3xl font-bold"
-        when :xl then "text-4xl font-bold"
-        else "text-2xl font-bold"
+        when :xs then :md
+        when :sm then :lg
+        when :md then :xl
+        when :lg then :xl  # Title component maxes out at xl (text-2xl)
+        when :xl then :xl  # Title component maxes out at xl (text-2xl)
+        else :xl
         end
-      end
-
-      tag_name = (@layout == :page_like) ? :h3 : :h1
-      font_weight = (@layout == :page_like) ? "font-medium" : ""
-
-      public_send(tag_name, class: "#{size_classes} text-base-content #{font_weight} truncate".strip) do
-        plain @title
       end
     end
 

@@ -41,7 +41,7 @@ module Decor
         @title || super
       end
 
-      def element_classes
+      def root_element_classes
         [
           sort_key? && "cursor-pointer hover:bg-base-200",
           numeric? ? "text-right" : "text-left",

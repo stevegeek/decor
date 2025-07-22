@@ -88,7 +88,7 @@ module Decor
                     div(class: "absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none") do
                       render ::Decor::Icon.new(
                         name: "search",
-                        variant: :solid,
+                        style: :solid,
                         classes: "h-5 w-5 text-base-content/40"
                       )
                     end
@@ -146,7 +146,7 @@ module Decor
         }
       end
 
-      def element_classes
+      def root_element_classes
         "navbar sticky top-0 z-10 bg-base-100 shadow-lg min-h-16"
       end
     end

@@ -43,7 +43,7 @@ module Decor
       else "bg-base-200 text-base-content"
       end
     end
-    
+
     def component_color_classes(color)
       # Color affects the background/text combination for code snippets
       case color

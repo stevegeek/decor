@@ -34,8 +34,8 @@ module Decor
       # Row height
       prop :row_height, _Union(:comfortable, :standard, :tight), default: :standard
 
-      # DaisyUI color options (in addition to existing emphasis system)
-      prop :color, _Nilable(_Union(:primary, :secondary, :accent, :neutral, :info, :success, :warning, :error))
+      # Use unified color system (in addition to existing emphasis system)
+      default_color :base  # No color by default
 
       stimulus do
         actions -> { [:click, :handle_cell_click_to_stop_propagation] if @stop_propagation }
@@ -61,7 +61,7 @@ module Decor
         @value || ""
       end
 
-      def element_classes
+      def root_element_classes
         [
           @numeric ? "text-right" : "text-left",
           row_height_classes,
@@ -75,9 +75,9 @@ module Decor
         [
           # DaisyUI color system (takes precedence over emphasis)
           daisyui_color_class,
-          # Legacy emphasis system (only if no daisyUI color is set)
-          !@color && @emphasis == :regular && "text-gray-900",
-          !@color && @emphasis == :low && "text-gray-500",
+          # Legacy emphasis system (only if no daisyUI color is set or is base)
+          (!@color || @color == :base) && @emphasis == :regular && "text-gray-900",
+          (!@color || @color == :base) && @emphasis == :low && "text-gray-500",
           # Weight classes
           @weight == :light && "font-light",
           @weight == :medium && "font-medium",
@@ -97,25 +97,18 @@ module Decor
       end
 
       def daisyui_color_class
-        return nil unless @color
+        return nil unless @color && @color != :base
 
         case @color
-        when :primary
-          "text-primary"
-        when :secondary
-          "text-secondary"
-        when :accent
-          "text-accent"
-        when :neutral
-          "text-neutral"
-        when :info
-          "text-info"
-        when :success
-          "text-success"
-        when :warning
-          "text-warning"
-        when :error
-          "text-error"
+        when :primary then "text-primary"
+        when :secondary then "text-secondary"
+        when :accent then "text-accent"
+        when :neutral then "text-neutral"
+        when :info then "text-info"
+        when :success then "text-success"
+        when :warning then "text-warning"
+        when :error then "text-error"
+        when :base then nil  # base is default, no special color
         end
       end
 

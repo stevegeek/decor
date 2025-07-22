@@ -22,7 +22,7 @@ module Decor
 
     # Icon color (if different from value color)
     prop :icon_color, _Nilable(_Union(:base, :primary, :secondary, :accent, :success, :error, :warning, :info, :neutral))
-    
+
     default_color :neutral
 
     # Whether to include a figure area
@@ -72,7 +72,7 @@ module Decor
         elsif @icon
           render ::Decor::Icon.new(
             name: @icon,
-            variant: :outline,
+            style: :outline,
             html_options: {class: "inline-block h-8 w-8 stroke-current"}
           )
         end
@@ -113,7 +113,7 @@ module Decor
       end
       classes.join(" ")
     end
-    
+
     def figure_color_class(color)
       case color
       when :base then "text-base-content"

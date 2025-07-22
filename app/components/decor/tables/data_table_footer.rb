@@ -74,7 +74,7 @@ module Decor
 
       private
 
-      def element_classes
+      def root_element_classes
         "sm:flex sm:justify-between sm:items-start pt-6 pb-4 border-t border-base-300 bg-base-50/50"
       end
     end

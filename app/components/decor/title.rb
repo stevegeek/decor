@@ -8,7 +8,7 @@ module Decor
     prop :title, _Nilable(String)
     prop :description, _Nilable(String)
     prop :icon, _Nilable(String)
-    
+
     default_size :md
 
     private
@@ -67,8 +67,8 @@ module Decor
         :h3
       when :lg
         :h2
-      when :xl
-        :h1
+      else
+        :h3
       end
     end
 

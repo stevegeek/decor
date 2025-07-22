@@ -2,11 +2,13 @@
 
 module Decor
   class EmptyState < PhlexComponent
+    include Concerns::StyleColorClasses
+
     prop :icon_name, String
     prop :title, String
     prop :description, String
-    prop :primary_action_label, String
-    prop :primary_action_href, String
+    prop :primary_action_label, _Nilable(String)
+    prop :primary_action_href, _Nilable(String)
     prop :secondary_action_label, _Nilable(String)
     prop :secondary_action_href, _Nilable(String)
 
@@ -27,21 +29,42 @@ module Decor
             render Decor::ButtonLink.new(
               label: @secondary_action_label,
               href: @secondary_action_href,
-              variant: :outlined
+              style: :outlined
             )
           end
 
-          render Decor::ButtonLink.new(
-            label: @primary_action_label,
-            href: @primary_action_href,
-            color: :primary
-          )
+          if @primary_action_label && @primary_action_href
+            render Decor::ButtonLink.new(
+              label: @primary_action_label,
+              href: @primary_action_href,
+              color: :primary
+            )
+          end
         end
       end
     end
 
-    def element_classes
+    def root_element_classes
       "text-center py-12"
+    end
+
+    def component_size_classes
+      {
+        xs: "py-6",
+        sm: "py-8",
+        md: "py-12",
+        lg: "py-16",
+        xl: "py-20"
+      }
+    end
+
+    def component_variant_classes
+      {
+        default: "",
+        minimal: "py-6",
+        card: "bg-base-100 rounded-lg shadow-sm border border-base-300 p-8",
+        hero: "bg-base-200 rounded-xl p-12"
+      }
     end
   end
 end

@@ -1,6 +1,8 @@
 <%= render ::Decor::Page.new(
   include_flash: include_flash,
   size: size,
+  color: color,
+  style: style,
   background: background,
   padding: padding,
   spacing: spacing,
@@ -29,13 +31,13 @@
       layout: :page_like
     ) %>
     <% if show_example_badge %>
-      <% header.with_badge(label: "Public Catalog", style: :primary) %>
+      <% header.with_badge(label: "Public Catalog", color: :primary) %>
     <% end %>
     <% if show_example_tag %>
       <% header.with_tag(label: "Active", icon: "check-circle", color: :success) %>
     <% end %>
     <% header.with_cta do %>
-      <%= render ::Decor::Button.new(label: "Add new", variant: :outlined, color: :secondary) %>
+      <%= render ::Decor::Button.new(label: "Add new", style: :outlined, color: :secondary) %>
     <% end %>
     <%= header %>
   <% end %>

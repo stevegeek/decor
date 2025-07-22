@@ -116,7 +116,7 @@ module Decor
         style_classes
       ].compact.join(" ")
     end
-    
+
     def component_style_classes(style)
       case style
       when :terminal then ""  # Terminal style has no background

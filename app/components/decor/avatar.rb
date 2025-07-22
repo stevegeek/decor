@@ -62,7 +62,7 @@ module Decor
     end
 
     def text_size_class(size = @size)
-      text_size = super(size)
+      text_size = super
       if text_size == "text-xs"
         "text-2xs"
       else

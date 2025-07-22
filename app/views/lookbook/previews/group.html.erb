@@ -1,0 +1,12 @@
+<% if scenarios.many? %>
+  <!-- Render a group of scenarios -->
+  <% scenarios.each do |scenario| %>
+    <div style="margin-bottom: 30px !important; display: block !important;">
+      <span class="divider pt-12 pb-6 text-neutral/70 text-sm"><%= scenario.label %></span>
+      <%= scenario.output %>
+    </div>
+  <% end %>
+<% else %>
+  <!-- Render a single scenario -->
+  <%= scenarios.first.output %>
+<% end %>

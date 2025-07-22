@@ -6,57 +6,63 @@ module Decor
 
     private
 
-    def element_classes
+    def root_element_classes
       [
         "btn btn-link",
-        *theme_classes,
+        *color_classes,
         *size_classes,
+        *style_classes,
         *modifier_classes
       ].compact.join(" ")
     end
 
-    def theme_classes
-      if @disabled
-        ["text-gray-400", "cursor-not-allowed"]
+    def component_color_classes(color)
+      return [] unless color
+
+      case color
+      when :primary
+        ["link-primary"]
+      when :secondary
+        ["link-secondary"]
+      when :error
+        ["link-error"]
+      when :warning
+        ["link-warning"]
+      when :neutral
+        ["link-neutral"]
+      when :success
+        ["link-success"]
+      when :info
+        ["link-info"]
+      when :accent
+        ["link-accent"]
       else
-        case @color
-        when :primary
-          ["link-primary"]
-        when :secondary
-          ["link-secondary"]
-        when :danger
-          ["link-error"]
-        when :warning
-          ["link-warning"]
-        when :neutral
-          ["link-neutral"]
-        else
-          ["link-primary"]
-        end
+        ["link-primary"]
       end
     end
 
-    def size_classes
-      case @size
-      when :large
-        ["text-lg"]
-      when :small
-        ["text-sm"]
-      when :micro
+    def component_size_classes(size)
+      case size
+      when :xs
         ["text-xs"]
+      when :sm
+        ["text-sm"]
+      when :lg
+        ["text-lg"]
+      when :xl
+        ["text-xl"]
       else
-        ["text-base"]
+        ["text-base"] # Default for md
       end
-    end
-
-    def variant_classes
-      # Links don't use button variants, return empty array
-      []
     end
 
     def modifier_classes
       classes = []
-      classes << "no-underline" if @disabled
+      if @disabled
+        classes << "text-gray-400"
+        classes << "cursor-not-allowed"
+        classes << "no-underline"
+      end
       classes
     end
   end

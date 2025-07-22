@@ -12,7 +12,7 @@ module Decor
     # Modern attributes following Decor patterns
     prop :background, _Union(:default, :primary, :secondary, :neutral), default: :default
     prop :padding, _Union(:none, :sm, :md, :lg, :xl), default: :md
-    
+
     default_size :md
 
     # Manual slot implementations for Phlex

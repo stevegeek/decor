@@ -12,20 +12,22 @@ module Decor
     end
     prop :i18n_key, _Nilable(String)
     prop :current_step, Integer, default: 1
-    prop :color, _Union(:primary, :secondary, :accent, :success, :error, :warning, :info), default: :primary
-    prop :size, _Union(:xs, :sm, :md, :lg), default: :md
-    prop :variant, _Union(:steps, :progress, :both), default: :steps
+    prop :style, _Union(:steps, :progress, :both), default: :steps
+
+    default_size :md
+    default_color :primary
+
     prop :show_numbers, _Boolean, default: true
     prop :vertical, _Boolean, default: false
 
     stimulus do
-      values_from_props :current_step
+      values_from_props :current_step, :color
       values total_steps: -> { @steps.size }
     end
 
     def view_template
       root_element do
-        case @variant
+        case @style
         when :progress
           render_progress_bar
         when :steps
@@ -66,14 +68,14 @@ module Decor
       end
     end
 
-    def element_classes
+    def root_element_classes
       "w-full"
     end
 
     def progress_classes
       classes = ["progress", "w-full"]
-      classes << "progress-#{@color}"
-      classes << size_class
+      classes << component_color_classes(@color)
+      classes << component_size_classes(@size)
       classes << "transition-all duration-300"
       classes.compact.join(" ")
     end
@@ -88,9 +90,9 @@ module Decor
       classes = ["step"]
 
       if step_completed?(index)
-        classes << "step-#{@color}"
+        classes << step_color_classes(@color)
       elsif step_current?(index)
-        classes << "step-#{@color}"
+        classes << step_color_classes(@color)
       end
 
       classes.join(" ")
@@ -101,14 +103,44 @@ module Decor
         "✓"
       elsif @show_numbers
         (index + 1).to_s
+      else
+        "…"
       end
     end
 
-    def size_class
-      case @size
+    def component_size_classes(size)
+      case size
       when :xs then "progress-xs"
       when :sm then "progress-sm"
       when :lg then "progress-lg"
+      else []
+      end
+    end
+
+    def component_color_classes(color)
+      case color
+      when :primary then "progress-primary"
+      when :secondary then "progress-secondary"
+      when :accent then "progress-accent"
+      when :success then "progress-success"
+      when :error then "progress-error"
+      when :warning then "progress-warning"
+      when :info then "progress-info"
+      when :neutral then "progress-neutral"
+      else []
+      end
+    end
+
+    def step_color_classes(color)
+      case color
+      when :primary then "step-primary"
+      when :secondary then "step-secondary"
+      when :accent then "step-accent"
+      when :success then "step-success"
+      when :error then "step-error"
+      when :warning then "step-warning"
+      when :info then "step-info"
+      when :neutral then "step-neutral"
       else ""
       end
     end

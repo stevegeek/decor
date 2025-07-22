@@ -56,7 +56,7 @@ module Decor
 
     private
 
-    def element_classes
+    def root_element_classes
       [
         "w-full",
         (@full_height ? "min-h-screen" : nil),

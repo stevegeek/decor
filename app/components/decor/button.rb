@@ -2,6 +2,10 @@
 
 module Decor
   class Button < PhlexComponent
+    default_size :md
+    default_color :base
+    default_style :filled
+
     prop :label, _Nilable(String)
 
     # An icon name to render before the label
@@ -65,7 +69,7 @@ module Decor
       }
     end
 
-    def element_classes
+    def root_element_classes
       [
         "btn",
         *color_classes,
@@ -97,7 +101,7 @@ module Decor
 
     def component_color_classes(color)
       return [] unless color
-      
+
       case color
       when :base
         [] # Base color has no specific btn- class in DaisyUI

@@ -15,7 +15,7 @@ module Decor
       prop :action_name, _Nilable(String)
       prop :primary, _Boolean, default: false, predicate: :public
       prop :color, _Nilable(Symbol)
-      prop :variant, _Nilable(Symbol)
+      prop :style, _Nilable(Symbol)
 
       def text_classes
         primary? ? "font-medium text-primary hover:text-primary-focus" : "text-base-content hover:text-base-content/70"
@@ -28,7 +28,7 @@ module Decor
     prop :description, _Nilable(String)
     prop :icon, _Nilable(String)
     prop :action_buttons, _Array(ActionButton), default: -> { [] }
-    
+
     default_color :info
 
     def avatar(&block)
@@ -63,13 +63,13 @@ module Decor
 
         # Action buttons section
         if @action_buttons.any?
-          div(class: "join-item flex flex-col p-2 gap-1") do
+          div(class: "join-item flex flex-col justify-center p-2 gap-1") do
             @action_buttons.each do |button|
               if button.href
                 render ::Decor::ButtonLink.new(
                   label: button.label,
                   href: button.href,
-                  style: button.variant || (button.primary? ? :filled : :ghost),
+                  style: button.style || (button.primary? ? :filled : :ghost),
                   color: button.color || (button.primary? ? :primary : :neutral),
                   size: :sm,
                   full_width: true
@@ -77,7 +77,7 @@ module Decor
               else
                 render ::Decor::Button.new(
                   label: button.label,
-                  style: button.variant || (button.primary? ? :filled : :ghost),
+                  style: button.style || (button.primary? ? :filled : :ghost),
                   color: button.color || (button.primary? ? :primary : :neutral),
                   size: :sm,
                   full_width: true,

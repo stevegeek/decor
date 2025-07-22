@@ -6,7 +6,7 @@ module Decor
 
     prop :label, _Nilable(String)
     prop :dashed, _Boolean, default: false
-    
+
     default_size :md
     default_style :outlined
     default_color :neutral

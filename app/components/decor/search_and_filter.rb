@@ -108,7 +108,7 @@ module Decor
                     )
 
                     span(class: "ml-auto mr-2 sm:ml-2") { "Filter" }
-                    render ::Decor::Icon.new(name: "chevron-down", variant: :solid, html_options: {class: "h-5 w-5 text-gray-400"})
+                    render ::Decor::Icon.new(name: "chevron-down", style: :solid, html_options: {class: "h-5 w-5 text-gray-400"})
                   end
                 end
 
@@ -219,7 +219,7 @@ module Decor
 
     private
 
-    def element_classes
+    def root_element_classes
       "sm:flex sm:items-center space-x-0 sm:space-x-4 mt-3 sm:mt-0 sm:ml-4"
     end
   end

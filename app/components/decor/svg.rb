@@ -19,7 +19,7 @@ module Decor
 
     prop :width, _Nilable(Integer)
     prop :height, _Nilable(Integer)
-    
+
     default_size :md
 
     def view_template
