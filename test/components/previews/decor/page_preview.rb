@@ -104,8 +104,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
       size: :lg,
       background: :hero,
       padding: :lg,
-      spacing: :lg,
-      cta_snap_large: true
+      spacing: :lg
     ) do |page|
       page.with_hero do
         page.div(class: "hero min-h-[300px] bg-gradient-to-r from-primary to-secondary rounded-lg") do

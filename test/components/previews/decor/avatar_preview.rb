@@ -100,7 +100,7 @@ class ::Decor::AvatarPreview < ::Lookbook::Preview
   # @group Playground
   # @param initials text
   # @param image select [~, "https://i.pravatar.cc/300", "https://cataas.com/cat"]
-  # @param shape select [~, circle, square]
+  # @param shape [Symbol] select [~, circle, square]
   # @param ring toggle
   # @param size [Symbol] select [~, xs, sm, md, lg, xl]
   # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]

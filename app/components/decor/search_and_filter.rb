@@ -11,6 +11,7 @@ module Decor
       prop :value, String
 
       prop :disabled, _Boolean, default: false
+      prop :placeholder, _Nilable(String)
 
       prop :options, Array, default: [].freeze
       prop :disabled_options, Array, default: [].freeze
@@ -22,13 +23,14 @@ module Decor
       prop :name, String
       prop :label, String
       prop :value, String
+      prop :placeholder, _Nilable(String), default: "Search..."
       prop :apply, _Nilable(Proc)
     end
 
     prop :url, String
     prop :filters, _Array(::Decor::SearchAndFilter::Filter), default: -> { [] }
 
-    prop :search, Search
+    prop :search, _Nilable(Search)
 
     prop :download_path, _Nilable(String)
 
@@ -167,7 +169,7 @@ module Decor
                         stimulus_actions: [stimulus_action(:click, :handle_clear_filters)],
                         icon: "x",
                         size: :small,
-                        color: :danger,
+                        color: :error,
                         style: :outlined,
                         full_width: true
                       )

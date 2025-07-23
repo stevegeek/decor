@@ -26,6 +26,24 @@ class ::Decor::SpinnerPreview < ::Lookbook::Preview
     render ::Decor::Spinner.new(style: :dots, color: :secondary)
   end
 
+  # @group Examples
+  # @label Large Primary Dots
+  def combo_large_primary_dots
+    render ::Decor::Spinner.new(style: :dots, size: :lg, color: :primary)
+  end
+
+  # @group Examples
+  # @label Small Error Ring
+  def combo_small_error_ring
+    render ::Decor::Spinner.new(style: :ring, size: :sm, color: :error)
+  end
+
+  # @group Examples
+  # @label XL Success Bars
+  def combo_xl_success_bars
+    render ::Decor::Spinner.new(style: :bars, size: :xl, color: :success)
+  end
+
   # @group Playground
   # @param size [Symbol] select [~, xs, sm, md, lg, xl]
   # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
@@ -146,23 +164,5 @@ class ::Decor::SpinnerPreview < ::Lookbook::Preview
   # @label Infinity Style
   def style_infinity
     render ::Decor::Spinner.new(style: :infinity)
-  end
-
-  # @group Combinations
-  # @label Large Primary Dots
-  def combo_large_primary_dots
-    render ::Decor::Spinner.new(style: :dots, size: :lg, color: :primary)
-  end
-
-  # @group Combinations
-  # @label Small Error Ring
-  def combo_small_error_ring
-    render ::Decor::Spinner.new(style: :ring, size: :sm, color: :error)
-  end
-
-  # @group Combinations
-  # @label XL Success Bars
-  def combo_xl_success_bars
-    render ::Decor::Spinner.new(style: :bars, size: :xl, color: :success)
   end
 end

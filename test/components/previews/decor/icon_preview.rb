@@ -99,7 +99,7 @@ class ::Decor::IconPreview < ::Lookbook::Preview
   # @param description text
   # @param size [Symbol] select [~, xs, sm, md, lg, xl]
   # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
-  # @param style [Symbol] select [~, filled, outlined, ghost]
+  # @param style [Symbol] select [~, outline, solid, small_solid]
   def playground(
     name: "cube",
     collection: :heroicons,
@@ -268,6 +268,17 @@ class ::Decor::IconPreview < ::Lookbook::Preview
       inline: false,
       title: "External Check Icon",
       description: "Icon is loaded externally via data-src"
+    )
+  end
+
+  # @group Edge Cases
+  # @label Nil Style (Should Use Default)
+  def nil_style
+    render ::Decor::Icon.new(
+      name: "cube",
+      style: nil,
+      title: "Icon with nil style",
+      description: "Should fall back to default :outline style"
     )
   end
 end

@@ -17,7 +17,13 @@ module Decor
     redefine_styles :outline, :solid, :small_solid
 
     def file_name
-      @file_name ||= "#{@collection}/#{@style}/#{@name}.svg"
+      @file_name ||= "#{@collection}/#{style_for_path}/#{@name}.svg"
+    end
+
+    private
+
+    def style_for_path
+      @style || self.class.default_style
     end
   end
 end

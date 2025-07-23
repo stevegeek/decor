@@ -8,7 +8,31 @@ class ::Decor::SvgPreview < ::Lookbook::Preview
   #
   # You can also set the html class attribute using html_options[:class] or `element_classes` etc
   #
-  # @label Playground
+  # @group Examples
+  # @label Large External with Accessibility
+  def combo_large_external_accessible
+    render ::Decor::Svg.new(
+      file_name: "svgs/d-geometric.svg",
+      size: :lg,
+      inline: false,
+      title: "Geometric Design",
+      description: "A geometric logo with angular shapes"
+    )
+  end
+
+  # @group Examples
+  # @label Custom Dimensions with Title
+  def combo_custom_with_title
+    render ::Decor::Svg.new(
+      file_name: "svgs/d-rounded.svg",
+      width: 80,
+      height: 80,
+      title: "Rounded Logo",
+      description: "A logo with rounded corners and soft edges"
+    )
+  end
+
+  # @group Playground
   # @param file_name select [svgs/d-modern.svg, svgs/d-rounded.svg, svgs/d-geometric.svg]
   # @param inline toggle
   # @param size select [xs, sm, md, lg, xl]
@@ -146,47 +170,6 @@ class ::Decor::SvgPreview < ::Lookbook::Preview
       file_name: "svgs/d-modern.svg",
       title: "Modern Logo",
       description: "A modern geometric logo design with clean lines"
-    )
-  end
-
-  # @group Accessibility
-  # @label Title Only
-  def accessibility_title_only
-    render ::Decor::Svg.new(
-      file_name: "svgs/d-modern.svg",
-      title: "Modern Logo"
-    )
-  end
-
-  # @group Accessibility
-  # @label No Accessibility Attributes
-  def accessibility_none
-    render ::Decor::Svg.new(
-      file_name: "svgs/d-modern.svg"
-    )
-  end
-
-  # @group Combinations
-  # @label Large External with Accessibility
-  def combo_large_external_accessible
-    render ::Decor::Svg.new(
-      file_name: "svgs/d-geometric.svg",
-      size: :lg,
-      inline: false,
-      title: "Geometric Design",
-      description: "A geometric logo with angular shapes"
-    )
-  end
-
-  # @group Combinations
-  # @label Custom Dimensions with Title
-  def combo_custom_with_title
-    render ::Decor::Svg.new(
-      file_name: "svgs/d-rounded.svg",
-      width: 80,
-      height: 80,
-      title: "Rounded Logo",
-      description: "A logo with rounded corners and soft edges"
     )
   end
 end

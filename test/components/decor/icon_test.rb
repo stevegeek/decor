@@ -64,4 +64,23 @@ class Decor::IconTest < ActiveSupport::TestCase
     assert_equal "24", svg["width"]
     assert_equal "24", svg["height"]
   end
+
+  test "handles nil style by falling back to default" do
+    component = Decor::Icon.new(name: "test-icon", style: nil)
+    
+    # Should use the default style :outline when style is nil
+    expected_filename = "heroicons/outline/test-icon.svg"
+    assert_equal expected_filename, component.file_name
+    
+    # Ensure no double slashes in the path
+    refute_includes component.file_name, "//"
+  end
+
+  test "uses default style when style not provided" do
+    component = Decor::Icon.new(name: "default-icon")
+    
+    # Should use the default style :outline
+    expected_filename = "heroicons/outline/default-icon.svg"
+    assert_equal expected_filename, component.file_name
+  end
 end

@@ -15,8 +15,7 @@ class ::Decor::SearchAndFilterPreview < ::Lookbook::Preview
       search: ::Decor::SearchAndFilter::Search.new(
         name: "q",
         label: "Search",
-        value: "",
-        placeholder: "Search by name or email..."
+        value: ""
       )
     )
   end
@@ -156,6 +155,11 @@ class ::Decor::SearchAndFilterPreview < ::Lookbook::Preview
   def filter_select
     render ::Decor::SearchAndFilter.new(
       url: "/filter",
+      search: ::Decor::SearchAndFilter::Search.new(
+        name: "q",
+        label: "Search",
+        value: ""
+      ),
       filters: [
         ::Decor::SearchAndFilter::Filter.new(
           type: :select,
@@ -178,6 +182,11 @@ class ::Decor::SearchAndFilterPreview < ::Lookbook::Preview
   def filter_checkbox
     render ::Decor::SearchAndFilter.new(
       url: "/filter",
+      search: ::Decor::SearchAndFilter::Search.new(
+        name: "q",
+        label: "Search",
+        value: ""
+      ),
       filters: [
         ::Decor::SearchAndFilter::Filter.new(
           type: :checkbox,
@@ -226,8 +235,7 @@ class ::Decor::SearchAndFilterPreview < ::Lookbook::Preview
       search: ::Decor::SearchAndFilter::Search.new(
         name: "search",
         label: "Search",
-        value: "",
-        disabled: true
+        value: ""
       ),
       filters: [
         ::Decor::SearchAndFilter::Filter.new(
