@@ -5,11 +5,11 @@ export default class extends Controller {
         closeReason: String
     };
     handleButtonClick(event) {
-        event.preventDefault();
+        // Don't prevent default - let the form submission close the dialog
         const reason = this.closeReasonValue;
         
-        // Dispatch event to close modal
-        window.dispatchEvent(new CustomEvent('"decor--modal:close', {
+        // Dispatch event for tracking/logging purposes
+        window.dispatchEvent(new CustomEvent('decor--modals--modal:close', {
             detail: { closeReason: reason ? reason : undefined }
         }));
     }

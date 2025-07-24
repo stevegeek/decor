@@ -1,0 +1,18 @@
+<div class="space-y-2">
+  <p class="text-sm font-medium mb-2">Select your preferences:</p>
+  <%= render ::Decor::Forms::Checkbox.new(
+    name: "email_updates",
+    label: "Email updates",
+    checked: true
+  ) %>
+  <%= render ::Decor::Forms::Checkbox.new(
+    name: "sms_alerts",
+    label: "SMS alerts",
+    checked: false
+  ) %>
+  <%= render ::Decor::Forms::Checkbox.new(
+    name: "push_notifications",
+    label: "Push notifications",
+    checked: true
+  ) %>
+</div>

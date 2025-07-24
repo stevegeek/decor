@@ -15,19 +15,26 @@ module Decor
         @content = capture(&block) if block_given?
 
         root_element do
-          span(class: "text-center") do
-            render @before_label if @before_label.present?
+          button(
+            type: "submit",
+            class: root_element_classes,
+            disabled: @disabled ? "disabled" : nil,
+            data: stimulus_data_attributes
+          ) do
+            span(class: "text-center") do
+              render @before_label if @before_label.present?
 
-            # Always show close icon or use provided icon
-            icon_name = @icon || "x-mark"
-            icon_options = {name: icon_name, html_options: {class: icon_classes}}
-            icon_options[:variant] = @icon_variant if @icon_variant
-            render ::Decor::Icon.new(**icon_options)
+              # Always show close icon or use provided icon
+              icon_name = @icon || "x-mark"
+              icon_options = {name: icon_name, html_options: {class: icon_classes}}
+              icon_options[:variant] = @icon_variant if @icon_variant
+              render ::Decor::Icon.new(**icon_options)
 
-            span(class: @icon_only_on_mobile ? "hidden md:inline" : "") do
-              render @content || @label
+              span(class: @icon_only_on_mobile ? "hidden md:inline" : "") do
+                render @content || @label
+              end
+              render @after_label if @after_label.present?
             end
-            render @after_label if @after_label.present?
           end
         end
       end
@@ -36,10 +43,9 @@ module Decor
 
       def root_element_attributes
         {
-          element_tag: :button,
+          element_tag: :form,
           html_options: {
-            type: :button,
-            disabled: @disabled ? "disabled" : nil
+            method: "dialog"
           }
         }
       end

@@ -4,9 +4,8 @@ class ::Decor::Modals::ModalPreview < ::Lookbook::Preview
   # Modals should be used sparingly for critical interactions that require user attention.
   # Generally, render only one modal at a time and reuse it by changing contents dynamically.
 
-  # @group Examples
 
-  # @label Basic Modal
+  # @label Example
   # A simple modal with text content
   def basic_modal
     render ::Decor::Modals::Modal.new(
@@ -15,7 +14,7 @@ class ::Decor::Modals::ModalPreview < ::Lookbook::Preview
     )
   end
 
-  # @label Modal with Remote Content
+  # @label Example: Modal with Remote Content
   # Load content from a URL dynamically
   def remote_content
     render ::Decor::Modals::Modal.new(
@@ -24,7 +23,7 @@ class ::Decor::Modals::ModalPreview < ::Lookbook::Preview
     )
   end
 
-  # @label Click Outside to Close
+  # @label Example: Click Outside to Close
   # Allow closing the modal by clicking the overlay
   def click_outside_close
     render ::Decor::Modals::Modal.new(
@@ -34,15 +33,13 @@ class ::Decor::Modals::ModalPreview < ::Lookbook::Preview
     )
   end
 
-  # @label Loading State
+  # @label Example: Loading State
   # Shows spinner when no initial content is provided
   def loading_state
     render ::Decor::Modals::Modal.new(
       start_shown: true
     )
   end
-
-  # @group Playground
 
   # @label Playground
   # @param initial_content text
@@ -63,8 +60,6 @@ class ::Decor::Modals::ModalPreview < ::Lookbook::Preview
     )
   end
 
-  # @group Modal Controls
-
   # @label With Open Button
   # Use ModalOpenButton to trigger modal display
   def with_open_button
@@ -82,9 +77,7 @@ class ::Decor::Modals::ModalPreview < ::Lookbook::Preview
   def complete_example
     render_with_template
   end
-
-  # @group Integration Examples
-
+  
   # @label With Modal Layout
   # Using ModalLayout for structured content
   def with_modal_layout
@@ -153,8 +146,6 @@ class ::Decor::Modals::ModalPreview < ::Lookbook::Preview
       end
     end
   end
-
-  # @group Display Options
 
   # @label Initially Hidden
   # Modal starts hidden and requires trigger to show

@@ -31,7 +31,8 @@ module Decor
             render ::Decor::Flash.new(
               text: @flash_message,
               collapse_if_empty: true,
-              html_options: {class: "mb-8"}
+              html_options: {class: "mb-8"},
+              flash_data: nil
             )
           end
 

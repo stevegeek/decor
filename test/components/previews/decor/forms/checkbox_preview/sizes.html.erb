@@ -1,0 +1,10 @@
+<div class="grid grid-cols-2 gap-4">
+  <% %w[xs sm md lg xl].each do |size| %>
+    <%= render ::Decor::Forms::Checkbox.new(
+      name: "size_#{size}",
+      label: "#{size.upcase} checkbox",
+      size: size.to_sym,
+      checked: true
+    ) %>
+  <% end %>
+</div>

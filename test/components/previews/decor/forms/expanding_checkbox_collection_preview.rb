@@ -11,7 +11,7 @@ class ::Decor::Forms::ExpandingCheckboxCollectionPreview < ::Lookbook::Preview
   # @param label text
   # @param size number
   # @param hide_after_showing number
-  # @param variant [Symbol] select [~, default, joined]
+  # @param style [Symbol] select [~, default, joined]
   # @param color [Symbol] select [~, primary, secondary, accent, neutral, success, warning, info, error]
   # @param required toggle
   # @param hide_label_required_asterisk toggle
@@ -23,7 +23,7 @@ class ::Decor::Forms::ExpandingCheckboxCollectionPreview < ::Lookbook::Preview
     label: "Select options...",
     size: 5,
     hide_after_showing: 3,
-    variant: :default,
+    style: :default,
     color: :primary,
     value: nil,
     required: false,
@@ -36,7 +36,7 @@ class ::Decor::Forms::ExpandingCheckboxCollectionPreview < ::Lookbook::Preview
       label: label,
       size: size,
       hide_after_showing: hide_after_showing,
-      variant: variant,
+      style: style,
       color: color,
       value: value,
       required: required,
@@ -52,7 +52,7 @@ class ::Decor::Forms::ExpandingCheckboxCollectionPreview < ::Lookbook::Preview
   # @param label text
   # @param size number
   # @param hide_after_showing number
-  # @param variant [Symbol] select [~, default, joined]
+  # @param style [Symbol] select [~, default, joined]
   # @param color [Symbol] select [~, primary, secondary, accent, neutral, success, warning, info, error]
   # @param required toggle
   # @param hide_label_required_asterisk toggle
@@ -64,7 +64,7 @@ class ::Decor::Forms::ExpandingCheckboxCollectionPreview < ::Lookbook::Preview
     value: nil,
     size: 5,
     hide_after_showing: 3,
-    variant: :default,
+    style: :default,
     color: nil,
     required: false,
     disabled: false,
@@ -92,7 +92,7 @@ class ::Decor::Forms::ExpandingCheckboxCollectionPreview < ::Lookbook::Preview
         label: label,
         size: size,
         hide_after_showing: hide_after_showing,
-        variant: variant,
+        style: style,
         color: color,
         value: value,
         required: required,

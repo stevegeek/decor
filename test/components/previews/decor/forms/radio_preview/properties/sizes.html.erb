@@ -1,0 +1,14 @@
+<div class="grid grid-cols-3 gap-4">
+  <% %w[xs sm md lg xl].each do |size| %>
+    <div class="p-4 border rounded-lg">
+      <p class="text-sm font-medium mb-2 uppercase"><%= size %></p>
+      <%= render ::Decor::Forms::Radio.new(
+        name: "size_demo",
+        label: "#{size.upcase} size",
+        value: size,
+        size: size.to_sym,
+        checked: size == "md"
+      ) %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,17 @@
+<div class="space-y-4">
+  <% [:xs, :sm, :md, :lg, :xl].each do |size| %>
+    <div>
+      <%= render(::Decor::Forms::Select.new(
+        name: "select_#{size}",
+        label: "#{size.to_s.upcase} size select",
+        size: size,
+        helper_text: "Size: #{size}",
+        **::Decor::Forms::Select.map_options_for_select([
+          { title: "Option 1", value: "1" },
+          { title: "Option 2", value: "2", selected: true },
+          { title: "Option 3", value: "3" }
+        ])
+      )) %>
+    </div>
+  <% end %>
+</div>

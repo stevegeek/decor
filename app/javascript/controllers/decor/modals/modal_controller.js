@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus";
-import { markAsSafeHTML, safelySetInnerHTML, replaceContentsWithChildren, createAxiosInstance } from "controllers/decor";
+import { markAsSafeHTML, safelySetInnerHTML, replaceContentsWithChildren, createHTTPClient } from "controllers/decor";
 export var ModalEvents;
 (function (ModalEvents) {
     ModalEvents["Open"] = "decor--modals--modal:open";
@@ -23,6 +23,19 @@ export default class extends Controller {
     connect() {
         this.modalVisible = false;
         this.closeOnOverlayClick = false;
+        this.pendingCloseReason = null;
+        
+        // Listen for the dialog's native close event
+        this.element.addEventListener('close', () => {
+            if (this.modalVisible) {
+                this.modalVisible = false;
+                this.dispatchLifecycleEvent(ModalEvents.Closed, { 
+                    closeReason: this.pendingCloseReason || 'dialog-closed' 
+                });
+                this.pendingCloseReason = null;
+            }
+        });
+        
         if (this.showInitialValue) {
             this.open({
                 contentHref: this.contentHrefValue,
@@ -30,11 +43,14 @@ export default class extends Controller {
         }
     }
     // Handle click on overlay to optionally close modal
-    overlayClicked() {
-        if (this.closeOnOverlayClick ||
-            this.closeOnOverlayClickValue) {
-            this.close();
+    overlayClicked(event) {
+        // The form with method="dialog" will automatically close the dialog
+        // We only need to prevent it if closeOnOverlayClick is false
+        if (!this.closeOnOverlayClick && !this.closeOnOverlayClickValue) {
+            event.preventDefault();
         }
+        this.handleCloseEvent(event);
+
     }
     // Reveal the dialog by triggering event (with stimulus or directly) on window
     // > window.dispatchEvent(new CustomEvent('decor-modal:open', { detail: { message } }));
@@ -42,11 +58,13 @@ export default class extends Controller {
         const action = evt.detail?.closeReason || evt.detail?.action;
         this.close(action);
     }
+
     // Reveal the dialog by calling:
     // window.dispatchEvent(new CustomEvent('decor-modal:show', { detail: { message } }));
     async handleOpenEvent(evt) {
         await this.open(evt.detail);
     }
+
     // Open the modal and load its content if needed
     async open(showOptions) {
         this.dispatchLifecycleEvent(ModalEvents.Opening, {
@@ -55,16 +73,19 @@ export default class extends Controller {
         await this.prepareModalAndLoad(showOptions);
         this.dispatchLifecycleEvent(ModalEvents.Opened, { shownWith: showOptions });
     }
+
     // Close the modal
     close(closeReason) {
         this.dispatchLifecycleEvent(ModalEvents.Closing, { closeReason });
-        // TODO: close callback?
+        this.pendingCloseReason = closeReason;
         this.hide();
-        this.dispatchLifecycleEvent(ModalEvents.Closed, { closeReason });
+        // The 'close' event listener will dispatch the Closed event
     }
+
     get isVisible() {
         return this.modalVisible;
     }
+
     async prepareModalAndLoad(shownWith) {
         const { contentHref, placeholder, closeOnOverlayClick } = shownWith;
         if (placeholder) {
@@ -88,21 +109,11 @@ export default class extends Controller {
     }
     reveal() {
         this.modalVisible = true;
-        this.setClasses();
+        this.element.showModal();
     }
     hide() {
         this.modalVisible = false;
-        this.setClasses();
-    }
-    setClasses() {
-        if (this.modalVisible) {
-            this.element.classList.remove("hidden");
-        }
-        else {
-            setTimeout(() => {
-                this.element.classList.add("hidden");
-            }, 200);
-        }
+        this.element.close();
     }
     setContent(content) {
         this.replaceContents(this.modalTarget, this.createContent(content));
@@ -123,8 +134,8 @@ export default class extends Controller {
     }
     async getContent(shownWith) {
         this.dispatchLifecycleEvent(ModalEvents.Loading, { shownWith });
-        const axios = createAxiosInstance();
-        return axios
+        const httpClient = createHTTPClient();
+        return httpClient
             .get(shownWith.contentHref, {
             headers: {
                 "Content-Type": "text/html",

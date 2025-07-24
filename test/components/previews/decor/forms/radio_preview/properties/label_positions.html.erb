@@ -1,0 +1,13 @@
+<div class="space-y-4">
+  <% %w[top left right inline].each do |position| %>
+    <div class="p-4 border rounded-lg">
+      <p class="text-sm font-medium mb-2 capitalize">Label position: <%= position %></p>
+      <%= render ::Decor::Forms::Radio.new(
+        name: "position_demo",
+        label: "Radio with #{position} label",
+        value: position,
+        label_position: position.to_sym
+      ) %>
+    </div>
+  <% end %>
+</div>

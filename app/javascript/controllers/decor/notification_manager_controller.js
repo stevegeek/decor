@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus";
-import { markAsSafeHTML, safelySetInnerHTML, createAxiosInstance } from "controllers/decor";
+import { markAsSafeHTML, safelySetInnerHTML, createHTTPClient } from "controllers/decor";
 
 export const NOTIFICATION_MANAGER_CLASS_NAME = "decor--notification-manager";
 const NOTIFICATION_CLASSNAME = `${NOTIFICATION_MANAGER_CLASS_NAME}-notification`;
@@ -95,8 +95,8 @@ export default class extends Controller {
 
     async getRemoteContent(contentHref) {
         try {
-            const axios = createAxiosInstance();
-            const response = await axios.get(contentHref, {
+            const httpClient = createHTTPClient();
+            const response = await httpClient.get(contentHref, {
                 headers: { "Content-Type": "text/html" }
             });
             return markAsSafeHTML(response.data);

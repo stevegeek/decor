@@ -1,6 +1,6 @@
 <%= render ::Decor::Forms::Form.new(model: model, url: "#", local: true) do |form_component| %>
   <%= render ::Decor::Forms::LayoutContainer.new do |container| %>
-    <%= render ::Decor::Forms::LayoutSection.new(stacked: stacked_form) do %>
+    <%= render ::Decor::Forms::LayoutSection.new(title: "Upload", stacked: stacked_form) do %>
       <%= form_component.builder.image_upload :pic,
                          label: label,
                          description: description,

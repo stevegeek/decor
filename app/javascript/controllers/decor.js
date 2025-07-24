@@ -7,7 +7,7 @@
  * Core Functions:
  * - replaceContentsWithChildren: DOM manipulation utility
  * - markAsSafeHTML, safelySetInnerHTML: XSS-safe HTML handling
- * - createAxiosInstance: CSRF-configured Axios instances
+ * - createHTTPClient: Modern fetch-based HTTP client
  * 
  * Animation & CSS Utilities:
  * - toggleTargetElementTransitionClasses: Complex transition animations
@@ -18,6 +18,8 @@
  * - toggleOnSearch: Search functionality with class toggling
  * - emitEvent: Custom event emission with namespacing
  */
+
+import { createHTTPClient, getHTML, getJSON } from "controllers/decor/http";
 
 export function replaceContentsWithChildren(parent, children) {
     // Remove the existing children
@@ -77,24 +79,8 @@ export function safelySetInnerHTML(el, { __safe, content }) {
     el.innerHTML = content;
 }
 
-/**
- * Creates an axios instance configured with CSRF token for Rails applications.
- * 
- * @returns {Object} Configured axios instance
- */
-export function createAxiosInstance() {
-    // Import axios dynamically to avoid issues if it's not available
-    const axios = require('axios');
-    
-    const csrfMetaTag = document.head.querySelector('[name="csrf-token"]');
-    const csrfToken = (csrfMetaTag && csrfMetaTag.getAttribute("content")) || "";
-
-    return axios.create({
-        headers: {
-            "X-CSRF-TOKEN": csrfToken,
-        },
-    });
-}
+// Re-export HTTP utilities for convenience
+export { createHTTPClient, getHTML, getJSON } from "controllers/decor/http";
 
 /**
  * Toggles CSS classes on an element based on state
