@@ -2,16 +2,16 @@
 
 module Decor
   class Button < PhlexComponent
+    default_size :md
+    default_color :base
+    default_style :filled
+
     prop :label, _Nilable(String)
 
     # An icon name to render before the label
     prop :icon, _Nilable(String)
     prop :icon_variant, _Nilable(Symbol)
     prop :icon_only_on_mobile, _Boolean, default: false
-
-    prop :variant, _Union(:contained, :outlined, :text), default: :contained
-    prop :color, _Union(:primary, :secondary, :danger, :warning, :neutral), default: :primary
-    prop :size, _Union(:large, :medium, :wide, :small, :micro, :xs, :lg, :md, :sm), default: :medium
 
     prop :disabled, _Boolean, default: false
 
@@ -39,7 +39,7 @@ module Decor
     private
 
     def view_template(&)
-      @content = capture(&) if block_given?
+      @content = capture(&).html_safe if block_given?
       root_element do
         span(class: "text-center") do
           render @before_label if @before_label.present?
@@ -69,71 +69,94 @@ module Decor
       }
     end
 
-    def element_classes
+    def root_element_classes
       [
         "btn",
         *color_classes,
-        *variant_classes,
+        *style_classes,
         *size_classes,
         *modifier_classes
       ].compact.join(" ")
     end
 
     def icon_classes
+      normalized_size = normalize_size(@size)
       sized =
-        case @size
-        when :large, :lg
+        case normalized_size
+        when :xl
+          "size-10 pr-2"
+        when :lg
           "size-8 pr-2"
-        when :medium, :wide, :md
+        when :md, nil
           "size-6 pr-1"
-        when :small, :sm
+        when :sm
           "size-5.5 pr-1"
-        when :micro, :xs
+        when :xs
           "size-4.5 pr-1"
+        else
+          "size-6 pr-1"
         end
       "inline #{@icon_only_on_mobile ? "mr-0 md:mr-1" : "mr-1"} #{sized}"
     end
 
-    def color_classes
-      case @color
+    def component_color_classes(color)
+      return [] unless color
+
+      case color
+      when :base
+        [] # Base color has no specific btn- class in DaisyUI
       when :primary
         ["btn-primary"]
       when :secondary
         ["btn-secondary"]
-      when :danger
+      when :error
         ["btn-error"]
       when :warning
         ["btn-warning"]
       when :neutral
         ["btn-neutral"]
+      when :success
+        ["btn-success"]
+      when :info
+        ["btn-info"]
+      when :accent
+        ["btn-accent"]
       else
-        ["btn-neutral"]
+        []
       end
     end
 
-    def variant_classes
-      case @variant
+    def style_classes
+      classes = component_style_classes(@style) || []
+      classes << "bg-base-100" if @style == :outlined
+      classes
+    end
+
+    def component_style_classes(style)
+      case style
+      when :filled
+        [] # Default for buttons, no special class needed
       when :outlined
-        ["btn-outline bg-base-100"]
-      when :text
+        ["btn-outline"]
+      when :ghost
         ["btn-ghost"]
       else
         []
       end
     end
 
-    def size_classes
-      case @size
-      when :large, :lg
-        ["btn-lg"]
-      when :small, :sm
-        ["btn-sm"]
-      when :micro, :xs
+    def component_size_classes(size)
+      case size
+      when :xs
         ["btn-xs"]
-      when :wide
-        ["btn-wide"]
+      when :sm
+        ["btn-sm"]
+      when :lg
+        ["btn-lg"]
+      when :xl
+        ["btn-xl"]
       else
-        []
+        [] # medium is default, no class needed
       end
     end
 

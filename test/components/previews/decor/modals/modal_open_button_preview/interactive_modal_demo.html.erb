@@ -1,12 +1,13 @@
-<%= render ::Decor::ModalOpenButton.new(
+<%= render ::Decor::Modals::ModalOpenButton.new(
+  modal_id: modal_id,
   content_href: content_href,
   initial_content: initial_content,
   close_on_overlay_click: close_on_overlay_click,
   label: label,
-  variant: variant,
+  icon: icon,
+  style: style,
   color: color,
   size: size,
-  tag: tag,
   disabled: disabled,
   full_width: full_width
 ) %>

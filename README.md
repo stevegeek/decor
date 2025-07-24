@@ -4,11 +4,12 @@ A comprehensive Ruby on Rails UI component library built for flexibility, mainta
 
 ## ✨ Features
 
+- **78+ Components**: Includes buttons, forms, modals, navigation, and more, with a focus on flexibility and customization
 - **Modern Component Architecture**: Built with [Phlex](https://phlex.fun) and [Vident](https://github.com/stevegeek/vident) for server-side rendering with attribute type safety
 - **Beautiful Default Styling**: Powered by [daisyUI](https://daisyui.com) and [Tailwind CSS v4](https://tailwindcss.com), which cah easily be [customized at the component render site](https://github.com/stevegeek/vident/blob/main/README.md?plain=1#L614).
 - **Interactive Frontend**: Enhanced with [Stimulus](https://stimulus.hotwired.dev) controllers and [Turbo](https://turbo.hotwired.dev)
 - **Developer Experience**: Complete [Lookbook](https://lookbook.build) preview system for component development
-- (well... not yet...) **Production Ready**: Comprehensive test coverage and battle-tested in production applications
+- **Tested**: Comprehensive test coverage
 - **MIT Licensed**: Free for commercial and personal use
 
 ![Decor Component Library](test/components/docs/lookbook.png)
@@ -30,9 +31,11 @@ Once I port my production application to this version and battle test it, I will
 - [x] Update vident, review vident API
 - [x] Stop using slots
 - [x] Change `dry-struct` to `Literal` (via vident-typed)
-- [ ] simplify naming of sizes (e.g. `micro` to `xs`, `small` to `sm`, etc.) and unify across components
-- [ ] Unify variant naming
-- [ ] Unify style attribute naming (sometimes we use `style`, sometimes `theme`)
+- [x] simplify naming of sizes (e.g. `micro` to `xs`, `small` to `sm`, etc.) and unify across components
+- [x] Unify variant naming
+- [x] Unify style attribute naming (sometimes we use `style`, sometimes `theme`)
+- [x] Make previews more consistent
+- [ ] Add remaining stimulus controllers from original library
 - [ ] Dark mode support
 
 # Using Decor / Installation
@@ -110,4 +113,10 @@ and to your `config/routes.rb`:
 
 # Acknowledgements
  
+- Thanks to [daisyUI](https://daisyui.com) for the beautiful default styling and component design
+- Thanks to [Phlex](https://phlex.fun) for the view components system
+- Thanks to [literal](https://literal.fun) for the typed attributes system
 - Thanks to https://github.com/willpinha/daisy-components for the inspiration for certain components
+- Thanks to [Lookbook](https://lookbook.build) for the component preview system
+
+Finally thanks to [Confinus](https://confinus.com) for sponsoring the development of this library and open sourcing it.

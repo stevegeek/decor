@@ -13,7 +13,8 @@ export default class extends Controller {
 
   static values = { 
     currentStep: { type: Number, default: 1 },
-    totalSteps: Number
+    totalSteps: Number,
+    color: { type: String, default: 'primary' }
   }
 
   connect() {
@@ -74,13 +75,8 @@ export default class extends Controller {
       
       // Add appropriate state class based on progress
       if (stepNumber <= this.currentStepValue) {
-        // Get the color from the progress element's class
-        const colorClass = this.getProgressColor();
-        if (colorClass) {
-          step.classList.add(`step-${colorClass}`);
-        } else {
-          step.classList.add('step-primary');
-        }
+        // Use the color value from stimulus
+        step.classList.add(`step-${this.colorValue}`);
       }
       
       // Update data-content for completed steps
@@ -100,19 +96,6 @@ export default class extends Controller {
     return Math.round((this.currentStepValue / this.totalStepsValue) * 100);
   }
 
-  // Extract color from progress element classes
-  getProgressColor() {
-    const progressBar = this.element.querySelector('progress');
-    if (!progressBar) return null;
-    
-    const colors = ['primary', 'secondary', 'accent', 'success', 'error', 'warning', 'info'];
-    for (const color of colors) {
-      if (progressBar.classList.contains(`progress-${color}`)) {
-        return color;
-      }
-    }
-    return null;
-  }
 
   // Public methods for external control
   setStep(step) {

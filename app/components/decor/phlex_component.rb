@@ -2,6 +2,8 @@
 
 module Decor
   class PhlexComponent < ::Vident::Phlex::HTML
+    include ActiveSupport::Configurable
+
     include ::Vident::Caching
 
     include Phlex::Rails::Helpers::Routes
@@ -13,13 +15,9 @@ module Decor
     include ::Phlex::Rails::Helpers::LinkTo
     include ::Phlex::Rails::Helpers::ContentTag
 
-    # TODO: upstream to Vident
-    def self.prop_names
-      literal_properties.properties_index.keys.map(&:to_sym)
-    end
-
-    def prop_names
-      self.class.prop_names
-    end
+    # Shared attribute helpers
+    include Decor::Concerns::SizeClasses
+    include Decor::Concerns::ColorClasses
+    include Decor::Concerns::StyleClasses
   end
 end

@@ -1,12 +1,55 @@
 # @label Radio
+# Radio buttons allow users to select one option from a group. Built with DaisyUI styling.
 class ::Decor::Forms::RadioPreview < ::Lookbook::Preview
-  # Radio
-  # -------
-  #
-  # A Radio uses DaisyUI's radio component styling. It renders as a radio
-  # input with DaisyUI styling. Radio buttons are used to select one option from a group.
-  #
-  # Form field attrs
+  # @group Examples
+
+  # Basic radio button
+  def default
+    render ::Decor::Forms::Radio.new(
+      name: "options",
+      label: "Select this option",
+      value: "option1"
+    )
+  end
+
+  # Radio group with multiple options
+  def radio_group
+    render_with_template(
+      template: "decor/forms/radio_preview/examples/radio_group"
+    )
+  end
+
+  # Radio with states and helper text
+  def with_states
+    render_with_template(
+      template: "decor/forms/radio_preview/examples/with_states"
+    )
+  end
+
+  # Radio buttons in a form
+  # @param stacked_form toggle
+  def in_form(stacked_form: true)
+    klass = Class.new(TypedForm) do
+      def self.name
+        "TestClass"
+      end
+
+      prop :chosen, _Boolean
+    end
+
+    render_with_template(
+      locals: {
+        stacked_form: stacked_form,
+        model: klass.new(chosen: false)
+      }
+    )
+  end
+
+  # @endgroup
+
+  # @group Playground
+
+  # Interactive radio with all options
   # @param name text
   # @param label text
   # @param description text
@@ -20,14 +63,13 @@ class ::Decor::Forms::RadioPreview < ::Lookbook::Preview
   # @param disabled toggle
   # @param helper_text text
   # @param value text
-  # @param color select [primary, secondary, accent, neutral, success, warning, info, error]
-  # @param size select [xs, sm, md, lg, xl]
-  #
-  # Radio attrs
   # @param checked toggle
   # @param part_of_group toggle
+  # @param size select [xs, sm, md, lg, xl]
+  # @param color select [primary, secondary, accent, neutral, success, warning, info, error]
+  # @param style select [~, filled, bordered, ghost]
   def playground(
-    name: "radio-group",
+    name: "radio-option",
     label: "Select me!",
     description: nil,
     label_position: :right,
@@ -42,8 +84,9 @@ class ::Decor::Forms::RadioPreview < ::Lookbook::Preview
     hide_label_required_asterisk: false,
     checked: false,
     part_of_group: false,
+    size: :md,
     color: :primary,
-    size: :md
+    style: nil
   )
     render ::Decor::Forms::Radio.new(
       name: name,
@@ -61,82 +104,36 @@ class ::Decor::Forms::RadioPreview < ::Lookbook::Preview
       hide_required_asterisk: hide_label_required_asterisk,
       checked: checked,
       in_group: part_of_group,
+      size: size,
       color: color,
-      size: size
+      style: style
     )
   end
 
-  # @param stacked_form toggle
-  #
-  # Form field attrs
-  # @param label text
-  # @param description text
-  # @param show_label toggle
-  # @param label_position [Symbol] select [~, top, left, right, inline, inside]
-  # @param grid_span [Symbol] select [~, span_1, span_2, span_half, span_4, span_5, span_full]
-  # @param compact toggle
-  # @param floating_error_text toggle
-  # @param placeholder text
-  # @param required toggle
-  # @param hide_label_required_asterisk toggle
-  # @param disabled toggle
-  # @param helper_text text
-  # @param value text
-  #
-  # Checkbox attrs
-  # @param checked toggle
-  def in_form(
-    stacked_form: true,
-    label: "In a form!",
-    description: nil,
-    show_label: true,
-    label_position: :left,
-    grid_span: nil,
-    compact: nil,
-    floating_error_text: nil,
-    placeholder: nil,
-    value: nil,
-    required: nil,
-    disabled: nil,
-    helper_text: nil,
-    hide_label_required_asterisk: nil,
-    checked: nil
-  )
-    klass = Class.new(TypedForm) do
-      def self.name
-        "TestClass"
-      end
+  # @endgroup
 
-      prop :chosen, _Boolean
-    end
+  # @group Properties
 
+  # Available colors
+  def colors
     render_with_template(
-      locals: {
-        stacked_form: stacked_form,
-        model: klass.new(chosen: false),
-        label: label,
-        description: description,
-        show_label: show_label,
-        compact: compact,
-        label_position: label_position,
-        grid_span: grid_span,
-        floating_error_text: floating_error_text,
-        placeholder: placeholder,
-        value: value,
-        required: required,
-        disabled: disabled,
-        helper_text: helper_text,
-        hide_required_asterisk: hide_label_required_asterisk,
-        checked: checked
-      }
+      template: "decor/forms/radio_preview/properties/colors"
     )
   end
 
-  # DaisyUI Colors and Sizes
-  # ------------------------
-  #
-  # Showcase the different color and size options available with DaisyUI radio styling.
-  def color_and_size_examples
-    render_with_template
+  # Available sizes
+  def sizes
+    render_with_template(
+      template: "decor/forms/radio_preview/properties/sizes"
+    )
   end
+
+  # Label positions
+  def label_positions
+    render_with_template(
+      template: "decor/forms/radio_preview/properties/label_positions"
+    )
+  end
+
+  # @endgroup
 end

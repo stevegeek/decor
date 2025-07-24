@@ -295,11 +295,11 @@ class Decor::PanelGroupTest < ActiveSupport::TestCase
     assert rendered.css(".bg-primary").any?
   end
 
-  def test_variant_attribute
-    component = Decor::PanelGroup.new(title: "Ghost Panel Group", variant: :ghost)
+  def test_style_attribute
+    component = Decor::PanelGroup.new(title: "Ghost Panel Group", style: :ghost)
     rendered = render_fragment(component)
 
-    # Should use ghost variant styling (no shadow)
+    # Should use ghost style styling (no shadow)
     assert rendered.css(".shadow-none").any?
   end
 
@@ -307,7 +307,7 @@ class Decor::PanelGroupTest < ActiveSupport::TestCase
     component = Decor::PanelGroup.new(title: "Default Panel Group")
     rendered = render_fragment(component)
 
-    # Should use default values: size: :md, color: :base, variant: :filled
+    # Should use default values: size: :md, color: :base, style: :filled
     assert rendered.css(".card-md").any?
     assert rendered.css(".bg-base-100").any?
     assert rendered.css(".shadow-sm").any?
@@ -322,13 +322,13 @@ class Decor::PanelGroupTest < ActiveSupport::TestCase
     assert_nothing_raised { Decor::PanelGroup.new(title: "Test", color: :primary) }
     assert_nothing_raised { Decor::PanelGroup.new(title: "Test", color: :success) }
 
-    # Valid variants
-    assert_nothing_raised { Decor::PanelGroup.new(title: "Test", variant: :outlined) }
-    assert_nothing_raised { Decor::PanelGroup.new(title: "Test", variant: :ghost) }
+    # Valid styles
+    assert_nothing_raised { Decor::PanelGroup.new(title: "Test", style: :outlined) }
+    assert_nothing_raised { Decor::PanelGroup.new(title: "Test", style: :ghost) }
 
     # Should raise for invalid values
     assert_raises(Literal::TypeError) { Decor::PanelGroup.new(title: "Test", size: :invalid) }
     assert_raises(Literal::TypeError) { Decor::PanelGroup.new(title: "Test", color: :invalid) }
-    assert_raises(Literal::TypeError) { Decor::PanelGroup.new(title: "Test", variant: :invalid) }
+    assert_raises(Literal::TypeError) { Decor::PanelGroup.new(title: "Test", style: :invalid) }
   end
 end

@@ -3,42 +3,126 @@ class ::Decor::IconPreview < ::Lookbook::Preview
   # Icon
   # -------
   #
-  # A Icon is an inline SVG icon that is read from a collection of SVG files in the assets directory.
+  # An Icon is an inline SVG icon that is read from a collection of SVG files in the assets directory.
   # Inherits from Svg component, so supports all sizing and accessibility features.
   #
-  # You can also set the html class attribute using html_options[:class] or `element_classes` etc
+  # Set the color using `classes` prop. The icon can be inlined in the HTML or loaded externally.
   #
-  # @label Playground
+  # @group Examples
+  # @label Action Icons
+  def common_actions
+    render_with_template(
+      locals: {
+        icons: [
+          ::Decor::Icon.new(name: "plus", title: "Add"),
+          ::Decor::Icon.new(name: "minus", title: "Remove"),
+          ::Decor::Icon.new(name: "check", title: "Confirm"),
+          ::Decor::Icon.new(name: "download", title: "Download")
+        ]
+      }
+    )
+  end
+
+  # @group Examples
+  # @label Other Icons
+  def common_fun
+    render_with_template(
+      locals: {
+        icons: [
+          ::Decor::Icon.new(name: "heart", style: :outline, title: "Like"),
+          ::Decor::Icon.new(name: "star", style: :outline, title: "Favorite"),
+          ::Decor::Icon.new(name: "bell", title: "Notifications"),
+          ::Decor::Icon.new(name: "gift", title: "Gift")
+        ]
+      }
+    )
+  end
+
+  # @group Examples
+  # @label Large Solid with Accessibility
+  def combo_large_solid_accessible
+    render ::Decor::Icon.new(
+      name: "star",
+      style: :solid,
+      size: :lg,
+      title: "Favorite Star",
+      description: "A solid star icon indicating this item is favorited"
+    )
+  end
+
+  # @group Examples
+  # @label Custom Dimensions Inline
+  def combo_custom_inline
+    render ::Decor::Icon.new(
+      name: "play",
+      style: :solid,
+      width: 80,
+      height: 80,
+      inline: true,
+      title: "Play Button",
+      description: "Large play button with inline SVG"
+    )
+  end
+
+  # @group Examples
+  # @label Small Solid Collection Icons
+  def combo_small_solid_icons
+    render_with_template(
+      locals: {
+        icons: [
+          ::Decor::Icon.new(
+            name: "star",
+            collection: :heroicons,
+            style: :small_solid,
+            size: :sm,
+            title: "Small Solid Star"
+          ),
+          ::Decor::Icon.new(
+            name: "heart",
+            collection: :heroicons,
+            style: :small_solid,
+            size: :sm,
+            title: "Small Solid Heart"
+          )
+        ]
+      }
+    )
+  end
+
+  # @group Playground
   # @param name select [chevron-right, gift, cube, download, play, home, user, star, heart, bell, check, x, plus, minus]
   # @param collection select [heroicons, icons]
-  # @param variant select [outline, solid, small_solid]
   # @param inline toggle
-  # @param size select [xs, sm, md, lg, xl]
   # @param width number
   # @param height number
   # @param title text
   # @param description text
+  # @param size [Symbol] select [~, xs, sm, md, lg, xl]
+  # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
+  # @param style [Symbol] select [~, outline, solid, small_solid]
   def playground(
     name: "cube",
     collection: :heroicons,
-    variant: :outline,
     inline: false,
-    size: :md,
     width: nil,
     height: nil,
     title: "Gift",
-    description: "A gift icon"
+    description: "A gift icon",
+    size: nil,
+    color: nil,
+    style: nil
   )
     render ::Decor::Icon.new(
       name: name,
       collection: collection,
-      variant: variant,
       inline: inline,
-      size: size,
       width: width,
       height: height,
       title: title,
-      description: description
+      description: description,
+      size: size,
+      color: color,
+      style: style
     )
   end
 
@@ -48,7 +132,7 @@ class ::Decor::IconPreview < ::Lookbook::Preview
     render ::Decor::Icon.new(
       name: "home",
       collection: :heroicons,
-      variant: :outline,
+      style: :outline,
       title: "Home Icon from Heroicons"
     )
   end
@@ -59,37 +143,37 @@ class ::Decor::IconPreview < ::Lookbook::Preview
     render ::Decor::Icon.new(
       name: "star",
       collection: :heroicons,
-      variant: :outline,
+      style: :outline,
       title: "Star Icon from Heroicons Collection"
     )
   end
 
-  # @group Variants
-  # @label Outline Variant
-  def variant_outline
+  # @group Styles
+  # @label Outline Style
+  def style_outline
     render ::Decor::Icon.new(
       name: "heart",
-      variant: :outline,
+      style: :outline,
       title: "Outline Heart Icon"
     )
   end
 
-  # @group Variants
-  # @label Solid Variant
-  def variant_solid
+  # @group Styles
+  # @label Solid Style
+  def style_solid
     render ::Decor::Icon.new(
       name: "heart",
-      variant: :solid,
+      style: :solid,
       title: "Solid Heart Icon"
     )
   end
 
-  # @group Variants
-  # @label Small Solid Variant
-  def variant_small_solid
+  # @group Styles
+  # @label Small Solid Style
+  def style_small_solid
     render ::Decor::Icon.new(
       name: "star",
-      variant: :small_solid,
+      style: :small_solid,
       title: "Small Solid Star Icon"
     )
   end
@@ -187,99 +271,14 @@ class ::Decor::IconPreview < ::Lookbook::Preview
     )
   end
 
-  # @group Common Icons
-  # @label Navigation Icons
-  def common_navigation
-    render_with_template(
-      locals: {
-        icons: [
-          {name: "home", title: "Home"},
-          {name: "user", title: "User"},
-          {name: "chevron-right", title: "Next"},
-          {name: "x", title: "Close"}
-        ]
-      }
-    )
-  end
-
-  # @group Common Icons
-  # @label Action Icons
-  def common_actions
-    render_with_template(
-      locals: {
-        icons: [
-          ::Decor::Icon.new(name: "plus", title: "Add"),
-          ::Decor::Icon.new(name: "minus", title: "Remove"),
-          ::Decor::Icon.new(name: "check", title: "Confirm"),
-          ::Decor::Icon.new(name: "download", title: "Download")
-        ]
-      }
-    )
-  end
-
-  # @group Common Icons
-  # @label Social Icons
-  def common_social
-    render_with_template(
-      locals: {
-        icons: [
-          ::Decor::Icon.new(name: "heart", variant: :outline, title: "Like"),
-          ::Decor::Icon.new(name: "star", variant: :outline, title: "Favorite"),
-          ::Decor::Icon.new(name: "bell", title: "Notifications"),
-          ::Decor::Icon.new(name: "gift", title: "Gift")
-        ]
-      }
-    )
-  end
-
-  # @group Combinations
-  # @label Large Solid with Accessibility
-  def combo_large_solid_accessible
+  # @group Edge Cases
+  # @label Nil Style (Should Use Default)
+  def nil_style
     render ::Decor::Icon.new(
-      name: "star",
-      variant: :solid,
-      size: :lg,
-      title: "Favorite Star",
-      description: "A solid star icon indicating this item is favorited"
-    )
-  end
-
-  # @group Combinations
-  # @label Custom Dimensions Inline
-  def combo_custom_inline
-    render ::Decor::Icon.new(
-      name: "play",
-      variant: :solid,
-      width: 80,
-      height: 80,
-      inline: true,
-      title: "Play Button",
-      description: "Large play button with inline SVG"
-    )
-  end
-
-  # @group Combinations
-  # @label Small Solid Collection Icons
-  def combo_small_solid_icons
-    render_with_template(
-      locals: {
-        icons: [
-          ::Decor::Icon.new(
-            name: "star",
-            collection: :heroicons,
-            variant: :small_solid,
-            size: :sm,
-            title: "Small Solid Star"
-          ),
-          ::Decor::Icon.new(
-            name: "heart",
-            collection: :heroicons,
-            variant: :small_solid,
-            size: :sm,
-            title: "Small Solid Heart"
-          )
-        ]
-      }
+      name: "cube",
+      style: nil,
+      title: "Icon with nil style",
+      description: "Should fall back to default :outline style"
     )
   end
 end

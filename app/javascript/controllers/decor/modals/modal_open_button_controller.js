@@ -11,7 +11,7 @@ export default class extends Controller {
         event.preventDefault();
         
         // Dispatch event to open modal
-        window.dispatchEvent(new CustomEvent('"decor--modal:open', {
+        window.dispatchEvent(new CustomEvent("decor--modals--modal:open", {
             detail: {
                 contentHref: this.contentHrefValue,
                 closeOnOverlayClick: this.closeOnOverlayClickValue,

@@ -2,10 +2,16 @@
 
 module Decor
   class Box < PhlexComponent
+    include Decor::Concerns::StyleColorClasses
+
     no_stimulus_controller
 
     prop :title, _Nilable(String)
     prop :description, _Nilable(String)
+
+    default_size :md
+    default_color :base
+    default_style :outlined
 
     def html_title(&block)
       @html_title = block
@@ -70,8 +76,37 @@ module Decor
       end
     end
 
-    def element_classes
-      "card card-bordered bg-base-200 shadow-sm"
+    def root_element_classes
+      classes = ["card", "card-bordered"]
+      classes << size_classes
+      classes << style_classes
+      classes.compact.join(" ")
+    end
+
+    def component_size_classes(size)
+      case size
+      when :xs then "card-xs"
+      when :sm then "card-sm"
+      when :md then "card-md"
+      when :lg then "card-lg"
+      when :xl then "card-xl"
+      else
+        ""
+      end
+    end
+
+    def component_style_classes(style)
+      # Override the base implementation to add box-specific styling
+      case style
+      when :filled
+        "#{filled_color_classes(@color)} shadow-sm"
+      when :outlined
+        "#{outline_color_classes(@color)} bg-base-100"
+      when :ghost
+        "#{ghost_color_classes(@color)} shadow-none"
+      else
+        ""
+      end
     end
   end
 end

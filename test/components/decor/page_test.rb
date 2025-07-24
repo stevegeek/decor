@@ -126,8 +126,8 @@ class Decor::PageTest < ActiveSupport::TestCase
   end
 
   # Modern attribute tests
-  test "applies correct size classes" do
-    component = Decor::Page.new(size: :lg)
+  test "applies correct size classes through PageHeader" do
+    component = Decor::Page.new
     component.with_header do
       ::Decor::PageHeader.new(title: "Test", size: :lg, layout: :page_like)
     end
@@ -186,7 +186,7 @@ class Decor::PageTest < ActiveSupport::TestCase
     component = Decor::Page.new
     component.with_header do
       header = ::Decor::PageHeader.new(title: "Test", layout: :page_like)
-      header.with_badge(label: "Test Badge", style: :success)
+      header.with_badge(label: "Test Badge", color: :success)
       header
     end
     rendered = render_component(component)
@@ -229,7 +229,6 @@ class Decor::PageTest < ActiveSupport::TestCase
   test "default values are correct" do
     component = Decor::Page.new
 
-    assert_equal :md, component.instance_variable_get(:@size)
     assert_equal :default, component.instance_variable_get(:@background)
     assert_equal :md, component.instance_variable_get(:@padding)
     assert_equal :md, component.instance_variable_get(:@spacing)

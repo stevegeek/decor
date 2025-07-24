@@ -9,9 +9,13 @@ module Decor
       prop :lng, Float
     end
 
-    # Standard decor component props
-    prop :color, _Nilable(_Union(:primary, :secondary, :accent, :success, :error, :warning, :info, :neutral))
-    prop :size, _Union(:xs, :sm, :md, :lg, :xl, :full), default: :md
+    # Use unified prop system
+    default_size :md
+    default_color :base  # Maps typically don't need prominent colors by default
+
+    # Map supports custom size including :full
+    redefine_sizes :xs, :sm, :md, :lg, :xl, :full
+
     prop :disabled, _Boolean, default: false
 
     # Map-specific props
@@ -51,11 +55,11 @@ module Decor
       )
     end
 
-    def element_classes
-      classes = [base_size_class]
+    def root_element_classes
+      classes = [size_classes]
       classes << "w-full" if @full_width
       classes << "w-96" unless @full_width
-      classes << "border-2 #{color_classes}" if @color
+      classes << "border-2" << color_classes if @color && @color != :base
       classes << state_classes
       classes << @class if @class.present?
       classes.compact.join(" ")
@@ -67,8 +71,8 @@ module Decor
       classes.join(" ")
     end
 
-    def base_size_class
-      case @size
+    def component_size_classes(size)
+      case size
       when :xs then "h-48"
       when :sm then "h-64"
       when :md then "h-96"
@@ -79,8 +83,8 @@ module Decor
       end
     end
 
-    def color_classes
-      case @color
+    def component_color_classes(color)
+      case color
       when :primary then "border-primary"
       when :secondary then "border-secondary"
       when :accent then "border-accent"
@@ -88,7 +92,9 @@ module Decor
       when :error then "border-error"
       when :warning then "border-warning"
       when :info then "border-info"
-      else "border-gray-200"
+      when :neutral then "border-neutral"
+      when :base then "border-base-300"
+      else "border-base-300"
       end
     end
 

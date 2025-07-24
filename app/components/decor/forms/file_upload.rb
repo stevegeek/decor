@@ -18,7 +18,7 @@ module Decor
       prop :existing_file_url, _Nilable(String)
       prop :file, _Nilable(_Any)
 
-      prop :variant, _Union(:file, :image, :avatar), default: :file
+      prop :preview_type, _Union(:file, :image, :avatar), default: :file
 
       prop :theme, _Union(:primary, :secondary), default: :secondary
 
@@ -53,7 +53,7 @@ module Decor
           end
 
           render layout do
-            if @variant == :avatar
+            if @preview_type == :avatar
               render ::Decor::Avatar.new(
                 initials: @initials,
                 shape: @shape,
@@ -61,7 +61,7 @@ module Decor
                 url: file_url,
                 classes: "decor--image-upload--image-container shrink-0"
               )
-            elsif @variant == :image
+            elsif @preview_type == :image
               div(class: "decor--image-upload--image-container") do
                 if file_url
                   img(src: file_url, class: class_list_for_stimulus_classes(:image))
@@ -127,38 +127,40 @@ module Decor
 
       def file_input_classes
         classes = ["file-input", "w-full"]
-        classes << file_input_color_class if @color && @color != :primary
-        classes << file_input_size_class unless @size == :md
+        classes << component_size_classes(@size).join(" ")
+        classes << component_color_classes(@color).join(" ")
         classes << "file-input-error" if errors?
-        classes.compact.join(" ")
+        classes.compact.join(" ").strip
       end
 
-      def file_input_color_class
-        case @color
-        when :secondary then "file-input-secondary"
-        when :accent then "file-input-accent"
-        when :success then "file-input-success"
-        when :error then "file-input-error"
-        when :warning then "file-input-warning"
-        when :info then "file-input-info"
-        when :ghost then "file-input-ghost"
-        when :neutral then "file-input-neutral"
-        else ""
+      def component_size_classes(size)
+        case size
+        when :xs then ["file-input-xs"]
+        when :sm then ["file-input-sm"]
+        when :md then [] # default
+        when :lg then ["file-input-lg"]
+        when :xl then ["file-input-xl"]
+        else []
         end
       end
 
-      def file_input_size_class
-        case @size
-        when :xs then "file-input-xs"
-        when :sm then "file-input-sm"
-        when :lg then "file-input-lg"
-        when :xl then "file-input-xl"
-        else ""
+      def component_color_classes(color)
+        case color
+        when :primary then ["file-input-primary"]
+        when :secondary then ["file-input-secondary"]
+        when :accent then ["file-input-accent"]
+        when :success then ["file-input-success"]
+        when :error then ["file-input-error"]
+        when :warning then ["file-input-warning"]
+        when :info then ["file-input-info"]
+        when :ghost then ["file-input-ghost"]
+        when :neutral then ["file-input-neutral"]
+        else [] # base/neutral
         end
       end
 
       def preview_classes
-        case @variant
+        case @preview_type
         when :image
           "max-h-[200px] #{image_tag_classes}"
         when :avatar

@@ -5,117 +5,7 @@ class ::Decor::Chat::ListPreview < ::Lookbook::Preview
   #
   # A chat list component using daisyUI chat styling for displaying conversations.
   # Supports different message types, avatars, timestamps, and empty states.
-  #
-  # @param chat_type [Symbol] select { choices: [empty, simple, conversation, mixed_users, time_formats] }
-  def playground(chat_type: :simple)
-    case chat_type
-    when :empty
-      render ::Decor::Chat::List.new do |list|
-        list.empty_state_action do
-          render ::Decor::Button.new(color: :primary) { "Start Conversation" }
-        end
-      end
-    when :simple
-      render ::Decor::Chat::List.new(
-        messages: [
-          ::Decor::Chat::ListMessage.new(
-            author_name: "Obi-Wan Kenobi",
-            message: "You were the Chosen One!",
-            is_current_user: false,
-            footer_text: "Seen",
-            localised_created_at: Time.current - 36.hours
-          ),
-          ::Decor::Chat::ListMessage.new(
-            author_name: "Obi-Wan Kenobi",
-            message: "I loved you.",
-            is_current_user: false,
-            footer_text: "Delivered"
-          )
-        ]
-      )
-    when :conversation
-      render ::Decor::Chat::List.new(
-        messages: [
-          ::Decor::Chat::ListMessage.new(
-            author_name: "Obi-Wan Kenobi",
-            author_profile_image_url: "https://img.daisyui.com/images/profile/demo/kenobee@192.webp",
-            message: "It was said that you would, destroy the Sith, not join them.",
-            is_current_user: false,
-            show_timestamp: false
-          ),
-          ::Decor::Chat::ListMessage.new(
-            author_name: "Obi-Wan Kenobi",
-            author_profile_image_url: "https://img.daisyui.com/images/profile/demo/kenobee@192.webp",
-            message: "It was you who would bring balance to the Force",
-            is_current_user: false,
-            show_timestamp: false
-          ),
-          ::Decor::Chat::ListMessage.new(
-            author_name: "Obi-Wan Kenobi",
-            author_profile_image_url: "https://img.daisyui.com/images/profile/demo/kenobee@192.webp",
-            message: "Not leave it in Darkness",
-            is_current_user: false,
-            show_timestamp: false
-          )
-        ]
-      )
-    when :mixed_users
-      render ::Decor::Chat::List.new(
-        messages: [
-          ::Decor::Chat::ListMessage.new(
-            author_name: "Sarah Wilson",
-            author_initials: "SW",
-            author_profile_image_url: "https://images.unsplash.com/photo-1494790108755-2616b612b606?w=150",
-            message: "Welcome to the team chat!",
-            is_current_user: false
-          ),
-          ::Decor::Chat::ListMessage.new(
-            author_name: "Mike Chen",
-            author_initials: "MC",
-            message: "Thanks! Excited to be working with everyone.",
-            is_current_user: false
-          ),
-          ::Decor::Chat::ListMessage.new(
-            author_name: "You",
-            message: "Great to have you aboard! Let me know if you need anything.",
-            is_current_user: true
-          )
-        ]
-      )
-    when :time_formats
-      render ::Decor::Chat::List.new(
-        messages: [
-          ::Decor::Chat::ListMessage.new(
-            author_name: "Alice",
-            message: "This message is from 2 days ago",
-            localised_created_at: 2.days.ago,
-            is_current_user: false
-          ),
-          ::Decor::Chat::ListMessage.new(
-            author_name: "Bob",
-            message: "This message is from 1 day ago",
-            localised_created_at: 1.day.ago,
-            is_current_user: false
-          ),
-          ::Decor::Chat::ListMessage.new(
-            author_name: "You",
-            message: "This message is from 2 hours ago",
-            localised_created_at: 2.hours.ago,
-            is_current_user: true
-          ),
-          ::Decor::Chat::ListMessage.new(
-            author_name: "Carol",
-            message: "This message is recent (30 minutes ago)",
-            localised_created_at: 30.minutes.ago,
-            is_current_user: false
-          )
-        ]
-      )
-    end
-  end
-
   # @!group Examples
-
   def basic_chat
     render ::Decor::Chat::List.new(
       messages: [
@@ -264,4 +154,112 @@ class ::Decor::Chat::ListPreview < ::Lookbook::Preview
   end
 
   # @!endgroup
+
+  # @param chat_type [Symbol] select { choices: [empty, simple, conversation, mixed_users, time_formats] }
+  def playground(chat_type: :simple)
+    case chat_type
+    when :empty
+      render ::Decor::Chat::List.new do |list|
+        list.empty_state_action do
+          render ::Decor::Button.new(color: :primary) { "Start Conversation" }
+        end
+      end
+    when :simple
+      render ::Decor::Chat::List.new(
+        messages: [
+          ::Decor::Chat::ListMessage.new(
+            author_name: "Obi-Wan Kenobi",
+            message: "You were the Chosen One!",
+            is_current_user: false,
+            footer_text: "Seen",
+            localised_created_at: Time.current - 36.hours
+          ),
+          ::Decor::Chat::ListMessage.new(
+            author_name: "Obi-Wan Kenobi",
+            message: "I loved you.",
+            is_current_user: false,
+            footer_text: "Delivered"
+          )
+        ]
+      )
+    when :conversation
+      render ::Decor::Chat::List.new(
+        messages: [
+          ::Decor::Chat::ListMessage.new(
+            author_name: "Obi-Wan Kenobi",
+            author_profile_image_url: "https://img.daisyui.com/images/profile/demo/kenobee@192.webp",
+            message: "It was said that you would, destroy the Sith, not join them.",
+            is_current_user: false,
+            show_timestamp: false
+          ),
+          ::Decor::Chat::ListMessage.new(
+            author_name: "Obi-Wan Kenobi",
+            author_profile_image_url: "https://img.daisyui.com/images/profile/demo/kenobee@192.webp",
+            message: "It was you who would bring balance to the Force",
+            is_current_user: false,
+            show_timestamp: false
+          ),
+          ::Decor::Chat::ListMessage.new(
+            author_name: "Obi-Wan Kenobi",
+            author_profile_image_url: "https://img.daisyui.com/images/profile/demo/kenobee@192.webp",
+            message: "Not leave it in Darkness",
+            is_current_user: false,
+            show_timestamp: false
+          )
+        ]
+      )
+    when :mixed_users
+      render ::Decor::Chat::List.new(
+        messages: [
+          ::Decor::Chat::ListMessage.new(
+            author_name: "Sarah Wilson",
+            author_initials: "SW",
+            author_profile_image_url: "https://images.unsplash.com/photo-1494790108755-2616b612b606?w=150",
+            message: "Welcome to the team chat!",
+            is_current_user: false
+          ),
+          ::Decor::Chat::ListMessage.new(
+            author_name: "Mike Chen",
+            author_initials: "MC",
+            message: "Thanks! Excited to be working with everyone.",
+            is_current_user: false
+          ),
+          ::Decor::Chat::ListMessage.new(
+            author_name: "You",
+            message: "Great to have you aboard! Let me know if you need anything.",
+            is_current_user: true
+          )
+        ]
+      )
+    when :time_formats
+      render ::Decor::Chat::List.new(
+        messages: [
+          ::Decor::Chat::ListMessage.new(
+            author_name: "Alice",
+            message: "This message is from 2 days ago",
+            localised_created_at: 2.days.ago,
+            is_current_user: false
+          ),
+          ::Decor::Chat::ListMessage.new(
+            author_name: "Bob",
+            message: "This message is from 1 day ago",
+            localised_created_at: 1.day.ago,
+            is_current_user: false
+          ),
+          ::Decor::Chat::ListMessage.new(
+            author_name: "You",
+            message: "This message is from 2 hours ago",
+            localised_created_at: 2.hours.ago,
+            is_current_user: true
+          ),
+          ::Decor::Chat::ListMessage.new(
+            author_name: "Carol",
+            message: "This message is recent (30 minutes ago)",
+            localised_created_at: 30.minutes.ago,
+            is_current_user: false
+          )
+        ]
+      )
+    end
+  end
 end

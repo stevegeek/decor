@@ -5,7 +5,7 @@ require "test_helper"
 module Decor
   class FlashTest < ViewComponent::TestCase
     def test_renders_flash_with_title_and_text
-      render_inline(Flash.new(title: "Flash Title", text: "Flash message", variant: :success))
+      render_inline(Flash.new(title: "Flash Title", text: "Flash message", style: :success))
 
       assert_selector ".alert.alert-success"
       assert_selector "h3", text: "Flash Title"
@@ -24,7 +24,7 @@ module Decor
       variants.each do |variant, expected_class|
         render_inline(Flash.new(
           text: "Test message",
-          variant: variant,
+          style: variant,
           controller_path: "test",
           action_name: "show"
         ))
@@ -42,7 +42,7 @@ module Decor
       }
 
       icon_mapping.each do |variant, expected_icon|
-        component = Flash.new(text: "Test", variant: variant)
+        component = Flash.new(text: "Test", style: variant)
         assert_equal expected_icon, component.send(:icon)
       end
     end
@@ -59,7 +59,7 @@ module Decor
       expected_titles.each do |variant, expected_title|
         component = Flash.new(
           text: "Test",
-          variant: variant,
+          style: variant,
           controller_path: "test",
           action_name: "show"
         )
@@ -69,7 +69,7 @@ module Decor
     end
 
     def test_uses_custom_title_when_provided
-      render_inline(Flash.new(title: "Custom Title", text: "Message", variant: :success))
+      render_inline(Flash.new(title: "Custom Title", text: "Message", style: :success))
 
       assert_selector "h3", text: "Custom Title"
     end
@@ -79,7 +79,7 @@ module Decor
       render_inline(component)
 
       # Check if the component has hidden class when collapsed and empty
-      assert_match(/hidden/, component.send(:element_classes))
+      assert_match(/hidden/, component.send(:root_element_classes))
     end
 
     def test_shows_when_collapse_if_empty_false_and_no_content
@@ -124,14 +124,14 @@ module Decor
         text: "Test Text",
         preserve_flash: true,
         collapse_if_empty: false,
-        variant: :warning
+        style: :warning
       )
 
       assert_equal "Test Title", component.instance_variable_get(:@title)
       assert_equal "Test Text", component.instance_variable_get(:@text)
       assert_equal true, component.instance_variable_get(:@preserve_flash)
       assert_equal false, component.instance_variable_get(:@collapse_if_empty)
-      assert_equal :warning, component.instance_variable_get(:@variant)
+      assert_equal :warning, component.instance_variable_get(:@style)
     end
 
     def test_inherits_from_phlex_component

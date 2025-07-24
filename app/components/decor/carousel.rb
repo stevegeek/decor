@@ -10,7 +10,7 @@ module Decor
       values_from_props :slides_per_view
     end
 
-    def slide(&block)
+    def with_slide(&block)
       @slides ||= []
       @slides << block
     end
@@ -62,7 +62,7 @@ module Decor
       end
     end
 
-    def element_classes
+    def root_element_classes
       "relative"
     end
 

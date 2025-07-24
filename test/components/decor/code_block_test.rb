@@ -64,7 +64,7 @@ class Decor::CodeBlockTest < ActiveSupport::TestCase
   end
 
   def test_renders_terminal_variant
-    component = Decor::CodeBlock.new(variant: :terminal)
+    component = Decor::CodeBlock.new(style: :terminal)
 
     rendered = render_fragment(component) do
       "$ npm install\n> installing...\n> Done!"
@@ -119,7 +119,7 @@ class Decor::CodeBlockTest < ActiveSupport::TestCase
 
   def test_terminal_variant_with_highlights
     component = Decor::CodeBlock.new(
-      variant: :terminal,
+      style: :terminal,
       highlight_lines: [2]
     )
 

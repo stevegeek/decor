@@ -4,27 +4,85 @@ class ::Decor::TooltipPreview < ::Lookbook::Preview
   # --------
   #
   # A tooltip is a small popover that displays additional information about something
-  # when the user hovers over it. Supports different positions, sizes, colors, and variants.
+  # when the user hovers over it. Supports different positions, sizes, colors, and styles.
   #
+  # @group Examples
+  # @label Basic Tooltip
+  def basic_tooltip
+    render ::Decor::Tooltip.new(tip_text: "This is a helpful tooltip") do |el|
+      el.render ::Decor::Button.new(label: "Hover me")
+    end
+  end
+
+  # @group Examples
+  # @label Tooltip with Position
+  def tooltip_with_position
+    render ::Decor::Tooltip.new(tip_text: "I appear on the right", position: :right) do |el|
+      el.render ::Decor::Button.new(label: "Right tooltip", color: :primary)
+    end
+  end
+
+  # @group Examples
+  # @label Styled Tooltip
+  def styled_tooltip
+    render ::Decor::Tooltip.new(tip_text: "Important information!", color: :error, style: :outlined) do |el|
+      el.render ::Decor::Button.new(label: "Important", color: :error)
+    end
+  end
+
+  # @group Examples
+  # @label Large Primary Left
+  def combo_large_primary_left
+    render ::Decor::Tooltip.new(
+      tip_text: "Large primary tooltip on left",
+      size: :lg,
+      color: :primary,
+      position: :left
+    ) do |t|
+      t.render ::Decor::Button.new(label: "Large Primary Left", color: :primary, size: :large)
+    end
+  end
+
+  # @group Examples
+  # @label Small Error Bottom
+  def combo_small_error_bottom
+    render ::Decor::Tooltip.new(
+      tip_text: "Small error tooltip at bottom",
+      size: :sm,
+      color: :error,
+      position: :bottom
+    ) do |t|
+      t.render ::Decor::Button.new(label: "Small Error Bottom", color: :error, size: :small)
+    end
+  end
+
+  # @group Examples
+  # @label Ghost Warning Right
+  def combo_ghost_warning_right
+    render ::Decor::Tooltip.new(
+      tip_text: "Ghost warning tooltip on right",
+      style: :ghost,
+      color: :warning,
+      position: :right
+    ) do |t|
+      t.render ::Decor::Button.new(label: "Ghost Warning Right", style: :ghost, color: :warning)
+    end
+  end
+
+  # @group Playground
   # @label Playground
   # @param tip_text text
-  # @param position select [top, bottom, left, right]
-  # @param size select [xs, sm, md, lg, xl]
-  # @param color select [base, primary, secondary, accent, success, error, warning, info, neutral]
-  # @param variant select [filled, outlined, ghost]
-  def playground(
-    tip_text: "This is helpful tooltip text",
-    position: :top,
-    size: :md,
-    color: :base,
-    variant: :filled
-  )
+  # @param position select [Symbol] [~, top, bottom, left, right]
+  # @param size [Symbol] select [~, xs, sm, md, lg, xl]
+  # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
+  # @param style [Symbol] select [~, filled, outlined, ghost]
+  def playground(tip_text: "This is helpful tooltip text", position: nil, size: nil, color: nil, style: nil)
     render ::Decor::Tooltip.new(
       tip_text: tip_text,
       position: position,
       size: size,
       color: color,
-      variant: variant
+      style: style
     ) do |t|
       t.render ::Decor::Button.new(label: "Hover for tooltip")
     end
@@ -174,27 +232,27 @@ class ::Decor::TooltipPreview < ::Lookbook::Preview
     end
   end
 
-  # @group Variants
-  # @label Filled Variant
-  def variant_filled
-    render ::Decor::Tooltip.new(tip_text: "Filled tooltip (default)", variant: :filled) do
+  # @group Styles
+  # @label Filled Style
+  def style_filled
+    render ::Decor::Tooltip.new(tip_text: "Filled tooltip (default)", style: :filled) do
       render ::Decor::Button.new(label: "Filled")
     end
   end
 
-  # @group Variants
-  # @label Outlined Variant
-  def variant_outlined
-    render ::Decor::Tooltip.new(tip_text: "Outlined tooltip", variant: :outlined) do
-      render ::Decor::Button.new(label: "Outlined", variant: :outlined)
+  # @group Styles
+  # @label Outlined Style
+  def style_outlined
+    render ::Decor::Tooltip.new(tip_text: "Outlined tooltip", style: :outlined) do
+      render ::Decor::Button.new(label: "Outlined", style: :outlined)
     end
   end
 
-  # @group Variants
-  # @label Ghost Variant
-  def variant_ghost
-    render ::Decor::Tooltip.new(tip_text: "Ghost tooltip", variant: :ghost) do
-      render ::Decor::Button.new(label: "Ghost", variant: :text)
+  # @group Styles
+  # @label Ghost Style
+  def style_ghost
+    render ::Decor::Tooltip.new(tip_text: "Ghost tooltip", style: :ghost) do
+      render ::Decor::Button.new(label: "Ghost", style: :ghost)
     end
   end
 
@@ -211,45 +269,6 @@ class ::Decor::TooltipPreview < ::Lookbook::Preview
   def offset_y_custom
     render ::Decor::Tooltip.new(tip_text: "Custom Y offset", offset_percent_y: 150) do
       render ::Decor::Button.new(label: "Custom Y Offset")
-    end
-  end
-
-  # @group Combinations
-  # @label Large Primary Left
-  def combo_large_primary_left
-    render ::Decor::Tooltip.new(
-      tip_text: "Large primary tooltip on left",
-      size: :lg,
-      color: :primary,
-      position: :left
-    ) do
-      render ::Decor::Button.new(label: "Large Primary Left", color: :primary, size: :large)
-    end
-  end
-
-  # @group Combinations
-  # @label Small Error Bottom
-  def combo_small_error_bottom
-    render ::Decor::Tooltip.new(
-      tip_text: "Small error tooltip at bottom",
-      size: :sm,
-      color: :error,
-      position: :bottom
-    ) do
-      render ::Decor::Button.new(label: "Small Error Bottom", color: :danger, size: :small)
-    end
-  end
-
-  # @group Combinations
-  # @label Ghost Warning Right
-  def combo_ghost_warning_right
-    render ::Decor::Tooltip.new(
-      tip_text: "Ghost warning tooltip on right",
-      variant: :ghost,
-      color: :warning,
-      position: :right
-    ) do
-      render ::Decor::Button.new(label: "Ghost Warning Right", variant: :text, color: :warning)
     end
   end
 end

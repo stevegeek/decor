@@ -10,10 +10,10 @@ module Decor
     prop :step, _Nilable(Integer)
     prop :icon, _Nilable(String)
 
-    # Modern attributes following daisyUI standards
-    prop :size, _Union(:xs, :sm, :md, :lg, :xl), default: :md
-    prop :color, _Union(:primary, :secondary, :accent, :success, :error, :warning, :info, :neutral), default: :info
-    prop :variant, _Union(:filled, :outlined, :ghost), default: :filled
+    # Use unified prop system
+    default_size :md
+    default_color :info
+    default_style :filled
 
     def view_template(&)
       root_element do
@@ -33,7 +33,7 @@ module Decor
 
     private
 
-    def element_classes
+    def root_element_classes
       "flex gap-3 md:gap-5 mt-5 border-b border-base-300 mb-3 pb-5"
     end
 
@@ -57,6 +57,8 @@ module Decor
       when :md then :sm
       when :lg then :md
       when :xl then :lg
+      else
+        :md
       end
     end
 
@@ -64,13 +66,13 @@ module Decor
     def step_indicator_classes
       [
         "flex-shrink-0 flex items-center justify-center rounded-full",
-        size_classes,
-        color_classes
+        component_size_classes(@size),
+        component_style_classes(@style)
       ].compact.join(" ")
     end
 
-    def size_classes
-      case @size
+    def component_size_classes(size)
+      case size
       when :xs then "w-6 h-6 text-xs"
       when :sm then "w-8 h-8 text-sm"
       when :md then "w-8 h-8 md:w-10 md:h-10 text-sm md:text-base"
@@ -79,19 +81,19 @@ module Decor
       end
     end
 
-    def color_classes
-      case @variant
+    def component_style_classes(style)
+      case style
       when :outlined
-        outline_color_classes
+        outline_color_classes(@color)
       when :ghost
-        ghost_color_classes
+        ghost_color_classes(@color)
       else
-        filled_color_classes
+        filled_color_classes(@color)
       end
     end
 
-    def filled_color_classes
-      case @color
+    def filled_color_classes(color)
+      case color
       when :primary then "bg-primary text-primary-content border-2 border-primary"
       when :secondary then "bg-secondary text-secondary-content border-2 border-secondary"
       when :accent then "bg-accent text-accent-content border-2 border-accent"
@@ -103,8 +105,8 @@ module Decor
       end
     end
 
-    def outline_color_classes
-      case @color
+    def outline_color_classes(color)
+      case color
       when :primary then "border-2 border-primary text-primary bg-transparent"
       when :secondary then "border-2 border-secondary text-secondary bg-transparent"
       when :accent then "border-2 border-accent text-accent bg-transparent"
@@ -116,8 +118,8 @@ module Decor
       end
     end
 
-    def ghost_color_classes
-      case @color
+    def ghost_color_classes(color)
+      case color
       when :primary then "border-2 border-transparent text-primary hover:bg-primary/10"
       when :secondary then "border-2 border-transparent text-secondary hover:bg-secondary/10"
       when :accent then "border-2 border-transparent text-accent hover:bg-accent/10"
@@ -138,7 +140,7 @@ module Decor
       when :xl then "w-8 h-8"
       end
 
-      if @variant == :filled
+      if @style == :filled
         base_size # Color will be inherited from parent
       else
         text_color = case @color

@@ -6,21 +6,39 @@ class ::Decor::ButtonPreview < ::Lookbook::Preview
   # A styled button component with daisyUI styling.
   # Supports different themes, variants, sizes, and states.
   #
-  # @label Playground
+  # @group Examples
+  # @label Basic Button
+  def basic_button
+    render ::Decor::Button.new(label: "Click me")
+  end
+
+  # @group Examples
+  # @label Primary Action
+  def primary_action
+    render ::Decor::Button.new(label: "Save Changes", color: :primary)
+  end
+
+  # @group Examples
+  # @label Danger Action
+  def danger_action
+    render ::Decor::Button.new(label: "Delete", color: :error, icon: "x")
+  end
+
+  # @group Playground
   # @param label text
   # @param disabled toggle
   # @param icon select [~, check-circle, x, check, download, play]
-  # @param variant select [contained, outlined, text]
-  # @param color select [primary, secondary, danger, warning, neutral]
+  # @param style [Symbol] select [filled, outlined, ghost]
+  # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
   # @param element_tag select [button, a]
-  # @param size select [medium, large, wide, small, micro, xs, lg, md, sm]
+  # @param size [Symbol] select [xs, sm, md, lg, xl]
   # @param full_width toggle
   def playground(
     label: "Button",
     icon: nil,
-    variant: :contained,
-    color: :primary,
-    size: :medium,
+    style: nil,
+    color: nil,
+    size: nil,
     element_tag: :button,
     disabled: false,
     full_width: false
@@ -28,7 +46,7 @@ class ::Decor::ButtonPreview < ::Lookbook::Preview
     render ::Decor::Button.new(
       label: label,
       icon: icon,
-      variant: variant,
+      style: style,
       color: color,
       size: size,
       element_tag: element_tag,
@@ -50,9 +68,9 @@ class ::Decor::ButtonPreview < ::Lookbook::Preview
   end
 
   # @group Colors
-  # @label Danger Theme
-  def theme_danger
-    render ::Decor::Button.new(label: "Danger Button", color: :danger)
+  # @label Error Theme
+  def theme_error
+    render ::Decor::Button.new(label: "Error Button", color: :error)
   end
 
   # @group Colors
@@ -67,53 +85,49 @@ class ::Decor::ButtonPreview < ::Lookbook::Preview
     render ::Decor::Button.new(label: "Neutral Button", color: :neutral)
   end
 
-  # @group Variants
-  # @label Contained Variant
-  def variant_contained
-    render ::Decor::Button.new(label: "Contained Button", variant: :contained)
+  # @group Styles
+  # @label Filled Style
+  def style_filled
+    render ::Decor::Button.new(label: "Filled Button", style: :filled)
   end
 
-  # @group Variants
-  # @label Outlined Variant
-  def variant_outlined
-    render ::Decor::Button.new(label: "Outlined Button", variant: :outlined)
+  # @group Styles
+  # @label Outlined Style
+  def style_outlined
+    render ::Decor::Button.new(label: "Outlined Button", style: :outlined)
   end
 
-  # @group Variants
-  # @label Text Variant
-  def variant_text
-    render ::Decor::Button.new(label: "Text Button", variant: :text)
+  # @group Styles
+  # @label Ghost Style
+  def style_ghost
+    render ::Decor::Button.new(label: "Ghost Button", style: :ghost)
   end
 
   # @group Sizes
   # @label Large Size
   def size_large
-    render ::Decor::Button.new(label: "Large Button", size: :large)
+    render ::Decor::Button.new(label: "Large Button", size: :lg)
   end
 
   # @group Sizes
   # @label Medium Size
   def size_medium
-    render ::Decor::Button.new(label: "Medium Button", size: :medium)
+    render ::Decor::Button.new(label: "Medium Button", size: :md)
   end
 
   # @group Sizes
-  # @label Wide Size
-  def size_wide
-    render ::Decor::Button.new(label: "Wide Button", size: :wide)
+  # @label Extra Large Size
+  def size_xl
+    render ::Decor::Button.new(label: "Extra Large Button", size: :xl)
   end
 
   # @group Sizes
   # @label Small Size
   def size_small
-    render ::Decor::Button.new(label: "Small Button", size: :small)
+    render ::Decor::Button.new(label: "Small Button", size: :sm)
   end
 
   # @group Sizes
-  # @label Micro Size
-  def size_micro
-    render ::Decor::Button.new(label: "Micro Button", size: :micro)
-  end
 
   # @group Sizes
   # @label XS Size (alias for micro)
@@ -148,13 +162,13 @@ class ::Decor::ButtonPreview < ::Lookbook::Preview
   # @group With Icons
   # @label Large with Icon
   def icon_large
-    render ::Decor::Button.new(label: "Large with icon", icon: "heart", size: :large)
+    render ::Decor::Button.new(label: "Large with icon", icon: "heart", size: :lg)
   end
 
   # @group With Icons
   # @label Small with Icon
   def icon_small
-    render ::Decor::Button.new(label: "Small with icon", icon: "bell", size: :small)
+    render ::Decor::Button.new(label: "Small with icon", icon: "bell", size: :sm)
   end
 
   # @group With Icons
@@ -176,9 +190,9 @@ class ::Decor::ButtonPreview < ::Lookbook::Preview
   end
 
   # @group States
-  # @label Disabled Danger
-  def state_disabled_danger
-    render ::Decor::Button.new(label: "Disabled Danger", color: :danger, disabled: true)
+  # @label Disabled Error
+  def state_disabled_error
+    render ::Decor::Button.new(label: "Disabled Error", color: :error, disabled: true)
   end
 
   # @group Layout
@@ -190,7 +204,7 @@ class ::Decor::ButtonPreview < ::Lookbook::Preview
   # @group Layout
   # @label Full Width Large
   def layout_full_width_large
-    render ::Decor::Button.new(label: "Full Width Large", full_width: true, size: :large)
+    render ::Decor::Button.new(label: "Full Width Large", full_width: true, size: :lg)
   end
 
   # @group Layout
@@ -199,36 +213,36 @@ class ::Decor::ButtonPreview < ::Lookbook::Preview
     render ::Decor::Button.new(label: "Full Width with Icon", full_width: true, icon: "download")
   end
 
-  # @group Combinations
+  # @group Examples
   # @label Outlined Primary Large
   def combo_outlined_primary_large
     render ::Decor::Button.new(
       label: "Outlined Primary Large",
-      variant: :outlined,
+      style: :outlined,
       color: :primary,
-      size: :large
+      size: :lg
     )
   end
 
-  # @group Combinations
-  # @label Text Danger with Icon
-  def combo_text_danger_icon
+  # @group Examples
+  # @label Ghost Error with Icon
+  def combo_ghost_error_icon
     render ::Decor::Button.new(
       label: "Delete Item",
-      variant: :text,
-      color: :danger,
+      style: :ghost,
+      color: :error,
       icon: "x"
     )
   end
 
-  # @group Combinations
-  # @label Wide Secondary Outlined
-  def combo_wide_secondary_outlined
+  # @group Examples
+  # @label Large Secondary Outlined
+  def combo_large_secondary_outlined
     render ::Decor::Button.new(
-      label: "Wide Secondary",
-      variant: :outlined,
+      label: "Large Secondary",
+      style: :outlined,
       color: :secondary,
-      size: :wide
+      size: :lg
     )
   end
 

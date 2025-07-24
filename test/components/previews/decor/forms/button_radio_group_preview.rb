@@ -15,7 +15,7 @@ class ::Decor::Forms::ButtonRadioGroupPreview < ::Lookbook::Preview
   # @param selected_choice select ["yes", "no", "maybe"]
   # @param color [Symbol] select [~, primary, secondary, accent, neutral, success, warning, info, error]
   # @param size [Symbol] select [~, xs, sm, md, lg, xl]
-  # @param variant [Symbol] select [~, outline, solid, ghost, link]
+  # @param style [Symbol] select [~, outline, solid, ghost, link]
   # @param required toggle
   # @param hide_label_required_asterisk toggle
   # @param disabled toggle
@@ -28,7 +28,7 @@ class ::Decor::Forms::ButtonRadioGroupPreview < ::Lookbook::Preview
     selected_choice: "yes",
     color: :primary,
     size: :md,
-    variant: :outline,
+    style: :outlined,
     label_position: :top,
     grid_span: nil,
     floating_error_text: false,
@@ -46,7 +46,7 @@ class ::Decor::Forms::ButtonRadioGroupPreview < ::Lookbook::Preview
       description: description,
       color: color,
       size: size,
-      variant: variant,
+      style: style,
       label_position: label_position,
       grid_span: grid_span,
       floating_error_text: floating_error_text,
@@ -70,7 +70,7 @@ class ::Decor::Forms::ButtonRadioGroupPreview < ::Lookbook::Preview
   # @param selected_choice select [~, "yes", "no", "maybe"]
   # @param color [Symbol] select [~, primary, secondary, accent, neutral, success, warning, info, error]
   # @param size [Symbol] select [~, xs, sm, md, lg, xl]
-  # @param variant [Symbol] select [~, outline, solid, ghost, link]
+  # @param style [Symbol] select [~, outline, solid, ghost, link]
   # @param required toggle
   # @param hide_label_required_asterisk toggle
   # @param disabled toggle
@@ -83,7 +83,7 @@ class ::Decor::Forms::ButtonRadioGroupPreview < ::Lookbook::Preview
     selected_choice: nil,
     color: :primary,
     size: :md,
-    variant: :outline,
+    style: :outlined,
     show_label: true,
     label_position: :left,
     grid_span: nil,
@@ -111,7 +111,7 @@ class ::Decor::Forms::ButtonRadioGroupPreview < ::Lookbook::Preview
         description: description,
         color: color,
         size: size,
-        variant: variant,
+        style: style,
         label_position: label_position,
         grid_span: grid_span,
         floating_error_text: floating_error_text,

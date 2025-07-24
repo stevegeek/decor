@@ -9,22 +9,6 @@ Decor's design system is built on daisyUI's semantic approach to styling, provid
 
 **Note:** Many components are still being updated to follow this system consistently. This documentation represents the target design system that components are being migrated toward.
 
-## Migration Notes
-
-**Current State**: Components are being migrated to follow consistent patterns:
-
-1. **Color attributes**: Moving from mixed naming to consistent `color` and `style` attributes
-2. **Size variants**: Standardizing on `:xs`, `:sm`, `:md`, `:lg`, `:xl`
-3. **Variant naming**: Aligning with daisyUI conventions
-4. **DaisyUI classes**: Leveraging more daisyUI utility classes
-
-**Future improvements** will include:
-- Consistent attribute naming across all components
-- Better TypeScript/Literal integration for type safety
-- Enhanced accessibility features
-- More comprehensive responsive behavior
-
-
 ## Color System
 
 ### Semantic Colors
@@ -53,7 +37,7 @@ Decor uses daisyUI's semantic color palette that automatically adapts to light a
 # Success notification
 render Decor::Notification.new(
   title: "Success!",
-  variant: :success
+  color: :success
 )
 
 # Primary button
@@ -65,7 +49,7 @@ render Decor::Button.new(
 # Error badge
 render Decor::Badge.new(
   label: "Error",
-  style: :error
+  color: :error
 )
 ```
 
@@ -83,58 +67,21 @@ Most components support consistent sizing with these attributes:
 
 ### Color Attributes
 
-Components use different color attribute names depending on their purpose:
+All components use consistent color attribute naming:
 
-- **color**: For semantic colors (`:primary`, `:secondary`, `:accent`, `:success`, `:error`, `:warning`, `:info`, `:neutral`, `:base`)
-- **style**: For feedback states (`:success`, `:error`, `:warning`, `:info`, `:notice`, `:standard`)
+- **color**: For semantic colors (`:base`, `:primary`, `:secondary`, `:accent`, `:neutral`, `:success`, `:error`, `:warning`, `:info`)
 
-### Variant Attributes
+**Note**: Some components like Banner and Flash use domain-specific style values for alert types, but most components use the standard style system.
 
-Common variant patterns include:
+### Style Attributes
+
+Standard style patterns across all components:
 
 - **filled**: Solid background (default for most components)
-- **outlined**: Border with transparent background
+- **outlined**: Border with transparent background  
 - **ghost**: Minimal styling, often transparent
-- **bordered**: With border styling
-- **lifted**: Elevated appearance
-- **boxed**: Contained appearance
 
-## Component-Specific Patterns
-
-### Buttons
-```ruby
-render Decor::Button.new(
-  color: :primary,        # :primary, :secondary, :danger, :warning, :neutral
-  variant: :contained,    # :contained, :outlined, :text
-  size: :medium          # :large, :medium, :wide, :small, :micro, :xs
-)
-```
-
-### Form Fields
-```ruby
-render Decor::Forms::TextField.new(
-  color: :primary,       # DaisyUI semantic colors
-  size: :md             # :xs, :sm, :md, :lg, :xl
-)
-```
-
-### Cards and Containers
-```ruby
-render Decor::Card.new(
-  color: :base,         # :base, :primary, :secondary, :accent, etc.
-  variant: :filled,     # :filled, :outlined, :ghost
-  size: :md            # :xs, :sm, :md, :lg, :xl
-)
-```
-
-### Tooltips and Overlays
-```ruby
-render Decor::Tooltip.new(
-  color: :base,         # DaisyUI semantic colors
-  variant: :filled,     # :filled, :outlined, :ghost
-  position: :top        # :top, :bottom, :left, :right
-)
-```
+**Domain-Specific Styles**: Some components like Tabs use component-specific styles (`:bordered`, `:lifted`, `:boxed`) that relate to their functionality rather than the standard style system.
 
 ## Typography
 

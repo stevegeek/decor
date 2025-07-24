@@ -40,9 +40,9 @@ class Decor::Modals::ModalOpenButtonTest < ActiveSupport::TestCase
   test "supports button styling options" do
     component = Decor::Modals::ModalOpenButton.new(
       modal_id: "styled-modal",
-      variant: :contained,
+      style: :filled,
       color: :primary,
-      size: :large
+      size: :lg
     )
     rendered = render_component(component)
 

@@ -1,37 +1,13 @@
 <%= render ::Decor::Forms::Form.new(model: model, url: "#", local: true) do |form_component| %>
   <%= render ::Decor::Forms::LayoutContainer.new do |container| %>
-    <%= render ::Decor::Forms::LayoutSection.new(stacked: stacked_form) do %>
+    <%= render ::Decor::Forms::LayoutSection.new(title: "Radio", stacked: stacked_form) do %>
       <%= form_component.builder.radio_button :chosen,
                          "true",
-                         label: label,
-                         description: description,
-                         show_label: show_label,
-                         compact: compact,
-                         label_position: label_position,
-                         grid_span: grid_span,
-                         floating_error_text: floating_error_text,
-                         placeholder: placeholder,
-                         value: value,
-                         required: required,
-                         disabled: disabled,
-                         helper_text: helper_text,
-                         hide_required_asterisk: hide_required_asterisk,
-                         checked: checked %>
+                         label: "One",
+                         description: "Description for one" %>
       <%= form_component.builder.radio_button :chosen,
                          "true",
-                         label: label + " 2",
-                         show_label: show_label,
-                         compact: compact,
-                         label_position: label_position,
-                         grid_span: grid_span,
-                         floating_error_text: floating_error_text,
-                         placeholder: placeholder,
-                         value: value,
-                         required: required,
-                         disabled: disabled,
-                         helper_text: helper_text,
-                         hide_required_asterisk: hide_required_asterisk,
-                         checked: checked %>
+                         label: "Two" %>
     <% end %>
     <% container.with_buttons do %>
       <%= form_component.builder.submit %>

@@ -1,12 +1,48 @@
 # @label Checkbox
+# Renders a styled checkbox input with DaisyUI styling, supporting various colors, sizes, and states.
 class ::Decor::Forms::CheckboxPreview < ::Lookbook::Preview
-  # Checkbox
-  # -------
-  #
-  # A Checkbox uses DaisyUI's checkbox component styling. It renders as a checkbox
-  # input with DaisyUI styling. The component is a type of FormField component.
-  #
-  # Form field attrs
+  # @group Examples
+
+  # Basic checkbox with label
+  def default
+    render ::Decor::Forms::Checkbox.new(
+      name: "terms",
+      label: "I agree to the terms and conditions"
+    )
+  end
+
+  # Checkbox with helper text and required state
+  def with_helper_text
+    render ::Decor::Forms::Checkbox.new(
+      name: "subscribe",
+      label: "Subscribe to newsletter",
+      helper_text: "You can unsubscribe at any time",
+      required: true
+    )
+  end
+
+  # Pre-checked checkbox with custom color
+  def checked_with_color
+    render ::Decor::Forms::Checkbox.new(
+      name: "notifications",
+      label: "Enable email notifications",
+      checked: true,
+      color: :success
+    )
+  end
+
+  # Checkbox group for multiple selections
+  def checkbox_group
+    render_with_template(
+      template: "decor/forms/checkbox_preview/checkbox_group"
+    )
+  end
+
+  # @!endgroup
+
+  # @group Playground
+
+  # Interactive checkbox with all available options
   # @param name text
   # @param label text
   # @param description text
@@ -20,10 +56,9 @@ class ::Decor::Forms::CheckboxPreview < ::Lookbook::Preview
   # @param disabled toggle
   # @param helper_text text
   # @param value text
-  # @param color select [primary, secondary, accent, neutral, success, warning, info, error]
-  # @param size select [xs, sm, md, lg, xl]
-  #
-  # Checkbox attrs
+  # @param color select [~, primary, secondary, accent, neutral, success, warning, info, error]
+  # @param size select [~, xs, sm, md, lg, xl]
+  # @param style select [~, default]
   # @param checked toggle
   # @param part_of_group toggle
   def playground(
@@ -42,8 +77,9 @@ class ::Decor::Forms::CheckboxPreview < ::Lookbook::Preview
     hide_label_required_asterisk: false,
     checked: false,
     part_of_group: false,
-    color: :primary,
-    size: :md
+    color: nil,
+    size: nil,
+    style: nil
   )
     render ::Decor::Forms::Checkbox.new(
       name: name,
@@ -62,13 +98,61 @@ class ::Decor::Forms::CheckboxPreview < ::Lookbook::Preview
       checked: checked,
       in_group: part_of_group,
       color: color,
-      size: size
+      size: size,
+      style: style
     )
   end
 
+  # @!endgroup
+
+  # @group Colors
+
+  # All available checkbox colors
+  def colors
+    render_with_template(
+      template: "decor/forms/checkbox_preview/colors"
+    )
+  end
+
+  # @!endgroup
+
+  # @group Sizes
+
+  # All available checkbox sizes
+  def sizes
+    render_with_template(
+      template: "decor/forms/checkbox_preview/sizes"
+    )
+  end
+
+  # @!endgroup
+
+  # @group States
+
+  # Disabled checkbox
+  def disabled
+    render ::Decor::Forms::Checkbox.new(
+      name: "disabled_example",
+      label: "This checkbox is disabled",
+      disabled: true
+    )
+  end
+
+  # Required checkbox with asterisk
+  def required
+    render ::Decor::Forms::Checkbox.new(
+      name: "required_example",
+      label: "This field is required",
+      required: true
+    )
+  end
+
+  # @!endgroup
+
+  # @group Form Integration
+
+  # Checkbox within a form context
   # @param stacked_form toggle
-  #
-  # Form field attrs
   # @param label text
   # @param description text
   # @param show_label toggle
@@ -82,8 +166,6 @@ class ::Decor::Forms::CheckboxPreview < ::Lookbook::Preview
   # @param disabled toggle
   # @param helper_text text
   # @param value text
-  #
-  # Checkbox attrs
   # @param checked toggle
   def in_form(
     stacked_form: true,
@@ -133,11 +215,5 @@ class ::Decor::Forms::CheckboxPreview < ::Lookbook::Preview
     )
   end
 
-  # DaisyUI Colors and Sizes
-  # ------------------------
-  #
-  # Showcase the different color and size options available with DaisyUI checkbox styling.
-  def color_and_size_examples
-    render_with_template
-  end
+  # @!endgroup
 end

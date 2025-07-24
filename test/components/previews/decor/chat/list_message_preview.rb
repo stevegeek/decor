@@ -6,6 +6,86 @@ class ::Decor::Chat::ListMessagePreview < ::Lookbook::Preview
   # Individual chat message component using daisyUI styling.
   # Supports different message types, avatars, attachments, and user positioning.
   #
+  # @!group Examples
+
+  def basic_incoming_message
+    render ::Decor::Chat::ListMessage.new(
+      author_name: "Bob Smith",
+      author_initials: "BS",
+      message: "Hello there!",
+      is_current_user: false
+    )
+  end
+
+  def basic_outgoing_message
+    render ::Decor::Chat::ListMessage.new(
+      author_name: "You",
+      message: "Hi! How can I help you?",
+      is_current_user: true
+    )
+  end
+
+  def message_with_profile_image
+    render ::Decor::Chat::ListMessage.new(
+      author_name: "Emma Davis",
+      author_profile_image_url: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150",
+      message: "Thanks for the quick response!",
+      is_current_user: false
+    )
+  end
+
+  def message_with_attachment
+    render ::Decor::Chat::ListMessage.new(
+      author_name: "Mike Chen",
+      author_initials: "MC",
+      message: "Here's the document you requested:",
+      is_current_user: false
+    ) do |message|
+      message.attachment do
+        div(class: "bg-base-200 rounded-lg p-3 border border-base-300") do
+          div(class: "flex items-center space-x-2") do
+            render ::Decor::Icon.new(name: "document-text", style: :outline, html_options: {class: "w-6 h-6 text-primary"})
+            div do
+              p(class: "font-medium text-sm") { "Project_Requirements.pdf" }
+              p(class: "text-xs text-base-content/70") { "1.8 MB" }
+            end
+          end
+        end
+      end
+    end
+  end
+
+  def long_conversation_example
+    render ::Decor::Chat::List.new(
+      messages: [
+        ::Decor::Chat::ListMessage.new(
+          author_name: "Team Lead",
+          author_initials: "TL",
+          message: "Good morning team! Ready for today's standup?",
+          is_current_user: false
+        ),
+        ::Decor::Chat::ListMessage.new(
+          author_name: "You",
+          message: "Yes! I've completed the user authentication module and started working on the dashboard.",
+          is_current_user: true
+        ),
+        ::Decor::Chat::ListMessage.new(
+          author_name: "Team Lead",
+          author_initials: "TL",
+          message: "Excellent progress! Any blockers?",
+          is_current_user: false
+        ),
+        ::Decor::Chat::ListMessage.new(
+          author_name: "You",
+          message: "No blockers currently. Everything is on track for the sprint goal.",
+          is_current_user: true
+        )
+      ]
+    )
+  end
+
+  # @!endgroup
+
   # @param message_type [Symbol] select { choices: [incoming, outgoing, with_avatar, with_attachment] }
   def playground(message_type: :incoming)
     case message_type
@@ -55,7 +135,7 @@ class ::Decor::Chat::ListMessagePreview < ::Lookbook::Preview
                 h4(class: "font-semibold") { "Design_Mockup_v2.png" }
                 p(class: "text-sm text-base-content/70") { "2.1 MB • PNG Image" }
                 div(class: "mt-2") do
-                  render ::Decor::Button.new(size: :small, color: :primary) { "Download" }
+                  render ::Decor::Button.new(size: :sm, color: :primary) { "Download" }
                 end
               end
             end
@@ -64,84 +144,4 @@ class ::Decor::Chat::ListMessagePreview < ::Lookbook::Preview
       )
     end
   end
-
-  # @!group Examples
-
-  def basic_incoming_message
-    render ::Decor::Chat::ListMessage.new(
-      author_name: "Bob Smith",
-      author_initials: "BS",
-      message: "Hello there!",
-      is_current_user: false
-    )
-  end
-
-  def basic_outgoing_message
-    render ::Decor::Chat::ListMessage.new(
-      author_name: "You",
-      message: "Hi! How can I help you?",
-      is_current_user: true
-    )
-  end
-
-  def message_with_profile_image
-    render ::Decor::Chat::ListMessage.new(
-      author_name: "Emma Davis",
-      author_profile_image_url: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150",
-      message: "Thanks for the quick response!",
-      is_current_user: false
-    )
-  end
-
-  def message_with_attachment
-    render ::Decor::Chat::ListMessage.new(
-      author_name: "Mike Chen",
-      author_initials: "MC",
-      message: "Here's the document you requested:",
-      is_current_user: false
-    ) do |message|
-      message.attachment do
-        div(class: "bg-base-200 rounded-lg p-3 border border-base-300") do
-          div(class: "flex items-center space-x-2") do
-            render ::Decor::Icon.new(name: "document-text", variant: :outline, html_options: {class: "w-6 h-6 text-primary"})
-            div do
-              p(class: "font-medium text-sm") { "Project_Requirements.pdf" }
-              p(class: "text-xs text-base-content/70") { "1.8 MB" }
-            end
-          end
-        end
-      end
-    end
-  end
-
-  def long_conversation_example
-    render ::Decor::Chat::List.new(
-      messages: [
-        ::Decor::Chat::ListMessage.new(
-          author_name: "Team Lead",
-          author_initials: "TL",
-          message: "Good morning team! Ready for today's standup?",
-          is_current_user: false
-        ),
-        ::Decor::Chat::ListMessage.new(
-          author_name: "You",
-          message: "Yes! I've completed the user authentication module and started working on the dashboard.",
-          is_current_user: true
-        ),
-        ::Decor::Chat::ListMessage.new(
-          author_name: "Team Lead",
-          author_initials: "TL",
-          message: "Excellent progress! Any blockers?",
-          is_current_user: false
-        ),
-        ::Decor::Chat::ListMessage.new(
-          author_name: "You",
-          message: "No blockers currently. Everything is on track for the sprint goal.",
-          is_current_user: true
-        )
-      ]
-    )
-  end
-
-  # @!endgroup
 end

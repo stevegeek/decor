@@ -18,22 +18,22 @@ class Decor::ButtonTest < ActiveSupport::TestCase
     assert_includes rendered, "btn"
   end
 
-  test "applies correct variant classes" do
-    component = Decor::Button.new(label: "Outlined", variant: :outlined)
+  test "applies correct style classes" do
+    component = Decor::Button.new(label: "Outlined", style: :outlined)
     rendered = render_component(component)
 
     assert_includes rendered, "btn-outline"
   end
 
   test "applies correct color classes" do
-    component = Decor::Button.new(label: "Danger", color: :danger)
+    component = Decor::Button.new(label: "Error", color: :error)
     rendered = render_component(component)
 
     assert_includes rendered, "btn-error"
   end
 
   test "applies correct size classes" do
-    component = Decor::Button.new(label: "Large", size: :large)
+    component = Decor::Button.new(label: "Large", size: :lg)
     rendered = render_component(component)
 
     assert_includes rendered, "btn-lg"
@@ -65,39 +65,38 @@ class Decor::ButtonTest < ActiveSupport::TestCase
     assert_includes span.text, "Centered"
   end
 
-  test "applies daisyUI primary color by default" do
-    component = Decor::Button.new(label: "Primary")
+  test "applies no color class when color is not specified" do
+    component = Decor::Button.new(label: "No Color")
     rendered = render_component(component)
 
-    assert_includes rendered, "btn-primary"
+    # Should have btn class but no color-specific class
+    assert_includes rendered, "btn"
+    refute_includes rendered, "btn-primary"
+    refute_includes rendered, "btn-secondary"
+    refute_includes rendered, "btn-error"
+    refute_includes rendered, "btn-warning"
+    refute_includes rendered, "btn-neutral"
   end
 
-  test "applies text variant as ghost button" do
-    component = Decor::Button.new(label: "Ghost", variant: :text)
+  test "applies ghost style as ghost button" do
+    component = Decor::Button.new(label: "Ghost", style: :ghost)
     rendered = render_component(component)
 
     assert_includes rendered, "btn-ghost"
   end
 
   test "applies small size correctly" do
-    component = Decor::Button.new(label: "Small", size: :small)
+    component = Decor::Button.new(label: "Small", size: :sm)
     rendered = render_component(component)
 
     assert_includes rendered, "btn-sm"
   end
 
-  test "applies micro size correctly" do
-    component = Decor::Button.new(label: "Micro", size: :micro)
+  test "applies xs size correctly" do
+    component = Decor::Button.new(label: "XS", size: :xs)
     rendered = render_component(component)
 
     assert_includes rendered, "btn-xs"
-  end
-
-  test "applies wide size correctly" do
-    component = Decor::Button.new(label: "Wide", size: :wide)
-    rendered = render_component(component)
-
-    assert_includes rendered, "btn-wide"
   end
 
   test "applies xs size correctly (alias for micro)" do
@@ -105,6 +104,13 @@ class Decor::ButtonTest < ActiveSupport::TestCase
     rendered = render_component(component)
 
     assert_includes rendered, "btn-xs"
+  end
+
+  test "applies xl size correctly" do
+    component = Decor::Button.new(label: "XL", size: :xl)
+    rendered = render_component(component)
+
+    assert_includes rendered, "btn-xl"
   end
 
   test "applies lg size alias correctly" do
@@ -165,21 +171,24 @@ class Decor::ButtonTest < ActiveSupport::TestCase
   end
 
   test "attribute validation accepts all size values" do
-    # Test existing sizes
-    assert_nothing_raised { Decor::Button.new(label: "Test", size: :large) }
-    assert_nothing_raised { Decor::Button.new(label: "Test", size: :medium) }
-    assert_nothing_raised { Decor::Button.new(label: "Test", size: :small) }
-    assert_nothing_raised { Decor::Button.new(label: "Test", size: :micro) }
-    assert_nothing_raised { Decor::Button.new(label: "Test", size: :wide) }
-
-    # Test new aliases
-    assert_nothing_raised { Decor::Button.new(label: "Test", size: :lg) }
-    assert_nothing_raised { Decor::Button.new(label: "Test", size: :md) }
-    assert_nothing_raised { Decor::Button.new(label: "Test", size: :sm) }
+    # Test standard sizes
     assert_nothing_raised { Decor::Button.new(label: "Test", size: :xs) }
+    assert_nothing_raised { Decor::Button.new(label: "Test", size: :sm) }
+    assert_nothing_raised { Decor::Button.new(label: "Test", size: :md) }
+    assert_nothing_raised { Decor::Button.new(label: "Test", size: :lg) }
+    assert_nothing_raised { Decor::Button.new(label: "Test", size: :xl) }
+
+    # Test size aliases (these should work through normalize_size)
+    assert_nothing_raised { Decor::Button.new(label: "Test", size: :small) }
+    assert_nothing_raised { Decor::Button.new(label: "Test", size: :medium) }
+    assert_nothing_raised { Decor::Button.new(label: "Test", size: :large) }
+    assert_nothing_raised { Decor::Button.new(label: "Test", size: :micro) }
+    assert_nothing_raised { Decor::Button.new(label: "Test", size: :extra_small) }
+    assert_nothing_raised { Decor::Button.new(label: "Test", size: :extra_large) }
 
     # Should raise for invalid values
     assert_raises(Literal::TypeError) { Decor::Button.new(label: "Test", size: :invalid) }
+    assert_raises(Literal::TypeError) { Decor::Button.new(label: "Test", size: :wide) }
   end
 
   # Icon size tests
@@ -209,14 +218,6 @@ class Decor::ButtonTest < ActiveSupport::TestCase
 
   test "md size alias button icons get size-6 pr-1 classes" do
     component = Decor::Button.new(label: "MD", size: :md, icon: "home")
-    rendered = render_component(component)
-
-    assert_includes rendered, "size-6"
-    assert_includes rendered, "pr-1"
-  end
-
-  test "wide size button icons get size-6 pr-1 classes" do
-    component = Decor::Button.new(label: "Wide", size: :wide, icon: "home")
     rendered = render_component(component)
 
     assert_includes rendered, "size-6"

@@ -1,0 +1,18 @@
+<div class="space-y-6">
+  <% [:top, :left, :right, :inline, :inside].each do |position| %>
+    <div class="border-b pb-4">
+      <h3 class="text-sm font-medium mb-2">Label position: <%= position %></h3>
+      <%= render(::Decor::Forms::Select.new(
+        name: "select_#{position}",
+        label: "Select an option",
+        label_position: position,
+        helper_text: "Label is positioned: #{position}",
+        **::Decor::Forms::Select.map_options_for_select([
+          { title: "Option 1", value: "1" },
+          { title: "Option 2", value: "2", selected: true },
+          { title: "Option 3", value: "3" }
+        ])
+      )) %>
+    </div>
+  <% end %>
+</div>

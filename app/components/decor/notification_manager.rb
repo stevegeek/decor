@@ -40,7 +40,7 @@ module Decor
       }
     end
 
-    def element_classes
+    def root_element_classes
       "toast toast-top toast-end fixed z-50"
     end
   end

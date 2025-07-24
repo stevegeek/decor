@@ -47,7 +47,7 @@ module Decor
       }
     end
 
-    def element_classes
+    def root_element_classes
       # DaisyUI menu handles styling automatically
       nil
     end

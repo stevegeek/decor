@@ -12,10 +12,18 @@ module Decor
     prop :name, String
     prop :file_name, _Nilable(String)
     prop :collection, _Union(:heroicons), default: :heroicons
-    prop :variant, _Union(:outline, :solid, :small_solid), default: :outline
+    # Icon uses domain-specific styles for icon types, not standard style system
+    default_style :outline
+    redefine_styles :outline, :solid, :small_solid
 
     def file_name
-      @file_name ||= "#{@collection}/#{@variant}/#{@name}.svg"
+      @file_name ||= "#{@collection}/#{style_for_path}/#{@name}.svg"
+    end
+
+    private
+
+    def style_for_path
+      @style || self.class.default_style
     end
   end
 end

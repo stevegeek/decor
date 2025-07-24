@@ -5,31 +5,19 @@ module Decor
   class Tooltip < PhlexComponent
     no_stimulus_controller
 
-    prop :position, _Union(:top, :bottom, :left, :right), default: :top
+    prop :position, _Nilable(_Union(:top, :bottom, :left, :right)), default: :top
     prop :tip_text, _Nilable(String)
 
-    # Size of the tooltip
-    prop :size, _Union(:xs, :sm, :md, :lg, :xl), default: :md
-
-    # Color scheme using DaisyUI semantic colors
-    prop :color, _Union(:base, :primary, :secondary, :accent, :success, :error, :warning, :info, :neutral), default: :base
-
-    # Visual variant
-    prop :variant, _Union(:filled, :outlined, :ghost), default: :filled
+    default_size :md
+    default_color :base
+    default_style :filled
 
     # Offset customization
     prop :offset_percent_x, Integer, default: 0
     prop :offset_percent_y, Integer, default: 0
 
-    # Backward compatibility method for old slots usage
-    def tip_content(&block)
-      @tip_content = block
-    end
-
-    # FIXME: continue migrating to the with_ syntax
     def with_tip_content(&block)
-      tip_content(&block)
-      self
+      @tip_content = block
     end
 
     def translate_x
@@ -41,8 +29,7 @@ module Decor
     end
 
     def view_template(&)
-      # TODO: should be vanish(&)?
-      @content = capture(&) if block_given?
+      @content = capture(&).html_safe if block_given?
 
       root_element(
         data: {
@@ -55,36 +42,39 @@ module Decor
 
     private
 
-    def element_classes
+    def root_element_classes
       classes = ["tooltip"]
       classes << position_class
       classes << size_classes
       classes << color_classes
-      classes << variant_classes
+      classes << style_classes
       classes.compact.join(" ")
     end
 
     def position_class
       case @position
-      when :top then "tooltip-top"
+      when :top, nil then "tooltip-top"
       when :bottom then "tooltip-bottom"
       when :left then "tooltip-left"
       when :right then "tooltip-right"
+      else "tooltip-top"
       end
     end
 
-    def size_classes
-      case @size
+    def component_size_classes(size)
+      # DaisyUI tooltip sizes
+      case size
       when :xs then "tooltip-xs"
       when :sm then "tooltip-sm"
+      when :md then nil # default
       when :lg then "tooltip-lg"
       when :xl then "tooltip-xl"
-      else nil # md is default, no class needed
       end
     end
 
-    def color_classes
-      case @color
+    def component_color_classes(color)
+      case color
+      when :base then nil # default
       when :primary then "tooltip-primary"
       when :secondary then "tooltip-secondary"
       when :accent then "tooltip-accent"
@@ -93,15 +83,14 @@ module Decor
       when :warning then "tooltip-warning"
       when :info then "tooltip-info"
       when :neutral then "tooltip-neutral"
-      else nil # base is default
       end
     end
 
-    def variant_classes
-      case @variant
+    def component_style_classes(style)
+      case style
+      when :filled then nil # default
       when :outlined then "tooltip-outline"
       when :ghost then "tooltip-ghost"
-      else nil # filled is default
       end
     end
 

@@ -10,8 +10,8 @@ class Decor::BadgeTest < ActiveSupport::TestCase
     assert_includes rendered, "badge-neutral"
   end
 
-  test "applies correct style classes" do
-    component = Decor::Badge.new(label: "Success", style: :success)
+  test "applies correct color classes" do
+    component = Decor::Badge.new(label: "Success", color: :success)
     rendered = render_component(component)
 
     assert_includes rendered, "badge-success"
@@ -41,22 +41,22 @@ class Decor::BadgeTest < ActiveSupport::TestCase
     assert_includes rendered, "badge"
   end
 
-  test "renders different error styles" do
-    component = Decor::Badge.new(label: "Error", style: :error)
+  test "renders different error colors" do
+    component = Decor::Badge.new(label: "Error", color: :error)
     rendered = render_component(component)
 
     assert_includes rendered, "badge-error"
   end
 
-  test "renders different warning styles" do
-    component = Decor::Badge.new(label: "Warning", style: :warning)
+  test "renders different warning colors" do
+    component = Decor::Badge.new(label: "Warning", color: :warning)
     rendered = render_component(component)
 
     assert_includes rendered, "badge-warning"
   end
 
-  test "renders outlined variant" do
-    component = Decor::Badge.new(label: "Outlined", variant: :outlined)
+  test "renders outlined style" do
+    component = Decor::Badge.new(label: "Outlined", style: :outlined)
     rendered = render_component(component)
 
     assert_includes rendered, "badge-outline"
@@ -70,7 +70,7 @@ class Decor::BadgeTest < ActiveSupport::TestCase
   end
 
   test "renders outlined and dashed together" do
-    component = Decor::Badge.new(label: "Both", variant: :outlined, dashed: true)
+    component = Decor::Badge.new(label: "Both", style: :outlined, dashed: true)
     rendered = render_component(component)
 
     assert_includes rendered, "badge-outline"

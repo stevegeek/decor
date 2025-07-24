@@ -73,30 +73,34 @@ module Decor
 
       def toggle_classes
         classes = ["toggle"]
-        classes << toggle_color_class if @color && @color != :primary
-        classes << toggle_size_class unless @size == :md
+        classes << component_size_classes(@size).join(" ")
+        classes << component_color_classes(@color).join(" ")
         classes << "toggle-error" if errors?
-        classes.compact.join(" ")
+        classes.compact.join(" ").strip
       end
 
-      def toggle_color_class
-        case @color
-        when :secondary then "toggle-secondary"
-        when :accent then "toggle-accent"
-        when :success then "toggle-success"
-        when :error then "toggle-error"
-        when :warning then "toggle-warning"
-        when :info then "toggle-info"
-        else ""
+      def component_size_classes(size)
+        case size
+        when :xs then ["toggle-xs"]
+        when :sm then ["toggle-sm"]
+        when :md then [] # default
+        when :lg then ["toggle-lg"]
+        when :xl then ["toggle-lg"] # DaisyUI doesn't have xl, use lg
+        else []
         end
       end
 
-      def toggle_size_class
-        case @size
-        when :xs then "toggle-xs"
-        when :sm then "toggle-sm"
-        when :lg then "toggle-lg"
-        else ""
+      def component_color_classes(color)
+        case color
+        when :primary then ["toggle-primary"]
+        when :secondary then ["toggle-secondary"]
+        when :accent then ["toggle-accent"]
+        when :success then ["toggle-success"]
+        when :error then ["toggle-error"]
+        when :warning then ["toggle-warning"]
+        when :info then ["toggle-info"]
+        when :neutral then [] # neutral is default
+        else [] # base/neutral
         end
       end
 

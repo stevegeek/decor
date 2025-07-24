@@ -4,19 +4,23 @@
   end
 end
 dt = klass.new(
-  {
-    title: title,
-    header_height: :standard,
-    row_height: :tight,
-    rows_selectable_as_name: rows_selectable_as_name&.to_sym,
-    pagination: false,
-    query: ::ApplicationCollectionBackedQuery.wrap((1..10).to_a).new
-  },
-  params,
-  self
+  params: params,
+  helpers: self,
+  title: title,
+  alternating: alternating,
+  hover_highlight: hover_highlight,
+  header_height: header_height,
+  row_height: row_height,
+  rows_selectable_as_name: rows_selectable_as_name&.to_sym,
+  paginated: paginated,
+  query: ::ApplicationCollectionBackedQuery.wrap((1..10).to_a).new,
+  size: size,
+  color: color,
+  style: style
 ) do |dt|
-  dt.column(:col1, numeric: true) { Random.rand }
-  dt.column(:col2, stretch: true, sortable: true) { Random.rand }
-  dt.column(:col3, emphasis: :low) { Random.rand }
+  dt.column(:id, numeric: true) { |item| item }
+  dt.column(:name, stretch: true, sortable: true) { |item| "Item #{item}" }
+  dt.column(:value, numeric: true, sortable: true) { (Random.rand * 100).round(2) }
+  dt.column(:status, emphasis: :low) { ["Active", "Pending", "Complete"].sample }
 end %>
 <%= render dt %>

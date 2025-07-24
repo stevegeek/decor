@@ -1,0 +1,31 @@
+<% klass = Class.new(::Decor::Tables::DataTableBuilder) do
+  def pagination_options
+    {path: "#"}
+  end
+  
+  def row_attributes(row_data, transformed_value, index, item_index)
+    case index
+    when 1
+      {highlight: :low}
+    when 2
+      {highlight: :medium}
+    when 3
+      {highlight: :high}
+    else
+      {}
+    end
+  end
+end
+dt = klass.new(
+  params: params,
+  helpers: self,
+  title: "Row Highlight States",
+  query: ::ApplicationCollectionBackedQuery.wrap((1..6).to_a).new,
+  paginated: false,
+  hover_highlight: true
+) do |dt|
+  dt.column(:status) { |i| ["Default", "Low", "Medium", "High", "Default", "Default"][i-1] }
+  dt.column(:description, stretch: true) { |i| ["No highlight", "Subtle highlight", "Moderate highlight", "Strong highlight", "Regular row", "Another regular row"][i-1] }
+  dt.column(:usage) { |i| ["Standard rows", "Secondary info", "Important items", "Critical alerts", "Normal content", "Normal content"][i-1] }
+end %>
+<%= render dt %>

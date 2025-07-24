@@ -28,23 +28,17 @@ class ::Decor::AvatarPreview < ::Lookbook::Preview
   # @group Examples
   # @label Circular - Outlined
   def circular_outlined
-    render ::Decor::Avatar.new(initials: "AB", size: :md, variant: :outlined)
+    render ::Decor::Avatar.new(initials: "AB", size: :md, style: :outlined)
   end
 
   # @group Examples
-  # @label Comment Author
-  def usecase_comment_author
-    render ::Decor::Avatar.new(initials: "CA", size: :xs)
-  end
-
-  # @group Examples
-  # @label Large Circle with Border
-  def combo_large_circle_border
+  # @label Large Circle with ring
+  def combo_large_circle_ring
     render ::Decor::Avatar.new(
       initials: "LCB",
       size: :lg,
       shape: :circle,
-      border: true
+      ring: true
     )
   end
 
@@ -59,27 +53,108 @@ class ::Decor::AvatarPreview < ::Lookbook::Preview
   end
 
   # @group Examples
-  # @label X-Large Circle Image with Border
-  def combo_xlarge_circle_image_border
+  # @label X-Large Circle Image with ring
+  def combo_xlarge_circle_image_ring
     render ::Decor::Avatar.new(
       url: "https://i.pravatar.cc/300",
       size: :xl,
       shape: :circle,
-      border: true
+      ring: true
+    )
+  end
+
+  # @group Examples
+  # @label Colorful Team
+  def colorful_team_example
+    render_with_template(
+      locals: {
+        avatars: [
+          ::Decor::Avatar.new(initials: "JD", color: :primary, style: :filled),
+          ::Decor::Avatar.new(initials: "SM", color: :secondary, style: :outlined),
+          ::Decor::Avatar.new(initials: "AK", color: :accent, style: :ghost),
+          ::Decor::Avatar.new(initials: "TL", color: :success, style: :filled)
+        ]
+      }
+    )
+  end
+
+  # @group Examples
+  # @label Color Effects on Image Avatars
+  def image_color_effects_example
+    render_with_template(
+      locals: {
+        avatars: [
+          ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :primary),
+          ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :primary, ring: true),
+          ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :secondary),
+          ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :secondary, ring: true),
+          ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :error),
+          ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :error, style: :outlined),
+          ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :error, style: :outlined, ring: true),
+          ::Decor::Avatar.new(url: "https://decor/404", color: :error, style: :filled)
+        ]
+      }
     )
   end
 
   # @group Playground
-  # @label Playground
   # @param initials text
   # @param image select [~, "https://i.pravatar.cc/300", "https://cataas.com/cat"]
-  # @param shape select [circle, square]
-  # @param size select [xs, sm, md, lg, xl]
-  # @param border toggle
-  # @param color select [base, primary, secondary, accent, success, error, warning, info, neutral]
-  # @param variant select [filled, outlined, ghost]
-  def playground(image: nil, initials: "JG", shape: :circle, size: :md, border: true, color: :neutral, variant: :filled)
-    render ::Decor::Avatar.new(initials: initials, url: image, shape: shape, size: size, border: border, color: color, variant: variant)
+  # @param shape [Symbol] select [~, circle, square]
+  # @param ring toggle
+  # @param size [Symbol] select [~, xs, sm, md, lg, xl]
+  # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
+  # @param style [Symbol] select [~, filled, outlined, ghost]
+  def playground(image: nil, initials: "JG", shape: nil, size: nil, ring: true, color: nil, style: nil)
+    render ::Decor::Avatar.new(initials: initials, url: image, shape: shape, size: size, ring: ring, color: color, style: style)
+  end
+
+  # @group Image avatars
+  # @label Profile Picture
+  def image_profile
+    render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300")
+  end
+
+  # @group Image avatars
+  # @label Cat Picture
+  def image_cat
+    render ::Decor::Avatar.new(url: "https://cataas.com/cat")
+  end
+
+  # @group Image avatars
+  # @label Large Profile Picture
+  def image_large
+    render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", size: :lg)
+  end
+
+  # @group Image avatars
+  # @label Large Square Picture
+  def image_large_square
+    render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", size: :lg, shape: :square)
+  end
+
+  # @group Placeholder avatars
+  # @label Single Initial
+  def initials_single
+    render ::Decor::Avatar.new(initials: "J")
+  end
+
+  # @group Placeholder avatars
+  # @label Two Initials
+  def initials_double
+    render ::Decor::Avatar.new(initials: "JD")
+  end
+
+  # @group Placeholder avatars
+  # @label Three Initials
+  def initials_triple
+    render ::Decor::Avatar.new(initials: "JDK")
+  end
+
+  # @group Placeholder avatars
+  # @label Long Name Initials
+  def initials_long
+    render ::Decor::Avatar.new(initials: "VLN")
   end
 
   # @group Shapes
@@ -136,84 +211,6 @@ class ::Decor::AvatarPreview < ::Lookbook::Preview
     render ::Decor::Avatar.new(initials: "XL", size: :xl)
   end
 
-  # @group With Images
-  # @label Profile Picture
-  def image_profile
-    render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300")
-  end
-
-  # @group With Images
-  # @label Cat Picture
-  def image_cat
-    render ::Decor::Avatar.new(url: "https://cataas.com/cat")
-  end
-
-  # @group With Images
-  # @label Large Profile Picture
-  def image_large
-    render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", size: :lg)
-  end
-
-  # @group With Images
-  # @label Large Square Picture
-  def image_large_square
-    render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", size: :lg, shape: :square)
-  end
-
-  # @group With Initials
-  # @label Single Initial
-  def initials_single
-    render ::Decor::Avatar.new(initials: "J")
-  end
-
-  # @group With Initials
-  # @label Two Initials
-  def initials_double
-    render ::Decor::Avatar.new(initials: "JD")
-  end
-
-  # @group With Initials
-  # @label Three Initials
-  def initials_triple
-    render ::Decor::Avatar.new(initials: "JDK")
-  end
-
-  # @group With Initials
-  # @label Long Name Initials
-  def initials_long
-    render ::Decor::Avatar.new(initials: "VLN")
-  end
-
-  # @group With Borders
-  # @label Circle with Border
-  def border_circle
-    render ::Decor::Avatar.new(initials: "CB", border: true, shape: :circle)
-  end
-
-  # @group With Borders
-  # @label Square with Border
-  def border_square
-    render ::Decor::Avatar.new(initials: "SB", border: true, shape: :square)
-  end
-
-  # @group With Borders
-  # @label Large with Border
-  def border_large
-    render ::Decor::Avatar.new(initials: "LB", border: true, size: :lg)
-  end
-
-  # @group With Borders
-  # @label Image with Border
-  def border_image
-    render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", border: true)
-  end
-
-  # @group With Borders
-  # @label Initials, Outlined, with Border
-  def border_outlined_initials
-    render ::Decor::Avatar.new(initials: "OB", border: true, variant: :outlined, size: :md)
-  end
-
   # @group Colors
   # @label Primary Color
   def color_primary
@@ -256,51 +253,69 @@ class ::Decor::AvatarPreview < ::Lookbook::Preview
     render ::Decor::Avatar.new(initials: "IN", color: :info)
   end
 
-  # @group Colors
-  # @label Colorful Team
-  def advanced_colorful_team
-    render_with_template(
-      locals: {
-        avatars: [
-          ::Decor::Avatar.new(initials: "JD", color: :primary, variant: :filled),
-          ::Decor::Avatar.new(initials: "SM", color: :secondary, variant: :outlined),
-          ::Decor::Avatar.new(initials: "AK", color: :accent, variant: :ghost),
-          ::Decor::Avatar.new(initials: "TL", color: :success, variant: :filled)
-        ]
-      }
-    )
-  end
-
-  # @group Colors
-  # @label Color does not affect images unless there is a border
-  def advanced_image_color_no_effect
-    render_with_template(
-      locals: {
-        avatars: [
-          ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :primary),
-          ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :primary, border: true),
-          ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :secondary),
-          ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", color: :secondary, border: true)
-        ]
-      }
-    )
-  end
-
-  # @group Variants
-  # @label Filled Variant
+  # @group Styles
+  # @label Filled Style
   def variant_filled
-    render ::Decor::Avatar.new(initials: "FV", variant: :filled, color: :primary)
+    render ::Decor::Avatar.new(initials: "FV", style: :filled, color: :primary)
   end
 
-  # @group Variants
-  # @label Outlined Variant
+  # @group Styles
+  # @label Outlined Style
   def variant_outlined
-    render ::Decor::Avatar.new(initials: "OV", variant: :outlined, color: :primary)
+    render ::Decor::Avatar.new(initials: "OV", style: :outlined, color: :primary)
   end
 
-  # @group Variants
-  # @label Ghost Variant
+  # @group Styles
+  # @label Ghost Style
   def variant_ghost
-    render ::Decor::Avatar.new(initials: "GV", variant: :ghost, color: :primary)
+    render ::Decor::Avatar.new(initials: "GV", style: :ghost, color: :primary)
+  end
+
+  # @group Styles
+  # @label Filled Style
+  def variant_filled_with_image
+    render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", style: :filled, color: :primary)
+  end
+
+  # @group Styles
+  # @label Outlined Style
+  def variant_outlined_with_image
+    render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", style: :outlined, color: :primary)
+  end
+
+  # @group Styles
+  # @label Ghost Style
+  def variant_ghost_with_image
+    render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", style: :ghost, color: :primary)
+  end
+
+  # @group With a ring
+  # @label Circle with ring
+  def ring_circle
+    render ::Decor::Avatar.new(initials: "CB", ring: true, shape: :circle)
+  end
+
+  # @group With a ring
+  # @label Square with ring
+  def ring_square
+    render ::Decor::Avatar.new(initials: "SB", ring: true, shape: :square)
+  end
+
+  # @group With a ring
+  # @label Large with ring
+  def ring_large
+    render ::Decor::Avatar.new(initials: "LB", ring: true, size: :lg)
+  end
+
+  # @group With a ring
+  # @label Image with ring
+  def ring_image
+    render ::Decor::Avatar.new(url: "https://i.pravatar.cc/300", ring: true)
+  end
+
+  # @group With a ring
+  # @label Initials, Outlined, with ring
+  def ring_outlined_initials
+    render ::Decor::Avatar.new(initials: "OB", ring: true, style: :outlined, size: :md)
   end
 end

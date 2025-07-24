@@ -1,0 +1,10 @@
+<div class="grid grid-cols-2 gap-4">
+  <% %w[primary secondary accent neutral success warning info error].each do |color| %>
+    <%= render ::Decor::Forms::Checkbox.new(
+      name: "color_#{color}",
+      label: "#{color.capitalize} checkbox",
+      color: color.to_sym,
+      checked: true
+    ) %>
+  <% end %>
+</div>

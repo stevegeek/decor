@@ -16,7 +16,9 @@ module Decor
     prop :controller_path, _Nilable(String)
     prop :action_name, _Nilable(String)
 
-    prop :variant, _Union(:warning, :info, :error, :notice, :success), default: :info
+    # Flash uses domain-specific styles for alert types, not standard style system
+    default_style :info
+    redefine_styles :warning, :info, :error, :notice, :success
 
     def view_template
       if block_given? && !show_initial?
@@ -50,14 +52,14 @@ module Decor
       }
     end
 
-    def element_classes
+    def root_element_classes
       base_classes = ["invisible opacity-0"]
       base_classes << "hidden" if @collapse_if_empty && !show_initial?
       base_classes.join(" ")
     end
 
     def alert_variant_class
-      case resolved_variant
+      case resolved_style
       when :success then "alert-success"
       when :error then "alert-error"
       when :warning then "alert-warning"
@@ -72,11 +74,11 @@ module Decor
     def title_with_defaults
       return @title if @title.present?
       if @controller_path && @action_name
-        string_key = "#{@controller_path}.#{@action_name}.flash.title.#{resolved_variant}"
+        string_key = "#{@controller_path}.#{@action_name}.flash.title.#{resolved_style}"
         return I18n.t(string_key) if I18n.exists?(string_key)
       end
 
-      case resolved_variant
+      case resolved_style
       when :success
         "Success!"
       when :error
@@ -89,7 +91,7 @@ module Decor
     end
 
     def icon
-      case resolved_variant
+      case resolved_style
       when :success
         "check-circle"
       when :error
@@ -122,7 +124,7 @@ module Decor
     end
 
     def set_variant(flash)
-      @forced_variant =
+      @forced_style =
         if flash[:errors].present?
           :error
         elsif flash[:success].present?
@@ -136,8 +138,8 @@ module Decor
         end
     end
 
-    def resolved_variant
-      @forced_variant || @variant
+    def resolved_style
+      @forced_style || @style
     end
 
     def resolved_flash

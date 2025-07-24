@@ -34,7 +34,7 @@ module Decor
 
       private
 
-      def element_classes
+      def root_element_classes
         @collapsing_helper_text ? "" : "mt-1"
       end
     end

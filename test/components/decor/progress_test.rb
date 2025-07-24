@@ -40,8 +40,8 @@ class Decor::ProgressTest < ActiveSupport::TestCase
     assert_includes rendered, "step"
   end
 
-  test "renders progress bar in progress variant" do
-    component = Decor::Progress.new(steps: @steps, variant: :progress)
+  test "renders progress bar in progress style" do
+    component = Decor::Progress.new(steps: @steps, style: :progress)
     rendered = render_component(component)
 
     assert_includes rendered, "<progress"
@@ -50,8 +50,8 @@ class Decor::ProgressTest < ActiveSupport::TestCase
     refute_includes rendered, "<ul"
   end
 
-  test "renders both progress bar and steps in both variant" do
-    component = Decor::Progress.new(steps: @steps, variant: :both)
+  test "renders both progress bar and steps in both style" do
+    component = Decor::Progress.new(steps: @steps, style: :both)
     rendered = render_component(component)
 
     assert_includes rendered, "<progress"
@@ -59,8 +59,8 @@ class Decor::ProgressTest < ActiveSupport::TestCase
     assert_includes rendered, "divider"
   end
 
-  # Color variant tests
-  test "renders with different color variants" do
+  # Color style tests
+  test "renders with different color styles" do
     [:primary, :secondary, :accent, :success, :error, :warning, :info].each do |color|
       component = Decor::Progress.new(steps: @steps, color: color)
       rendered = render_component(component)
@@ -74,7 +74,7 @@ class Decor::ProgressTest < ActiveSupport::TestCase
       component = Decor::Progress.new(
         steps: @steps,
         color: color,
-        variant: :progress
+        style: :progress
       )
       rendered = render_component(component)
 
@@ -82,13 +82,13 @@ class Decor::ProgressTest < ActiveSupport::TestCase
     end
   end
 
-  # Size variant tests
-  test "renders with different size variants" do
+  # Size style tests
+  test "renders with different size styles" do
     [:xs, :sm, :md, :lg].each do |size|
       component = Decor::Progress.new(
         steps: @steps,
         size: size,
-        variant: :progress
+        style: :progress
       )
       rendered = render_component(component)
 
@@ -121,7 +121,7 @@ class Decor::ProgressTest < ActiveSupport::TestCase
 
   # Progress value calculation tests
   test "calculates progress value correctly" do
-    component = Decor::Progress.new(steps: @steps, current_step: 2, variant: :progress)
+    component = Decor::Progress.new(steps: @steps, current_step: 2, style: :progress)
     rendered = render_component(component)
 
     assert_includes rendered, 'value="33"'
@@ -130,12 +130,12 @@ class Decor::ProgressTest < ActiveSupport::TestCase
 
   test "handles edge cases for progress value" do
     # Current step 0
-    component = Decor::Progress.new(steps: @steps, current_step: 0, variant: :progress)
+    component = Decor::Progress.new(steps: @steps, current_step: 0, style: :progress)
     rendered = render_component(component)
     assert_includes rendered, 'value="0"'
 
     # Current step beyond total
-    component = Decor::Progress.new(steps: @steps, current_step: 5, variant: :progress)
+    component = Decor::Progress.new(steps: @steps, current_step: 5, style: :progress)
     rendered = render_component(component)
     assert_includes rendered, 'value="100"'
   end
@@ -164,7 +164,7 @@ class Decor::ProgressTest < ActiveSupport::TestCase
   test "includes animation classes by default" do
     component = Decor::Progress.new(
       steps: @steps,
-      variant: :progress
+      style: :progress
     )
     rendered = render_component(component)
 
@@ -175,7 +175,7 @@ class Decor::ProgressTest < ActiveSupport::TestCase
   test "always includes animation classes" do
     component = Decor::Progress.new(
       steps: @steps,
-      variant: :progress
+      style: :progress
     )
     rendered = render_component(component)
 
@@ -195,7 +195,7 @@ class Decor::ProgressTest < ActiveSupport::TestCase
   end
 
   test "progress bar has proper ARIA label" do
-    component = Decor::Progress.new(steps: @steps, current_step: 2, variant: :progress)
+    component = Decor::Progress.new(steps: @steps, current_step: 2, style: :progress)
     rendered = render_component(component)
 
     assert_includes rendered, 'aria-label="Progress: 33% complete"'
@@ -258,7 +258,7 @@ class Decor::ProgressTest < ActiveSupport::TestCase
 
     assert_equal :primary, component.instance_variable_get(:@color)
     assert_equal :md, component.instance_variable_get(:@size)
-    assert_equal :steps, component.instance_variable_get(:@variant)
+    assert_equal :steps, component.instance_variable_get(:@style)
     assert_equal true, component.instance_variable_get(:@show_numbers)
     assert_equal false, component.instance_variable_get(:@vertical)
   end

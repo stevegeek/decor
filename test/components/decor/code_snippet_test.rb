@@ -31,7 +31,7 @@ class Decor::CodeSnippetTest < ActiveSupport::TestCase
   end
 
   def test_primary_variant
-    component = Decor::CodeSnippet.new(variant: :primary)
+    component = Decor::CodeSnippet.new(color: :primary)
 
     rendered = render_fragment(component) { "code" }
 
@@ -41,7 +41,7 @@ class Decor::CodeSnippetTest < ActiveSupport::TestCase
   end
 
   def test_secondary_variant
-    component = Decor::CodeSnippet.new(variant: :secondary)
+    component = Decor::CodeSnippet.new(color: :secondary)
 
     rendered = render_fragment(component) { "code" }
 
@@ -51,7 +51,7 @@ class Decor::CodeSnippetTest < ActiveSupport::TestCase
   end
 
   def test_accent_variant
-    component = Decor::CodeSnippet.new(variant: :accent)
+    component = Decor::CodeSnippet.new(color: :accent)
 
     rendered = render_fragment(component) { "code" }
 
@@ -78,10 +78,10 @@ class Decor::CodeSnippetTest < ActiveSupport::TestCase
     assert_includes code_element["class"], "text-sm"
   end
 
-  def test_size_normal
-    component = Decor::CodeSnippet.new(size: :normal)
+  def test_size_md
+    component = Decor::CodeSnippet.new(size: :md)
 
-    rendered = render_fragment(component) { "normal code" }
+    rendered = render_fragment(component) { "medium code" }
 
     code_element = rendered.css("code").first
     assert_includes code_element["class"], "text-base"
@@ -108,12 +108,12 @@ class Decor::CodeSnippetTest < ActiveSupport::TestCase
   end
 
   def test_combined_props
-    component = Decor::CodeSnippet.new(variant: :primary, size: :sm)
+    component = Decor::CodeSnippet.new(color: :primary, size: :sm)
 
     rendered = render_fragment(component) { "npm install" }
 
     code_element = rendered.css("code").first
-    # Should have both variant and size classes
+    # Should have both style and size classes
     assert_includes code_element["class"], "bg-primary/20"
     assert_includes code_element["class"], "text-primary"
     assert_includes code_element["class"], "text-sm"

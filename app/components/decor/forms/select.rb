@@ -117,34 +117,46 @@ module Decor
 
       def select_classes
         classes = ["select", "w-full"]
-        classes << select_color_class if @color && @color != :primary
-        classes << select_size_class unless @size == :md
+        classes << component_size_classes(@size).join(" ")
+        classes << component_color_classes(@color).join(" ")
+        classes << component_style_classes(@style).join(" ")
         classes << "select-error" if errors?
         classes << input_classes if input_classes.present?
-        classes.compact.join(" ")
+        classes.compact.join(" ").strip
       end
 
-      def select_color_class
-        case @color
-        when :secondary then "select-secondary"
-        when :accent then "select-accent"
-        when :success then "select-success"
-        when :error then "select-error"
-        when :warning then "select-warning"
-        when :info then "select-info"
-        when :neutral then "select-neutral"
-        when :ghost then "select-ghost"
-        else ""
+      def component_size_classes(size)
+        case size
+        when :xs then ["select-xs"]
+        when :sm then ["select-sm"]
+        when :md then [] # default
+        when :lg then ["select-lg"]
+        when :xl then ["select-xl"]
+        else []
         end
       end
 
-      def select_size_class
-        case @size
-        when :xs then "select-xs"
-        when :sm then "select-sm"
-        when :lg then "select-lg"
-        when :xl then "select-xl"
-        else ""
+      def component_color_classes(color)
+        case color
+        when :primary then ["select-primary"]
+        when :secondary then ["select-secondary"]
+        when :accent then ["select-accent"]
+        when :success then ["select-success"]
+        when :error then ["select-error"]
+        when :warning then ["select-warning"]
+        when :info then ["select-info"]
+        when :ghost then ["select-ghost"]
+        when :neutral then [] # neutral is default
+        else [] # base/neutral
+        end
+      end
+
+      def component_style_classes(style)
+        case style
+        when :filled then [] # default
+        when :outlined then ["select-bordered"]
+        when :ghost then ["select-ghost"]
+        else []
         end
       end
 

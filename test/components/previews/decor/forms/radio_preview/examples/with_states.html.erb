@@ -1,0 +1,42 @@
+<div class="space-y-4">
+  <div class="p-4 border rounded-lg">
+    <p class="text-sm font-medium mb-2">Selected with helper text</p>
+    <%= render ::Decor::Forms::Radio.new(
+      name: "state_demo",
+      label: "This option is selected",
+      value: "selected",
+      checked: true,
+      helper_text: "This provides additional context about the option"
+    ) %>
+  </div>
+  
+  <div class="p-4 border rounded-lg">
+    <p class="text-sm font-medium mb-2">Required option</p>
+    <%= render ::Decor::Forms::Radio.new(
+      name: "required_demo",
+      label: "This is a required option",
+      value: "required",
+      required: true
+    ) %>
+  </div>
+  
+  <div class="p-4 border rounded-lg">
+    <p class="text-sm font-medium mb-2">Disabled state</p>
+    <%= render ::Decor::Forms::Radio.new(
+      name: "disabled_demo",
+      label: "This option is disabled",
+      value: "disabled",
+      disabled: true
+    ) %>
+  </div>
+  
+  <div class="p-4 border rounded-lg">
+    <p class="text-sm font-medium mb-2">With description</p>
+    <%= render ::Decor::Forms::Radio.new(
+      name: "description_demo",
+      label: "Option with description",
+      value: "described",
+      description: "This is a longer description that explains what this option means"
+    ) %>
+  </div>
+</div>

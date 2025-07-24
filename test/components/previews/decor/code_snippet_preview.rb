@@ -3,124 +3,144 @@ class ::Decor::CodeSnippetPreview < ::Lookbook::Preview
   # CodeSnippet
   # ----------
   #
-  # Inline code snippets with various styling options
+  # Inline code snippets with various styling options.
+  # Used to highlight code fragments within text content.
+  # Supports different styles and sizes for visual emphasis.
   #
-  # @label Playground
-  # @param variant select [default, primary, secondary, accent]
-  # @param size select [xs, sm, normal, lg]
-  def playground(variant: :default, size: :normal)
-    render ::Decor::CodeSnippet.new(variant: variant, size: size) do
-      "const greeting = 'Hello, World!';"
-    end
-  end
-
-  # @label Default styling
-  def default_styling
-    render Decor::Element.new(classes: "space-y-4") do |el|
+  # @group Examples
+  # @label Basic Inline Code
+  def basic_inline_code
+    render ::Decor::Element.new do |el|
       el.p do
         el.plain "Run "
         el.render ::Decor::CodeSnippet.new { "npm install" }
         el.plain " to install dependencies."
       end
+    end
+  end
 
+  # @group Examples
+  # @label Colored Code Snippet
+  def colored_code_snippet
+    render ::Decor::Element.new do |el|
       el.p do
-        el.plain "The "
-        el.render ::Decor::CodeSnippet.new { "useState" }
-        el.plain " hook is commonly used in React."
+        el.plain "The function "
+        el.render ::Decor::CodeSnippet.new(color: :primary) { "calculateTotal()" }
+        el.plain " returns the sum of all items."
       end
     end
   end
 
-  # @label Variant examples
-  def variant_examples
-    render Decor::Element.new(classes: "space-y-4") do |el|
-      el.div do
-        el.h4(class: "font-semibold mb-2") { "Default:" }
-        el.render ::Decor::CodeSnippet.new { "console.log('default')" }
-      end
-
-      el.div do
-        el.h4(class: "font-semibold mb-2") { "Primary:" }
-        el.render ::Decor::CodeSnippet.new(variant: :primary) { "console.log('primary')" }
-      end
-
-      el.div do
-        el.h4(class: "font-semibold mb-2") { "Secondary:" }
-        el.render ::Decor::CodeSnippet.new(variant: :secondary) { "console.log('secondary')" }
-      end
-
-      el.div do
-        el.h4(class: "font-semibold mb-2") { "Accent:" }
-        el.render ::Decor::CodeSnippet.new(variant: :accent) { "console.log('accent')" }
+  # @group Examples
+  # @label API Endpoint
+  def api_endpoint
+    render ::Decor::Element.new do |el|
+      el.p do
+        el.plain "Send a POST request to "
+        el.render ::Decor::CodeSnippet.new(color: :accent) { "/api/v1/users" }
+        el.plain " to create a new user."
       end
     end
   end
 
-  # @label Size examples
-  def size_examples
-    render Decor::Element.new(classes: "space-y-4") do |el|
-      el.div do
-        el.h4(class: "font-semibold mb-2") { "Extra Small (xs):" }
-        el.render ::Decor::CodeSnippet.new(size: :xs) { "tiny_code()" }
-      end
-
-      el.div do
-        el.h4(class: "font-semibold mb-2") { "Small (sm):" }
-        el.render ::Decor::CodeSnippet.new(size: :sm) { "small_code()" }
-      end
-
-      el.div do
-        el.h4(class: "font-semibold mb-2") { "Normal:" }
-        el.render ::Decor::CodeSnippet.new(size: :normal) { "normal_code()" }
-      end
-
-      el.div do
-        el.h4(class: "font-semibold mb-2") { "Large (lg):" }
-        el.render ::Decor::CodeSnippet.new(size: :lg) { "large_code()" }
-      end
+  # @group Playground
+  # @label Playground
+  # @param size [Symbol] select [~, xs, sm, md, lg, xl]
+  # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
+  # @param style [Symbol] select [~, filled, outlined, ghost]
+  def playground(color: nil, style: nil, size: nil)
+    render ::Decor::CodeSnippet.new(style: style, size: size) do
+      "const greeting = 'Hello, World!';"
     end
   end
 
-  # @label In context
-  def in_context
-    render Decor::Element.new(classes: "prose max-w-none") do |el|
+  # @group Colors
+  # @label Default
+  def color_default
+    render ::Decor::CodeSnippet.new { "console.log('default')" }
+  end
+
+  # @group Colors
+  # @label Primary style
+  def color_primary
+    render ::Decor::CodeSnippet.new(color: :primary) { "console.log('primary')" }
+  end
+
+  # @group Colors
+  # @label Secondary style
+  def color_secondary
+    render ::Decor::CodeSnippet.new(color: :secondary) { "console.log('secondary')" }
+  end
+
+  # @group Colors
+  # @label Accent style
+  def color_accent
+    render ::Decor::CodeSnippet.new(color: :accent) { "console.log('accent')" }
+  end
+
+  # @group Sizes
+  # @label Extra Small Size
+  def size_xs
+    render ::Decor::CodeSnippet.new(size: :xs) { "tiny_code()" }
+  end
+
+  # @group Sizes
+  # @label Small Size
+  def size_sm
+    render ::Decor::CodeSnippet.new(size: :sm) { "small_code()" }
+  end
+
+  # @group Sizes
+  # @label Medium Size (Default)
+  def size_md
+    render ::Decor::CodeSnippet.new(size: :md) { "medium_code()" }
+  end
+
+  # @group Sizes
+  # @label Large Size
+  def size_lg
+    render ::Decor::CodeSnippet.new(size: :lg) { "large_code()" }
+  end
+
+  # @group Examples
+  # @label Authentication Header
+  def authentication_header
+    render ::Decor::Element.new(classes: "prose max-w-none") do |el|
       el.p do
         el.plain "To authenticate, include your API key in the "
         el.render ::Decor::CodeSnippet.new { "Authorization" }
         el.plain " header:"
       end
-
       el.p do
-        el.render ::Decor::CodeSnippet.new(variant: :primary) { "Bearer YOUR_API_KEY" }
-      end
-
-      el.p do
-        el.plain "You can also use the "
-        el.render ::Decor::CodeSnippet.new { "X-API-Key" }
-        el.plain " header as an alternative."
-      end
-
-      el.p do
-        el.plain "Send a POST request to "
-        el.render ::Decor::CodeSnippet.new(variant: :accent) { "/api/v1/users" }
-        el.plain " with the following payload:"
+        el.render ::Decor::CodeSnippet.new(color: :primary) { "Bearer YOUR_API_KEY" }
       end
     end
   end
 
-  # @label Special characters
+  # @group Examples
+  # @label React Hook Usage
+  def react_hook_usage
+    render ::Decor::Element.new do |el|
+      el.p do
+        el.plain "The "
+        el.render ::Decor::CodeSnippet.new { "useState" }
+        el.plain " hook is commonly used in React for managing component state."
+      end
+    end
+  end
+
+  # @group Examples
+  # @label Special Characters
   def special_characters
-    render Decor::Element.new(classes: "space-y-4") do |el|
+    render ::Decor::Element.new(classes: "space-y-4") do |el|
       el.p do
         el.plain "HTML entities: "
         el.render ::Decor::CodeSnippet.new { "<div class=\"container\">" }
       end
-
       el.p do
         el.plain "Regular expression: "
         el.render ::Decor::CodeSnippet.new { "/^[a-zA-Z0-9]+$/" }
       end
-
       el.p do
         el.plain "Template literal: "
         el.render ::Decor::CodeSnippet.new { "`Hello, ${name}!`" }

@@ -4,7 +4,7 @@ module Decor
   module Forms
     class TextField < FormField
       # Optionally specify the HTML size attribute to control the width in characters of the textbox
-      prop :size, _Nilable(Integer)
+      prop :html_size, _Nilable(Integer)
 
       # Leading or trailing add-ons: text, icon or slot
       prop :leading_text_add_on, _Nilable(String)
@@ -131,7 +131,7 @@ module Decor
         }
         attrs[:required] = nil if @required
         attrs[:disabled] = nil if @disabled
-        attrs[:size] = @size if @size
+        attrs[:size] = @html_size if @html_size
         attrs[:minlength] = @minimum_length if @minimum_length
         attrs[:maxlength] = @maximum_length if @maximum_length
         attrs[:pattern] = resolved_pattern if @pattern
@@ -174,9 +174,47 @@ module Decor
       # Classes for the input
       def daisyui_input_classes
         classes = []
-        classes << (@size ? "" : "w-full")
+        classes << (@html_size ? "" : "w-full")
         classes << ((@numerical && @type == :tel) ? "tabular-nums" : "")
+        classes << component_size_classes(@size).join(" ")
+        classes << component_color_classes(@color).join(" ")
+        classes << component_style_classes(@style).join(" ")
         classes.join(" ").strip
+      end
+
+      def component_size_classes(size)
+        case size
+        when :xs then ["input-xs"]
+        when :sm then ["input-sm"]
+        when :md then [] # default
+        when :lg then ["input-lg"]
+        when :xl then ["input-lg"] # DaisyUI doesn't have xl, use lg
+        else []
+        end
+      end
+
+      def component_color_classes(color)
+        case color
+        when :primary then ["input-primary"]
+        when :secondary then ["input-secondary"]
+        when :accent then ["input-accent"]
+        when :success then ["input-success"]
+        when :error then ["input-error"]
+        when :warning then ["input-warning"]
+        when :info then ["input-info"]
+        when :ghost then ["input-ghost"]
+        when :neutral then [] # neutral is default
+        else [] # base/neutral
+        end
+      end
+
+      def component_style_classes(style)
+        case style
+        when :filled then [] # default
+        when :outlined then ["input-bordered"]
+        when :ghost then ["input-ghost"]
+        else []
+        end
       end
 
       def render_leading_add_on(el)

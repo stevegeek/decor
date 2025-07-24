@@ -3,51 +3,122 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
   # PanelGroup
   # -------
   #
-  # A panel group is a box with a title and a description and a list of panels which are displayed in a grid
-  # and contain information.
-  # The panels of information are rendered as a list of `Decor::Panel` components, but to avoid
-  # managing a list of lists of slots, we prepare these as an array of options and content block pairs, which
-  # are then used by PanelGroup to render the panels.
+  # A panel group is a box with a title and description that contains a list of panels
+  # displayed in a grid layout. Each panel is a Decor::Panel component with its own content.
   #
-  # @label Playground
+  # @group Examples
+  # @label Simple Stats
+  def simple_stats
+    render ::Decor::PanelGroup.new(
+      title: "Quick Stats"
+    ) do |group|
+      group.panels do
+        [
+          group.panel(title: "Downloads") { |p| p.plain("12,345") },
+          group.panel(title: "Active Users") { |p| p.plain("8,901") },
+          group.panel(title: "Reviews") { |p| p.plain("4.8/5") }
+        ]
+      end
+    end
+  end
+
+  # @group Examples
+  # @label Dashboard Metrics
+  def dashboard_metrics
+    render ::Decor::PanelGroup.new(
+      title: "Dashboard Overview",
+      description: "Key performance metrics and statistics"
+    ) do |group|
+      group.panels do
+        [
+          group.panel(title: "Active Users", icon: "users") { |p| p.plain("1,234") },
+          group.panel(title: "Revenue", icon: "currency-dollar") { |p| p.plain("$45,678") },
+          group.panel(title: "Conversion", icon: "chart-bar") { |p| p.plain("3.2%") }
+        ]
+      end
+      group.panels do
+        [
+          group.panel(title: "Page Views", icon: "eye") { |p| p.plain("87,654") },
+          group.panel(title: "Bounce Rate", icon: "arrow-trending-down") { |p| p.plain("24.1%") }
+        ]
+      end
+      group.cta do
+        render ::Decor::Button.new(color: :primary, size: :sm) { "Refresh" }
+        render ::Decor::Button.new(style: :outlined, size: :sm) { "Export" }
+      end
+    end
+  end
+
+  # @group Examples
+  # @label Server Status
+  def server_status
+    render ::Decor::PanelGroup.new(
+      title: "Server Information",
+      description: "Current server status and configuration"
+    ) do |group|
+      group.panels do
+        [
+          group.panel(title: "Primary Server", icon: "server") do |p|
+            p.plain("Status: Online")
+            p.br
+            p.plain("CPU: 45%")
+            p.br
+            p.plain("Memory: 6.2GB / 16GB")
+            p.br
+            p.plain("Uptime: 24 days")
+          end
+        ]
+      end
+      group.cta do
+        render ::Decor::Button.new(style: :outlined, size: :sm) { "Restart" }
+      end
+    end
+  end
+
+  # @group Examples
+  # @label System Health
+  def system_health
+    render ::Decor::PanelGroup.new(
+      title: "System Health",
+      description: "Real-time monitoring of application components",
+      color: :primary
+    ) do |group|
+      group.panels do
+        [
+          group.panel(title: "Database", icon: "circle-stack") do |p|
+            p.plain("🟢 Operational")
+            p.br
+            p.plain("Response: 12ms")
+          end,
+          group.panel(title: "API Gateway", icon: "globe") do |p|
+            p.plain("🟢 Healthy")
+            p.br
+            p.plain("Uptime: 99.9%")
+          end,
+          group.panel(title: "Cache", icon: "cpu-chip") do |p|
+            p.plain("🟡 Warning")
+            p.br
+            p.plain("Hit ratio: 87%")
+          end
+        ]
+      end
+    end
+  end
+
+  # @group Playground
   # @param title text
   # @param description text
   # @param show_cta toggle
-  def playground(title: "Box title", description: "My description", show_cta: true)
-    # render ::Decor::PanelGroup.new(
-    #   title: title,
-    #   description: description,
-    #   panels: [
-    #     [
-    #       ::Decor::Panel.new(
-    #         title: "Panel 1"
-    #       ) { |p| p.plain("Panel 1 content") },
-    #       ::Decor::Panel.new(
-    #         title: "Panel 2"
-    #       ) { |p| p.plain("Panel 2 content") }
-    #     ],
-    #     [
-    #       ::Decor::Panel.new(
-    #         title: "Panel 3"
-    #       ) { |p| p.plain("Panel 3 content") },
-    #       ::Decor::Panel.new(
-    #         title: "Panel 4"
-    #       ) { |p| p.plain("Panel 4 content") },
-    #     ]
-    #   ]
-    # ) do |panel_group|
-    #   puts "Call stack her"
-    #   puts "**********"
-    #   puts panel_group.class.name
-    #   if show_cta
-    #     panel_group.with_cta do
-    #       panel_group.render ::Decor::Button.new(label: "Button")
-    #     end
-    #   end
-    # end
+  # @param size [Symbol] select [~, xs, sm, md, lg, xl]
+  # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
+  # @param style [Symbol] select [~, filled, outlined, ghost]
+  def playground(title: "Panel Group Title", description: "Group description", show_cta: true, size: nil, color: nil, style: nil)
     render ::Decor::PanelGroup.new(
       title: title,
-      description: description
+      description: description,
+      size: size,
+      color: color,
+      style: style
     ) do |group|
       group.panels do
         [
@@ -63,319 +134,322 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
       end
       if show_cta
         group.cta do
-          render ::Decor::Button.new(label: "Button")
+          render ::Decor::Button.new(label: "Action", color: :primary)
         end
       end
     end
   end
 
-  # @!group Examples
-
-  def dashboard_metrics
+  # @group Sizes
+  # @label XS Size
+  def size_xs
     render ::Decor::PanelGroup.new(
-      title: "Dashboard Overview",
-      description: "Key performance metrics and statistics for your application"
+      title: "Extra Small Panel Group",
+      size: :xs
     ) do |group|
       group.panels do
         [
-          group.panel(title: "Active Users", icon: "users") { |p| p.plain("1,234") },
-          group.panel(title: "Total Revenue", icon: "currency-dollar") { |p| p.plain("$45,678") },
-          group.panel(title: "Conversion Rate", icon: "chart-bar") { |p| p.plain("3.2%") }
+          group.panel(title: "XS Panel") { |p| p.plain("Compact content") }
         ]
-      end
-      group.panels do
-        [
-          group.panel(title: "Page Views", icon: "eye") { |p| p.plain("87,654") },
-          group.panel(title: "Bounce Rate", icon: "arrow-trending-down") { |p| p.plain("24.1%") }
-        ]
-      end
-      group.cta do
-        render ::Decor::Button.new(color: :primary, size: :sm) { "Refresh Data" }
-        render ::Decor::Button.new(variant: :outlined, size: :sm) { "Export Report" }
       end
     end
   end
 
-  def user_profile_settings
+  # @group Sizes
+  # @label SM Size
+  def size_sm
     render ::Decor::PanelGroup.new(
-      title: "Account Settings",
-      description: "Manage your profile information and preferences"
+      title: "Small Panel Group",
+      size: :sm
     ) do |group|
       group.panels do
         [
-          group.panel(title: "Personal Information") do |p|
-            p.plain("Name: John Doe")
-            p.br
-            p.plain("Email: john@example.com")
-            p.br
-            p.plain("Phone: (555) 123-4567")
-          end,
-          group.panel(title: "Account Status", icon: "shield-check") do |p|
-            p.plain("✅ Verified Account")
-            p.br
-            p.plain("Member since: January 2023")
-            p.br
-            p.plain("Last login: 2 hours ago")
-          end
+          group.panel(title: "SM Panel") { |p| p.plain("Small content") }
         ]
-      end
-      group.panels do
-        [
-          group.panel(title: "Preferences", icon: "cog") do |p|
-            p.plain("Notifications: Enabled")
-            p.br
-            p.plain("Theme: Dark Mode")
-            p.br
-            p.plain("Language: English")
-          end
-        ]
-      end
-      group.cta do
-        render ::Decor::Button.new(color: :primary) { "Edit Profile" }
       end
     end
   end
 
-  def system_status
+  # @group Sizes
+  # @label MD Size (Default)
+  def size_md
     render ::Decor::PanelGroup.new(
-      title: "System Health",
-      description: "Real-time monitoring of application components and services"
+      title: "Medium Panel Group",
+      description: "Default size",
+      size: :md
     ) do |group|
       group.panels do
         [
-          group.panel(title: "Database", icon: "circle-stack") do |p|
-            p.plain("🟢 Operational")
-            p.br
-            p.plain("Response: 12ms")
-            p.br
-            p.plain("Connections: 45/100")
-          end,
-          group.panel(title: "API Gateway", icon: "globe") do |p|
-            p.plain("🟢 Healthy")
-            p.br
-            p.plain("Requests/min: 1,247")
-            p.br
-            p.plain("Uptime: 99.9%")
-          end,
-          group.panel(title: "Cache Layer", icon: "cpu-chip") do |p|
-            p.plain("🟡 Warning")
-            p.br
-            p.plain("Hit ratio: 87%")
-            p.br
-            p.plain("Memory: 8.2GB/10GB")
-          end
+          group.panel(title: "MD Panel 1") { |p| p.plain("Medium content") },
+          group.panel(title: "MD Panel 2") { |p| p.plain("Standard size") }
         ]
-      end
-      group.panels do
-        [
-          group.panel(title: "Background Jobs", icon: "clock") do |p|
-            p.plain("🟢 Processing")
-            p.br
-            p.plain("Queue size: 23")
-            p.br
-            p.plain("Failed: 0")
-          end,
-          group.panel(title: "Storage", icon: "server") do |p|
-            p.plain("🟢 Available")
-            p.br
-            p.plain("Used: 2.1TB/5TB")
-            p.br
-            p.plain("Growth: +12GB/day")
-          end
-        ]
-      end
-      group.cta do
-        render ::Decor::Button.new(variant: :outlined, size: :sm) { "View Logs" }
-        render ::Decor::Button.new(variant: :outlined, size: :sm) { "Run Diagnostics" }
       end
     end
   end
 
-  # @label Size Variants
-  def size_variants
+  # @group Sizes
+  # @label LG Size
+  def size_lg
+    render ::Decor::PanelGroup.new(
+      title: "Large Panel Group",
+      description: "Spacious layout",
+      size: :lg
+    ) do |group|
+      group.panels do
+        [
+          group.panel(title: "LG Panel") { |p| p.plain("Large content area") }
+        ]
+      end
+    end
+  end
+
+  # @group Sizes
+  # @label XL Size
+  def size_xl
     render ::Decor::PanelGroup.new(
       title: "Extra Large Panel Group",
-      description: "Showcasing XL size variant",
+      description: "Maximum size variant",
       size: :xl
     ) do |group|
       group.panels do
         [
-          group.panel(title: "Large Panel") { |p| p.plain("Content in XL group") }
+          group.panel(title: "XL Panel") { |p| p.plain("Extra large content") }
         ]
       end
     end
   end
 
-  # @label Color Variants
-  def color_variants
+  # @group Colors
+  # @label Base Color (Default)
+  def color_base
+    render ::Decor::PanelGroup.new(
+      title: "Base Color Panel Group",
+      color: :base
+    ) do |group|
+      group.panels do
+        [
+          group.panel(title: "Base Panel") { |p| p.plain("Default color") }
+        ]
+      end
+    end
+  end
+
+  # @group Colors
+  # @label Primary Color
+  def color_primary
     render ::Decor::PanelGroup.new(
       title: "Primary Color Panel Group",
-      description: "Showcasing primary color variant",
       color: :primary
     ) do |group|
       group.panels do
         [
-          group.panel(title: "Primary Panel") { |p| p.plain("Content in primary color") }
+          group.panel(title: "Primary Panel") { |p| p.plain("Primary themed") }
         ]
       end
     end
   end
 
-  # @label Variant Types
-  def variant_types
+  # @group Colors
+  # @label Secondary Color
+  def color_secondary
     render ::Decor::PanelGroup.new(
-      title: "Ghost Variant Panel Group",
-      description: "Showcasing ghost variant",
-      variant: :ghost
+      title: "Secondary Color Panel Group",
+      color: :secondary
     ) do |group|
       group.panels do
         [
-          group.panel(title: "Ghost Panel") { |p| p.plain("Content in ghost variant") }
+          group.panel(title: "Secondary Panel") { |p| p.plain("Secondary themed") }
         ]
       end
     end
   end
 
-  def financial_summary
+  # @group Colors
+  # @label Success Color
+  def color_success
     render ::Decor::PanelGroup.new(
-      title: "Financial Overview",
-      description: "Monthly financial performance and key business metrics"
+      title: "Success Color Panel Group",
+      color: :success
     ) do |group|
       group.panels do
         [
-          group.panel(title: "Revenue This Month", icon: "banknotes") do |p|
-            p.plain("$127,456")
-            p.br
-            p.span(class: "text-green-600") { "↗ +12.3% from last month" }
-          end
+          group.panel(title: "Success Panel") { |p| p.plain("Success themed") }
         ]
       end
+    end
+  end
+
+  # @group Colors
+  # @label Error Color
+  def color_error
+    render ::Decor::PanelGroup.new(
+      title: "Error Color Panel Group",
+      color: :error
+    ) do |group|
       group.panels do
         [
-          group.panel(title: "New Customers", icon: "user-plus") do |p|
-            p.plain("89")
-            p.br
-            p.span(class: "text-blue-600") { "Target: 75 ✓" }
-          end,
-          group.panel(title: "Average Order Value", icon: "calculator") do |p|
-            p.plain("$156.78")
-            p.br
-            p.span(class: "text-green-600") { "↗ +5.2%" }
-          end
+          group.panel(title: "Error Panel") { |p| p.plain("Error themed") }
         ]
       end
+    end
+  end
+
+  # @group Styles
+  # @label Filled Style (Default)
+  def style_filled
+    render ::Decor::PanelGroup.new(
+      title: "Filled Style Panel Group",
+      style: :filled
+    ) do |group|
       group.panels do
         [
-          group.panel(title: "Operating Expenses", icon: "receipt-percent") do |p|
-            p.plain("$45,230")
-            p.br
-            p.span(class: "text-orange-600") { "→ -2.1% vs budget" }
-          end,
-          group.panel(title: "Profit Margin", icon: "chart-pie") do |p|
-            p.plain("28.4%")
-            p.br
-            p.span(class: "text-green-600") { "↗ +1.8%" }
-          end,
-          group.panel(title: "Cash Flow", icon: "arrows-right-left") do |p|
-            p.plain("$82,226")
-            p.br
-            p.span(class: "text-green-600") { "Positive" }
-          end
+          group.panel(title: "Filled Panel") { |p| p.plain("Default style") }
+        ]
+      end
+    end
+  end
+
+  # @group Styles
+  # @label Outlined Style
+  def style_outlined
+    render ::Decor::PanelGroup.new(
+      title: "Outlined Style Panel Group",
+      style: :outlined
+    ) do |group|
+      group.panels do
+        [
+          group.panel(title: "Outlined Panel") { |p| p.plain("Border style") }
+        ]
+      end
+    end
+  end
+
+  # @group Styles
+  # @label Ghost Style
+  def style_ghost
+    render ::Decor::PanelGroup.new(
+      title: "Ghost Style Panel Group",
+      style: :ghost
+    ) do |group|
+      group.panels do
+        [
+          group.panel(title: "Ghost Panel") { |p| p.plain("Minimal style") }
+        ]
+      end
+    end
+  end
+
+  # @group With CTA
+  # @label Single Action
+  def with_single_cta
+    render ::Decor::PanelGroup.new(
+      title: "Panel Group with Action"
+    ) do |group|
+      group.panels do
+        [
+          group.panel(title: "Panel 1") { |p| p.plain("Content") },
+          group.panel(title: "Panel 2") { |p| p.plain("Content") }
         ]
       end
       group.cta do
-        render ::Decor::Button.new(color: :primary) { "Download Report" }
-        render ::Decor::Button.new(variant: :outlined, color: :secondary) { "View Details" }
+        render ::Decor::Button.new(color: :primary) { "Take Action" }
       end
     end
   end
 
-  def project_overview
+  # @group With CTA
+  # @label Multiple Actions
+  def with_multiple_ctas
     render ::Decor::PanelGroup.new(
-      title: "Project Status",
-      description: "Current progress and key metrics for active development projects"
+      title: "Panel Group with Multiple Actions"
     ) do |group|
       group.panels do
         [
-          group.panel(title: "Frontend Redesign", icon: "paint-brush") do |p|
-            p.plain("Progress: 75%")
-            p.br
-            p.plain("Due: Next Friday")
-            p.br
-            p.plain("Team: 4 developers")
-          end,
-          group.panel(title: "API Migration", icon: "arrow-path") do |p|
-            p.plain("Progress: 45%")
-            p.br
-            p.plain("Due: End of month")
-            p.br
-            p.plain("Team: 2 developers")
-          end
-        ]
-      end
-      group.panels do
-        [
-          group.panel(title: "Mobile App", icon: "device-phone-mobile") do |p|
-            p.plain("Progress: 90%")
-            p.br
-            p.plain("Due: This week")
-            p.br
-            p.plain("Team: 3 developers")
-          end,
-          group.panel(title: "Database Optimization", icon: "cog") do |p|
-            p.plain("Progress: 30%")
-            p.br
-            p.plain("Due: Next month")
-            p.br
-            p.plain("Team: 1 developer")
-          end
+          group.panel(title: "Panel 1") { |p| p.plain("Content") }
         ]
       end
       group.cta do
-        render ::Decor::Button.new(color: :primary) { "View All Projects" }
+        render ::Decor::Button.new(color: :primary) { "Primary" }
+        render ::Decor::Button.new(style: :outlined) { "Secondary" }
+        render ::Decor::Button.new(style: :ghost) { "Tertiary" }
       end
     end
   end
 
-  def simple_info_cards
+  # @group Panel Icons
+  # @label With Icons
+  def panels_with_icons
     render ::Decor::PanelGroup.new(
-      title: "Quick Stats"
+      title: "Panels with Icons"
     ) do |group|
       group.panels do
         [
-          group.panel(title: "Downloads") { |p| p.plain("12,345") },
-          group.panel(title: "Active Users") { |p| p.plain("8,901") },
-          group.panel(title: "Reviews") { |p| p.plain("4.8/5") }
+          group.panel(title: "Users", icon: "users") { |p| p.plain("1,234") },
+          group.panel(title: "Revenue", icon: "currency-dollar") { |p| p.plain("$12,345") },
+          group.panel(title: "Orders", icon: "shopping-cart") { |p| p.plain("567") }
         ]
       end
     end
   end
 
-  def single_panel_example
+  # @group Panel Icons
+  # @label Without Icons
+  def panels_without_icons
     render ::Decor::PanelGroup.new(
-      title: "Server Information",
-      description: "Current server status and configuration details"
+      title: "Panels without Icons"
     ) do |group|
       group.panels do
         [
-          group.panel(title: "Primary Server", icon: "server") do |p|
-            p.plain("Status: Online")
+          group.panel(title: "Plain Panel 1") { |p| p.plain("Simple content") },
+          group.panel(title: "Plain Panel 2") { |p| p.plain("Basic content") }
+        ]
+      end
+    end
+  end
+
+  # @group Panel Content
+  # @label Rich Content
+  def panels_rich_content
+    render ::Decor::PanelGroup.new(
+      title: "Rich Panel Content"
+    ) do |group|
+      group.panels do
+        [
+          group.panel(title: "Status", icon: "signal") do |p|
+            p.plain("🟢 All Systems Operational")
             p.br
-            p.plain("CPU: 45% utilization")
-            p.br
-            p.plain("Memory: 6.2GB / 16GB")
-            p.br
-            p.plain("Disk: 120GB / 500GB")
-            p.br
-            p.plain("Uptime: 24 days")
+            p.span(class: "text-sm text-base-content/70") { "Last checked: 5 mins ago" }
+          end,
+          group.panel(title: "Performance", icon: "chart-bar") do |p|
+            p.div(class: "space-y-1") do
+              p.div(class: "flex justify-between") do
+                p.span { "CPU" }
+                p.span(class: "font-medium") { "45%" }
+              end
+              p.div(class: "flex justify-between") do
+                p.span { "Memory" }
+                p.span(class: "font-medium") { "72%" }
+              end
+            end
           end
         ]
       end
-      group.cta do
-        render ::Decor::Button.new(variant: :outlined, size: :sm) { "Restart Server" }
-      end
     end
   end
 
-  # @!endgroup
+  # @group Panel Content
+  # @label Simple Content
+  def panels_simple_content
+    render ::Decor::PanelGroup.new(
+      title: "Simple Panel Content"
+    ) do |group|
+      group.panels do
+        [
+          group.panel(title: "Value 1") { |p| p.plain("123") },
+          group.panel(title: "Value 2") { |p| p.plain("456") },
+          group.panel(title: "Value 3") { |p| p.plain("789") }
+        ]
+      end
+    end
+  end
 end

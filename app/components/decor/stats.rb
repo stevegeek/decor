@@ -35,7 +35,7 @@ module Decor
       end
     end
 
-    def element_classes
+    def root_element_classes
       classes = ["stats"]
 
       if @responsive
@@ -44,10 +44,18 @@ module Decor
         classes << "stats-vertical"
       end
 
-      classes << "shadow" if @shadow
-      classes << "bg-base-100" if @background
+      classes << component_shadow_classes if component_shadow_classes
+      classes << component_background_classes if component_background_classes
 
-      classes.join(" ")
+      classes.compact.join(" ")
+    end
+
+    def component_shadow_classes
+      "shadow" if @shadow
+    end
+
+    def component_background_classes
+      "bg-base-100" if @background
     end
   end
 end

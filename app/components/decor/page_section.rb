@@ -10,9 +10,10 @@ module Decor
     prop :separator, _Boolean, default: false
 
     # Modern attributes following Decor patterns
-    prop :size, _Union(:xs, :sm, :md, :lg, :xl), default: :md
     prop :background, _Union(:default, :primary, :secondary, :neutral), default: :default
     prop :padding, _Union(:none, :sm, :md, :lg, :xl), default: :md
+
+    default_size :md
 
     # Manual slot implementations for Phlex
     def with_hero(&block)
@@ -82,7 +83,7 @@ module Decor
 
     private
 
-    def element_classes
+    def root_element_classes
       classes = []
       classes << "space-y-4"
       if @background != :default

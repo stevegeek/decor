@@ -55,13 +55,16 @@ module Decor
       prop :title, _Nilable(String)
       prop :subtitle, _Nilable(String)
 
-      # Table styling variants
-      prop :variant, _Union(:default, :bordered, :minimal), default: :default
+      # Use unified prop system
+      default_size :md
+      default_color :base  # Tables typically use base styling
+      default_style :default
+
+      # DataTable uses domain-specific styles for table presentation
+      redefine_styles :default, :bordered, :minimal
+
       prop :striped, _Boolean, default: true
       prop :compact, _Boolean, default: false
-
-      # DaisyUI enhancements
-      prop :size, _Union(:xs, :sm, :md, :lg, :xl), default: :md
       prop :zebra, _Boolean, default: false
       prop :pin_rows, _Boolean, default: false
       prop :pin_cols, _Boolean, default: false
@@ -147,10 +150,10 @@ module Decor
 
       private
 
-      def element_classes
+      def root_element_classes
         [
           "bg-base-100 rounded-lg",
-          (@variant == :bordered) ? "border border-base-300" : nil
+          style_classes
         ].compact_blank.join(" ")
       end
 
@@ -159,7 +162,7 @@ module Decor
           # DaisyUI base table class
           "table",
           # DaisyUI size variants
-          daisyui_size_class,
+          size_classes,
           # DaisyUI features
           @zebra ? "table-zebra" : nil,
           @pin_rows ? "table-pin-rows" : nil,
@@ -167,8 +170,8 @@ module Decor
           # Legacy support - maintain existing behavior with daisyUI colors
           "min-w-full bg-base-100",
           @compact ? "text-xs" : "text-sm",
-          (@variant == :minimal) ? "divide-y divide-base-200" : "divide-y-2 divide-base-300",
-          (@variant == :bordered) ? "border-collapse" : nil
+          (@style == :minimal) ? "divide-y divide-base-200" : "divide-y-2 divide-base-300",
+          (@style == :bordered) ? "border-collapse" : nil
         ].compact_blank.join(" ")
       end
 
@@ -179,18 +182,22 @@ module Decor
         ].compact_blank.join(" ")
       end
 
-      def daisyui_size_class
-        case @size
-        when :xs
-          "table-xs"
-        when :sm
-          "table-sm"
-        when :lg
-          "table-lg"
-        when :xl
-          "table-xl"
-        else
-          nil # md is the default, no class needed
+      def component_size_classes(size)
+        case size
+        when :xs then "table-xs"
+        when :sm then "table-sm"
+        when :lg then "table-lg"
+        when :xl then "table-xl"
+        else ""  # md is default, no class needed
+        end
+      end
+
+      def component_style_classes(style)
+        case style
+        when :bordered then "border border-base-300"
+        when :minimal then ""  # handled in table_classes method
+        when :default then ""
+        else ""
         end
       end
     end

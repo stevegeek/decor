@@ -1,4 +1,4 @@
-<%= render ::Decor::Nav::SecondaryNavbar.new(bottom_border: has_bottom_border, variant: variant) do |nav| %>
+<%= render ::Decor::Nav::SecondaryNavbar.new(bottom_border: has_bottom_border, style: navbar_style, size: size, color: color) do |nav| %>
   <% if has_left_element %>
     <% nav.with_left do %>
       <%= render ::Decor::Nav::Breadcrumbs.new(

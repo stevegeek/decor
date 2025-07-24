@@ -1,0 +1,12 @@
+<div class="p-8">
+  <%= render ::Decor::Modals::ModalOpenButton.new(
+    modal_id: "demo-modal",
+    label: "Open Modal",
+    initial_content: "This modal was opened using a ModalOpenButton component!",
+    color: :primary
+  ) %>
+  
+  <%= render ::Decor::Modals::Modal.new(
+    id: "demo-modal"
+  ) %>
+</div>

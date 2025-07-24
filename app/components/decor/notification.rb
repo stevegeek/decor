@@ -15,7 +15,7 @@ module Decor
       prop :action_name, _Nilable(String)
       prop :primary, _Boolean, default: false, predicate: :public
       prop :color, _Nilable(Symbol)
-      prop :variant, _Nilable(Symbol)
+      prop :style, _Nilable(Symbol)
 
       def text_classes
         primary? ? "font-medium text-primary hover:text-primary-focus" : "text-base-content hover:text-base-content/70"
@@ -27,8 +27,9 @@ module Decor
     prop :title, String
     prop :description, _Nilable(String)
     prop :icon, _Nilable(String)
-    prop :color, _Union(:warning, :success, :error, :info), default: :info
     prop :action_buttons, _Array(ActionButton), default: -> { [] }
+
+    default_color :info
 
     def avatar(&block)
       @avatar = block
@@ -62,13 +63,13 @@ module Decor
 
         # Action buttons section
         if @action_buttons.any?
-          div(class: "join-item flex flex-col p-2 gap-1") do
+          div(class: "join-item flex flex-col justify-center p-2 gap-1") do
             @action_buttons.each do |button|
               if button.href
                 render ::Decor::ButtonLink.new(
                   label: button.label,
                   href: button.href,
-                  variant: button.variant || (button.primary? ? :contained : :text),
+                  style: button.style || (button.primary? ? :filled : :ghost),
                   color: button.color || (button.primary? ? :primary : :neutral),
                   size: :sm,
                   full_width: true
@@ -76,7 +77,7 @@ module Decor
               else
                 render ::Decor::Button.new(
                   label: button.label,
-                  variant: button.variant || (button.primary? ? :contained : :text),
+                  style: button.style || (button.primary? ? :filled : :ghost),
                   color: button.color || (button.primary? ? :primary : :neutral),
                   size: :sm,
                   full_width: true,
@@ -91,38 +92,31 @@ module Decor
 
     private
 
-    def element_classes
+    def root_element_classes
       "join rounded-box shadow-lg max-w-md w-full"
     end
 
     def icon_background_class
-      case @color
-      when :success then "bg-success"
-      when :error then "bg-error"
-      when :warning then "bg-warning"
-      when :info then "bg-info"
-      else "bg-info"
-      end
+      background_color_classes(@color)
     end
 
     def icon_text_class
       case @color
+      when :base then "text-base-content"
+      when :primary then "text-primary-content"
+      when :secondary then "text-secondary-content"
+      when :accent then "text-accent-content"
       when :success then "text-success-content"
       when :error then "text-error-content"
       when :warning then "text-warning-content"
       when :info then "text-info-content"
+      when :neutral then "text-neutral-content"
       else "text-info-content"
       end
     end
 
     def title_text_class
-      case @color
-      when :success then "text-success"
-      when :error then "text-error"
-      when :warning then "text-warning"
-      when :info then "text-info"
-      else "text-info"
-      end
+      text_color_classes(@color)
     end
 
     def action_button_attributes(el, button)

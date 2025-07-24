@@ -11,6 +11,7 @@ module Decor
       prop :value, String
 
       prop :disabled, _Boolean, default: false
+      prop :placeholder, _Nilable(String)
 
       prop :options, Array, default: [].freeze
       prop :disabled_options, Array, default: [].freeze
@@ -22,13 +23,14 @@ module Decor
       prop :name, String
       prop :label, String
       prop :value, String
+      prop :placeholder, _Nilable(String), default: "Search..."
       prop :apply, _Nilable(Proc)
     end
 
     prop :url, String
     prop :filters, _Array(::Decor::SearchAndFilter::Filter), default: -> { [] }
 
-    prop :search, Search
+    prop :search, _Nilable(Search)
 
     prop :download_path, _Nilable(String)
 
@@ -103,12 +105,12 @@ module Decor
                   ) do
                     render ::Decor::Icon.new(
                       name: "filter",
-                      variant: filters_active ? :solid : :outline,
+                      style: filters_active ? :solid : :outline,
                       html_options: {class: "h-5 w-5 text-gray-400"}
                     )
 
                     span(class: "ml-auto mr-2 sm:ml-2") { "Filter" }
-                    render ::Decor::Icon.new(name: "chevron-down", variant: :solid, html_options: {class: "h-5 w-5 text-gray-400"})
+                    render ::Decor::Icon.new(name: "chevron-down", style: :solid, html_options: {class: "h-5 w-5 text-gray-400"})
                   end
                 end
 
@@ -167,8 +169,8 @@ module Decor
                         stimulus_actions: [stimulus_action(:click, :handle_clear_filters)],
                         icon: "x",
                         size: :small,
-                        color: :danger,
-                        variant: :outlined,
+                        color: :error,
+                        style: :outlined,
                         full_width: true
                       )
                     end
@@ -219,7 +221,7 @@ module Decor
 
     private
 
-    def element_classes
+    def root_element_classes
       "sm:flex sm:items-center space-x-0 sm:space-x-4 mt-3 sm:mt-0 sm:ml-4"
     end
   end

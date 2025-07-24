@@ -48,32 +48,34 @@ module Decor
 
       def radio_classes
         classes = ["radio"]
-        classes << radio_color_class if @color && @color != :primary
-        classes << radio_size_class unless @size == :md
+        classes << component_size_classes(@size).join(" ")
+        classes << component_color_classes(@color).join(" ")
         classes << "radio-error" if errors?
-        classes.compact.join(" ")
+        classes.compact.join(" ").strip
       end
 
-      def radio_color_class
-        case @color
-        when :neutral then "radio-neutral"
-        when :secondary then "radio-secondary"
-        when :accent then "radio-accent"
-        when :success then "radio-success"
-        when :warning then "radio-warning"
-        when :info then "radio-info"
-        when :error then "radio-error"
-        else ""
+      def component_size_classes(size)
+        case size
+        when :xs then ["radio-xs"]
+        when :sm then ["radio-sm"]
+        when :md then [] # default
+        when :lg then ["radio-lg"]
+        when :xl then ["radio-xl"]
+        else []
         end
       end
 
-      def radio_size_class
-        case @size
-        when :xs then "radio-xs"
-        when :sm then "radio-sm"
-        when :lg then "radio-lg"
-        when :xl then "radio-xl"
-        else ""
+      def component_color_classes(color)
+        case color
+        when :primary then ["radio-primary"]
+        when :secondary then ["radio-secondary"]
+        when :accent then ["radio-accent"]
+        when :success then ["radio-success"]
+        when :error then ["radio-error"]
+        when :warning then ["radio-warning"]
+        when :info then ["radio-info"]
+        when :neutral then ["radio-neutral"]
+        else [] # base/neutral
         end
       end
 

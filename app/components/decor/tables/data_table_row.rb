@@ -3,6 +3,7 @@
 module Decor
   module Tables
     class DataTableRow < PhlexComponent
+      include Decor::Concerns::StyleColorClasses
       attr_reader :expanded_content
 
       # Background changes on hover
@@ -10,6 +11,9 @@ module Decor
 
       # Background is highlighted
       prop :highlight, _Nilable(_Union(:gray_low, :gray_medium, :gray_high, :low, :medium, :high, :primary, :secondary, :accent, :info, :success, :warning, :error))
+
+      # Use base color as default (no special styling)
+      default_color :base
 
       # Whether the row should get lower opacity or not
       prop :disabled, _Boolean, default: false
@@ -87,7 +91,7 @@ module Decor
         }
       end
 
-      def element_classes
+      def root_element_classes
         [
           @expanded_content.present? ? "border-b border-white" : nil,
           @hover_highlight && "hover:bg-base-200 transition-colors duration-150",

@@ -1,6 +1,6 @@
 <%= render ::Decor::Forms::Form.new(model: model, url: "#", local: true) do |form_component| %>
   <%= render ::Decor::Forms::LayoutContainer.new do |container| %>
-    <%= render ::Decor::Forms::LayoutSection.new do %>
+    <%= render ::Decor::Forms::LayoutSection.new(title: "Form") do %>
       <%= form_component.builder.hidden_field :text,
                        value: value,
                        disabled: disabled %>

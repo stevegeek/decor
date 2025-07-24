@@ -6,7 +6,9 @@ module Decor
       no_stimulus_controller
 
       prop :bottom_border, _Boolean, default: false
-      prop :variant, _Union(:wide, :narrow), default: :narrow
+
+      redefine_styles :wide, :narrow
+      default_style :narrow
 
       def with_left(&block)
         @left_block = block
@@ -55,13 +57,24 @@ module Decor
         }
       end
 
-      def element_classes
+      def root_element_classes
         [
           "navbar",
           "bg-base-100",
-          (@variant == :wide) ? "min-h-[68px]" : "min-h-12",
+          *component_style_classes(@style),
           @bottom_border ? "border-b border-base-300" : nil
         ].compact.join(" ")
+      end
+
+      def component_style_classes(style)
+        case style
+        when :wide
+          ["min-h-[68px]"]
+        when :narrow
+          ["min-h-12"]
+        else
+          []
+        end
       end
     end
   end

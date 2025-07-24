@@ -19,16 +19,16 @@ class Decor::Nav::SecondaryNavbarTest < ActiveSupport::TestCase
     assert_includes rendered, "min-h-12"
   end
 
-  test "supports wide variant" do
-    component = Decor::Nav::SecondaryNavbar.new(variant: :wide)
+  test "supports wide style" do
+    component = Decor::Nav::SecondaryNavbar.new(style: :wide)
     rendered = render_component(component)
 
     assert_includes rendered, "min-h-[68px]"
     assert_not_includes rendered, "min-h-12"
   end
 
-  test "supports narrow variant" do
-    component = Decor::Nav::SecondaryNavbar.new(variant: :narrow)
+  test "supports narrow style" do
+    component = Decor::Nav::SecondaryNavbar.new(style: :narrow)
     rendered = render_component(component)
 
     assert_includes rendered, "min-h-12"

@@ -101,7 +101,7 @@ class Decor::MapTest < ActiveSupport::TestCase
       )
       rendered = render_component(component)
 
-      expected_class = (color == :neutral) ? "border-gray-200" : "border-#{color}"
+      expected_class = "border-#{color}"
       assert_includes rendered, expected_class, "Color #{color} should include #{expected_class}"
     end
   end

@@ -28,14 +28,12 @@ module Decor
     # Status text is displayed to the right of the tabs
     prop :status, _Nilable(String)
 
-    # Size of the tabs
-    prop :size, _Union(:xs, :sm, :md, :lg, :xl), default: :md
+    default_size :md
+    default_color :base
+    default_style :bordered
 
-    # Color scheme using DaisyUI semantic colors
-    prop :color, _Union(:base, :primary, :secondary, :accent, :success, :error, :warning, :info, :neutral), default: :base
-
-    # Visual variant
-    prop :variant, _Union(:ghost, :bordered, :lifted, :boxed), default: :bordered
+    # Redefine styles for tabs-specific options
+    redefine_styles :ghost, :bordered, :lifted, :boxed
 
     def tab_buttons(&block)
       @tab_buttons = block
@@ -166,20 +164,20 @@ module Decor
     end
 
     def tabs_container_classes
-      "tabs #{select_on_mobile? ? "hidden sm:block" : ""} #{variant_classes} #{size_classes} #{color_classes}".strip
+      "tabs #{select_on_mobile? ? "hidden sm:block" : ""} #{style_classes} #{size_classes} #{color_classes}".strip
     end
 
-    def variant_classes
-      case @variant
+    def component_style_classes(style)
+      case style
       when :bordered then "tabs-border"
       when :lifted then "tabs-lift"
       when :boxed then "tabs-box"
-      else "hover:tabs-lift" # ghost variant
+      else "hover:tabs-lift" # ghost style
       end
     end
 
-    def size_classes
-      case @size
+    def component_size_classes(size)
+      case size
       when :xs then "tabs-xs"
       when :sm then "tabs-sm"
       when :lg then "tabs-lg"
@@ -188,9 +186,9 @@ module Decor
       end
     end
 
-    def color_classes
+    def component_color_classes(color)
       # DaisyUI tabs use standard color classes
-      case @color
+      case color
       when :primary then "text-primary"
       when :secondary then "text-secondary"
       when :accent then "text-accent"
@@ -247,10 +245,12 @@ module Decor
     end
 
     def map_badge_color_to_style(color)
+      # Badge now uses standard :filled, :outlined, :ghost styles
+      # Color names are not styles anymore
       case color
-      when :primary, :secondary, :accent then :standard
-      when :warning, :info, :error, :success then color
-      else :standard
+      when :primary, :secondary, :accent then :filled
+      when :warning, :info, :error, :success then :filled
+      else :filled
       end
     end
   end

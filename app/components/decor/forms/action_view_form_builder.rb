@@ -113,7 +113,7 @@ module Decor
         # If image upload used in forms, then form must be mutlipart: true
         self.multipart = true
         @template.render ::Decor::Forms::FileUpload.new(
-          variant: :avatar,
+          preview_type: :avatar,
           max_size_in_mb: 1,
           aspect_w: 1,
           aspect_h: 1,
@@ -131,7 +131,7 @@ module Decor
         # If image upload used in forms, then form must be mutlipart: true
         self.multipart = true
         @template.render ::Decor::Forms::FileUpload.new(
-          variant: :image,
+          preview_type: :image,
           name: field_name(object_name, method),
           object: @object,
           object_name: object_name,
@@ -335,7 +335,7 @@ module Decor
       end
 
       def submit(label = nil, options = {}, &)
-        options = {variant: :contained, color: :secondary}.merge(options)
+        options = {style: :filled, color: :secondary}.merge(options)
         html_options = options.fetch(:html_options, {})
         options[:html_options] = {type: :submit, name: "commit", value: label || submit_default_value}.merge(html_options)
         options[:id] ||= field_id_generator(options, "submit")

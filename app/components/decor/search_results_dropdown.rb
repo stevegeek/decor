@@ -22,7 +22,7 @@ module Decor
 
     private
 
-    def element_classes
+    def root_element_classes
       "hidden absolute top-full inset-x-0 text-sm text-gray-500 h-[375px] border-l border-r border-b border-gray-200"
     end
   end

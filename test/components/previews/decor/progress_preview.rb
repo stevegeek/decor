@@ -4,31 +4,82 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
   # ==================
   #
   # A versatile progress component for showing completion through multi-step processes.
-  # Supports DaisyUI-powered features with multiple variants, colors, and sizes.
+  # Supports DaisyUI-powered features with multiple styles, colors, and sizes.
   #
   # ## Features
-  # - **Multiple Variants**: Steps-only, progress bar-only, or combined display
+  # - **Multiple Styles**: Steps-only, progress bar-only, or combined display
   # - **Color Themes**: 7 semantic color options for different contexts
   # - **Size Options**: 4 sizes from extra small to large
   # - **Accessibility**: Proper ARIA labels and semantic HTML
   # - **Interactive**: Clickable completed steps with optional links
   #
-  # @label Interactive Playground
+  # @group Examples
+  # @label Checkout with both Steps and Progress Bar
+  def example_checkout
+    render ::Decor::Progress.new(
+      steps: [
+        {label_key: "Cart", href: "/cart"},
+        {label_key: "Shipping", href: "/checkout/shipping"},
+        {label_key: "Payment", href: "/checkout/payment"},
+        {label_key: "Review"},
+        {label_key: "Complete"}
+      ],
+      current_step: 3,
+      color: :primary,
+      style: :both
+    )
+  end
+
+  # @group Examples
+  # @label Only Steps Display
+  def example_file_upload
+    render ::Decor::Progress.new(
+      steps: [
+        {label_key: "Selecting Files"},
+        {label_key: "Uploading"},
+        {label_key: "Processing"},
+        {label_key: "Complete"}
+      ],
+      current_step: 2,
+      style: :steps,
+      color: :info,
+      size: :lg
+    )
+  end
+
+  # @group Examples
+  # @label Steps without Numbers
+  def example_onboarding
+    render ::Decor::Progress.new(
+      steps: [
+        {label_key: "Welcome"},
+        {label_key: "Setup Profile"},
+        {label_key: "Connect Accounts"},
+        {label_key: "Customize"},
+        {label_key: "Get Started"}
+      ],
+      current_step: 3,
+      show_numbers: false,
+      color: :accent
+    )
+  end
+
+  # @group Playground
   # @param i18n_key text
   # @param current_step number
-  # @param color [Symbol] select [primary, secondary, accent, success, error, warning, info]
-  # @param size [Symbol] select [xs, sm, md, lg]
-  # @param variant [Symbol] select [steps, progress, both]
   # @param show_numbers toggle
   # @param vertical toggle
+  # @param size [Symbol] select [~, xs, sm, md, lg, xl]
+  # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
+  # @param style [Symbol] select [~, steps, progress, both]
   def playground(
     i18n_key: "",
     current_step: 3,
-    color: :primary,
-    size: :md,
-    variant: :steps,
     show_numbers: true,
-    vertical: false
+    vertical: false,
+    size: nil,
+    color: nil,
+    style: nil
   )
     render ::Decor::Progress.new(
       steps: [
@@ -39,17 +90,17 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
       ],
       i18n_key: i18n_key.presence,
       current_step: current_step,
-      color: color,
-      size: size,
-      variant: variant,
       show_numbers: show_numbers,
-      vertical: vertical
+      vertical: vertical,
+      size: size,
+      color: color,
+      style: style
     )
   end
 
-  # @group Display Variants
+  # @group Display Styles
   # @label Steps Only
-  def variant_steps_only
+  def style_steps_only
     render ::Decor::Progress.new(
       steps: [
         {label_key: "Register"},
@@ -62,9 +113,9 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
     )
   end
 
-  # @group Display Variants
+  # @group Display Styles
   # @label Progress Bar Only
-  def variant_progress_only
+  def style_progress_only
     render ::Decor::Progress.new(
       steps: [
         {label_key: "Uploading"},
@@ -73,15 +124,15 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
         {label_key: "Complete"}
       ],
       current_step: 2,
-      variant: :progress,
+      style: :progress,
       color: :success,
       size: :lg
     )
   end
 
-  # @group Display Variants
+  # @group Display Styles
   # @label Vertical Steps
-  def variant_vertical_steps
+  def style_vertical_steps
     render ::Decor::Progress.new(
       steps: [
         {label_key: "Account Setup"},
@@ -90,15 +141,15 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
         {label_key: "Confirmation"}
       ],
       current_step: 2,
-      variant: :steps,
+      style: :steps,
       color: :primary,
       vertical: true
     )
   end
 
-  # @group Display Variants
+  # @group Display Styles
   # @label Combined Display
-  def variant_combined
+  def style_combined
     render ::Decor::Progress.new(
       steps: [
         {label_key: "Data Collection"},
@@ -107,7 +158,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
         {label_key: "Report Generation"}
       ],
       current_step: 3,
-      variant: :both,
+      style: :both,
       color: :accent
     )
   end
@@ -189,7 +240,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
       steps: compact_steps,
       current_step: 2,
       size: :xs,
-      variant: :steps
+      style: :steps
     )
   end
 
@@ -200,7 +251,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
       steps: compact_steps,
       current_step: 2,
       size: :sm,
-      variant: :steps
+      style: :steps
     )
   end
 
@@ -211,7 +262,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
       steps: compact_steps,
       current_step: 2,
       size: :md,
-      variant: :steps
+      style: :steps
     )
   end
 
@@ -222,7 +273,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
       steps: compact_steps,
       current_step: 2,
       size: :lg,
-      variant: :steps
+      style: :steps
     )
   end
 
@@ -243,64 +294,13 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
     )
   end
 
-  # @group Examples
-  # @label E-commerce Checkout
-  def example_checkout
-    render ::Decor::Progress.new(
-      steps: [
-        {label_key: "Cart", href: "/cart"},
-        {label_key: "Shipping", href: "/checkout/shipping"},
-        {label_key: "Payment", href: "/checkout/payment"},
-        {label_key: "Review"},
-        {label_key: "Complete"}
-      ],
-      current_step: 3,
-      color: :primary,
-      variant: :both
-    )
-  end
-
-  # @group Examples
-  # @label File Upload Process
-  def example_file_upload
-    render ::Decor::Progress.new(
-      steps: [
-        {label_key: "Selecting Files"},
-        {label_key: "Uploading"},
-        {label_key: "Processing"},
-        {label_key: "Complete"}
-      ],
-      current_step: 2,
-      variant: :steps,
-      color: :info,
-      size: :lg
-    )
-  end
-
-  # @group Examples
-  # @label User Onboarding
-  def example_onboarding
-    render ::Decor::Progress.new(
-      steps: [
-        {label_key: "Welcome"},
-        {label_key: "Setup Profile"},
-        {label_key: "Connect Accounts"},
-        {label_key: "Customize"},
-        {label_key: "Get Started"}
-      ],
-      current_step: 3,
-      show_numbers: false,
-      color: :accent
-    )
-  end
-
   # @group States
   # @label Not Started
   def state_not_started
     render ::Decor::Progress.new(
       steps: standard_steps,
       current_step: 0,
-      variant: :both,
+      style: :both,
       color: :primary
     )
   end
@@ -311,7 +311,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
     render ::Decor::Progress.new(
       steps: standard_steps,
       current_step: 2,
-      variant: :both,
+      style: :both,
       color: :primary
     )
   end
@@ -327,7 +327,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
         {label_key: "Done!", href: "#"}
       ],
       current_step: 5,
-      variant: :both,
+      style: :both,
       color: :success
     )
   end
@@ -361,7 +361,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
           {label_key: "Complete"}
         ],
         current_step:,
-        variant: :both,
+        style: :both,
         color: :success,
         size: :lg
       )

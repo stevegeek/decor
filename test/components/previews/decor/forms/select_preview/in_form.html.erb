@@ -1,30 +1,20 @@
 <%= render ::Decor::Forms::Form.new(model: model, url: "#", local: true) do |form_component| %>
   <%= render ::Decor::Forms::LayoutContainer.new do |container| %>
-    <%= render ::Decor::Forms::LayoutSection.new(stacked: stacked_form) do %>
-      <%= form_component.builder.select :option,
+    <%= render ::Decor::Forms::LayoutSection.new(title: "Select", stacked: stacked_form) do %>
+      <%= form_component.builder.select :country,
                    options[:options_array],
                    {
                      disabled_options: options[:disabled_options],
                      label: label,
                      description: description,
-                     compact: compact,
                      show_label: show_label,
-                     value: value,
                      required: required,
-                     disabled: disabled,
                      helper_text: helper_text,
-                     hide_required_asterisk: hide_label_required_asterisk,
-                     label_position: label_position,
-                     grid_span: grid_span,
-                     floating_error_text: floating_error_text,
-                     placeholder: placeholder,
-                     selected_option: options[:selected_option],
-                     include_blank_option: include_blank_option,
-                     disable_blank_option: disable_blank_option
+                     selected_option: options[:selected_option]
                    } %>
     <% end %>
     <% container.with_buttons do %>
-      <%= form_component.builder.submit %>
+      <%= form_component.builder.submit "Submit" %>
     <% end %>
   <% end %>
 <% end %>

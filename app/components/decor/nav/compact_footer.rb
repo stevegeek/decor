@@ -35,7 +35,7 @@ module Decor
 
       private
 
-      def element_classes
+      def root_element_classes
         classes = ["footer", "footer-center"]
         classes << ((@theme == :dark) ? "bg-neutral text-neutral-content" : "bg-base-300")
         classes.join(" ")

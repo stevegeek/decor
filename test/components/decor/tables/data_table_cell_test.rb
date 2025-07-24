@@ -106,8 +106,8 @@ class Decor::Tables::DataTableCellTest < ActiveSupport::TestCase
   test "applies element classes correctly" do
     component = Decor::Tables::DataTableCell.new
 
-    # Test that element_classes method exists and returns expected classes
-    assert_respond_to component, :element_classes
+    # Test that root_element_classes method exists and returns expected classes
+    assert_respond_to component, :root_element_classes
   end
 
   test "supports numeric alignment" do

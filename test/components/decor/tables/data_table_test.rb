@@ -84,8 +84,8 @@ class Decor::Tables::DataTableTest < ActiveSupport::TestCase
     assert_includes rendered, "bg-base-200"
   end
 
-  test "supports variant system with daisyUI colors" do
-    component = Decor::Tables::DataTable.new(variant: :bordered)
+  test "supports style system with daisyUI colors" do
+    component = Decor::Tables::DataTable.new(style: :bordered)
     rendered = render_component(component)
 
     assert_includes rendered, "border-base-300"
@@ -102,7 +102,7 @@ class Decor::Tables::DataTableTest < ActiveSupport::TestCase
 
   test "maintains backward compatibility with existing attributes" do
     component = Decor::Tables::DataTable.new(
-      variant: :minimal,
+      style: :minimal,
       striped: true,
       compact: true
     )

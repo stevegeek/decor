@@ -1,0 +1,26 @@
+<div class="p-4 border rounded-lg">
+  <p class="text-sm font-medium mb-4">Choose your favorite size:</p>
+  <div class="space-y-2">
+    <%= render ::Decor::Forms::Radio.new(
+      name: "favorite_size",
+      label: "Small",
+      value: "small",
+      checked: true
+    ) %>
+    <%= render ::Decor::Forms::Radio.new(
+      name: "favorite_size",
+      label: "Medium",
+      value: "medium"
+    ) %>
+    <%= render ::Decor::Forms::Radio.new(
+      name: "favorite_size",
+      label: "Large",
+      value: "large"
+    ) %>
+    <%= render ::Decor::Forms::Radio.new(
+      name: "favorite_size",
+      label: "Extra Large",
+      value: "xl"
+    ) %>
+  </div>
+</div>

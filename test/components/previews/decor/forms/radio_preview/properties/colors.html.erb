@@ -1,0 +1,14 @@
+<div class="grid grid-cols-2 gap-4">
+  <% %w[primary secondary accent neutral success warning info error].each do |color| %>
+    <div class="p-4 border rounded-lg">
+      <p class="text-sm font-medium mb-2 capitalize"><%= color %></p>
+      <%= render ::Decor::Forms::Radio.new(
+        name: "color_demo",
+        label: "#{color.capitalize} radio",
+        value: color,
+        color: color.to_sym,
+        checked: color == "primary"
+      ) %>
+    </div>
+  <% end %>
+</div>

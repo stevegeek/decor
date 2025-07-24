@@ -7,14 +7,10 @@ module Decor
     prop :title, String
     prop :description, _Nilable(String)
 
-    # Size of the panel group
-    prop :size, _Union(:xs, :sm, :md, :lg, :xl), default: :md
-
-    # Color scheme using DaisyUI semantic colors
-    prop :color, _Union(:base, :primary, :secondary, :accent, :success, :error, :warning, :info, :neutral), default: :base
-
-    # Visual variant
-    prop :variant, _Union(:filled, :outlined, :ghost), default: :filled
+    # Use unified prop system
+    default_size :md
+    default_color :base
+    default_style :filled
 
     def after_component_initialize
       @panels = []
@@ -25,7 +21,7 @@ module Decor
       @main_content = capture(&) if block_given?
 
       root_element do
-        render ::Decor::Card.new(size: @size, color: @color, variant: @variant, classes: "overflow-hidden") do |card|
+        render ::Decor::Card.new(size: @size, color: @color, style: @style, classes: "overflow-hidden") do |card|
           card.card_header do
             card.div(class: "p-4 lg:p-6") do
               card.div(class: "-ml-4 -mt-4 ml-4 mt-4") do
@@ -75,7 +71,7 @@ module Decor
       @cta_content = block
     end
 
-    def element_classes
+    def root_element_classes
       "space-y-4"
     end
 

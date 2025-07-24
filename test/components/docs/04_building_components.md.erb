@@ -1,0 +1,356 @@
+# Building Custom Components for Decor
+
+This guide explains how to create your own components that integrate seamlessly with the Decor design system.
+
+## Prerequisites
+
+Decor is built on top of [Phlex](https://phlex.fun) the [Vident gem](https://github.com/stevegeek/vident), which provides the core view component functionality. You should familiarize yourself with Vident's documentation, especially regarding:
+- Component properties (props)
+- Stimulus integration
+- Caching support
+
+## Basic Component Structure
+
+All Decor components inherit from `PhlexComponent`, which automatically includes support for size, color, and style props:
+
+```ruby
+module Decor
+  class MyComponent < PhlexComponent
+    # Component implementation
+  end
+end
+```
+
+## Common Props: Size, Color, and Style
+
+Decor provides three core concerns that are automatically included in all components:
+
+### Size Support
+
+The `SizeClasses` concern provides standardized sizing:
+
+```ruby
+class MyComponent < PhlexComponent
+  # Set the default size for your component
+  default_size :md
+
+  # Implement size-specific classes
+  def component_size_classes(size)
+    case size
+    when :xs then "text-xs p-1"
+    when :sm then "text-sm p-2"
+    when :md then "text-base p-3"
+    when :lg then "text-lg p-4"
+    when :xl then "text-xl p-5"
+    end
+  end
+end
+```
+
+Standard sizes include: `:xs`, `:sm`, `:md`, `:lg`, `:xl`
+Size aliases are automatically handled: `:small` → `:sm`, `:medium` → `:md`, `:large` → `:lg`
+
+### Color Support
+
+The `ColorClasses` concern provides semantic color support:
+
+```ruby
+class MyComponent < PhlexComponent
+  # Set the default color
+  default_color :primary
+  
+  # Implement color-specific classes
+  def component_color_classes(color)
+    case color
+    when :base then "text-base-content bg-base-100"
+    when :primary then "text-primary-content bg-primary"
+    when :secondary then "text-secondary-content bg-secondary"
+    when :accent then "text-accent-content bg-accent"
+    when :neutral then "text-neutral-content bg-neutral"
+    when :success then "text-success-content bg-success"
+    when :error then "text-error-content bg-error"
+    when :warning then "text-warning-content bg-warning"
+    when :info then "text-info-content bg-info"
+    end
+  end
+end
+```
+
+Available semantic colors: `:base`, `:primary`, `:secondary`, `:accent`, `:neutral`, `:success`, `:error`, `:warning`, `:info`
+
+Helper methods are available for common patterns:
+- `text_color_classes(color)` - Returns text color classes
+- `background_color_classes(color)` - Returns background color classes
+- `border_color_classes(color)` - Returns border color classes
+
+### Style Support
+
+The `StyleClasses` concern provides style variations:
+
+```ruby
+class MyComponent < PhlexComponent
+  # Set the default style
+  default_style :filled
+  
+  # Optionally define custom styles
+  redefine_styles :filled, :outlined, :ghost, :gradient
+  
+  # Implement style-specific classes
+  def component_style_classes(style)
+    case style
+    when :filled then "shadow-sm"
+    when :outlined then "border-2"
+    when :ghost then "bg-transparent hover:bg-base-200"
+    when :gradient then "bg-gradient-to-r"
+    end
+  end
+end
+```
+
+Standard styles include: `:filled`, `:outlined`, `:ghost`
+
+## Complete Component Example
+
+Here's a complete example of a custom Alert component:
+
+```ruby
+module Decor
+  class Alert < PhlexComponent
+    # Define component-specific props
+    prop :title, _Nilable(String)
+    prop :closable, _Boolean, default: false
+    prop :icon, _Nilable(String)
+    
+    # Set defaults
+    default_size :md
+    default_color :info
+    default_style :filled
+    
+    # Define slots for flexible content
+    def with_action(&block)
+      @action = block
+    end
+    
+    # Implement required methods
+    def component_size_classes(size)
+      case size
+      when :xs then "alert-xs text-xs"
+      when :sm then "alert-sm text-sm"
+      when :md then "alert text-base"
+      when :lg then "alert-lg text-lg"
+      when :xl then "alert-xl text-xl"
+      end
+    end
+    
+    def component_color_classes(color)
+      case color
+      when :info then "alert-info"
+      when :success then "alert-success"
+      when :warning then "alert-warning"
+      when :error then "alert-error"
+      else "alert"
+      end
+    end
+    
+    def component_style_classes(style)
+      case style
+      when :filled then ""
+      when :outlined then "border-2 bg-transparent"
+      when :ghost then "bg-transparent border-0"
+      end
+    end
+    
+    # Define the root element configuration
+    def root_element_attributes
+      {
+        tag: :div,
+        role: "alert"
+      }
+    end
+    
+    def root_element_classes
+      [
+        "alert",
+        size_classes,
+        color_classes,
+        style_classes
+      ].join(" ")
+    end
+    
+    # Implement the template
+    def view_template
+      root_element do
+        if @icon
+          icon(name: @icon, size: :sm)
+        end
+        
+        div(class: "flex-1") do
+          if @title
+            h4(class: "font-semibold") { @title }
+          end
+          
+          yield if block_given?
+        end
+        
+        if @action
+          div(class: "flex-none") { render @action }
+        end
+        
+        if @closable
+          button(class: "btn btn-ghost btn-sm") do
+            icon(name: "x", size: :sm)
+          end
+        end
+      end
+    end
+  end
+end
+```
+
+## Using StyleColorClasses Module
+
+For components that follow standard filled/outlined/ghost patterns, you can use the `StyleColorClasses` module:
+
+```ruby
+module Decor
+  class Badge < PhlexComponent
+    include StyleColorClasses
+    
+    default_style :filled
+    default_color :primary
+    
+    def component_size_classes(size)
+      case size
+      when :xs then "badge-xs"
+      when :sm then "badge-sm"
+      when :md then "badge-md"
+      when :lg then "badge-lg"
+      when :xl then "badge-xl"
+      end
+    end
+  end
+end
+```
+
+## Stimulus Integration
+
+Components can integrate with Stimulus controllers using Vident's DSL:
+
+```ruby
+class TogglePanel < PhlexComponent
+  prop :open, _Boolean, default: false
+  
+  # Define Stimulus behavior
+  stimulus do
+    actions [:toggle, :open, :close]
+    targets :panel, :trigger
+    values open: -> { @open }
+    classes expanded: "max-h-96", collapsed: "max-h-0"
+  end
+  
+  def view_template
+    root_element do
+      button(
+        data: stimulus.action(:click, :toggle).merge(stimulus.target(:trigger))
+      ) { "Toggle" }
+      
+      div(
+        data: stimulus.target(:panel),
+        class: tokens(
+          "overflow-hidden transition-all",
+          stimulus.classes(:expanded, when: @open),
+          stimulus.classes(:collapsed, when: !@open)
+        )
+      ) do
+        yield if block_given?
+      end
+    end
+  end
+end
+```
+
+For components that don't need Stimulus integration, use:
+```ruby
+no_stimulus_controller
+```
+
+## Best Practices
+
+1. **Follow DaisyUI conventions**: Use DaisyUI component classes (btn, card, modal, etc.) as the foundation
+2. **Consistent prop naming**: Use snake_case for props and follow Ruby conventions
+3. **Sensible defaults**: Always provide reasonable default values for size, color, and style
+4. **Flexible content**: Use slots (`with_*` methods) for areas where users need to provide custom content
+5. **Composition over inheritance**: Build complex components by composing simpler ones
+6. **Type safety**: Use Vident's type constraints for props to ensure correct usage
+7. **Documentation**: Add preview examples in `test/components/previews/decor/` for your component
+
+## Testing Your Component
+
+Create tests for your component:
+
+```ruby
+# test/components/decor/my_component_test.rb
+class Decor::MyComponentTest < ViewComponent::TestCase
+  test "renders with default props" do
+    render_inline(Decor::MyComponent.new) { "Content" }
+    assert_selector ".my-component"
+  end
+  
+  test "applies size classes" do
+    render_inline(Decor::MyComponent.new(size: :lg)) { "Content" }
+    assert_selector ".my-component-lg"
+  end
+end
+```
+
+## Advanced Features
+
+### Custom DSL
+
+You can extend the component DSL by redefining standard props... though it's recommended to keep the standard props
+for `size` and `color` for consistency across components.
+
+```ruby
+class StatusIndicator < PhlexComponent
+  # Define custom statuses
+  redefine_styles :online, :offline, :busy, :away
+  
+  # Define custom colors specific to your component (not recommended)
+  redefine_colors :green, :red, :yellow, :gray
+
+  # and sizes (not recommended)
+  redefine_sizes :small, :medium, :large
+end
+```
+
+### Caching
+
+Enable caching for expensive components:
+
+```ruby
+class DataTable < PhlexComponent
+  include Vident::Caching
+  with_cache_key :cache_key
+  
+  def cache_key
+    [self.class.name, items.map(&:id), size, color, style]
+  end
+end
+```
+
+## Resources
+
+- [Vident Documentation](https://github.com/stevegeek/vident) - Core component functionality
+- [Phlex Documentation](https://www.phlex.fun/) - Template system
+- [DaisyUI Documentation](https://daisyui.com/) - CSS component classes
+- [Tailwind CSS Documentation](https://tailwindcss.com/) - Utility classes
+
+## Next Steps
+
+1. Start with a simple component that extends `PhlexComponent`
+2. Implement the required `component_*_classes` methods
+3. Add your component-specific props and logic
+4. Create preview examples for testing and documentation
+5. Write tests to ensure your component works correctly
+
+Remember to look at existing components in `app/components/decor/` for inspiration and patterns!

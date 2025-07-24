@@ -50,7 +50,7 @@ class Decor::TagTest < ActiveSupport::TestCase
     component = Decor::Tag.new(label: "Large Tag", size: :lg)
     rendered = render_component(component)
 
-    assert_includes rendered, "px-3 py-1 text-base"
+    assert_includes rendered, "px-4 py-1.5 text-base"
   end
 
   test "applies small size classes" do
@@ -71,27 +71,28 @@ class Decor::TagTest < ActiveSupport::TestCase
     component = Decor::Tag.new(label: "Medium Tag", size: :md)
     rendered = render_component(component)
 
-    assert_includes rendered, "px-2.5 py-0.5 text-sm"
+    assert_includes rendered, "px-3 py-1 text-sm"
   end
 
   test "applies xl size classes" do
     component = Decor::Tag.new(label: "XL Tag", size: :xl)
     rendered = render_component(component)
 
-    assert_includes rendered, "px-4 py-1.5 text-lg"
+    assert_includes rendered, "px-5 py-2 text-lg"
   end
 
-  # Variant tests
-  test "applies outline variant classes" do
-    component = Decor::Tag.new(label: "Outlined", variant: :outlined, color: :primary)
+  # Style tests
+  test "applies outline style classes" do
+    component = Decor::Tag.new(label: "Outlined", style: :outlined, color: :primary)
     rendered = render_component(component)
 
-    assert_includes rendered, "border border-primary"
+    assert_includes rendered, "border-2"
+    assert_includes rendered, "border-primary"
     assert_includes rendered, "text-primary"
   end
 
-  test "filled variant is default" do
-    component = Decor::Tag.new(label: "Filled", variant: :filled, color: :primary)
+  test "filled style is default" do
+    component = Decor::Tag.new(label: "Filled", style: :filled, color: :primary)
     rendered = render_component(component)
 
     assert_includes rendered, "bg-primary"
@@ -99,8 +100,8 @@ class Decor::TagTest < ActiveSupport::TestCase
     refute_includes rendered, "border"
   end
 
-  test "applies ghost variant classes" do
-    component = Decor::Tag.new(label: "Ghost", variant: :ghost, color: :primary)
+  test "applies ghost style classes" do
+    component = Decor::Tag.new(label: "Ghost", style: :ghost, color: :primary)
     rendered = render_component(component)
 
     assert_includes rendered, "text-primary"
@@ -193,15 +194,16 @@ class Decor::TagTest < ActiveSupport::TestCase
     assert_includes rendered, "gap-2"
   end
 
-  test "combines variant and color correctly" do
+  test "combines style and color correctly" do
     component = Decor::Tag.new(
       label: "Combined",
       color: :success,
-      variant: :outlined
+      style: :outlined
     )
     rendered = render_component(component)
 
-    assert_includes rendered, "border border-success"
+    assert_includes rendered, "border-2"
+    assert_includes rendered, "border-success"
     assert_includes rendered, "text-success"
   end
 
@@ -211,7 +213,7 @@ class Decor::TagTest < ActiveSupport::TestCase
 
     assert_equal :md, component.instance_variable_get(:@size)
     assert_equal :neutral, component.instance_variable_get(:@color)
-    assert_equal :filled, component.instance_variable_get(:@variant)
+    assert_equal :filled, component.instance_variable_get(:@style)
     assert_equal false, component.instance_variable_get(:@removable)
   end
 

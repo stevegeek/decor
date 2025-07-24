@@ -3,6 +3,8 @@
 module Decor
   # A card is a container for content which has a border and a shadow.
   class Card < PhlexComponent
+    include Decor::Concerns::StyleColorClasses
+
     no_stimulus_controller
 
     prop :title, _Nilable(String)
@@ -10,14 +12,9 @@ module Decor
     prop :image_position, _Union(:top, :bottom, :left, :right), default: :top
     prop :image_alt, String, default: ""
 
-    # Size of the card
-    prop :size, _Union(:xs, :sm, :md, :lg, :xl), default: :md
-
-    # Color scheme using DaisyUI semantic colors
-    prop :color, _Union(:base, :primary, :secondary, :accent, :success, :error, :warning, :info, :neutral), default: :base
-
-    # Visual variant
-    prop :variant, _Union(:filled, :outlined, :ghost), default: :filled
+    default_size :md
+    default_color :base
+    default_style :filled
 
     def card_header(&block)
       @card_header = block
@@ -50,11 +47,10 @@ module Decor
       end
     end
 
-    def element_classes
+    def root_element_classes
       classes = ["card"]
       classes << size_classes
-      classes << color_classes
-      classes << variant_classes
+      classes << style_classes
       classes << "flex-row" if image_position_horizontal?
       classes.compact.join(" ")
     end
@@ -73,24 +69,14 @@ module Decor
 
     def get_background_class_for_content
       # For horizontal image cards, we need to apply the background to the content area
-      case @variant
+      case @style
       when :ghost
         ""
       when :outlined
         "bg-base-100"
       else
-        # Filled variant
-        case @color
-        when :base then "bg-base-100"
-        when :primary then "bg-primary text-primary-content"
-        when :secondary then "bg-secondary text-secondary-content"
-        when :accent then "bg-accent text-accent-content"
-        when :success then "bg-success text-success-content"
-        when :error then "bg-error text-error-content"
-        when :warning then "bg-warning text-warning-content"
-        when :info then "bg-info text-info-content"
-        when :neutral then "bg-neutral text-neutral-content"
-        end
+        # Filled style
+        filled_color_classes(@color)
       end
     end
 
@@ -133,65 +119,30 @@ module Decor
       [:left, :right].include?(@image_position)
     end
 
-    def size_classes
-      case @size
+    def component_size_classes(size)
+      case size
       when :xs then "card-xs"
       when :sm then "card-sm"
       when :md then "card-md"
       when :lg then "card-lg"
       when :xl then "card-xl"
-      end
-    end
-
-    def color_classes
-      case @variant
-      when :ghost
-        # Ghost variant doesn't use background colors
-        nil
-      when :outlined
-        # Outlined variant uses base background
-        "bg-base-100"
       else
-        # Filled variant
-        case @color
-        when :base then "bg-base-100"
-        when :primary then "bg-primary text-primary-content"
-        when :secondary then "bg-secondary text-secondary-content"
-        when :accent then "bg-accent text-accent-content"
-        when :success then "bg-success text-success-content"
-        when :error then "bg-error text-error-content"
-        when :warning then "bg-warning text-warning-content"
-        when :info then "bg-info text-info-content"
-        when :neutral then "bg-neutral text-neutral-content"
-        end
+        ""
       end
     end
 
-    def variant_classes
-      case @variant
+    def component_style_classes(style)
+      # Override the base implementation to add card-specific shadow classes
+      case style
       when :filled
-        "shadow-sm"
+        "#{filled_color_classes(@color)} shadow-sm"
       when :outlined
-        outline_variant_classes
+        "#{outline_color_classes(@color)} bg-base-100"
       when :ghost
-        "shadow-none"
+        "#{ghost_color_classes(@color)} shadow-none"
+      else
+        ""
       end
-    end
-
-    def outline_variant_classes
-      border_color = case @color
-      when :base then "border-base-300"
-      when :primary then "border-primary"
-      when :secondary then "border-secondary"
-      when :accent then "border-accent"
-      when :success then "border-success"
-      when :error then "border-error"
-      when :warning then "border-warning"
-      when :info then "border-info"
-      when :neutral then "border-neutral"
-      end
-
-      "border #{border_color}"
     end
   end
 end

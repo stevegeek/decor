@@ -31,7 +31,7 @@ module Decor
       def view_template(&)
         vanish(&)
         build_from_menu_items(@menu_items) if @menu_items&.any?
-        @sections_html = render_sections
+        @sections_html = render_sections.html_safe
         root_element do |el|
           # Mobile menu overlay
           div(class: "fixed inset-0 flex z-40 hidden", role: "dialog", aria_modal: "true", data: {**el.stimulus_target(:mobile_menu)}) do
@@ -61,7 +61,7 @@ module Decor
                   label(for: "mobile-search", class: "sr-only") { "Search" }
                   div(class: "relative") do
                     div(class: "pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center") do
-                      render ::Decor::Icon.new(name: "search", variant: :solid, html_options: {class: "h-5 w-5 text-base-content/70"})
+                      render ::Decor::Icon.new(name: "search", style: :solid, html_options: {class: "h-5 w-5 text-base-content/70"})
                     end
                     input(
                       class: "input input-bordered w-full pl-10 bg-base-100 text-base-content placeholder-base-content/70 focus:border-primary",
@@ -99,7 +99,6 @@ module Decor
                   render ::Decor::Avatar.new(
                     size: :md,
                     initials: "C",
-                    border: false,
                     url: @avatar_logo_url,
                     classes: "hidden",
                     stimulus_targets: [el.stimulus_target(:desktop_avatar_logo)]
@@ -136,7 +135,7 @@ module Decor
                   label(for: "side-navbar-desktop-search-input", class: "sr-only") { "Search" }
                   div(class: "relative h-9") do
                     div(class: "pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center") do
-                      render ::Decor::Icon.new(name: "search", variant: :solid, html_options: {class: "h-5 w-5 text-base-content/70"})
+                      render ::Decor::Icon.new(name: "search", style: :solid, html_options: {class: "h-5 w-5 text-base-content/70"})
                     end
                     input(
                       class: "input input-bordered w-full pl-10 bg-base-100 text-base-content placeholder-base-content/70 focus:border-primary",

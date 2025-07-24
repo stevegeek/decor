@@ -6,21 +6,69 @@ class ::Decor::LinkPreview < ::Lookbook::Preview
   # A styled anchor link component with daisyUI btn-link styling.
   # Supports different themes for color, sizes, and disabled state.
   #
-  # @label Playground
+  # @group Examples
+  # @label Simple Link
+  def simple_link
+    render ::Decor::Link.new(
+      label: "Learn more",
+      href: "/about"
+    )
+  end
+
+  # @group Examples
+  # @label Navigation Link
+  def navigation_link
+    render ::Decor::Link.new(
+      label: "Dashboard",
+      href: "/dashboard",
+      icon: "home",
+      color: :primary
+    )
+  end
+
+  # @group Examples
+  # @label Download Link
+  def download_link
+    render ::Decor::Link.new(
+      label: "Download Report",
+      href: "/reports/annual.pdf",
+      icon: "download",
+      color: :accent,
+      data: {turbo: false}
+    )
+  end
+
+  # @group Examples
+  # @label Action Links
+  def action_links
+    render_with_template(
+      locals: {
+        links: [
+          ::Decor::Link.new(label: "Edit", href: "/edit", icon: "pencil", color: :primary, size: :sm),
+          ::Decor::Link.new(label: "Delete", href: "/delete", icon: "trash", color: :error, size: :sm, http_method: :delete, turbo_confirm: "Are you sure?"),
+          ::Decor::Link.new(label: "Archive", href: "/archive", icon: "archive-box", color: :neutral, size: :sm)
+        ]
+      }
+    )
+  end
+
+  # @group Playground
   # @param label text
   # @param href text
-  # @param color select {choices: [primary, secondary, danger, warning, neutral]}
-  # @param size select {choices: [large, medium, small, micro]}
-  # @param disabled toggle
   # @param icon select [~, check-circle, x, check, download, play]
-  def playground(label: "Click me", href: "#", color: :primary, size: :medium, disabled: false, icon: nil)
+  # @param disabled toggle
+  # @param size [Symbol] select [~, xs, sm, md, lg, xl]
+  # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
+  # @param style [Symbol] select [~, filled, outlined, ghost]
+  def playground(label: "Click me", href: "#", icon: nil, disabled: false, size: nil, color: nil, style: nil)
     render ::Decor::Link.new(
       label: label,
       href: href,
-      color: color.to_sym,
-      size: size.to_sym,
+      icon: icon,
       disabled: disabled,
-      icon: icon.present? ? icon : nil
+      size: size,
+      color: color,
+      style: style
     )
   end
 
@@ -37,9 +85,9 @@ class ::Decor::LinkPreview < ::Lookbook::Preview
   end
 
   # @group Themes
-  # @label Danger Theme
-  def theme_danger
-    render ::Decor::Link.new(label: "Danger Link", href: "#", color: :danger)
+  # @label Error Theme
+  def theme_error
+    render ::Decor::Link.new(label: "Error Link", href: "#", color: :error)
   end
 
   # @group Themes
@@ -57,25 +105,25 @@ class ::Decor::LinkPreview < ::Lookbook::Preview
   # @group Sizes
   # @label Large Size
   def size_large
-    render ::Decor::Link.new(label: "Large Link", href: "#", size: :large)
+    render ::Decor::Link.new(label: "Large Link", href: "#", size: :lg)
   end
 
   # @group Sizes
   # @label Medium Size
   def size_medium
-    render ::Decor::Link.new(label: "Medium Link", href: "#", size: :medium)
+    render ::Decor::Link.new(label: "Medium Link", href: "#", size: :md)
   end
 
   # @group Sizes
   # @label Small Size
   def size_small
-    render ::Decor::Link.new(label: "Small Link", href: "#", size: :small)
+    render ::Decor::Link.new(label: "Small Link", href: "#", size: :sm)
   end
 
   # @group Sizes
-  # @label Micro Size
-  def size_micro
-    render ::Decor::Link.new(label: "Micro Link", href: "#", size: :micro)
+  # @label Extra Small Size
+  def size_xs
+    render ::Decor::Link.new(label: "XS Link", href: "#", size: :xs)
   end
 
   # @group With Icons
@@ -87,13 +135,13 @@ class ::Decor::LinkPreview < ::Lookbook::Preview
   # @group With Icons
   # @label Large with Icon
   def icon_large
-    render ::Decor::Link.new(label: "Large with icon", href: "#", icon: "heart", size: :large)
+    render ::Decor::Link.new(label: "Large with icon", href: "#", icon: "heart", size: :lg)
   end
 
   # @group With Icons
   # @label Small with Icon
   def icon_small
-    render ::Decor::Link.new(label: "Small with icon", href: "#", icon: "bell", size: :small)
+    render ::Decor::Link.new(label: "Small with icon", href: "#", icon: "bell", size: :sm)
   end
 
   # @group Disabled States
@@ -109,9 +157,9 @@ class ::Decor::LinkPreview < ::Lookbook::Preview
   end
 
   # @group Disabled States
-  # @label Disabled Danger
-  def disabled_danger
-    render ::Decor::Link.new(label: "Disabled Danger", href: "#", color: :danger, disabled: true)
+  # @label Disabled Error
+  def disabled_error
+    render ::Decor::Link.new(label: "Disabled Error", href: "#", color: :error, disabled: true)
   end
 
   # @group External Links
@@ -135,7 +183,7 @@ class ::Decor::LinkPreview < ::Lookbook::Preview
   # @group Turbo Methods
   # @label DELETE Request
   def turbo_delete
-    render ::Decor::Link.new(label: "DELETE request", href: "/delete-item", http_method: :delete, color: :danger)
+    render ::Decor::Link.new(label: "DELETE request", href: "/delete-item", http_method: :delete, color: :error)
   end
 
   # @group Turbo Methods
@@ -176,7 +224,7 @@ class ::Decor::LinkPreview < ::Lookbook::Preview
       href: "/dangerous-action",
       http_method: :delete,
       turbo_confirm: "Are you sure you want to delete this?",
-      color: :danger
+      color: :error
     )
   end
 

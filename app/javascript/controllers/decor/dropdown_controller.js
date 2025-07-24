@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus";
-import { markAsSafeHTML, safelySetInnerHTML, replaceContentsWithChildren, createAxiosInstance } from "controllers/decor";
+import { markAsSafeHTML, safelySetInnerHTML, replaceContentsWithChildren, createHTTPClient } from "controllers/decor";
 export default class extends Controller {
     constructor() {
         super(...arguments);
@@ -95,8 +95,8 @@ export default class extends Controller {
         }
     }
     async getContent(contentHref) {
-        const axios = createAxiosInstance();
-        return axios
+        const httpClient = createHTTPClient();
+        return httpClient
             .get(contentHref, {
             headers: {
                 "Content-Type": "text/html",

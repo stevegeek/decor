@@ -11,7 +11,7 @@ class Decor::IconTest < ActiveSupport::TestCase
   end
 
   test "applies correct variant classes" do
-    component = Decor::Icon.new(name: "user", variant: :solid)
+    component = Decor::Icon.new(name: "user", style: :solid)
     rendered = render_component(component)
 
     assert_includes rendered, "heroicons/solid/user"
@@ -33,7 +33,7 @@ class Decor::IconTest < ActiveSupport::TestCase
   end
 
   test "renders small solid variant" do
-    component = Decor::Icon.new(name: "check", variant: :small_solid)
+    component = Decor::Icon.new(name: "check", style: :small_solid)
     rendered = render_component(component)
 
     assert_includes rendered, "heroicons/small_solid/check"
@@ -49,7 +49,7 @@ class Decor::IconTest < ActiveSupport::TestCase
   end
 
   test "generates correct file name" do
-    component = Decor::Icon.new(name: "arrow-left", collection: :heroicons, variant: :outline)
+    component = Decor::Icon.new(name: "arrow-left", collection: :heroicons, style: :outline)
     expected_filename = "heroicons/outline/arrow-left.svg"
 
     assert_equal expected_filename, component.file_name
@@ -63,5 +63,24 @@ class Decor::IconTest < ActiveSupport::TestCase
     assert_not_nil svg
     assert_equal "24", svg["width"]
     assert_equal "24", svg["height"]
+  end
+
+  test "handles nil style by falling back to default" do
+    component = Decor::Icon.new(name: "test-icon", style: nil)
+
+    # Should use the default style :outline when style is nil
+    expected_filename = "heroicons/outline/test-icon.svg"
+    assert_equal expected_filename, component.file_name
+
+    # Ensure no double slashes in the path
+    refute_includes component.file_name, "//"
+  end
+
+  test "uses default style when style not provided" do
+    component = Decor::Icon.new(name: "default-icon")
+
+    # Should use the default style :outline
+    expected_filename = "heroicons/outline/default-icon.svg"
+    assert_equal expected_filename, component.file_name
   end
 end

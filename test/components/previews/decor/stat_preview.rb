@@ -7,71 +7,117 @@ class ::Decor::StatPreview < ::Lookbook::Preview
   # Perfect for dashboards, analytics displays, and anywhere numerical data needs to be prominently featured.
   # Supports icons, descriptions, actions, and various color themes.
   #
-  # @label Playground
+  # @group Examples
+  # @label Basic Stat
+  def basic_stat
+    render ::Decor::Stats.new do |el|
+      el.render ::Decor::Stat.new(
+        title: "Total Revenue",
+        value: "$45,231",
+        description: "+20.1% from last month"
+      )
+    end
+  end
+
+  # @group Examples
+  # @label Stat with Icon
+  def stat_with_icon
+    render ::Decor::Stats.new do |el|
+      el.render ::Decor::Stat.new(
+        title: "Active Users",
+        value: "2,847",
+        description: "Currently online",
+        color: :success,
+        icon: "users"
+      )
+    end
+  end
+
+  # @group Examples
+  # @label Multiple Stats
+  def multiple_stats
+    render ::Decor::Stats.new(orientation: :horizontal) do |el|
+      el.render ::Decor::Stat.new(
+        title: "Downloads",
+        value: "31K",
+        description: "Total downloads",
+        icon: "download"
+      )
+      el.render ::Decor::Stat.new(
+        title: "New Users",
+        value: "4,200",
+        description: "↗︎ 400 (22%)",
+        color: :success,
+        icon: "users"
+      )
+      el.render ::Decor::Stat.new(
+        title: "Active Sessions",
+        value: "1,250",
+        description: "Currently active",
+        color: :primary,
+        icon: "eye"
+      )
+    end
+  end
+
+  # @group Playground
   # @param title text
   # @param value text
   # @param description text
-  # @param color select [neutral, primary, secondary, accent, success, error, warning, info]
-  # @param centered toggle
   # @param icon select [~, chart-bar, users, heart, download, eye, star, currency-dollar]
   # @param icon_color select [~, primary, secondary, accent, success, error, warning, info]
+  # @param centered toggle
   # @param orientation select [horizontal, vertical]
   # @param shadow toggle
   # @param responsive toggle
+  # @param size [Symbol] select [~, xs, sm, md, lg, xl]
+  # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
+  # @param style [Symbol] select [~, filled, outlined, ghost]
   def playground(
     title: "Total Page Views",
     value: "89,400",
     description: "21% more than last month",
-    color: :neutral,
-    centered: false,
     icon: nil,
     icon_color: nil,
+    centered: false,
     orientation: :horizontal,
     shadow: true,
-    responsive: false
+    responsive: false,
+    size: nil,
+    color: nil,
+    style: nil
   )
     render ::Decor::Stats.new(orientation: orientation.to_sym, shadow: shadow, responsive: responsive) do |el|
       el.render ::Decor::Stat.new(
         title: title,
         value: value,
         description: description,
-        color: color.to_sym,
-        centered: centered,
         icon: icon,
-        icon_color: icon_color&.to_sym
+        icon_color: icon_color&.to_sym,
+        centered: centered,
+        size: size,
+        color: color,
+        style: style
       )
     end
   end
 
-  # @group Basic Examples
-  # @label Simple Stat
-  def basic_simple
+  # @group Alignment
+  # @label Left Aligned (Default)
+  def align_left
     render ::Decor::Stats.new do |el|
       el.render ::Decor::Stat.new(
         title: "Total Downloads",
         value: "31K",
-        description: "From January 1st to February 1st"
+        description: "From January 1st to February 1st",
+        centered: false
       )
     end
   end
 
-  # @group Basic Examples
-  # @label With Icon
-  def basic_with_icon
-    render ::Decor::Stats.new do |el|
-      el.render ::Decor::Stat.new(
-        title: "Total Likes",
-        value: "25.6K",
-        description: "21% more than last month",
-        color: :primary,
-        icon: "heart"
-      )
-    end
-  end
-
-  # @group Basic Examples
-  # @label Centered Content
-  def basic_centered
+  # @group Alignment
+  # @label Center Aligned
+  def align_center
     render ::Decor::Stats.new do |el|
       el.render ::Decor::Stat.new(
         title: "Downloads",
@@ -194,9 +240,9 @@ class ::Decor::StatPreview < ::Lookbook::Preview
     end
   end
 
-  # @group Multiple Stats
+  # @group Layouts
   # @label Horizontal Layout
-  def multiple_horizontal
+  def layout_horizontal
     render ::Decor::Stats.new(orientation: :horizontal) do |el|
       el.render ::Decor::Stat.new(
         title: "Total Page Views",
@@ -218,9 +264,9 @@ class ::Decor::StatPreview < ::Lookbook::Preview
     end
   end
 
-  # @group Multiple Stats
+  # @group Layouts
   # @label Vertical Layout
-  def multiple_vertical
+  def layout_vertical
     render ::Decor::Stats.new(orientation: :vertical) do |el|
       el.render ::Decor::Stat.new(
         title: "Downloads",
@@ -242,9 +288,9 @@ class ::Decor::StatPreview < ::Lookbook::Preview
     end
   end
 
-  # @group Multiple Stats
+  # @group Layouts
   # @label Responsive Layout
-  def multiple_responsive
+  def layout_responsive
     render ::Decor::Stats.new(responsive: true) do |el|
       el.render ::Decor::Stat.new(
         title: "Account Balance",
@@ -267,9 +313,9 @@ class ::Decor::StatPreview < ::Lookbook::Preview
     end
   end
 
-  # @group Advanced Examples
+  # @group With Custom Content
   # @label With Figure Block
-  def advanced_figure_block
+  def custom_figure_block
     render ::Decor::Stats.new do |el|
       el.render ::Decor::Stat.new(
         title: "Active Users",
@@ -288,9 +334,9 @@ class ::Decor::StatPreview < ::Lookbook::Preview
     end
   end
 
-  # @group Advanced Examples
+  # @group With Custom Content
   # @label With Actions
-  def advanced_with_actions
+  def custom_with_actions
     render ::Decor::Stats.new do |el|
       el.render ::Decor::Stat.new(
         title: "Account Balance",
@@ -308,9 +354,9 @@ class ::Decor::StatPreview < ::Lookbook::Preview
     end
   end
 
-  # @group Advanced Examples
+  # @group With Custom Content
   # @label Complex Dashboard Stats
-  def advanced_dashboard
+  def custom_dashboard
     render ::Decor::Stats.new(responsive: true) do |el|
       el.render ::Decor::Stat.new(
         title: "Revenue",
@@ -382,9 +428,9 @@ class ::Decor::StatPreview < ::Lookbook::Preview
     end
   end
 
-  # @group Block Usage
+  # @group With Custom Content
   # @label Custom Value Content
-  def block_custom_value
+  def custom_value_content
     render ::Decor::Stats.new do |el|
       el.render ::Decor::Stat.new(
         title: "Complex Metric",
@@ -396,9 +442,9 @@ class ::Decor::StatPreview < ::Lookbook::Preview
     end
   end
 
-  # @group Block Usage
+  # @group With Custom Content
   # @label Full Custom Content
-  def block_full_custom
+  def custom_full_content
     render ::Decor::Stats.new do |el|
       el.render ::Decor::Stat.new(centered: true) do |stat|
         stat.div(class: "stat-title") { "Custom Layout" }
@@ -408,9 +454,9 @@ class ::Decor::StatPreview < ::Lookbook::Preview
     end
   end
 
-  # @group Real World Examples
+  # @group Examples
   # @label E-commerce Dashboard
-  def example_ecommerce
+  def ecommerce_dashboard
     render ::Decor::Stats.new(responsive: true, shadow: true) do |el|
       el.render ::Decor::Stat.new(
         title: "Total Sales",
@@ -443,9 +489,9 @@ class ::Decor::StatPreview < ::Lookbook::Preview
     end
   end
 
-  # @group Real World Examples
+  # @group Examples
   # @label Website Analytics
-  def example_analytics
+  def website_analytics
     render ::Decor::Stats.new(orientation: :vertical, shadow: true) do |el|
       el.render ::Decor::Stat.new(
         title: "Page Views",

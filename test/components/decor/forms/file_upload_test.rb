@@ -129,11 +129,11 @@ class Decor::Forms::FileUploadTest < ActiveSupport::TestCase
     assert_includes rendered, "Choose an image file for your avatar"
   end
 
-  test "supports image variant with preview" do
+  test "supports image style with preview" do
     component = Decor::Forms::FileUpload.new(
       name: "avatar",
       label: "Upload Avatar",
-      variant: :image,
+      preview_type: :image,
       existing_file_url: "https://example.com/avatar.jpg"
     )
     fragment = render_fragment(component)
@@ -143,11 +143,11 @@ class Decor::Forms::FileUploadTest < ActiveSupport::TestCase
     assert_equal "https://example.com/avatar.jpg", image["src"]
   end
 
-  test "supports avatar variant" do
+  test "supports avatar style" do
     component = Decor::Forms::FileUpload.new(
       name: "avatar",
       label: "Upload Avatar",
-      variant: :avatar,
+      preview_type: :avatar,
       initials: "AB"
     )
     rendered = render_component(component)

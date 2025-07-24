@@ -6,34 +6,6 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # A dropdown is a menu that displays when a target button is clicked.
   # Now supports modern DaisyUI attributes for consistent styling.
   #
-  # @label Playground
-  # @param size select [xs, sm, md, lg, xl]
-  # @param color select [base, primary, secondary, accent, success, error, warning, info, neutral]
-  # @param variant select [default, bordered, filled]
-  # @param position select [left, right, top, bottom, end, center, start]
-  # @param trigger select [click, hover, focus] "Interaction mode"
-  # @param force_open select [auto, open, closed] "Force open/closed state"
-  # @param button_active_classes [Array] text "Legacy button classes (for backward compatibility)"
-  def playground(size: :md, color: :base, variant: :default, position: :left, trigger: :click, force_open: :auto, button_active_classes: [])
-    render ::Decor::Dropdown.new(
-      size: size,
-      color: color,
-      variant: variant,
-      position: position,
-      trigger: trigger,
-      force_open: force_open,
-      button_active_classes: button_active_classes
-    ) do |dropdown|
-      dropdown.trigger_button_content do
-        "Options"
-      end
-
-      dropdown.menu_item(::Decor::DropdownItem.new(text: "Menu Item 1", href: "#"))
-      dropdown.menu_item(::Decor::DropdownItem.new(text: "Menu Item 2", href: "#"))
-      dropdown.menu_item(::Decor::DropdownItem.new(text: "Menu Item 3", href: "#"))
-    end
-  end
-
   # @group Examples
   # @label With Avatar Button
   def example_avatar_button
@@ -57,7 +29,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @group Examples
   # @label With Item Actions
   def example_item_actions
-    render ::Decor::Dropdown.new(color: :primary, variant: :bordered) do |dropdown| # Example using modern attributes
+    render ::Decor::Dropdown.new(color: :primary, style: :outlined) do |dropdown| # Example using modern attributes
       dropdown.trigger_button_content do
         plain "Actions"
         render ::Decor::Icon.new(name: "chevron-down", html_options: {class: "ml-2 -mr-1 h-4 w-4"})
@@ -113,6 +85,34 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
       dropdown.menu_item(::Decor::DropdownItem.new(text: "Option 1", href: "#"))
       dropdown.menu_item(::Decor::DropdownItem.new(text: "Option 2", href: "#"))
       dropdown.menu_item(::Decor::DropdownItem.new(text: "Option 3", href: "#"))
+    end
+  end
+
+  # @group Playground
+  # @param size [Symbol] select [~, xs, sm, md, lg, xl]
+  # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
+  # @param style [Symbol] select [~, filled, outlined]
+  # @param position select [Symbol] [left, right, top, bottom, end, center, start]
+  # @param trigger select [Symbol] [click, hover, focus]
+  # @param force_open select [Symbol] [auto, open, closed]
+  # @param button_active_classes text
+  def playground(size: nil, color: nil, style: nil, position: :left, trigger: :click, force_open: :auto, button_active_classes: [])
+    render ::Decor::Dropdown.new(
+      size: size,
+      color: color,
+      style: style,
+      position: position,
+      trigger: trigger,
+      force_open: force_open,
+      button_active_classes: button_active_classes
+    ) do |dropdown|
+      dropdown.trigger_button_content do
+        "Options"
+      end
+
+      dropdown.menu_item(::Decor::DropdownItem.new(text: "Menu Item 1", href: "#"))
+      dropdown.menu_item(::Decor::DropdownItem.new(text: "Menu Item 2", href: "#"))
+      dropdown.menu_item(::Decor::DropdownItem.new(text: "Menu Item 3", href: "#"))
     end
   end
 
@@ -246,31 +246,21 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
     end
   end
 
-  # @group Variants
-  # @label Default Variant
-  def variant_default
-    render ::Decor::Dropdown.new(variant: :default, color: :primary) do |dropdown|
-      dropdown.trigger_button_content { "Default Style" }
-      dropdown.menu_item(::Decor::DropdownItem.new(text: "Menu Item 1", href: "#"))
-      dropdown.menu_item(::Decor::DropdownItem.new(text: "Menu Item 2", href: "#"))
-    end
-  end
-
-  # @group Variants
-  # @label Bordered Variant
-  def variant_bordered
-    render ::Decor::Dropdown.new(variant: :bordered, color: :primary) do |dropdown|
-      dropdown.trigger_button_content { "Bordered Style" }
-      dropdown.menu_item(::Decor::DropdownItem.new(text: "Menu Item 1", href: "#"))
-      dropdown.menu_item(::Decor::DropdownItem.new(text: "Menu Item 2", href: "#"))
-    end
-  end
-
-  # @group Variants
-  # @label Filled Variant
-  def variant_filled
-    render ::Decor::Dropdown.new(variant: :filled, color: :primary) do |dropdown|
+  # @group Styles
+  # @label Filled Style
+  def style_filled
+    render ::Decor::Dropdown.new(style: :filled, color: :primary) do |dropdown|
       dropdown.trigger_button_content { "Filled Style" }
+      dropdown.menu_item(::Decor::DropdownItem.new(text: "Menu Item 1", href: "#"))
+      dropdown.menu_item(::Decor::DropdownItem.new(text: "Menu Item 2", href: "#"))
+    end
+  end
+
+  # @group Styles
+  # @label Outlined Style
+  def style_outlined
+    render ::Decor::Dropdown.new(style: :outlined, color: :primary) do |dropdown|
+      dropdown.trigger_button_content { "Outlined Style" }
       dropdown.menu_item(::Decor::DropdownItem.new(text: "Menu Item 1", href: "#"))
       dropdown.menu_item(::Decor::DropdownItem.new(text: "Menu Item 2", href: "#"))
     end
@@ -352,7 +342,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
     render ::Decor::Dropdown.new(
       position: :end,
       color: :primary,
-      variant: :bordered
+      style: :outlined
     ) do |dropdown|
       dropdown.trigger_button_content do
         div(class: "flex items-center gap-2") do
@@ -382,7 +372,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
     render ::Decor::Dropdown.new(
       size: :lg,
       color: :secondary,
-      variant: :filled
+      style: :filled
     ) do |dropdown|
       dropdown.trigger_button_content do
         div(class: "flex items-center gap-2") do
@@ -569,7 +559,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
     end
   end
 
-  # @group Custom Content
+  # @group Examples
   # @label Custom HTML Content
   def custom_content_example
     render ::Decor::Dropdown.new(

@@ -43,7 +43,7 @@ module Decor
         end
       end
 
-      def element_classes
+      def root_element_classes
         "flex flex-col gap-2 p-4"
       end
     end
