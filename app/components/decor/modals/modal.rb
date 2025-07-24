@@ -30,10 +30,10 @@ module Decor
               render ::Decor::Spinner.new(html_options: {class: "mx-auto w-8 h-8"})
             end
           end
-          
+
           # Modal backdrop - clicking outside closes if enabled
           form(
-            method: "dialog", 
+            method: "dialog",
             class: "modal-backdrop",
             data: {
               **stimulus_action(:click, :overlay_clicked),

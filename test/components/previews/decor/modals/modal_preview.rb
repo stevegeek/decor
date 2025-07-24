@@ -4,7 +4,6 @@ class ::Decor::Modals::ModalPreview < ::Lookbook::Preview
   # Modals should be used sparingly for critical interactions that require user attention.
   # Generally, render only one modal at a time and reuse it by changing contents dynamically.
 
-
   # @label Example
   # A simple modal with text content
   def basic_modal
@@ -77,7 +76,7 @@ class ::Decor::Modals::ModalPreview < ::Lookbook::Preview
   def complete_example
     render_with_template
   end
-  
+
   # @label With Modal Layout
   # Using ModalLayout for structured content
   def with_modal_layout
