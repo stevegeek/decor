@@ -31,7 +31,7 @@ module Decor
       def view_template(&)
         vanish(&)
         build_from_menu_items(@menu_items) if @menu_items&.any?
-        @sections_html = render_sections
+        @sections_html = render_sections.html_safe
         root_element do |el|
           # Mobile menu overlay
           div(class: "fixed inset-0 flex z-40 hidden", role: "dialog", aria_modal: "true", data: {**el.stimulus_target(:mobile_menu)}) do

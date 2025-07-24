@@ -1,11 +1,75 @@
+# Navigation item for side navbar with support for icons, counters, and expandable sub-items
 # @label Side Navbar Item
 class ::Decor::Nav::SideNavbarItemPreview < ::Lookbook::Preview
-  # Side Navbar Item
-  # -------
-  #
-  # A navigation item that can either be a simple link or an expandable item
-  # with sub-items. Supports icons, counters, and selection states.
-  #
+  # @group Examples
+
+  # @label Simple Link
+  def simple_link
+    render ::Decor::Nav::SideNavbarItem.new(
+      title: "Dashboard",
+      icon: "home",
+      path: "/dashboard"
+    )
+  end
+
+  # @label With Counter
+  def with_counter
+    render ::Decor::Nav::SideNavbarItem.new(
+      title: "Notifications",
+      icon: "bell",
+      path: "/notifications",
+      counter: 5
+    )
+  end
+
+  # @label Expandable with Sub-items
+  def expandable_with_sub_items
+    render ::Decor::Nav::SideNavbarItem.new(
+      title: "Settings",
+      icon: "cog"
+    ) do |item|
+      item.with_sub_item(title: "General", path: "/settings/general")
+      item.with_sub_item(title: "Security", path: "/settings/security", selected: true)
+      item.with_sub_item(title: "Billing", path: "/settings/billing")
+      item.with_sub_item(title: "Team", path: "/settings/team")
+    end
+  end
+
+  # @label Complete Navigation
+  def complete_navigation
+    render ::Decor::Element.new html_options: {class: "space-y-1"} do |nav|
+      nav.render ::Decor::Nav::SideNavbarItem.new(
+        title: "Dashboard",
+        icon: "home",
+        path: "/dashboard",
+        selected: true
+      )
+      nav.render ::Decor::Nav::SideNavbarItem.new(
+        title: "Projects",
+        icon: "folder"
+      ) do |item|
+        item.with_sub_item(title: "All Projects", path: "/projects")
+        item.with_sub_item(title: "Active", path: "/projects/active")
+        item.with_sub_item(title: "Archived", path: "/projects/archived")
+      end
+      nav.render ::Decor::Nav::SideNavbarItem.new(
+        title: "Messages",
+        icon: "mail",
+        path: "/messages",
+        counter: 12
+      )
+      nav.render ::Decor::Nav::SideNavbarItem.new(
+        title: "Settings",
+        icon: "cog",
+        path: "/settings"
+      )
+    end
+  end
+
+  # @endgroup
+
+  # @group Playground
+
   # @label Playground
   # @param title [String] text
   # @param icon [String] text
@@ -36,51 +100,31 @@ class ::Decor::Nav::SideNavbarItemPreview < ::Lookbook::Preview
     end
   end
 
-  # @label Simple Link Item
-  def simple_link_item
+  # @endgroup
+
+  # @group States
+
+  # @label Default State
+  def state_default
     render ::Decor::Nav::SideNavbarItem.new(
-      title: "Dashboard",
-      icon: "home",
-      path: "/dashboard"
+      title: "Analytics",
+      icon: "chart-bar",
+      path: "/analytics"
     )
   end
 
-  # @label Selected Item
-  def selected_item
+  # @label Selected State
+  def state_selected
     render ::Decor::Nav::SideNavbarItem.new(
-      title: "Users",
-      icon: "users",
-      path: "/users",
+      title: "Reports",
+      icon: "document-report",
+      path: "/reports",
       selected: true
     )
   end
 
-  # @label Item with Counter
-  def item_with_counter
-    render ::Decor::Nav::SideNavbarItem.new(
-      title: "Notifications",
-      icon: "bell",
-      path: "/notifications",
-      counter: 5
-    )
-  end
-
-  # @label Expandable Item with Sub-items
-  def expandable_item
-    render ::Decor::Nav::SideNavbarItem.new(
-      title: "Settings",
-      icon: "cog",
-      selected: false
-    ) do |item|
-      item.with_sub_item(title: "General", path: "/settings/general")
-      item.with_sub_item(title: "Security", path: "/settings/security", selected: true)
-      item.with_sub_item(title: "Billing", path: "/settings/billing")
-      item.with_sub_item(title: "Team", path: "/settings/team")
-    end
-  end
-
-  # @label Expanded Item (Selected)
-  def expanded_item_selected
+  # @label Expanded with Selected Sub-item
+  def state_expanded_selected
     render ::Decor::Nav::SideNavbarItem.new(
       title: "Projects",
       icon: "folder",
@@ -89,92 +133,43 @@ class ::Decor::Nav::SideNavbarItemPreview < ::Lookbook::Preview
       item.with_sub_item(title: "All Projects", path: "/projects")
       item.with_sub_item(title: "Active", path: "/projects/active", selected: true)
       item.with_sub_item(title: "Archived", path: "/projects/archived")
-      item.with_sub_item(title: "Templates", path: "/projects/templates")
     end
   end
 
-  # @label Item Without Icon
-  def item_without_icon
+  # @endgroup
+
+  # @group Variations
+
+  # @label Without Icon
+  def without_icon
     render ::Decor::Nav::SideNavbarItem.new(
       title: "Documentation",
       path: "/docs"
     )
   end
 
-  # @label Multiple Navigation Items
-  def multiple_items
-    render ::Decor::Element.new html_options: {class: "space-y-4"} do |nav|
-      nav.render ::Decor::Nav::SideNavbarItem.new(
-        title: "Dashboard",
-        icon: "home",
-        path: "/dashboard",
-        selected: true
-      )
-      nav.render ::Decor::Nav::SideNavbarItem.new(
-        title: "Projects",
-        icon: "folder",
-        selected: false
-      ) do |item|
-        item.with_sub_item(title: "All Projects", path: "/projects")
-        item.with_sub_item(title: "Active", path: "/projects/active")
-        item.with_sub_item(title: "Archived", path: "/projects/archived")
-      end
-      nav.render ::Decor::Nav::SideNavbarItem.new(
-        title: "Team",
-        icon: "users",
-        path: "/team"
-      )
-      nav.render ::Decor::Nav::SideNavbarItem.new(
-        title: "Messages",
-        icon: "mail",
-        path: "/messages",
-        counter: 12
-      )
-      nav.render ::Decor::Nav::SideNavbarItem.new(
-        title: "Settings",
-        icon: "cog"
-      ) do |item|
-        item.with_sub_item(title: "General", path: "/settings/general")
-        item.with_sub_item(title: "Security", path: "/settings/security")
-        item.with_sub_item(title: "Billing", path: "/settings/billing")
-      end
+  # @label With Large Counter
+  def with_large_counter
+    render ::Decor::Nav::SideNavbarItem.new(
+      title: "Inbox",
+      icon: "inbox",
+      path: "/inbox",
+      counter: 99
+    )
+  end
+
+  # @label Nested Sub-items
+  def nested_sub_items
+    render ::Decor::Nav::SideNavbarItem.new(
+      title: "Admin",
+      icon: "shield-check"
+    ) do |item|
+      item.with_sub_item(title: "Users", path: "/admin/users")
+      item.with_sub_item(title: "Roles & Permissions", path: "/admin/roles")
+      item.with_sub_item(title: "Audit Log", path: "/admin/audit")
+      item.with_sub_item(title: "System Settings", path: "/admin/system")
     end
   end
 
-  # @label Item States Comparison
-  def item_states_comparison
-    render ::Decor::Element.new html_options: {class: "space-y-4"} do |nav|
-      nav.h4 "Normal", class: "text-gray-400 text-xs uppercase tracking-wider font-semibold"
-      nav.render ::Decor::Nav::SideNavbarItem.new(
-        title: "Analytics",
-        icon: "chart-bar",
-        path: "/analytics"
-      )
-
-      nav.h4 "Selected", class: "text-gray-400 text-xs uppercase tracking-wider font-semibold mt-4"
-      nav.render ::Decor::Nav::SideNavbarItem.new(
-        title: "Reports",
-        icon: "document-report",
-        path: "/reports",
-        selected: true
-      )
-
-      nav.h4 "With Counter", class: "text-gray-400 text-xs uppercase tracking-wider font-semibold mt-4"
-      nav.render ::Decor::Nav::SideNavbarItem.new(
-        title: "Alerts",
-        icon: "exclamation",
-        path: "/alerts",
-        counter: 3
-      )
-
-      nav.h4 "Expandable", class: "text-gray-400 text-xs uppercase tracking-wider font-semibold mt-4"
-      nav.render ::Decor::Nav::SideNavbarItem.new(
-        title: "Admin",
-        icon: "shield-check"
-      ) do |item|
-        item.with_sub_item(title: "Users", path: "/admin/users")
-        item.with_sub_item(title: "Roles", path: "/admin/roles")
-      end
-    end
-  end
+  # @endgroup
 end

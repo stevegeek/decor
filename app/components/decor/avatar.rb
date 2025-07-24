@@ -11,7 +11,7 @@ module Decor
     prop :url, _Nilable(_String(&:present?))
     prop :initials, _Nilable(_String(&:present?))
 
-    prop :shape, _Union(:circle, :square), default: :circle
+    prop :shape, _Nilable(_Union(:circle, :square)), default: :circle
 
     prop :ring, _Boolean, default: false
 
@@ -47,7 +47,11 @@ module Decor
     end
 
     def shape_class
-      (@shape == :circle) ? "rounded-full" : "rounded"
+      case @shape
+      when :circle, nil then "rounded-full"
+      when :square then "rounded"
+      else "rounded-full"
+      end
     end
 
     def component_size_classes(size)

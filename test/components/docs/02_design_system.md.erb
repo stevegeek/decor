@@ -83,43 +83,6 @@ Standard style patterns across all components:
 
 **Domain-Specific Styles**: Some components like Tabs use component-specific styles (`:bordered`, `:lifted`, `:boxed`) that relate to their functionality rather than the standard style system.
 
-## Component-Specific Patterns
-
-### Buttons
-```ruby
-render Decor::Button.new(
-  color: :primary,        # :base, :primary, :secondary, :accent, :neutral, :success, :error, :warning, :info
-  style: :filled,         # :filled, :outlined, :ghost
-  size: :md              # :xs, :sm, :md, :lg, :xl
-)
-```
-
-### Form Fields
-```ruby
-render Decor::Forms::TextField.new(
-  color: :primary,       # DaisyUI semantic colors
-  size: :md             # :xs, :sm, :md, :lg, :xl
-)
-```
-
-### Cards and Containers
-```ruby
-render Decor::Card.new(
-  color: :base,         # :base, :primary, :secondary, :accent, :neutral, :success, :error, :warning, :info
-  style: :filled,       # :filled, :outlined, :ghost
-  size: :md            # :xs, :sm, :md, :lg, :xl
-)
-```
-
-### Tooltips and Overlays
-```ruby
-render Decor::Tooltip.new(
-  color: :base,         # :base, :primary, :secondary, :accent, :neutral, :success, :error, :warning, :info
-  style: :filled,       # :filled, :outlined, :ghost
-  position: :top        # :top, :bottom, :left, :right
-)
-```
-
 ## Typography
 
 ### Text Hierarchy

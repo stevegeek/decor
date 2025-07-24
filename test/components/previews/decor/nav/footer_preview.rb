@@ -1,8 +1,13 @@
 # @label Footer
 class ::Decor::Nav::FooterPreview < ::Lookbook::Preview
-  # @!group Basic Examples
-
-  # Default footer with link groups and social links
+  # Footer
+  # ------
+  #
+  # A comprehensive footer component for displaying company information, navigation links,
+  # social media links, and newsletter signup forms. Supports multiple themes and layouts.
+  #
+  # @group Examples
+  # @label Default Footer
   def default
     render ::Decor::Nav::Footer.new(
       company_name: "Example Company",
@@ -40,7 +45,8 @@ class ::Decor::Nav::FooterPreview < ::Lookbook::Preview
     )
   end
 
-  # Footer with newsletter signup
+  # @group Examples
+  # @label Footer with Newsletter
   def with_newsletter
     render ::Decor::Nav::Footer.new(
       company_name: "Example Company",
@@ -63,77 +69,109 @@ class ::Decor::Nav::FooterPreview < ::Lookbook::Preview
     )
   end
 
-  # Light theme footer
-  def light_theme
-    render ::Decor::Nav::Footer.new(
-      company_name: "Example Company",
-      theme: :light,
-      link_groups: [
-        ::Decor::Nav::Footer::LinkGroup.new(
-          title: "Services",
-          links: [
-            ::Decor::Nav::Footer::FooterLink.new(label: "Web Development", href: "/web"),
-            ::Decor::Nav::Footer::FooterLink.new(label: "Mobile Apps", href: "/mobile"),
-            ::Decor::Nav::Footer::FooterLink.new(label: "Consulting", href: "/consulting")
-          ]
-        )
-      ],
-      social_links: [
-        ::Decor::Nav::Footer::SocialLink.new(platform: :github, url: "https://github.com/example"),
-        ::Decor::Nav::Footer::SocialLink.new(platform: :youtube, url: "https://youtube.com/@example")
-      ]
-    )
-  end
-
-  # @!endgroup
-  # @!group Advanced Examples
-
-  # Footer with custom content areas
-  def custom_content
+  # @group Examples
+  # @label Custom Content Areas
+  def with_custom_content
     render ::Decor::Nav::Footer.new(
       company_name: "Example Company",
       show_newsletter: false
     ) do |component|
       component.with_logo do
-        div(class: "mb-6") do
-          h2(class: "text-2xl font-bold mb-2") { "Custom Logo Area" }
-          p(class: "text-sm opacity-70") { "This is a custom logo section with additional branding content." }
+        component.div(class: "mb-6") do
+          component.h2(class: "text-2xl font-bold mb-2") { "Custom Logo Area" }
+          component.p(class: "text-sm opacity-70") { "This is a custom logo section with additional branding content." }
         end
       end
 
       component.with_content do
-        div(class: "space-y-4") do
-          h3(class: "footer-title") { "Get in Touch" }
-          p(class: "text-sm") { "Have questions? We'd love to hear from you." }
-          div(class: "flex gap-2") do
-            render ::Decor::Button.new(label: "Contact Us", color: :primary, size: :small)
-            render ::Decor::Button.new(label: "Schedule Demo", color: :secondary, variant: :outlined, size: :small)
+        component.div(class: "space-y-4") do
+          component.h3(class: "footer-title") { "Get in Touch" }
+          component.p(class: "text-sm") { "Have questions? We'd love to hear from you." }
+          component.div(class: "flex gap-2") do
+            component.render ::Decor::Button.new(label: "Contact Us", color: :primary, size: :sm)
+            component.render ::Decor::Button.new(label: "Schedule Demo", color: :secondary, style: :outlined, size: :sm)
           end
         end
       end
 
       component.with_links do
-        div(class: "grid grid-cols-1 md:grid-cols-3 gap-6") do
-          div do
-            h3(class: "footer-title") { "Custom Links Section" }
-            ul(class: "space-y-2") do
-              li { a(href: "#", class: "link link-hover") { "Custom Link 1" } }
-              li { a(href: "#", class: "link link-hover") { "Custom Link 2" } }
+        component.div(class: "grid grid-cols-1 md:grid-cols-3 gap-6") do
+          component.div do
+            component.h3(class: "footer-title") { "Custom Links Section" }
+            component.ul(class: "space-y-2") do
+              component.li { component.a(href: "#", class: "link link-hover") { "Custom Link 1" } }
+              component.li { component.a(href: "#", class: "link link-hover") { "Custom Link 2" } }
             end
           end
         end
       end
 
       component.with_copyright do
-        p(class: "text-sm opacity-70 text-center") do
-          a(href: "/privacy", class: "link") { "Privacy Policy" }
-          a(href: "/terms", class: "link") { "Terms of Service" }
+        component.p(class: "text-sm opacity-70 text-center") do
+          component.a(href: "/privacy", class: "link") { "Privacy Policy" }
+          component.a(href: "/terms", class: "link") { "Terms of Service" }
         end
       end
     end
   end
 
-  # Footer with hidden link groups
+  # @group Playground
+  # @param company_name text
+  # @param theme select [dark, light]
+  # @param show_newsletter toggle
+  # @param show_social toggle
+  # @param size [Symbol] select [~, xs, sm, md, lg, xl]
+  # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
+  # @param style [Symbol] select [~, filled, outlined, ghost]
+  def playground(company_name: "Example Company", theme: :dark, show_newsletter: true, show_social: true, size: nil, color: nil, style: nil)
+    render ::Decor::Nav::Footer.new(
+      company_name: company_name,
+      theme: theme,
+      show_newsletter: show_newsletter,
+      show_social: show_social,
+      size: size,
+      color: color,
+      style: style,
+      link_groups: [
+        ::Decor::Nav::Footer::LinkGroup.new(
+          title: "Company",
+          links: [
+            ::Decor::Nav::Footer::FooterLink.new(label: "About", href: "/about"),
+            ::Decor::Nav::Footer::FooterLink.new(label: "Careers", href: "/careers")
+          ]
+        )
+      ],
+      social_links: show_social ? [
+        ::Decor::Nav::Footer::SocialLink.new(platform: :twitter, url: "https://twitter.com/company"),
+        ::Decor::Nav::Footer::SocialLink.new(platform: :github, url: "https://github.com/company")
+      ] : []
+    )
+  end
+
+  # @group Themes
+  # @label Dark Theme
+  def theme_dark
+    render ::Decor::Nav::Footer.new(
+      company_name: "Example Company",
+      theme: :dark,
+      link_groups: standard_link_groups,
+      social_links: standard_social_links
+    )
+  end
+
+  # @group Themes
+  # @label Light Theme
+  def theme_light
+    render ::Decor::Nav::Footer.new(
+      company_name: "Example Company",
+      theme: :light,
+      link_groups: standard_link_groups,
+      social_links: standard_social_links
+    )
+  end
+
+  # @group Link Visibility
+  # @label Selective Visibility
   def with_visibility_control
     render ::Decor::Nav::Footer.new(
       company_name: "Example Company",
@@ -160,29 +198,25 @@ class ::Decor::Nav::FooterPreview < ::Lookbook::Preview
     )
   end
 
-  # @!endgroup
-  # @!group Playground
+  private
 
-  # Interactive playground for testing
-  def playground
-    render ::Decor::Nav::Footer.new(
-      company_name: "Example Company",
-      theme: :dark,
-      link_groups: [
-        ::Decor::Nav::Footer::LinkGroup.new(
-          title: "Company",
-          links: [
-            ::Decor::Nav::Footer::FooterLink.new(label: "About", href: "/about"),
-            ::Decor::Nav::Footer::FooterLink.new(label: "Careers", href: "/careers")
-          ]
-        )
-      ],
-      social_links: [
-        ::Decor::Nav::Footer::SocialLink.new(platform: :twitter, url: "https://twitter.com/company"),
-        ::Decor::Nav::Footer::SocialLink.new(platform: :github, url: "https://github.com/company")
-      ]
-    )
+  def standard_link_groups
+    [
+      ::Decor::Nav::Footer::LinkGroup.new(
+        title: "Services",
+        links: [
+          ::Decor::Nav::Footer::FooterLink.new(label: "Web Development", href: "/web"),
+          ::Decor::Nav::Footer::FooterLink.new(label: "Mobile Apps", href: "/mobile"),
+          ::Decor::Nav::Footer::FooterLink.new(label: "Consulting", href: "/consulting")
+        ]
+      )
+    ]
   end
 
-  # @!endgroup
+  def standard_social_links
+    [
+      ::Decor::Nav::Footer::SocialLink.new(platform: :github, url: "https://github.com/example"),
+      ::Decor::Nav::Footer::SocialLink.new(platform: :youtube, url: "https://youtube.com/@example")
+    ]
+  end
 end

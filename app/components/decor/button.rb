@@ -39,7 +39,7 @@ module Decor
     private
 
     def view_template(&)
-      @content = capture(&) if block_given?
+      @content = capture(&).html_safe if block_given?
       root_element do
         span(class: "text-center") do
           render @before_label if @before_label.present?

@@ -1,0 +1,29 @@
+<% klass = Class.new(::Decor::Tables::DataTableBuilder) do
+  def pagination_options
+    {path: "#"}
+  end
+  
+  def path_for_row(row_data, transformed_value, index, item_index)
+    "#item-#{item_index}"
+  end
+  
+  def row_attributes(row_data, transformed_value, index, item_index)
+    attrs = {}
+    attrs[:disabled] = true if index == 2
+    attrs[:selected] = true if index == 3
+    attrs
+  end
+end
+dt = klass.new(
+  params: params,
+  helpers: self,
+  title: "Row Attributes Demo",
+  query: ::ApplicationCollectionBackedQuery.wrap((1..5).to_a).new,
+  paginated: false,
+  rows_selectable_as_name: :items
+) do |dt|
+  dt.column(:item) { |i| "Item #{i}" }
+  dt.column(:state, stretch: true) { |i| ["Normal (clickable)", "Normal", "Disabled", "Pre-selected", "Normal"][i-1] }
+  dt.column(:action) { |i| i == 3 ? "Disabled" : "View Details" }
+end %>
+<%= render dt %>

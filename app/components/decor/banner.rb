@@ -6,7 +6,7 @@ module Decor
 
     prop :icon, _Nilable(String)
     prop :link, _Nilable(_String(&:present?))
-    prop :style, _Union(:warning, :info, :error, :notice, :standard, :success), default: :notice
+    prop :style, _Nilable(_Union(:warning, :info, :error, :notice, :standard, :success)), default: :notice
 
     prop :centered, _Boolean, default: false
 
@@ -62,6 +62,9 @@ module Decor
         "alert-warning"
       when :info
         "alert-info"
+      when :notice, :standard, nil
+        # default style - no additional class needed
+        nil
       end
 
       "alert #{style}"
@@ -77,6 +80,8 @@ module Decor
         "btn-warning"
       when :info
         "btn-info"
+      when :notice, :standard, nil
+        "btn-secondary"
       else
         "btn-secondary"
       end

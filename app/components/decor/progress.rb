@@ -12,7 +12,7 @@ module Decor
     end
     prop :i18n_key, _Nilable(String)
     prop :current_step, Integer, default: 1
-    prop :style, _Union(:steps, :progress, :both), default: :steps
+    prop :style, _Nilable(_Union(:steps, :progress, :both)), default: :steps
 
     default_size :md
     default_color :primary
@@ -30,7 +30,7 @@ module Decor
         case @style
         when :progress
           render_progress_bar
-        when :steps
+        when :steps, nil
           render_steps_indicator
         when :both
           render_progress_bar

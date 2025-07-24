@@ -1,0 +1,20 @@
+<% klass = Class.new(::Decor::Tables::DataTableBuilder) do
+  def pagination_options
+    {path: "#"}
+  end
+end
+dt = klass.new(
+  params: params,
+  helpers: self,
+  title: title,
+  rows_selectable_as_name: rows_selectable_as_name&.to_sym,
+  query: ::ApplicationCollectionBackedQuery.wrap((1..8).to_a).new,
+  paginated: false
+) do |dt|
+  dt.column(:name, stretch: true) { |i| ["Alice Johnson", "Bob Smith", "Carol Davis", "David Wilson", "Eve Brown", "Frank Miller", "Grace Lee", "Henry Taylor"][i-1] }
+  dt.column(:email) { |i| ["alice", "bob", "carol", "david", "eve", "frank", "grace", "henry"][i-1] + "@company.com" }
+  dt.column(:role) { ["Admin", "Developer", "Designer", "Manager"].sample }
+  dt.column(:status) { ["Active", "Pending", "Inactive"].sample }
+  dt.column(:last_login) { (Date.today - Random.rand(0..30)).strftime("%Y-%m-%d") }
+end %>
+<%= render dt %>

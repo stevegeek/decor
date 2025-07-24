@@ -5,7 +5,7 @@ module Decor
   class Tooltip < PhlexComponent
     no_stimulus_controller
 
-    prop :position, _Union(:top, :bottom, :left, :right), default: :top
+    prop :position, _Nilable(_Union(:top, :bottom, :left, :right)), default: :top
     prop :tip_text, _Nilable(String)
 
     default_size :md
@@ -53,10 +53,11 @@ module Decor
 
     def position_class
       case @position
-      when :top then "tooltip-top"
+      when :top, nil then "tooltip-top"
       when :bottom then "tooltip-bottom"
       when :left then "tooltip-left"
       when :right then "tooltip-right"
+      else "tooltip-top"
       end
     end
 

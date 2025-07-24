@@ -1,0 +1,19 @@
+<% klass = Class.new(::Decor::Tables::DataTableBuilder) do
+  def pagination_options
+    {path: "#"}
+  end
+end
+dt = klass.new(
+  params: params,
+  helpers: self,
+  title: title,
+  query: ::ApplicationCollectionBackedQuery.wrap((1..10).to_a).new,
+  paginated: false
+) do |dt|
+  dt.column(:id) { |item| "PRD-#{item.to_s.rjust(3, '0')}" }
+  dt.column(:name, stretch: true) { ["Widget A", "Gadget B", "Tool C", "Device D"].sample }
+  dt.column(:category) { ["Electronics", "Hardware", "Software", "Accessories"].sample }
+  dt.column(:stock, numeric: true) { Random.rand(0..100) }
+  dt.column(:price, numeric: true) { "$#{(Random.rand * 100).round(2)}" }
+end %>
+<%= render dt %>

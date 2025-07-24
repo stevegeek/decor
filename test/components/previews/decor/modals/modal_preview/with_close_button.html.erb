@@ -1,0 +1,15 @@
+<%= render ::Decor::Modals::Modal.new(
+  start_shown: true
+) do %>
+  <div class="p-6">
+    <h3 class="text-lg font-semibold mb-4">Modal with Close Button</h3>
+    <p class="mb-4">This modal includes a close button to dismiss it.</p>
+    
+    <div class="flex justify-end">
+      <%= render ::Decor::Modals::ModalCloseButton.new(
+        label: "Close Modal",
+        color: :primary
+      ) %>
+    </div>
+  </div>
+<% end %>

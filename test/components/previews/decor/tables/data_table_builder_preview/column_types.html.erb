@@ -1,0 +1,19 @@
+<% klass = Class.new(::Decor::Tables::DataTableBuilder) do
+  def pagination_options
+    {path: "#"}
+  end
+end
+dt = klass.new(
+  title: "Column Configuration Examples",
+  query: ::ApplicationCollectionBackedQuery.wrap((1..5).to_a).new,
+  paginated: false,
+  params: params,
+  helpers: self,
+) do |dt|
+  dt.column(:numeric_col, numeric: true, title: "Numeric") { |i| (i * 100.25).round(2) }
+  dt.column(:sortable_col, sortable: true, title: "Sortable") { |i| "Row #{i}" }
+  dt.column(:stretched_col, stretch: true, title: "Stretched (fills space)") { "This column stretches to fill available space" }
+  dt.column(:emphasis_low, emphasis: :low, title: "Low Emphasis") { "Secondary info" }
+  dt.column(:weight_medium, weight: :medium, title: "Medium Weight") { "Important" }
+end %>
+<%= render dt %>

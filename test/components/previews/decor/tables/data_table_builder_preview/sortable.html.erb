@@ -1,0 +1,27 @@
+<% klass = Class.new(::Decor::Tables::DataTableBuilder) do
+  def pagination_options
+    {path: "#"}
+  end
+  
+  def default_sort_by
+    :name
+  end
+  
+  def default_sort_direction
+    :asc
+  end
+end
+dt = klass.new(
+  params: params,
+  helpers: self,
+  title: "Sortable Table",
+  query: ::ApplicationCollectionBackedQuery.wrap((1..8).to_a).new,
+  paginated: false
+) do |dt|
+  dt.column(:id, sortable: true) { |i| i }
+  dt.column(:name, sortable: true, stretch: true) { |i| ["Apple", "Banana", "Cherry", "Date", "Elderberry", "Fig", "Grape", "Honeydew"][i-1] }
+  dt.column(:category, sortable: true) { |i| ["Fruit", "Berry", "Citrus", "Tropical"][i % 4] }
+  dt.column(:quantity, sortable: true, numeric: true) { Random.rand(10..100) }
+  dt.column(:price, sortable: true, numeric: true) { "$#{(Random.rand * 10).round(2)}" }
+end %>
+<%= render dt %>

@@ -4,6 +4,8 @@ module Decor
   class Link < Button
     include Decor::Concerns::ActsAsLink
 
+    default_style :ghost
+
     private
 
     def root_element_classes
