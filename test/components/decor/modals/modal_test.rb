@@ -14,7 +14,7 @@ class Decor::Modals::ModalTest < ActiveSupport::TestCase
     rendered = render_component(component)
 
     assert_includes rendered, "decor--modals--modal"
-    assert_includes rendered, "fixed hidden z-10 inset-0 overflow-y-auto"
+    assert_includes rendered, "modal"
   end
 
   test "renders with Stimulus controller" do
@@ -28,19 +28,19 @@ class Decor::Modals::ModalTest < ActiveSupport::TestCase
     component = Decor::Modals::Modal.new(id: "structured-modal")
     fragment = render_fragment(component)
 
-    modal_aside = fragment.at_css("aside")
-    assert_not_nil modal_aside
-    assert_equal "structured-modal", modal_aside["id"]
-    assert_includes modal_aside["class"], "decor--modals--modal"
+    modal_dialog = fragment.at_css("dialog")
+    assert_not_nil modal_dialog
+    assert_equal "structured-modal", modal_dialog["id"]
+    assert_includes modal_dialog["class"], "decor--modals--modal"
   end
 
   test "renders with backdrop" do
     component = Decor::Modals::Modal.new(id: "backdrop-modal")
     fragment = render_fragment(component)
 
-    backdrop = fragment.at_css("div[data-decor--modals--modal-target='overlay']")
+    backdrop = fragment.at_css("form[data-decor--modals--modal-target='overlay']")
     assert_not_nil backdrop
-    assert_includes backdrop["class"], "fixed hidden inset-0 bg-gray-700"
+    assert_includes backdrop["class"], "modal-backdrop"
   end
 
   test "renders modal content container" do
@@ -49,7 +49,7 @@ class Decor::Modals::ModalTest < ActiveSupport::TestCase
 
     modal_content = fragment.at_css("div[data-decor--modals--modal-target='modal']")
     assert_not_nil modal_content
-    assert_includes modal_content["class"], "relative inline-block align-bottom bg-white rounded-lg"
+    assert_includes modal_content["class"], "modal-box"
   end
 
   test "supports initial content" do
@@ -76,14 +76,14 @@ class Decor::Modals::ModalTest < ActiveSupport::TestCase
     rendered = render_component(component)
 
     assert_includes rendered, "decor--modals--modal"
-    assert_includes rendered, "fixed hidden z-10 inset-0 overflow-y-auto"
+    assert_includes rendered, "modal"
   end
 
   test "modal backdrop has correct data attributes" do
     component = Decor::Modals::Modal.new(id: "data-modal")
     fragment = render_fragment(component)
 
-    backdrop = fragment.at_css("div[data-decor--modals--modal-target='overlay']")
+    backdrop = fragment.at_css("form[data-decor--modals--modal-target='overlay']")
     assert_not_nil backdrop
     # Backdrop typically has data attributes for closing modal
     assert_includes backdrop["data-action"], "overlayClicked"

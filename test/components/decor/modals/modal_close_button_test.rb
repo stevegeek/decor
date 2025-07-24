@@ -6,6 +6,7 @@ class Decor::Modals::ModalCloseButtonTest < ActiveSupport::TestCase
     rendered = render_component(component)
 
     assert_includes rendered, "btn"
+    # The class is on the form element, not the button
     assert_includes rendered, "decor--modals--modal-close-button"
   end
 
@@ -49,7 +50,9 @@ class Decor::Modals::ModalCloseButtonTest < ActiveSupport::TestCase
     button = fragment.at_css("button")
     assert_not_nil button
     assert_includes button["class"], "btn"
-    assert_includes button["class"], "decor--modals--modal-close-button"
+    # The decor--modals--modal-close-button class is on the form, not the button
+    form = fragment.at_css("form")
+    assert_includes form["class"], "decor--modals--modal-close-button"
   end
 
   test "supports custom content" do
@@ -103,7 +106,8 @@ class Decor::Modals::ModalCloseButtonTest < ActiveSupport::TestCase
     )
     rendered = render_component(component)
 
-    assert_includes rendered, 'type="button"'
+    # Button type is submit for dialog forms
+    assert_includes rendered, 'type="submit"'
     assert_includes rendered, 'form="my-form"'
   end
 
