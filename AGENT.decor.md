@@ -79,12 +79,16 @@ prop :internal_id, String, reader: :private, writer: :protected
 - Use blocks for content: `render Component.new(...) do |c| ... end`
 - Properties are defined with `prop :name, Type, default: value` for type safety, using the Literal gem
 - Stimulus integration is declarative via `stimulus` blocks
+- Base class `Decor::PhlexComponent` includes standardized concerns for size, color, and style handling
 
 ### 2. DaisyUI Styling System
-- Use semantic attributes: `color: :primary`, `size: :lg`, `variant: :outlined`
+- Use semantic attributes: `color: :primary`, `size: :lg`, `style: :outlined`
 - Avoid custom CSS classes - leverage daisyUI's design system
-- Colors: `:primary`, `:secondary`, `:accent`, `:success`, `:error`, `:warning`, `:info`, `:standard`, `:base`
-- Sizes: `:xs`, `:sm`, `:md`, `:lg`, `:xl`
+- **Colors** (via ColorClasses concern): `:base`, `:primary`, `:secondary`, `:accent`, `:neutral`, `:success`, `:error`, `:warning`, `:info`
+- **Sizes** (via SizeClasses concern): `:xs`, `:sm`, `:md`, `:lg`, `:xl`
+  - Legacy aliases supported: `:small` → `:sm`, `:medium` → `:md`, `:large` → `:lg`, `:micro` → `:xs`, `:extra_small` → `:xs`, `:extra_large` → `:xl`
+- **Styles** (via StyleClasses concern): Component-specific, commonly `:filled`, `:outlined`, `:ghost`
+- **Note**: Some components use `variant` for backwards compatibility, but new components use `style`
 
 ### 3. Type-Safe Attribute Configuration
 - Components are configured through type-safe Ruby properties using Vident's `prop` system
@@ -98,6 +102,28 @@ prop :internal_id, String, reader: :private, writer: :protected
 - Use `html_options: { class: "..." }` to **override** all component-defined classes (destructive)
 - **Recommended**: Use `classes:` for additional styling while preserving component defaults
 - **Avoid**: Using `html_options: { class: }` unless you need to completely replace component classes
+
+### 5. Standardized Concerns System
+Decor uses three standardized concerns for consistent styling across components:
+
+#### SizeClasses Concern
+- Provides standardized size handling with `size` prop
+- Standard sizes: `:xs`, `:sm`, `:md`, `:lg`, `:xl`
+- Automatic alias support (e.g., `:small` → `:sm`)
+- Components implement `component_size_classes(size)` for specific styling
+- Helper methods: `icon_size_pixels`, `text_size_class`
+
+#### ColorClasses Concern
+- Provides standardized color handling with `color` prop
+- Semantic colors: `:base`, `:primary`, `:secondary`, `:accent`, `:neutral`, `:success`, `:error`, `:warning`, `:info`
+- Components implement `component_color_classes(color)` for specific styling
+- Helper methods: `text_color_classes`, `background_color_classes`, `border_color_classes`
+
+#### StyleClasses Concern
+- Provides component-specific style variations with `style` prop
+- Common styles: `:filled`, `:outlined`, `:ghost` (varies by component)
+- Components implement `component_style_classes(style)` for specific styling
+- Components can redefine available styles using `redefine_styles`
 
 ## AI Agent Usage Guidelines
 
@@ -113,9 +139,9 @@ prop :internal_id, String, reader: :private, writer: :protected
 4. **HTML options last**: `html_options: { class: "custom-class" }` (overrides component classes)
 
 ### Common Attribute Patterns
-- **Sizing**: `size: :xs | :sm | :md | :lg | :xl`
-- **Coloring**: `color:` or `style:` with semantic colors
-- **Variants**: `variant: :filled | :outlined | :ghost | :text | :contained`
+- **Sizing**: `size: :xs | :sm | :md | :lg | :xl` (standardized via SizeClasses concern)
+- **Coloring**: `color:` with semantic colors (standardized via ColorClasses concern)
+- **Styling**: `style:` for component appearance (standardized via StyleClasses concern)
 - **States**: `disabled: true`, `required: true`
 
 ## Complete Component Inventory
@@ -123,9 +149,11 @@ prop :internal_id, String, reader: :private, writer: :protected
 ### Core Components (Decor::)
 
 #### Interactive Elements
-- **Button** - Interactive buttons with variants and states
-  - Attributes: `label`, `icon`, `color`, `variant`, `size`, `disabled`, `full_width`
-  - Variants: `:contained`, `:outlined`, `:text`
+- **Button** - Interactive buttons with styles and states
+  - Attributes: `label`, `icon`, `color`, `style`, `size`, `disabled`, `full_width`
+  - Styles: `:contained`, `:outlined`, `:text` (via StyleClasses concern)
+  - Colors: All semantic colors (via ColorClasses concern)
+  - Sizes: All standard sizes (via SizeClasses concern)
   - Slots: `with_before_label`, `with_after_label`
 
 - **ButtonLink** - Button-styled links
@@ -136,29 +164,46 @@ prop :internal_id, String, reader: :private, writer: :protected
 
 #### Content Containers
 - **Card** - Flexible content containers
-  - Attributes: `title`, `image_url`, `image_position`, `size`, `color`, `variant`
+  - Attributes: `title`, `image_url`, `image_position`, `size`, `color`, `style`
+  - Sizes: All standard sizes (via SizeClasses concern)
+  - Styles: `:bordered`, `:compact` (via StyleClasses concern)
   - Slots: `with_header`
 
 - **Box** - Simple containers with title/description
-  - Attributes: `title`
+  - Attributes: `title`, `size`, `style`
+  - Sizes: All standard sizes (via SizeClasses concern)
+  - Styles: `:bordered`, `:filled` (via StyleClasses concern)
   - Slots: `left`, `right`
 
 - **Panel** - Information panels with icons
-  - Attributes: `title`, `icon`
+  - Attributes: `title`, `icon`, `size`, `style`
+  - Sizes: All standard sizes (via SizeClasses concern)
+  - Styles: `:bordered`, `:filled` (via StyleClasses concern)
 
 - **PanelGroup** - Organized panel collections
-  - Attributes: `title`, `description`, `size`, `color`, `variant`
+  - Attributes: `title`, `description`, `size`, `color`, `style`
+  - Sizes: All standard sizes (via SizeClasses concern)
+  - Colors: All semantic colors (via ColorClasses concern)
+  - Styles: Component-specific (via StyleClasses concern)
   - Methods: `panels`, `panel`, `cta`
 
 #### Visual Elements
 - **Avatar** - User avatars with images/initials
-  - Attributes: `url`, `initials`, `shape`, `size`, `border`, `color`, `variant`
+  - Attributes: `url`, `initials`, `shape`, `size`, `border`, `color`, `style`
+  - Sizes: All standard sizes (via SizeClasses concern)
+  - Shapes: `:circle`, `:square`
 
 - **Badge** - Status indicators and labels
-  - Attributes: `label`, `style`, `size`, `variant`, `icon`, `dashed`
+  - Attributes: `label`, `color`, `size`, `style`, `icon`, `dashed`
+  - Colors: All semantic colors (via ColorClasses concern)
+  - Sizes: All standard sizes (via SizeClasses concern)
+  - Styles: `:filled`, `:outlined`, `:ghost` (via StyleClasses concern)
 
 - **Tag** - Removable labels
-  - Attributes: `label`, `icon`, `color`, `size`, `variant`, `removable`
+  - Attributes: `label`, `icon`, `color`, `size`, `style`, `removable`
+  - Colors: All semantic colors (via ColorClasses concern)
+  - Sizes: All standard sizes (via SizeClasses concern)
+  - Styles: Component-specific (via StyleClasses concern)
 
 - **Icon** - SVG icons (Heroicons)
   - Attributes: `name`, `size`, `variant` (`:solid`, `:outline`, `:mini`)
@@ -167,7 +212,10 @@ prop :internal_id, String, reader: :private, writer: :protected
   - Attributes: `size`, `color`
 
 - **Spinner** - Loading indicators
-  - Attributes: `size`, `color`
+  - Attributes: `size`, `color`, `style`
+  - Sizes: All standard sizes (via SizeClasses concern)
+  - Colors: All semantic colors (via ColorClasses concern)
+  - Styles: `:spinner`, `:dots`, `:ring`, `:ball`, `:bars`, `:infinity` (via StyleClasses concern)
 
 #### Feedback & Alerts
 - **Banner** - Large alert messages
@@ -185,11 +233,17 @@ prop :internal_id, String, reader: :private, writer: :protected
 
 #### Interactive UI
 - **Dropdown** - Contextual menus
-  - Attributes: `size`, `color`, `variant`, `position`, `trigger`, `force_open`
+  - Attributes: `size`, `color`, `style`, `position`, `trigger`, `force_open`
+  - Sizes: All standard sizes (via SizeClasses concern)
+  - Colors: All semantic colors (via ColorClasses concern)
+  - Styles: Component-specific (via StyleClasses concern)
   - Methods: `trigger_button_content`, `menu_item`, `menu_header`, `card_content`
 
 - **Tooltip** - Contextual help text
-  - Attributes: `tip_text`, `position`, `size`, `color`, `variant`
+  - Attributes: `tip_text`, `position`, `size`, `color`, `style`
+  - Sizes: All standard sizes (via SizeClasses concern)
+  - Colors: All semantic colors (via ColorClasses concern)
+  - Styles: `:filled`, `:outlined` (via StyleClasses concern)
 
 - **ClickToCopy** - Copy-to-clipboard wrapper
 
@@ -202,10 +256,15 @@ prop :internal_id, String, reader: :private, writer: :protected
 
 #### Progress & Flow
 - **Progress** - Progress indicators with steps
-  - Attributes: `current_step`, `steps`, `color`, `size`, `variant`, `show_numbers`, `vertical`
+  - Attributes: `current_step`, `steps`, `color`, `size`, `style`, `show_numbers`, `vertical`
+  - Style options: `:steps`, `:progress`, `:both`
+  - Colors: All semantic colors (via ColorClasses concern)
+  - Sizes: All standard sizes (via SizeClasses concern)
 
 - **FlowStep** - Individual step indicators
-  - Attributes: `title`, `description`, `step`, `icon`, `size`, `color`, `variant`
+  - Attributes: `title`, `description`, `step`, `icon`, `size`, `color`, `style`
+  - Sizes: All standard sizes (via SizeClasses concern)
+  - Styles: `:completed`, `:current`, `:pending` (via StyleClasses concern)
 
 #### Utility
 - **Element** - Generic Stimulus wrapper
@@ -268,7 +327,10 @@ prop :internal_id, String, reader: :private, writer: :protected
   - Inherits FormField + `value`, radio-specific styling
 
 - **ButtonRadioGroup** - Radio buttons as button group
-  - Inherits FormField + `choices`, `selected_choice`, `show_label`, `variant`
+  - Inherits FormField + `choices`, `selected_choice`, `show_label`, `style`
+  - Styles: `:contained`, `:outlined` (via StyleClasses concern)
+  - Colors: All semantic colors (via ColorClasses concern)
+  - Sizes: All standard sizes (via SizeClasses concern)
 
 - **Switch** - Toggle switch with auto-submit
   - Inherits FormField + `submit_on_change`, `confirm_on_submit`
@@ -327,7 +389,10 @@ prop :internal_id, String, reader: :private, writer: :protected
   - Slots: `figure`, `actions`
 
 - **Tabs** - Tabbed interfaces
-  - Attributes: `links`, `size`, `color`, `variant`
+  - Attributes: `links`, `size`, `color`, `style`
+  - Sizes: All standard sizes (via SizeClasses concern)
+  - Colors: All semantic colors (via ColorClasses concern)
+  - Styles: `:boxed`, `:lifted` (via StyleClasses concern)
   - Features: icons, badges, mobile responsive, disabled states
 
 #### Search & Utility
@@ -391,7 +456,10 @@ prop :internal_id, String, reader: :private, writer: :protected
   - Attributes: `initial_content`, `content_href`, `start_shown`, `close_on_overlay_click`
 
 - **ModalLayout** - Structured modal layout
-  - Attributes: `title`, `description`, `icon`, `color`, `variant`, `size`
+  - Attributes: `title`, `description`, `icon`, `color`, `style`, `size`
+  - Colors: All semantic colors (via ColorClasses concern)
+  - Sizes: `:sm`, `:md`, `:lg`, `:xl` (via SizeClasses concern)
+  - Styles: `:default`, `:full_height` (via StyleClasses concern)
   - Slots: `with_header`, `with_body`, `with_footer`
 
 - **ConfirmModal** - Confirmation dialogs
@@ -439,7 +507,7 @@ For example, before closing the body tag in your layout file (e.g., `application
 render Decor::Button.new(
   label: "Save Changes",
   color: :primary,
-  variant: :contained,
+  style: :contained,
   icon: "check"
 )
 
@@ -447,7 +515,7 @@ render Decor::Button.new(
 render Decor::Button.new(
   label: "Save Changes",
   color: :primary,
-  variant: :contained,
+  style: :contained,
   icon: "check",
   classes: "shadow-lg custom-spacing"
 )
@@ -457,7 +525,7 @@ render Decor::ButtonLink.new(
   label: "Go to Dashboard",
   href: "/dashboard",
   color: :secondary,
-  variant: :outlined
+  style: :outlined
 )
 
 # Simple link
@@ -645,7 +713,7 @@ render Decor::Modals::ModalOpenButton.new(
   label: "Delete User",
   modal_id: "confirm-delete",
   color: :danger,
-  variant: :outlined
+  style: :outlined
 )
 
 # Modal with structured layout
@@ -656,7 +724,7 @@ render Decor::Modals::ModalLayout.new(
   color: :error
 ) do |modal|
   modal.with_footer do
-    render Decor::Button.new(label: "Cancel", variant: :text)
+    render Decor::Button.new(label: "Cancel", style: :ghost)
     render Decor::Button.new(label: "Delete", color: :danger)
   end
 end
@@ -667,7 +735,7 @@ end
 ```ruby
 # Flash message
 render Decor::Flash.new(
-  variant: :success,
+  style: :success,
   title: "Success!",
   text: "Your changes have been saved."
 )
@@ -703,7 +771,7 @@ render Decor::Notification.new(
 ### 2. Attribute Usage
 - **Start with semantic attributes**: `color: :primary` before custom classes
 - **Use consistent sizing**: Stick to `:xs`, `:sm`, `:md`, `:lg`, `:xl`
-- **Leverage variants**: `:filled`, `:outlined`, `:ghost` for different styles
+- **Leverage standardized concerns**: Components automatically handle size/color/style via concerns
 
 ### 3. Form Patterns
 - **Use Rails form builder** for model-backed forms: `form_with model: @user, builder: Decor::Forms::ActionViewFormBuilder`
@@ -791,9 +859,15 @@ end
 - When creating lookbook previews, blocks passed to rendered components need to call methods on the component, eg `do |component| component.render...` or `component.div(...)`
 
 ### Size System
-- **Current**: Components support both legacy naming (`micro`) and standardized naming (`xs`)
+- **Current**: Components support both legacy naming (`micro`) and standardized naming (`xs`) via SizeClasses concern
 - **Recommendation**: Use standardized DaisyUI sizes (`:xs`, `:sm`, `:md`, `:lg`, `:xl`)
-- **Button Component**: Already supports size aliases for backward compatibility
+- **Automatic Aliasing**: The SizeClasses concern automatically handles legacy aliases:
+  - `:small` → `:sm`
+  - `:medium` → `:md`
+  - `:large` → `:lg`
+  - `:micro` → `:xs`
+  - `:extra_small` → `:xs`
+  - `:extra_large` → `:xl`
 
 ### Testing Infrastructure
 - **Framework**: Comprehensive test suite with Minitest
@@ -813,5 +887,100 @@ end
 4. **Prefer semantic attributes** over custom CSS classes
 5. **Use `root_element`** for single-element components
 6. **Test components thoroughly** with behavior-focused tests
+
+## Implementing Components with Concerns
+
+When creating new components or understanding existing ones:
+
+### 1. Including Concerns
+Most Decor components inherit from `Decor::PhlexComponent` which automatically includes:
+```ruby
+class Decor::PhlexComponent < Vident::Phlex::HTML
+  include Decor::Concerns::SizeClasses
+  include Decor::Concerns::ColorClasses
+  include Decor::Concerns::StyleClasses
+end
+```
+
+### 2. Implementing Concern Methods
+Components customize behavior by implementing these methods:
+
+```ruby
+# Size handling
+def component_size_classes(size)
+  case size
+  when :xs then "btn-xs"
+  when :sm then "btn-sm"
+  when :md then "btn-md"
+  when :lg then "btn-lg"
+  when :xl then "btn-xl"
+  end
+end
+
+# Color handling
+def component_color_classes(color)
+  case color
+  when :primary then "btn-primary"
+  when :secondary then "btn-secondary"
+  # etc.
+  end
+end
+
+# Style handling
+def component_style_classes(style)
+  case style
+  when :contained then "btn-contained"
+  when :outlined then "btn-outlined"
+  when :text then "btn-text"
+  end
+end
+```
+
+### 3. Customizing Available Options
+Components can redefine what values are valid:
+
+```ruby
+class MyComponent < Decor::PhlexComponent
+  # Limit to specific sizes
+  redefine_sizes :sm, :md, :lg
+  
+  # Add custom colors
+  redefine_colors :primary, :secondary, :danger, :custom
+  
+  # Define component-specific styles
+  redefine_styles :minimal, :bold, :rounded
+  
+  # Set defaults
+  default_size :md
+  default_color :primary
+  default_style :minimal
+end
+```
+
+### 4. Using Concern Helpers
+The concerns provide helper methods:
+
+```ruby
+# In component implementation
+def render
+  root_element(class: [
+    size_classes,           # Calls component_size_classes with normalized size
+    color_classes,          # Calls component_color_classes if valid
+    style_classes,          # Calls component_style_classes if valid
+    text_size_class,        # Helper for text sizing
+    background_color_classes # Helper for backgrounds
+  ]) do
+    # Component content
+  end
+end
+```
+
+### 5. Size Normalization
+The SizeClasses concern automatically handles aliases:
+```ruby
+# User provides: size: :small
+# normalize_size(:small) returns :sm
+# component_size_classes(:sm) is called
+```
 
 This comprehensive guide should enable AI agents to effectively use the Decor UI library with confidence and consistency.
