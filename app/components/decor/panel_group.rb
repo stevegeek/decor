@@ -13,12 +13,12 @@ module Decor
     default_style :filled
 
     def after_component_initialize
-      @panels = []
+      @panel_rows = []
     end
 
     def view_template(&)
-      # Execute the block to collect panels, cta, and main content
-      @main_content = capture(&) if block_given?
+      # Execute the block to collect panel rows, cta, and main content
+      content = capture(&) if block_given?
 
       root_element do
         render ::Decor::Card.new(size: @size, color: @color, style: @style, classes: "overflow-hidden") do |card|
@@ -36,35 +36,26 @@ module Decor
             end
           end
 
-          @panels.each_with_index do |panel_row, idx|
+          @panel_rows.each_with_index do |row_block, idx|
             card.div(class: section_classes(idx)) do
-              card.div(class: "grid #{grid_size(panel_row)} gap-4 md:gap-5") do
-                panel_row.each { |panel| card.render panel }
-              end
+              card.div(class: "flex flex-wrap gap-4 md:gap-5", &row_block)
             end
           end
 
           # Render main content if provided (this will go into the card-body automatically)
-          if @main_content.present?
+          if content.present?
             card.div(class: "p-4 lg:p-6") do
-              card.render @main_content
+              card.render content
             end
           end
         end
       end
     end
 
-    def panels(&block)
-      panel_list = instance_exec(&block)
-      if panel_list.is_a?(Array)
-        @panels << panel_list
-      else
-        raise ArgumentError, "Expected an array of panels, got #{panel_list.class}"
-      end
-    end
-
-    def panel(title:, icon: nil, &content)
-      ::Decor::Panel.new(title: title, icon: icon, &content)
+    def with_panel_row(&block)
+      return unless block_given?
+      
+      @panel_rows << block
     end
 
     def cta(&block)
@@ -86,21 +77,5 @@ module Decor
       end
     end
 
-    def grid_size(panel_row)
-      case panel_row.size
-      when 1
-        "md:grid-cols-1"
-      when 2
-        "md:grid-cols-2"
-      when 3
-        "md:grid-cols-3"
-      when 4
-        "md:grid-cols-4"
-      when 5
-        "md:grid-cols-5"
-      else
-        "md:grid-cols-6"
-      end
-    end
   end
 end

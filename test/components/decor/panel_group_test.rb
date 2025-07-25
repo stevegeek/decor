@@ -70,16 +70,12 @@ class Decor::PanelGroupTest < ActiveSupport::TestCase
     )
 
     rendered = render_fragment(component) do |group|
-      group.panels do
-        [
-          group.panel(title: "Panel 1") { |p| p.plain("Content 1") },
-          group.panel(title: "Panel 2") { |p| p.plain("Content 2") }
-        ]
+      group.with_panel_row do
+        group.render ::Decor::Panel.new(title: "Panel 1") { |p| p.plain("Content 1") }
+        group.render ::Decor::Panel.new(title: "Panel 2") { |p| p.plain("Content 2") }
       end
-      group.panels do
-        [
-          group.panel(title: "Panel 3", icon: "academic-cap") { |p| p.plain("Content 3") }
-        ]
+      group.with_panel_row do
+        group.render ::Decor::Panel.new(title: "Panel 3", icon: "academic-cap") { |p| p.plain("Content 3") }
       end
     end
 
@@ -100,8 +96,8 @@ class Decor::PanelGroupTest < ActiveSupport::TestCase
     assert_includes rendered.text, "Content 2"
     assert_includes rendered.text, "Content 3"
 
-    # Should have grid layout for sections
-    assert rendered.css(".grid").any?
+    # Should have flex layout for sections
+    assert rendered.css(".flex").any?
   end
 
   def test_details_box_with_complete_configuration
@@ -111,14 +107,11 @@ class Decor::PanelGroupTest < ActiveSupport::TestCase
     )
 
     rendered = render_fragment(component) do |group|
-      group.panels do
-        [
-          group.panel(title: "Users", icon: "users") { |p| p.plain("1,234 active") },
-          group.panel(title: "Revenue") { |p| p.plain("$12,345") }
-        ]
+      group.with_panel_row do
+        group.render ::Decor::Panel.new(title: "Users", icon: "users") { |p| p.plain("1,234 active") }
+        group.render ::Decor::Panel.new(title: "Revenue") { |p| p.plain("$12,345") }
       end
       group.cta { "Refresh Data" }
-      "Additional content"
     end
 
     # Should have all elements
@@ -127,7 +120,6 @@ class Decor::PanelGroupTest < ActiveSupport::TestCase
     assert_includes rendered.text, "Refresh Data" # CTA
     assert rendered.css("h4").any? # Panel titles
     assert_includes rendered.text, "1,234 active" # Panel content
-    assert_includes rendered.text, "Additional content" # Main content
   end
 
   def test_details_box_styling_classes
@@ -152,14 +144,14 @@ class Decor::PanelGroupTest < ActiveSupport::TestCase
     )
 
     rendered = render_fragment(component) do |group|
-      group.panels do
-        [group.panel(title: "Section 1") { |p| p.plain("Content 1") }]
+      group.with_panel_row do
+        group.render ::Decor::Panel.new(title: "Section 1") { |p| p.plain("Content 1") }
       end
-      group.panels do
-        [group.panel(title: "Section 2") { |p| p.plain("Content 2") }]
+      group.with_panel_row do
+        group.render ::Decor::Panel.new(title: "Section 2") { |p| p.plain("Content 2") }
       end
-      group.panels do
-        [group.panel(title: "Section 3") { |p| p.plain("Content 3") }]
+      group.with_panel_row do
+        group.render ::Decor::Panel.new(title: "Section 3") { |p| p.plain("Content 3") }
       end
     end
 
@@ -180,42 +172,21 @@ class Decor::PanelGroupTest < ActiveSupport::TestCase
     assert_includes third_section["class"], "bg-base-200/50"
   end
 
-  def test_details_box_grid_sizing
-    # Test different grid sizes based on number of panels
-
-    # Single panel should use md:grid-cols-1
-    component = Decor::PanelGroup.new(title: "Single")
+  def test_details_box_flex_layout
+    # Test that panels use flexbox layout
+    component = Decor::PanelGroup.new(title: "Flex Layout Test")
     rendered = render_fragment(component) do |group|
-      group.panels do
-        [group.panel(title: "Single") { |p| p.plain("Content") }]
+      group.with_panel_row do
+        group.render ::Decor::Panel.new(title: "Panel 1") { |p| p.plain("Content 1") }
+        group.render ::Decor::Panel.new(title: "Panel 2") { |p| p.plain("Content 2") }
+        group.render ::Decor::Panel.new(title: "Panel 3") { |p| p.plain("Content 3") }
       end
     end
-    assert rendered.css(".md\\:grid-cols-1").any?
-
-    # Two panels should use md:grid-cols-2
-    component = Decor::PanelGroup.new(title: "Double")
-    rendered = render_fragment(component) do |group|
-      group.panels do
-        [
-          group.panel(title: "First") { |p| p.plain("Content") },
-          group.panel(title: "Second") { |p| p.plain("Content") }
-        ]
-      end
-    end
-    assert rendered.css(".md\\:grid-cols-2").any?
-
-    # Three panels should use md:grid-cols-3
-    component = Decor::PanelGroup.new(title: "Triple")
-    rendered = render_fragment(component) do |group|
-      group.panels do
-        [
-          group.panel(title: "1") { |p| p.plain("A") },
-          group.panel(title: "2") { |p| p.plain("B") },
-          group.panel(title: "3") { |p| p.plain("C") }
-        ]
-      end
-    end
-    assert rendered.css(".md\\:grid-cols-3").any?
+    
+    # Should use flex layout
+    assert rendered.css(".flex").any?
+    assert rendered.css(".flex-wrap").any?
+    assert rendered.css(".gap-4").any?
   end
 
   def test_details_box_without_panels
@@ -243,13 +214,11 @@ class Decor::PanelGroupTest < ActiveSupport::TestCase
     )
 
     rendered = render_fragment(component) do |group|
-      group.panels do
-        [
-          group.panel(title: "Dynamic Panel") do |p|
-            content_proc = -> { "Dynamic content from proc" }
-            p.plain(content_proc.call)
-          end
-        ]
+      group.with_panel_row do
+        group.render ::Decor::Panel.new(title: "Dynamic Panel") do |p|
+          content_proc = -> { "Dynamic content from proc" }
+          p.plain(content_proc.call)
+        end
       end
     end
 
