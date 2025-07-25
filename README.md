@@ -44,72 +44,34 @@ You can use Decor in two ways:
 
 ## 1. Fork this repository to start a new Rails application
 
-Fork this repository to create a new simple Rails application with Decor preconfigured.
+**Fork or clone this repository** to create a new simple Rails application with Decor preconfigured, then build your 
+application on top of it.
 
-Build your application on top of it. If you want to be able to update Decor in the future (recommended), simply
-avoid modifying the provided components, and simply pull changes from this repository as they are made.
+```
+git clone git@github.com:stevegeek/decor.git my_app
+cd my_app
+# Change the remote to your own repository
+git remote set-url origin git@github.com:YOUR_USERNAME/my_app.git
+
+# Install dependencies and run the application
+bundle install
+yarn install
+bin/rails db:prepare
+bin/dev
+```
+
+If you want to be able to update Decor in the future (recommended), simply pull changes from this repository.
+
+```bash
+# Add as an upstream remote
+git remote add upstream git@github.com:stevegeek/decor.git
+# Pull changes from upstream
+git pull upstream main
+```
 
 ## 2. Copy into an existing Rails application
 
-Add to Gemfile:
-
-```ruby
-gem "phlex-rails"
-gem "vident-phlex"
-
-# In development and test environments
-gem "lookbook"
-```
-
-```bash
-bundle install
-```
-
-Copy `app/components`, `app/javascript/controllers` and `test/components` directories from this repository to your Rails application.
-
-Copy over `app/assets/tailwind/application.css` or at least merge the contents into your existing Tailwind CSS setup.
-
-Add to `config/importmap.rb`:
-```ruby
-# External SVG loader for dynamic SVG loading
-pin "external-svg-loader", to: "https://ga.jspm.io/npm:external-svg-loader@1.7.1/dist/svg-loader.min.js"
-```
-
-Add to `app/javascript/application.js`:
-```javascript
-import "external-svg-loader"
-```
-
-and add the following to `test/test_helper.rb`:
-
-```ruby
-    # Phlex component testing helper
-    def render_component(component)
-      controller = ApplicationController.new
-      controller.request = ActionDispatch::TestRequest.create
-      component.call(view_context: controller.view_context)
-    end
-
-    # Parse rendered HTML for testing
-    def render_fragment(component)
-      html = render_component(component)
-      Nokogiri::HTML5.fragment(html)
-    end
-
-    def render_document(component)
-      html = render_component(component)
-      Nokogiri::HTML5(html)
-    end
-```
-
-
-and to your `config/routes.rb`:
-
-```ruby
-  if Rails.env.local?
-    mount Lookbook::Engine, at: "/lookbook"
-  end
-```
+See instructions in the [wiki](https://github.com/stevegeek/decor/wiki).
 
 # Acknowledgements
  

@@ -17,20 +17,6 @@ gem "stimulus-rails"
 # Use Tailwind CSS [https://github.com/rails/tailwindcss-rails]
 gem "tailwindcss-rails"
 
-gem "quo", github: "stevegeek/quo", branch: "main"
-gem "encoded_id-rails", "1.0.0.rc6", github: "stevegeek/encoded_id", branch: "main"
-
-gem "literal"
-gem "phlex-rails", ">= 2.0.0"
-gem "inline_svg" # used by Decor::Svg if inline: true
-gem "vident", github: "stevegeek/vident", branch: "main"
-gem "vident-phlex", github: "stevegeek/vident", branch: "main"
-
-gem "lookbook"
-gem "js_regex", "~> 3.5"
-
-gem "claude_swarm", github: "parruda/claude-swarm", branch: "main"
-
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
@@ -76,10 +62,20 @@ group :development do
   gem "web-console"
 
   gem "standard", ">= 1.35.1"
+
+  # Your gems for development go here:
+  gem "claude_swarm", github: "parruda/claude-swarm", branch: "main"
 end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+
+  # Your gems for testing go here:
 end
+
+# Load decor-related gems from separate file
+eval_gemfile "Gemfile.decor"
+
+# Your gems go here:
