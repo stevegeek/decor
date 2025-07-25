@@ -573,7 +573,7 @@ module Decor
               **cell_attrs
             )
           end
-          
+
           # Create row with component instance
           ::Decor::Tables::Builder::Row.new_with_component(
             cells: cells,

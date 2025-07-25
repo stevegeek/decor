@@ -182,7 +182,7 @@ class Decor::PanelGroupTest < ActiveSupport::TestCase
         group.render ::Decor::Panel.new(title: "Panel 3") { |p| p.plain("Content 3") }
       end
     end
-    
+
     # Should use flex layout
     assert rendered.css(".flex").any?
     assert rendered.css(".flex-wrap").any?

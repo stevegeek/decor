@@ -154,12 +154,10 @@ module Decor
                 end
               end
             end
+          elsif block_given?
+            yield
           else
-            if block_given?
-              yield
-            else
-              plain(resolved_content)
-            end
+            plain(resolved_content)
           end
         elsif @content_clickable
           div(class: "absolute inset-0") do
@@ -171,12 +169,10 @@ module Decor
               end
             end
           end
+        elsif block_given?
+          yield
         else
-          if block_given?
-            yield
-          else
-            plain(resolved_content)
-          end
+          plain(resolved_content)
         end
       end
     end

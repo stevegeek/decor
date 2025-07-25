@@ -54,7 +54,7 @@ module Decor
 
     def with_panel_row(&block)
       return unless block_given?
-      
+
       @panel_rows << block
     end
 
@@ -76,6 +76,5 @@ module Decor
         "#{base_classes} bg-base-200/50"
       end
     end
-
   end
 end

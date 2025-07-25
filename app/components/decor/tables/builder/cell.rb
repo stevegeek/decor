@@ -32,7 +32,7 @@ module Decor
           }.compact
 
           component_instance = ::Decor::Tables::DataTableCell.new(**component_props)
-          
+
           new(
             column: column,
             data: data,
