@@ -39,7 +39,7 @@ module Decor
       # The <option>s in the select
       prop :options_array, _Array(_Any), default: -> { [] }
       prop :selected_option, _Nilable(String) do |value|
-        value.to_s if value
+        value&.to_s
       end
       prop :disabled_options, _Nilable(_Array(_Any)), default: -> { [] }
 

@@ -23,7 +23,7 @@ module Decor
 
       # The value of the form field
       prop :value, _Nilable(String) do |v|
-        v.to_s if v
+        v&.to_s
       end
 
       # Whether the field is required or not

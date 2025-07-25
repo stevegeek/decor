@@ -156,7 +156,7 @@ module Decor
       if link.badge_text.present?
         render ::Decor::Badge.new(
           label: link.badge_text,
-          style: map_badge_color_to_style(link.badge_color),
+          style: :filled,
           size: :sm,
           html_options: {class: "ml-2"}
         )
@@ -242,16 +242,6 @@ module Decor
 
     def use_slot_api?
       @tab_buttons.present? || @tab_content.present? || @links.blank?
-    end
-
-    def map_badge_color_to_style(color)
-      # Badge now uses standard :filled, :outlined, :ghost styles
-      # Color names are not styles anymore
-      case color
-      when :primary, :secondary, :accent then :filled
-      when :warning, :info, :error, :success then :filled
-      else :filled
-      end
     end
   end
 end

@@ -159,7 +159,7 @@ class Decor::EmptyStateTest < ActiveSupport::TestCase
     rendered = render_fragment(component)
 
     # Check buttons are in a flex container
-    button_container = rendered.css("div").select { |div| div["class"]&.include?("flex") }.first
+    button_container = rendered.css("div").find { |div| div["class"]&.include?("flex") }
     assert button_container
     assert_includes button_container["class"], "flex"
     assert_includes button_container["class"], "justify-center"
