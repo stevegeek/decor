@@ -147,24 +147,36 @@ module Decor
           if @content_clickable
             div(class: "absolute inset-0") do
               div(class: "h-full flex items-center place-content-center") do
-                plain(resolved_content)
-                yield if block_given?
+                if block_given?
+                  yield
+                else
+                  plain(resolved_content)
+                end
               end
             end
           else
-            plain(resolved_content)
-            yield if block_given?
+            if block_given?
+              yield
+            else
+              plain(resolved_content)
+            end
           end
         elsif @content_clickable
           div(class: "absolute inset-0") do
             div(class: "h-full flex items-center place-content-center") do
-              plain(resolved_content)
-              yield if block_given?
+              if block_given?
+                yield
+              else
+                plain(resolved_content)
+              end
             end
           end
         else
-          plain(resolved_content)
-          yield if block_given?
+          if block_given?
+            yield
+          else
+            plain(resolved_content)
+          end
         end
       end
     end

@@ -4,45 +4,45 @@ module Decor
   module Tables
     module Builder
       class Cell < ::Literal::Struct
+        # Properties unique to the builder
         prop :column, ::Decor::Tables::Builder::Column
         prop :data, _Nilable(_Any)
         prop :untransformed, _Nilable(_Any)
         prop :item_index, _Nilable(Integer)
-        prop :row_height, _Nilable(Symbol)
 
-        prop :emphasis, _Nilable(Symbol)
-        prop :weight, _Nilable(Symbol)
-
-        # Path that row navigates to, used to create an anchor around cell contents
-        prop :path, _Nilable(_Any)
-        # If clickable the content is placed in an absolutely positioned div over the cell, thus
-        # allowing it first dibs on events
-        prop :content_clickable, _Boolean, default: false
-        # If the cell is meant to stop propagation of events, then a click in the cell will
-        # prevent the event from propagating to the row.
-        prop :stop_propagation, _Boolean, default: false
+        # Component instance
+        prop :component, ::Decor::Tables::DataTableCell
 
         def render_block
           column.cell_block
         end
 
-        def component
-          {
+        # Initialize with component instance
+        def self.new_with_component(column:, data:, untransformed:, item_index:, **cell_props)
+          # Merge column properties with cell-specific overrides
+          component_props = {
             numeric: column.numeric,
             colspan: column.colspan,
             min_width_rem: column.min_width_rem,
             max_width: column.max_width,
-            path: path,
-            emphasis: emphasis || column.emphasis,
-            weight: weight || column.weight,
-            row_height: row_height,
-            content_clickable: content_clickable,
-            stop_propagation: stop_propagation,
-            value: rendered_content
+            emphasis: column.emphasis,
+            weight: column.weight,
+            value: rendered_content(column, data, item_index, untransformed),
+            **cell_props
           }.compact
+
+          component_instance = ::Decor::Tables::DataTableCell.new(**component_props)
+          
+          new(
+            column: column,
+            data: data,
+            untransformed: untransformed,
+            item_index: item_index,
+            component: component_instance
+          )
         end
 
-        def rendered_content
+        def self.rendered_content(column, data, item_index, untransformed)
           return nil unless column.cell_block
 
           case column.cell_block.arity

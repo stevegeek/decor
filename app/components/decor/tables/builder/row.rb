@@ -4,34 +4,23 @@ module Decor
   module Tables
     module Builder
       class Row < ::Literal::Struct
-        prop :id, _Nilable(String)
+        # Properties unique to the builder
         prop :cells, _Array(::Decor::Tables::Builder::Cell), default: proc { [] }
         prop :item_index, _Nilable(Integer)
-        prop :path, _Nilable(_Any)
-
-        prop :hover_highlight, _Nilable(_Boolean)
-        prop :highlight, _Nilable(Symbol)
-
-        prop :disabled, _Nilable(_Boolean)
-
-        prop :selectable_as, _Nilable(String)
-        prop :selected, _Nilable(_Boolean)
-
         prop :expanded_content_renderer, _Nilable(Proc)
 
-        prop :prepared_form_builder, _Nilable(_Any)
+        # Component instance
+        prop :component, ::Decor::Tables::DataTableRow
 
-        def component
-          {
-            id: id,
-            hover_highlight: hover_highlight,
-            highlight: highlight,
-            disabled: disabled,
-            selectable_as: selectable_as,
-            selected: selected,
-            path: path,
-            form_builder: prepared_form_builder
-          }.compact
+        # Initialize with component instance
+        def self.new_with_component(cells:, item_index:, expanded_content_renderer: nil, **component_props)
+          component_instance = ::Decor::Tables::DataTableRow.new(**component_props.compact)
+          new(
+            cells: cells,
+            item_index: item_index,
+            expanded_content_renderer: expanded_content_renderer,
+            component: component_instance
+          )
         end
       end
     end

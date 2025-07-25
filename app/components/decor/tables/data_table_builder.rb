@@ -247,13 +247,15 @@ module Decor
           header_cell_attributes.each { |col| header_row_component.with_data_table_header_cell(**col) }
         end
         prepare_table_rows.each do |row|
-          data_table_component.with_data_table_row(**row.component) do |row_component|
+          # Use the pre-built component instance from the builder
+          data_table_component.with_data_table_row(row.component) do |row_component|
             if row.expanded_content_renderer
               expanded_content = row.expanded_content_renderer.call
               row_component.with_expanded_content { expanded_content } unless expanded_content.nil?
             end
             row.cells.each do |cell|
-              row_component.with_data_table_cell(**cell.component) do |cell_component|
+              # Use the pre-built component instance from the builder
+              row_component.with_data_table_cell(cell.component) do |cell_component|
                 exec_row_render_method(
                   cell_component,
                   row_component,
@@ -557,27 +559,31 @@ module Decor
           cell_attrs = cell_attributes(row_data, transformed_data, index, item_index) || {}
           apply_relevance_highlight(row_attrs, index) if page_relevance_scores.present?
 
-          ::Decor::Tables::Builder::Row.new(
-            cells: visible_columns.map do |column|
-              ::Decor::Tables::Builder::Cell.new(
-                column: column,
-                data: transformed_data,
-                untransformed: row_data,
-                item_index: item_index,
-                row_height: row_height,
-                path: column.navigates_to_path? ? path_data : nil,
-                content_clickable: column.content_clickable?,
-                stop_propagation: column.stop_propagation?,
-                **cell_attrs
-              )
-            end,
+          # Create cells with component instances
+          cells = visible_columns.map do |column|
+            ::Decor::Tables::Builder::Cell.new_with_component(
+              column: column,
+              data: transformed_data,
+              untransformed: row_data,
+              item_index: item_index,
+              row_height: row_height,
+              path: column.navigates_to_path? ? path_data : nil,
+              content_clickable: column.content_clickable?,
+              stop_propagation: column.stop_propagation?,
+              **cell_attrs
+            )
+          end
+          
+          # Create row with component instance
+          ::Decor::Tables::Builder::Row.new_with_component(
+            cells: cells,
             item_index: item_index,
-            path: path_data,
-            highlight: row_highlight(row_data, transformed_data, index, item_index),
-            prepared_form_builder: row_nested_form_builder,
             expanded_content_renderer: -> do
               row_expanded_content(row_data, transformed_data, index, item_index)
             end,
+            path: path_data,
+            highlight: row_highlight(row_data, transformed_data, index, item_index),
+            form_builder: row_nested_form_builder,
             **row_attrs
           )
         end
