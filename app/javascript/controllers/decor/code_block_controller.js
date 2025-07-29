@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import { HighlightJS } from "highlight.js"
+import HighlightJS from "@highlightjs/cdn-assets/es/highlight.min.js"
 
 export default class extends Controller {
   static targets = ["code"]
