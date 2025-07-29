@@ -75,7 +75,6 @@ module Decor
 
       def view_template(&)
         vanish(&)
-
         root_element do |el|
           # Data table header section
           if @title.present? || @data_table_header.present? || @search_and_filter_block.present?

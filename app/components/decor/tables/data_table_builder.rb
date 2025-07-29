@@ -41,15 +41,15 @@ module Decor
       prop :page_size, _Nilable(Integer), reader: :private
 
       # Pagination parameter names
-      prop :page_parameter_name, Symbol, default: :page, reader: :private
-      prop :page_size_parameter_name, Symbol, default: :page_size, reader: :private
+      prop :page_parameter_name, _Nilable(Symbol)
+      prop :page_size_parameter_name, _Nilable(Symbol)
       prop :custom_page_sizes, _Array(Integer), default: -> { [] }, reader: :private
 
       # Sorting props (set by merge_sort_and_filter_params)
       prop :sorted_direction, _Nilable(Symbol), reader: :private
       prop :sort_by, _Nilable(Symbol), reader: :private
-      prop :sort_parameter_name, Symbol, default: :sort_by, reader: :private
-      prop :sorted_direction_parameter_name, Symbol, default: :sorted_direction, reader: :private
+      prop :sort_parameter_name, _Nilable(Symbol)
+      prop :sorted_direction_parameter_name, _Nilable(Symbol)
       prop :sorting_keys, _Array(Symbol), default: -> { [] }, reader: :private
 
       prop :columns_hash, Hash, default: -> { {} }, reader: :private
@@ -70,12 +70,36 @@ module Decor
 
       def view_template(&)
         vanish(&)
-        render component
+        render component do
+          setup_component_slots(component)
+        end
       end
 
       # Can be overridden in subclasses to set up the table
       def query
         @query || raise(ArgumentError, "No query provided for DataTableBuilder")
+      end
+
+      def page_parameter_name
+        # uses class name prefix unless @page_parameter_name is set
+        @page_parameter_name || class_name_prefixed(:page)
+      end
+
+      def page_size_parameter_name
+        @page_size_parameter_name || class_name_prefixed(:page_size)
+      end
+
+      def sort_parameter_name
+        @sort_parameter_name || class_name_prefixed(:sort_by)
+      end
+
+      def sorted_direction_parameter_name
+        @sorted_direction_parameter_name || class_name_prefixed(:sorted_direction)
+      end
+
+      def class_name_prefixed(name)
+        table_name = self.class.name.demodulize.underscore
+        :"#{table_name}_#{name}"
       end
 
       # Public so controllers can use the builder as a way to filter params
@@ -94,8 +118,8 @@ module Decor
       end
 
       def merge_pagination_params
-        p = params[@page_parameter_name || :page]
-        ps = params[@page_size_parameter_name || :page_size]
+        p = params[page_parameter_name || :page]
+        ps = params[page_size_parameter_name || :page_size]
         @current_page = parse_current_page_param(p) if p.present?
         @page_size = parse_page_size_param(ps) if ps.present?
       end
@@ -114,9 +138,7 @@ module Decor
           title: title,
           subtitle: subtitle,
           html_options: html_options
-        ).tap do |new_component|
-          setup_component_slots(new_component)
-        end
+        )
       end
 
       # Define a column and how its cells are rendered -> used in views

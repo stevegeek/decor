@@ -136,7 +136,7 @@ module Decor
         @sorted_direction.present?
       end
 
-      def render_cell_content(s)
+      def render_cell_content(s, &)
         if @path.present?
           a(
             class: "cell-row-link-overlay absolute inset-0 no-underline cursor-pointer",
@@ -147,32 +147,28 @@ module Decor
           if @content_clickable
             div(class: "absolute inset-0") do
               div(class: "h-full flex items-center place-content-center") do
-                if block_given?
-                  yield
-                else
-                  plain(resolved_content)
-                end
+                cell_content(&)
               end
             end
-          elsif block_given?
-            yield
           else
-            plain(resolved_content)
+            cell_content(&)
           end
         elsif @content_clickable
           div(class: "absolute inset-0") do
             div(class: "h-full flex items-center place-content-center") do
-              if block_given?
-                yield
-              else
-                plain(resolved_content)
-              end
+              cell_content(&)
             end
           end
-        elsif block_given?
+        else
+          cell_content(&)
+        end
+      end
+
+      def cell_content
+        if block_given?
           yield
         else
-          plain(resolved_content)
+          plain resolved_content
         end
       end
     end
