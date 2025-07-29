@@ -22,10 +22,21 @@ module Decor
 
     stimulus do
       values_from_props :current_step, :color
-      values total_steps: -> { @steps.size }
+      values total_steps: -> { @step_slots.any? ? @step_slots.size : @steps.size }
     end
 
-    def view_template
+    def initialize(**)
+      @step_slots = [] # TODO: this has to be before initialize super as initialize calls to setup
+      # stimilus vales in after_initialize and the values here are dependent on the step_slots ...
+      super
+    end
+
+    def with_step(&block)
+      @step_slots << block
+    end
+
+    def view_template(&)
+      vanish(&)
       root_element do
         case @style
         when :progress
@@ -56,12 +67,21 @@ module Decor
 
     def render_steps_indicator
       ul(class: steps_classes) do
-        @steps.each_with_index do |step, idx|
-          li(class: step_classes(idx), data: {content: step_data_content(idx), **stimulus_target(:step)}) do
-            if step.href.present? && step_completed?(idx)
-              a(href: step.href, class: "text-sm font-medium") { step_full_label(step) }
-            else
-              span(class: "text-sm font-medium") { step_full_label(step) }
+        if @step_slots.any?
+          @step_slots.each_with_index do |step_slot, idx|
+            li(class: step_classes(idx), data: {content: step_data_content(idx), **stimulus_target(:step)}) do
+              render step_slot
+            end
+          end
+        else
+          # Use default steps rendering
+          @steps.each_with_index do |step, idx|
+            li(class: step_classes(idx), data: {content: step_data_content(idx), **stimulus_target(:step)}) do
+              if step.href.present? && step_completed?(idx)
+                a(href: step.href, class: "text-sm font-medium") { step_full_label(step) }
+              else
+                span(class: "text-sm font-medium") { step_full_label(step) }
+              end
             end
           end
         end
@@ -146,10 +166,11 @@ module Decor
     end
 
     def progress_value
+      total_steps = @step_slots.any? ? @step_slots.size : @steps.size
       return 0 if @current_step <= 0
-      return 100 if @current_step > @steps.size
+      return 100 if @current_step > total_steps
 
-      ((@current_step - 1).to_f / @steps.size * 100).round
+      ((@current_step - 1).to_f / total_steps * 100).round
     end
 
     def step_completed?(index)
