@@ -1,7 +1,7 @@
 # @label Side Navbar Sub Item
-# A sub-navigation item that appears under expandable navigation items in the side navbar.
-# Typically used as a child of SideNavbarItem components for nested navigation.
 class ::Decor::Nav::SideNavbarSubItemPreview < ::Lookbook::Preview
+  # A sub-navigation item that appears under expandable navigation items in the side navbar.
+  # Typically used as a child of SideNavbarItem components for nested navigation.
   # @group Examples
 
   # @label Basic Sub Item

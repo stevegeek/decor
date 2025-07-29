@@ -1,6 +1,6 @@
 # @label Side Navbar Section
-# Groups related navigation items together with an optional title, commonly used within sidebar navigation.
 class ::Decor::Nav::SideNavbarSectionPreview < ::Lookbook::Preview
+  # Groups related navigation items together with an optional title, commonly used within sidebar navigation.
   # @!group Examples
 
   # @label Basic Section

@@ -5,7 +5,7 @@ require "test_helper"
 module Decor
   class FlashTest < ViewComponent::TestCase
     def test_renders_flash_with_title_and_text
-      render_inline(Flash.new(title: "Flash Title", text: "Flash message", style: :success))
+      render_inline(Flash.new(title: "Flash Title", text: "Flash message", color: :success))
 
       assert_selector ".alert.alert-success"
       assert_selector "h3", text: "Flash Title"
@@ -69,7 +69,7 @@ module Decor
     end
 
     def test_uses_custom_title_when_provided
-      render_inline(Flash.new(title: "Custom Title", text: "Message", style: :success))
+      render_inline(Flash.new(title: "Custom Title", text: "Message", color: :success))
 
       assert_selector "h3", text: "Custom Title"
     end
@@ -124,7 +124,7 @@ module Decor
         text: "Test Text",
         preserve_flash: true,
         collapse_if_empty: false,
-        style: :warning
+        color: :warning
       )
 
       assert_equal "Test Title", component.instance_variable_get(:@title)

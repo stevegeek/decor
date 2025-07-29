@@ -12,14 +12,14 @@ class Decor::BannerTest < ActiveSupport::TestCase
   end
 
   test "applies correct style colors" do
-    component = Decor::Banner.new(style: :success)
+    component = Decor::Banner.new(color: :success)
     rendered = render_component(component) { "Success message" }
 
     assert_includes rendered, "alert-success"
   end
 
   test "renders with daisyUI alert structure" do
-    component = Decor::Banner.new(style: :info)
+    component = Decor::Banner.new(color: :info)
     rendered = render_component(component) { "Info message" }
 
     assert_includes rendered, "alert alert-info"
@@ -59,21 +59,21 @@ class Decor::BannerTest < ActiveSupport::TestCase
   end
 
   test "renders different error styles" do
-    component = Decor::Banner.new(style: :error)
+    component = Decor::Banner.new(color: :error)
     rendered = render_component(component) { "Error message" }
 
     assert_includes rendered, "alert-error"
   end
 
   test "renders different warning styles" do
-    component = Decor::Banner.new(style: :warning)
+    component = Decor::Banner.new(color: :warning)
     rendered = render_component(component) { "Warning message" }
 
     assert_includes rendered, "alert-warning"
   end
 
   test "uses nokogiri for parsing" do
-    component = Decor::Banner.new(style: :info)
+    component = Decor::Banner.new(color: :info)
     fragment = render_fragment(component) { "Info banner" }
 
     banner_div = fragment.at_css(".decor--banner")

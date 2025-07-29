@@ -67,8 +67,6 @@ export default class extends Controller {
     const steps = this.stepTargets;
     steps.forEach((step, index) => {
       const stepNumber = index + 1;
-
-      console.log(`Updating step ${stepNumber} for current step ${this.currentStepValue}`);
       // Remove existing state classes
       step.classList.remove('step-primary', 'step-secondary', 'step-accent', 
                            'step-success', 'step-error', 'step-warning', 'step-info');

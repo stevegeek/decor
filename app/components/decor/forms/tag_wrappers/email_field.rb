@@ -11,6 +11,7 @@ module Decor
         end
 
         def component_options(options)
+          fix_size_option(options)
           merge_options({}, options, TagWrappers::TextField::TEXT_FIELD_ATTRS, {type: :email})
         end
 

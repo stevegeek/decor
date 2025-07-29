@@ -12,7 +12,7 @@ class ::Decor::FlashPreview < ::Lookbook::Preview
     render ::Decor::Flash.new(
       title: "Custom Flash",
       text: "This flash demonstrates custom content with additional elements.",
-      style: :info,
+      color: :info,
       collapse_if_empty: false
     )
   end
@@ -23,7 +23,7 @@ class ::Decor::FlashPreview < ::Lookbook::Preview
     render ::Decor::Flash.new(
       title: "Validation Error",
       text: "Please correct the errors below and try again.",
-      style: :error,
+      color: :error,
       collapse_if_empty: false
     )
   end
@@ -98,7 +98,7 @@ class ::Decor::FlashPreview < ::Lookbook::Preview
     render ::Decor::Flash.new(
       title: "Success Message",
       text: "This is a success flash message example with daisyUI alert styling.",
-      style: :success,
+      color: :success,
       collapse_if_empty: false
     )
   end
@@ -109,7 +109,7 @@ class ::Decor::FlashPreview < ::Lookbook::Preview
     render ::Decor::Flash.new(
       title: "Error Message",
       text: "This is an error flash message example with daisyUI alert styling.",
-      style: :error,
+      color: :error,
       collapse_if_empty: false
     )
   end
@@ -120,7 +120,7 @@ class ::Decor::FlashPreview < ::Lookbook::Preview
     render ::Decor::Flash.new(
       title: "Warning Message",
       text: "This is a warning flash message example with daisyUI alert styling.",
-      style: :warning,
+      color: :warning,
       collapse_if_empty: false
     )
   end
@@ -131,7 +131,7 @@ class ::Decor::FlashPreview < ::Lookbook::Preview
     render ::Decor::Flash.new(
       title: "Info Message",
       text: "This is an info flash message example with daisyUI alert styling.",
-      style: :info,
+      color: :info,
       collapse_if_empty: false
     )
   end
@@ -152,7 +152,7 @@ class ::Decor::FlashPreview < ::Lookbook::Preview
   def default_title_success
     render ::Decor::Flash.new(
       text: "This flash uses the default title for success variant.",
-      style: :success,
+      color: :success,
       collapse_if_empty: false
     )
   end
@@ -162,7 +162,7 @@ class ::Decor::FlashPreview < ::Lookbook::Preview
   def default_title_error
     render ::Decor::Flash.new(
       text: "This flash uses the default title for error variant.",
-      style: :error,
+      color: :error,
       collapse_if_empty: false
     )
   end
@@ -172,7 +172,7 @@ class ::Decor::FlashPreview < ::Lookbook::Preview
   def default_title_warning
     render ::Decor::Flash.new(
       text: "This flash uses the default title for warning variant.",
-      style: :warning,
+      color: :warning,
       collapse_if_empty: false
     )
   end
@@ -182,7 +182,7 @@ class ::Decor::FlashPreview < ::Lookbook::Preview
   def default_title_info
     render ::Decor::Flash.new(
       text: "This flash uses the default title for info variant.",
-      style: :info,
+      color: :info,
       collapse_if_empty: false
     )
   end

@@ -220,7 +220,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
 
       header.with_meta_content do
         div(class: "flex flex-wrap gap-2") do
-          header.render ::Decor::Badge.new(label: "Live", style: :success)
+          header.render ::Decor::Badge.new(label: "Live", color: :success)
           header.render ::Decor::Tag.new(label: "Interactive", color: :primary)
         end
       end

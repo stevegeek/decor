@@ -78,7 +78,7 @@ export default class extends Controller {
         return `${NOTIFICATION_CLASSNAME}-${++this.currentNotificationId}`;
     }
 
-    async createNotification(content, contentHref) {
+    async createNotification(options, contentHref) {
         const notification = document.createElement("div");
         notification.id = this.nextNotificationId();
         notification.className = NOTIFICATION_CLASSNAME;
@@ -86,8 +86,12 @@ export default class extends Controller {
         if (contentHref) {
             const remoteContent = await this.getRemoteContent(`${contentHref}?notification_id=${notification.id}`);
             safelySetInnerHTML(notification, remoteContent);
-        } else if (content) {
-            safelySetInnerHTML(notification, content);
+        } else if (options.content) {
+            // The content object should have __safe and content properties
+            safelySetInnerHTML(notification, options.content);
+        } else if (options.__safe && options.content) {
+            // Handle legacy format where __safe and content are at the top level
+            safelySetInnerHTML(notification, { __safe: options.__safe, content: options.content });
         }
         
         return notification;

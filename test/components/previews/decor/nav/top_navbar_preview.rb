@@ -1,6 +1,7 @@
-# @label TopNavbar
-# @description A responsive navigation bar for the top of the page with support for branding, search, navigation items, and dropdown menus
 class ::Decor::Nav::TopNavbarPreview < ::Lookbook::Preview
+  # @label TopNavbar
+  # A responsive navigation bar for the top of the page with support for branding, search, navigation items, and dropdown menus
+
   # @!group Examples
 
   # Basic navbar with brand only

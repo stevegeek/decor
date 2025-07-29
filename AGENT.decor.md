@@ -735,14 +735,14 @@ end
 ```ruby
 # Flash message
 render Decor::Flash.new(
-  style: :success,
+  color: :success,
   title: "Success!",
   text: "Your changes have been saved."
 )
 
 # Banner
 render Decor::Banner.new(
-  style: :warning,
+  color: :warning,
   icon: "exclamation-triangle",
   centered: true
 ) do

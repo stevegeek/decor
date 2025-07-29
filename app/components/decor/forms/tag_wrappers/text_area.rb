@@ -13,6 +13,7 @@ module Decor
         end
 
         def component_options(options)
+          fix_size_option(options)
           merge_options({value: value}, options, TEXT_FIELD_ATTRS, {})
         end
 

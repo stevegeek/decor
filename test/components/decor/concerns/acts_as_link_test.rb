@@ -16,7 +16,7 @@ class Decor::ActsAsLinkTest < ActiveSupport::TestCase
       end
     end
 
-    def element_classes
+    def root_element_classes
       "test-link"
     end
   end

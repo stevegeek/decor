@@ -6,7 +6,9 @@
   "author": "Stephen Ierodiaconou <stevegeek@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "daisyui": "^5.0.43",
-    "highlight.js": "^11.11.1"
-  }
+    "daisyui": "^5.0.43"
+  },
+  "devDependencies": {
+  },
+  "scripts": {}
 }

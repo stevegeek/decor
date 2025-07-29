@@ -71,7 +71,7 @@ class Decor::CardHeaderPreview < ViewComponent::Preview
       header.with_meta do
         render Decor::Badge.new(
           label: "5 Active",
-          style: :success
+          color: :success
         )
       end
     end

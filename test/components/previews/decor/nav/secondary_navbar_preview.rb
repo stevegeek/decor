@@ -1,6 +1,6 @@
 # @label SecondaryNavbar
-# The SecondaryNavbar provides flexible sub-navigation for pages with left, center, and right content areas.
 class ::Decor::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
+  # The SecondaryNavbar provides flexible sub-navigation for pages with left, center, and right content areas.
   # @!group Examples
 
   # @label Breadcrumb Navigation

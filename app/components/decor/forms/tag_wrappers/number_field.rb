@@ -15,6 +15,7 @@ module Decor
         private
 
         def component_options(options)
+          fix_size_option(options)
           merge_options({}, options, NUMBER_FIELD_ATTRS, {type: :number})
         end
 
