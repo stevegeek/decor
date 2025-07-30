@@ -102,7 +102,7 @@ class ComponentDocumentationGenerator
     }
 
     # Extract parent class
-    if match = content.match(/class\s+\w+\s*<\s*(\S+)/)
+    if (match = content.match(/class\s+\w+\s*<\s*(\S+)/))
       data[:parent_class] = match[1]
     end
 
@@ -180,13 +180,13 @@ class ComponentDocumentationGenerator
       end
 
       # Extract default value
-      if match = type_def.match(/default:\s*(.+?)(?:,|$)/)
+      if (match = type_def.match(/default:\s*(.+?)(?:,|$)/))
         prop[:default] = clean_default(match[1])
         prop[:required] = false  # Has default value, so it's optional
       end
 
       # Extract description from comment above prop
-      if comment_match = content.match(/#\s*(.+?)\n\s*prop\s+:#{name}/)
+      if (comment_match = content.match(/#\s*(.+?)\n\s*prop\s+:#{name}/))
         prop[:description] = comment_match[1].strip
       end
 
@@ -206,7 +206,7 @@ class ComponentDocumentationGenerator
       content = File.read(module_path)
 
       # Extract prop definitions from the included block
-      if included_block = content.match(/included\s+do\s*\n(.*?)\n\s*end/m)
+      if (included_block = content.match(/included\s+do\s*\n(.*?)\n\s*end/m))
         block_content = included_block[1]
 
         # Parse props within the included block
@@ -219,13 +219,13 @@ class ComponentDocumentationGenerator
           end
 
           # Extract default value
-          if match = type_def.match(/default:\s*(.+?)(?:,|$)/)
+          if (match = type_def.match(/default:\s*(.+?)(?:,|$)/))
             prop[:default] = clean_default(match[1])
             prop[:required] = false  # Has default value, so it's optional
           end
 
           # Extract description from comment above prop
-          if comment_match = block_content.match(/#\s*(.+?)\n\s*prop\s+:#{name}/)
+          if (comment_match = block_content.match(/#\s*(.+?)\n\s*prop\s+:#{name}/))
             prop[:description] = comment_match[1].strip
           end
 
@@ -248,13 +248,13 @@ class ComponentDocumentationGenerator
     }
     puts "\n--- #{file_path} ---\n"
     # Extract label from class comment
-    if match = content.match(/# @label (.+?)\n/)
+    if (match = content.match(/# @label (.+?)\n/))
       data[:label] = match[1]
     end
 
     # Extract description from comment block inside the class
     # Look for pattern: class ... < ...\n  # First line\n  # Second line\n  # etc.
-    if match = content.match(/class\s+.+?\s*<\s*.+?\n((?:\s*#.*\n)+)/)
+    if (match = content.match(/class\s+.+?\s*<\s*.+?\n((?:\s*#.*\n)+)/))
       comment_block = match[1]
 
       puts "Comment block: #{comment_block.inspect}"
@@ -280,7 +280,7 @@ class ComponentDocumentationGenerator
     end
 
     # Extract playground parameters to understand available options
-    if match = content.match(/def playground\((.*?)\)/m)
+    if (match = content.match(/def playground\((.*?)\)/m))
       params = match[1]
       data[:playground_params] = parse_playground_params(params)
     end
@@ -294,7 +294,7 @@ class ComponentDocumentationGenerator
       param = {name: name, default: default.strip}
 
       # Check for @param comment
-      if match = params_string.match(/@param #{name}\s+(.+?)(?:\n|$)/)
+      if (match = params_string.match(/@param #{name}\s+(.+?)(?:\n|$)/))
         param[:type] = match[1].strip
       end
 
