@@ -6,9 +6,9 @@ module Decor
 
     prop :icon, _Nilable(String)
     prop :link, _Nilable(_String(&:present?))
-    prop :style, _Nilable(_Union(:warning, :info, :error, :notice, :standard, :success)), default: :notice
-
     prop :centered, _Boolean, default: false
+
+    default_color :primary
 
     def call_to_action(&block)
       @call_to_action = block
@@ -53,7 +53,7 @@ module Decor
     end
 
     def alert_classes
-      style = case @style
+      style = case @color
       when :success
         "alert-success"
       when :error
@@ -62,8 +62,8 @@ module Decor
         "alert-warning"
       when :info
         "alert-info"
-      when :notice, :standard, nil
-        # default style - no additional class needed
+      else
+        # default color - no additional class needed
         nil
       end
 
@@ -71,7 +71,7 @@ module Decor
     end
 
     def button_classes
-      style = case @style
+      style = case @color
       when :success
         "btn-success"
       when :error
@@ -80,8 +80,8 @@ module Decor
         "btn-warning"
       when :info
         "btn-info"
-      when :notice, :standard, nil
-        "btn-secondary"
+      when :primary
+        "btn-primary"
       else
         "btn-secondary"
       end

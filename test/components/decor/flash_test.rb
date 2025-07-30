@@ -17,14 +17,13 @@ module Decor
         success: "alert-success",
         error: "alert-error",
         warning: "alert-warning",
-        info: "alert-info",
-        notice: "alert-info"
+        info: "alert-info"
       }
 
       variants.each do |variant, expected_class|
         render_inline(Flash.new(
           text: "Test message",
-          style: variant,
+          color: variant,
           controller_path: "test",
           action_name: "show"
         ))
@@ -37,12 +36,11 @@ module Decor
         success: "check-circle",
         error: "x-circle",
         warning: "exclamation",
-        info: "information-circle",
-        notice: "information-circle"
+        info: "information-circle"
       }
 
       icon_mapping.each do |variant, expected_icon|
-        component = Flash.new(text: "Test", style: variant)
+        component = Flash.new(text: "Test", color: variant)
         assert_equal expected_icon, component.send(:icon)
       end
     end
@@ -52,14 +50,13 @@ module Decor
         success: "Success!",
         error: "An error exists.",
         warning: "Attention needed",
-        info: "Notice",
-        notice: "Notice"
+        info: "Notice"
       }
 
       expected_titles.each do |variant, expected_title|
         component = Flash.new(
           text: "Test",
-          style: variant,
+          color: variant,
           controller_path: "test",
           action_name: "show"
         )
@@ -131,7 +128,7 @@ module Decor
       assert_equal "Test Text", component.instance_variable_get(:@text)
       assert_equal true, component.instance_variable_get(:@preserve_flash)
       assert_equal false, component.instance_variable_get(:@collapse_if_empty)
-      assert_equal :warning, component.instance_variable_get(:@style)
+      assert_equal :warning, component.instance_variable_get(:@color)
     end
 
     def test_inherits_from_phlex_component

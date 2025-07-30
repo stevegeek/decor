@@ -16,9 +16,8 @@ module Decor
     prop :controller_path, _Nilable(String)
     prop :action_name, _Nilable(String)
 
-    # Flash uses domain-specific styles for alert types, not standard style system
-    default_style :info
-    redefine_styles :warning, :info, :error, :notice, :success
+    # Flash uses semantic colors for alert types
+    default_color :info
 
     def view_template
       if block_given? && !show_initial?
@@ -59,13 +58,13 @@ module Decor
     end
 
     def alert_variant_class
-      case resolved_style
+      case resolved_color
       when :success then "alert-success"
       when :error then "alert-error"
       when :warning then "alert-warning"
       when :info then "alert-info"
-      when :notice then "alert-info"
-      else "alert-info"
+      when :primary then "alert-info"
+      else ""
       end
     end
 
@@ -74,11 +73,11 @@ module Decor
     def title_with_defaults
       return @title if @title.present?
       if @controller_path && @action_name
-        string_key = "#{@controller_path}.#{@action_name}.flash.title.#{resolved_style}"
+        string_key = "#{@controller_path}.#{@action_name}.flash.title.#{resolved_color}"
         return I18n.t(string_key) if I18n.exists?(string_key)
       end
 
-      case resolved_style
+      case resolved_color
       when :success
         "Success!"
       when :error
@@ -91,7 +90,7 @@ module Decor
     end
 
     def icon
-      case resolved_style
+      case resolved_color
       when :success
         "check-circle"
       when :error
@@ -124,13 +123,13 @@ module Decor
     end
 
     def set_variant(flash)
-      @forced_style =
+      @forced_color =
         if flash[:errors].present?
           :error
         elsif flash[:success].present?
           :success
         elsif flash_notice(flash).present?
-          :notice
+          :neutral
         elsif flash_alert(flash).present?
           :warning
         else
@@ -138,8 +137,8 @@ module Decor
         end
     end
 
-    def resolved_style
-      @forced_style || @style
+    def resolved_color
+      @forced_color || @color
     end
 
     def resolved_flash
