@@ -41,6 +41,5 @@ node_modules/
 !/app/assets/builds/.keep
 
 # Decor library stuff, comment out if you clone for your app
-Gemfile.lock
-yarn.lock
+
 # End of Decor library stuff
