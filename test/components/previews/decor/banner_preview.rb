@@ -90,7 +90,7 @@ class ::Decor::BannerPreview < ::Lookbook::Preview
   # @group Styles
   # @label Notice Style
   def style_notice
-    render ::Decor::Banner.new(style: :notice) do
+    render ::Decor::Banner.new(color: :info) do
       "This is a notice banner with important information."
     end
   end
@@ -162,7 +162,7 @@ class ::Decor::BannerPreview < ::Lookbook::Preview
   # @group With Icons
   # @label Notice with Bell Icon
   def icon_notice_bell
-    render ::Decor::Banner.new(style: :notice, icon: "bell") do
+    render ::Decor::Banner.new(color: :info, icon: "bell", centered: true) do
       "You have 3 new notifications."
     end
   end

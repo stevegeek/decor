@@ -34,7 +34,7 @@ class ::Decor::FlashPreview < ::Lookbook::Preview
     render ::Decor::Flash.new(
       title: "Notice",
       text: "This is a simple notice message.",
-      style: :notice,
+      color: :info,
       collapse_if_empty: false
     )
   end
@@ -142,7 +142,7 @@ class ::Decor::FlashPreview < ::Lookbook::Preview
     render ::Decor::Flash.new(
       title: "Notice Message",
       text: "This is a notice flash message example with daisyUI alert styling.",
-      style: :notice,
+      color: :info,
       collapse_if_empty: false
     )
   end
@@ -192,7 +192,7 @@ class ::Decor::FlashPreview < ::Lookbook::Preview
   def default_title_notice
     render ::Decor::Flash.new(
       text: "This flash uses the default title for notice variant.",
-      style: :notice,
+      color: :info,
       collapse_if_empty: false
     )
   end

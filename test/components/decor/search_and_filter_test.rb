@@ -64,10 +64,10 @@ class Decor::SearchAndFilterTest < ActiveSupport::TestCase
       url: @url
     )
     rendered = render_component(component) do |c|
-      c.with_actions { "<button type='submit'>Search</button>" }
+      c.with_actions { c.button(type: "submit") { "Search" } }
     end
 
-    assert_includes rendered, "<button type='submit'>Search</button>"
+    assert_includes rendered, "<button type=\"submit\">Search</button>"
   end
 
   test "supports both filters and actions slots" do

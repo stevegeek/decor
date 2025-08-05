@@ -207,9 +207,7 @@ module Decor
           end
 
           if @actions.present?
-            div(class: "mt-4 sm:mt-0") do
-              raw(@actions.call.html_safe)
-            end
+            div(class: "mt-4 sm:mt-0", &@actions)
           end
         end
       end

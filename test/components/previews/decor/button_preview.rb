@@ -28,7 +28,7 @@ class ::Decor::ButtonPreview < ::Lookbook::Preview
   # @param label text
   # @param disabled toggle
   # @param icon select [~, check-circle, x, check, download, play]
-  # @param style [Symbol] select [filled, outlined, ghost]
+  # @param style [Symbol] select [filled, outlined, ghost, soft]
   # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
   # @param element_tag select [button, a]
   # @param size [Symbol] select [xs, sm, md, lg, xl]
@@ -89,6 +89,12 @@ class ::Decor::ButtonPreview < ::Lookbook::Preview
   # @label Filled Style
   def style_filled
     render ::Decor::Button.new(label: "Filled Button", style: :filled)
+  end
+
+  # @group Styles
+  # @label Soft Style
+  def style_soft
+    render ::Decor::Button.new(label: "Soft Button", style: :soft)
   end
 
   # @group Styles

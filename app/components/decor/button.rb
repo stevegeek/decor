@@ -2,6 +2,8 @@
 
 module Decor
   class Button < PhlexComponent
+    redefine_styles :filled, :outlined, :ghost, :soft
+
     default_size :md
     default_color :base
     default_style :filled
@@ -134,6 +136,8 @@ module Decor
 
     def component_style_classes(style)
       case style
+      when :soft
+        ["btn-soft"]
       when :filled
         [] # Default for buttons, no special class needed
       when :outlined
