@@ -25,7 +25,7 @@ GIT
 
 GIT
   remote: https://github.com/stevegeek/quo.git
-  revision: 38bd30c02a6bb952407cbe6f30d87f57ec30a5a0
+  revision: 90461894f0cb560e474b8628d9eb090a2b217100
   branch: main
   specs:
     quo (1.0.0.beta2)
