@@ -14,7 +14,7 @@ GIT
 
 GIT
   remote: https://github.com/stevegeek/encoded_id.git
-  revision: 03a616b369634c73e6eb5edf6dae7edd09f4f64b
+  revision: e76a77403e6fee8e20c61cb8a4063ea31f2306e0
   branch: main
   specs:
     encoded_id (1.0.0.rc6)
