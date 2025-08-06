@@ -280,7 +280,7 @@ GEM
     loofah (2.24.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
-    lookbook (2.3.11)
+    lookbook (2.3.12)
       activemodel
       css_parser
       htmlbeautifier (~> 1.3)
@@ -299,7 +299,6 @@ GEM
       net-smtp
     marcel (1.0.4)
     matrix (0.4.3)
-    method_source (1.1.0)
     metrics (0.12.2)
     mime-types (3.7.0)
       logger
@@ -527,10 +526,9 @@ GEM
     unicode-emoji (4.0.4)
     uri (1.0.3)
     useragent (0.16.11)
-    view_component (3.23.2)
-      activesupport (>= 5.2.0, < 8.1)
+    view_component (4.0.1)
+      activesupport (>= 7.1.0, < 8.1)
       concurrent-ruby (~> 1)
-      method_source (~> 1.0)
     web-console (4.2.1)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
