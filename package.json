@@ -8,7 +8,6 @@
   "dependencies": {
     "daisyui": "^5.0.43"
   },
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "scripts": {}
 }
