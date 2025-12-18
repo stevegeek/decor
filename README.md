@@ -65,6 +65,7 @@ If you want to be able to update Decor in the future (recommended), simply pull 
 ```bash
 # Add as an upstream remote
 git remote add upstream git@github.com:stevegeek/decor.git
+git remote set-url upstream --push "na"
 # Pull changes from upstream
 git pull upstream main
 ```
