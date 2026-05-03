@@ -1,6 +1,6 @@
 require "test_helper"
 
-class Decor::SwitchingBoxTest < ActiveSupport::TestCase
+class Decor::Daisy::SwitchingBoxTest < ActiveSupport::TestCase
   # This test is simplified because the SwitchingBox component depends on form rendering
   # which may not work properly in the test environment. We'll focus on testing
   # the component attributes and structure.
@@ -11,7 +11,7 @@ class Decor::SwitchingBoxTest < ActiveSupport::TestCase
   end
 
   test "renders successfully as a Box subclass" do
-    component = Decor::SwitchingBox.new(
+    component = Decor::Daisy::SwitchingBox.new(
       model: @mock_model,
       url: @mock_url,
       property_name: :active,
@@ -24,7 +24,7 @@ class Decor::SwitchingBoxTest < ActiveSupport::TestCase
   end
 
   test "inherits Box styling and structure" do
-    component = Decor::SwitchingBox.new(
+    component = Decor::Daisy::SwitchingBox.new(
       model: @mock_model,
       url: @mock_url,
       property_name: :active,
@@ -39,7 +39,7 @@ class Decor::SwitchingBoxTest < ActiveSupport::TestCase
   end
 
   test "renders with title and description" do
-    component = Decor::SwitchingBox.new(
+    component = Decor::Daisy::SwitchingBox.new(
       model: @mock_model,
       url: @mock_url,
       property_name: :active,
@@ -53,7 +53,7 @@ class Decor::SwitchingBoxTest < ActiveSupport::TestCase
   end
 
   test "right? method returns true" do
-    component = Decor::SwitchingBox.new(
+    component = Decor::Daisy::SwitchingBox.new(
       model: @mock_model,
       url: @mock_url,
       property_name: :active
@@ -63,7 +63,7 @@ class Decor::SwitchingBoxTest < ActiveSupport::TestCase
   end
 
   test "does not render right slot when model is nil" do
-    component = Decor::SwitchingBox.new(
+    component = Decor::Daisy::SwitchingBox.new(
       model: nil,
       url: @mock_url,
       property_name: :active,
@@ -77,7 +77,7 @@ class Decor::SwitchingBoxTest < ActiveSupport::TestCase
   end
 
   test "supports left slot from Box parent" do
-    component = Decor::SwitchingBox.new(
+    component = Decor::Daisy::SwitchingBox.new(
       model: @mock_model,
       url: @mock_url,
       property_name: :active
@@ -91,7 +91,7 @@ class Decor::SwitchingBoxTest < ActiveSupport::TestCase
   end
 
   test "renders title in h2 element when provided" do
-    component = Decor::SwitchingBox.new(
+    component = Decor::Daisy::SwitchingBox.new(
       model: @mock_model,
       url: @mock_url,
       property_name: :active,
@@ -106,7 +106,7 @@ class Decor::SwitchingBoxTest < ActiveSupport::TestCase
   end
 
   test "renders description in paragraph when provided" do
-    component = Decor::SwitchingBox.new(
+    component = Decor::Daisy::SwitchingBox.new(
       model: @mock_model,
       url: @mock_url,
       property_name: :active,
@@ -121,17 +121,17 @@ class Decor::SwitchingBoxTest < ActiveSupport::TestCase
   end
 
   test "component inherits from Box" do
-    component = Decor::SwitchingBox.new(
+    component = Decor::Daisy::SwitchingBox.new(
       model: @mock_model,
       url: @mock_url,
       property_name: :active
     )
 
-    assert component.is_a?(Decor::Daisy::Box)
+    assert component.is_a?(Decor::Components::Box)
   end
 
   test "can be initialized with required attributes" do
-    component = Decor::SwitchingBox.new(
+    component = Decor::Daisy::SwitchingBox.new(
       model: @mock_model,
       url: @mock_url,
       property_name: :active,
@@ -146,7 +146,7 @@ class Decor::SwitchingBoxTest < ActiveSupport::TestCase
   end
 
   test "renders with daisyUI card classes" do
-    component = Decor::SwitchingBox.new(
+    component = Decor::Daisy::SwitchingBox.new(
       model: @mock_model,
       url: @mock_url,
       property_name: :active,
@@ -154,7 +154,7 @@ class Decor::SwitchingBoxTest < ActiveSupport::TestCase
     )
     rendered = render_component(component)
 
-    assert_includes rendered, "decor--switching-box"
+    assert_includes rendered, "decor--daisy--switching-box"
     assert_includes rendered, "card-bordered"
     assert_includes rendered, "bg-base-100"
   end

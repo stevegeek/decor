@@ -1,5 +1,5 @@
 # @label SwitchingBox
-class ::Decor::SwitchingBoxPreview < ::Lookbook::Preview
+class ::Decor::Daisy::SwitchingBoxPreview < ::Lookbook::Preview
   # SwitchingBox
   # -------
   #
@@ -10,7 +10,7 @@ class ::Decor::SwitchingBoxPreview < ::Lookbook::Preview
   # @group Examples
   # @label Basic Switching Box
   def basic_switching_box
-    render ::Decor::SwitchingBox.new(
+    render ::Decor::Daisy::SwitchingBox.new(
       title: "Enable Notifications",
       description: "Receive email alerts for important updates",
       property_name: :notifications,
@@ -22,7 +22,7 @@ class ::Decor::SwitchingBoxPreview < ::Lookbook::Preview
   # @group Examples
   # @label With Additional Content
   def with_additional_content
-    render ::Decor::SwitchingBox.new(
+    render ::Decor::Daisy::SwitchingBox.new(
       title: "Two-Factor Authentication",
       description: "Add an extra layer of security to your account",
       property_name: :two_factor,
@@ -40,7 +40,7 @@ class ::Decor::SwitchingBoxPreview < ::Lookbook::Preview
   # @group Examples
   # @label Feature Toggle
   def feature_toggle
-    render ::Decor::SwitchingBox.new(
+    render ::Decor::Daisy::SwitchingBox.new(
       title: "Beta Features",
       description: "Try out new features before they're officially released",
       property_name: :beta_features,
@@ -64,7 +64,7 @@ class ::Decor::SwitchingBoxPreview < ::Lookbook::Preview
   # @param switch_options_checked toggle
   # @param property_name text
   def playground(title: "Hi!", description: "This is a description", show_slot: false, switch_options_checked: false, property_name: :switch)
-    render ::Decor::SwitchingBox.new(
+    render ::Decor::Daisy::SwitchingBox.new(
       title: title,
       description: description,
       switch_options: {checked: switch_options_checked},
@@ -87,7 +87,7 @@ class ::Decor::SwitchingBoxPreview < ::Lookbook::Preview
   # @group States
   # @label Checked State
   def state_checked
-    render ::Decor::SwitchingBox.new(
+    render ::Decor::Daisy::SwitchingBox.new(
       title: "Email Marketing",
       description: "Receive promotional emails and newsletters",
       property_name: :marketing,
@@ -100,7 +100,7 @@ class ::Decor::SwitchingBoxPreview < ::Lookbook::Preview
   # @group States
   # @label Unchecked State
   def state_unchecked
-    render ::Decor::SwitchingBox.new(
+    render ::Decor::Daisy::SwitchingBox.new(
       title: "Auto-save Drafts",
       description: "Automatically save your work as you type",
       property_name: :autosave,
@@ -113,7 +113,7 @@ class ::Decor::SwitchingBoxPreview < ::Lookbook::Preview
   # @group Layouts
   # @label Simple Layout
   def layout_simple
-    render ::Decor::SwitchingBox.new(
+    render ::Decor::Daisy::SwitchingBox.new(
       title: "Dark Mode",
       description: "Use dark theme across the application",
       property_name: :dark_mode,
@@ -125,7 +125,7 @@ class ::Decor::SwitchingBoxPreview < ::Lookbook::Preview
   # @group Layouts
   # @label With Left Content
   def layout_with_left
-    render ::Decor::SwitchingBox.new(
+    render ::Decor::Daisy::SwitchingBox.new(
       title: "Data Collection",
       description: "Help improve our services by sharing anonymous usage data",
       property_name: :analytics,
@@ -141,7 +141,7 @@ class ::Decor::SwitchingBoxPreview < ::Lookbook::Preview
   # @group Examples
   # @label Privacy Settings
   def privacy_settings
-    render ::Decor::SwitchingBox.new(
+    render ::Decor::Daisy::SwitchingBox.new(
       title: "Public Profile",
       description: "Make your profile visible to other users",
       property_name: :public_profile,
@@ -159,7 +159,7 @@ class ::Decor::SwitchingBoxPreview < ::Lookbook::Preview
   # @group Examples
   # @label System Preferences
   def system_preferences
-    render ::Decor::SwitchingBox.new(
+    render ::Decor::Daisy::SwitchingBox.new(
       title: "Automatic Updates",
       description: "Download and install updates automatically",
       property_name: :auto_update,
@@ -181,7 +181,7 @@ class ::Decor::SwitchingBoxPreview < ::Lookbook::Preview
   # @group Examples
   # @label Subscription Toggle
   def subscription_toggle
-    render ::Decor::SwitchingBox.new(
+    render ::Decor::Daisy::SwitchingBox.new(
       title: "Premium Subscription",
       description: "Access all premium features and content",
       property_name: :premium,

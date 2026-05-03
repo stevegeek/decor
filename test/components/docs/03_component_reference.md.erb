@@ -105,7 +105,7 @@ If you find any issues or missing components, please open a PR to improve the do
 - [Decor::SearchAndFilter](#decorsearchandfilter)
 - [Decor::SearchResultsDropdown](#decorsearchresultsdropdown)
 - [Decor::Daisy::Svg](#decordaisysvg)
-- [Decor::SwitchingBox](#decorswitchingbox)
+- [Decor::Daisy::SwitchingBox](#decordaisyswitchingbox)
 - [Decor::Daisy::Toggle](#decordaisytoggle)
 
 ---
@@ -2450,15 +2450,15 @@ _(and the shared properties `size`, `color`, and `style` as described above)_
 
 ---
 
-### Decor::SwitchingBox
+### Decor::Daisy::SwitchingBox
 
-<span id="decorswitchingbox"></span>
+<span id="decordaisyswitchingbox"></span>
 
 SwitchingBox A switching box is a Box which shows content and contains a form and switch rendered on the right which submits on change. Used for switching things on and off outside of a form. Perfect for feature toggles, settings, and preferences.
 
 **Basic Usage:**
 ```ruby
-render Decor::SwitchingBox.new do |c|
+render Decor::Daisy::SwitchingBox.new do |c|
   c.with_left do
     # Slot content
   end
