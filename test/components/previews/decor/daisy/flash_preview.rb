@@ -1,5 +1,5 @@
 # @label Flash Banner
-class ::Decor::FlashPreview < ::Lookbook::Preview
+class ::Decor::Daisy::FlashPreview < ::Lookbook::Preview
   # 'Flash' or Alert banner
   # -------
   # A flash banner is displayed inline with other content. It's intention is to display prominent information
@@ -9,7 +9,7 @@ class ::Decor::FlashPreview < ::Lookbook::Preview
   # @group Examples
   # @label Custom Content
   def example_custom_content
-    render ::Decor::Flash.new(
+    render ::Decor::Daisy::Flash.new(
       title: "Custom Flash",
       text: "This flash demonstrates custom content with additional elements.",
       color: :info,
@@ -20,7 +20,7 @@ class ::Decor::FlashPreview < ::Lookbook::Preview
   # @group Examples
   # @label Form Validation Error
   def example_form_validation
-    render ::Decor::Flash.new(
+    render ::Decor::Daisy::Flash.new(
       title: "Validation Error",
       text: "Please correct the errors below and try again.",
       color: :error,
@@ -31,7 +31,7 @@ class ::Decor::FlashPreview < ::Lookbook::Preview
   # @group Examples
   # @label Simple Notice
   def example_simple_notice
-    render ::Decor::Flash.new(
+    render ::Decor::Daisy::Flash.new(
       title: "Notice",
       text: "This is a simple notice message.",
       color: :info,
@@ -43,7 +43,7 @@ class ::Decor::FlashPreview < ::Lookbook::Preview
   # Flash with custom content block
   # @label Custom Content
   def custom_content
-    render ::Decor::Flash.new do |component|
+    render ::Decor::Daisy::Flash.new do |component|
       component.div(class: "alert alert-info") do
         component.div(class: "flex") do
           component.div(class: "flex-shrink-0") do
@@ -81,7 +81,7 @@ class ::Decor::FlashPreview < ::Lookbook::Preview
     size: nil,
     color: nil
   )
-    render ::Decor::Flash.new(
+    render ::Decor::Daisy::Flash.new(
       title: title,
       text: text,
       preserve_flash: preserve_flash,
@@ -95,7 +95,7 @@ class ::Decor::FlashPreview < ::Lookbook::Preview
   # @group Variants
   # @label Success Variant
   def variant_success
-    render ::Decor::Flash.new(
+    render ::Decor::Daisy::Flash.new(
       title: "Success Message",
       text: "This is a success flash message example with daisyUI alert styling.",
       color: :success,
@@ -106,7 +106,7 @@ class ::Decor::FlashPreview < ::Lookbook::Preview
   # @group Variants
   # @label Error Variant
   def variant_error
-    render ::Decor::Flash.new(
+    render ::Decor::Daisy::Flash.new(
       title: "Error Message",
       text: "This is an error flash message example with daisyUI alert styling.",
       color: :error,
@@ -117,7 +117,7 @@ class ::Decor::FlashPreview < ::Lookbook::Preview
   # @group Variants
   # @label Warning Variant
   def variant_warning
-    render ::Decor::Flash.new(
+    render ::Decor::Daisy::Flash.new(
       title: "Warning Message",
       text: "This is a warning flash message example with daisyUI alert styling.",
       color: :warning,
@@ -128,7 +128,7 @@ class ::Decor::FlashPreview < ::Lookbook::Preview
   # @group Variants
   # @label Info Variant
   def variant_info
-    render ::Decor::Flash.new(
+    render ::Decor::Daisy::Flash.new(
       title: "Info Message",
       text: "This is an info flash message example with daisyUI alert styling.",
       color: :info,
@@ -139,7 +139,7 @@ class ::Decor::FlashPreview < ::Lookbook::Preview
   # @group Variants
   # @label Notice Variant
   def variant_notice
-    render ::Decor::Flash.new(
+    render ::Decor::Daisy::Flash.new(
       title: "Notice Message",
       text: "This is a notice flash message example with daisyUI alert styling.",
       color: :info,
@@ -150,7 +150,7 @@ class ::Decor::FlashPreview < ::Lookbook::Preview
   # @group Default Titles
   # @label Success Default Title
   def default_title_success
-    render ::Decor::Flash.new(
+    render ::Decor::Daisy::Flash.new(
       text: "This flash uses the default title for success variant.",
       color: :success,
       collapse_if_empty: false
@@ -160,7 +160,7 @@ class ::Decor::FlashPreview < ::Lookbook::Preview
   # @group Default Titles
   # @label Error Default Title
   def default_title_error
-    render ::Decor::Flash.new(
+    render ::Decor::Daisy::Flash.new(
       text: "This flash uses the default title for error variant.",
       color: :error,
       collapse_if_empty: false
@@ -170,7 +170,7 @@ class ::Decor::FlashPreview < ::Lookbook::Preview
   # @group Default Titles
   # @label Warning Default Title
   def default_title_warning
-    render ::Decor::Flash.new(
+    render ::Decor::Daisy::Flash.new(
       text: "This flash uses the default title for warning variant.",
       color: :warning,
       collapse_if_empty: false
@@ -180,7 +180,7 @@ class ::Decor::FlashPreview < ::Lookbook::Preview
   # @group Default Titles
   # @label Info Default Title
   def default_title_info
-    render ::Decor::Flash.new(
+    render ::Decor::Daisy::Flash.new(
       text: "This flash uses the default title for info variant.",
       color: :info,
       collapse_if_empty: false
@@ -190,7 +190,7 @@ class ::Decor::FlashPreview < ::Lookbook::Preview
   # @group Default Titles
   # @label Notice Default Title
   def default_title_notice
-    render ::Decor::Flash.new(
+    render ::Decor::Daisy::Flash.new(
       text: "This flash uses the default title for notice variant.",
       color: :info,
       collapse_if_empty: false

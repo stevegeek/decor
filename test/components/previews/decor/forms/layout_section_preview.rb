@@ -108,7 +108,7 @@ class ::Decor::Forms::LayoutSectionPreview < ::Lookbook::Preview
     ) do |section|
       if include_flash
         section.flash do
-          section.render ::Decor::Flash.new(type: :info) do
+          section.render ::Decor::Daisy::Flash.new(type: :info) do
             "This is an informational message for this section."
           end
         end
@@ -205,7 +205,7 @@ class ::Decor::Forms::LayoutSectionPreview < ::Lookbook::Preview
       flash: true
     ) do |section|
       section.flash do
-        section.render ::Decor::Flash.new(type: :success) do
+        section.render ::Decor::Daisy::Flash.new(type: :success) do
           "All fields have been validated successfully!"
         end
       end

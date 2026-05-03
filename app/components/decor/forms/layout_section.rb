@@ -28,7 +28,7 @@ module Decor
           render @hero if @hero.present?
 
           if @flash
-            render ::Decor::Flash.new(
+            render ::Decor::Daisy::Flash.new(
               text: @flash_message,
               collapse_if_empty: true,
               html_options: {class: "mb-8"},

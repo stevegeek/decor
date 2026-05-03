@@ -215,7 +215,7 @@ class Decor::PageTest < ActiveSupport::TestCase
     assert_includes rendered, "Legacy description"
     assert_includes rendered, "CTA Content"
     assert_includes rendered, "xl:flex" # cta_snap_large behavior
-    refute_includes rendered, "decor--flash" # flash disabled
+    refute_includes rendered, "decor--daisy--flash" # flash disabled
   end
 
   test "supports tabs slot" do

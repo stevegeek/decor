@@ -47,7 +47,7 @@ module Decor
 
         div(class: content_area_classes) do
           if @include_flash
-            render ::Decor::Flash.new(collapse_if_empty: true, flash_data:)
+            render ::Decor::Daisy::Flash.new(collapse_if_empty: true, flash_data:)
           end
           raw content if content
         end

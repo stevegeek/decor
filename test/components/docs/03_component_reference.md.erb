@@ -24,7 +24,7 @@ If you find any issues or missing components, please open a PR to improve the do
 - [Decor::Carousel](#decorcarousel)
 - [Decor::Dropdown](#decordropdown)
 - [Decor::DropdownItem](#decordropdownitem)
-- [Decor::Flash](#decorflash)
+- [Decor::Daisy::Flash](#decordaisyflash)
 - [Decor::Daisy::FlowStep](#decordaisyflowstep)
 - [Decor::Daisy::Icon](#decordaisyicon)
 - [Decor::Daisy::Link](#decordaisylink)
@@ -444,15 +444,15 @@ _(and the shared properties `size`, `color`, and `style` as described above)_
 
 ---
 
-### Decor::Flash
+### Decor::Daisy::Flash
 
-<span id="decorflash"></span>
+<span id="decordaisyflash"></span>
 
 'Flash' or Alert banner A flash banner is displayed inline with other content. It's intention is to display prominent information related to the content of the page. A common use case for a flash banner is showing messages relating to form submissions (e.g. validation messages).
 
 **Basic Usage:**
 ```ruby
-render Decor::Flash.new do
+render Decor::Daisy::Flash.new do
   "Content goes here"
 end
 ```
