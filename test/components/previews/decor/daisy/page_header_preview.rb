@@ -1,5 +1,5 @@
 # @label PageHeader
-class ::Decor::PageHeaderPreview < ::Lookbook::Preview
+class ::Decor::Daisy::PageHeaderPreview < ::Lookbook::Preview
   # PageHeader
   # -----------
   #
@@ -10,7 +10,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
   # @group Examples
   # @label Basic Page Header
   def basic_page_header
-    render ::Decor::PageHeader.new(
+    render ::Decor::Daisy::PageHeader.new(
       title: "User Profile",
       subtitle: "Manage your account settings"
     )
@@ -19,7 +19,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
   # @group Examples
   # @label Page Header with Actions
   def page_header_with_actions
-    render ::Decor::PageHeader.new(
+    render ::Decor::Daisy::PageHeader.new(
       title: "Project Dashboard",
       subtitle: "Track your project progress"
     ) do |header|
@@ -33,7 +33,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
   # @group Examples
   # @label Full Featured Header
   def full_featured_header
-    render ::Decor::PageHeader.new(
+    render ::Decor::Daisy::PageHeader.new(
       title: "Team Overview",
       subtitle: "Collaborate with your team",
       description: "View team members, projects, and recent activity."
@@ -61,7 +61,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
   # @group Examples
   # @label Hero Style Header
   def hero_style_header
-    render ::Decor::PageHeader.new(
+    render ::Decor::Daisy::PageHeader.new(
       title: "Welcome to Our Platform",
       subtitle: "Build amazing applications with our comprehensive toolkit",
       description: "Join thousands of developers who are already using our platform.",
@@ -80,7 +80,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
   # @group Examples
   # @label Profile Header
   def profile_header
-    render ::Decor::PageHeader.new(
+    render ::Decor::Daisy::PageHeader.new(
       title: "John Doe",
       subtitle: "Software Engineer at Example Corp",
       description: "Passionate about building beautiful and functional web applications.",
@@ -113,7 +113,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
   # @group Examples
   # @label Custom Title Content
   def custom_title_content
-    render ::Decor::PageHeader.new(
+    render ::Decor::Daisy::PageHeader.new(
       title: "Original Title"  # This will be overridden
     ) do |header|
       header.with_title_content do
@@ -132,7 +132,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
   # @group Examples
   # @label Rich Meta Content
   def rich_meta_content
-    render ::Decor::PageHeader.new(
+    render ::Decor::Daisy::PageHeader.new(
       title: "Project Dashboard",
       subtitle: "Track your project progress and team performance"
     ) do |header|
@@ -187,7 +187,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
     color: nil,
     style: nil
   )
-    render ::Decor::PageHeader.new(
+    render ::Decor::Daisy::PageHeader.new(
       title: title,
       subtitle: subtitle,
       description: description,
@@ -237,7 +237,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
   # @group Layouts
   # @label Default Layout
   def layout_default
-    render ::Decor::PageHeader.new(
+    render ::Decor::Daisy::PageHeader.new(
       title: "Default Layout Header",
       subtitle: "Standard left-aligned layout",
       description: "This is the most common layout for page headers.",
@@ -248,7 +248,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
   # @group Layouts
   # @label Centered Layout
   def layout_centered
-    render ::Decor::PageHeader.new(
+    render ::Decor::Daisy::PageHeader.new(
       title: "Centered Layout",
       subtitle: "Everything is center-aligned",
       description: "Perfect for profile pages and feature announcements.",
@@ -259,7 +259,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
   # @group Layouts
   # @label Minimal Layout
   def layout_minimal
-    render ::Decor::PageHeader.new(
+    render ::Decor::Daisy::PageHeader.new(
       title: "Minimal Layout",
       layout: :minimal
     ) do |header|
@@ -272,7 +272,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
   # @group Layouts
   # @label Hero Layout
   def layout_hero
-    render ::Decor::PageHeader.new(
+    render ::Decor::Daisy::PageHeader.new(
       title: "Hero Layout",
       subtitle: "Large, centered hero section",
       description: "Ideal for landing pages and major announcements.",
@@ -284,7 +284,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
   # @group Layouts
   # @label Compact Layout
   def layout_compact
-    render ::Decor::PageHeader.new(
+    render ::Decor::Daisy::PageHeader.new(
       title: "Compact Layout",
       layout: :compact
     ) do |header|
@@ -297,7 +297,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
   # @group Sizes
   # @label XS Size
   def size_xs
-    render ::Decor::PageHeader.new(
+    render ::Decor::Daisy::PageHeader.new(
       title: "Extra Small Header",
       subtitle: "Minimal space usage",
       size: :xs
@@ -307,7 +307,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
   # @group Sizes
   # @label SM Size
   def size_sm
-    render ::Decor::PageHeader.new(
+    render ::Decor::Daisy::PageHeader.new(
       title: "Small Header",
       subtitle: "Compact but readable",
       size: :sm
@@ -317,7 +317,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
   # @group Sizes
   # @label MD Size (Default)
   def size_md
-    render ::Decor::PageHeader.new(
+    render ::Decor::Daisy::PageHeader.new(
       title: "Medium Header",
       subtitle: "Standard size for most use cases",
       description: "This is the default size.",
@@ -328,7 +328,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
   # @group Sizes
   # @label LG Size
   def size_lg
-    render ::Decor::PageHeader.new(
+    render ::Decor::Daisy::PageHeader.new(
       title: "Large Header",
       subtitle: "More prominent presence",
       description: "Good for important sections.",
@@ -339,7 +339,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
   # @group Sizes
   # @label XL Size
   def size_xl
-    render ::Decor::PageHeader.new(
+    render ::Decor::Daisy::PageHeader.new(
       title: "Extra Large Header",
       subtitle: "Maximum visual impact",
       description: "Perfect for hero sections and landing pages.",
@@ -350,7 +350,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
   # @group Backgrounds
   # @label Default Background
   def background_default
-    render ::Decor::PageHeader.new(
+    render ::Decor::Daisy::PageHeader.new(
       title: "Default Background",
       subtitle: "Standard base-100 background",
       background: :default
@@ -360,7 +360,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
   # @group Backgrounds
   # @label Hero Background
   def background_hero
-    render ::Decor::PageHeader.new(
+    render ::Decor::Daisy::PageHeader.new(
       title: "Hero Background",
       subtitle: "Uses base-200 for subtle contrast",
       background: :hero
@@ -370,7 +370,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
   # @group Backgrounds
   # @label Gradient Background
   def background_gradient
-    render ::Decor::PageHeader.new(
+    render ::Decor::Daisy::PageHeader.new(
       title: "Gradient Background",
       subtitle: "Eye-catching gradient effect",
       background: :gradient,
@@ -381,7 +381,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
   # @group Backgrounds
   # @label Transparent Background
   def background_transparent
-    render ::Decor::PageHeader.new(
+    render ::Decor::Daisy::PageHeader.new(
       title: "Transparent Background",
       subtitle: "Blends with parent container",
       background: :transparent,
@@ -392,7 +392,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
   # @group Padding
   # @label No Padding
   def padding_none
-    render ::Decor::PageHeader.new(
+    render ::Decor::Daisy::PageHeader.new(
       title: "No Padding Header",
       subtitle: "Flush with container edges",
       padding: :none
@@ -402,7 +402,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
   # @group Padding
   # @label Small Padding
   def padding_sm
-    render ::Decor::PageHeader.new(
+    render ::Decor::Daisy::PageHeader.new(
       title: "Small Padding",
       subtitle: "Minimal spacing",
       padding: :sm
@@ -412,7 +412,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
   # @group Padding
   # @label Medium Padding (Default)
   def padding_md
-    render ::Decor::PageHeader.new(
+    render ::Decor::Daisy::PageHeader.new(
       title: "Medium Padding",
       subtitle: "Standard spacing",
       padding: :md
@@ -422,7 +422,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
   # @group Padding
   # @label Large Padding
   def padding_lg
-    render ::Decor::PageHeader.new(
+    render ::Decor::Daisy::PageHeader.new(
       title: "Large Padding",
       subtitle: "Generous spacing",
       padding: :lg
@@ -432,7 +432,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
   # @group Padding
   # @label XL Padding
   def padding_xl
-    render ::Decor::PageHeader.new(
+    render ::Decor::Daisy::PageHeader.new(
       title: "Extra Large Padding",
       subtitle: "Maximum breathing room",
       padding: :xl
@@ -442,7 +442,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
   # @group Border
   # @label With Border
   def with_border
-    render ::Decor::PageHeader.new(
+    render ::Decor::Daisy::PageHeader.new(
       title: "Header with Border",
       subtitle: "Bottom border for separation",
       border: true
@@ -452,7 +452,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
   # @group Border
   # @label Without Border
   def without_border
-    render ::Decor::PageHeader.new(
+    render ::Decor::Daisy::PageHeader.new(
       title: "Header without Border",
       subtitle: "Clean edge without separation",
       border: false

@@ -11,7 +11,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
   def basic_page
     render ::Decor::Page.new do |page|
       page.with_header do
-        ::Decor::PageHeader.new(
+        ::Decor::Daisy::PageHeader.new(
           title: "Welcome to Our Application",
           subtitle: "Get started with the basics",
           description: "This is a simple page example showing the default configuration."
@@ -45,7 +45,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
       end
 
       page.with_header do
-        ::Decor::PageHeader.new(
+        ::Decor::Daisy::PageHeader.new(
           title: "Featured Section",
           subtitle: "Discover what's new"
         )
@@ -69,7 +69,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
   def page_with_tabs
     render ::Decor::Page.new do |page|
       page.with_header do
-        header = ::Decor::PageHeader.new(
+        header = ::Decor::Daisy::PageHeader.new(
           title: "Dashboard",
           subtitle: "Monitor your application",
           description: "View analytics and manage your resources."
@@ -122,7 +122,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
       end
 
       page.with_header do
-        header = ::Decor::PageHeader.new(
+        header = ::Decor::Daisy::PageHeader.new(
           title: "Complete Solution",
           subtitle: "All features demonstrated",
           description: "This example shows how all page components work together.",
@@ -228,7 +228,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
       spacing: :sm
     ) do |page|
       page.with_header do
-        header = ::Decor::PageHeader.new(
+        header = ::Decor::Daisy::PageHeader.new(
           title: "Extra Small Page",
           subtitle: "Compact layout",
           size: :xs
@@ -250,7 +250,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
       size: :sm
     ) do |page|
       page.with_header do
-        ::Decor::PageHeader.new(
+        ::Decor::Daisy::PageHeader.new(
           title: "Small Page",
           subtitle: "Reduced sizing",
           size: :sm
@@ -270,7 +270,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
       size: :md
     ) do |page|
       page.with_header do
-        ::Decor::PageHeader.new(
+        ::Decor::Daisy::PageHeader.new(
           title: "Medium Page",
           subtitle: "Default sizing",
           description: "This is the standard size for most use cases.",
@@ -292,7 +292,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
       spacing: :lg
     ) do |page|
       page.with_header do
-        header = ::Decor::PageHeader.new(
+        header = ::Decor::Daisy::PageHeader.new(
           title: "Large Page Layout",
           subtitle: "Spacious design",
           description: "Larger text and increased spacing for better readability.",
@@ -318,7 +318,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
       spacing: :xl
     ) do |page|
       page.with_header do
-        ::Decor::PageHeader.new(
+        ::Decor::Daisy::PageHeader.new(
           title: "Extra Large Page",
           subtitle: "Maximum size",
           description: "Largest available text and spacing options.",
@@ -339,7 +339,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
       background: :default
     ) do |page|
       page.with_header do
-        ::Decor::PageHeader.new(
+        ::Decor::Daisy::PageHeader.new(
           title: "Default Background",
           description: "Standard base-100 background color."
         )
@@ -358,7 +358,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
       background: :hero
     ) do |page|
       page.with_header do
-        ::Decor::PageHeader.new(
+        ::Decor::Daisy::PageHeader.new(
           title: "Hero Background",
           description: "Subtle base-200 background for visual separation."
         )
@@ -377,7 +377,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
       background: :primary
     ) do |page|
       page.with_header do
-        ::Decor::PageHeader.new(
+        ::Decor::Daisy::PageHeader.new(
           title: "Primary Background",
           description: "Subtle primary color tint."
         )
@@ -396,7 +396,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
       padding: :none
     ) do |page|
       page.with_header do
-        ::Decor::PageHeader.new(
+        ::Decor::Daisy::PageHeader.new(
           title: "No Padding",
           description: "Content flush with edges"
         )
@@ -415,7 +415,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
       padding: :sm
     ) do |page|
       page.with_header do
-        ::Decor::PageHeader.new(
+        ::Decor::Daisy::PageHeader.new(
           title: "Small Padding",
           description: "Minimal internal padding"
         )
@@ -434,7 +434,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
       padding: :md
     ) do |page|
       page.with_header do
-        ::Decor::PageHeader.new(
+        ::Decor::Daisy::PageHeader.new(
           title: "Medium Padding",
           description: "Standard padding amount"
         )
@@ -453,7 +453,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
       padding: :lg
     ) do |page|
       page.with_header do
-        ::Decor::PageHeader.new(
+        ::Decor::Daisy::PageHeader.new(
           title: "Large Padding",
           description: "Generous internal spacing"
         )
@@ -472,7 +472,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
       padding: :xl
     ) do |page|
       page.with_header do
-        ::Decor::PageHeader.new(
+        ::Decor::Daisy::PageHeader.new(
           title: "Extra Large Padding",
           description: "Maximum internal spacing"
         )
@@ -491,7 +491,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
       spacing: :none
     ) do |page|
       page.with_header do
-        ::Decor::PageHeader.new(
+        ::Decor::Daisy::PageHeader.new(
           title: "No Spacing",
           description: "Elements packed together"
         )
@@ -510,7 +510,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
       spacing: :sm
     ) do |page|
       page.with_header do
-        ::Decor::PageHeader.new(
+        ::Decor::Daisy::PageHeader.new(
           title: "Small Spacing",
           description: "Minimal gaps between elements"
         )
@@ -528,7 +528,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
       spacing: :md
     ) do |page|
       page.with_header do
-        ::Decor::PageHeader.new(
+        ::Decor::Daisy::PageHeader.new(
           title: "Medium Spacing",
           description: "Standard gaps between elements"
         )
@@ -546,7 +546,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
       spacing: :lg
     ) do |page|
       page.with_header do
-        ::Decor::PageHeader.new(
+        ::Decor::Daisy::PageHeader.new(
           title: "Large Spacing",
           description: "Generous gaps between elements"
         )
@@ -564,7 +564,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
       spacing: :xl
     ) do |page|
       page.with_header do
-        ::Decor::PageHeader.new(
+        ::Decor::Daisy::PageHeader.new(
           title: "Extra Large Spacing",
           description: "Maximum gaps between elements"
         )
@@ -583,7 +583,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
       padding: :lg
     ) do |page|
       page.with_header do
-        ::Decor::PageHeader.new(
+        ::Decor::Daisy::PageHeader.new(
           title: "Full Height Page",
           description: "Uses full viewport height"
         )
@@ -605,7 +605,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
       full_height: false
     ) do |page|
       page.with_header do
-        ::Decor::PageHeader.new(
+        ::Decor::Daisy::PageHeader.new(
           title: "Natural Height Page",
           description: "Uses content height"
         )

@@ -111,7 +111,7 @@ class Decor::PageTest < ActiveSupport::TestCase
   test "uses daisyUI semantic classes" do
     component = Decor::Page.new
     component.with_header do
-      ::Decor::PageHeader.new(title: "Test Title", description: "Test description")
+      ::Decor::Daisy::PageHeader.new(title: "Test Title", description: "Test description")
     end
     rendered = render_component(component)
 
@@ -129,7 +129,7 @@ class Decor::PageTest < ActiveSupport::TestCase
   test "applies correct size classes through PageHeader" do
     component = Decor::Page.new
     component.with_header do
-      ::Decor::PageHeader.new(title: "Test", size: :lg, layout: :page_like)
+      ::Decor::Daisy::PageHeader.new(title: "Test", size: :lg, layout: :page_like)
     end
     rendered = render_component(component)
 
@@ -172,7 +172,7 @@ class Decor::PageTest < ActiveSupport::TestCase
   test "supports tags through PageHeader" do
     component = Decor::Page.new
     component.with_header do
-      header = ::Decor::PageHeader.new(title: "Test", layout: :page_like)
+      header = ::Decor::Daisy::PageHeader.new(title: "Test", layout: :page_like)
       header.with_tag(label: "Test Tag", color: :success)
       header
     end
@@ -185,7 +185,7 @@ class Decor::PageTest < ActiveSupport::TestCase
   test "supports badges through PageHeader" do
     component = Decor::Page.new
     component.with_header do
-      header = ::Decor::PageHeader.new(title: "Test", layout: :page_like)
+      header = ::Decor::Daisy::PageHeader.new(title: "Test", layout: :page_like)
       header.with_badge(label: "Test Badge", color: :success)
       header
     end
@@ -198,7 +198,7 @@ class Decor::PageTest < ActiveSupport::TestCase
   test "supports PageHeader with all features" do
     component = Decor::Page.new(include_flash: false)
     component.with_header do
-      header = ::Decor::PageHeader.new(
+      header = ::Decor::Daisy::PageHeader.new(
         title: "Legacy Title",
         subtitle: "Legacy Subtitle",
         description: "Legacy description",

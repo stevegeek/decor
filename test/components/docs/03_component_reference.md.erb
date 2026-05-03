@@ -98,7 +98,7 @@ If you find any issues or missing components, please open a PR to improve the do
 - [Decor::Daisy::FormattedEncodedId](#decordaisyformattedencodedid)
 - [Decor::Map](#decormap)
 - [Decor::Page](#decorpage)
-- [Decor::PageHeader](#decorpageheader)
+- [Decor::Daisy::PageHeader](#decordaisypageheader)
 - [Decor::PageSection](#decorpagesection)
 - [Decor::Daisy::Panel](#decordaisypanel)
 - [Decor::Daisy::PanelGroup](#decordaisypanelgroup)
@@ -2217,15 +2217,15 @@ _(and the shared properties `size`, `color`, and `style` as described above)_
 
 ---
 
-### Decor::PageHeader
+### Decor::Daisy::PageHeader
 
-<span id="decorpageheader"></span>
+<span id="decordaisypageheader"></span>
 
 PageHeader A flexible page header component for displaying page titles and metadata. Supports various layouts, backgrounds, and content slots for breadcrumbs, avatars, actions, and custom content areas.
 
 **Basic Usage:**
 ```ruby
-render Decor::PageHeader.new do |c|
+render Decor::Daisy::PageHeader.new do |c|
   c.with_avatar do
     # Slot content
   end
