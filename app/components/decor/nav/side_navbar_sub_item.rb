@@ -17,7 +17,7 @@ module Decor
 
       def view_template
         root_element do |el|
-          render ::Decor::Link.new(
+          render ::Decor::Daisy::Link.new(
             href: @path,
             html_options: {class: "#{component_name}-link #{@selected ? "active bg-primary text-primary-content" : "text-base-content hover:bg-base-200 hover:text-primary"} group flex items-center px-2 py-2 text-sm font-medium rounded-md"}
           ) do

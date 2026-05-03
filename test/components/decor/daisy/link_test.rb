@@ -1,8 +1,8 @@
 require "test_helper"
 
-class Decor::LinkTest < ActiveSupport::TestCase
+class Decor::Daisy::LinkTest < ActiveSupport::TestCase
   test "renders basic link with label and href" do
-    component = Decor::Link.new(label: "Test Link", href: "/test")
+    component = Decor::Daisy::Link.new(label: "Test Link", href: "/test")
     rendered = render_component(component)
 
     assert_includes rendered, "Test Link"
@@ -12,21 +12,21 @@ class Decor::LinkTest < ActiveSupport::TestCase
   end
 
   test "renders with different themes" do
-    component = Decor::Link.new(label: "Link", href: "#", color: :error)
+    component = Decor::Daisy::Link.new(label: "Link", href: "#", color: :error)
     rendered = render_component(component)
 
     assert_includes rendered, "link-error"
   end
 
   test "renders with different sizes" do
-    component = Decor::Link.new(label: "Link", href: "#", size: :lg)
+    component = Decor::Daisy::Link.new(label: "Link", href: "#", size: :lg)
     rendered = render_component(component)
 
     assert_includes rendered, "text-lg"
   end
 
   test "renders disabled link" do
-    component = Decor::Link.new(label: "Disabled Link", href: "/test", disabled: true)
+    component = Decor::Daisy::Link.new(label: "Disabled Link", href: "/test", disabled: true)
     rendered = render_component(component)
 
     assert_includes rendered, "Disabled Link"
@@ -37,7 +37,7 @@ class Decor::LinkTest < ActiveSupport::TestCase
   end
 
   test "renders with icon" do
-    component = Decor::Link.new(label: "Link with Icon", href: "#", icon: "star")
+    component = Decor::Daisy::Link.new(label: "Link with Icon", href: "#", icon: "star")
     rendered = render_component(component)
 
     assert_includes rendered, "Link with Icon"
@@ -45,7 +45,7 @@ class Decor::LinkTest < ActiveSupport::TestCase
   end
 
   test "renders with target attribute" do
-    component = Decor::Link.new(label: "External", href: "https://example.com", target: "_blank")
+    component = Decor::Daisy::Link.new(label: "External", href: "https://example.com", target: "_blank")
     rendered = render_component(component)
 
     assert_includes rendered, 'target="_blank"'
@@ -53,7 +53,7 @@ class Decor::LinkTest < ActiveSupport::TestCase
   end
 
   test "renders with block content" do
-    component = Decor::Link.new(href: "/test")
+    component = Decor::Daisy::Link.new(href: "/test")
     rendered = render_component(component) { "Block Content" }
 
     assert_includes rendered, "Block Content"
@@ -61,7 +61,7 @@ class Decor::LinkTest < ActiveSupport::TestCase
   end
 
   test "renders with before and after slots" do
-    component = Decor::Link.new(label: "Link", href: "#")
+    component = Decor::Daisy::Link.new(label: "Link", href: "#")
     component.with_before_label { "Before" }
     component.with_after_label { "After" }
 
@@ -73,7 +73,7 @@ class Decor::LinkTest < ActiveSupport::TestCase
   end
 
   test "applies correct daisyUI link classes" do
-    component = Decor::Link.new(label: "Test", href: "#", color: :primary, size: :md)
+    component = Decor::Daisy::Link.new(label: "Test", href: "#", color: :primary, size: :md)
     rendered = render_component(component)
 
     assert_includes rendered, "btn-link"
@@ -82,7 +82,7 @@ class Decor::LinkTest < ActiveSupport::TestCase
   end
 
   test "handles icon only on mobile" do
-    component = Decor::Link.new(
+    component = Decor::Daisy::Link.new(
       label: "Mobile Icon",
       href: "#",
       icon: "star",

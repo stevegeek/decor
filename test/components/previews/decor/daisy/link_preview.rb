@@ -1,5 +1,5 @@
 # @label Link
-class ::Decor::LinkPreview < ::Lookbook::Preview
+class ::Decor::Daisy::LinkPreview < ::Lookbook::Preview
   # Link
   # -------
   #
@@ -9,7 +9,7 @@ class ::Decor::LinkPreview < ::Lookbook::Preview
   # @group Examples
   # @label Simple Link
   def simple_link
-    render ::Decor::Link.new(
+    render ::Decor::Daisy::Link.new(
       label: "Learn more",
       href: "/about"
     )
@@ -18,7 +18,7 @@ class ::Decor::LinkPreview < ::Lookbook::Preview
   # @group Examples
   # @label Navigation Link
   def navigation_link
-    render ::Decor::Link.new(
+    render ::Decor::Daisy::Link.new(
       label: "Dashboard",
       href: "/dashboard",
       icon: "home",
@@ -29,7 +29,7 @@ class ::Decor::LinkPreview < ::Lookbook::Preview
   # @group Examples
   # @label Download Link
   def download_link
-    render ::Decor::Link.new(
+    render ::Decor::Daisy::Link.new(
       label: "Download Report",
       href: "/reports/annual.pdf",
       icon: "download",
@@ -44,9 +44,9 @@ class ::Decor::LinkPreview < ::Lookbook::Preview
     render_with_template(
       locals: {
         links: [
-          ::Decor::Link.new(label: "Edit", href: "/edit", icon: "pencil", color: :primary, size: :sm),
-          ::Decor::Link.new(label: "Delete", href: "/delete", icon: "trash", color: :error, size: :sm, http_method: :delete, turbo_confirm: "Are you sure?"),
-          ::Decor::Link.new(label: "Archive", href: "/archive", icon: "archive-box", color: :neutral, size: :sm)
+          ::Decor::Daisy::Link.new(label: "Edit", href: "/edit", icon: "pencil", color: :primary, size: :sm),
+          ::Decor::Daisy::Link.new(label: "Delete", href: "/delete", icon: "trash", color: :error, size: :sm, http_method: :delete, turbo_confirm: "Are you sure?"),
+          ::Decor::Daisy::Link.new(label: "Archive", href: "/archive", icon: "archive-box", color: :neutral, size: :sm)
         ]
       }
     )
@@ -61,7 +61,7 @@ class ::Decor::LinkPreview < ::Lookbook::Preview
   # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
   # @param style [Symbol] select [~, filled, outlined, ghost]
   def playground(label: "Click me", href: "#", icon: nil, disabled: false, size: nil, color: nil, style: nil)
-    render ::Decor::Link.new(
+    render ::Decor::Daisy::Link.new(
       label: label,
       href: href,
       icon: icon,
@@ -75,151 +75,151 @@ class ::Decor::LinkPreview < ::Lookbook::Preview
   # @group Themes
   # @label Primary Theme
   def theme_primary
-    render ::Decor::Link.new(label: "Primary Link", href: "#", color: :primary)
+    render ::Decor::Daisy::Link.new(label: "Primary Link", href: "#", color: :primary)
   end
 
   # @group Themes
   # @label Secondary Theme
   def theme_secondary
-    render ::Decor::Link.new(label: "Secondary Link", href: "#", color: :secondary)
+    render ::Decor::Daisy::Link.new(label: "Secondary Link", href: "#", color: :secondary)
   end
 
   # @group Themes
   # @label Error Theme
   def theme_error
-    render ::Decor::Link.new(label: "Error Link", href: "#", color: :error)
+    render ::Decor::Daisy::Link.new(label: "Error Link", href: "#", color: :error)
   end
 
   # @group Themes
   # @label Warning Theme
   def theme_warning
-    render ::Decor::Link.new(label: "Warning Link", href: "#", color: :warning)
+    render ::Decor::Daisy::Link.new(label: "Warning Link", href: "#", color: :warning)
   end
 
   # @group Themes
   # @label Neutral Theme
   def theme_neutral
-    render ::Decor::Link.new(label: "Neutral Link", href: "#", color: :neutral)
+    render ::Decor::Daisy::Link.new(label: "Neutral Link", href: "#", color: :neutral)
   end
 
   # @group Sizes
   # @label Large Size
   def size_large
-    render ::Decor::Link.new(label: "Large Link", href: "#", size: :lg)
+    render ::Decor::Daisy::Link.new(label: "Large Link", href: "#", size: :lg)
   end
 
   # @group Sizes
   # @label Medium Size
   def size_medium
-    render ::Decor::Link.new(label: "Medium Link", href: "#", size: :md)
+    render ::Decor::Daisy::Link.new(label: "Medium Link", href: "#", size: :md)
   end
 
   # @group Sizes
   # @label Small Size
   def size_small
-    render ::Decor::Link.new(label: "Small Link", href: "#", size: :sm)
+    render ::Decor::Daisy::Link.new(label: "Small Link", href: "#", size: :sm)
   end
 
   # @group Sizes
   # @label Extra Small Size
   def size_xs
-    render ::Decor::Link.new(label: "XS Link", href: "#", size: :xs)
+    render ::Decor::Daisy::Link.new(label: "XS Link", href: "#", size: :xs)
   end
 
   # @group With Icons
   # @label Basic Icon
   def icon_basic
-    render ::Decor::Link.new(label: "Link with icon", href: "#", icon: "star")
+    render ::Decor::Daisy::Link.new(label: "Link with icon", href: "#", icon: "star")
   end
 
   # @group With Icons
   # @label Large with Icon
   def icon_large
-    render ::Decor::Link.new(label: "Large with icon", href: "#", icon: "heart", size: :lg)
+    render ::Decor::Daisy::Link.new(label: "Large with icon", href: "#", icon: "heart", size: :lg)
   end
 
   # @group With Icons
   # @label Small with Icon
   def icon_small
-    render ::Decor::Link.new(label: "Small with icon", href: "#", icon: "bell", size: :sm)
+    render ::Decor::Daisy::Link.new(label: "Small with icon", href: "#", icon: "bell", size: :sm)
   end
 
   # @group Disabled States
   # @label Disabled Primary
   def disabled_primary
-    render ::Decor::Link.new(label: "Disabled Primary", href: "#", color: :primary, disabled: true)
+    render ::Decor::Daisy::Link.new(label: "Disabled Primary", href: "#", color: :primary, disabled: true)
   end
 
   # @group Disabled States
   # @label Disabled Secondary
   def disabled_secondary
-    render ::Decor::Link.new(label: "Disabled Secondary", href: "#", color: :secondary, disabled: true)
+    render ::Decor::Daisy::Link.new(label: "Disabled Secondary", href: "#", color: :secondary, disabled: true)
   end
 
   # @group Disabled States
   # @label Disabled Error
   def disabled_error
-    render ::Decor::Link.new(label: "Disabled Error", href: "#", color: :error, disabled: true)
+    render ::Decor::Daisy::Link.new(label: "Disabled Error", href: "#", color: :error, disabled: true)
   end
 
   # @group External Links
   # @label External Website
   def external_website
-    render ::Decor::Link.new(label: "External Link", href: "https://example.com", target: "_blank")
+    render ::Decor::Daisy::Link.new(label: "External Link", href: "https://example.com", target: "_blank")
   end
 
   # @group External Links
   # @label Email Link
   def external_email
-    render ::Decor::Link.new(label: "Email Link", href: "mailto:test@example.com")
+    render ::Decor::Daisy::Link.new(label: "Email Link", href: "mailto:test@example.com")
   end
 
   # @group External Links
   # @label Phone Link
   def external_phone
-    render ::Decor::Link.new(label: "Phone Link", href: "tel:+1234567890")
+    render ::Decor::Daisy::Link.new(label: "Phone Link", href: "tel:+1234567890")
   end
 
   # @group Turbo Methods
   # @label DELETE Request
   def turbo_delete
-    render ::Decor::Link.new(label: "DELETE request", href: "/delete-item", http_method: :delete, color: :error)
+    render ::Decor::Daisy::Link.new(label: "DELETE request", href: "/delete-item", http_method: :delete, color: :error)
   end
 
   # @group Turbo Methods
   # @label POST Request
   def turbo_post
-    render ::Decor::Link.new(label: "POST request", href: "/create-item", http_method: :post, color: :primary)
+    render ::Decor::Daisy::Link.new(label: "POST request", href: "/create-item", http_method: :post, color: :primary)
   end
 
   # @group Turbo Methods
   # @label PATCH Request
   def turbo_patch
-    render ::Decor::Link.new(label: "PATCH request", href: "/update-item", http_method: :patch, color: :secondary)
+    render ::Decor::Daisy::Link.new(label: "PATCH request", href: "/update-item", http_method: :patch, color: :secondary)
   end
 
   # @group Turbo Frames
   # @label Modal Frame
   def turbo_frame_modal
-    render ::Decor::Link.new(label: "Load in modal frame", href: "/modal-content", turbo_frame: "modal")
+    render ::Decor::Daisy::Link.new(label: "Load in modal frame", href: "/modal-content", turbo_frame: "modal")
   end
 
   # @group Turbo Frames
   # @label Top Frame
   def turbo_frame_top
-    render ::Decor::Link.new(label: "Replace entire page", href: "/new-page", turbo_frame: "_top")
+    render ::Decor::Daisy::Link.new(label: "Replace entire page", href: "/new-page", turbo_frame: "_top")
   end
 
   # @group Turbo Frames
   # @label Sidebar Frame
   def turbo_frame_sidebar
-    render ::Decor::Link.new(label: "Load in sidebar", href: "/sidebar-content", turbo_frame: "sidebar")
+    render ::Decor::Daisy::Link.new(label: "Load in sidebar", href: "/sidebar-content", turbo_frame: "sidebar")
   end
 
   # @group Turbo Features
   # @label Turbo Confirmation
   def turbo_confirm
-    render ::Decor::Link.new(
+    render ::Decor::Daisy::Link.new(
       label: "Delete with confirmation",
       href: "/dangerous-action",
       http_method: :delete,
@@ -231,7 +231,7 @@ class ::Decor::LinkPreview < ::Lookbook::Preview
   # @group Turbo Features
   # @label Disable Turbo
   def turbo_disabled
-    render ::Decor::Link.new(
+    render ::Decor::Daisy::Link.new(
       label: "Full page reload (no Turbo)",
       href: "/full-reload",
       turbo: false
@@ -241,7 +241,7 @@ class ::Decor::LinkPreview < ::Lookbook::Preview
   # @group Turbo Features
   # @label Prefetch on Hover
   def turbo_prefetch_hover
-    render ::Decor::Link.new(
+    render ::Decor::Daisy::Link.new(
       label: "Prefetch on hover",
       href: "/prefetch-hover",
       turbo_prefetch: :hover
@@ -251,7 +251,7 @@ class ::Decor::LinkPreview < ::Lookbook::Preview
   # @group Turbo Features
   # @label Prefetch on Viewport
   def turbo_prefetch_viewport
-    render ::Decor::Link.new(
+    render ::Decor::Daisy::Link.new(
       label: "Prefetch when visible",
       href: "/prefetch-viewport",
       turbo_prefetch: :viewport
