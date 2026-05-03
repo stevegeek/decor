@@ -1,8 +1,8 @@
 require "test_helper"
 
-class Decor::StatsTest < ActiveSupport::TestCase
+class Decor::Daisy::StatsTest < ActiveSupport::TestCase
   test "renders successfully with default attributes" do
-    component = Decor::Stats.new
+    component = Decor::Daisy::Stats.new
     rendered = render_component(component)
 
     assert_includes rendered, "stats"
@@ -11,7 +11,7 @@ class Decor::StatsTest < ActiveSupport::TestCase
   end
 
   test "renders with block content" do
-    component = Decor::Stats.new
+    component = Decor::Daisy::Stats.new
 
     # Simulate block content
     component.instance_eval do
@@ -29,7 +29,7 @@ class Decor::StatsTest < ActiveSupport::TestCase
 
   # Orientation tests
   test "applies horizontal orientation by default" do
-    component = Decor::Stats.new
+    component = Decor::Daisy::Stats.new
     rendered = render_component(component)
 
     assert_includes rendered, "stats"
@@ -37,7 +37,7 @@ class Decor::StatsTest < ActiveSupport::TestCase
   end
 
   test "applies vertical orientation when specified" do
-    component = Decor::Stats.new(orientation: :vertical)
+    component = Decor::Daisy::Stats.new(orientation: :vertical)
     rendered = render_component(component)
 
     assert_includes rendered, "stats"
@@ -45,7 +45,7 @@ class Decor::StatsTest < ActiveSupport::TestCase
   end
 
   test "applies horizontal orientation explicitly" do
-    component = Decor::Stats.new(orientation: :horizontal)
+    component = Decor::Daisy::Stats.new(orientation: :horizontal)
     rendered = render_component(component)
 
     assert_includes rendered, "stats"
@@ -54,21 +54,21 @@ class Decor::StatsTest < ActiveSupport::TestCase
 
   # Shadow tests
   test "applies shadow by default" do
-    component = Decor::Stats.new
+    component = Decor::Daisy::Stats.new
     rendered = render_component(component)
 
     assert_includes rendered, "shadow"
   end
 
   test "does not apply shadow when disabled" do
-    component = Decor::Stats.new(shadow: false)
+    component = Decor::Daisy::Stats.new(shadow: false)
     rendered = render_component(component)
 
     refute_includes rendered, "shadow"
   end
 
   test "applies shadow when explicitly enabled" do
-    component = Decor::Stats.new(shadow: true)
+    component = Decor::Daisy::Stats.new(shadow: true)
     rendered = render_component(component)
 
     assert_includes rendered, "shadow"
@@ -76,21 +76,21 @@ class Decor::StatsTest < ActiveSupport::TestCase
 
   # Background tests
   test "does not apply background by default" do
-    component = Decor::Stats.new
+    component = Decor::Daisy::Stats.new
     rendered = render_component(component)
 
     refute_includes rendered, "bg-base-100"
   end
 
   test "applies background when enabled" do
-    component = Decor::Stats.new(background: true)
+    component = Decor::Daisy::Stats.new(background: true)
     rendered = render_component(component)
 
     assert_includes rendered, "bg-base-100"
   end
 
   test "does not apply background when disabled" do
-    component = Decor::Stats.new(background: false)
+    component = Decor::Daisy::Stats.new(background: false)
     rendered = render_component(component)
 
     refute_includes rendered, "bg-base-100"
@@ -98,21 +98,21 @@ class Decor::StatsTest < ActiveSupport::TestCase
 
   # Responsive tests
   test "does not apply responsive classes by default" do
-    component = Decor::Stats.new
+    component = Decor::Daisy::Stats.new
     rendered = render_component(component)
 
     refute_includes rendered, "stats-vertical lg:stats-horizontal"
   end
 
   test "applies responsive classes when enabled" do
-    component = Decor::Stats.new(responsive: true)
+    component = Decor::Daisy::Stats.new(responsive: true)
     rendered = render_component(component)
 
     assert_includes rendered, "stats-vertical lg:stats-horizontal"
   end
 
   test "responsive overrides explicit orientation" do
-    component = Decor::Stats.new(orientation: :horizontal, responsive: true)
+    component = Decor::Daisy::Stats.new(orientation: :horizontal, responsive: true)
     rendered = render_component(component)
 
     assert_includes rendered, "stats-vertical lg:stats-horizontal"
@@ -121,7 +121,7 @@ class Decor::StatsTest < ActiveSupport::TestCase
 
   # Accessibility tests
   test "includes proper ARIA attributes" do
-    component = Decor::Stats.new
+    component = Decor::Daisy::Stats.new
     fragment = render_fragment(component)
 
     stats_div = fragment.at_css(".stats")
@@ -132,7 +132,7 @@ class Decor::StatsTest < ActiveSupport::TestCase
 
   # Combination tests
   test "combines all styling options correctly" do
-    component = Decor::Stats.new(
+    component = Decor::Daisy::Stats.new(
       orientation: :vertical,
       shadow: true,
       background: true,
@@ -148,7 +148,7 @@ class Decor::StatsTest < ActiveSupport::TestCase
   end
 
   test "combines responsive with other options" do
-    component = Decor::Stats.new(
+    component = Decor::Daisy::Stats.new(
       responsive: true,
       shadow: false,
       background: true
@@ -163,7 +163,7 @@ class Decor::StatsTest < ActiveSupport::TestCase
 
   # Default values tests
   test "has correct default values" do
-    component = Decor::Stats.new
+    component = Decor::Daisy::Stats.new
 
     assert_equal :horizontal, component.instance_variable_get(:@orientation)
     assert_equal true, component.instance_variable_get(:@shadow)
@@ -173,14 +173,14 @@ class Decor::StatsTest < ActiveSupport::TestCase
 
   # HTML structure tests
   test "uses div as root element" do
-    component = Decor::Stats.new
+    component = Decor::Daisy::Stats.new
     fragment = render_fragment(component)
 
     assert_equal "div", fragment.children.first.name
   end
 
   test "root element has stats class" do
-    component = Decor::Stats.new
+    component = Decor::Daisy::Stats.new
     fragment = render_fragment(component)
 
     stats_div = fragment.at_css("div")
@@ -190,7 +190,7 @@ class Decor::StatsTest < ActiveSupport::TestCase
 
   # Nokogiri parsing tests
   test "uses nokogiri for parsing simple case" do
-    component = Decor::Stats.new(orientation: :vertical, shadow: false)
+    component = Decor::Daisy::Stats.new(orientation: :vertical, shadow: false)
     fragment = render_fragment(component)
 
     stats_div = fragment.at_css(".stats")
@@ -201,7 +201,7 @@ class Decor::StatsTest < ActiveSupport::TestCase
   end
 
   test "uses nokogiri for parsing complex case" do
-    component = Decor::Stats.new(
+    component = Decor::Daisy::Stats.new(
       orientation: :horizontal,
       shadow: true,
       background: true,
@@ -222,7 +222,7 @@ class Decor::StatsTest < ActiveSupport::TestCase
 
   # Integration with Stat components
   test "renders with nested Stat components" do
-    stats_component = Decor::Stats.new
+    stats_component = Decor::Daisy::Stats.new
 
     # Simulate nested stats
     stats_component.instance_eval do
@@ -251,7 +251,7 @@ class Decor::StatsTest < ActiveSupport::TestCase
 
   # Edge cases
   test "handles empty block gracefully" do
-    component = Decor::Stats.new
+    component = Decor::Daisy::Stats.new
 
     component.instance_eval do
       def view_template(&block)
@@ -268,7 +268,7 @@ class Decor::StatsTest < ActiveSupport::TestCase
 
   test "handles nil options gracefully" do
     # This tests that component can handle potential nil values
-    component = Decor::Stats.new
+    component = Decor::Daisy::Stats.new
     component.instance_variable_set(:@orientation, nil)
     component.instance_variable_set(:@shadow, nil)
     component.instance_variable_set(:@background, nil)
@@ -281,7 +281,7 @@ class Decor::StatsTest < ActiveSupport::TestCase
 
   # Class ordering tests
   test "classes are ordered consistently" do
-    component = Decor::Stats.new(
+    component = Decor::Daisy::Stats.new(
       orientation: :vertical,
       shadow: true,
       background: true
@@ -296,7 +296,7 @@ class Decor::StatsTest < ActiveSupport::TestCase
   end
 
   test "responsive classes take precedence over orientation" do
-    component = Decor::Stats.new(
+    component = Decor::Daisy::Stats.new(
       orientation: :vertical,
       responsive: true
     )
@@ -312,7 +312,7 @@ class Decor::StatsTest < ActiveSupport::TestCase
   # Attribute validation would be tested here if we had strict validation
   test "accepts valid orientation values" do
     [:horizontal, :vertical].each do |orientation|
-      component = Decor::Stats.new(orientation: orientation)
+      component = Decor::Daisy::Stats.new(orientation: orientation)
       rendered = render_component(component)
 
       assert_includes rendered, "stats"

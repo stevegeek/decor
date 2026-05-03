@@ -10,7 +10,7 @@ class ::Decor::Daisy::StatPreview < ::Lookbook::Preview
   # @group Examples
   # @label Basic Stat
   def basic_stat
-    render ::Decor::Stats.new do |el|
+    render ::Decor::Daisy::Stats.new do |el|
       el.render ::Decor::Daisy::Stat.new(
         title: "Total Revenue",
         value: "$45,231",
@@ -22,7 +22,7 @@ class ::Decor::Daisy::StatPreview < ::Lookbook::Preview
   # @group Examples
   # @label Stat with Icon
   def stat_with_icon
-    render ::Decor::Stats.new do |el|
+    render ::Decor::Daisy::Stats.new do |el|
       el.render ::Decor::Daisy::Stat.new(
         title: "Active Users",
         value: "2,847",
@@ -36,7 +36,7 @@ class ::Decor::Daisy::StatPreview < ::Lookbook::Preview
   # @group Examples
   # @label Multiple Stats
   def multiple_stats
-    render ::Decor::Stats.new(orientation: :horizontal) do |el|
+    render ::Decor::Daisy::Stats.new(orientation: :horizontal) do |el|
       el.render ::Decor::Daisy::Stat.new(
         title: "Downloads",
         value: "31K",
@@ -87,7 +87,7 @@ class ::Decor::Daisy::StatPreview < ::Lookbook::Preview
     color: nil,
     style: nil
   )
-    render ::Decor::Stats.new(orientation: orientation.to_sym, shadow: shadow, responsive: responsive) do |el|
+    render ::Decor::Daisy::Stats.new(orientation: orientation.to_sym, shadow: shadow, responsive: responsive) do |el|
       el.render ::Decor::Daisy::Stat.new(
         title: title,
         value: value,
@@ -105,7 +105,7 @@ class ::Decor::Daisy::StatPreview < ::Lookbook::Preview
   # @group Alignment
   # @label Left Aligned (Default)
   def align_left
-    render ::Decor::Stats.new do |el|
+    render ::Decor::Daisy::Stats.new do |el|
       el.render ::Decor::Daisy::Stat.new(
         title: "Total Downloads",
         value: "31K",
@@ -118,7 +118,7 @@ class ::Decor::Daisy::StatPreview < ::Lookbook::Preview
   # @group Alignment
   # @label Center Aligned
   def align_center
-    render ::Decor::Stats.new do |el|
+    render ::Decor::Daisy::Stats.new do |el|
       el.render ::Decor::Daisy::Stat.new(
         title: "Downloads",
         value: "31K",
@@ -131,7 +131,7 @@ class ::Decor::Daisy::StatPreview < ::Lookbook::Preview
   # @group Colors
   # @label Primary Color
   def color_primary
-    render ::Decor::Stats.new do |el|
+    render ::Decor::Daisy::Stats.new do |el|
       el.render ::Decor::Daisy::Stat.new(
         title: "Revenue",
         value: "$89,400",
@@ -144,7 +144,7 @@ class ::Decor::Daisy::StatPreview < ::Lookbook::Preview
   # @group Colors
   # @label Success Color
   def color_success
-    render ::Decor::Stats.new do |el|
+    render ::Decor::Daisy::Stats.new do |el|
       el.render ::Decor::Daisy::Stat.new(
         title: "Completed Tasks",
         value: "147",
@@ -158,7 +158,7 @@ class ::Decor::Daisy::StatPreview < ::Lookbook::Preview
   # @group Colors
   # @label Error Color
   def color_error
-    render ::Decor::Stats.new do |el|
+    render ::Decor::Daisy::Stats.new do |el|
       el.render ::Decor::Daisy::Stat.new(
         title: "Failed Requests",
         value: "23",
@@ -172,7 +172,7 @@ class ::Decor::Daisy::StatPreview < ::Lookbook::Preview
   # @group Colors
   # @label Warning Color
   def color_warning
-    render ::Decor::Stats.new do |el|
+    render ::Decor::Daisy::Stats.new do |el|
       el.render ::Decor::Daisy::Stat.new(
         title: "Pending Reviews",
         value: "12",
@@ -186,7 +186,7 @@ class ::Decor::Daisy::StatPreview < ::Lookbook::Preview
   # @group Icons
   # @label Chart Icon
   def icon_chart
-    render ::Decor::Stats.new do |el|
+    render ::Decor::Daisy::Stats.new do |el|
       el.render ::Decor::Daisy::Stat.new(
         title: "Analytics",
         value: "89.4%",
@@ -200,7 +200,7 @@ class ::Decor::Daisy::StatPreview < ::Lookbook::Preview
   # @group Icons
   # @label Users Icon
   def icon_users
-    render ::Decor::Stats.new do |el|
+    render ::Decor::Daisy::Stats.new do |el|
       el.render ::Decor::Daisy::Stat.new(
         title: "Active Users",
         value: "2,847",
@@ -214,7 +214,7 @@ class ::Decor::Daisy::StatPreview < ::Lookbook::Preview
   # @group Icons
   # @label Download Icon
   def icon_download
-    render ::Decor::Stats.new do |el|
+    render ::Decor::Daisy::Stats.new do |el|
       el.render ::Decor::Daisy::Stat.new(
         title: "Total Downloads",
         value: "1.2M",
@@ -228,7 +228,7 @@ class ::Decor::Daisy::StatPreview < ::Lookbook::Preview
   # @group Icons
   # @label Different Icon Color
   def icon_different_color
-    render ::Decor::Stats.new do |el|
+    render ::Decor::Daisy::Stats.new do |el|
       el.render ::Decor::Daisy::Stat.new(
         title: "Premium Users",
         value: "567",
@@ -243,7 +243,7 @@ class ::Decor::Daisy::StatPreview < ::Lookbook::Preview
   # @group Layouts
   # @label Horizontal Layout
   def layout_horizontal
-    render ::Decor::Stats.new(orientation: :horizontal) do |el|
+    render ::Decor::Daisy::Stats.new(orientation: :horizontal) do |el|
       el.render ::Decor::Daisy::Stat.new(
         title: "Total Page Views",
         value: "89,400",
@@ -267,7 +267,7 @@ class ::Decor::Daisy::StatPreview < ::Lookbook::Preview
   # @group Layouts
   # @label Vertical Layout
   def layout_vertical
-    render ::Decor::Stats.new(orientation: :vertical) do |el|
+    render ::Decor::Daisy::Stats.new(orientation: :vertical) do |el|
       el.render ::Decor::Daisy::Stat.new(
         title: "Downloads",
         value: "31K",
@@ -291,7 +291,7 @@ class ::Decor::Daisy::StatPreview < ::Lookbook::Preview
   # @group Layouts
   # @label Responsive Layout
   def layout_responsive
-    render ::Decor::Stats.new(responsive: true) do |el|
+    render ::Decor::Daisy::Stats.new(responsive: true) do |el|
       el.render ::Decor::Daisy::Stat.new(
         title: "Account Balance",
         value: "$89,400",
@@ -316,7 +316,7 @@ class ::Decor::Daisy::StatPreview < ::Lookbook::Preview
   # @group With Custom Content
   # @label With Figure Block
   def custom_figure_block
-    render ::Decor::Stats.new do |el|
+    render ::Decor::Daisy::Stats.new do |el|
       el.render ::Decor::Daisy::Stat.new(
         title: "Active Users",
         value: "86%",
@@ -337,7 +337,7 @@ class ::Decor::Daisy::StatPreview < ::Lookbook::Preview
   # @group With Custom Content
   # @label With Actions
   def custom_with_actions
-    render ::Decor::Stats.new do |el|
+    render ::Decor::Daisy::Stats.new do |el|
       el.render ::Decor::Daisy::Stat.new(
         title: "Account Balance",
         value: "$89,400",
@@ -357,7 +357,7 @@ class ::Decor::Daisy::StatPreview < ::Lookbook::Preview
   # @group With Custom Content
   # @label Complex Dashboard Stats
   def custom_dashboard
-    render ::Decor::Stats.new(responsive: true) do |el|
+    render ::Decor::Daisy::Stats.new(responsive: true) do |el|
       el.render ::Decor::Daisy::Stat.new(
         title: "Revenue",
         value: "$45,231",
@@ -392,7 +392,7 @@ class ::Decor::Daisy::StatPreview < ::Lookbook::Preview
   # @group Styling Options
   # @label Without Shadow
   def styling_no_shadow
-    render ::Decor::Stats.new(shadow: false) do |el|
+    render ::Decor::Daisy::Stats.new(shadow: false) do |el|
       el.render ::Decor::Daisy::Stat.new(
         title: "Clean Look",
         value: "42",
@@ -404,7 +404,7 @@ class ::Decor::Daisy::StatPreview < ::Lookbook::Preview
   # @group Styling Options
   # @label With Background
   def styling_with_background
-    render ::Decor::Stats.new(background: true) do |el|
+    render ::Decor::Daisy::Stats.new(background: true) do |el|
       el.render ::Decor::Daisy::Stat.new(
         title: "Highlighted",
         value: "256",
@@ -417,7 +417,7 @@ class ::Decor::Daisy::StatPreview < ::Lookbook::Preview
   # @group Styling Options
   # @label Combined Styling
   def styling_combined
-    render ::Decor::Stats.new(shadow: true, background: true) do |el|
+    render ::Decor::Daisy::Stats.new(shadow: true, background: true) do |el|
       el.render ::Decor::Daisy::Stat.new(
         title: "Premium Stats",
         value: "1,337",
@@ -431,7 +431,7 @@ class ::Decor::Daisy::StatPreview < ::Lookbook::Preview
   # @group With Custom Content
   # @label Custom Value Content
   def custom_value_content
-    render ::Decor::Stats.new do |el|
+    render ::Decor::Daisy::Stats.new do |el|
       el.render ::Decor::Daisy::Stat.new(
         title: "Complex Metric",
         description: "Multiple components"
@@ -445,7 +445,7 @@ class ::Decor::Daisy::StatPreview < ::Lookbook::Preview
   # @group With Custom Content
   # @label Full Custom Content
   def custom_full_content
-    render ::Decor::Stats.new do |el|
+    render ::Decor::Daisy::Stats.new do |el|
       el.render ::Decor::Daisy::Stat.new(centered: true) do |stat|
         stat.div(class: "stat-title") { "Custom Layout" }
         stat.div(class: "stat-value text-secondary") { "∞" }
@@ -457,7 +457,7 @@ class ::Decor::Daisy::StatPreview < ::Lookbook::Preview
   # @group Examples
   # @label E-commerce Dashboard
   def ecommerce_dashboard
-    render ::Decor::Stats.new(responsive: true, shadow: true) do |el|
+    render ::Decor::Daisy::Stats.new(responsive: true, shadow: true) do |el|
       el.render ::Decor::Daisy::Stat.new(
         title: "Total Sales",
         value: "$54,239",
@@ -492,7 +492,7 @@ class ::Decor::Daisy::StatPreview < ::Lookbook::Preview
   # @group Examples
   # @label Website Analytics
   def website_analytics
-    render ::Decor::Stats.new(orientation: :vertical, shadow: true) do |el|
+    render ::Decor::Daisy::Stats.new(orientation: :vertical, shadow: true) do |el|
       el.render ::Decor::Daisy::Stat.new(
         title: "Page Views",
         value: "125,847",
