@@ -26,7 +26,7 @@ class ::Decor::NotificationManagerPreview < ::Lookbook::Preview
   # @label Simple Notifications
   # Basic text notifications with different content
   def simple_notifications
-    render ::Decor::Card.new(title: "Simple Notifications") do |p|
+    render ::Decor::Daisy::Card.new(title: "Simple Notifications") do |p|
       p.p(class: "text-base-content/70 mb-4") { "Simple notifications with plain text content and default styling." }
       p.div(class: "flex gap-3 flex-wrap") do
         p.render ::Decor::Daisy::Button.new(
@@ -51,7 +51,7 @@ class ::Decor::NotificationManagerPreview < ::Lookbook::Preview
   # @label Auto-dismiss Timing
   # Different auto-dismiss timeout behaviors
   def timeout_examples
-    render ::Decor::Card.new(title: "Auto-dismiss Timing") do |p|
+    render ::Decor::Daisy::Card.new(title: "Auto-dismiss Timing") do |p|
       p.p(class: "text-base-content/70 mb-4") { "Test different timeout durations to see how long notifications stay visible before auto-dismissing." }
       p.div(class: "grid grid-cols-2 md:grid-cols-4 gap-4") do
         p.div(class: "text-center") do
@@ -97,7 +97,7 @@ class ::Decor::NotificationManagerPreview < ::Lookbook::Preview
   # @label Persistent Notifications
   # Notifications that don't auto-dismiss
   def persistent_notifications
-    render ::Decor::Card.new(title: "Persistent Notifications") do |p|
+    render ::Decor::Daisy::Card.new(title: "Persistent Notifications") do |p|
       p.div(class: "space-y-3") do
         p.div(class: "flex gap-3 flex-wrap") do
           p.render ::Decor::Daisy::Button.new(
@@ -142,7 +142,7 @@ class ::Decor::NotificationManagerPreview < ::Lookbook::Preview
   # @group Playground
   # Interactive controls for testing different notification types and behaviors
   def playground
-    render ::Decor::Card.new(title: "Notification Playground") do |p|
+    render ::Decor::Daisy::Card.new(title: "Notification Playground") do |p|
       p.div(class: "grid grid-cols-2 md:grid-cols-4 gap-4") do
         p.render ::Decor::Daisy::Button.new(
           label: "Success",
@@ -217,7 +217,7 @@ class ::Decor::NotificationManagerPreview < ::Lookbook::Preview
   # @label Notification Colors
   # Styled notifications with icons
   def success_notifications
-    render ::Decor::Card.new(title: "Success Notifications") do |p|
+    render ::Decor::Daisy::Card.new(title: "Success Notifications") do |p|
       p.p(class: "text-base-content/70 mb-4") { "Positive feedback messages for completed actions and successful operations." }
       p.div(class: "grid grid-cols-1 md:grid-cols-2 gap-4") do
         p.render ::Decor::Daisy::Button.new(
@@ -255,7 +255,7 @@ class ::Decor::NotificationManagerPreview < ::Lookbook::Preview
   # @label Action Buttons
   # Notifications with interactive buttons
   def action_buttons
-    render ::Decor::Card.new(title: "Interactive Action Buttons") do |p|
+    render ::Decor::Daisy::Card.new(title: "Interactive Action Buttons") do |p|
       p.p(class: "text-base-content/70 mb-4") { "Notifications with actionable buttons that allow users to take immediate action without leaving the current page." }
       p.div(class: "space-y-3") do
         p.div(class: "grid grid-cols-1 md:grid-cols-2 gap-4") do

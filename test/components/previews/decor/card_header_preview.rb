@@ -80,7 +80,7 @@ class Decor::CardHeaderPreview < ViewComponent::Preview
   # @label Size Variants
   def size_variants
     [:xs, :sm, :md, :lg, :xl].map do |size|
-      render Decor::Card.new(size: size, style: :outlined) do |card|
+      render Decor::Daisy::Card.new(size: size, style: :outlined) do |card|
         card.with_header do
           render Decor::CardHeader.new(
             title: "Size #{size.to_s.upcase}",
@@ -104,7 +104,7 @@ class Decor::CardHeaderPreview < ViewComponent::Preview
 
   # @label In Card Context
   def in_card_context
-    render Decor::Card.new(style: :outlined) do |card|
+    render Decor::Daisy::Card.new(style: :outlined) do |card|
       card.with_header do
         render Decor::CardHeader.new(
           title: "Notification Settings",

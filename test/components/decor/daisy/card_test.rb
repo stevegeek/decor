@@ -2,9 +2,9 @@
 
 require "test_helper"
 
-class Decor::CardTest < ActiveSupport::TestCase
+class Decor::Daisy::CardTest < ActiveSupport::TestCase
   def test_renders_basic_card
-    component = Decor::Card.new
+    component = Decor::Daisy::Card.new
 
     rendered = render_fragment(component) { "Card content" }
 
@@ -17,7 +17,7 @@ class Decor::CardTest < ActiveSupport::TestCase
   end
 
   def test_renders_card_with_header_slot
-    component = Decor::Card.new
+    component = Decor::Daisy::Card.new
     component.with_header { "Card Header" }
 
     rendered = render_fragment(component) { "Card body content" }
@@ -33,7 +33,7 @@ class Decor::CardTest < ActiveSupport::TestCase
   end
 
   def test_card_without_header_slot
-    component = Decor::Card.new
+    component = Decor::Daisy::Card.new
 
     rendered = render_fragment(component) { "Just body content" }
 
@@ -45,7 +45,7 @@ class Decor::CardTest < ActiveSupport::TestCase
   end
 
   def test_renders_card_with_title
-    component = Decor::Card.new(title: "My Card Title")
+    component = Decor::Daisy::Card.new(title: "My Card Title")
 
     rendered = render_fragment(component) { "Card body content" }
 
@@ -62,7 +62,7 @@ class Decor::CardTest < ActiveSupport::TestCase
   end
 
   def test_card_with_both_header_slot_and_title
-    component = Decor::Card.new(title: "Title from attribute")
+    component = Decor::Daisy::Card.new(title: "Title from attribute")
     component.with_header { "Header from slot" }
 
     rendered = render_fragment(component) { "Card body content" }
@@ -81,7 +81,7 @@ class Decor::CardTest < ActiveSupport::TestCase
   end
 
   def test_card_styling_classes
-    component = Decor::Card.new
+    component = Decor::Daisy::Card.new
     rendered = render_fragment(component) { "Content" }
 
     # Should have daisyUI card classes
@@ -96,7 +96,7 @@ class Decor::CardTest < ActiveSupport::TestCase
   end
 
   def test_card_with_only_header_slot
-    component = Decor::Card.new
+    component = Decor::Daisy::Card.new
     component.with_header { "Header only" }
 
     rendered = render_fragment(component) { "Body content" }
@@ -112,7 +112,7 @@ class Decor::CardTest < ActiveSupport::TestCase
   end
 
   def test_empty_card
-    component = Decor::Card.new
+    component = Decor::Daisy::Card.new
     rendered = render_fragment(component)
 
     # Should still have card structure
@@ -124,7 +124,7 @@ class Decor::CardTest < ActiveSupport::TestCase
   end
 
   def test_card_with_image_top_position
-    component = Decor::Card.new(
+    component = Decor::Daisy::Card.new(
       image_url: "https://example.com/image.jpg",
       image_position: :top
     )
@@ -148,7 +148,7 @@ class Decor::CardTest < ActiveSupport::TestCase
   end
 
   def test_card_with_image_bottom_position
-    component = Decor::Card.new(
+    component = Decor::Daisy::Card.new(
       image_url: "https://example.com/image.jpg",
       image_position: :bottom
     )
@@ -168,7 +168,7 @@ class Decor::CardTest < ActiveSupport::TestCase
   end
 
   def test_card_with_image_left_position
-    component = Decor::Card.new(
+    component = Decor::Daisy::Card.new(
       image_url: "https://example.com/image.jpg",
       image_position: :left
     )
@@ -192,7 +192,7 @@ class Decor::CardTest < ActiveSupport::TestCase
   end
 
   def test_card_with_image_right_position
-    component = Decor::Card.new(
+    component = Decor::Daisy::Card.new(
       image_url: "https://example.com/image.jpg",
       image_position: :right
     )
@@ -216,7 +216,7 @@ class Decor::CardTest < ActiveSupport::TestCase
   end
 
   def test_card_without_image_url
-    component = Decor::Card.new(image_position: :top)
+    component = Decor::Daisy::Card.new(image_position: :top)
 
     rendered = render_fragment(component) { "Card content" }
 
@@ -229,7 +229,7 @@ class Decor::CardTest < ActiveSupport::TestCase
   end
 
   def test_card_image_default_position
-    component = Decor::Card.new(image_url: "https://example.com/image.jpg")
+    component = Decor::Daisy::Card.new(image_url: "https://example.com/image.jpg")
 
     rendered = render_fragment(component) { "Card content" }
 
@@ -240,7 +240,7 @@ class Decor::CardTest < ActiveSupport::TestCase
   end
 
   def test_card_with_image_and_title
-    component = Decor::Card.new(
+    component = Decor::Daisy::Card.new(
       title: "Card Title",
       image_url: "https://example.com/image.jpg",
       image_position: :left
@@ -259,7 +259,7 @@ class Decor::CardTest < ActiveSupport::TestCase
   end
 
   def test_card_with_image_and_header_slot
-    component = Decor::Card.new(
+    component = Decor::Daisy::Card.new(
       image_url: "https://example.com/image.jpg",
       image_position: :top
     )
@@ -274,7 +274,7 @@ class Decor::CardTest < ActiveSupport::TestCase
   end
 
   def test_image_alt_attribute_stored
-    component = Decor::Card.new(
+    component = Decor::Daisy::Card.new(
       image_url: "https://example.com/image.jpg",
       image_alt: "Test alt text"
     )
@@ -286,20 +286,20 @@ class Decor::CardTest < ActiveSupport::TestCase
 
   # Tests for new standardized attributes
   def test_card_with_color_attribute
-    card = ::Decor::Card.new(color: :primary)
+    card = ::Decor::Daisy::Card.new(color: :primary)
     output = card.call
     assert_includes output, "bg-primary"
     assert_includes output, "text-primary-content"
   end
 
   def test_card_with_size_attribute
-    card = ::Decor::Card.new(size: :xs)
+    card = ::Decor::Daisy::Card.new(size: :xs)
     output = card.call
     assert_includes output, "card-xs"
   end
 
   def test_card_with_style_outlined
-    card = ::Decor::Card.new(style: :outlined, color: :primary)
+    card = ::Decor::Daisy::Card.new(style: :outlined, color: :primary)
     output = card.call
     assert_includes output, "border"
     assert_includes output, "border-primary"
@@ -307,13 +307,13 @@ class Decor::CardTest < ActiveSupport::TestCase
   end
 
   def test_card_with_style_ghost
-    card = ::Decor::Card.new(style: :ghost)
+    card = ::Decor::Daisy::Card.new(style: :ghost)
     output = card.call
     assert_includes output, "shadow-none"
   end
 
   def test_card_defaults_to_base_color_and_filled_style
-    card = ::Decor::Card.new
+    card = ::Decor::Daisy::Card.new
     output = card.call
     assert_includes output, "bg-base-100"
     assert_includes output, "shadow-sm"

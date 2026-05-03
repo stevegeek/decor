@@ -21,7 +21,7 @@ module Decor
       content = capture(&) if block_given?
 
       root_element do
-        render ::Decor::Card.new(size: @size, color: @color, style: @style, classes: "overflow-hidden") do |card|
+        render ::Decor::Daisy::Card.new(size: @size, color: @color, style: @style, classes: "overflow-hidden") do |card|
           card.card_header do
             card.div(class: "p-4 lg:p-6") do
               card.div(class: "-ml-4 -mt-4 ml-4 mt-4") do
