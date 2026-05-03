@@ -1,0 +1,59 @@
+# frozen_string_literal: true
+
+module Decor
+  module Daisy
+    # PanelGroup A panel group is a box with a title and description that contains
+    # a list of panels displayed in a grid layout. Each panel is a Decor::Daisy::Panel
+    # component with its own content.
+    class PanelGroup < ::Decor::Components::PanelGroup
+      def view_template(&)
+        content = capture(&) if block_given?
+
+        root_element do
+          render ::Decor::Daisy::Card.new(size: @size, color: @color, style: @style, classes: "overflow-hidden") do |card|
+            card.card_header do
+              card.div(class: "p-4 lg:p-6") do
+                card.div(class: "-ml-4 -mt-4 ml-4 mt-4") do
+                  card.render ::Decor::Daisy::Title.new(
+                    title: @title,
+                    description: @description,
+                    size: :md
+                  ) do |title|
+                    title.render @cta_content if @cta_content
+                  end
+                end
+              end
+            end
+
+            @panel_rows.each_with_index do |row_block, idx|
+              card.div(class: section_classes(idx)) do
+                card.div(class: "flex flex-wrap gap-4 md:gap-5", &row_block)
+              end
+            end
+
+            if content.present?
+              card.div(class: "p-4 lg:p-6") do
+                card.render content
+              end
+            end
+          end
+        end
+      end
+
+      def root_element_classes
+        "space-y-4"
+      end
+
+      private
+
+      def section_classes(idx)
+        base_classes = "px-4 py-5 lg:px-6"
+        if idx.odd?
+          "#{base_classes} bg-base-100"
+        else
+          "#{base_classes} bg-base-200/50"
+        end
+      end
+    end
+  end
+end

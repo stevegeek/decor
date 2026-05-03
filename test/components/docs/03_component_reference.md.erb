@@ -101,7 +101,7 @@ If you find any issues or missing components, please open a PR to improve the do
 - [Decor::PageHeader](#decorpageheader)
 - [Decor::PageSection](#decorpagesection)
 - [Decor::Daisy::Panel](#decordaisypanel)
-- [Decor::PanelGroup](#decorpanelgroup)
+- [Decor::Daisy::PanelGroup](#decordaisypanelgroup)
 - [Decor::SearchAndFilter](#decorsearchandfilter)
 - [Decor::SearchResultsDropdown](#decorsearchresultsdropdown)
 - [Decor::Daisy::Svg](#decordaisysvg)
@@ -2323,15 +2323,15 @@ _(and the shared properties `size`, `color`, and `style` as described above)_
 
 ---
 
-### Decor::PanelGroup
+### Decor::Daisy::PanelGroup
 
-<span id="decorpanelgroup"></span>
+<span id="decordaisypanelgroup"></span>
 
-PanelGroup A panel group is a box with a title and description that contains a list of panels displayed in a grid layout. Each panel is a Decor::Panel component with its own content.
+PanelGroup A panel group is a box with a title and description that contains a list of panels displayed in a grid layout. Each panel is a Decor::Daisy::Panel component with its own content.
 
 **Basic Usage:**
 ```ruby
-render Decor::PanelGroup.new(title: "Title") do
+render Decor::Daisy::PanelGroup.new(title: "Title") do
   "Content goes here"
 end
 ```

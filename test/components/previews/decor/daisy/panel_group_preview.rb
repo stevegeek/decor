@@ -1,5 +1,5 @@
 # @label PanelGroup
-class ::Decor::PanelGroupPreview < ::Lookbook::Preview
+class ::Decor::Daisy::PanelGroupPreview < ::Lookbook::Preview
   # PanelGroup
   # -------
   #
@@ -9,7 +9,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
   # @group Examples
   # @label Simple Stats
   def simple_stats
-    render ::Decor::PanelGroup.new(
+    render ::Decor::Daisy::PanelGroup.new(
       title: "Quick Stats"
     ) do |group|
       group.with_panel_row do
@@ -23,7 +23,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
   # @group Examples
   # @label Dashboard Metrics
   def dashboard_metrics
-    render ::Decor::PanelGroup.new(
+    render ::Decor::Daisy::PanelGroup.new(
       title: "Dashboard Overview",
       description: "Key performance metrics and statistics"
     ) do |group|
@@ -46,7 +46,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
   # @group Examples
   # @label Server Status
   def server_status
-    render ::Decor::PanelGroup.new(
+    render ::Decor::Daisy::PanelGroup.new(
       title: "Server Information",
       description: "Current server status and configuration"
     ) do |group|
@@ -70,7 +70,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
   # @group Examples
   # @label System Health
   def system_health
-    render ::Decor::PanelGroup.new(
+    render ::Decor::Daisy::PanelGroup.new(
       title: "System Health",
       description: "Real-time monitoring of application components",
       color: :primary
@@ -103,7 +103,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
   # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
   # @param style [Symbol] select [~, filled, outlined, ghost]
   def playground(title: "Panel Group Title", description: "Group description", show_cta: true, size: nil, color: nil, style: nil)
-    render ::Decor::PanelGroup.new(
+    render ::Decor::Daisy::PanelGroup.new(
       title: title,
       description: description,
       size: size,
@@ -129,7 +129,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
   # @group Sizes
   # @label XS Size
   def size_xs
-    render ::Decor::PanelGroup.new(
+    render ::Decor::Daisy::PanelGroup.new(
       title: "Extra Small Panel Group",
       size: :xs
     ) do |group|
@@ -142,7 +142,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
   # @group Sizes
   # @label SM Size
   def size_sm
-    render ::Decor::PanelGroup.new(
+    render ::Decor::Daisy::PanelGroup.new(
       title: "Small Panel Group",
       size: :sm
     ) do |group|
@@ -155,7 +155,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
   # @group Sizes
   # @label MD Size (Default)
   def size_md
-    render ::Decor::PanelGroup.new(
+    render ::Decor::Daisy::PanelGroup.new(
       title: "Medium Panel Group",
       description: "Default size",
       size: :md
@@ -170,7 +170,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
   # @group Sizes
   # @label LG Size
   def size_lg
-    render ::Decor::PanelGroup.new(
+    render ::Decor::Daisy::PanelGroup.new(
       title: "Large Panel Group",
       description: "Spacious layout",
       size: :lg
@@ -184,7 +184,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
   # @group Sizes
   # @label XL Size
   def size_xl
-    render ::Decor::PanelGroup.new(
+    render ::Decor::Daisy::PanelGroup.new(
       title: "Extra Large Panel Group",
       description: "Maximum size variant",
       size: :xl
@@ -198,7 +198,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
   # @group Colors
   # @label Base Color (Default)
   def color_base
-    render ::Decor::PanelGroup.new(
+    render ::Decor::Daisy::PanelGroup.new(
       title: "Base Color Panel Group",
       color: :base
     ) do |group|
@@ -211,7 +211,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
   # @group Colors
   # @label Primary Color
   def color_primary
-    render ::Decor::PanelGroup.new(
+    render ::Decor::Daisy::PanelGroup.new(
       title: "Primary Color Panel Group",
       color: :primary
     ) do |group|
@@ -224,7 +224,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
   # @group Colors
   # @label Secondary Color
   def color_secondary
-    render ::Decor::PanelGroup.new(
+    render ::Decor::Daisy::PanelGroup.new(
       title: "Secondary Color Panel Group",
       color: :secondary
     ) do |group|
@@ -237,7 +237,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
   # @group Colors
   # @label Success Color
   def color_success
-    render ::Decor::PanelGroup.new(
+    render ::Decor::Daisy::PanelGroup.new(
       title: "Success Color Panel Group",
       color: :success
     ) do |group|
@@ -250,7 +250,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
   # @group Colors
   # @label Error Color
   def color_error
-    render ::Decor::PanelGroup.new(
+    render ::Decor::Daisy::PanelGroup.new(
       title: "Error Color Panel Group",
       color: :error
     ) do |group|
@@ -263,7 +263,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
   # @group Styles
   # @label Filled Style (Default)
   def style_filled
-    render ::Decor::PanelGroup.new(
+    render ::Decor::Daisy::PanelGroup.new(
       title: "Filled Style Panel Group",
       style: :filled
     ) do |group|
@@ -276,7 +276,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
   # @group Styles
   # @label Outlined Style
   def style_outlined
-    render ::Decor::PanelGroup.new(
+    render ::Decor::Daisy::PanelGroup.new(
       title: "Outlined Style Panel Group",
       style: :outlined
     ) do |group|
@@ -289,7 +289,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
   # @group Styles
   # @label Ghost Style
   def style_ghost
-    render ::Decor::PanelGroup.new(
+    render ::Decor::Daisy::PanelGroup.new(
       title: "Ghost Style Panel Group",
       style: :ghost
     ) do |group|
@@ -302,7 +302,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
   # @group With CTA
   # @label Single Action
   def with_single_cta
-    render ::Decor::PanelGroup.new(
+    render ::Decor::Daisy::PanelGroup.new(
       title: "Panel Group with Action"
     ) do |group|
       group.with_panel_row do
@@ -318,7 +318,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
   # @group With CTA
   # @label Multiple Actions
   def with_multiple_ctas
-    render ::Decor::PanelGroup.new(
+    render ::Decor::Daisy::PanelGroup.new(
       title: "Panel Group with Multiple Actions"
     ) do |group|
       group.with_panel_row do
@@ -335,7 +335,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
   # @group Panel Icons
   # @label With Icons
   def panels_with_icons
-    render ::Decor::PanelGroup.new(
+    render ::Decor::Daisy::PanelGroup.new(
       title: "Panels with Icons"
     ) do |group|
       group.with_panel_row do
@@ -349,7 +349,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
   # @group Panel Icons
   # @label Without Icons
   def panels_without_icons
-    render ::Decor::PanelGroup.new(
+    render ::Decor::Daisy::PanelGroup.new(
       title: "Panels without Icons"
     ) do |group|
       group.with_panel_row do
@@ -362,7 +362,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
   # @group Panel Content
   # @label Rich Content
   def panels_rich_content
-    render ::Decor::PanelGroup.new(
+    render ::Decor::Daisy::PanelGroup.new(
       title: "Rich Panel Content"
     ) do |group|
       group.with_panel_row do
@@ -390,7 +390,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
   # @group Panel Content
   # @label Simple Content
   def panels_simple_content
-    render ::Decor::PanelGroup.new(
+    render ::Decor::Daisy::PanelGroup.new(
       title: "Simple Panel Content"
     ) do |group|
       group.with_panel_row do

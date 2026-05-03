@@ -2,9 +2,9 @@
 
 require "test_helper"
 
-class Decor::PanelGroupTest < ActiveSupport::TestCase
+class Decor::Daisy::PanelGroupTest < ActiveSupport::TestCase
   def test_renders_basic_details_box
-    component = Decor::PanelGroup.new(title: "Basic Details Box")
+    component = Decor::Daisy::PanelGroup.new(title: "Basic Details Box")
 
     rendered = render_fragment(component) { "Details content" }
 
@@ -22,7 +22,7 @@ class Decor::PanelGroupTest < ActiveSupport::TestCase
   end
 
   def test_renders_details_box_with_description
-    component = Decor::PanelGroup.new(
+    component = Decor::Daisy::PanelGroup.new(
       title: "Details with Description",
       description: "This is a helpful description"
     )
@@ -45,7 +45,7 @@ class Decor::PanelGroupTest < ActiveSupport::TestCase
   end
 
   def test_renders_details_box_with_cta_slot
-    component = Decor::PanelGroup.new(title: "Details with CTA")
+    component = Decor::Daisy::PanelGroup.new(title: "Details with CTA")
 
     rendered = render_fragment(component) do |group|
       group.cta { "Action Button" }
@@ -65,7 +65,7 @@ class Decor::PanelGroupTest < ActiveSupport::TestCase
   end
 
   def test_renders_details_box_with_panels
-    component = Decor::PanelGroup.new(
+    component = Decor::Daisy::PanelGroup.new(
       title: "Details with Panels"
     )
 
@@ -101,7 +101,7 @@ class Decor::PanelGroupTest < ActiveSupport::TestCase
   end
 
   def test_details_box_with_complete_configuration
-    component = Decor::PanelGroup.new(
+    component = Decor::Daisy::PanelGroup.new(
       title: "Dashboard Overview",
       description: "Key metrics and statistics"
     )
@@ -123,7 +123,7 @@ class Decor::PanelGroupTest < ActiveSupport::TestCase
   end
 
   def test_details_box_styling_classes
-    component = Decor::PanelGroup.new(title: "Styled Details Box")
+    component = Decor::Daisy::PanelGroup.new(title: "Styled Details Box")
 
     rendered = render_fragment(component)
 
@@ -139,7 +139,7 @@ class Decor::PanelGroupTest < ActiveSupport::TestCase
   end
 
   def test_details_box_section_alternating_backgrounds
-    component = Decor::PanelGroup.new(
+    component = Decor::Daisy::PanelGroup.new(
       title: "Alternating Sections"
     )
 
@@ -174,7 +174,7 @@ class Decor::PanelGroupTest < ActiveSupport::TestCase
 
   def test_details_box_flex_layout
     # Test that panels use flexbox layout
-    component = Decor::PanelGroup.new(title: "Flex Layout Test")
+    component = Decor::Daisy::PanelGroup.new(title: "Flex Layout Test")
     rendered = render_fragment(component) do |group|
       group.with_panel_row do
         group.render ::Decor::Daisy::Panel.new(title: "Panel 1") { |p| p.plain("Content 1") }
@@ -190,7 +190,7 @@ class Decor::PanelGroupTest < ActiveSupport::TestCase
   end
 
   def test_details_box_without_panels
-    component = Decor::PanelGroup.new(
+    component = Decor::Daisy::PanelGroup.new(
       title: "No Panels",
       description: "Just title and description"
     )
@@ -209,7 +209,7 @@ class Decor::PanelGroupTest < ActiveSupport::TestCase
   end
 
   def test_details_box_panel_with_callable_content
-    component = Decor::PanelGroup.new(
+    component = Decor::Daisy::PanelGroup.new(
       title: "Callable Content Test"
     )
 
@@ -227,12 +227,12 @@ class Decor::PanelGroupTest < ActiveSupport::TestCase
   end
 
   def test_inherits_from_phlex_component
-    component = Decor::PanelGroup.new(title: "Test")
+    component = Decor::Daisy::PanelGroup.new(title: "Test")
     assert_kind_of Decor::PhlexComponent, component
   end
 
   def test_uses_title_component_internally
-    component = Decor::PanelGroup.new(
+    component = Decor::Daisy::PanelGroup.new(
       title: "Uses Title Component",
       description: "Testing internal Title usage"
     )
@@ -249,7 +249,7 @@ class Decor::PanelGroupTest < ActiveSupport::TestCase
   end
 
   def test_size_attribute
-    component = Decor::PanelGroup.new(title: "Large Panel Group", size: :lg)
+    component = Decor::Daisy::PanelGroup.new(title: "Large Panel Group", size: :lg)
     rendered = render_fragment(component)
 
     # Should use large size on Card component internally
@@ -257,7 +257,7 @@ class Decor::PanelGroupTest < ActiveSupport::TestCase
   end
 
   def test_color_attribute
-    component = Decor::PanelGroup.new(title: "Primary Panel Group", color: :primary)
+    component = Decor::Daisy::PanelGroup.new(title: "Primary Panel Group", color: :primary)
     rendered = render_fragment(component)
 
     # Should use primary color on Card component internally
@@ -265,7 +265,7 @@ class Decor::PanelGroupTest < ActiveSupport::TestCase
   end
 
   def test_style_attribute
-    component = Decor::PanelGroup.new(title: "Ghost Panel Group", style: :ghost)
+    component = Decor::Daisy::PanelGroup.new(title: "Ghost Panel Group", style: :ghost)
     rendered = render_fragment(component)
 
     # Should use ghost style styling (no shadow)
@@ -273,7 +273,7 @@ class Decor::PanelGroupTest < ActiveSupport::TestCase
   end
 
   def test_default_attributes
-    component = Decor::PanelGroup.new(title: "Default Panel Group")
+    component = Decor::Daisy::PanelGroup.new(title: "Default Panel Group")
     rendered = render_fragment(component)
 
     # Should use default values: size: :md, color: :base, style: :filled
@@ -284,20 +284,20 @@ class Decor::PanelGroupTest < ActiveSupport::TestCase
 
   def test_attribute_validation
     # Valid sizes
-    assert_nothing_raised { Decor::PanelGroup.new(title: "Test", size: :xs) }
-    assert_nothing_raised { Decor::PanelGroup.new(title: "Test", size: :xl) }
+    assert_nothing_raised { Decor::Daisy::PanelGroup.new(title: "Test", size: :xs) }
+    assert_nothing_raised { Decor::Daisy::PanelGroup.new(title: "Test", size: :xl) }
 
     # Valid colors
-    assert_nothing_raised { Decor::PanelGroup.new(title: "Test", color: :primary) }
-    assert_nothing_raised { Decor::PanelGroup.new(title: "Test", color: :success) }
+    assert_nothing_raised { Decor::Daisy::PanelGroup.new(title: "Test", color: :primary) }
+    assert_nothing_raised { Decor::Daisy::PanelGroup.new(title: "Test", color: :success) }
 
     # Valid styles
-    assert_nothing_raised { Decor::PanelGroup.new(title: "Test", style: :outlined) }
-    assert_nothing_raised { Decor::PanelGroup.new(title: "Test", style: :ghost) }
+    assert_nothing_raised { Decor::Daisy::PanelGroup.new(title: "Test", style: :outlined) }
+    assert_nothing_raised { Decor::Daisy::PanelGroup.new(title: "Test", style: :ghost) }
 
     # Should raise for invalid values
-    assert_raises(Literal::TypeError) { Decor::PanelGroup.new(title: "Test", size: :invalid) }
-    assert_raises(Literal::TypeError) { Decor::PanelGroup.new(title: "Test", color: :invalid) }
-    assert_raises(Literal::TypeError) { Decor::PanelGroup.new(title: "Test", style: :invalid) }
+    assert_raises(Literal::TypeError) { Decor::Daisy::PanelGroup.new(title: "Test", size: :invalid) }
+    assert_raises(Literal::TypeError) { Decor::Daisy::PanelGroup.new(title: "Test", color: :invalid) }
+    assert_raises(Literal::TypeError) { Decor::Daisy::PanelGroup.new(title: "Test", style: :invalid) }
   end
 end
