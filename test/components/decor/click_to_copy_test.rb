@@ -117,9 +117,11 @@ class Decor::ClickToCopyTest < ActiveSupport::TestCase
     # Should show the display text
     assert_includes rendered.text, "Display and copy this"
 
-    # Should have empty to_copy stimulus value
+    # When to_copy is nil, Vident 2 does not emit the data attribute at all.
+    # The JS controller's hasToCopyValue && toCopyValue check then falls back
+    # to the content target's text — same effective behavior, cleaner DOM.
     root_element = rendered.children.first
     assert root_element
-    assert_equal "", root_element["data-decor--click-to-copy-to-copy-value"]
+    assert_nil root_element["data-decor--click-to-copy-to-copy-value"]
   end
 end
