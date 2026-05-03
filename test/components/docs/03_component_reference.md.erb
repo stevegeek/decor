@@ -97,7 +97,7 @@ If you find any issues or missing components, please open a PR to improve the do
 - [Decor::Daisy::EmptyState](#decordaisyemptystate)
 - [Decor::Daisy::FormattedEncodedId](#decordaisyformattedencodedid)
 - [Decor::Map](#decormap)
-- [Decor::Page](#decorpage)
+- [Decor::Daisy::Page](#decordaisypage)
 - [Decor::Daisy::PageHeader](#decordaisypageheader)
 - [Decor::Daisy::PageSection](#decordaisypagesection)
 - [Decor::Daisy::Panel](#decordaisypanel)
@@ -2183,15 +2183,15 @@ _(and the shared properties `size`, `color`, and `style` as described above)_
 
 ---
 
-### Decor::Page
+### Decor::Daisy::Page
 
-<span id="decorpage"></span>
+<span id="decordaisypage"></span>
 
 Page A page component that provides a structured layout with header, content sections, and customizable spacing, padding, and background options.
 
 **Basic Usage:**
 ```ruby
-render Decor::Page.new do |c|
+render Decor::Daisy::Page.new do |c|
   c.with_hero do
     # Slot content
   end

@@ -1,16 +1,16 @@
 require "test_helper"
 
-class Decor::PageTest < ActiveSupport::TestCase
+class Decor::Daisy::PageTest < ActiveSupport::TestCase
   test "renders successfully with default attributes" do
-    component = Decor::Page.new
+    component = Decor::Daisy::Page.new
     rendered = render_component(component)
 
-    assert_includes rendered, "decor--page"
+    assert_includes rendered, "decor--daisy--page"
     refute_includes rendered, "min-h-screen" # Should not include by default
   end
 
   test "supports body content via yield" do
-    component = Decor::Page.new
+    component = Decor::Daisy::Page.new
     rendered = render_component(component) do
       "<div>Page content here</div>"
     end
@@ -19,21 +19,21 @@ class Decor::PageTest < ActiveSupport::TestCase
   end
 
   test "renders with full height layout when enabled" do
-    component = Decor::Page.new(full_height: true)
+    component = Decor::Daisy::Page.new(full_height: true)
     rendered = render_component(component)
 
     assert_includes rendered, "min-h-screen"
   end
 
   test "does not render full height layout by default" do
-    component = Decor::Page.new
+    component = Decor::Daisy::Page.new
     rendered = render_component(component)
 
     refute_includes rendered, "min-h-screen"
   end
 
   test "supports header slot" do
-    component = Decor::Page.new
+    component = Decor::Daisy::Page.new
     component.with_header { "<header>Page Header</header>" }
     rendered = render_component(component)
 
@@ -41,7 +41,7 @@ class Decor::PageTest < ActiveSupport::TestCase
   end
 
   test "supports hero slot" do
-    component = Decor::Page.new
+    component = Decor::Daisy::Page.new
     component.with_hero { "<div>Hero Content</div>" }
     rendered = render_component(component)
 
@@ -49,7 +49,7 @@ class Decor::PageTest < ActiveSupport::TestCase
   end
 
   test "renders all slots together" do
-    component = Decor::Page.new
+    component = Decor::Daisy::Page.new
     component.with_hero { "Hero" }
     component.with_header { "Header" }
     rendered = render_component(component) do
@@ -62,37 +62,37 @@ class Decor::PageTest < ActiveSupport::TestCase
   end
 
   test "component inherits from PhlexComponent" do
-    component = Decor::Page.new
+    component = Decor::Daisy::Page.new
 
     assert component.is_a?(Decor::PhlexComponent)
   end
 
   test "renders with correct HTML structure" do
-    component = Decor::Page.new
+    component = Decor::Daisy::Page.new
     fragment = render_fragment(component)
 
-    page_div = fragment.at_css(".decor--page")
+    page_div = fragment.at_css(".decor--daisy--page")
     assert_not_nil page_div
     refute_includes page_div["class"], "min-h-screen"
   end
 
   test "renders without slots when none provided" do
-    component = Decor::Page.new
+    component = Decor::Daisy::Page.new
     rendered = render_component(component)
 
-    assert_includes rendered, "decor--page"
+    assert_includes rendered, "decor--daisy--page"
     refute_includes rendered, "min-h-screen"
   end
 
   test "supports responsive layout" do
-    component = Decor::Page.new(full_height: true)
+    component = Decor::Daisy::Page.new(full_height: true)
     rendered = render_component(component)
 
     assert_includes rendered, "min-h-screen"
   end
 
   test "maintains proper slot order" do
-    component = Decor::Page.new
+    component = Decor::Daisy::Page.new
     component.with_hero { "First" }
     component.with_header { "Second" }
     fragment = render_fragment(component) do
@@ -109,7 +109,7 @@ class Decor::PageTest < ActiveSupport::TestCase
   end
 
   test "uses daisyUI semantic classes" do
-    component = Decor::Page.new
+    component = Decor::Daisy::Page.new
     component.with_header do
       ::Decor::Daisy::PageHeader.new(title: "Test Title", description: "Test description")
     end
@@ -127,7 +127,7 @@ class Decor::PageTest < ActiveSupport::TestCase
 
   # Modern attribute tests
   test "applies correct size classes through PageHeader" do
-    component = Decor::Page.new
+    component = Decor::Daisy::Page.new
     component.with_header do
       ::Decor::Daisy::PageHeader.new(title: "Test", size: :lg, layout: :page_like)
     end
@@ -138,7 +138,7 @@ class Decor::PageTest < ActiveSupport::TestCase
 
   test "applies background classes" do
     [:primary, :secondary, :hero, :neutral].each do |background|
-      component = Decor::Page.new(background: background)
+      component = Decor::Daisy::Page.new(background: background)
       rendered = render_component(component)
 
       case background
@@ -155,14 +155,14 @@ class Decor::PageTest < ActiveSupport::TestCase
   end
 
   test "applies padding classes" do
-    component = Decor::Page.new(padding: :lg)
+    component = Decor::Daisy::Page.new(padding: :lg)
     rendered = render_component(component)
 
     assert_includes rendered, "py-12"
   end
 
   test "applies spacing classes" do
-    component = Decor::Page.new(spacing: :xl)
+    component = Decor::Daisy::Page.new(spacing: :xl)
     rendered = render_component(component)
 
     assert_includes rendered, "space-y-12"
@@ -170,7 +170,7 @@ class Decor::PageTest < ActiveSupport::TestCase
 
   # Tag and badge tests (now through PageHeader)
   test "supports tags through PageHeader" do
-    component = Decor::Page.new
+    component = Decor::Daisy::Page.new
     component.with_header do
       header = ::Decor::Daisy::PageHeader.new(title: "Test", layout: :page_like)
       header.with_tag(label: "Test Tag", color: :success)
@@ -183,7 +183,7 @@ class Decor::PageTest < ActiveSupport::TestCase
   end
 
   test "supports badges through PageHeader" do
-    component = Decor::Page.new
+    component = Decor::Daisy::Page.new
     component.with_header do
       header = ::Decor::Daisy::PageHeader.new(title: "Test", layout: :page_like)
       header.with_badge(label: "Test Badge", color: :success)
@@ -196,7 +196,7 @@ class Decor::PageTest < ActiveSupport::TestCase
 
   # Using PageHeader for title, subtitle, description, and CTA
   test "supports PageHeader with all features" do
-    component = Decor::Page.new(include_flash: false)
+    component = Decor::Daisy::Page.new(include_flash: false)
     component.with_header do
       header = ::Decor::Daisy::PageHeader.new(
         title: "Legacy Title",
@@ -219,7 +219,7 @@ class Decor::PageTest < ActiveSupport::TestCase
   end
 
   test "supports tabs slot" do
-    component = Decor::Page.new
+    component = Decor::Daisy::Page.new
     component.with_tabs { "<div>Tab content</div>" }
     rendered = render_component(component)
 
@@ -227,7 +227,7 @@ class Decor::PageTest < ActiveSupport::TestCase
   end
 
   test "default values are correct" do
-    component = Decor::Page.new
+    component = Decor::Daisy::Page.new
 
     assert_equal :default, component.instance_variable_get(:@background)
     assert_equal :md, component.instance_variable_get(:@padding)

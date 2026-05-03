@@ -1,5 +1,5 @@
 # @label Page
-class ::Decor::PagePreview < ::Lookbook::Preview
+class ::Decor::Daisy::PagePreview < ::Lookbook::Preview
   # Page
   # -------
   #
@@ -9,7 +9,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
   # @group Examples
   # @label Basic Page
   def basic_page
-    render ::Decor::Page.new do |page|
+    render ::Decor::Daisy::Page.new do |page|
       page.with_header do
         ::Decor::Daisy::PageHeader.new(
           title: "Welcome to Our Application",
@@ -28,7 +28,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
   # @group Examples
   # @label Page with Hero
   def page_with_hero
-    render ::Decor::Page.new(
+    render ::Decor::Daisy::Page.new(
       background: :hero,
       padding: :lg
     ) do |page|
@@ -67,7 +67,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
   # @group Examples
   # @label Page with Tabs
   def page_with_tabs
-    render ::Decor::Page.new do |page|
+    render ::Decor::Daisy::Page.new do |page|
       page.with_header do
         header = ::Decor::Daisy::PageHeader.new(
           title: "Dashboard",
@@ -100,7 +100,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
   # @group Examples
   # @label Full Featured Page
   def full_featured_page
-    render ::Decor::Page.new(
+    render ::Decor::Daisy::Page.new(
       size: :lg,
       background: :hero,
       padding: :lg,
@@ -223,7 +223,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
   # @group Sizes
   # @label XS Size
   def size_xs
-    render ::Decor::Page.new(
+    render ::Decor::Daisy::Page.new(
       size: :xs,
       spacing: :sm
     ) do |page|
@@ -246,7 +246,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
   # @group Sizes
   # @label SM Size
   def size_sm
-    render ::Decor::Page.new(
+    render ::Decor::Daisy::Page.new(
       size: :sm
     ) do |page|
       page.with_header do
@@ -266,7 +266,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
   # @group Sizes
   # @label MD Size (Default)
   def size_md
-    render ::Decor::Page.new(
+    render ::Decor::Daisy::Page.new(
       size: :md
     ) do |page|
       page.with_header do
@@ -287,7 +287,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
   # @group Sizes
   # @label LG Size
   def size_lg
-    render ::Decor::Page.new(
+    render ::Decor::Daisy::Page.new(
       size: :lg,
       spacing: :lg
     ) do |page|
@@ -313,7 +313,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
   # @group Sizes
   # @label XL Size
   def size_xl
-    render ::Decor::Page.new(
+    render ::Decor::Daisy::Page.new(
       size: :xl,
       spacing: :xl
     ) do |page|
@@ -335,7 +335,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
   # @group Backgrounds
   # @label Default Background
   def background_default
-    render ::Decor::Page.new(
+    render ::Decor::Daisy::Page.new(
       background: :default
     ) do |page|
       page.with_header do
@@ -354,7 +354,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
   # @group Backgrounds
   # @label Hero Background
   def background_hero
-    render ::Decor::Page.new(
+    render ::Decor::Daisy::Page.new(
       background: :hero
     ) do |page|
       page.with_header do
@@ -373,7 +373,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
   # @group Backgrounds
   # @label Primary Background
   def background_primary
-    render ::Decor::Page.new(
+    render ::Decor::Daisy::Page.new(
       background: :primary
     ) do |page|
       page.with_header do
@@ -392,7 +392,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
   # @group Padding
   # @label No Padding
   def padding_none
-    render ::Decor::Page.new(
+    render ::Decor::Daisy::Page.new(
       padding: :none
     ) do |page|
       page.with_header do
@@ -411,7 +411,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
   # @group Padding
   # @label SM Padding
   def padding_sm
-    render ::Decor::Page.new(
+    render ::Decor::Daisy::Page.new(
       padding: :sm
     ) do |page|
       page.with_header do
@@ -430,7 +430,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
   # @group Padding
   # @label MD Padding (Default)
   def padding_md
-    render ::Decor::Page.new(
+    render ::Decor::Daisy::Page.new(
       padding: :md
     ) do |page|
       page.with_header do
@@ -449,7 +449,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
   # @group Padding
   # @label LG Padding
   def padding_lg
-    render ::Decor::Page.new(
+    render ::Decor::Daisy::Page.new(
       padding: :lg
     ) do |page|
       page.with_header do
@@ -468,7 +468,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
   # @group Padding
   # @label XL Padding
   def padding_xl
-    render ::Decor::Page.new(
+    render ::Decor::Daisy::Page.new(
       padding: :xl
     ) do |page|
       page.with_header do
@@ -487,7 +487,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
   # @group Spacing
   # @label No Spacing
   def spacing_none
-    render ::Decor::Page.new(
+    render ::Decor::Daisy::Page.new(
       spacing: :none
     ) do |page|
       page.with_header do
@@ -506,7 +506,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
   # @group Spacing
   # @label SM Spacing
   def spacing_sm
-    render ::Decor::Page.new(
+    render ::Decor::Daisy::Page.new(
       spacing: :sm
     ) do |page|
       page.with_header do
@@ -524,7 +524,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
   # @group Spacing
   # @label MD Spacing (Default)
   def spacing_md
-    render ::Decor::Page.new(
+    render ::Decor::Daisy::Page.new(
       spacing: :md
     ) do |page|
       page.with_header do
@@ -542,7 +542,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
   # @group Spacing
   # @label LG Spacing
   def spacing_lg
-    render ::Decor::Page.new(
+    render ::Decor::Daisy::Page.new(
       spacing: :lg
     ) do |page|
       page.with_header do
@@ -560,7 +560,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
   # @group Spacing
   # @label XL Spacing
   def spacing_xl
-    render ::Decor::Page.new(
+    render ::Decor::Daisy::Page.new(
       spacing: :xl
     ) do |page|
       page.with_header do
@@ -578,7 +578,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
   # @group Full Height
   # @label With Full Height
   def with_full_height
-    render ::Decor::Page.new(
+    render ::Decor::Daisy::Page.new(
       full_height: true,
       padding: :lg
     ) do |page|
@@ -601,7 +601,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
   # @group Full Height
   # @label Without Full Height
   def without_full_height
-    render ::Decor::Page.new(
+    render ::Decor::Daisy::Page.new(
       full_height: false
     ) do |page|
       page.with_header do
