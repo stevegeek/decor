@@ -2,7 +2,7 @@
 
 module Decor
   class SearchResultsDropdown < PhlexComponent
-    prop :nav_element, Vident::StimulusComponent
+    prop :nav_element, Vident::Component
 
     def view_template
       root_element do

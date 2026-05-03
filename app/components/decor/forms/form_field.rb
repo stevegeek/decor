@@ -80,7 +80,7 @@ module Decor
       end
 
       def form_control_controller
-        stimulus_identifier_from_path(@form_control_controller_path)
+        ::Vident::Stimulus::Naming.stimulize_path(@form_control_controller_path)
       end
 
       def form_field_layout_options(field_element)

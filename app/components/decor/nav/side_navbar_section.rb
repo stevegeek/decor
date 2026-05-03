@@ -26,7 +26,7 @@ module Decor
         vanish(&)
         root_element do |el|
           if @title.present?
-            el.tag(:li, stimulus_target: :title, class: "#{component_name}-title menu-title text-base-content/70 uppercase") do
+            child_element(:li, stimulus_target: :title, class: "#{component_name}-title menu-title text-base-content/70 uppercase") do
               @title
             end
           end

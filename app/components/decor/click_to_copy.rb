@@ -14,7 +14,7 @@ module Decor
     def view_template
       root_element do |el|
         div(class: "flex items-center", title: "Click to copy this.") do
-          el.tag(:div, stimulus_target: :content) do
+          child_element(:div, stimulus_target: :content) do
             if block_given?
               yield
             else

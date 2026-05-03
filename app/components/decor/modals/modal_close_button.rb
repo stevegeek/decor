@@ -19,7 +19,7 @@ module Decor
             type: "submit",
             class: root_element_classes,
             disabled: @disabled ? "disabled" : nil,
-            data: stimulus_data_attributes
+            data: root_element_data_attributes
           ) do
             span(class: "text-center") do
               render @before_label if @before_label.present?

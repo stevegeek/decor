@@ -60,7 +60,7 @@ module Decor
           data: {
             turbo: false,
             type: (@local != true) ? "json" : nil,
-            **stimulus_data_attributes,
+            **root_element_data_attributes,
             **stimulus_actions(
               [stimulus_scoped_event(:submit), :handle_custom_submit_event],
               [stimulus_scoped_event(:validate), :handle_validate_fields_event],

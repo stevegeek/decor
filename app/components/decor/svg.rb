@@ -40,14 +40,14 @@ module Decor
     def svg_attributes
       {
         id: @id,
-        class: render_classes,
+        class: root_element_class_list,
         title: @title,
         desc: @description,
         aria: true,
         aria_hidden: true,
         width: svg_width,
         height: svg_height,
-        **stimulus_data_attributes
+        **root_element_data_attributes
       }
     end
 

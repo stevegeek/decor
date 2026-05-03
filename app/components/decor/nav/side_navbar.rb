@@ -104,7 +104,7 @@ module Decor
                     stimulus_targets: [el.stimulus_target(:desktop_avatar_logo)]
                   )
 
-                  el.tag(:div, stimulus_target: :desktop_logo) do
+                  child_element(:div, stimulus_target: :desktop_logo) do
                     img(src: @landscape_logo_url, alt: "Logo", class: "h-12 object-contain max-w-[180px]")
                   end
 

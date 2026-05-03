@@ -22,7 +22,7 @@ module Decor
             html_options: {class: "#{component_name}-link #{@selected ? "active bg-primary text-primary-content" : "text-base-content hover:bg-base-200 hover:text-primary"} group flex items-center px-2 py-2 text-sm font-medium rounded-md"}
           ) do
             if @counter.present?
-              el.tag(:span, stimulus_target: :counter, class: "badge badge-primary badge-sm mr-2") { @counter }
+              child_element(:span, stimulus_target: :counter, class: "badge badge-primary badge-sm mr-2") { @counter }
             end
             if @icon.present?
               render(::Decor::Icon.new(
@@ -34,7 +34,7 @@ module Decor
             end
 
             span(class: "#{component_name}-text") do
-              el.tag(:p, stimulus_target: :title) { @title }
+              child_element(:p, stimulus_target: :title) { @title }
             end
           end
         end

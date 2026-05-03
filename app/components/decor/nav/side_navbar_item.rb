@@ -54,7 +54,7 @@ module Decor
                 end
 
                 span(class: "#{component_name}-text #{@counter ? "flex-1 flex items-center" : nil}") do
-                  raw(el.tag(:p, stimulus_target: :title, class: "shrink-0") { @title })
+                  child_element(:p, stimulus_target: :title, class: "shrink-0") { @title }
                   if @counter
                     span(class: "badge badge-primary badge-sm ml-auto") do
                       @counter.to_s
@@ -97,7 +97,7 @@ module Decor
               end
 
               span(class: "#{component_name}-text #{@counter ? "flex-1 flex items-center" : nil}") do
-                raw el.tag(:p, stimulus_target: :title, class: "shrink-0") { @title }
+                child_element(:p, stimulus_target: :title, class: "shrink-0") { @title }
                 if @counter
                   span(class: "badge badge-primary badge-sm ml-auto") do
                     @counter.to_s

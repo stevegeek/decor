@@ -78,7 +78,7 @@ module Decor
           # navbar-center section (search)
           div(class: "navbar-center px-2 lg:px-4 min-w-36") do
             if @has_search
-              el.tag(
+              child_element(
                 :div,
                 stimulus_target: :search,
                 class: "form-control w-full max-w-xs sm:max-w-md lg:max-w-lg"
@@ -92,7 +92,7 @@ module Decor
                         classes: "h-5 w-5 text-base-content/40"
                       )
                     end
-                    el.tag(
+                    child_element(
                       :input,
                       id: "search-input",
                       name: "search",
