@@ -39,7 +39,7 @@ module Decor
       root_element do
         if @icon.present?
           render(
-            ::Decor::Icon.new(
+            ::Decor::Daisy::Icon.new(
               name: @icon,
               style: :solid,
               html_options: {class: "-ml-1 mr-1.5 #{icon_size_classes}"}

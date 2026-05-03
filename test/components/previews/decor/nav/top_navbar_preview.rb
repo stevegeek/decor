@@ -43,7 +43,7 @@ class ::Decor::Nav::TopNavbarPreview < ::Lookbook::Preview
       # Custom brand with logo
       navbar.with_brand do
         a(href: "/", class: "btn btn-ghost text-xl font-bold") do
-          render ::Decor::Icon.new(name: "cube", classes: "h-8 w-8 mr-2")
+          render ::Decor::Daisy::Icon.new(name: "cube", classes: "h-8 w-8 mr-2")
           "My App"
         end
       end
@@ -63,7 +63,7 @@ class ::Decor::Nav::TopNavbarPreview < ::Lookbook::Preview
         menu.trigger_button_content do
           div(class: "indicator") do
             span(class: "indicator-item badge badge-secondary badge-sm") { "3" }
-            render ::Decor::Icon.new(name: "bell", classes: "h-6 w-6")
+            render ::Decor::Daisy::Icon.new(name: "bell", classes: "h-6 w-6")
           end
         end
         menu.menu_item(render(::Decor::DropdownItem.new(text: "New message from Sarah", href: "#")))
@@ -121,7 +121,7 @@ class ::Decor::Nav::TopNavbarPreview < ::Lookbook::Preview
       ) do |menu|
         menu.trigger_button_content do
           span(class: "sr-only") { "View notifications" }
-          render ::Decor::Icon.new(name: "bell", classes: "h-6 w-6")
+          render ::Decor::Daisy::Icon.new(name: "bell", classes: "h-6 w-6")
         end
         menu.menu_item(render(::Decor::DropdownItem.new(text: "New message from John", href: "#")))
         menu.menu_item(render(::Decor::DropdownItem.new(text: "System update available", href: "#")))
@@ -156,7 +156,7 @@ class ::Decor::Nav::TopNavbarPreview < ::Lookbook::Preview
     render ::Decor::Nav::TopNavbar.new(has_search: false) do |navbar|
       navbar.with_brand do
         a(href: "/", class: "btn btn-ghost text-xl") do
-          render ::Decor::Icon.new(name: "sparkles", classes: "h-8 w-8 text-accent")
+          render ::Decor::Daisy::Icon.new(name: "sparkles", classes: "h-8 w-8 text-accent")
           span(class: "ml-2 font-bold text-gradient bg-gradient-to-r from-primary to-accent") { "Design Co" }
         end
       end
@@ -192,7 +192,7 @@ class ::Decor::Nav::TopNavbarPreview < ::Lookbook::Preview
         menu.trigger_button_content do
           div(class: "indicator") do
             span(class: "indicator-item badge badge-secondary badge-sm") { "5" }
-            render ::Decor::Icon.new(name: "bell", classes: "h-6 w-6")
+            render ::Decor::Daisy::Icon.new(name: "bell", classes: "h-6 w-6")
           end
         end
         menu.menu_item(render(::Decor::DropdownItem.new(text: "5 new notifications", href: "/notifications")))

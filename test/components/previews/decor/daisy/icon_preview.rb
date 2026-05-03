@@ -1,5 +1,5 @@
 # @label Icon
-class ::Decor::IconPreview < ::Lookbook::Preview
+class ::Decor::Daisy::IconPreview < ::Lookbook::Preview
   # Icon
   # -------
   #
@@ -14,10 +14,10 @@ class ::Decor::IconPreview < ::Lookbook::Preview
     render_with_template(
       locals: {
         icons: [
-          ::Decor::Icon.new(name: "plus", title: "Add"),
-          ::Decor::Icon.new(name: "minus", title: "Remove"),
-          ::Decor::Icon.new(name: "check", title: "Confirm"),
-          ::Decor::Icon.new(name: "download", title: "Download")
+          ::Decor::Daisy::Icon.new(name: "plus", title: "Add"),
+          ::Decor::Daisy::Icon.new(name: "minus", title: "Remove"),
+          ::Decor::Daisy::Icon.new(name: "check", title: "Confirm"),
+          ::Decor::Daisy::Icon.new(name: "download", title: "Download")
         ]
       }
     )
@@ -29,10 +29,10 @@ class ::Decor::IconPreview < ::Lookbook::Preview
     render_with_template(
       locals: {
         icons: [
-          ::Decor::Icon.new(name: "heart", style: :outline, title: "Like"),
-          ::Decor::Icon.new(name: "star", style: :outline, title: "Favorite"),
-          ::Decor::Icon.new(name: "bell", title: "Notifications"),
-          ::Decor::Icon.new(name: "gift", title: "Gift")
+          ::Decor::Daisy::Icon.new(name: "heart", style: :outline, title: "Like"),
+          ::Decor::Daisy::Icon.new(name: "star", style: :outline, title: "Favorite"),
+          ::Decor::Daisy::Icon.new(name: "bell", title: "Notifications"),
+          ::Decor::Daisy::Icon.new(name: "gift", title: "Gift")
         ]
       }
     )
@@ -41,7 +41,7 @@ class ::Decor::IconPreview < ::Lookbook::Preview
   # @group Examples
   # @label Large Solid with Accessibility
   def combo_large_solid_accessible
-    render ::Decor::Icon.new(
+    render ::Decor::Daisy::Icon.new(
       name: "star",
       style: :solid,
       size: :lg,
@@ -53,7 +53,7 @@ class ::Decor::IconPreview < ::Lookbook::Preview
   # @group Examples
   # @label Custom Dimensions Inline
   def combo_custom_inline
-    render ::Decor::Icon.new(
+    render ::Decor::Daisy::Icon.new(
       name: "play",
       style: :solid,
       width: 80,
@@ -70,14 +70,14 @@ class ::Decor::IconPreview < ::Lookbook::Preview
     render_with_template(
       locals: {
         icons: [
-          ::Decor::Icon.new(
+          ::Decor::Daisy::Icon.new(
             name: "star",
             collection: :heroicons,
             style: :small_solid,
             size: :sm,
             title: "Small Solid Star"
           ),
-          ::Decor::Icon.new(
+          ::Decor::Daisy::Icon.new(
             name: "heart",
             collection: :heroicons,
             style: :small_solid,
@@ -112,7 +112,7 @@ class ::Decor::IconPreview < ::Lookbook::Preview
     color: nil,
     style: nil
   )
-    render ::Decor::Icon.new(
+    render ::Decor::Daisy::Icon.new(
       name: name,
       collection: collection,
       inline: inline,
@@ -129,7 +129,7 @@ class ::Decor::IconPreview < ::Lookbook::Preview
   # @group Collections
   # @label Heroicons Collection
   def collection_heroicons
-    render ::Decor::Icon.new(
+    render ::Decor::Daisy::Icon.new(
       name: "home",
       collection: :heroicons,
       style: :outline,
@@ -140,7 +140,7 @@ class ::Decor::IconPreview < ::Lookbook::Preview
   # @group Collections
   # @label Icons Collection
   def collection_icons
-    render ::Decor::Icon.new(
+    render ::Decor::Daisy::Icon.new(
       name: "star",
       collection: :heroicons,
       style: :outline,
@@ -151,7 +151,7 @@ class ::Decor::IconPreview < ::Lookbook::Preview
   # @group Styles
   # @label Outline Style
   def style_outline
-    render ::Decor::Icon.new(
+    render ::Decor::Daisy::Icon.new(
       name: "heart",
       style: :outline,
       title: "Outline Heart Icon"
@@ -161,7 +161,7 @@ class ::Decor::IconPreview < ::Lookbook::Preview
   # @group Styles
   # @label Solid Style
   def style_solid
-    render ::Decor::Icon.new(
+    render ::Decor::Daisy::Icon.new(
       name: "heart",
       style: :solid,
       title: "Solid Heart Icon"
@@ -171,7 +171,7 @@ class ::Decor::IconPreview < ::Lookbook::Preview
   # @group Styles
   # @label Small Solid Style
   def style_small_solid
-    render ::Decor::Icon.new(
+    render ::Decor::Daisy::Icon.new(
       name: "star",
       style: :small_solid,
       title: "Small Solid Star Icon"
@@ -181,7 +181,7 @@ class ::Decor::IconPreview < ::Lookbook::Preview
   # @group Sizes
   # @label Extra Small (xs)
   def size_xs
-    render ::Decor::Icon.new(
+    render ::Decor::Daisy::Icon.new(
       name: "bell",
       size: :xs,
       title: "Extra Small Bell"
@@ -191,7 +191,7 @@ class ::Decor::IconPreview < ::Lookbook::Preview
   # @group Sizes
   # @label Small (sm)
   def size_sm
-    render ::Decor::Icon.new(
+    render ::Decor::Daisy::Icon.new(
       name: "bell",
       size: :sm,
       title: "Small Bell"
@@ -201,7 +201,7 @@ class ::Decor::IconPreview < ::Lookbook::Preview
   # @group Sizes
   # @label Medium (md)
   def size_md
-    render ::Decor::Icon.new(
+    render ::Decor::Daisy::Icon.new(
       name: "bell",
       size: :md,
       title: "Medium Bell"
@@ -211,7 +211,7 @@ class ::Decor::IconPreview < ::Lookbook::Preview
   # @group Sizes
   # @label Large (lg)
   def size_lg
-    render ::Decor::Icon.new(
+    render ::Decor::Daisy::Icon.new(
       name: "bell",
       size: :lg,
       title: "Large Bell"
@@ -221,7 +221,7 @@ class ::Decor::IconPreview < ::Lookbook::Preview
   # @group Sizes
   # @label Extra Large (xl)
   def size_xl
-    render ::Decor::Icon.new(
+    render ::Decor::Daisy::Icon.new(
       name: "bell",
       size: :xl,
       title: "Extra Large Bell"
@@ -231,7 +231,7 @@ class ::Decor::IconPreview < ::Lookbook::Preview
   # @group Custom Dimensions
   # @label Custom Width and Height
   def custom_dimensions
-    render ::Decor::Icon.new(
+    render ::Decor::Daisy::Icon.new(
       name: "user",
       width: 48,
       height: 48,
@@ -242,7 +242,7 @@ class ::Decor::IconPreview < ::Lookbook::Preview
   # @group Custom Dimensions
   # @label Custom Width Only
   def custom_width
-    render ::Decor::Icon.new(
+    render ::Decor::Daisy::Icon.new(
       name: "download",
       width: 64,
       title: "Custom Width Download Icon"
@@ -252,7 +252,7 @@ class ::Decor::IconPreview < ::Lookbook::Preview
   # @group Loading Types
   # @label Inline Icon
   def inline_true
-    render ::Decor::Icon.new(
+    render ::Decor::Daisy::Icon.new(
       name: "check",
       inline: true,
       title: "Inline Check Icon",
@@ -263,7 +263,7 @@ class ::Decor::IconPreview < ::Lookbook::Preview
   # @group Loading Types
   # @label External Icon
   def inline_false
-    render ::Decor::Icon.new(
+    render ::Decor::Daisy::Icon.new(
       name: "check",
       inline: false,
       title: "External Check Icon",
@@ -274,7 +274,7 @@ class ::Decor::IconPreview < ::Lookbook::Preview
   # @group Edge Cases
   # @label Nil Style (Should Use Default)
   def nil_style
-    render ::Decor::Icon.new(
+    render ::Decor::Daisy::Icon.new(
       name: "cube",
       style: nil,
       title: "Icon with nil style",

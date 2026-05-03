@@ -134,7 +134,7 @@ module Decor
     def render_tab_content(link)
       # Icon before text
       if link.icon.present? && link.icon_position == :before
-        render ::Decor::Icon.new(name: link.icon, size: @size, html_options: {class: "mr-2"})
+        render ::Decor::Daisy::Icon.new(name: link.icon, size: @size, html_options: {class: "mr-2"})
       end
 
       # Title text (unless icon-only)
@@ -144,12 +144,12 @@ module Decor
 
       # Icon after text
       if link.icon.present? && link.icon_position == :after
-        render ::Decor::Icon.new(name: link.icon, size: @size, html_options: {class: "ml-2"})
+        render ::Decor::Daisy::Icon.new(name: link.icon, size: @size, html_options: {class: "ml-2"})
       end
 
       # Icon only (with aria-label)
       if link.icon.present? && link.icon_position == :only
-        render ::Decor::Icon.new(name: link.icon, size: @size)
+        render ::Decor::Daisy::Icon.new(name: link.icon, size: @size)
       end
 
       # Badge indicator

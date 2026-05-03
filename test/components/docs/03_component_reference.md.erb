@@ -26,7 +26,7 @@ If you find any issues or missing components, please open a PR to improve the do
 - [Decor::DropdownItem](#decordropdownitem)
 - [Decor::Flash](#decorflash)
 - [Decor::FlowStep](#decorflowstep)
-- [Decor::Icon](#decoricon)
+- [Decor::Daisy::Icon](#decordaisyicon)
 - [Decor::Link](#decorlink)
 - [Decor::Notification](#decornotification)
 - [Decor::NotificationManager](#decornotificationmanager)
@@ -104,7 +104,7 @@ If you find any issues or missing components, please open a PR to improve the do
 - [Decor::PanelGroup](#decorpanelgroup)
 - [Decor::SearchAndFilter](#decorsearchandfilter)
 - [Decor::SearchResultsDropdown](#decorsearchresultsdropdown)
-- [Decor::Svg](#decorsvg)
+- [Decor::Daisy::Svg](#decordaisysvg)
 - [Decor::SwitchingBox](#decorswitchingbox)
 - [Decor::Toggle](#decortoggle)
 
@@ -506,15 +506,15 @@ _(and the shared properties `size`, `color`, and `style` as described above)_
 
 ---
 
-### Decor::Icon
+### Decor::Daisy::Icon
 
-<span id="decoricon"></span>
+<span id="decordaisyicon"></span>
 
 Icon An Icon is an inline SVG icon that is read from a collection of SVG files in the assets directory. Inherits from Svg component, so supports all sizing and accessibility features. Set the color using `classes` prop. The icon can be inlined in the HTML or loaded externally.
 
 **Basic Usage:**
 ```ruby
-render Decor::Icon.new(name: "star")
+render Decor::Daisy::Icon.new(name: "star")
 ```
 
 **Redefined Properties:**
@@ -670,7 +670,7 @@ Tag A modern tag/badge component built with DaisyUI styling. Tags can display si
 
 
 
-Features - **DaisyUI Integration**: Uses DaisyUI badge classes for consistent theming - **Icon Support**: Optional leading icons using Decor::Icon - **Removable Tags**: Optional close button (removal logic handled by parent components) - **Multiple Styles**: Filled, outlined, and ghost styles - **Semantic Colors**: Full DaisyUI color palette support - **Size Options**: 4 sizes from xs to lg
+Features - **DaisyUI Integration**: Uses DaisyUI badge classes for consistent theming - **Icon Support**: Optional leading icons using Decor::Daisy::Icon - **Removable Tags**: Optional close button (removal logic handled by parent components) - **Multiple Styles**: Filled, outlined, and ghost styles - **Semantic Colors**: Full DaisyUI color palette support - **Size Options**: 4 sizes from xs to lg
 
 
 
@@ -2423,15 +2423,15 @@ _(and the shared properties `size`, `color`, and `style` as described above)_
 
 ---
 
-### Decor::Svg
+### Decor::Daisy::Svg
 
-<span id="decorsvg"></span>
+<span id="decordaisysvg"></span>
 
 Svg An inline svg from a file path. Supports different sizes, inline/external loading, and accessibility attributes. You can also set the html class attribute using html_options[:class] or `element_classes` etc
 
 **Basic Usage:**
 ```ruby
-render Decor::Svg.new(file_name: "...")
+render Decor::Daisy::Svg.new(file_name: "...")
 ```
 
 **Key Attributes:**

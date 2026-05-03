@@ -43,7 +43,7 @@ module Decor
                 div(class: "sm:flex sm:items-start") do
                   modal_types.each do |type|
                     div(class: "#{component_name}-#{type}-icon hidden mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full #{icon_bg_color(type)} sm:mx-0 sm:h-10 sm:w-10") do
-                      render ::Decor::Icon.new(name: icon_name(type), classes: "h-6 w-6 #{icon_color(type)}")
+                      render ::Decor::Daisy::Icon.new(name: icon_name(type), classes: "h-6 w-6 #{icon_color(type)}")
                     end
                   end
                   div(class: "mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left") do

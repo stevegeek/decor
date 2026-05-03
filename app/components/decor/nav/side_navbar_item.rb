@@ -45,7 +45,7 @@ module Decor
                 class: "list-none text-base-content hover:bg-base-200 group flex items-center px-2 py-2 text-sm font-medium rounded-md cursor-pointer"
               ) do
                 if @icon.present?
-                  render ::Decor::Icon.new(
+                  render ::Decor::Daisy::Icon.new(
                     name: @icon,
                     html_options: {
                       class: "#{resolve_selected? ? "text-primary" : "text-base-content/70 group-hover:text-primary"} mr-3 flex-shrink-0 h-6 w-6"
@@ -88,7 +88,7 @@ module Decor
               class: "#{component_name}-link #{resolve_selected? ? "active bg-primary text-primary-content" : "text-base-content hover:bg-base-200 hover:text-primary"} group flex items-center shrink-0 px-2 py-2 text-sm font-medium rounded-md"
             ) do
               if @icon.present?
-                render ::Decor::Icon.new(
+                render ::Decor::Daisy::Icon.new(
                   name: @icon,
                   html_options: {
                     class: "#{resolve_selected? ? "text-primary-content" : "text-base-content/70 group-hover:text-primary"} mr-3 flex-shrink-0 h-6 w-6"

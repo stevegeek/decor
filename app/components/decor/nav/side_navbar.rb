@@ -45,7 +45,7 @@ module Decor
                   class: "ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
                 ) do
                   span(class: "sr-only") { "Close sidebar" }
-                  render ::Decor::Icon.new(name: "x", html_options: {class: "h-6 w-6 text-white"})
+                  render ::Decor::Daisy::Icon.new(name: "x", html_options: {class: "h-6 w-6 text-white"})
                 end
               end
 
@@ -61,7 +61,7 @@ module Decor
                   label(for: "mobile-search", class: "sr-only") { "Search" }
                   div(class: "relative") do
                     div(class: "pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center") do
-                      render ::Decor::Icon.new(name: "search", style: :solid, html_options: {class: "h-5 w-5 text-base-content/70"})
+                      render ::Decor::Daisy::Icon.new(name: "search", style: :solid, html_options: {class: "h-5 w-5 text-base-content/70"})
                     end
                     input(
                       class: "input input-bordered w-full pl-10 bg-base-100 text-base-content placeholder-base-content/70 focus:border-primary",
@@ -117,12 +117,12 @@ module Decor
                   data: {**el.stimulus_action(:click, :toggle_collapse_desktop_menu)},
                   class: "text-base-content/70 hover:text-base-content"
                 ) do
-                  render ::Decor::Icon.new(
+                  render ::Decor::Daisy::Icon.new(
                     name: "menu-alt-2",
                     html_options: {class: "h-6 w-6 #{@collapsed ? "hidden" : nil}"},
                     stimulus_targets: [el.stimulus_target(:desktop_collapse_icon)]
                   )
-                  render ::Decor::Icon.new(
+                  render ::Decor::Daisy::Icon.new(
                     name: "chevron-right",
                     html_options: {class: "h-6 w-6 #{@collapsed ? "" : "hidden"}"},
                     stimulus_targets: [el.stimulus_target(:desktop_expand_icon)]
@@ -135,7 +135,7 @@ module Decor
                   label(for: "side-navbar-desktop-search-input", class: "sr-only") { "Search" }
                   div(class: "relative h-9") do
                     div(class: "pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center") do
-                      render ::Decor::Icon.new(name: "search", style: :solid, html_options: {class: "h-5 w-5 text-base-content/70"})
+                      render ::Decor::Daisy::Icon.new(name: "search", style: :solid, html_options: {class: "h-5 w-5 text-base-content/70"})
                     end
                     input(
                       class: "input input-bordered w-full pl-10 bg-base-100 text-base-content placeholder-base-content/70 focus:border-primary",

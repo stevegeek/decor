@@ -8,7 +8,7 @@ class ::Decor::TagPreview < ::Lookbook::Preview
   #
   # ## Features
   # - **DaisyUI Integration**: Uses DaisyUI badge classes for consistent theming
-  # - **Icon Support**: Optional leading icons using Decor::Icon
+  # - **Icon Support**: Optional leading icons using Decor::Daisy::Icon
   # - **Removable Tags**: Optional close button (removal logic handled by parent components)
   # - **Multiple Styles**: Filled, outlined, and ghost styles
   # - **Semantic Colors**: Full DaisyUI color palette support

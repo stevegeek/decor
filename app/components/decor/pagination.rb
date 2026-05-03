@@ -65,7 +65,7 @@ module Decor
                 ) do |dropdown|
                   dropdown.trigger_button_content do
                     span(class: "text-sm") { page_size_for_selector.to_s }
-                    render ::Decor::Icon.new(name: "chevron-down", style: :solid, html_options: {class: "w-4 h-4"})
+                    render ::Decor::Daisy::Icon.new(name: "chevron-down", style: :solid, html_options: {class: "w-4 h-4"})
                   end
                   page_sizes.each_with_index do |s, i|
                     dropdown.menu_item(
@@ -88,7 +88,7 @@ module Decor
                 class: "join-item btn #{button_size_class} #{first_page? ? "btn-disabled" : button_style_class}",
                 disabled: first_page?
               ) do
-                render ::Decor::Icon.new(name: "chevron-left", style: :solid, html_options: {class: icon_size_class})
+                render ::Decor::Daisy::Icon.new(name: "chevron-left", style: :solid, html_options: {class: icon_size_class})
                 span(class: "sr-only") { "Previous" }
               end
 
@@ -122,7 +122,7 @@ module Decor
                 class: "join-item btn #{button_size_class} #{last_page? ? "btn-disabled" : button_style_class}",
                 disabled: last_page?
               ) do
-                render ::Decor::Icon.new(name: "chevron-right", style: :solid, html_options: {class: icon_size_class})
+                render ::Decor::Daisy::Icon.new(name: "chevron-right", style: :solid, html_options: {class: icon_size_class})
                 span(class: "sr-only") { "Next" }
               end
             end

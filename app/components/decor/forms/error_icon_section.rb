@@ -18,10 +18,10 @@ module Decor
                   @error_text
                 end
               end
-              render ::Decor::Icon.new(name: "exclamation-circle", style: :solid, html_options: {class: "z-10 h-5 w-5 text-red-500"})
+              render ::Decor::Daisy::Icon.new(name: "exclamation-circle", style: :solid, html_options: {class: "z-10 h-5 w-5 text-red-500"})
             end
           else
-            render ::Decor::Icon.new(name: "exclamation-circle", style: :solid, html_options: {class: "h-5 w-5 text-red-500"})
+            render ::Decor::Daisy::Icon.new(name: "exclamation-circle", style: :solid, html_options: {class: "h-5 w-5 text-red-500"})
           end
         end
       end

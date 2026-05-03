@@ -103,14 +103,14 @@ module Decor
                     class: "-ml-px relative inline-flex items-center px-4 py-2 mt-4 sm:mt-0 w-full sm:w-auto border border-gray-300 text-sm font-medium #{@search.present? ? "rounded-md sm:rounded-r-md sm:rounded-l-none" : "rounded-md"} text-gray-700 bg-white sm:bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500",
                     data: {**stimulus_actions([:click, :toggle], [:"click@window", :hide_on_click_outside])}
                   ) do
-                    render ::Decor::Icon.new(
+                    render ::Decor::Daisy::Icon.new(
                       name: "filter",
                       style: filters_active ? :solid : :outline,
                       html_options: {class: "h-5 w-5 text-gray-400"}
                     )
 
                     span(class: "ml-auto mr-2 sm:ml-2") { "Filter" }
-                    render ::Decor::Icon.new(name: "chevron-down", style: :solid, html_options: {class: "h-5 w-5 text-gray-400"})
+                    render ::Decor::Daisy::Icon.new(name: "chevron-down", style: :solid, html_options: {class: "h-5 w-5 text-gray-400"})
                   end
                 end
 
@@ -202,7 +202,7 @@ module Decor
               class: "w-[38px] h-[38px] flex-shrink-0 grid place-content-center border border-gray-300 rounded-md shadow-sm bg-white hover:bg-gray-50 focus:outline-none",
               data: {confirm: "Do you wish to download the data currently shown in the table?", "confirm-yes": "Yes, download"}
             ) do
-              render ::Decor::Icon.new(name: "download", html_options: {class: "h-4 w-4 text-blue-500"})
+              render ::Decor::Daisy::Icon.new(name: "download", html_options: {class: "h-4 w-4 text-blue-500"})
             end
           end
 

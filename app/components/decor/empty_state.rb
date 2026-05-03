@@ -14,7 +14,7 @@ module Decor
 
     def view_template
       root_element do
-        render Decor::Icon.new(name: @icon_name, size: :xl, classes: "text-base-content/60 mx-auto mb-4")
+        render Decor::Daisy::Icon.new(name: @icon_name, size: :xl, classes: "text-base-content/60 mx-auto mb-4")
 
         h3(class: "text-lg font-semibold text-base-content mb-2") do
           @title

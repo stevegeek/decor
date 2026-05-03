@@ -52,7 +52,7 @@ module Decor
                 }
               ) do
                 span(class: "sr-only") { "Open sidebar" }
-                render ::Decor::Icon.new(name: "bars-3", classes: "h-6 w-6")
+                render ::Decor::Daisy::Icon.new(name: "bars-3", classes: "h-6 w-6")
               end
             end
 
@@ -86,7 +86,7 @@ module Decor
                 form(class: "relative w-full") do
                   div(class: "relative") do
                     div(class: "absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none") do
-                      render ::Decor::Icon.new(
+                      render ::Decor::Daisy::Icon.new(
                         name: "search",
                         style: :solid,
                         classes: "h-5 w-5 text-base-content/40"

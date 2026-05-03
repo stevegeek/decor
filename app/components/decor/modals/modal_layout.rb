@@ -46,7 +46,7 @@ module Decor
               div(class: "sm:flex sm:items-start") do
                 if show_icon?
                   div(class: "mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full #{icon_background_classes} sm:mx-0 sm:h-10 sm:w-10") do
-                    render ::Decor::Icon.new(name: @icon, html_options: {class: "h-6 w-6 #{icon_text_classes}"})
+                    render ::Decor::Daisy::Icon.new(name: @icon, html_options: {class: "h-6 w-6 #{icon_text_classes}"})
                   end
                 end
                 div(class: "#{show_icon? ? "mt-3 sm:mt-0 sm:ml-4" : ""} text-center sm:text-left") do

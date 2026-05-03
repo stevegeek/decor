@@ -28,7 +28,7 @@ module Decor
             div(class: "alert #{alert_variant_class}") do
               div(class: "flex") do
                 div(class: "flex-shrink-0") do
-                  render ::Decor::Icon.new(name: icon, html_options: {class: "h-5 w-5"})
+                  render ::Decor::Daisy::Icon.new(name: icon, html_options: {class: "h-5 w-5"})
                 end
                 div(class: "ml-3") do
                   h3(class: "text-md font-medium") { title_with_defaults }

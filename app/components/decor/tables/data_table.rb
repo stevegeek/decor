@@ -130,7 +130,7 @@ module Decor
               end
               unless @data_table_rows.any?
                 div(class: "bg-base-100 relative block my-6 mx-6 border-2 border-base-300 border-dashed rounded-md py-12 text-center hover:border-base-200") do
-                  render ::Decor::Icon.new(name: "database", html_options: {class: "mx-auto h-6 w-6 text-base-content/40"})
+                  render ::Decor::Daisy::Icon.new(name: "database", html_options: {class: "mx-auto h-6 w-6 text-base-content/40"})
                   span(class: "mt-2 block text-sm font-medium text-base-content") { "No data..." }
                 end
               end

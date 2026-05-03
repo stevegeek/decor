@@ -160,7 +160,7 @@ module Decor
         return unless icon_name.present?
 
         begin
-          render ::Decor::Icon.new(
+          render ::Decor::Daisy::Icon.new(
             name: icon_name,
             html_options: {class: "w-4 h-4 mr-1 inline-block"}
           )

@@ -27,7 +27,7 @@ module Decor
         root_element do
           div(class: "group flex items-center") do
             if sort_key?
-              render ::Decor::Icon.new(
+              render ::Decor::Daisy::Icon.new(
                 name: sort_icon,
                 html_options: {class: "mr-2 h-4 w-4 #{sorted_direction? ? "opacity-100" : "opacity-25"} group-hover:opacity-100 group-hover:text-primary"}
               )

@@ -70,7 +70,7 @@ module Decor
         if @figure_content
           instance_exec(&@figure_content)
         elsif @icon
-          render ::Decor::Icon.new(
+          render ::Decor::Daisy::Icon.new(
             name: @icon,
             style: :outline,
             html_options: {class: "inline-block h-8 w-8 stroke-current"}

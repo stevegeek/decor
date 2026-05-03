@@ -42,7 +42,7 @@ module Decor
         # Icon section
         if @icon
           div(class: "join-item p-4 #{icon_background_class} #{icon_text_class} text-xl") do
-            render ::Decor::Icon.new(name: @icon, html_options: {class: "h-6 w-6"})
+            render ::Decor::Daisy::Icon.new(name: @icon, html_options: {class: "h-6 w-6"})
           end
         elsif @avatar.present?
           div(class: "join-item p-4 bg-base-300") do

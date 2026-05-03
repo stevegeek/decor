@@ -174,7 +174,7 @@ class Decor::CardHeaderPreview < ViewComponent::Preview
           color: :base
         ) do |dropdown|
           dropdown.trigger_button_content do
-            render Decor::Icon.new(name: "ellipsis-vertical", size: :sm)
+            render Decor::Daisy::Icon.new(name: "ellipsis-vertical", size: :sm)
           end
 
           dropdown.menu_item(label: "Export", href: "#")

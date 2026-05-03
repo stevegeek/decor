@@ -25,7 +25,7 @@ module Decor
               child_element(:span, stimulus_target: :counter, class: "badge badge-primary badge-sm mr-2") { @counter }
             end
             if @icon.present?
-              render(::Decor::Icon.new(
+              render(::Decor::Daisy::Icon.new(
                 name: @icon,
                 html_options: {
                   class: "#{@selected ? "text-primary-content" : "text-base-content/70 group-hover:text-primary"} mr-3 flex-shrink-0 h-6 w-6"

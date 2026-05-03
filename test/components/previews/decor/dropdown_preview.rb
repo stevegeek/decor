@@ -32,7 +32,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
     render ::Decor::Dropdown.new(color: :primary, style: :outlined) do |dropdown| # Example using modern attributes
       dropdown.trigger_button_content do
         plain "Actions"
-        render ::Decor::Icon.new(name: "chevron-down", html_options: {class: "ml-2 -mr-1 h-4 w-4"})
+        render ::Decor::Daisy::Icon.new(name: "chevron-down", html_options: {class: "ml-2 -mr-1 h-4 w-4"})
       end
 
       dropdown.menu_item(::Decor::DropdownItem.new(text: "Edit", href: "#", icon_name: "pencil"))
@@ -49,7 +49,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
     render ::Decor::Dropdown.new(color: :secondary) do |dropdown| # Example using modern attributes
       dropdown.trigger_button_content do
         plain "User Menu"
-        render ::Decor::Icon.new(name: "chevron-down", html_options: {class: "ml-2 -mr-1 h-4 w-4"})
+        render ::Decor::Daisy::Icon.new(name: "chevron-down", html_options: {class: "ml-2 -mr-1 h-4 w-4"})
       end
 
       dropdown.menu_header do
@@ -78,7 +78,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
           class: "btn btn-accent" # Example DaisyUI classes
         ) do
           plain "Custom Button"
-          render ::Decor::Icon.new(name: "chevron-down", html_options: {class: "ml-2 -mr-1 h-4 w-4"})
+          render ::Decor::Daisy::Icon.new(name: "chevron-down", html_options: {class: "ml-2 -mr-1 h-4 w-4"})
         end
       end
 
@@ -376,7 +376,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
     ) do |dropdown|
       dropdown.trigger_button_content do
         div(class: "flex items-center gap-2") do
-          render ::Decor::Icon.new(name: "ellipsis-vertical", html_options: {class: "h-5 w-5"})
+          render ::Decor::Daisy::Icon.new(name: "ellipsis-vertical", html_options: {class: "h-5 w-5"})
           span { "Actions" }
         end
       end
@@ -512,7 +512,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
     ) do |dropdown|
       dropdown.trigger_button_content do
         div(class: "flex items-center gap-2") do
-          render ::Decor::Icon.new(name: "bell", html_options: {class: "h-5 w-5"})
+          render ::Decor::Daisy::Icon.new(name: "bell", html_options: {class: "h-5 w-5"})
           span(class: "badge badge-error badge-sm") { "3" }
         end
       end
@@ -534,11 +534,11 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
                   div(class: "flex-shrink-0 mt-1") do
                     case notification[:type]
                     when "message"
-                      render ::Decor::Icon.new(name: "envelope", html_options: {class: "h-4 w-4 text-info"})
+                      render ::Decor::Daisy::Icon.new(name: "envelope", html_options: {class: "h-4 w-4 text-info"})
                     when "warning"
-                      render ::Decor::Icon.new(name: "exclamation-triangle", html_options: {class: "h-4 w-4 text-warning"})
+                      render ::Decor::Daisy::Icon.new(name: "exclamation-triangle", html_options: {class: "h-4 w-4 text-warning"})
                     when "success"
-                      render ::Decor::Icon.new(name: "check-circle", html_options: {class: "h-4 w-4 text-success"})
+                      render ::Decor::Daisy::Icon.new(name: "check-circle", html_options: {class: "h-4 w-4 text-success"})
                     end
                   end
                   div(class: "flex-1 min-w-0") do
@@ -585,7 +585,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
               %w[Documents Photos Videos Music].each do |item|
                 div(class: "flex items-center justify-between p-2 rounded hover:bg-base-200") do
                   span(class: "text-sm") { item }
-                  render ::Decor::Icon.new(name: "chevron-right", html_options: {class: "h-4 w-4 opacity-50"})
+                  render ::Decor::Daisy::Icon.new(name: "chevron-right", html_options: {class: "h-4 w-4 opacity-50"})
                 end
               end
             end

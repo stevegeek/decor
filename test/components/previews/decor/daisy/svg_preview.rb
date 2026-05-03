@@ -1,5 +1,5 @@
 # @label Svg
-class ::Decor::SvgPreview < ::Lookbook::Preview
+class ::Decor::Daisy::SvgPreview < ::Lookbook::Preview
   # Svg
   # -------
   #
@@ -11,7 +11,7 @@ class ::Decor::SvgPreview < ::Lookbook::Preview
   # @group Examples
   # @label Large External with Accessibility
   def combo_large_external_accessible
-    render ::Decor::Svg.new(
+    render ::Decor::Daisy::Svg.new(
       file_name: "svgs/d-geometric.svg",
       size: :lg,
       inline: false,
@@ -23,7 +23,7 @@ class ::Decor::SvgPreview < ::Lookbook::Preview
   # @group Examples
   # @label Custom Dimensions with Title
   def combo_custom_with_title
-    render ::Decor::Svg.new(
+    render ::Decor::Daisy::Svg.new(
       file_name: "svgs/d-rounded.svg",
       width: 80,
       height: 80,
@@ -49,7 +49,7 @@ class ::Decor::SvgPreview < ::Lookbook::Preview
     title: "Dee",
     description: "A letter, D"
   )
-    render ::Decor::Svg.new(
+    render ::Decor::Daisy::Svg.new(
       file_name: file_name,
       inline: inline,
       size: size,
@@ -63,7 +63,7 @@ class ::Decor::SvgPreview < ::Lookbook::Preview
   # @group Sizes
   # @label Extra Small (xs)
   def size_xs
-    render ::Decor::Svg.new(
+    render ::Decor::Daisy::Svg.new(
       file_name: "svgs/d-modern.svg",
       size: :xs,
       title: "Extra Small Icon"
@@ -73,7 +73,7 @@ class ::Decor::SvgPreview < ::Lookbook::Preview
   # @group Sizes
   # @label Small (sm)
   def size_sm
-    render ::Decor::Svg.new(
+    render ::Decor::Daisy::Svg.new(
       file_name: "svgs/d-modern.svg",
       size: :sm,
       title: "Small Icon"
@@ -83,7 +83,7 @@ class ::Decor::SvgPreview < ::Lookbook::Preview
   # @group Sizes
   # @label Medium (md)
   def size_md
-    render ::Decor::Svg.new(
+    render ::Decor::Daisy::Svg.new(
       file_name: "svgs/d-modern.svg",
       size: :md,
       title: "Medium Icon"
@@ -93,7 +93,7 @@ class ::Decor::SvgPreview < ::Lookbook::Preview
   # @group Sizes
   # @label Large (lg)
   def size_lg
-    render ::Decor::Svg.new(
+    render ::Decor::Daisy::Svg.new(
       file_name: "svgs/d-modern.svg",
       size: :lg,
       title: "Large Icon"
@@ -103,7 +103,7 @@ class ::Decor::SvgPreview < ::Lookbook::Preview
   # @group Sizes
   # @label Extra Large (xl)
   def size_xl
-    render ::Decor::Svg.new(
+    render ::Decor::Daisy::Svg.new(
       file_name: "svgs/d-modern.svg",
       size: :xl,
       title: "Extra Large Icon"
@@ -113,7 +113,7 @@ class ::Decor::SvgPreview < ::Lookbook::Preview
   # @group Custom Dimensions
   # @label Custom Width and Height
   def custom_dimensions
-    render ::Decor::Svg.new(
+    render ::Decor::Daisy::Svg.new(
       file_name: "svgs/d-modern.svg",
       width: 48,
       height: 48,
@@ -124,7 +124,7 @@ class ::Decor::SvgPreview < ::Lookbook::Preview
   # @group Custom Dimensions
   # @label Custom Width Only
   def custom_width
-    render ::Decor::Svg.new(
+    render ::Decor::Daisy::Svg.new(
       file_name: "svgs/d-modern.svg",
       width: 64,
       title: "Custom Width Icon"
@@ -134,7 +134,7 @@ class ::Decor::SvgPreview < ::Lookbook::Preview
   # @group Custom Dimensions
   # @label Custom Height Only
   def custom_height
-    render ::Decor::Svg.new(
+    render ::Decor::Daisy::Svg.new(
       file_name: "svgs/d-modern.svg",
       height: 64,
       title: "Custom Height Icon"
@@ -144,7 +144,7 @@ class ::Decor::SvgPreview < ::Lookbook::Preview
   # @group Loading Types
   # @label Inline SVG
   def inline_true
-    render ::Decor::Svg.new(
+    render ::Decor::Daisy::Svg.new(
       file_name: "svgs/d-modern.svg",
       inline: true,
       title: "Inline SVG",
@@ -155,7 +155,7 @@ class ::Decor::SvgPreview < ::Lookbook::Preview
   # @group Loading Types
   # @label External SVG
   def inline_false
-    render ::Decor::Svg.new(
+    render ::Decor::Daisy::Svg.new(
       file_name: "svgs/d-modern.svg",
       inline: false,
       title: "External SVG",
@@ -166,7 +166,7 @@ class ::Decor::SvgPreview < ::Lookbook::Preview
   # @group Accessibility
   # @label With Title and Description
   def accessibility_full
-    render ::Decor::Svg.new(
+    render ::Decor::Daisy::Svg.new(
       file_name: "svgs/d-modern.svg",
       title: "Modern Logo",
       description: "A modern geometric logo design with clean lines"

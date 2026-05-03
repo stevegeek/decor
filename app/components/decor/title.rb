@@ -19,7 +19,7 @@ module Decor
           div(class: title_section_classes) do
             if @icon
               div(class: "flex items-start space-x-2") do
-                render ::Decor::Icon.new(name: @icon, width: icon_size, height: icon_size, html_options: {class: "mt-1"})
+                render ::Decor::Daisy::Icon.new(name: @icon, width: icon_size, height: icon_size, html_options: {class: "mt-1"})
                 render_title_and_description
               end
             else

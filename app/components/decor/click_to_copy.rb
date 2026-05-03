@@ -18,7 +18,7 @@ module Decor
             if block_given?
               yield
             else
-              render ::Decor::Icon.new(
+              render ::Decor::Daisy::Icon.new(
                 name: "duplicate",
                 html_options: {class: "ml-2 h-4 w-4"}
               )
