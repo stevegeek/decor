@@ -1,25 +1,25 @@
 require "test_helper"
 
-class Decor::Nav::SideNavbarItemTest < ActiveSupport::TestCase
+class Decor::Daisy::Nav::SideNavbarItemTest < ActiveSupport::TestCase
   test "renders successfully with DaisyUI classes" do
-    component = Decor::Nav::SideNavbarItem.new(title: "Dashboard", path: "/dashboard")
+    component = Decor::Daisy::Nav::SideNavbarItem.new(title: "Dashboard", path: "/dashboard")
     rendered = render_component(component)
 
-    assert_includes rendered, "decor--nav--side-navbar-item"
+    assert_includes rendered, "decor--daisy--nav--side-navbar-item"
     assert_includes rendered, "text-base-content"
     assert_includes rendered, "hover:bg-base-200"
   end
 
   test "renders as li element" do
-    component = Decor::Nav::SideNavbarItem.new(title: "Dashboard", path: "/dashboard")
+    component = Decor::Daisy::Nav::SideNavbarItem.new(title: "Dashboard", path: "/dashboard")
     fragment = render_fragment(component)
 
-    li_element = fragment.at_css("li.decor--nav--side-navbar-item")
+    li_element = fragment.at_css("li.decor--daisy--nav--side-navbar-item")
     assert_not_nil li_element
   end
 
   test "applies active styling when selected" do
-    component = Decor::Nav::SideNavbarItem.new(title: "Dashboard", path: "/dashboard", selected: true)
+    component = Decor::Daisy::Nav::SideNavbarItem.new(title: "Dashboard", path: "/dashboard", selected: true)
     rendered = render_component(component)
 
     assert_includes rendered, "active"
@@ -28,7 +28,7 @@ class Decor::Nav::SideNavbarItemTest < ActiveSupport::TestCase
   end
 
   test "renders icon with proper styling" do
-    component = Decor::Nav::SideNavbarItem.new(title: "Dashboard", path: "/dashboard", icon: "home")
+    component = Decor::Daisy::Nav::SideNavbarItem.new(title: "Dashboard", path: "/dashboard", icon: "home")
     rendered = render_component(component)
 
     assert_includes rendered, "text-base-content/70"
@@ -36,7 +36,7 @@ class Decor::Nav::SideNavbarItemTest < ActiveSupport::TestCase
   end
 
   test "renders counter badge" do
-    component = Decor::Nav::SideNavbarItem.new(title: "Messages", path: "/messages", counter: 5)
+    component = Decor::Daisy::Nav::SideNavbarItem.new(title: "Messages", path: "/messages", counter: 5)
     rendered = render_component(component)
 
     assert_includes rendered, "badge"
@@ -45,7 +45,7 @@ class Decor::Nav::SideNavbarItemTest < ActiveSupport::TestCase
   end
 
   test "supports sub-items with details/summary" do
-    component = Decor::Nav::SideNavbarItem.new(title: "Settings")
+    component = Decor::Daisy::Nav::SideNavbarItem.new(title: "Settings")
     component.with_sub_item(title: "Profile", path: "/profile")
     rendered = render_component(component)
 
@@ -55,7 +55,7 @@ class Decor::Nav::SideNavbarItemTest < ActiveSupport::TestCase
   end
 
   test "component inherits from PhlexComponent" do
-    component = Decor::Nav::SideNavbarItem.new(title: "Dashboard", path: "/dashboard")
+    component = Decor::Daisy::Nav::SideNavbarItem.new(title: "Dashboard", path: "/dashboard")
 
     assert component.is_a?(Decor::PhlexComponent)
   end

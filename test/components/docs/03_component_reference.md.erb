@@ -62,7 +62,7 @@ If you find any issues or missing components, please open a PR to improve the do
 - [Decor::Nav::Footer](#decornavfooter)
 - [Decor::Nav::SecondaryNavbar](#decornavsecondarynavbar)
 - [Decor::Nav::SideNavbar](#decornavsidenavbar)
-- [Decor::Nav::SideNavbarItem](#decornavsidenavbaritem)
+- [Decor::Daisy::Nav::SideNavbarItem](#decordaisynavsidenavbaritem)
 - [Decor::Nav::SideNavbarSection](#decornavsidenavbarsection)
 - [Decor::Daisy::Nav::SideNavbarSubItem](#decordaisynavsidenavbarsubitem)
 - [Decor::Nav::TopNavbar](#decornavtopnavbar)
@@ -1349,13 +1349,13 @@ _(and the shared properties `size`, `color`, and `style` as described above)_
 
 ---
 
-### Decor::Nav::SideNavbarItem
+### Decor::Daisy::Nav::SideNavbarItem
 
-<span id="decornavsidenavbaritem"></span>
+<span id="decordaisynavsidenavbaritem"></span>
 
 **Basic Usage:**
 ```ruby
-render Decor::Nav::SideNavbarItem.new(title: "Title") do |c|
+render Decor::Daisy::Nav::SideNavbarItem.new(title: "Title") do |c|
   c.with_sub_item do
     # Slot content
   end

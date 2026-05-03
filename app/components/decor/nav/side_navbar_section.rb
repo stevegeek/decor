@@ -7,12 +7,12 @@ module Decor
 
       stimulus do
         classes shown: "", filtered: "hidden"
-        outlets item: ::Decor::Nav::SideNavbarItem.stimulus_identifier
+        outlets item: ::Decor::Daisy::Nav::SideNavbarItem.stimulus_identifier
       end
 
       def with_item(**attributes, &block)
         @items ||= []
-        item = SideNavbarItem.new(**attributes)
+        item = ::Decor::Daisy::Nav::SideNavbarItem.new(**attributes)
         @items << item
         yield(item) if block_given?
         item

@@ -1,11 +1,11 @@
 # Navigation item for side navbar with support for icons, counters, and expandable sub-items
 # @label Side Navbar Item
-class ::Decor::Nav::SideNavbarItemPreview < ::Lookbook::Preview
+class ::Decor::Daisy::Nav::SideNavbarItemPreview < ::Lookbook::Preview
   # @group Examples
 
   # @label Simple Link
   def simple_link
-    render ::Decor::Nav::SideNavbarItem.new(
+    render ::Decor::Daisy::Nav::SideNavbarItem.new(
       title: "Dashboard",
       icon: "home",
       path: "/dashboard"
@@ -14,7 +14,7 @@ class ::Decor::Nav::SideNavbarItemPreview < ::Lookbook::Preview
 
   # @label With Counter
   def with_counter
-    render ::Decor::Nav::SideNavbarItem.new(
+    render ::Decor::Daisy::Nav::SideNavbarItem.new(
       title: "Notifications",
       icon: "bell",
       path: "/notifications",
@@ -24,7 +24,7 @@ class ::Decor::Nav::SideNavbarItemPreview < ::Lookbook::Preview
 
   # @label Expandable with Sub-items
   def expandable_with_sub_items
-    render ::Decor::Nav::SideNavbarItem.new(
+    render ::Decor::Daisy::Nav::SideNavbarItem.new(
       title: "Settings",
       icon: "cog"
     ) do |item|
@@ -38,13 +38,13 @@ class ::Decor::Nav::SideNavbarItemPreview < ::Lookbook::Preview
   # @label Complete Navigation
   def complete_navigation
     render ::Decor::Daisy::Element.new html_options: {class: "space-y-1"} do |nav|
-      nav.render ::Decor::Nav::SideNavbarItem.new(
+      nav.render ::Decor::Daisy::Nav::SideNavbarItem.new(
         title: "Dashboard",
         icon: "home",
         path: "/dashboard",
         selected: true
       )
-      nav.render ::Decor::Nav::SideNavbarItem.new(
+      nav.render ::Decor::Daisy::Nav::SideNavbarItem.new(
         title: "Projects",
         icon: "folder"
       ) do |item|
@@ -52,13 +52,13 @@ class ::Decor::Nav::SideNavbarItemPreview < ::Lookbook::Preview
         item.with_sub_item(title: "Active", path: "/projects/active")
         item.with_sub_item(title: "Archived", path: "/projects/archived")
       end
-      nav.render ::Decor::Nav::SideNavbarItem.new(
+      nav.render ::Decor::Daisy::Nav::SideNavbarItem.new(
         title: "Messages",
         icon: "mail",
         path: "/messages",
         counter: 12
       )
-      nav.render ::Decor::Nav::SideNavbarItem.new(
+      nav.render ::Decor::Daisy::Nav::SideNavbarItem.new(
         title: "Settings",
         icon: "cog",
         path: "/settings"
@@ -85,7 +85,7 @@ class ::Decor::Nav::SideNavbarItemPreview < ::Lookbook::Preview
     selected: false,
     has_sub_items: false
   )
-    render ::Decor::Nav::SideNavbarItem.new(
+    render ::Decor::Daisy::Nav::SideNavbarItem.new(
       title: title,
       icon: icon.present? ? icon : nil,
       path: has_sub_items ? nil : path,
@@ -106,7 +106,7 @@ class ::Decor::Nav::SideNavbarItemPreview < ::Lookbook::Preview
 
   # @label Default State
   def state_default
-    render ::Decor::Nav::SideNavbarItem.new(
+    render ::Decor::Daisy::Nav::SideNavbarItem.new(
       title: "Analytics",
       icon: "chart-bar",
       path: "/analytics"
@@ -115,7 +115,7 @@ class ::Decor::Nav::SideNavbarItemPreview < ::Lookbook::Preview
 
   # @label Selected State
   def state_selected
-    render ::Decor::Nav::SideNavbarItem.new(
+    render ::Decor::Daisy::Nav::SideNavbarItem.new(
       title: "Reports",
       icon: "document-report",
       path: "/reports",
@@ -125,7 +125,7 @@ class ::Decor::Nav::SideNavbarItemPreview < ::Lookbook::Preview
 
   # @label Expanded with Selected Sub-item
   def state_expanded_selected
-    render ::Decor::Nav::SideNavbarItem.new(
+    render ::Decor::Daisy::Nav::SideNavbarItem.new(
       title: "Projects",
       icon: "folder",
       selected: true
@@ -142,7 +142,7 @@ class ::Decor::Nav::SideNavbarItemPreview < ::Lookbook::Preview
 
   # @label Without Icon
   def without_icon
-    render ::Decor::Nav::SideNavbarItem.new(
+    render ::Decor::Daisy::Nav::SideNavbarItem.new(
       title: "Documentation",
       path: "/docs"
     )
@@ -150,7 +150,7 @@ class ::Decor::Nav::SideNavbarItemPreview < ::Lookbook::Preview
 
   # @label With Large Counter
   def with_large_counter
-    render ::Decor::Nav::SideNavbarItem.new(
+    render ::Decor::Daisy::Nav::SideNavbarItem.new(
       title: "Inbox",
       icon: "inbox",
       path: "/inbox",
@@ -160,7 +160,7 @@ class ::Decor::Nav::SideNavbarItemPreview < ::Lookbook::Preview
 
   # @label Nested Sub-items
   def nested_sub_items
-    render ::Decor::Nav::SideNavbarItem.new(
+    render ::Decor::Daisy::Nav::SideNavbarItem.new(
       title: "Admin",
       icon: "shield-check"
     ) do |item|
