@@ -61,7 +61,7 @@ If you find any issues or missing components, please open a PR to improve the do
 - [Decor::Nav::CompactFooter](#decornavcompactfooter)
 - [Decor::Nav::Footer](#decornavfooter)
 - [Decor::Nav::SecondaryNavbar](#decornavsecondarynavbar)
-- [Decor::Nav::SideNavbar](#decornavsidenavbar)
+- [Decor::Daisy::Nav::SideNavbar](#decordaisynavsidenavbar)
 - [Decor::Daisy::Nav::SideNavbarItem](#decordaisynavsidenavbaritem)
 - [Decor::Daisy::Nav::SideNavbarSection](#decordaisynavsidenavbarsection)
 - [Decor::Daisy::Nav::SideNavbarSubItem](#decordaisynavsidenavbarsubitem)
@@ -1320,15 +1320,15 @@ _(and the shared properties `size`, `color`, and `style` as described above)_
 
 ---
 
-### Decor::Nav::SideNavbar
+### Decor::Daisy::Nav::SideNavbar
 
-<span id="decornavsidenavbar"></span>
+<span id="decordaisynavsidenavbar"></span>
 
 SideNavbar A collapsible side navigation component that adapts to desktop and mobile views. Supports nested navigation items, counters, and expandable/collapsible states.
 
 **Basic Usage:**
 ```ruby
-render Decor::Nav::SideNavbar.new do |c|
+render Decor::Daisy::Nav::SideNavbar.new do |c|
   c.with_section do
     # Slot content
   end

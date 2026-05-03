@@ -1,6 +1,6 @@
 require "test_helper"
 
-class Decor::Nav::SideNavbarTest < ActiveSupport::TestCase
+class Decor::Daisy::Nav::SideNavbarTest < ActiveSupport::TestCase
   def setup
     @menu_items = [
       {
@@ -18,18 +18,18 @@ class Decor::Nav::SideNavbarTest < ActiveSupport::TestCase
   end
 
   test "renders successfully with default attributes" do
-    component = Decor::Nav::SideNavbar.new(
+    component = Decor::Daisy::Nav::SideNavbar.new(
       landscape_logo_url: "/logo.png",
       avatar_logo_url: "/avatar.png"
     )
     rendered = render_component(component)
 
-    assert_includes rendered, "decor--nav--side-navbar"
+    assert_includes rendered, "decor--daisy--nav--side-navbar"
     assert_includes rendered, "bg-base-300"
   end
 
   test "renders with DaisyUI classes" do
-    component = Decor::Nav::SideNavbar.new(
+    component = Decor::Daisy::Nav::SideNavbar.new(
       landscape_logo_url: "/logo.png",
       avatar_logo_url: "/avatar.png"
     )
@@ -40,7 +40,7 @@ class Decor::Nav::SideNavbarTest < ActiveSupport::TestCase
   end
 
   test "supports collapsible behavior" do
-    component = Decor::Nav::SideNavbar.new(
+    component = Decor::Daisy::Nav::SideNavbar.new(
       landscape_logo_url: "/logo.png",
       avatar_logo_url: "/avatar.png",
       collapsed: true
@@ -52,7 +52,7 @@ class Decor::Nav::SideNavbarTest < ActiveSupport::TestCase
   end
 
   test "component inherits from PhlexComponent" do
-    component = Decor::Nav::SideNavbar.new(
+    component = Decor::Daisy::Nav::SideNavbar.new(
       landscape_logo_url: "/logo.png",
       avatar_logo_url: "/avatar.png"
     )
@@ -61,7 +61,7 @@ class Decor::Nav::SideNavbarTest < ActiveSupport::TestCase
   end
 
   test "renders search input with DaisyUI styling" do
-    component = Decor::Nav::SideNavbar.new(
+    component = Decor::Daisy::Nav::SideNavbar.new(
       landscape_logo_url: "/logo.png",
       avatar_logo_url: "/avatar.png"
     )
@@ -74,7 +74,7 @@ class Decor::Nav::SideNavbarTest < ActiveSupport::TestCase
   end
 
   test "supports responsive design" do
-    component = Decor::Nav::SideNavbar.new(
+    component = Decor::Daisy::Nav::SideNavbar.new(
       landscape_logo_url: "/logo.png",
       avatar_logo_url: "/avatar.png"
     )
@@ -85,7 +85,7 @@ class Decor::Nav::SideNavbarTest < ActiveSupport::TestCase
   end
 
   test "renders navigation placeholder" do
-    component = Decor::Nav::SideNavbar.new(
+    component = Decor::Daisy::Nav::SideNavbar.new(
       landscape_logo_url: "/logo.png",
       avatar_logo_url: "/avatar.png"
     )

@@ -1,6 +1,6 @@
 # @label SideNavbar
 # @display margin none
-class ::Decor::Nav::SideNavbarPreview < ::Lookbook::Preview
+class ::Decor::Daisy::Nav::SideNavbarPreview < ::Lookbook::Preview
   # SideNavbar
   # ----------
   #
@@ -10,7 +10,7 @@ class ::Decor::Nav::SideNavbarPreview < ::Lookbook::Preview
   # @group Examples
   # @label Basic Side Navigation
   def default
-    render ::Decor::Nav::SideNavbar.new(
+    render ::Decor::Daisy::Nav::SideNavbar.new(
       landscape_logo_url: "https://via.placeholder.com/220x64/570DF8/FFFFFF.png?text=Logo",
       avatar_logo_url: "https://via.placeholder.com/64x64/570DF8/FFFFFF.png?text=L"
     ) do |navbar|
@@ -29,7 +29,7 @@ class ::Decor::Nav::SideNavbarPreview < ::Lookbook::Preview
   # @group Examples
   # @label With Nested Items
   def with_nested_items
-    render ::Decor::Nav::SideNavbar.new(
+    render ::Decor::Daisy::Nav::SideNavbar.new(
       landscape_logo_url: "https://via.placeholder.com/220x64/570DF8/FFFFFF.png?text=Logo",
       avatar_logo_url: "https://via.placeholder.com/64x64/570DF8/FFFFFF.png?text=L"
     ) do |navbar|
@@ -52,7 +52,7 @@ class ::Decor::Nav::SideNavbarPreview < ::Lookbook::Preview
   # @group Examples
   # @label With Counters
   def with_counters
-    render ::Decor::Nav::SideNavbar.new(
+    render ::Decor::Daisy::Nav::SideNavbar.new(
       landscape_logo_url: "https://via.placeholder.com/220x64/570DF8/FFFFFF.png?text=Logo",
       avatar_logo_url: "https://via.placeholder.com/64x64/570DF8/FFFFFF.png?text=L"
     ) do |navbar|
@@ -72,7 +72,7 @@ class ::Decor::Nav::SideNavbarPreview < ::Lookbook::Preview
   # @group Examples
   # @label Full Featured
   def full_featured
-    render ::Decor::Nav::SideNavbar.new(
+    render ::Decor::Daisy::Nav::SideNavbar.new(
       landscape_logo_url: "https://via.placeholder.com/220x64/570DF8/FFFFFF.png?text=DaisyUI+Menu",
       avatar_logo_url: "https://via.placeholder.com/64x64/570DF8/FFFFFF.png?text=DM"
     ) do |navbar|
@@ -116,7 +116,7 @@ class ::Decor::Nav::SideNavbarPreview < ::Lookbook::Preview
     color: nil,
     style: nil
   )
-    render ::Decor::Nav::SideNavbar.new(
+    render ::Decor::Daisy::Nav::SideNavbar.new(
       landscape_logo_url: "https://via.placeholder.com/220x64/570DF8/FFFFFF.png?text=Playground",
       avatar_logo_url: "https://via.placeholder.com/64x64/570DF8/FFFFFF.png?text=P",
       collapsed: start_collapsed,
@@ -142,7 +142,7 @@ class ::Decor::Nav::SideNavbarPreview < ::Lookbook::Preview
   # @group Collapsed State
   # @label Initially Collapsed
   def collapsed_state
-    render ::Decor::Nav::SideNavbar.new(
+    render ::Decor::Daisy::Nav::SideNavbar.new(
       landscape_logo_url: "https://via.placeholder.com/220x64/570DF8/FFFFFF.png?text=Logo",
       avatar_logo_url: "https://via.placeholder.com/64x64/570DF8/FFFFFF.png?text=L",
       collapsed: true
@@ -159,7 +159,7 @@ class ::Decor::Nav::SideNavbarPreview < ::Lookbook::Preview
   # @group Search
   # @label With Search
   def with_search
-    render ::Decor::Nav::SideNavbar.new(
+    render ::Decor::Daisy::Nav::SideNavbar.new(
       landscape_logo_url: "https://via.placeholder.com/220x64/570DF8/FFFFFF.png?text=Logo",
       avatar_logo_url: "https://via.placeholder.com/64x64/570DF8/FFFFFF.png?text=L"
     ) do |navbar|
@@ -173,7 +173,7 @@ class ::Decor::Nav::SideNavbarPreview < ::Lookbook::Preview
   # @group Search
   # @label Without Search
   def without_search
-    render ::Decor::Nav::SideNavbar.new(
+    render ::Decor::Daisy::Nav::SideNavbar.new(
       landscape_logo_url: "https://via.placeholder.com/220x64/570DF8/FFFFFF.png?text=Logo",
       avatar_logo_url: "https://via.placeholder.com/64x64/570DF8/FFFFFF.png?text=L"
     ) do |navbar|

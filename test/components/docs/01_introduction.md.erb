@@ -124,7 +124,7 @@ render Decor::Forms::TextField.new(
 )
 
 # Navigation
-render Decor::Nav::SideNavbar.new do |navbar|
+render Decor::Daisy::Nav::SideNavbar.new do |navbar|
   navbar.with_section(title: "Main") do |section|
     section.with_item(title: "Dashboard", path: "/dashboard")
   end
