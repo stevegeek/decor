@@ -82,7 +82,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
       end
 
       page.with_tabs do
-        render ::Decor::Tabs.new do |tabs|
+        render ::Decor::Daisy::Tabs.new do |tabs|
           tabs.with_tab(label: "Overview", active: true, href: "#overview")
           tabs.with_tab(label: "Analytics", href: "#analytics")
           tabs.with_tab(label: "Reports", href: "#reports")
@@ -142,7 +142,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
       end
 
       page.with_tabs do
-        render ::Decor::Tabs.new do |tabs|
+        render ::Decor::Daisy::Tabs.new do |tabs|
           tabs.with_tab(label: "Features", active: true, href: "#features")
           tabs.with_tab(label: "Pricing", href: "#pricing")
           tabs.with_tab(label: "Docs", href: "#docs")

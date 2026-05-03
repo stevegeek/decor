@@ -1,5 +1,5 @@
 # @label Tabs
-class ::Decor::TabsPreview < ::Lookbook::Preview
+class ::Decor::Daisy::TabsPreview < ::Lookbook::Preview
   # Tabs
   # ----
   #
@@ -15,7 +15,7 @@ class ::Decor::TabsPreview < ::Lookbook::Preview
       {title: "About", href: "/about"},
       {title: "Contact", href: "/contact"}
     ]
-    render ::Decor::Tabs.new(links: links)
+    render ::Decor::Daisy::Tabs.new(links: links)
   end
 
   # @group Examples
@@ -26,7 +26,7 @@ class ::Decor::TabsPreview < ::Lookbook::Preview
       {title: "Messages", href: "/messages", icon: "envelope", badge_text: "3", badge_color: :error},
       {title: "Settings", href: "/settings", icon: "cog"}
     ]
-    render ::Decor::Tabs.new(links: links, style: :bordered)
+    render ::Decor::Daisy::Tabs.new(links: links, style: :bordered)
   end
 
   # @group Examples
@@ -38,7 +38,7 @@ class ::Decor::TabsPreview < ::Lookbook::Preview
       {title: "Reports", href: "#"},
       {title: "Settings", href: "#"}
     ]
-    render ::Decor::Tabs.new(links: links, style: :lifted, color: :primary)
+    render ::Decor::Daisy::Tabs.new(links: links, style: :lifted, color: :primary)
   end
 
   # @group Playground
@@ -55,7 +55,7 @@ class ::Decor::TabsPreview < ::Lookbook::Preview
       {title: "Disabled", href: "#", disabled: true}
     ]
     links[selected_link - 1][:active] = true if links[selected_link - 1]
-    render ::Decor::Tabs.new(links: links, status: status, size: size, color: color, style: style)
+    render ::Decor::Daisy::Tabs.new(links: links, status: status, size: size, color: color, style: style)
   end
 
   # @group Icons
@@ -66,7 +66,7 @@ class ::Decor::TabsPreview < ::Lookbook::Preview
       {title: "Users", href: "/users", icon: "user-group", icon_position: :before},
       {title: "Settings", href: "/settings", icon: "cog", icon_position: :before}
     ]
-    render ::Decor::Tabs.new(links: links)
+    render ::Decor::Daisy::Tabs.new(links: links)
   end
 
   # @group Icons
@@ -77,7 +77,7 @@ class ::Decor::TabsPreview < ::Lookbook::Preview
       {title: "Share", href: "/share", icon: "share", icon_position: :after},
       {title: "Print", href: "/print", icon: "printer", icon_position: :after}
     ]
-    render ::Decor::Tabs.new(links: links)
+    render ::Decor::Daisy::Tabs.new(links: links)
   end
 
   # @group Icons
@@ -88,7 +88,7 @@ class ::Decor::TabsPreview < ::Lookbook::Preview
       {title: "Search", href: "/search", icon: "magnifying-glass", icon_position: :only},
       {title: "Profile", href: "/profile", icon: "user", icon_position: :only}
     ]
-    render ::Decor::Tabs.new(links: links)
+    render ::Decor::Daisy::Tabs.new(links: links)
   end
 
   # @group Features
@@ -100,7 +100,7 @@ class ::Decor::TabsPreview < ::Lookbook::Preview
       {title: "Archive", href: "/archive", icon: "archive-box"},
       {title: "Spam", href: "/spam", icon: "ban", badge_text: "99+", badge_color: :warning}
     ]
-    render ::Decor::Tabs.new(links: links)
+    render ::Decor::Daisy::Tabs.new(links: links)
   end
 
   # @group Sizes
@@ -111,7 +111,7 @@ class ::Decor::TabsPreview < ::Lookbook::Preview
       {title: "Tab Two", href: "#", icon: "bell"},
       {title: "Tab Three", href: "#"}
     ]
-    render ::Decor::Tabs.new(links: links, size: :xs)
+    render ::Decor::Daisy::Tabs.new(links: links, size: :xs)
   end
 
   # @group Sizes
@@ -122,7 +122,7 @@ class ::Decor::TabsPreview < ::Lookbook::Preview
       {title: "Tab Two", href: "#", icon: "heart"},
       {title: "Tab Three", href: "#"}
     ]
-    render ::Decor::Tabs.new(links: links, size: :sm)
+    render ::Decor::Daisy::Tabs.new(links: links, size: :sm)
   end
 
   # @group Sizes
@@ -133,7 +133,7 @@ class ::Decor::TabsPreview < ::Lookbook::Preview
       {title: "Tab Two", href: "#", icon: "inbox"},
       {title: "Tab Three", href: "#"}
     ]
-    render ::Decor::Tabs.new(links: links, size: :md)
+    render ::Decor::Daisy::Tabs.new(links: links, size: :md)
   end
 
   # @group Sizes
@@ -144,7 +144,7 @@ class ::Decor::TabsPreview < ::Lookbook::Preview
       {title: "Tab Two", href: "#", icon: "user"},
       {title: "Tab Three", href: "#"}
     ]
-    render ::Decor::Tabs.new(links: links, size: :lg)
+    render ::Decor::Daisy::Tabs.new(links: links, size: :lg)
   end
 
   # @group Sizes
@@ -155,7 +155,7 @@ class ::Decor::TabsPreview < ::Lookbook::Preview
       {title: "Tab Two", href: "#", icon: "heart"},
       {title: "Tab Three", href: "#"}
     ]
-    render ::Decor::Tabs.new(links: links, size: :xl)
+    render ::Decor::Daisy::Tabs.new(links: links, size: :xl)
   end
 
   # @group Styles
@@ -166,7 +166,7 @@ class ::Decor::TabsPreview < ::Lookbook::Preview
       {title: "Analytics", href: "#"},
       {title: "Reports", href: "#"}
     ]
-    render ::Decor::Tabs.new(links: links, style: :ghost)
+    render ::Decor::Daisy::Tabs.new(links: links, style: :ghost)
   end
 
   # @group Styles
@@ -177,7 +177,7 @@ class ::Decor::TabsPreview < ::Lookbook::Preview
       {title: "Analytics", href: "#"},
       {title: "Reports", href: "#"}
     ]
-    render ::Decor::Tabs.new(links: links, style: :bordered)
+    render ::Decor::Daisy::Tabs.new(links: links, style: :bordered)
   end
 
   # @group Styles
@@ -188,7 +188,7 @@ class ::Decor::TabsPreview < ::Lookbook::Preview
       {title: "Analytics", href: "#"},
       {title: "Reports", href: "#"}
     ]
-    render ::Decor::Tabs.new(links: links, style: :lifted)
+    render ::Decor::Daisy::Tabs.new(links: links, style: :lifted)
   end
 
   # @group Styles
@@ -199,7 +199,7 @@ class ::Decor::TabsPreview < ::Lookbook::Preview
       {title: "Analytics", href: "#"},
       {title: "Reports", href: "#"}
     ]
-    render ::Decor::Tabs.new(links: links, style: :boxed)
+    render ::Decor::Daisy::Tabs.new(links: links, style: :boxed)
   end
 
   # @group Colors
@@ -210,7 +210,7 @@ class ::Decor::TabsPreview < ::Lookbook::Preview
       {title: "Regular Tab", href: "#"},
       {title: "Another Tab", href: "#"}
     ]
-    render ::Decor::Tabs.new(links: links, color: :base)
+    render ::Decor::Daisy::Tabs.new(links: links, color: :base)
   end
 
   # @group Colors
@@ -221,7 +221,7 @@ class ::Decor::TabsPreview < ::Lookbook::Preview
       {title: "Regular Tab", href: "#"},
       {title: "Another Tab", href: "#"}
     ]
-    render ::Decor::Tabs.new(links: links, color: :primary)
+    render ::Decor::Daisy::Tabs.new(links: links, color: :primary)
   end
 
   # @group Colors
@@ -232,7 +232,7 @@ class ::Decor::TabsPreview < ::Lookbook::Preview
       {title: "Regular Tab", href: "#"},
       {title: "Another Tab", href: "#"}
     ]
-    render ::Decor::Tabs.new(links: links, color: :secondary)
+    render ::Decor::Daisy::Tabs.new(links: links, color: :secondary)
   end
 
   # @group Colors
@@ -243,7 +243,7 @@ class ::Decor::TabsPreview < ::Lookbook::Preview
       {title: "Regular Tab", href: "#"},
       {title: "Another Tab", href: "#"}
     ]
-    render ::Decor::Tabs.new(links: links, color: :accent)
+    render ::Decor::Daisy::Tabs.new(links: links, color: :accent)
   end
 
   # @group Colors
@@ -254,7 +254,7 @@ class ::Decor::TabsPreview < ::Lookbook::Preview
       {title: "Regular Tab", href: "#"},
       {title: "Another Tab", href: "#"}
     ]
-    render ::Decor::Tabs.new(links: links, color: :success)
+    render ::Decor::Daisy::Tabs.new(links: links, color: :success)
   end
 
   # @group Colors
@@ -265,7 +265,7 @@ class ::Decor::TabsPreview < ::Lookbook::Preview
       {title: "Regular Tab", href: "#"},
       {title: "Another Tab", href: "#"}
     ]
-    render ::Decor::Tabs.new(links: links, color: :error)
+    render ::Decor::Daisy::Tabs.new(links: links, color: :error)
   end
 
   # @group Colors
@@ -276,7 +276,7 @@ class ::Decor::TabsPreview < ::Lookbook::Preview
       {title: "Regular Tab", href: "#"},
       {title: "Another Tab", href: "#"}
     ]
-    render ::Decor::Tabs.new(links: links, color: :warning)
+    render ::Decor::Daisy::Tabs.new(links: links, color: :warning)
   end
 
   # @group Colors
@@ -287,7 +287,7 @@ class ::Decor::TabsPreview < ::Lookbook::Preview
       {title: "Regular Tab", href: "#"},
       {title: "Another Tab", href: "#"}
     ]
-    render ::Decor::Tabs.new(links: links, color: :info)
+    render ::Decor::Daisy::Tabs.new(links: links, color: :info)
   end
 
   # @group Colors
@@ -298,7 +298,7 @@ class ::Decor::TabsPreview < ::Lookbook::Preview
       {title: "Regular Tab", href: "#"},
       {title: "Another Tab", href: "#"}
     ]
-    render ::Decor::Tabs.new(links: links, color: :neutral)
+    render ::Decor::Daisy::Tabs.new(links: links, color: :neutral)
   end
 
   # @group Features
@@ -313,7 +313,7 @@ class ::Decor::TabsPreview < ::Lookbook::Preview
       {title: "Blog", href: "/blog"},
       {title: "Support", href: "/support"}
     ]
-    render ::Decor::Tabs.new(links: links, status: "7 total sections")
+    render ::Decor::Daisy::Tabs.new(links: links, status: "7 total sections")
   end
 
   # @group States
@@ -325,7 +325,7 @@ class ::Decor::TabsPreview < ::Lookbook::Preview
       {title: "Maintenance", href: "#", disabled: true, icon: "wrench"},
       {title: "Active", href: "/active"}
     ]
-    render ::Decor::Tabs.new(links: links)
+    render ::Decor::Daisy::Tabs.new(links: links)
   end
 
   # @group Features
@@ -336,13 +336,13 @@ class ::Decor::TabsPreview < ::Lookbook::Preview
       {title: "Active", href: "/active", badge_text: "198", badge_color: :success},
       {title: "Pending", href: "/pending", badge_text: "49", badge_color: :warning}
     ]
-    render ::Decor::Tabs.new(links: links, status: "Last updated 2 min ago")
+    render ::Decor::Daisy::Tabs.new(links: links, status: "Last updated 2 min ago")
   end
 
   # @group Slot API
   # @label Custom Tab Buttons
   def slot_custom_buttons
-    render ::Decor::Tabs.new(style: :boxed, size: :lg) do |component|
+    render ::Decor::Daisy::Tabs.new(style: :boxed, size: :lg) do |component|
       component.with_tab_buttons do
         button(role: "tab", class: "tab tab-active") do
           svg(class: "w-5 h-5 mr-2", fill: "currentColor", viewBox: "0 0 20 20") do |s|
@@ -365,7 +365,7 @@ class ::Decor::TabsPreview < ::Lookbook::Preview
   # @group Slot API
   # @label With Content Panels
   def slot_with_content
-    render ::Decor::Tabs.new(style: :lifted, color: :primary) do |component|
+    render ::Decor::Daisy::Tabs.new(style: :lifted, color: :primary) do |component|
       component.with_tab_buttons do
         button(role: "tab", class: "tab tab-active") { "Overview" }
         button(role: "tab", class: "tab") { "Details" }
@@ -383,7 +383,7 @@ class ::Decor::TabsPreview < ::Lookbook::Preview
   # @group Slot API
   # @label Minimal Slot Example
   def slot_minimal
-    render ::Decor::Tabs.new(size: :sm) do |component|
+    render ::Decor::Daisy::Tabs.new(size: :sm) do |component|
       component.with_tab_buttons do
         a(role: "tab", class: "tab tab-active", href: "#tab1") { "Simple" }
         a(role: "tab", class: "tab", href: "#tab2") { "Clean" }
@@ -432,7 +432,7 @@ class ::Decor::TabsPreview < ::Lookbook::Preview
         icon_position: :before
       }
     ]
-    render ::Decor::Tabs.new(
+    render ::Decor::Daisy::Tabs.new(
       links: links,
       size: :lg,
       style: :lifted,

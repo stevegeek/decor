@@ -126,7 +126,7 @@ Components are designed mobile-first with progressive enhancement. Many componen
 
 ```ruby
 # Tabs component automatically shows mobile select when > 3 tabs
-render Decor::Tabs.new(links: many_links)
+render Decor::Daisy::Tabs.new(links: many_links)
 
 # Progress component adapts sizing on mobile
 render Decor::Daisy::Progress.new(size: :md) # Responsive sizing

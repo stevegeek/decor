@@ -78,7 +78,7 @@ If you find any issues or missing components, please open a PR to improve the do
 - [Decor::Tables::DataTableHeaderCell](#decortablesdatatableheadercell)
 - [Decor::Tables::DataTableHeaderRow](#decortablesdatatableheaderrow)
 - [Decor::Tables::DataTableRow](#decortablesdatatablerow)
-- [Decor::Tabs](#decortabs)
+- [Decor::Daisy::Tabs](#decordaisytabs)
 
 ### Modal Components
 - [Decor::Modals::ConfirmModal](#decormodalsconfirmmodal)
@@ -1784,15 +1784,15 @@ _(and the shared properties `size`, `color`, and `style` as described above)_
 
 ---
 
-### Decor::Tabs
+### Decor::Daisy::Tabs
 
-<span id="decortabs"></span>
+<span id="decordaisytabs"></span>
 
 Tabs A navigation component that displays a horizontal list of tabs. Tabs allow users to switch between different views or sections of content. They support various styles, sizes, colors, and can include icons and badges.
 
 **Basic Usage:**
 ```ruby
-render Decor::Tabs.new do |c|
+render Decor::Daisy::Tabs.new do |c|
   c.with_tab_buttons do
     # Slot content
   end
