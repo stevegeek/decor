@@ -270,13 +270,13 @@ class ::Decor::FlowStepPreview < ::Lookbook::Preview
               content_tag(:div, class: "flex items-center justify-between p-2 bg-gray-50 rounded") do
                 safe_join([
                   content_tag(:span, "ID Document", class: "text-sm"),
-                  render(::Decor::Badge.new(label: "Required", color: :warning))
+                  render(::Decor::Daisy::Badge.new(label: "Required", color: :warning))
                 ])
               end,
               content_tag(:div, class: "flex items-center justify-between p-2 bg-gray-50 rounded") do
                 safe_join([
                   content_tag(:span, "Proof of Address", class: "text-sm"),
-                  render(::Decor::Badge.new(label: "Optional", color: :neutral))
+                  render(::Decor::Daisy::Badge.new(label: "Optional", color: :neutral))
                 ])
               end
             ])

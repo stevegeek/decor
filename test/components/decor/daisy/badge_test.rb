@@ -1,8 +1,8 @@
 require "test_helper"
 
-class Decor::BadgeTest < ActiveSupport::TestCase
+class Decor::Daisy::BadgeTest < ActiveSupport::TestCase
   test "renders successfully with label" do
-    component = Decor::Badge.new(label: "Test Badge")
+    component = Decor::Daisy::Badge.new(label: "Test Badge")
     rendered = render_component(component)
 
     assert_includes rendered, "Test Badge"
@@ -11,21 +11,21 @@ class Decor::BadgeTest < ActiveSupport::TestCase
   end
 
   test "applies correct color classes" do
-    component = Decor::Badge.new(label: "Success", color: :success)
+    component = Decor::Daisy::Badge.new(label: "Success", color: :success)
     rendered = render_component(component)
 
     assert_includes rendered, "badge-success"
   end
 
   test "applies correct size classes" do
-    component = Decor::Badge.new(label: "Large", size: :lg)
+    component = Decor::Daisy::Badge.new(label: "Large", size: :lg)
     rendered = render_component(component)
 
     assert_includes rendered, "badge-lg"
   end
 
   test "renders with icon" do
-    component = Decor::Badge.new(label: "With icon", icon: "star")
+    component = Decor::Daisy::Badge.new(label: "With icon", icon: "star")
     rendered = render_component(component)
 
     assert_includes rendered, "star"
@@ -33,7 +33,7 @@ class Decor::BadgeTest < ActiveSupport::TestCase
   end
 
   test "renders medium size by default" do
-    component = Decor::Badge.new(label: "Medium")
+    component = Decor::Daisy::Badge.new(label: "Medium")
     rendered = render_component(component)
 
     # Small is default according to the attribute definition
@@ -42,35 +42,35 @@ class Decor::BadgeTest < ActiveSupport::TestCase
   end
 
   test "renders different error colors" do
-    component = Decor::Badge.new(label: "Error", color: :error)
+    component = Decor::Daisy::Badge.new(label: "Error", color: :error)
     rendered = render_component(component)
 
     assert_includes rendered, "badge-error"
   end
 
   test "renders different warning colors" do
-    component = Decor::Badge.new(label: "Warning", color: :warning)
+    component = Decor::Daisy::Badge.new(label: "Warning", color: :warning)
     rendered = render_component(component)
 
     assert_includes rendered, "badge-warning"
   end
 
   test "renders outlined style" do
-    component = Decor::Badge.new(label: "Outlined", style: :outlined)
+    component = Decor::Daisy::Badge.new(label: "Outlined", style: :outlined)
     rendered = render_component(component)
 
     assert_includes rendered, "badge-outline"
   end
 
   test "renders dashed style" do
-    component = Decor::Badge.new(label: "Dashed", dashed: true)
+    component = Decor::Daisy::Badge.new(label: "Dashed", dashed: true)
     rendered = render_component(component)
 
     assert_includes rendered, "border-dashed"
   end
 
   test "renders outlined and dashed together" do
-    component = Decor::Badge.new(label: "Both", style: :outlined, dashed: true)
+    component = Decor::Daisy::Badge.new(label: "Both", style: :outlined, dashed: true)
     rendered = render_component(component)
 
     assert_includes rendered, "badge-outline"
@@ -78,7 +78,7 @@ class Decor::BadgeTest < ActiveSupport::TestCase
   end
 
   test "uses nokogiri for parsing" do
-    component = Decor::Badge.new(label: "Test")
+    component = Decor::Daisy::Badge.new(label: "Test")
     fragment = render_fragment(component)
 
     badge_span = fragment.at_css(".badge")

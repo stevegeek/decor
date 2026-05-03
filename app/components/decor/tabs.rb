@@ -154,7 +154,7 @@ module Decor
 
       # Badge indicator
       if link.badge_text.present?
-        render ::Decor::Badge.new(
+        render ::Decor::Daisy::Badge.new(
           label: link.badge_text,
           style: :filled,
           size: :sm,

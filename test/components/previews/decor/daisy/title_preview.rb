@@ -171,8 +171,8 @@ class ::Decor::Daisy::TitlePreview < ::Lookbook::Preview
       description: "Using badges as action elements",
       size: :md
     ) do |title|
-      title.render ::Decor::Badge.new(label: "Active", color: :success)
-      title.render ::Decor::Badge.new(label: "New", color: :info)
+      title.render ::Decor::Daisy::Badge.new(label: "Active", color: :success)
+      title.render ::Decor::Daisy::Badge.new(label: "New", color: :info)
     end
   end
 

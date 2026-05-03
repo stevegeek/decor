@@ -55,7 +55,7 @@ module Decor
     # Manual many relationship implementations
     def with_badge(**attributes, &block)
       @badges ||= []
-      badge = ::Decor::Badge.new(**attributes)
+      badge = ::Decor::Daisy::Badge.new(**attributes)
       @badges << badge
       badge
     end

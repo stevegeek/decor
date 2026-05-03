@@ -69,7 +69,7 @@ class Decor::CardHeaderPreview < ViewComponent::Preview
       end
 
       header.with_meta do
-        render Decor::Badge.new(
+        render Decor::Daisy::Badge.new(
           label: "5 Active",
           color: :success
         )

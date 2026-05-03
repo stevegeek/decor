@@ -50,8 +50,8 @@ class ::Decor::SwitchingBoxPreview < ::Lookbook::Preview
     ) do |box|
       box.left do
         content_tag :div, class: "flex gap-2" do
-          box.render(::Decor::Badge.new(label: "BETA", color: :warning))
-          box.render(::Decor::Badge.new(label: "Experimental", color: :info))
+          box.render(::Decor::Daisy::Badge.new(label: "BETA", color: :warning))
+          box.render(::Decor::Daisy::Badge.new(label: "Experimental", color: :info))
         end
       end
     end
@@ -192,7 +192,7 @@ class ::Decor::SwitchingBoxPreview < ::Lookbook::Preview
       box.left do
         content_tag :div, class: "flex items-center gap-2" do
           safe_join([
-            render(::Decor::Badge.new(label: "$9.99/month", color: :primary)),
+            render(::Decor::Daisy::Badge.new(label: "$9.99/month", color: :primary)),
             content_tag(:span, "7-day free trial", class: "text-sm text-success")
           ])
         end
