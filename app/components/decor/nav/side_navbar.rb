@@ -14,12 +14,12 @@ module Decor
           [:mouseenter, :handle_mouse_over],
           [:mouseleave, :handle_mouse_away]
         values_from_props :collapsed
-        outlets navbar_section: ::Decor::Nav::SideNavbarSection.stimulus_identifier
+        outlets navbar_section: ::Decor::Daisy::Nav::SideNavbarSection.stimulus_identifier
       end
 
       def with_section(**attributes, &block)
         @sections ||= []
-        section = SideNavbarSection.new(**attributes)
+        section = ::Decor::Daisy::Nav::SideNavbarSection.new(**attributes)
         @sections << [section, block]
         section
       end
