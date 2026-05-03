@@ -63,7 +63,7 @@ class ::Decor::NotificationPreview < ::Lookbook::Preview
       ]
     ) do |notification|
       notification.avatar do
-        render ::Decor::Avatar.new(
+        render ::Decor::Daisy::Avatar.new(
           initials: "SJ",
           size: :sm
         )
@@ -132,7 +132,7 @@ class ::Decor::NotificationPreview < ::Lookbook::Preview
     ) do |notification|
       if has_avatar
         notification.avatar do
-          render ::Decor::Avatar.new(
+          render ::Decor::Daisy::Avatar.new(
             initials: "UN",
             size: :sm
           )
@@ -226,7 +226,7 @@ class ::Decor::NotificationPreview < ::Lookbook::Preview
       color: :info
     ) do |notification|
       notification.avatar do
-        render ::Decor::Avatar.new(
+        render ::Decor::Daisy::Avatar.new(
           initials: "JD",
           size: :sm
         )
@@ -243,7 +243,7 @@ class ::Decor::NotificationPreview < ::Lookbook::Preview
       color: :success
     ) do |notification|
       notification.avatar do
-        render ::Decor::Avatar.new(
+        render ::Decor::Daisy::Avatar.new(
           url: "https://i.pravatar.cc/150",
           size: :sm
         )

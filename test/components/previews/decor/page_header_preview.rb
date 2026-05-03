@@ -49,7 +49,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
       end
 
       header.with_avatar do
-        header.render ::Decor::Avatar.new(initials: "ENG", size: :lg)
+        header.render ::Decor::Daisy::Avatar.new(initials: "ENG", size: :lg)
       end
 
       header.with_actions do
@@ -88,7 +88,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
       size: :lg
     ) do |header|
       header.with_avatar do
-        header.render ::Decor::Avatar.new(
+        header.render ::Decor::Daisy::Avatar.new(
           initials: "JD",
           size: :xl,
           url: "https://i.pravatar.cc/300"
@@ -211,7 +211,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
 
       if show_avatar
         header.with_avatar do
-          header.render ::Decor::Avatar.new(
+          header.render ::Decor::Daisy::Avatar.new(
             initials: "PH",
             size: (layout.to_sym == :compact) ? :sm : :lg
           )
@@ -289,7 +289,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
       layout: :compact
     ) do |header|
       header.with_avatar do
-        header.render ::Decor::Avatar.new(initials: "CL", size: :sm)
+        header.render ::Decor::Daisy::Avatar.new(initials: "CL", size: :sm)
       end
     end
   end

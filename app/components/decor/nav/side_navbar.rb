@@ -96,7 +96,7 @@ module Decor
             div(class: "flex-1 flex flex-col min-h-0 bg-base-300") do
               div(class: "h-20 flex-shrink-0 flex items-center justify-between font-righteous px-5 relative") do
                 div(class: "flex items-center gap-3") do
-                  render ::Decor::Avatar.new(
+                  render ::Decor::Daisy::Avatar.new(
                     size: :md,
                     initials: "C",
                     url: @avatar_logo_url,

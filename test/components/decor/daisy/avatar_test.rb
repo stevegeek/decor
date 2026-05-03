@@ -1,8 +1,8 @@
 require "test_helper"
 
-class Decor::AvatarTest < ActiveSupport::TestCase
+class Decor::Daisy::AvatarTest < ActiveSupport::TestCase
   test "renders successfully with initials" do
-    component = Decor::Avatar.new(initials: "AB")
+    component = Decor::Daisy::Avatar.new(initials: "AB")
     rendered = render_component(component)
 
     assert_includes rendered, "AB"
@@ -14,7 +14,7 @@ class Decor::AvatarTest < ActiveSupport::TestCase
   end
 
   test "renders successfully with url" do
-    component = Decor::Avatar.new(url: "https://example.com/avatar.jpg", initials: "AB")
+    component = Decor::Daisy::Avatar.new(url: "https://example.com/avatar.jpg", initials: "AB")
     rendered = render_component(component)
 
     assert_includes rendered, "<img"
@@ -23,7 +23,7 @@ class Decor::AvatarTest < ActiveSupport::TestCase
   end
 
   test "applies correct size classes" do
-    component = Decor::Avatar.new(initials: "AB", size: :lg)
+    component = Decor::Daisy::Avatar.new(initials: "AB", size: :lg)
     rendered = render_component(component)
 
     assert_includes rendered, "w-16"
@@ -31,7 +31,7 @@ class Decor::AvatarTest < ActiveSupport::TestCase
   end
 
   test "applies correct shape classes" do
-    component = Decor::Avatar.new(initials: "AB", shape: :square)
+    component = Decor::Daisy::Avatar.new(initials: "AB", shape: :square)
     rendered = render_component(component)
 
     assert_includes rendered, "rounded"
@@ -39,7 +39,7 @@ class Decor::AvatarTest < ActiveSupport::TestCase
   end
 
   test "applies ring classes when ring is specified" do
-    component = Decor::Avatar.new(initials: "AB", ring: true)
+    component = Decor::Daisy::Avatar.new(initials: "AB", ring: true)
     rendered = render_component(component)
 
     # Default color is neutral so ring-neutral should be present
@@ -50,7 +50,7 @@ class Decor::AvatarTest < ActiveSupport::TestCase
   end
 
   test "renders with nil initials when url is provided" do
-    component = Decor::Avatar.new(url: "https://example.com/avatar.jpg", initials: nil)
+    component = Decor::Daisy::Avatar.new(url: "https://example.com/avatar.jpg", initials: nil)
     rendered = render_component(component)
 
     assert_includes rendered, "<img"
@@ -61,7 +61,7 @@ class Decor::AvatarTest < ActiveSupport::TestCase
   end
 
   test "uses nokogiri for parsing" do
-    component = Decor::Avatar.new(initials: "AB")
+    component = Decor::Daisy::Avatar.new(initials: "AB")
     fragment = render_fragment(component)
 
     # Find the avatar div
@@ -75,7 +75,7 @@ class Decor::AvatarTest < ActiveSupport::TestCase
   end
 
   test "uses md as default size" do
-    component = Decor::Avatar.new(initials: "AB")
+    component = Decor::Daisy::Avatar.new(initials: "AB")
     rendered = render_component(component)
 
     assert_includes rendered, "w-8"
@@ -84,50 +84,50 @@ class Decor::AvatarTest < ActiveSupport::TestCase
 
   test "applies correct modern size classes" do
     # Test xs size
-    component = Decor::Avatar.new(initials: "XS", size: :xs)
+    component = Decor::Daisy::Avatar.new(initials: "XS", size: :xs)
     rendered = render_component(component)
     assert_includes rendered, "w-4"
     assert_includes rendered, "text-2xs"
 
     # Test sm size
-    component = Decor::Avatar.new(initials: "SM", size: :sm)
+    component = Decor::Daisy::Avatar.new(initials: "SM", size: :sm)
     rendered = render_component(component)
     assert_includes rendered, "w-6"
     assert_includes rendered, "text-sm"
 
     # Test md size (default)
-    component = Decor::Avatar.new(initials: "MD", size: :md)
+    component = Decor::Daisy::Avatar.new(initials: "MD", size: :md)
     rendered = render_component(component)
     assert_includes rendered, "w-8"
     assert_includes rendered, "text-base"
 
     # Test lg size
-    component = Decor::Avatar.new(initials: "LG", size: :lg)
+    component = Decor::Daisy::Avatar.new(initials: "LG", size: :lg)
     rendered = render_component(component)
     assert_includes rendered, "w-16"
     assert_includes rendered, "text-xl"
 
     # Test xl size
-    component = Decor::Avatar.new(initials: "XL", size: :xl)
+    component = Decor::Daisy::Avatar.new(initials: "XL", size: :xl)
     rendered = render_component(component)
     assert_includes rendered, "w-24"
     assert_includes rendered, "text-2xl"
   end
 
   test "applies color classes to placeholder avatars" do
-    component = Decor::Avatar.new(initials: "PC", color: :primary, style: :filled)
+    component = Decor::Daisy::Avatar.new(initials: "PC", color: :primary, style: :filled)
     rendered = render_component(component)
     assert_includes rendered, "bg-primary"
     assert_includes rendered, "text-primary-content"
 
-    component = Decor::Avatar.new(initials: "SC", color: :secondary, style: :filled)
+    component = Decor::Daisy::Avatar.new(initials: "SC", color: :secondary, style: :filled)
     rendered = render_component(component)
     assert_includes rendered, "bg-secondary"
     assert_includes rendered, "text-secondary-content"
   end
 
   test "applies color classes with default filled style" do
-    component = Decor::Avatar.new(initials: "NV", color: :primary)
+    component = Decor::Daisy::Avatar.new(initials: "NV", color: :primary)
     rendered = render_component(component)
     # Default style is filled, so color classes should be applied
     assert_includes rendered, "bg-primary"
@@ -136,7 +136,7 @@ class Decor::AvatarTest < ActiveSupport::TestCase
 
   test "applies style styles" do
     # Outlined style
-    component = Decor::Avatar.new(initials: "OV", color: :primary, style: :outlined)
+    component = Decor::Daisy::Avatar.new(initials: "OV", color: :primary, style: :outlined)
     rendered = render_component(component)
     assert_includes rendered, "border-2"
     assert_includes rendered, "border-primary"
@@ -144,14 +144,14 @@ class Decor::AvatarTest < ActiveSupport::TestCase
     refute_includes rendered, "bg-primary"
 
     # Ghost style
-    component = Decor::Avatar.new(initials: "GV", color: :primary, style: :ghost)
+    component = Decor::Daisy::Avatar.new(initials: "GV", color: :primary, style: :ghost)
     rendered = render_component(component)
     assert_includes rendered, "hover:bg-primary"
     assert_includes rendered, "text-primary"
   end
 
   test "color affects image avatars" do
-    component = Decor::Avatar.new(url: "https://example.com/avatar.jpg", color: :primary)
+    component = Decor::Daisy::Avatar.new(url: "https://example.com/avatar.jpg", color: :primary)
     rendered = render_component(component)
 
     # Color classes are applied even to image avatars in the new implementation
@@ -161,7 +161,7 @@ class Decor::AvatarTest < ActiveSupport::TestCase
 
   test "maintains default behavior" do
     # Default color is neutral and style is filled
-    component = Decor::Avatar.new(initials: "DB")
+    component = Decor::Daisy::Avatar.new(initials: "DB")
     rendered = render_component(component)
     # Default color classes should be present
     assert_includes rendered, "bg-neutral"
@@ -176,7 +176,7 @@ class Decor::AvatarTest < ActiveSupport::TestCase
 
   test "validates all color options with filled style" do
     Decor::Concerns::ColorClasses::SEMANTIC_COLORS.each do |color|
-      component = Decor::Avatar.new(initials: "TC", color: color, style: :filled)
+      component = Decor::Daisy::Avatar.new(initials: "TC", color: color, style: :filled)
       rendered = render_component(component)
 
       case color
@@ -213,7 +213,7 @@ class Decor::AvatarTest < ActiveSupport::TestCase
 
   test "validates all color options with outlined style" do
     Decor::Concerns::ColorClasses::SEMANTIC_COLORS.each do |color|
-      component = Decor::Avatar.new(initials: "TC", color: color, style: :outlined)
+      component = Decor::Daisy::Avatar.new(initials: "TC", color: color, style: :outlined)
       rendered = render_component(component)
 
       assert_includes rendered, "border-2"
@@ -252,7 +252,7 @@ class Decor::AvatarTest < ActiveSupport::TestCase
 
   test "validates all color options with ghost style" do
     Decor::Concerns::ColorClasses::SEMANTIC_COLORS.each do |color|
-      component = Decor::Avatar.new(initials: "TC", color: color, style: :ghost)
+      component = Decor::Daisy::Avatar.new(initials: "TC", color: color, style: :ghost)
       rendered = render_component(component)
 
       case color
@@ -289,26 +289,26 @@ class Decor::AvatarTest < ActiveSupport::TestCase
 
   test "validates specific key combinations from requirements" do
     # Primary + filled: should output "bg-primary text-primary-content"
-    component = Decor::Avatar.new(initials: "PF", color: :primary, style: :filled)
+    component = Decor::Daisy::Avatar.new(initials: "PF", color: :primary, style: :filled)
     rendered = render_component(component)
     assert_includes rendered, "bg-primary"
     assert_includes rendered, "text-primary-content"
 
     # Secondary + outlined: should output "text-secondary border-2 border-secondary"
-    component = Decor::Avatar.new(initials: "SO", color: :secondary, style: :outlined)
+    component = Decor::Daisy::Avatar.new(initials: "SO", color: :secondary, style: :outlined)
     rendered = render_component(component)
     assert_includes rendered, "text-secondary"
     assert_includes rendered, "border-2"
     assert_includes rendered, "border-secondary"
 
     # Accent + ghost: should output "text-accent hover:bg-accent"
-    component = Decor::Avatar.new(initials: "AG", color: :accent, style: :ghost)
+    component = Decor::Daisy::Avatar.new(initials: "AG", color: :accent, style: :ghost)
     rendered = render_component(component)
     assert_includes rendered, "text-accent"
     assert_includes rendered, "hover:bg-accent"
 
     # Neutral + filled: should output "bg-neutral text-neutral-content" (default behavior)
-    component = Decor::Avatar.new(initials: "NF", color: :neutral, style: :filled)
+    component = Decor::Daisy::Avatar.new(initials: "NF", color: :neutral, style: :filled)
     rendered = render_component(component)
     assert_includes rendered, "bg-neutral"
     assert_includes rendered, "text-neutral-content"
@@ -318,7 +318,7 @@ class Decor::AvatarTest < ActiveSupport::TestCase
     # Test that all combinations produce valid class strings with no interpolation artifacts
     Decor::Concerns::ColorClasses::SEMANTIC_COLORS.each do |color|
       [:filled, :outlined, :ghost].each do |style|
-        component = Decor::Avatar.new(initials: "TC", color: color, style: style)
+        component = Decor::Daisy::Avatar.new(initials: "TC", color: color, style: style)
         rendered = render_component(component)
 
         # Should not contain dynamic interpolation artifacts
@@ -334,7 +334,7 @@ class Decor::AvatarTest < ActiveSupport::TestCase
 
   test "validates default behavior still works" do
     # Default color is neutral and style is filled
-    component = Decor::Avatar.new(initials: "DB")
+    component = Decor::Daisy::Avatar.new(initials: "DB")
     rendered = render_component(component)
 
     # Default color classes should be present
@@ -346,7 +346,7 @@ class Decor::AvatarTest < ActiveSupport::TestCase
 
   test "ring color matches avatar color" do
     Decor::Concerns::ColorClasses::SEMANTIC_COLORS.each do |color|
-      component = Decor::Avatar.new(initials: "BC", color: color, ring: true)
+      component = Decor::Daisy::Avatar.new(initials: "BC", color: color, ring: true)
       rendered = render_component(component)
 
       expected_ring_class = case color
@@ -369,7 +369,7 @@ class Decor::AvatarTest < ActiveSupport::TestCase
   end
 
   test "no ring classes when ring is false" do
-    component = Decor::Avatar.new(initials: "NB", color: :primary, ring: false)
+    component = Decor::Daisy::Avatar.new(initials: "NB", color: :primary, ring: false)
     rendered = render_component(component)
 
     refute_includes rendered, "ring-primary"
@@ -381,74 +381,74 @@ class Decor::AvatarTest < ActiveSupport::TestCase
   # CACHE KEY TESTS
 
   test "avatar component is cacheable" do
-    component = Decor::Avatar.new(initials: "AB")
+    component = Decor::Daisy::Avatar.new(initials: "AB")
     assert component.cacheable?
     assert_respond_to component, :cache_key
   end
 
   test "cache key includes avatar properties" do
-    component1 = Decor::Avatar.new(initials: "AB", color: :primary, style: :filled, size: :lg, shape: :circle, ring: true)
-    component2 = Decor::Avatar.new(initials: "AB", color: :primary, style: :filled, size: :lg, shape: :circle, ring: true)
+    component1 = Decor::Daisy::Avatar.new(initials: "AB", color: :primary, style: :filled, size: :lg, shape: :circle, ring: true)
+    component2 = Decor::Daisy::Avatar.new(initials: "AB", color: :primary, style: :filled, size: :lg, shape: :circle, ring: true)
 
     # Same props should generate same cache key
     assert_equal component1.cache_key, component2.cache_key
   end
 
   test "cache key differs for different initials" do
-    component1 = Decor::Avatar.new(initials: "AB")
-    component2 = Decor::Avatar.new(initials: "CD")
+    component1 = Decor::Daisy::Avatar.new(initials: "AB")
+    component2 = Decor::Daisy::Avatar.new(initials: "CD")
 
     refute_equal component1.cache_key, component2.cache_key
   end
 
   test "cache key differs for different urls" do
-    component1 = Decor::Avatar.new(url: "https://example.com/avatar1.jpg")
-    component2 = Decor::Avatar.new(url: "https://example.com/avatar2.jpg")
+    component1 = Decor::Daisy::Avatar.new(url: "https://example.com/avatar1.jpg")
+    component2 = Decor::Daisy::Avatar.new(url: "https://example.com/avatar2.jpg")
 
     refute_equal component1.cache_key, component2.cache_key
   end
 
   test "cache key differs for different colors" do
-    component1 = Decor::Avatar.new(initials: "AB", color: :primary)
-    component2 = Decor::Avatar.new(initials: "AB", color: :secondary)
+    component1 = Decor::Daisy::Avatar.new(initials: "AB", color: :primary)
+    component2 = Decor::Daisy::Avatar.new(initials: "AB", color: :secondary)
 
     refute_equal component1.cache_key, component2.cache_key
   end
 
   test "cache key differs for different styles" do
-    component1 = Decor::Avatar.new(initials: "AB", style: :filled)
-    component2 = Decor::Avatar.new(initials: "AB", style: :outlined)
+    component1 = Decor::Daisy::Avatar.new(initials: "AB", style: :filled)
+    component2 = Decor::Daisy::Avatar.new(initials: "AB", style: :outlined)
 
     refute_equal component1.cache_key, component2.cache_key
   end
 
   test "cache key differs for different sizes" do
-    component1 = Decor::Avatar.new(initials: "AB", size: :sm)
-    component2 = Decor::Avatar.new(initials: "AB", size: :lg)
+    component1 = Decor::Daisy::Avatar.new(initials: "AB", size: :sm)
+    component2 = Decor::Daisy::Avatar.new(initials: "AB", size: :lg)
 
     refute_equal component1.cache_key, component2.cache_key
   end
 
   test "cache key differs for different shapes" do
-    component1 = Decor::Avatar.new(initials: "AB", shape: :circle)
-    component2 = Decor::Avatar.new(initials: "AB", shape: :square)
+    component1 = Decor::Daisy::Avatar.new(initials: "AB", shape: :circle)
+    component2 = Decor::Daisy::Avatar.new(initials: "AB", shape: :square)
 
     refute_equal component1.cache_key, component2.cache_key
   end
 
   test "cache key differs for different ring values" do
-    component1 = Decor::Avatar.new(initials: "AB", ring: true)
-    component2 = Decor::Avatar.new(initials: "AB", ring: false)
+    component1 = Decor::Daisy::Avatar.new(initials: "AB", ring: true)
+    component2 = Decor::Daisy::Avatar.new(initials: "AB", ring: false)
 
     refute_equal component1.cache_key, component2.cache_key
   end
 
   test "cache key includes component modified time" do
-    component = Decor::Avatar.new(initials: "AB")
+    component = Decor::Daisy::Avatar.new(initials: "AB")
     cache_key = component.cache_key
 
     # Cache key should include component class name
-    assert_includes cache_key, "Decor::Avatar"
+    assert_includes cache_key, "Decor::Daisy::Avatar"
 
     # Should be able to get component_modified_time
     assert_respond_to component, :component_modified_time
@@ -459,12 +459,12 @@ class Decor::AvatarTest < ActiveSupport::TestCase
 
     # Test with no modifier
     ENV["RAILS_CACHE_ID"] = nil
-    component1 = Decor::Avatar.new(initials: "AB")
+    component1 = Decor::Daisy::Avatar.new(initials: "AB")
     key1 = component1.cache_key
 
     # Test with modifier
     ENV["RAILS_CACHE_ID"] = "v2"
-    component2 = Decor::Avatar.new(initials: "AB")
+    component2 = Decor::Daisy::Avatar.new(initials: "AB")
     key2 = component2.cache_key
 
     # Keys should be different with different modifiers
@@ -475,11 +475,11 @@ class Decor::AvatarTest < ActiveSupport::TestCase
   end
 
   test "cache key is stable for same properties" do
-    component1 = Decor::Avatar.new(initials: "AB", color: :primary, style: :filled, size: :lg)
+    component1 = Decor::Daisy::Avatar.new(initials: "AB", color: :primary, style: :filled, size: :lg)
     key1 = component1.cache_key
 
     # Create another instance with same properties
-    component2 = Decor::Avatar.new(initials: "AB", color: :primary, style: :filled, size: :lg)
+    component2 = Decor::Daisy::Avatar.new(initials: "AB", color: :primary, style: :filled, size: :lg)
     key2 = component2.cache_key
 
     # Keys should be identical
@@ -487,7 +487,7 @@ class Decor::AvatarTest < ActiveSupport::TestCase
   end
 
   test "cache key includes all avatar properties in hash" do
-    component = Decor::Avatar.new(
+    component = Decor::Daisy::Avatar.new(
       initials: "TK",
       url: "https://example.com/test.jpg",
       color: :primary,
@@ -506,8 +506,8 @@ class Decor::AvatarTest < ActiveSupport::TestCase
   end
 
   test "nil properties are handled correctly in cache key" do
-    component1 = Decor::Avatar.new(initials: "AB", url: nil)
-    component2 = Decor::Avatar.new(initials: "AB")
+    component1 = Decor::Daisy::Avatar.new(initials: "AB", url: nil)
+    component2 = Decor::Daisy::Avatar.new(initials: "AB")
 
     # Both should generate valid cache keys
     assert_not_nil component1.cache_key

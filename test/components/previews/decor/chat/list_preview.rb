@@ -60,18 +60,18 @@ class ::Decor::Chat::ListPreview < ::Lookbook::Preview
         ::Decor::Chat::ListMessage.new(
           author_name: "Alice Johnson",
           author_profile_image_url: "https://images.unsplash.com/photo-1494790108755-2616b612b606?w=150",
-          message: "Using profile image URL with Decor::Avatar",
+          message: "Using profile image URL with Decor::Daisy::Avatar",
           is_current_user: false
         ),
         ::Decor::Chat::ListMessage.new(
           author_name: "Bob Smith",
           author_initials: "BS",
-          message: "Using custom initials with Decor::Avatar",
+          message: "Using custom initials with Decor::Daisy::Avatar",
           is_current_user: false
         ),
         ::Decor::Chat::ListMessage.new(
           author_name: "Carol Davis",
-          message: "Using fallback (first letter) with Decor::Avatar",
+          message: "Using fallback (first letter) with Decor::Daisy::Avatar",
           is_current_user: false
         ),
         ::Decor::Chat::ListMessage.new(

@@ -75,7 +75,7 @@ class ::Decor::Nav::TopNavbarPreview < ::Lookbook::Preview
       # Account menu with avatar
       navbar.with_account_menu(position: :right) do |menu|
         menu.trigger_button_content do
-          render ::Decor::Avatar.new(
+          render ::Decor::Daisy::Avatar.new(
             initials: "JD",
             size: :sm,
             color: :primary
@@ -131,7 +131,7 @@ class ::Decor::Nav::TopNavbarPreview < ::Lookbook::Preview
       # Account menu
       navbar.with_account_menu(position: :right, classes: "ml-3") do |menu|
         menu.trigger_button_content do
-          render ::Decor::Avatar.new(initials: "CC", size: :sm)
+          render ::Decor::Daisy::Avatar.new(initials: "CC", size: :sm)
         end
         menu.menu_item(render(::Decor::DropdownItem.new(text: "Profile", href: "#")))
         menu.menu_item(render(::Decor::DropdownItem.new(text: "Settings", href: "#")))
@@ -212,7 +212,7 @@ class ::Decor::Nav::TopNavbarPreview < ::Lookbook::Preview
           render ::Decor::Nav::TopNavbar.new(has_search: true) do |navbar|
             navbar.with_account_menu do |menu|
               menu.trigger_button_content do
-                render ::Decor::Avatar.new(initials: "U", size: :xs)
+                render ::Decor::Daisy::Avatar.new(initials: "U", size: :xs)
               end
               menu.menu_item(render(::Decor::DropdownItem.new(text: "Profile", href: "#")))
               menu.menu_item(render(::Decor::DropdownItem.new(text: "Logout", href: "#")))

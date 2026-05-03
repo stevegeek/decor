@@ -48,7 +48,7 @@ module Decor
         end
         if @url || @initials
           render(
-            ::Decor::Avatar.new(
+            ::Decor::Daisy::Avatar.new(
               size: avatar_size,
               initials: @initials,
               url: @url,

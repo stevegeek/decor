@@ -40,7 +40,7 @@ module Decor
 
           if @show_avatar && (!@is_current_user || @author_profile_image_url.present?)
             div(class: "chat-image") do
-              render ::Decor::Avatar.new(
+              render ::Decor::Daisy::Avatar.new(
                 url: @author_profile_image_url,
                 initials: @author_initials || @author_name.first.upcase,
                 size: :md,

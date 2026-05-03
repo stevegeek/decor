@@ -15,7 +15,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
       dropdown.trigger_button_content do
         # Using a div with DaisyUI classes for the button content
         div(class: "btn btn-circle btn-ghost") do
-          render ::Decor::Avatar.new(src: "/images/pic.jpg", alt: "User avatar", size: :sm)
+          render ::Decor::Daisy::Avatar.new(src: "/images/pic.jpg", alt: "User avatar", size: :sm)
         end
       end
 
@@ -346,7 +346,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
     ) do |dropdown|
       dropdown.trigger_button_content do
         div(class: "flex items-center gap-2") do
-          render ::Decor::Avatar.new(src: "/images/pic.jpg", alt: "User avatar", size: :sm)
+          render ::Decor::Daisy::Avatar.new(src: "/images/pic.jpg", alt: "User avatar", size: :sm)
           span(class: "hidden sm:inline") { "John Doe" }
         end
       end

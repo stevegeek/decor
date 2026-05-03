@@ -54,7 +54,7 @@ module Decor
 
           render layout do
             if @preview_type == :avatar
-              render ::Decor::Avatar.new(
+              render ::Decor::Daisy::Avatar.new(
                 initials: @initials,
                 shape: @shape,
                 size: :lg,

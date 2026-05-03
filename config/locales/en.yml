@@ -33,6 +33,9 @@ en:
   decor:
     avatar:
       image: "Avatar image"
+    daisy:
+      avatar:
+        image: "Avatar image"
     button:
       label: "Button"
     badge:
