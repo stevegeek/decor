@@ -26,7 +26,7 @@ module Decor
 
       def with_sub_item(**attributes, &block)
         @sub_items ||= []
-        sub_item = SideNavbarSubItem.new(**attributes)
+        sub_item = ::Decor::Daisy::Nav::SideNavbarSubItem.new(**attributes)
         @sub_items << sub_item
         yield(sub_item) if block_given?
         sub_item

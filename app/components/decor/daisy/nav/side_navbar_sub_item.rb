@@ -1,0 +1,45 @@
+# frozen_string_literal: true
+
+module Decor
+  module Daisy
+    module Nav
+      # SideNavbarSubItem A child navigation item rendered inside an expandable
+      # SideNavbarItem. Shows an optional icon, title, and counter badge with
+      # active/selected styling.
+      class SideNavbarSubItem < ::Decor::Components::Nav::SideNavbarSubItem
+        def view_template
+          root_element do |el|
+            render ::Decor::Daisy::Link.new(
+              href: @path,
+              html_options: {class: "#{component_name}-link #{@selected ? "active bg-primary text-primary-content" : "text-base-content hover:bg-base-200 hover:text-primary"} group flex items-center px-2 py-2 text-sm font-medium rounded-md"}
+            ) do
+              if @counter.present?
+                child_element(:span, stimulus_target: :counter, class: "badge badge-primary badge-sm mr-2") { @counter }
+              end
+              if @icon.present?
+                render(::Decor::Daisy::Icon.new(
+                  name: @icon,
+                  html_options: {
+                    class: "#{@selected ? "text-primary-content" : "text-base-content/70 group-hover:text-primary"} mr-3 flex-shrink-0 h-6 w-6"
+                  }
+                ))
+              end
+
+              span(class: "#{component_name}-text") do
+                child_element(:p, stimulus_target: :title) { @title }
+              end
+            end
+          end
+        end
+
+        private
+
+        def root_element_attributes
+          {
+            element_tag: :li
+          }
+        end
+      end
+    end
+  end
+end
