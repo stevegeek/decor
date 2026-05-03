@@ -98,8 +98,8 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
       header.with_meta_content do
         header.div(class: "flex justify-center gap-3") do
           header.render ::Decor::Daisy::Badge.new(label: "Available", color: :success)
-          header.render ::Decor::Tag.new(label: "React", color: :info)
-          header.render ::Decor::Tag.new(label: "Rails", color: :error)
+          header.render ::Decor::Daisy::Tag.new(label: "React", color: :info)
+          header.render ::Decor::Daisy::Tag.new(label: "Rails", color: :error)
         end
       end
 
@@ -221,7 +221,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
       header.with_meta_content do
         div(class: "flex flex-wrap gap-2") do
           header.render ::Decor::Daisy::Badge.new(label: "Live", color: :success)
-          header.render ::Decor::Tag.new(label: "Interactive", color: :primary)
+          header.render ::Decor::Daisy::Tag.new(label: "Interactive", color: :primary)
         end
       end
 

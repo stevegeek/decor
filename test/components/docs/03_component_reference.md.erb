@@ -32,7 +32,7 @@ If you find any issues or missing components, please open a PR to improve the do
 - [Decor::NotificationManager](#decornotificationmanager)
 - [Decor::Progress](#decorprogress)
 - [Decor::Daisy::Spinner](#decordaisyspinner)
-- [Decor::Tag](#decortag)
+- [Decor::Daisy::Tag](#decordaisytag)
 - [Decor::Daisy::Title](#decordaisytitle)
 - [Decor::Daisy::Tooltip](#decordaisytooltip)
 
@@ -662,9 +662,9 @@ render Decor::Daisy::Spinner.new
 
 ---
 
-### Decor::Tag
+### Decor::Daisy::Tag
 
-<span id="decortag"></span>
+<span id="decordaisytag"></span>
 
 Tag A modern tag/badge component built with DaisyUI styling. Tags can display simple labels, include icons, and optionally show a close button for removal functionality.
 
@@ -678,7 +678,7 @@ Note on Removable Tags When `removable: true`, the tag renders a close button wi
 
 **Basic Usage:**
 ```ruby
-render Decor::Tag.new do
+render Decor::Daisy::Tag.new do
   "Content goes here"
 end
 ```

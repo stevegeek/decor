@@ -27,7 +27,7 @@ module Decor
     # Manual many implementation for tags
     def with_tag(**attributes)
       @tags ||= []
-      @tags << ::Decor::Tag.new(**attributes)
+      @tags << ::Decor::Daisy::Tag.new(**attributes)
     end
 
     def tags

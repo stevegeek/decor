@@ -62,7 +62,7 @@ module Decor
 
     def with_tag(**attributes, &block)
       @tags ||= []
-      tag = ::Decor::Tag.new(**attributes)
+      tag = ::Decor::Daisy::Tag.new(**attributes)
       @tags << tag
       tag
     end

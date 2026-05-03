@@ -1,8 +1,8 @@
 require "test_helper"
 
-class Decor::TagTest < ActiveSupport::TestCase
+class Decor::Daisy::TagTest < ActiveSupport::TestCase
   test "renders successfully with label" do
-    component = Decor::Tag.new(label: "Test Tag")
+    component = Decor::Daisy::Tag.new(label: "Test Tag")
     rendered = render_component(component)
 
     assert_includes rendered, "Test Tag"
@@ -11,7 +11,7 @@ class Decor::TagTest < ActiveSupport::TestCase
   end
 
   test "renders with label attribute" do
-    component = Decor::Tag.new(label: "Test Tag")
+    component = Decor::Daisy::Tag.new(label: "Test Tag")
     rendered = render_component(component)
 
     assert_includes rendered, "Test Tag"
@@ -19,7 +19,7 @@ class Decor::TagTest < ActiveSupport::TestCase
   end
 
   test "renders with label content" do
-    component = Decor::Tag.new(label: "Content Tag")
+    component = Decor::Daisy::Tag.new(label: "Content Tag")
     rendered = render_component(component)
 
     assert_includes rendered, "Content Tag"
@@ -29,7 +29,7 @@ class Decor::TagTest < ActiveSupport::TestCase
   # Color tests
   test "applies correct color classes" do
     [:primary, :secondary, :accent, :success, :error, :warning, :info, :neutral].each do |color|
-      component = Decor::Tag.new(label: "Test", color: color)
+      component = Decor::Daisy::Tag.new(label: "Test", color: color)
       rendered = render_component(component)
 
       assert_includes rendered, "bg-#{color}"
@@ -38,7 +38,7 @@ class Decor::TagTest < ActiveSupport::TestCase
   end
 
   test "defaults to neutral color" do
-    component = Decor::Tag.new(label: "Default")
+    component = Decor::Daisy::Tag.new(label: "Default")
     rendered = render_component(component)
 
     assert_includes rendered, "bg-neutral"
@@ -47,35 +47,35 @@ class Decor::TagTest < ActiveSupport::TestCase
 
   # Size tests
   test "applies correct size classes" do
-    component = Decor::Tag.new(label: "Large Tag", size: :lg)
+    component = Decor::Daisy::Tag.new(label: "Large Tag", size: :lg)
     rendered = render_component(component)
 
     assert_includes rendered, "px-4 py-1.5 text-base"
   end
 
   test "applies small size classes" do
-    component = Decor::Tag.new(label: "Small Tag", size: :sm)
+    component = Decor::Daisy::Tag.new(label: "Small Tag", size: :sm)
     rendered = render_component(component)
 
     assert_includes rendered, "px-2.5 py-0.5 text-sm"
   end
 
   test "applies xs size classes" do
-    component = Decor::Tag.new(label: "XS Tag", size: :xs)
+    component = Decor::Daisy::Tag.new(label: "XS Tag", size: :xs)
     rendered = render_component(component)
 
     assert_includes rendered, "px-2 py-0.5 text-xs"
   end
 
   test "medium size is default" do
-    component = Decor::Tag.new(label: "Medium Tag", size: :md)
+    component = Decor::Daisy::Tag.new(label: "Medium Tag", size: :md)
     rendered = render_component(component)
 
     assert_includes rendered, "px-3 py-1 text-sm"
   end
 
   test "applies xl size classes" do
-    component = Decor::Tag.new(label: "XL Tag", size: :xl)
+    component = Decor::Daisy::Tag.new(label: "XL Tag", size: :xl)
     rendered = render_component(component)
 
     assert_includes rendered, "px-5 py-2 text-lg"
@@ -83,7 +83,7 @@ class Decor::TagTest < ActiveSupport::TestCase
 
   # Style tests
   test "applies outline style classes" do
-    component = Decor::Tag.new(label: "Outlined", style: :outlined, color: :primary)
+    component = Decor::Daisy::Tag.new(label: "Outlined", style: :outlined, color: :primary)
     rendered = render_component(component)
 
     assert_includes rendered, "border-2"
@@ -92,7 +92,7 @@ class Decor::TagTest < ActiveSupport::TestCase
   end
 
   test "filled style is default" do
-    component = Decor::Tag.new(label: "Filled", style: :filled, color: :primary)
+    component = Decor::Daisy::Tag.new(label: "Filled", style: :filled, color: :primary)
     rendered = render_component(component)
 
     assert_includes rendered, "bg-primary"
@@ -101,7 +101,7 @@ class Decor::TagTest < ActiveSupport::TestCase
   end
 
   test "applies ghost style classes" do
-    component = Decor::Tag.new(label: "Ghost", style: :ghost, color: :primary)
+    component = Decor::Daisy::Tag.new(label: "Ghost", style: :ghost, color: :primary)
     rendered = render_component(component)
 
     assert_includes rendered, "text-primary"
@@ -112,7 +112,7 @@ class Decor::TagTest < ActiveSupport::TestCase
 
   # Icon tests
   test "renders with icon" do
-    component = Decor::Tag.new(label: "With Icon", icon: "star")
+    component = Decor::Daisy::Tag.new(label: "With Icon", icon: "star")
     rendered = render_component(component)
 
     assert_includes rendered, "star"
@@ -120,14 +120,14 @@ class Decor::TagTest < ActiveSupport::TestCase
   end
 
   test "icon has correct size classes" do
-    component = Decor::Tag.new(label: "Icon", icon: "star", size: :lg)
+    component = Decor::Daisy::Tag.new(label: "Icon", icon: "star", size: :lg)
     rendered = render_component(component)
 
     assert_includes rendered, "w-5 h-5"
   end
 
   test "renders without icon when not specified" do
-    component = Decor::Tag.new(label: "No Icon")
+    component = Decor::Daisy::Tag.new(label: "No Icon")
     rendered = render_component(component)
 
     refute_includes rendered, "gap-2"
@@ -135,7 +135,7 @@ class Decor::TagTest < ActiveSupport::TestCase
 
   # Removable tests
   test "renders remove button when removable" do
-    component = Decor::Tag.new(label: "Removable", removable: true)
+    component = Decor::Daisy::Tag.new(label: "Removable", removable: true)
     rendered = render_component(component)
 
     assert_includes rendered, "<button"
@@ -147,7 +147,7 @@ class Decor::TagTest < ActiveSupport::TestCase
   end
 
   test "does not render remove button when not removable" do
-    component = Decor::Tag.new(label: "Not Removable")
+    component = Decor::Daisy::Tag.new(label: "Not Removable")
     rendered = render_component(component)
 
     refute_includes rendered, "<button"
@@ -155,7 +155,7 @@ class Decor::TagTest < ActiveSupport::TestCase
   end
 
   test "remove button includes accessibility label" do
-    component = Decor::Tag.new(label: "Removable", removable: true)
+    component = Decor::Daisy::Tag.new(label: "Removable", removable: true)
     rendered = render_component(component)
 
     assert_includes rendered, "sr-only"
@@ -163,14 +163,14 @@ class Decor::TagTest < ActiveSupport::TestCase
   end
 
   test "remove button includes x-mark icon" do
-    component = Decor::Tag.new(label: "Removable", removable: true)
+    component = Decor::Daisy::Tag.new(label: "Removable", removable: true)
     rendered = render_component(component)
 
     assert_includes rendered, "x-mark"
   end
 
   test "remove button has correct classes" do
-    component = Decor::Tag.new(label: "Removable", color: :error, removable: true)
+    component = Decor::Daisy::Tag.new(label: "Removable", color: :error, removable: true)
     rendered = render_component(component)
 
     assert_includes rendered, "btn-ghost"
@@ -180,7 +180,7 @@ class Decor::TagTest < ActiveSupport::TestCase
 
   # Combination tests
   test "renders with icon and removable" do
-    component = Decor::Tag.new(
+    component = Decor::Daisy::Tag.new(
       label: "Complex",
       icon: "star",
       removable: true,
@@ -195,7 +195,7 @@ class Decor::TagTest < ActiveSupport::TestCase
   end
 
   test "combines style and color correctly" do
-    component = Decor::Tag.new(
+    component = Decor::Daisy::Tag.new(
       label: "Combined",
       color: :success,
       style: :outlined
@@ -209,7 +209,7 @@ class Decor::TagTest < ActiveSupport::TestCase
 
   # Default values tests
   test "has correct default values" do
-    component = Decor::Tag.new(label: "Test")
+    component = Decor::Daisy::Tag.new(label: "Test")
 
     assert_equal :md, component.instance_variable_get(:@size)
     assert_equal :neutral, component.instance_variable_get(:@color)
@@ -219,7 +219,7 @@ class Decor::TagTest < ActiveSupport::TestCase
 
   # Nokogiri parsing test
   test "uses nokogiri for parsing" do
-    component = Decor::Tag.new(label: "Test", color: :success)
+    component = Decor::Daisy::Tag.new(label: "Test", color: :success)
     fragment = render_fragment(component)
 
     # The outermost element should be a span with DaisyUI success classes
@@ -236,7 +236,7 @@ class Decor::TagTest < ActiveSupport::TestCase
 
   # Edge cases
   test "handles empty label gracefully" do
-    component = Decor::Tag.new(label: "")
+    component = Decor::Daisy::Tag.new(label: "")
     rendered = render_component(component)
 
     assert_includes rendered, "rounded-full"
@@ -244,7 +244,7 @@ class Decor::TagTest < ActiveSupport::TestCase
   end
 
   test "whitespace-nowrap is applied to text content" do
-    component = Decor::Tag.new(label: "Long tag name")
+    component = Decor::Daisy::Tag.new(label: "Long tag name")
     rendered = render_component(component)
 
     assert_includes rendered, "whitespace-nowrap"
@@ -252,7 +252,7 @@ class Decor::TagTest < ActiveSupport::TestCase
 
   # Block content test
   test "supports block content" do
-    component = Decor::Tag.new(color: :primary)
+    component = Decor::Daisy::Tag.new(color: :primary)
 
     # This simulates passing a block to the component
     component.instance_eval do
