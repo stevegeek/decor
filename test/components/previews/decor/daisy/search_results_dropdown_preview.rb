@@ -1,5 +1,5 @@
 # @label Search Results Dropdown
-class ::Decor::SearchResultsDropdownPreview < ::Lookbook::Preview
+class ::Decor::Daisy::SearchResultsDropdownPreview < ::Lookbook::Preview
   # Mock nav element class that implements the required interface
   class MockNavElement < Decor::PhlexComponent
     no_stimulus_controller
@@ -21,7 +21,7 @@ class ::Decor::SearchResultsDropdownPreview < ::Lookbook::Preview
   #
   # @label Playground
   def playground
-    render ::Decor::SearchResultsDropdown.new(
+    render ::Decor::Daisy::SearchResultsDropdown.new(
       nav_element: mock_nav_element
     )
   end

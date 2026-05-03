@@ -1,13 +1,13 @@
 require "test_helper"
 
-class Decor::SearchResultsDropdownTest < ActiveSupport::TestCase
+class Decor::Daisy::SearchResultsDropdownTest < ActiveSupport::TestCase
   def setup
     # Create a proper vident component for testing
     @nav_element = Decor::Nav::TopNavbar.new
   end
 
   test "renders successfully with nav element" do
-    component = Decor::SearchResultsDropdown.new(nav_element: @nav_element)
+    component = Decor::Daisy::SearchResultsDropdown.new(nav_element: @nav_element)
     rendered = render_component(component)
 
     assert_includes rendered, "hidden absolute top-full"
@@ -16,7 +16,7 @@ class Decor::SearchResultsDropdownTest < ActiveSupport::TestCase
   end
 
   test "includes shadow element" do
-    component = Decor::SearchResultsDropdown.new(nav_element: @nav_element)
+    component = Decor::Daisy::SearchResultsDropdown.new(nav_element: @nav_element)
     rendered = render_component(component)
 
     assert_includes rendered, "absolute inset-0 top-1/2 bg-white shadow-xl"
@@ -24,7 +24,7 @@ class Decor::SearchResultsDropdownTest < ActiveSupport::TestCase
   end
 
   test "includes spinner element with nav element target" do
-    component = Decor::SearchResultsDropdown.new(nav_element: @nav_element)
+    component = Decor::Daisy::SearchResultsDropdown.new(nav_element: @nav_element)
     rendered = render_component(component)
 
     assert_includes rendered, "flex items-center h-full"
@@ -32,7 +32,7 @@ class Decor::SearchResultsDropdownTest < ActiveSupport::TestCase
   end
 
   test "includes search dropdown content area" do
-    component = Decor::SearchResultsDropdown.new(nav_element: @nav_element)
+    component = Decor::Daisy::SearchResultsDropdown.new(nav_element: @nav_element)
     rendered = render_component(component)
 
     assert_includes rendered, "hidden max-w-7xl mx-auto px-8 h-full overflow-y-scroll lg:overflow-auto"
@@ -40,7 +40,7 @@ class Decor::SearchResultsDropdownTest < ActiveSupport::TestCase
   end
 
   test "renders spinner component" do
-    component = Decor::SearchResultsDropdown.new(nav_element: @nav_element)
+    component = Decor::Daisy::SearchResultsDropdown.new(nav_element: @nav_element)
     rendered = render_component(component)
 
     assert_includes rendered, "loading"
@@ -49,7 +49,7 @@ class Decor::SearchResultsDropdownTest < ActiveSupport::TestCase
   end
 
   test "applies correct CSS classes" do
-    component = Decor::SearchResultsDropdown.new(nav_element: @nav_element)
+    component = Decor::Daisy::SearchResultsDropdown.new(nav_element: @nav_element)
     rendered = render_component(component)
 
     assert_includes rendered, "text-sm text-gray-500"
@@ -57,7 +57,7 @@ class Decor::SearchResultsDropdownTest < ActiveSupport::TestCase
   end
 
   test "nav element targets are properly assigned" do
-    component = Decor::SearchResultsDropdown.new(nav_element: @nav_element)
+    component = Decor::Daisy::SearchResultsDropdown.new(nav_element: @nav_element)
     rendered = render_component(component)
 
     # Verify the nav element target method was called with correct parameters
@@ -66,7 +66,7 @@ class Decor::SearchResultsDropdownTest < ActiveSupport::TestCase
   end
 
   test "uses nokogiri for parsing" do
-    component = Decor::SearchResultsDropdown.new(nav_element: @nav_element)
+    component = Decor::Daisy::SearchResultsDropdown.new(nav_element: @nav_element)
     fragment = render_fragment(component)
 
     # Check the main dropdown container
