@@ -2,9 +2,9 @@
 
 require "test_helper"
 
-class Decor::PanelTest < ActiveSupport::TestCase
+class Decor::Daisy::PanelTest < ActiveSupport::TestCase
   def test_renders_panel_with_title_only
-    component = Decor::Panel.new(title: "Panel Title")
+    component = Decor::Daisy::Panel.new(title: "Panel Title")
 
     rendered = render_fragment(component) { "Panel content" }
 
@@ -22,7 +22,7 @@ class Decor::PanelTest < ActiveSupport::TestCase
   end
 
   def test_renders_panel_with_title_and_icon
-    component = Decor::Panel.new(title: "Panel Title", icon: "academic-cap")
+    component = Decor::Daisy::Panel.new(title: "Panel Title", icon: "academic-cap")
 
     rendered = render_fragment(component) { "Panel content" }
 
@@ -39,7 +39,7 @@ class Decor::PanelTest < ActiveSupport::TestCase
   end
 
   def test_renders_without_content_block
-    component = Decor::Panel.new(title: "Panel Title")
+    component = Decor::Daisy::Panel.new(title: "Panel Title")
 
     rendered = render_fragment(component)
 
@@ -53,7 +53,7 @@ class Decor::PanelTest < ActiveSupport::TestCase
   end
 
   def test_panel_with_icon_has_correct_structure
-    component = Decor::Panel.new(title: "Test Panel", icon: "academic-cap")
+    component = Decor::Daisy::Panel.new(title: "Test Panel", icon: "academic-cap")
 
     rendered = render_fragment(component) { "Test content" }
 
@@ -66,7 +66,7 @@ class Decor::PanelTest < ActiveSupport::TestCase
   end
 
   def test_panel_without_icon_has_simple_structure
-    component = Decor::Panel.new(title: "Simple Panel")
+    component = Decor::Daisy::Panel.new(title: "Simple Panel")
 
     rendered = render_fragment(component) { "Simple content" }
 
@@ -81,12 +81,12 @@ class Decor::PanelTest < ActiveSupport::TestCase
   end
 
   def test_inherits_from_phlex_component
-    component = Decor::Panel.new(title: "Test")
+    component = Decor::Daisy::Panel.new(title: "Test")
     assert_kind_of Decor::PhlexComponent, component
   end
 
   def test_panel_styling_classes
-    component = Decor::Panel.new(title: "Test Panel")
+    component = Decor::Daisy::Panel.new(title: "Test Panel")
     rendered = render_fragment(component) { "Content" }
 
     # Should have space-y-2 classes (text-sm now on content div)

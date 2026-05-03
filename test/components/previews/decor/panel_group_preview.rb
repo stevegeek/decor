@@ -4,7 +4,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
   # -------
   #
   # A panel group is a box with a title and description that contains a list of panels
-  # displayed in a grid layout. Each panel is a Decor::Panel component with its own content.
+  # displayed in a grid layout. Each panel is a Decor::Daisy::Panel component with its own content.
   #
   # @group Examples
   # @label Simple Stats
@@ -13,9 +13,9 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
       title: "Quick Stats"
     ) do |group|
       group.with_panel_row do
-        group.render ::Decor::Panel.new(title: "Downloads") { |p| p.plain("12,345") }
-        group.render ::Decor::Panel.new(title: "Active Users") { |p| p.plain("8,901") }
-        group.render ::Decor::Panel.new(title: "Reviews") { |p| p.plain("4.8/5") }
+        group.render ::Decor::Daisy::Panel.new(title: "Downloads") { |p| p.plain("12,345") }
+        group.render ::Decor::Daisy::Panel.new(title: "Active Users") { |p| p.plain("8,901") }
+        group.render ::Decor::Daisy::Panel.new(title: "Reviews") { |p| p.plain("4.8/5") }
       end
     end
   end
@@ -28,13 +28,13 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
       description: "Key performance metrics and statistics"
     ) do |group|
       group.with_panel_row do
-        group.render ::Decor::Panel.new(title: "Active Users", icon: "users") { |p| p.plain("1,234") }
-        group.render ::Decor::Panel.new(title: "Revenue", icon: "currency-dollar") { |p| p.plain("$45,678") }
-        group.render ::Decor::Panel.new(title: "Conversion", icon: "chart-bar") { |p| p.plain("3.2%") }
+        group.render ::Decor::Daisy::Panel.new(title: "Active Users", icon: "users") { |p| p.plain("1,234") }
+        group.render ::Decor::Daisy::Panel.new(title: "Revenue", icon: "currency-dollar") { |p| p.plain("$45,678") }
+        group.render ::Decor::Daisy::Panel.new(title: "Conversion", icon: "chart-bar") { |p| p.plain("3.2%") }
       end
       group.with_panel_row do
-        group.render ::Decor::Panel.new(title: "Page Views", icon: "eye") { |p| p.plain("87,654") }
-        group.render ::Decor::Panel.new(title: "Bounce Rate", icon: "arrow-trending-down") { |p| p.plain("24.1%") }
+        group.render ::Decor::Daisy::Panel.new(title: "Page Views", icon: "eye") { |p| p.plain("87,654") }
+        group.render ::Decor::Daisy::Panel.new(title: "Bounce Rate", icon: "arrow-trending-down") { |p| p.plain("24.1%") }
       end
       group.cta do
         group.render ::Decor::Daisy::Button.new(color: :primary, size: :sm) { "Refresh" }
@@ -51,7 +51,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
       description: "Current server status and configuration"
     ) do |group|
       group.with_panel_row do
-        group.render ::Decor::Panel.new(title: "Primary Server", icon: "server") do |p|
+        group.render ::Decor::Daisy::Panel.new(title: "Primary Server", icon: "server") do |p|
           p.plain("Status: Online")
           p.br
           p.plain("CPU: 45%")
@@ -76,17 +76,17 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
       color: :primary
     ) do |group|
       group.with_panel_row do
-        group.render ::Decor::Panel.new(title: "Database", icon: "circle-stack") do |p|
+        group.render ::Decor::Daisy::Panel.new(title: "Database", icon: "circle-stack") do |p|
           p.plain("🟢 Operational")
           p.br
           p.plain("Response: 12ms")
         end
-        group.render ::Decor::Panel.new(title: "API Gateway", icon: "globe") do |p|
+        group.render ::Decor::Daisy::Panel.new(title: "API Gateway", icon: "globe") do |p|
           p.plain("🟢 Healthy")
           p.br
           p.plain("Uptime: 99.9%")
         end
-        group.render ::Decor::Panel.new(title: "Cache", icon: "cpu-chip") do |p|
+        group.render ::Decor::Daisy::Panel.new(title: "Cache", icon: "cpu-chip") do |p|
           p.plain("🟡 Warning")
           p.br
           p.plain("Hit ratio: 87%")
@@ -111,12 +111,12 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
       style: style
     ) do |group|
       group.with_panel_row do
-        group.render ::Decor::Panel.new(title: "Panel 1") { |p| p.plain("Panel 1 content") }
-        group.render ::Decor::Panel.new(title: "Panel 2") { |p| p.plain("Panel 2 content") }
+        group.render ::Decor::Daisy::Panel.new(title: "Panel 1") { |p| p.plain("Panel 1 content") }
+        group.render ::Decor::Daisy::Panel.new(title: "Panel 2") { |p| p.plain("Panel 2 content") }
       end
       group.with_panel_row do
-        group.render ::Decor::Panel.new(title: "Panel 3") { |p| p.plain("Panel 3 content") }
-        group.render ::Decor::Panel.new(title: "Panel 4") { |p| p.plain("Panel 4 content") }
+        group.render ::Decor::Daisy::Panel.new(title: "Panel 3") { |p| p.plain("Panel 3 content") }
+        group.render ::Decor::Daisy::Panel.new(title: "Panel 4") { |p| p.plain("Panel 4 content") }
       end
       if show_cta
         group.cta do
@@ -134,7 +134,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
       size: :xs
     ) do |group|
       group.with_panel_row do
-        group.render ::Decor::Panel.new(title: "XS Panel") { |p| p.plain("Compact content") }
+        group.render ::Decor::Daisy::Panel.new(title: "XS Panel") { |p| p.plain("Compact content") }
       end
     end
   end
@@ -147,7 +147,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
       size: :sm
     ) do |group|
       group.with_panel_row do
-        group.render ::Decor::Panel.new(title: "SM Panel") { |p| p.plain("Small content") }
+        group.render ::Decor::Daisy::Panel.new(title: "SM Panel") { |p| p.plain("Small content") }
       end
     end
   end
@@ -161,8 +161,8 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
       size: :md
     ) do |group|
       group.with_panel_row do
-        group.render ::Decor::Panel.new(title: "MD Panel 1") { |p| p.plain("Medium content") }
-        group.render ::Decor::Panel.new(title: "MD Panel 2") { |p| p.plain("Standard size") }
+        group.render ::Decor::Daisy::Panel.new(title: "MD Panel 1") { |p| p.plain("Medium content") }
+        group.render ::Decor::Daisy::Panel.new(title: "MD Panel 2") { |p| p.plain("Standard size") }
       end
     end
   end
@@ -176,7 +176,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
       size: :lg
     ) do |group|
       group.with_panel_row do
-        group.render ::Decor::Panel.new(title: "LG Panel") { |p| p.plain("Large content area") }
+        group.render ::Decor::Daisy::Panel.new(title: "LG Panel") { |p| p.plain("Large content area") }
       end
     end
   end
@@ -190,7 +190,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
       size: :xl
     ) do |group|
       group.with_panel_row do
-        group.render ::Decor::Panel.new(title: "XL Panel") { |p| p.plain("Extra large content") }
+        group.render ::Decor::Daisy::Panel.new(title: "XL Panel") { |p| p.plain("Extra large content") }
       end
     end
   end
@@ -203,7 +203,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
       color: :base
     ) do |group|
       group.with_panel_row do
-        group.render ::Decor::Panel.new(title: "Base Panel") { |p| p.plain("Default color") }
+        group.render ::Decor::Daisy::Panel.new(title: "Base Panel") { |p| p.plain("Default color") }
       end
     end
   end
@@ -216,7 +216,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
       color: :primary
     ) do |group|
       group.with_panel_row do
-        group.render ::Decor::Panel.new(title: "Primary Panel") { |p| p.plain("Primary themed") }
+        group.render ::Decor::Daisy::Panel.new(title: "Primary Panel") { |p| p.plain("Primary themed") }
       end
     end
   end
@@ -229,7 +229,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
       color: :secondary
     ) do |group|
       group.with_panel_row do
-        group.render ::Decor::Panel.new(title: "Secondary Panel") { |p| p.plain("Secondary themed") }
+        group.render ::Decor::Daisy::Panel.new(title: "Secondary Panel") { |p| p.plain("Secondary themed") }
       end
     end
   end
@@ -242,7 +242,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
       color: :success
     ) do |group|
       group.with_panel_row do
-        group.render ::Decor::Panel.new(title: "Success Panel") { |p| p.plain("Success themed") }
+        group.render ::Decor::Daisy::Panel.new(title: "Success Panel") { |p| p.plain("Success themed") }
       end
     end
   end
@@ -255,7 +255,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
       color: :error
     ) do |group|
       group.with_panel_row do
-        group.render ::Decor::Panel.new(title: "Error Panel") { |p| p.plain("Error themed") }
+        group.render ::Decor::Daisy::Panel.new(title: "Error Panel") { |p| p.plain("Error themed") }
       end
     end
   end
@@ -268,7 +268,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
       style: :filled
     ) do |group|
       group.with_panel_row do
-        group.render ::Decor::Panel.new(title: "Filled Panel") { |p| p.plain("Default style") }
+        group.render ::Decor::Daisy::Panel.new(title: "Filled Panel") { |p| p.plain("Default style") }
       end
     end
   end
@@ -281,7 +281,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
       style: :outlined
     ) do |group|
       group.with_panel_row do
-        group.render ::Decor::Panel.new(title: "Outlined Panel") { |p| p.plain("Border style") }
+        group.render ::Decor::Daisy::Panel.new(title: "Outlined Panel") { |p| p.plain("Border style") }
       end
     end
   end
@@ -294,7 +294,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
       style: :ghost
     ) do |group|
       group.with_panel_row do
-        group.render ::Decor::Panel.new(title: "Ghost Panel") { |p| p.plain("Minimal style") }
+        group.render ::Decor::Daisy::Panel.new(title: "Ghost Panel") { |p| p.plain("Minimal style") }
       end
     end
   end
@@ -306,8 +306,8 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
       title: "Panel Group with Action"
     ) do |group|
       group.with_panel_row do
-        group.render ::Decor::Panel.new(title: "Panel 1") { |p| p.plain("Content") }
-        group.render ::Decor::Panel.new(title: "Panel 2") { |p| p.plain("Content") }
+        group.render ::Decor::Daisy::Panel.new(title: "Panel 1") { |p| p.plain("Content") }
+        group.render ::Decor::Daisy::Panel.new(title: "Panel 2") { |p| p.plain("Content") }
       end
       group.cta do
         group.render ::Decor::Daisy::Button.new(color: :primary) { "Take Action" }
@@ -322,7 +322,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
       title: "Panel Group with Multiple Actions"
     ) do |group|
       group.with_panel_row do
-        group.render ::Decor::Panel.new(title: "Panel 1") { |p| p.plain("Content") }
+        group.render ::Decor::Daisy::Panel.new(title: "Panel 1") { |p| p.plain("Content") }
       end
       group.cta do
         group.render ::Decor::Daisy::Button.new(color: :primary) { "Primary" }
@@ -339,9 +339,9 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
       title: "Panels with Icons"
     ) do |group|
       group.with_panel_row do
-        group.render ::Decor::Panel.new(title: "Users", icon: "users") { |p| p.plain("1,234") }
-        group.render ::Decor::Panel.new(title: "Revenue", icon: "currency-dollar") { |p| p.plain("$12,345") }
-        group.render ::Decor::Panel.new(title: "Orders", icon: "shopping-cart") { |p| p.plain("567") }
+        group.render ::Decor::Daisy::Panel.new(title: "Users", icon: "users") { |p| p.plain("1,234") }
+        group.render ::Decor::Daisy::Panel.new(title: "Revenue", icon: "currency-dollar") { |p| p.plain("$12,345") }
+        group.render ::Decor::Daisy::Panel.new(title: "Orders", icon: "shopping-cart") { |p| p.plain("567") }
       end
     end
   end
@@ -353,8 +353,8 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
       title: "Panels without Icons"
     ) do |group|
       group.with_panel_row do
-        group.render ::Decor::Panel.new(title: "Plain Panel 1") { |p| p.plain("Simple content") }
-        group.render ::Decor::Panel.new(title: "Plain Panel 2") { |p| p.plain("Basic content") }
+        group.render ::Decor::Daisy::Panel.new(title: "Plain Panel 1") { |p| p.plain("Simple content") }
+        group.render ::Decor::Daisy::Panel.new(title: "Plain Panel 2") { |p| p.plain("Basic content") }
       end
     end
   end
@@ -366,12 +366,12 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
       title: "Rich Panel Content"
     ) do |group|
       group.with_panel_row do
-        group.render ::Decor::Panel.new(title: "Status", icon: "signal") do |p|
+        group.render ::Decor::Daisy::Panel.new(title: "Status", icon: "signal") do |p|
           p.plain("🟢 All Systems Operational")
           p.br
           p.span(class: "text-sm text-base-content/70") { "Last checked: 5 mins ago" }
         end
-        group.render ::Decor::Panel.new(title: "Performance", icon: "chart-bar") do |p|
+        group.render ::Decor::Daisy::Panel.new(title: "Performance", icon: "chart-bar") do |p|
           p.div(class: "space-y-1") do
             p.div(class: "flex justify-between") do
               p.span { "CPU" }
@@ -394,9 +394,9 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
       title: "Simple Panel Content"
     ) do |group|
       group.with_panel_row do
-        group.render ::Decor::Panel.new(title: "Value 1") { |p| p.plain("123") }
-        group.render ::Decor::Panel.new(title: "Value 2") { |p| p.plain("456") }
-        group.render ::Decor::Panel.new(title: "Value 3") { |p| p.plain("789") }
+        group.render ::Decor::Daisy::Panel.new(title: "Value 1") { |p| p.plain("123") }
+        group.render ::Decor::Daisy::Panel.new(title: "Value 2") { |p| p.plain("456") }
+        group.render ::Decor::Daisy::Panel.new(title: "Value 3") { |p| p.plain("789") }
       end
     end
   end

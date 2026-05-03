@@ -100,7 +100,7 @@ If you find any issues or missing components, please open a PR to improve the do
 - [Decor::Page](#decorpage)
 - [Decor::PageHeader](#decorpageheader)
 - [Decor::PageSection](#decorpagesection)
-- [Decor::Panel](#decorpanel)
+- [Decor::Daisy::Panel](#decordaisypanel)
 - [Decor::PanelGroup](#decorpanelgroup)
 - [Decor::SearchAndFilter](#decorsearchandfilter)
 - [Decor::SearchResultsDropdown](#decorsearchresultsdropdown)
@@ -2296,15 +2296,15 @@ _(and the shared properties `size`, `color`, and `style` as described above)_
 
 ---
 
-### Decor::Panel
+### Decor::Daisy::Panel
 
-<span id="decorpanel"></span>
+<span id="decordaisypanel"></span>
 
 Panel A simple panel component for displaying titled content sections, typically used within details boxes or cards. Panels provide a clean way to organize related content with an optional icon and title.
 
 **Basic Usage:**
 ```ruby
-render Decor::Panel.new(title: "Title") do
+render Decor::Daisy::Panel.new(title: "Title") do
   "Content goes here"
 end
 ```

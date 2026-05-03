@@ -71,11 +71,11 @@ class Decor::PanelGroupTest < ActiveSupport::TestCase
 
     rendered = render_fragment(component) do |group|
       group.with_panel_row do
-        group.render ::Decor::Panel.new(title: "Panel 1") { |p| p.plain("Content 1") }
-        group.render ::Decor::Panel.new(title: "Panel 2") { |p| p.plain("Content 2") }
+        group.render ::Decor::Daisy::Panel.new(title: "Panel 1") { |p| p.plain("Content 1") }
+        group.render ::Decor::Daisy::Panel.new(title: "Panel 2") { |p| p.plain("Content 2") }
       end
       group.with_panel_row do
-        group.render ::Decor::Panel.new(title: "Panel 3", icon: "academic-cap") { |p| p.plain("Content 3") }
+        group.render ::Decor::Daisy::Panel.new(title: "Panel 3", icon: "academic-cap") { |p| p.plain("Content 3") }
       end
     end
 
@@ -108,8 +108,8 @@ class Decor::PanelGroupTest < ActiveSupport::TestCase
 
     rendered = render_fragment(component) do |group|
       group.with_panel_row do
-        group.render ::Decor::Panel.new(title: "Users", icon: "users") { |p| p.plain("1,234 active") }
-        group.render ::Decor::Panel.new(title: "Revenue") { |p| p.plain("$12,345") }
+        group.render ::Decor::Daisy::Panel.new(title: "Users", icon: "users") { |p| p.plain("1,234 active") }
+        group.render ::Decor::Daisy::Panel.new(title: "Revenue") { |p| p.plain("$12,345") }
       end
       group.cta { "Refresh Data" }
     end
@@ -145,13 +145,13 @@ class Decor::PanelGroupTest < ActiveSupport::TestCase
 
     rendered = render_fragment(component) do |group|
       group.with_panel_row do
-        group.render ::Decor::Panel.new(title: "Section 1") { |p| p.plain("Content 1") }
+        group.render ::Decor::Daisy::Panel.new(title: "Section 1") { |p| p.plain("Content 1") }
       end
       group.with_panel_row do
-        group.render ::Decor::Panel.new(title: "Section 2") { |p| p.plain("Content 2") }
+        group.render ::Decor::Daisy::Panel.new(title: "Section 2") { |p| p.plain("Content 2") }
       end
       group.with_panel_row do
-        group.render ::Decor::Panel.new(title: "Section 3") { |p| p.plain("Content 3") }
+        group.render ::Decor::Daisy::Panel.new(title: "Section 3") { |p| p.plain("Content 3") }
       end
     end
 
@@ -177,9 +177,9 @@ class Decor::PanelGroupTest < ActiveSupport::TestCase
     component = Decor::PanelGroup.new(title: "Flex Layout Test")
     rendered = render_fragment(component) do |group|
       group.with_panel_row do
-        group.render ::Decor::Panel.new(title: "Panel 1") { |p| p.plain("Content 1") }
-        group.render ::Decor::Panel.new(title: "Panel 2") { |p| p.plain("Content 2") }
-        group.render ::Decor::Panel.new(title: "Panel 3") { |p| p.plain("Content 3") }
+        group.render ::Decor::Daisy::Panel.new(title: "Panel 1") { |p| p.plain("Content 1") }
+        group.render ::Decor::Daisy::Panel.new(title: "Panel 2") { |p| p.plain("Content 2") }
+        group.render ::Decor::Daisy::Panel.new(title: "Panel 3") { |p| p.plain("Content 3") }
       end
     end
 
@@ -215,7 +215,7 @@ class Decor::PanelGroupTest < ActiveSupport::TestCase
 
     rendered = render_fragment(component) do |group|
       group.with_panel_row do
-        group.render ::Decor::Panel.new(title: "Dynamic Panel") do |p|
+        group.render ::Decor::Daisy::Panel.new(title: "Dynamic Panel") do |p|
           content_proc = -> { "Dynamic content from proc" }
           p.plain(content_proc.call)
         end

@@ -1,5 +1,5 @@
 # @label Panel
-class ::Decor::PanelPreview < ::Lookbook::Preview
+class ::Decor::Daisy::PanelPreview < ::Lookbook::Preview
   # Panel
   # --------
   #
@@ -10,7 +10,7 @@ class ::Decor::PanelPreview < ::Lookbook::Preview
   # @group Examples
   # @label Basic Panel
   def basic_panel
-    render ::Decor::Panel.new(title: "Account Settings") do
+    render ::Decor::Daisy::Panel.new(title: "Account Settings") do
       "Manage your account preferences and security settings."
     end
   end
@@ -18,7 +18,7 @@ class ::Decor::PanelPreview < ::Lookbook::Preview
   # @group Examples
   # @label Panel with Icon
   def panel_with_icon
-    render ::Decor::Panel.new(title: "Notifications", icon: "bell") do
+    render ::Decor::Daisy::Panel.new(title: "Notifications", icon: "bell") do
       content_tag :div, class: "space-y-2" do
         safe_join([
           content_tag(:p, "Email notifications: Enabled"),
@@ -32,7 +32,7 @@ class ::Decor::PanelPreview < ::Lookbook::Preview
   # @group Examples
   # @label System Status Panel
   def system_status
-    render ::Decor::Panel.new(title: "System Status", icon: "server") do
+    render ::Decor::Daisy::Panel.new(title: "System Status", icon: "server") do
       content_tag :div, class: "space-y-2" do
         safe_join([
           content_tag(:div, class: "flex justify-between") do
@@ -67,7 +67,7 @@ class ::Decor::PanelPreview < ::Lookbook::Preview
   # @group Examples
   # @label Contact Information
   def contact_info
-    render ::Decor::Panel.new(title: "Contact Details", icon: "mail") do
+    render ::Decor::Daisy::Panel.new(title: "Contact Details", icon: "mail") do
       content_tag :address, class: "space-y-1 not-italic" do
         safe_join([
           content_tag(:p, class: "font-medium") { "John Doe" },
@@ -97,7 +97,7 @@ class ::Decor::PanelPreview < ::Lookbook::Preview
   # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
   # @param style [Symbol] select [~, filled, outlined, ghost]
   def playground(title: "Panel Title", icon: nil, size: nil, color: nil, style: nil)
-    render ::Decor::Panel.new(title: title, icon: icon, size: size, color: color, style: style) do
+    render ::Decor::Daisy::Panel.new(title: title, icon: icon, size: size, color: color, style: style) do
       "This is the panel content that appears below the title."
     end
   end
@@ -105,7 +105,7 @@ class ::Decor::PanelPreview < ::Lookbook::Preview
   # @group Icons
   # @label User Icon
   def icon_user
-    render ::Decor::Panel.new(title: "Account Information", icon: "user") do
+    render ::Decor::Daisy::Panel.new(title: "Account Information", icon: "user") do
       content_tag :div, class: "space-y-2" do
         safe_join([
           content_tag(:p, "Email: user@example.com"),
@@ -119,7 +119,7 @@ class ::Decor::PanelPreview < ::Lookbook::Preview
   # @group Icons
   # @label Settings Icon
   def icon_settings
-    render ::Decor::Panel.new(title: "Preferences", icon: "cog") do
+    render ::Decor::Daisy::Panel.new(title: "Preferences", icon: "cog") do
       "Configure your application preferences and defaults."
     end
   end
@@ -127,7 +127,7 @@ class ::Decor::PanelPreview < ::Lookbook::Preview
   # @group Icons
   # @label Check Icon
   def icon_check
-    render ::Decor::Panel.new(title: "Completed Tasks", icon: "check-circle") do
+    render ::Decor::Daisy::Panel.new(title: "Completed Tasks", icon: "check-circle") do
       content_tag :ul, class: "space-y-1" do
         safe_join([
           content_tag(:li, "✓ Database backup completed"),
@@ -141,7 +141,7 @@ class ::Decor::PanelPreview < ::Lookbook::Preview
   # @group Content Types
   # @label Text Content
   def content_text
-    render ::Decor::Panel.new(title: "Description") do
+    render ::Decor::Daisy::Panel.new(title: "Description") do
       "This panel contains simple text content. It's perfect for descriptions, summaries, or any other textual information that needs to be displayed in a structured way."
     end
   end
@@ -149,7 +149,7 @@ class ::Decor::PanelPreview < ::Lookbook::Preview
   # @group Content Types
   # @label List Content
   def content_list
-    render ::Decor::Panel.new(title: "Features", icon: "star") do
+    render ::Decor::Daisy::Panel.new(title: "Features", icon: "star") do
       content_tag :ul, class: "list-disc list-inside space-y-1" do
         safe_join([
           content_tag(:li, "Fast performance"),
@@ -164,7 +164,7 @@ class ::Decor::PanelPreview < ::Lookbook::Preview
   # @group Content Types
   # @label Form Content
   def content_form
-    render ::Decor::Panel.new(title: "Quick Settings", icon: "adjustments") do
+    render ::Decor::Daisy::Panel.new(title: "Quick Settings", icon: "adjustments") do
       content_tag :div, class: "space-y-3" do
         safe_join([
           content_tag(:div, class: "form-control") do
