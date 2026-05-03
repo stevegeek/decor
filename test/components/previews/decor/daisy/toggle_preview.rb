@@ -1,5 +1,5 @@
 # @label Toggle
-class ::Decor::TogglePreview < ::Lookbook::Preview
+class ::Decor::Daisy::TogglePreview < ::Lookbook::Preview
   # Toggle
   # -------
   #
@@ -10,7 +10,7 @@ class ::Decor::TogglePreview < ::Lookbook::Preview
   # @group Examples
   # @label Basic Toggle
   def basic_toggle
-    render ::Decor::Toggle.new(
+    render ::Decor::Daisy::Toggle.new(
       property_name: :notifications,
       url: "/settings/notifications",
       http_method: :patch,
@@ -21,7 +21,7 @@ class ::Decor::TogglePreview < ::Lookbook::Preview
   # @group Examples
   # @label Unchecked Toggle
   def unchecked_toggle
-    render ::Decor::Toggle.new(
+    render ::Decor::Daisy::Toggle.new(
       property_name: :email_alerts,
       url: "/settings/email_alerts",
       http_method: :patch,
@@ -32,7 +32,7 @@ class ::Decor::TogglePreview < ::Lookbook::Preview
   # @group Examples
   # @label Feature Toggle
   def feature_toggle
-    render ::Decor::Toggle.new(
+    render ::Decor::Daisy::Toggle.new(
       property_name: :dark_mode,
       url: "/preferences/dark_mode",
       http_method: :post,
@@ -48,7 +48,7 @@ class ::Decor::TogglePreview < ::Lookbook::Preview
   # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
   # @param style [Symbol] select [~, filled, outlined, ghost]
   def playground(url: "#", http_method: :patch, checked: false, size: nil, color: nil, style: nil)
-    render ::Decor::Toggle.new(
+    render ::Decor::Daisy::Toggle.new(
       property_name: :testing,
       url: url,
       http_method: http_method,
@@ -62,7 +62,7 @@ class ::Decor::TogglePreview < ::Lookbook::Preview
   # @group HTTP Methods
   # @label GET Method
   def method_get
-    render ::Decor::Toggle.new(
+    render ::Decor::Daisy::Toggle.new(
       property_name: :feature_flag,
       url: "/api/feature",
       http_method: :get,
@@ -73,7 +73,7 @@ class ::Decor::TogglePreview < ::Lookbook::Preview
   # @group HTTP Methods
   # @label POST Method
   def method_post
-    render ::Decor::Toggle.new(
+    render ::Decor::Daisy::Toggle.new(
       property_name: :subscription,
       url: "/api/subscribe",
       http_method: :post,
@@ -84,7 +84,7 @@ class ::Decor::TogglePreview < ::Lookbook::Preview
   # @group HTTP Methods
   # @label PUT Method
   def method_put
-    render ::Decor::Toggle.new(
+    render ::Decor::Daisy::Toggle.new(
       property_name: :status,
       url: "/api/status",
       http_method: :put,
@@ -95,7 +95,7 @@ class ::Decor::TogglePreview < ::Lookbook::Preview
   # @group HTTP Methods
   # @label PATCH Method (Default)
   def method_patch
-    render ::Decor::Toggle.new(
+    render ::Decor::Daisy::Toggle.new(
       property_name: :active,
       url: "/api/settings",
       http_method: :patch,
@@ -106,7 +106,7 @@ class ::Decor::TogglePreview < ::Lookbook::Preview
   # @group HTTP Methods
   # @label DELETE Method
   def method_delete
-    render ::Decor::Toggle.new(
+    render ::Decor::Daisy::Toggle.new(
       property_name: :remove_on_disable,
       url: "/api/feature",
       http_method: :delete,
@@ -117,7 +117,7 @@ class ::Decor::TogglePreview < ::Lookbook::Preview
   # @group Examples
   # @label Settings Toggle
   def settings_toggle
-    render ::Decor::Toggle.new(
+    render ::Decor::Daisy::Toggle.new(
       property_name: :public_profile,
       url: "/user/settings/visibility",
       http_method: :patch,
@@ -128,7 +128,7 @@ class ::Decor::TogglePreview < ::Lookbook::Preview
   # @group Examples
   # @label Feature Flag
   def feature_flag_toggle
-    render ::Decor::Toggle.new(
+    render ::Decor::Daisy::Toggle.new(
       property_name: :beta_features,
       url: "/account/features/beta",
       http_method: :post,
@@ -139,7 +139,7 @@ class ::Decor::TogglePreview < ::Lookbook::Preview
   # @group Examples
   # @label Notification Preference
   def notification_preference
-    render ::Decor::Toggle.new(
+    render ::Decor::Daisy::Toggle.new(
       property_name: :push_notifications,
       url: "/notifications/push",
       http_method: :patch,

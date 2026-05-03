@@ -1,13 +1,13 @@
 require "test_helper"
 
-class Decor::ToggleTest < ActiveSupport::TestCase
+class Decor::Daisy::ToggleTest < ActiveSupport::TestCase
   def setup
     @mock_model = TestModel.new(id: 1, active: true)
     @mock_url = "/test/1"
   end
 
   test "renders successfully with default settings" do
-    component = Decor::Toggle.new(
+    component = Decor::Daisy::Toggle.new(
       model: @mock_model,
       url: @mock_url,
       property_name: :active
@@ -20,7 +20,7 @@ class Decor::ToggleTest < ActiveSupport::TestCase
   end
 
   test "renders with custom checked and unchecked values" do
-    component = Decor::Toggle.new(
+    component = Decor::Daisy::Toggle.new(
       model: @mock_model,
       url: @mock_url,
       property_name: :active,
@@ -34,7 +34,7 @@ class Decor::ToggleTest < ActiveSupport::TestCase
   end
 
   test "renders with custom http method" do
-    component = Decor::Toggle.new(
+    component = Decor::Daisy::Toggle.new(
       model: @mock_model,
       url: @mock_url,
       property_name: :active,
@@ -52,7 +52,7 @@ class Decor::ToggleTest < ActiveSupport::TestCase
       @mock_model.define_singleton_method(property) { true }
       @mock_model.define_singleton_method("#{property}=") { |val| }
 
-      component = Decor::Toggle.new(
+      component = Decor::Daisy::Toggle.new(
         model: @mock_model,
         url: @mock_url,
         property_name: property
@@ -65,7 +65,7 @@ class Decor::ToggleTest < ActiveSupport::TestCase
   end
 
   test "renders with block content instead of default switch" do
-    component = Decor::Toggle.new(
+    component = Decor::Daisy::Toggle.new(
       model: @mock_model,
       url: @mock_url,
       property_name: :active
@@ -79,7 +79,7 @@ class Decor::ToggleTest < ActiveSupport::TestCase
   end
 
   test "component inherits from PhlexComponent base class" do
-    component = Decor::Toggle.new(
+    component = Decor::Daisy::Toggle.new(
       model: @mock_model,
       url: @mock_url,
       property_name: :active
@@ -89,7 +89,7 @@ class Decor::ToggleTest < ActiveSupport::TestCase
   end
 
   test "renders form with correct action URL" do
-    component = Decor::Toggle.new(
+    component = Decor::Daisy::Toggle.new(
       model: @mock_model,
       url: "/custom/path",
       property_name: :active
@@ -101,7 +101,7 @@ class Decor::ToggleTest < ActiveSupport::TestCase
   end
 
   test "can be initialized without errors" do
-    component = Decor::Toggle.new(
+    component = Decor::Daisy::Toggle.new(
       model: @mock_model,
       url: @mock_url,
       property_name: :active,
@@ -112,6 +112,6 @@ class Decor::ToggleTest < ActiveSupport::TestCase
     )
 
     assert_not_nil component
-    assert component.is_a?(Decor::Toggle)
+    assert component.is_a?(Decor::Daisy::Toggle)
   end
 end
