@@ -2,9 +2,9 @@
 
 require "test_helper"
 
-class Decor::CardHeaderTest < ViewComponent::TestCase
+class Decor::Daisy::CardHeaderTest < ViewComponent::TestCase
   def test_renders_with_title_only
-    component = Decor::CardHeader.new(title: "Test Title")
+    component = Decor::Daisy::CardHeader.new(title: "Test Title")
 
     render_inline(component)
 
@@ -13,7 +13,7 @@ class Decor::CardHeaderTest < ViewComponent::TestCase
   end
 
   def test_renders_with_title_and_subtitle
-    component = Decor::CardHeader.new(
+    component = Decor::Daisy::CardHeader.new(
       title: "Test Title",
       subtitle: "Test Subtitle"
     )
@@ -25,7 +25,7 @@ class Decor::CardHeaderTest < ViewComponent::TestCase
   end
 
   def test_renders_with_icon
-    component = Decor::CardHeader.new(
+    component = Decor::Daisy::CardHeader.new(
       title: "Test Title",
       icon: "home"
     )
@@ -37,7 +37,7 @@ class Decor::CardHeaderTest < ViewComponent::TestCase
   end
 
   def test_renders_with_actions
-    component = Decor::CardHeader.new(title: "Test Title") do |header|
+    component = Decor::Daisy::CardHeader.new(title: "Test Title") do |header|
       header.with_actions do
         "<button>Action</button>".html_safe
       end
@@ -50,7 +50,7 @@ class Decor::CardHeaderTest < ViewComponent::TestCase
   end
 
   def test_renders_with_meta_content
-    component = Decor::CardHeader.new(title: "Test Title") do |header|
+    component = Decor::Daisy::CardHeader.new(title: "Test Title") do |header|
       header.with_meta do
         "<span>Meta content</span>".html_safe
       end
@@ -64,7 +64,7 @@ class Decor::CardHeaderTest < ViewComponent::TestCase
 
   def test_size_variants
     [:xs, :sm, :md, :lg, :xl].each do |size|
-      component = Decor::CardHeader.new(title: "Test Title", size: size)
+      component = Decor::Daisy::CardHeader.new(title: "Test Title", size: size)
 
       render_inline(component)
 
@@ -73,7 +73,7 @@ class Decor::CardHeaderTest < ViewComponent::TestCase
   end
 
   def test_default_size_is_md
-    component = Decor::CardHeader.new(title: "Test Title")
+    component = Decor::Daisy::CardHeader.new(title: "Test Title")
 
     render_inline(component)
 

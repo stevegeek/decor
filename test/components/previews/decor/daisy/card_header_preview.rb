@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 # @label Card Header
-class Decor::CardHeaderPreview < ViewComponent::Preview
+class Decor::Daisy::CardHeaderPreview < ViewComponent::Preview
   # @label Default
   def default
-    render Decor::CardHeader.new(
+    render Decor::Daisy::CardHeader.new(
       title: "Card Title",
       subtitle: "This is a subtitle for the card"
     )
@@ -12,7 +12,7 @@ class Decor::CardHeaderPreview < ViewComponent::Preview
 
   # @label With Icon
   def with_icon
-    render Decor::CardHeader.new(
+    render Decor::Daisy::CardHeader.new(
       title: "Settings",
       subtitle: "Configure your preferences",
       icon: "cog-6-tooth"
@@ -21,7 +21,7 @@ class Decor::CardHeaderPreview < ViewComponent::Preview
 
   # @label With Actions
   def with_actions
-    render Decor::CardHeader.new(
+    render Decor::Daisy::CardHeader.new(
       title: "User Profile",
       subtitle: "Manage your account settings"
     ) do |header|
@@ -38,7 +38,7 @@ class Decor::CardHeaderPreview < ViewComponent::Preview
 
   # @label With Icon and Actions
   def with_icon_and_actions
-    render Decor::CardHeader.new(
+    render Decor::Daisy::CardHeader.new(
       title: "Project Dashboard",
       subtitle: "Overview of your current projects",
       icon: "chart-bar"
@@ -55,7 +55,7 @@ class Decor::CardHeaderPreview < ViewComponent::Preview
 
   # @label With Meta Content
   def with_meta_content
-    render Decor::CardHeader.new(
+    render Decor::Daisy::CardHeader.new(
       title: "Team Members",
       subtitle: "Current team composition"
     ) do |header|
@@ -82,7 +82,7 @@ class Decor::CardHeaderPreview < ViewComponent::Preview
     [:xs, :sm, :md, :lg, :xl].map do |size|
       render Decor::Daisy::Card.new(size: size, style: :outlined) do |card|
         card.with_header do
-          render Decor::CardHeader.new(
+          render Decor::Daisy::CardHeader.new(
             title: "Size #{size.to_s.upcase}",
             subtitle: "This header uses #{size} sizing",
             icon: "star",
@@ -106,7 +106,7 @@ class Decor::CardHeaderPreview < ViewComponent::Preview
   def in_card_context
     render Decor::Daisy::Card.new(style: :outlined) do |card|
       card.with_header do
-        render Decor::CardHeader.new(
+        render Decor::Daisy::CardHeader.new(
           title: "Notification Settings",
           subtitle: "Control how you receive notifications",
           icon: "bell"
@@ -148,7 +148,7 @@ class Decor::CardHeaderPreview < ViewComponent::Preview
 
   # @label Multiple Actions
   def multiple_actions
-    render Decor::CardHeader.new(
+    render Decor::Daisy::CardHeader.new(
       title: "Document Management",
       subtitle: "Organize and share your files",
       icon: "document-text"
