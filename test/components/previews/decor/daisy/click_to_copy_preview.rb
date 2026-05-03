@@ -1,5 +1,5 @@
 # @label ClickToCopy
-class ::Decor::ClickToCopyPreview < ::Lookbook::Preview
+class ::Decor::Daisy::ClickToCopyPreview < ::Lookbook::Preview
   # ClickToCopy
   # -------
   #
@@ -9,7 +9,7 @@ class ::Decor::ClickToCopyPreview < ::Lookbook::Preview
   # @group Examples
   # @label Basic Copy
   def basic_copy
-    render ::Decor::ClickToCopy.new do
+    render ::Decor::Daisy::ClickToCopy.new do
       "Click to copy me!"
     end
   end
@@ -17,7 +17,7 @@ class ::Decor::ClickToCopyPreview < ::Lookbook::Preview
   # @group Examples
   # @label Copy with Different Display
   def copy_with_different_display
-    render ::Decor::ClickToCopy.new(to_copy: "secret@email.com") do
+    render ::Decor::Daisy::ClickToCopy.new(to_copy: "secret@email.com") do
       "Click to copy email"
     end
   end
@@ -25,7 +25,7 @@ class ::Decor::ClickToCopyPreview < ::Lookbook::Preview
   # @group Examples
   # @label Default Icon Copy
   def default_icon_copy
-    render ::Decor::ClickToCopy.new(to_copy: "Text to copy")
+    render ::Decor::Daisy::ClickToCopy.new(to_copy: "Text to copy")
   end
 
   # @group Playground
@@ -35,7 +35,7 @@ class ::Decor::ClickToCopyPreview < ::Lookbook::Preview
   # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
   # @param style [Symbol] select [~, filled, outlined, ghost]
   def playground(text: "Click to copy me!", to_copy: nil, size: nil, color: nil, style: nil)
-    render ::Decor::ClickToCopy.new(to_copy: to_copy, size: size, color: color, style: style) do
+    render ::Decor::Daisy::ClickToCopy.new(to_copy: to_copy, size: size, color: color, style: style) do
       text
     end
   end
@@ -46,7 +46,7 @@ class ::Decor::ClickToCopyPreview < ::Lookbook::Preview
     render ::Decor::Element.new do |el|
       el.div do
         el.h4(class: "font-semibold mb-2") { "API Key:" }
-        el.render ::Decor::ClickToCopy.new(to_copy: "sk-1234567890abcdef") do
+        el.render ::Decor::Daisy::ClickToCopy.new(to_copy: "sk-1234567890abcdef") do
           el.code(class: "bg-gray-100 px-2 py-1 rounded") { "sk-****cdef" }
         end
       end
@@ -59,7 +59,7 @@ class ::Decor::ClickToCopyPreview < ::Lookbook::Preview
     render ::Decor::Element.new do |el|
       el.div do
         el.h4(class: "font-semibold mb-2") { "Share Link:" }
-        el.render ::Decor::ClickToCopy.new do
+        el.render ::Decor::Daisy::ClickToCopy.new do
           el.span(class: "text-blue-600 underline") { "https://example.com/share/xyz" }
         end
       end
@@ -72,7 +72,7 @@ class ::Decor::ClickToCopyPreview < ::Lookbook::Preview
     render ::Decor::Element.new do |el|
       el.div do
         el.h4(class: "font-semibold mb-2") { "Quick Copy Icon:" }
-        el.render ::Decor::ClickToCopy.new(to_copy: "Quick copy text")
+        el.render ::Decor::Daisy::ClickToCopy.new(to_copy: "Quick copy text")
       end
     end
   end

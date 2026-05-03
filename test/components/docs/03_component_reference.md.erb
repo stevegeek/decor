@@ -90,7 +90,7 @@ If you find any issues or missing components, please open a PR to improve the do
 ### Layout & Utility Components
 - [Decor::Chat::List](#decorchatlist)
 - [Decor::Chat::ListMessage](#decorchatlistmessage)
-- [Decor::ClickToCopy](#decorclicktocopy)
+- [Decor::Daisy::ClickToCopy](#decordaisyclicktocopy)
 - [Decor::Daisy::CodeBlock](#decordaisycodeblock)
 - [Decor::Daisy::CodeSnippet](#decordaisycodesnippet)
 - [Decor::Element](#decorelement)
@@ -1995,15 +1995,15 @@ _(and the shared properties `size`, `color`, and `style` as described above)_
 
 ---
 
-### Decor::ClickToCopy
+### Decor::Daisy::ClickToCopy
 
-<span id="decorclicktocopy"></span>
+<span id="decordaisyclicktocopy"></span>
 
 ClickToCopy A simple tag component which can be used to copy-on-click whatever text it is wrapped around. It provides visual feedback when text is copied and supports custom display text.
 
 **Basic Usage:**
 ```ruby
-render Decor::ClickToCopy.new do
+render Decor::Daisy::ClickToCopy.new do
   "Content goes here"
 end
 ```

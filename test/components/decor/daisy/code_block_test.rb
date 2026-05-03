@@ -56,7 +56,7 @@ class Decor::Daisy::CodeBlockTest < ActiveSupport::TestCase
     # Should have header with ClickToCopy component
     click_to_copy = rendered.css("[data-controller*='click-to-copy']").first
     assert click_to_copy
-    assert_equal "copy me", click_to_copy["data-decor--click-to-copy-to-copy-value"]
+    assert_equal "copy me", click_to_copy["data-decor--daisy--click-to-copy-to-copy-value"]
 
     # Should have icon inside ClickToCopy
     icon = click_to_copy.css("svg").first
@@ -180,8 +180,8 @@ class Decor::Daisy::CodeBlockTest < ActiveSupport::TestCase
     rendered = render_fragment(component) { "code" }
 
     # When copy_button is true, the component should have ClickToCopy with stimulus controller
-    assert_includes rendered.to_html, "data-controller=\"decor--click-to-copy\""
-    assert_includes rendered.to_html, "data-decor--click-to-copy-to-copy-value=\"code\""
+    assert_includes rendered.to_html, "data-controller=\"decor--daisy--click-to-copy\""
+    assert_includes rendered.to_html, "data-decor--daisy--click-to-copy-to-copy-value=\"code\""
   end
 
   def test_stimulus_controller_values
