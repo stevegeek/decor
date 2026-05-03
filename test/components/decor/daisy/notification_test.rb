@@ -1,8 +1,8 @@
 require "test_helper"
 
-class Decor::NotificationTest < ActiveSupport::TestCase
+class Decor::Daisy::NotificationTest < ActiveSupport::TestCase
   test "renders successfully with basic attributes" do
-    component = Decor::Notification.new(
+    component = Decor::Daisy::Notification.new(
       title: "Test Title",
       description: "Test Description"
     )
@@ -13,7 +13,7 @@ class Decor::NotificationTest < ActiveSupport::TestCase
   end
 
   test "renders with icon" do
-    component = Decor::Notification.new(
+    component = Decor::Daisy::Notification.new(
       title: "Test Title",
       description: "Test Description",
       icon: "check"
@@ -27,7 +27,7 @@ class Decor::NotificationTest < ActiveSupport::TestCase
 
   test "renders with different colors" do
     %i[warning success error info].each do |color|
-      component = Decor::Notification.new(
+      component = Decor::Daisy::Notification.new(
         title: "Test Title",
         description: "Test Description",
         color: color
@@ -40,12 +40,12 @@ class Decor::NotificationTest < ActiveSupport::TestCase
   end
 
   test "renders with action buttons" do
-    action_button = Decor::Notification::ActionButton.new(
+    action_button = Decor::Daisy::Notification::ActionButton.new(
       label: "Action",
       primary: true
     )
 
-    component = Decor::Notification.new(
+    component = Decor::Daisy::Notification.new(
       title: "Test Title",
       description: "Test Description",
       action_buttons: [action_button]
@@ -58,13 +58,13 @@ class Decor::NotificationTest < ActiveSupport::TestCase
   end
 
   test "renders with action button with href" do
-    action_button = Decor::Notification::ActionButton.new(
+    action_button = Decor::Daisy::Notification::ActionButton.new(
       label: "Link Action",
       href: "https://example.com",
       primary: true
     )
 
-    component = Decor::Notification.new(
+    component = Decor::Daisy::Notification.new(
       title: "Test Title",
       description: "Test Description",
       action_buttons: [action_button]
@@ -77,7 +77,7 @@ class Decor::NotificationTest < ActiveSupport::TestCase
   end
 
   test "uses correct color classes" do
-    component = Decor::Notification.new(
+    component = Decor::Daisy::Notification.new(
       title: "Test Title",
       description: "Test Description",
       color: :success,
@@ -91,7 +91,7 @@ class Decor::NotificationTest < ActiveSupport::TestCase
   end
 
   test "component inherits from PhlexComponent" do
-    component = Decor::Notification.new(
+    component = Decor::Daisy::Notification.new(
       title: "Test Title",
       description: "Test Description"
     )
@@ -100,7 +100,7 @@ class Decor::NotificationTest < ActiveSupport::TestCase
   end
 
   test "renders with join classes for card-like appearance" do
-    component = Decor::Notification.new(
+    component = Decor::Daisy::Notification.new(
       title: "Test Title",
       description: "Test Description"
     )
@@ -112,7 +112,7 @@ class Decor::NotificationTest < ActiveSupport::TestCase
   end
 
   test "renders with avatar block" do
-    component = Decor::Notification.new(
+    component = Decor::Daisy::Notification.new(
       title: "Test Title",
       description: "Test Description"
     )

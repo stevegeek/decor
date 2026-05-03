@@ -34,7 +34,7 @@
     <%= render ::Decor::NotificationManager.new(
       stimulus_values: {
         initial_notifications: [notice, alert].compact.map do |message|
-          {content: {content: render(::Decor::Notification.new(title: message)), __safe: true}}
+          {content: {content: render(::Decor::Daisy::Notification.new(title: message)), __safe: true}}
         end
       }
     ) %>

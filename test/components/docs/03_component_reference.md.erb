@@ -28,7 +28,7 @@ If you find any issues or missing components, please open a PR to improve the do
 - [Decor::Daisy::FlowStep](#decordaisyflowstep)
 - [Decor::Daisy::Icon](#decordaisyicon)
 - [Decor::Daisy::Link](#decordaisylink)
-- [Decor::Notification](#decornotification)
+- [Decor::Daisy::Notification](#decordaisynotification)
 - [Decor::NotificationManager](#decornotificationmanager)
 - [Decor::Daisy::Progress](#decordaisyprogress)
 - [Decor::Daisy::Spinner](#decordaisyspinner)
@@ -553,15 +553,15 @@ render Decor::Daisy::Link.new
 
 ---
 
-### Decor::Notification
+### Decor::Daisy::Notification
 
-<span id="decornotification"></span>
+<span id="decordaisynotification"></span>
 
 Notification A notification component styled like daisyUI inline alerts with join layout. Supports different styles, icons, avatars, titles, descriptions, and action buttons.
 
 **Basic Usage:**
 ```ruby
-render Decor::Notification.new(label: "Label", title: "Title") do
+render Decor::Daisy::Notification.new(label: "Label", title: "Title") do
   "Content goes here"
 end
 ```

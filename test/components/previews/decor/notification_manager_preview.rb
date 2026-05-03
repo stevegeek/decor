@@ -315,7 +315,7 @@ class ::Decor::NotificationManagerPreview < ::Lookbook::Preview
   end
 
   def styled_notification_content(style, title, description, icon = nil)
-    render_to_string ::Decor::Notification.new(
+    render_to_string ::Decor::Daisy::Notification.new(
       title: title,
       description: description,
       icon: icon,
@@ -324,10 +324,10 @@ class ::Decor::NotificationManagerPreview < ::Lookbook::Preview
   end
 
   def notification_with_actions(title, description, primary_label, secondary_label = nil)
-    actions = [::Decor::Notification::ActionButton.new(label: primary_label, primary: true)]
-    actions << ::Decor::Notification::ActionButton.new(label: secondary_label) if secondary_label
+    actions = [::Decor::Daisy::Notification::ActionButton.new(label: primary_label, primary: true)]
+    actions << ::Decor::Daisy::Notification::ActionButton.new(label: secondary_label) if secondary_label
 
-    render_to_string ::Decor::Notification.new(
+    render_to_string ::Decor::Daisy::Notification.new(
       title: title,
       description: description,
       action_buttons: actions
