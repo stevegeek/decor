@@ -43,7 +43,7 @@ class ::Decor::Nav::SideNavbarSectionPreview < ::Lookbook::Preview
 
   # @label Multiple Sections
   def multiple_sections
-    render ::Decor::Element.new html_options: {class: "space-y-4"} do |nav|
+    render ::Decor::Daisy::Element.new html_options: {class: "space-y-4"} do |nav|
       nav.render ::Decor::Nav::SideNavbarSection.new(title: "Main") do |section|
         section.with_item(title: "Dashboard", icon: "home", path: "/dashboard", selected: true)
         section.with_item(title: "Projects", icon: "folder", path: "/projects")

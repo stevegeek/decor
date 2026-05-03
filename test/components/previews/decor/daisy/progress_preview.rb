@@ -347,7 +347,7 @@ class ::Decor::Daisy::ProgressPreview < ::Lookbook::Preview
   # @label Progress Bar Animation
   def option_progress_bar_animation
     current_step = 2
-    render ::Decor::Element.new(
+    render ::Decor::Daisy::Element.new(
       root_element_attributes: {
         controllers: ["decor--progress-animation"]
       }

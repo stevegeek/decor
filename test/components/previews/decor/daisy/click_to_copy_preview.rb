@@ -43,7 +43,7 @@ class ::Decor::Daisy::ClickToCopyPreview < ::Lookbook::Preview
   # @group Examples
   # @label API Key Copy
   def api_key_copy
-    render ::Decor::Element.new do |el|
+    render ::Decor::Daisy::Element.new do |el|
       el.div do
         el.h4(class: "font-semibold mb-2") { "API Key:" }
         el.render ::Decor::Daisy::ClickToCopy.new(to_copy: "sk-1234567890abcdef") do
@@ -56,7 +56,7 @@ class ::Decor::Daisy::ClickToCopyPreview < ::Lookbook::Preview
   # @group Examples
   # @label Share Link Copy
   def share_link_copy
-    render ::Decor::Element.new do |el|
+    render ::Decor::Daisy::Element.new do |el|
       el.div do
         el.h4(class: "font-semibold mb-2") { "Share Link:" }
         el.render ::Decor::Daisy::ClickToCopy.new do
@@ -69,7 +69,7 @@ class ::Decor::Daisy::ClickToCopyPreview < ::Lookbook::Preview
   # @group Examples
   # @label Quick Copy Icon
   def quick_copy_icon
-    render ::Decor::Element.new do |el|
+    render ::Decor::Daisy::Element.new do |el|
       el.div do
         el.h4(class: "font-semibold mb-2") { "Quick Copy Icon:" }
         el.render ::Decor::Daisy::ClickToCopy.new(to_copy: "Quick copy text")

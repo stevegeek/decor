@@ -22,7 +22,7 @@ class ::Decor::Forms::FormPreview < ::Lookbook::Preview
       url: "#",
       local: true
     ) do |form|
-      form.render ::Decor::Element.new do |el|
+      form.render ::Decor::Daisy::Element.new do |el|
         el.h3(class: "text-md font-medium") { "Basic Form Example" }
 
         form.raw form.builder.text_field(:title,
@@ -55,7 +55,7 @@ class ::Decor::Forms::FormPreview < ::Lookbook::Preview
       url: "#",
       local: false # AJAX form
     ) do |form|
-      form.render ::Decor::Element.new do |el|
+      form.render ::Decor::Daisy::Element.new do |el|
         el.h3(class: "text-md font-medium") { "AJAX Form Example" }
         el.p(class: "text-sm text-gray-600") { "This form submits via AJAX with custom event handlers" }
 
@@ -86,7 +86,7 @@ class ::Decor::Forms::FormPreview < ::Lookbook::Preview
       url: "#",
       namespace: :settings
     ) do |form|
-      form.render ::Decor::Element.new do |el|
+      form.render ::Decor::Daisy::Element.new do |el|
         el.h3(class: "text-md font-medium") { "Settings Form" }
 
         form.raw form.builder.select(:theme,
@@ -127,7 +127,7 @@ class ::Decor::Forms::FormPreview < ::Lookbook::Preview
       local: local,
       http_method: http_method
     ) do |form|
-      form.render ::Decor::Element.new do |el|
+      form.render ::Decor::Daisy::Element.new do |el|
         el.h2(class: "text-lg font-medium text-gray-900") { "Contact Form" }
 
         # TODO: work out why we need the `raw` method here

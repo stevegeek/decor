@@ -205,10 +205,10 @@ class ::Decor::Nav::TopNavbarPreview < ::Lookbook::Preview
 
   # Mobile view demonstration
   def mobile_responsive
-    render ::Decor::Element.new(element_tag: :div, classes: "mockup-phone") do
-      render ::Decor::Element.new(element_tag: :div, classes: "camera")
-      render ::Decor::Element.new(element_tag: :div, classes: "display") do
-        render ::Decor::Element.new(element_tag: :div, classes: "artboard artboard-demo phone-1") do
+    render ::Decor::Daisy::Element.new(element_tag: :div, classes: "mockup-phone") do
+      render ::Decor::Daisy::Element.new(element_tag: :div, classes: "camera")
+      render ::Decor::Daisy::Element.new(element_tag: :div, classes: "display") do
+        render ::Decor::Daisy::Element.new(element_tag: :div, classes: "artboard artboard-demo phone-1") do
           render ::Decor::Nav::TopNavbar.new(has_search: true) do |navbar|
             navbar.with_account_menu do |menu|
               menu.trigger_button_content do

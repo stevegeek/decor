@@ -28,7 +28,7 @@ class ::Decor::DropdownItemPreview < ::Lookbook::Preview
   # @group Examples
   # @label Separator
   def separator
-    render ::Decor::Element.new do |el|
+    render ::Decor::Daisy::Element.new do |el|
       el.render ::Decor::DropdownItem.new(text: "Item 1", href: "#")
       el.render ::Decor::DropdownItem.new(separator: true)
       el.render ::Decor::DropdownItem.new(text: "Item 2", href: "#")
@@ -38,7 +38,7 @@ class ::Decor::DropdownItemPreview < ::Lookbook::Preview
   # @group Examples
   # @label Multiple Items
   def multiple_items
-    render ::Decor::Element.new do |el|
+    render ::Decor::Daisy::Element.new do |el|
       el.render ::Decor::DropdownItem.new(text: "Profile", href: "#", icon_name: "user")
       el.render ::Decor::DropdownItem.new(text: "Settings", href: "#", icon_name: "cog")
       el.render ::Decor::DropdownItem.new(separator: true)

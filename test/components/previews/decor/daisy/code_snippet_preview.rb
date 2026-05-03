@@ -10,7 +10,7 @@ class ::Decor::Daisy::CodeSnippetPreview < ::Lookbook::Preview
   # @group Examples
   # @label Basic Inline Code
   def basic_inline_code
-    render ::Decor::Element.new do |el|
+    render ::Decor::Daisy::Element.new do |el|
       el.p do
         el.plain "Run "
         el.render ::Decor::Daisy::CodeSnippet.new { "npm install" }
@@ -22,7 +22,7 @@ class ::Decor::Daisy::CodeSnippetPreview < ::Lookbook::Preview
   # @group Examples
   # @label Colored Code Snippet
   def colored_code_snippet
-    render ::Decor::Element.new do |el|
+    render ::Decor::Daisy::Element.new do |el|
       el.p do
         el.plain "The function "
         el.render ::Decor::Daisy::CodeSnippet.new(color: :primary) { "calculateTotal()" }
@@ -34,7 +34,7 @@ class ::Decor::Daisy::CodeSnippetPreview < ::Lookbook::Preview
   # @group Examples
   # @label API Endpoint
   def api_endpoint
-    render ::Decor::Element.new do |el|
+    render ::Decor::Daisy::Element.new do |el|
       el.p do
         el.plain "Send a POST request to "
         el.render ::Decor::Daisy::CodeSnippet.new(color: :accent) { "/api/v1/users" }
@@ -105,7 +105,7 @@ class ::Decor::Daisy::CodeSnippetPreview < ::Lookbook::Preview
   # @group Examples
   # @label Authentication Header
   def authentication_header
-    render ::Decor::Element.new(classes: "prose max-w-none") do |el|
+    render ::Decor::Daisy::Element.new(classes: "prose max-w-none") do |el|
       el.p do
         el.plain "To authenticate, include your API key in the "
         el.render ::Decor::Daisy::CodeSnippet.new { "Authorization" }
@@ -120,7 +120,7 @@ class ::Decor::Daisy::CodeSnippetPreview < ::Lookbook::Preview
   # @group Examples
   # @label React Hook Usage
   def react_hook_usage
-    render ::Decor::Element.new do |el|
+    render ::Decor::Daisy::Element.new do |el|
       el.p do
         el.plain "The "
         el.render ::Decor::Daisy::CodeSnippet.new { "useState" }
@@ -132,7 +132,7 @@ class ::Decor::Daisy::CodeSnippetPreview < ::Lookbook::Preview
   # @group Examples
   # @label Special Characters
   def special_characters
-    render ::Decor::Element.new(classes: "space-y-4") do |el|
+    render ::Decor::Daisy::Element.new(classes: "space-y-4") do |el|
       el.p do
         el.plain "HTML entities: "
         el.render ::Decor::Daisy::CodeSnippet.new { "<div class=\"container\">" }

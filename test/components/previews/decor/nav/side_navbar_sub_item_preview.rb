@@ -32,7 +32,7 @@ class ::Decor::Nav::SideNavbarSubItemPreview < ::Lookbook::Preview
 
   # @label Multiple Sub Items
   def multiple_sub_items
-    render ::Decor::Element.new do |el|
+    render ::Decor::Daisy::Element.new do |el|
       el.render ::Decor::Nav::SideNavbarSubItem.new(
         title: "All Projects",
         path: "/projects"
@@ -77,7 +77,7 @@ class ::Decor::Nav::SideNavbarSubItemPreview < ::Lookbook::Preview
 
   # @label Sub Item States
   def sub_item_states
-    render ::Decor::Element.new html_options: {class: "space-y-4"} do |el|
+    render ::Decor::Daisy::Element.new html_options: {class: "space-y-4"} do |el|
       el.h4 "Normal State", class: "text-gray-400 text-xs uppercase tracking-wider font-semibold"
       el.div class: "pl-8" do |sub|
         sub.render ::Decor::Nav::SideNavbarSubItem.new(
@@ -122,7 +122,7 @@ class ::Decor::Nav::SideNavbarSubItemPreview < ::Lookbook::Preview
 
   # @label Sub Items with Icons
   def sub_items_with_icons
-    render ::Decor::Element.new do |el|
+    render ::Decor::Daisy::Element.new do |el|
       el.render ::Decor::Nav::SideNavbarSubItem.new(
         title: "Profile",
         icon: "user",
@@ -153,7 +153,7 @@ class ::Decor::Nav::SideNavbarSubItemPreview < ::Lookbook::Preview
 
   # @label Long Title Handling
   def long_title_handling
-    render ::Decor::Element.new html_options: {class: "space-y-4"} do |el|
+    render ::Decor::Daisy::Element.new html_options: {class: "space-y-4"} do |el|
       el.render ::Decor::Nav::SideNavbarSubItem.new(
         title: "Short",
         path: "/short"

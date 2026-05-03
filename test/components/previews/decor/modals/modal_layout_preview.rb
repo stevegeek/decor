@@ -42,7 +42,7 @@ class ::Decor::Modals::ModalLayoutPreview < ::Lookbook::Preview
       description: "This action cannot be undone.",
       classes: "opacity-100"
     ) do
-      render ::Decor::Element.new(html_options: {class: "flex gap-4 justify-end"}) do
+      render ::Decor::Daisy::Element.new(html_options: {class: "flex gap-4 justify-end"}) do
         render ::Decor::Daisy::Button.new(label: "Cancel", style: :ghost)
         render ::Decor::Daisy::Button.new(label: "Continue", color: :warning)
       end

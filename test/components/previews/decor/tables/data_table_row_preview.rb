@@ -226,7 +226,7 @@ class ::Decor::Tables::DataTableRowPreview < ::Lookbook::Preview
   private
 
   def render_table(&block)
-    render ::Decor::Element.new do |e|
+    render ::Decor::Daisy::Element.new do |e|
       e.table(class: "min-w-full border border-gray-200") do
         e.tbody(class: "bg-white divide-y divide-gray-200", &block)
       end

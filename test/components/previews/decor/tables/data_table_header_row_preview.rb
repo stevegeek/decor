@@ -128,7 +128,7 @@ class ::Decor::Tables::DataTableHeaderRowPreview < ::Lookbook::Preview
   private
 
   def render_with_table(&block)
-    render ::Decor::Element.new do |e|
+    render ::Decor::Daisy::Element.new do |e|
       e.table(class: "min-w-full border border-gray-200") do
         e.thead(class: "bg-gray-50", &block)
       end

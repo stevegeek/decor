@@ -78,7 +78,7 @@ class ::Decor::Tables::DataTableCellPreview < ::Lookbook::Preview
 
   # @label Emphasis levels
   def emphasis_levels
-    render ::Decor::Element.new do |e|
+    render ::Decor::Daisy::Element.new do |e|
       e.table(class: "min-w-full border border-gray-200") do
         e.tbody do
           [:regular, :low].each do |emphasis|
@@ -96,7 +96,7 @@ class ::Decor::Tables::DataTableCellPreview < ::Lookbook::Preview
 
   # @label Font weights
   def font_weights
-    render ::Decor::Element.new do |e|
+    render ::Decor::Daisy::Element.new do |e|
       e.table(class: "min-w-full border border-gray-200") do
         e.tbody do
           [:light, :regular, :medium].each do |weight|
@@ -118,7 +118,7 @@ class ::Decor::Tables::DataTableCellPreview < ::Lookbook::Preview
 
   # @label All row heights
   def row_heights
-    render ::Decor::Element.new do |e|
+    render ::Decor::Daisy::Element.new do |e|
       e.table(class: "min-w-full border border-gray-200") do
         e.tbody do
           [:comfortable, :standard, :tight].each do |height|
@@ -139,7 +139,7 @@ class ::Decor::Tables::DataTableCellPreview < ::Lookbook::Preview
   private
 
   def render_example(**options)
-    render ::Decor::Element.new do |e|
+    render ::Decor::Daisy::Element.new do |e|
       e.table(class: "min-w-full border border-gray-200") do
         e.tbody do
           e.tr(class: "bg-white") do
