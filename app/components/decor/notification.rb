@@ -75,7 +75,7 @@ module Decor
                   full_width: true
                 )
               else
-                render ::Decor::Button.new(
+                render ::Decor::Daisy::Button.new(
                   label: button.label,
                   style: button.style || (button.primary? ? :filled : :ghost),
                   color: button.color || (button.primary? ? :primary : :neutral),

@@ -344,7 +344,7 @@ class ::Decor::StatPreview < ::Lookbook::Preview
         description: "Available funds"
       ) do |stat|
         stat.actions do
-          render ::Decor::Button.new(
+          render ::Decor::Daisy::Button.new(
             label: "Add funds",
             size: :small,
             color: :primary

@@ -57,7 +57,7 @@ module Decor
                 end
               end
               div(class: "bg-gray-50 px-4 py-3 sm:px-6 flex flex-row-reverse") do
-                render ::Decor::Button.new(
+                render ::Decor::Daisy::Button.new(
                   label: "Continue",
                   color: :primary,
                   classes: "ml-3 w-auto text-sm",
@@ -68,7 +68,7 @@ module Decor
                     }
                   }
                 )
-                render ::Decor::Button.new(
+                render ::Decor::Daisy::Button.new(
                   label: "Cancel",
                   color: :secondary,
                   style: :outlined,

@@ -49,7 +49,7 @@ class ::Decor::Chat::ListPreview < ::Lookbook::Preview
       empty_state_description: "Start chatting by sending your first message."
     ) do |list|
       list.empty_state_action do
-        render ::Decor::Button.new(color: :primary, size: :small) { "Send Message" }
+        render ::Decor::Daisy::Button.new(color: :primary, size: :small) { "Send Message" }
       end
     end
   end
@@ -161,7 +161,7 @@ class ::Decor::Chat::ListPreview < ::Lookbook::Preview
     when :empty
       render ::Decor::Chat::List.new do |list|
         list.empty_state_action do
-          render ::Decor::Button.new(color: :primary) { "Start Conversation" }
+          render ::Decor::Daisy::Button.new(color: :primary) { "Start Conversation" }
         end
       end
     when :simple

@@ -26,7 +26,7 @@ class Decor::CardHeaderPreview < ViewComponent::Preview
       subtitle: "Manage your account settings"
     ) do |header|
       header.with_actions do
-        render Decor::Button.new(
+        render Decor::Daisy::Button.new(
           label: "Edit",
           size: :sm,
           style: :outlined,
@@ -44,7 +44,7 @@ class Decor::CardHeaderPreview < ViewComponent::Preview
       icon: "chart-bar"
     ) do |header|
       header.with_actions do
-        render Decor::Button.new(
+        render Decor::Daisy::Button.new(
           label: "New Project",
           size: :sm,
           color: :primary
@@ -60,7 +60,7 @@ class Decor::CardHeaderPreview < ViewComponent::Preview
       subtitle: "Current team composition"
     ) do |header|
       header.with_actions do
-        render Decor::Button.new(
+        render Decor::Daisy::Button.new(
           label: "Add Member",
           size: :sm,
           style: :outlined,
@@ -89,7 +89,7 @@ class Decor::CardHeaderPreview < ViewComponent::Preview
             size: size
           ) do |header|
             header.with_actions do
-              render Decor::Button.new(
+              render Decor::Daisy::Button.new(
                 label: "Action",
                 size: (size == :xl) ? :md : :sm,
                 style: :outlined,
@@ -112,7 +112,7 @@ class Decor::CardHeaderPreview < ViewComponent::Preview
           icon: "bell"
         ) do |header|
           header.with_actions do
-            render Decor::Button.new(
+            render Decor::Daisy::Button.new(
               label: "Configure",
               size: :sm,
               color: :primary
@@ -154,14 +154,14 @@ class Decor::CardHeaderPreview < ViewComponent::Preview
       icon: "document-text"
     ) do |header|
       header.with_actions do
-        render Decor::Button.new(
+        render Decor::Daisy::Button.new(
           label: "Upload",
           size: :sm,
           style: :outlined,
           color: :primary
         )
 
-        render Decor::Button.new(
+        render Decor::Daisy::Button.new(
           label: "Share",
           size: :sm,
           style: :outlined,

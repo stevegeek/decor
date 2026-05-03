@@ -163,7 +163,7 @@ module Decor
 
                   div(class: "space-y-4 p-4 border-t border-gray-200") do
                     if filters_active
-                      render ::Decor::Button.new(
+                      render ::Decor::Daisy::Button.new(
                         label: "Clear filters",
                         stimulus_targets: [stimulus_target(:clear_filters_button)],
                         stimulus_actions: [stimulus_action(:click, :handle_clear_filters)],
@@ -175,7 +175,7 @@ module Decor
                       )
                     end
 
-                    render ::Decor::Button.new(
+                    render ::Decor::Daisy::Button.new(
                       label: "Apply",
                       stimulus_targets: [stimulus_target(:apply_button)],
                       stimulus_actions: [stimulus_action(:click, :handle_apply)],

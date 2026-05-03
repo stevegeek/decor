@@ -49,7 +49,7 @@ class ::Decor::Forms::LayoutSectionPreview < ::Lookbook::Preview
       end
 
       section.with_cta do
-        section.render ::Decor::Button.new(label: "Upgrade Now", style: :primary)
+        section.render ::Decor::Daisy::Button.new(label: "Upgrade Now", style: :primary)
       end
 
       '<div class="sm:col-span-6">
@@ -125,7 +125,7 @@ class ::Decor::Forms::LayoutSectionPreview < ::Lookbook::Preview
 
       if include_cta
         section.with_cta do
-          section.render ::Decor::Button.new(label: "Take Action", style: :primary)
+          section.render ::Decor::Daisy::Button.new(label: "Take Action", style: :primary)
         end
       end
 
@@ -219,8 +219,8 @@ class ::Decor::Forms::LayoutSectionPreview < ::Lookbook::Preview
 
       section.with_cta do
         '<div class="flex gap-2">'.html_safe +
-          section.render(::Decor::Button.new(label: "Save Draft", style: :secondary)) +
-          section.render(::Decor::Button.new(label: "Submit", style: :primary)) +
+          section.render(::Decor::Daisy::Button.new(label: "Save Draft", style: :secondary)) +
+          section.render(::Decor::Daisy::Button.new(label: "Submit", style: :primary)) +
           "</div>".html_safe
       end
 

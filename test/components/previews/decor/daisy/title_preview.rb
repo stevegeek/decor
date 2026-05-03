@@ -36,7 +36,7 @@ class ::Decor::Daisy::TitlePreview < ::Lookbook::Preview
       icon: "users",
       size: :lg
     ) do |title|
-      title.render ::Decor::Button.new(label: "Add User", color: :primary, size: :sm)
+      title.render ::Decor::Daisy::Button.new(label: "Add User", color: :primary, size: :sm)
     end
   end
 
@@ -53,7 +53,7 @@ class ::Decor::Daisy::TitlePreview < ::Lookbook::Preview
       size: size
     ) do |title|
       if include_actions
-        title.render ::Decor::Button.new(style: :outlined, size: :xs) { "Action" }
+        title.render ::Decor::Daisy::Button.new(style: :outlined, size: :xs) { "Action" }
       end
     end
   end
@@ -158,8 +158,8 @@ class ::Decor::Daisy::TitlePreview < ::Lookbook::Preview
       description: "Example with multiple CTA elements",
       size: :md
     ) do |title|
-      title.render ::Decor::Button.new(label: "Secondary", style: :ghost, size: :sm)
-      title.render ::Decor::Button.new(label: "Primary", style: :outlined, size: :sm)
+      title.render ::Decor::Daisy::Button.new(label: "Secondary", style: :ghost, size: :sm)
+      title.render ::Decor::Daisy::Button.new(label: "Primary", style: :outlined, size: :sm)
     end
   end
 
@@ -184,7 +184,7 @@ class ::Decor::Daisy::TitlePreview < ::Lookbook::Preview
       description: "Main page title with large size",
       size: :xl
     ) do |title|
-      title.render ::Decor::Button.new(label: "Create New", color: :primary)
+      title.render ::Decor::Daisy::Button.new(label: "Create New", color: :primary)
     end
   end
 
@@ -196,7 +196,7 @@ class ::Decor::Daisy::TitlePreview < ::Lookbook::Preview
       description: "Secondary section with medium size",
       size: :lg
     ) do |title|
-      title.render ::Decor::Button.new(label: "Edit Section", style: :outlined)
+      title.render ::Decor::Daisy::Button.new(label: "Edit Section", style: :outlined)
     end
   end
 
@@ -208,8 +208,8 @@ class ::Decor::Daisy::TitlePreview < ::Lookbook::Preview
       description: "Manage your account preferences and personal information",
       size: :md
     ) do |title|
-      title.render ::Decor::Button.new(label: "Edit Profile", color: :primary, size: :sm)
-      title.render ::Decor::Button.new(label: "Export Data", style: :ghost, size: :sm)
+      title.render ::Decor::Daisy::Button.new(label: "Edit Profile", color: :primary, size: :sm)
+      title.render ::Decor::Daisy::Button.new(label: "Export Data", style: :ghost, size: :sm)
     end
   end
 

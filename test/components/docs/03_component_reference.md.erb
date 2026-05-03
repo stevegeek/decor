@@ -18,7 +18,7 @@ If you find any issues or missing components, please open a PR to improve the do
 - [Decor::Daisy::Badge](#decordaisybadge)
 - [Decor::Banner](#decorbanner)
 - [Decor::Box](#decorbox)
-- [Decor::Button](#decorbutton)
+- [Decor::Daisy::Button](#decordaisybutton)
 - [Decor::ButtonLink](#decorbuttonlink)
 - [Decor::Card](#decorcard)
 - [Decor::Carousel](#decorcarousel)
@@ -261,15 +261,15 @@ _(and the shared properties `size`, `color`, and `style` as described above)_
 
 ---
 
-### Decor::Button
+### Decor::Daisy::Button
 
-<span id="decorbutton"></span>
+<span id="decordaisybutton"></span>
 
 Buttons A styled button component with daisyUI styling. Supports different themes, variants, sizes, and states.
 
 **Basic Usage:**
 ```ruby
-render Decor::Button.new do |c|
+render Decor::Daisy::Button.new do |c|
   c.with_before_label do
     # Slot content
   end

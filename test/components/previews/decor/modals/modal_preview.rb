@@ -94,7 +94,7 @@ class ::Decor::Modals::ModalPreview < ::Lookbook::Preview
             label: "Cancel",
             style: :ghost
           )
-          render ::Decor::Button.new(
+          render ::Decor::Daisy::Button.new(
             label: "Confirm",
             color: :warning
           )
@@ -135,7 +135,7 @@ class ::Decor::Modals::ModalPreview < ::Lookbook::Preview
                 label: "Cancel",
                 style: :ghost
               )
-              render ::Decor::Button.new(
+              render ::Decor::Daisy::Button.new(
                 label: "Save Changes",
                 color: :primary
               )

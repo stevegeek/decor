@@ -3,6 +3,8 @@
 module Decor
   module Daisy
     class Link < ::Decor::Components::Link
+      include ::Decor::Daisy::ButtonTemplate
+
       private
 
       def root_element_classes

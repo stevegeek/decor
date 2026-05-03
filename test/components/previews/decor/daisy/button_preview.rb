@@ -1,5 +1,5 @@
 # @label Button
-class ::Decor::ButtonPreview < ::Lookbook::Preview
+class ::Decor::Daisy::ButtonPreview < ::Lookbook::Preview
   # Buttons
   # -------
   #
@@ -9,19 +9,19 @@ class ::Decor::ButtonPreview < ::Lookbook::Preview
   # @group Examples
   # @label Basic Button
   def basic_button
-    render ::Decor::Button.new(label: "Click me")
+    render ::Decor::Daisy::Button.new(label: "Click me")
   end
 
   # @group Examples
   # @label Primary Action
   def primary_action
-    render ::Decor::Button.new(label: "Save Changes", color: :primary)
+    render ::Decor::Daisy::Button.new(label: "Save Changes", color: :primary)
   end
 
   # @group Examples
   # @label Danger Action
   def danger_action
-    render ::Decor::Button.new(label: "Delete", color: :error, icon: "x")
+    render ::Decor::Daisy::Button.new(label: "Delete", color: :error, icon: "x")
   end
 
   # @group Playground
@@ -43,7 +43,7 @@ class ::Decor::ButtonPreview < ::Lookbook::Preview
     disabled: false,
     full_width: false
   )
-    render ::Decor::Button.new(
+    render ::Decor::Daisy::Button.new(
       label: label,
       icon: icon,
       style: style,
@@ -58,79 +58,79 @@ class ::Decor::ButtonPreview < ::Lookbook::Preview
   # @group Colors
   # @label Primary Theme
   def theme_primary
-    render ::Decor::Button.new(label: "Primary Button", color: :primary)
+    render ::Decor::Daisy::Button.new(label: "Primary Button", color: :primary)
   end
 
   # @group Colors
   # @label Secondary Theme
   def theme_secondary
-    render ::Decor::Button.new(label: "Secondary Button", color: :secondary)
+    render ::Decor::Daisy::Button.new(label: "Secondary Button", color: :secondary)
   end
 
   # @group Colors
   # @label Error Theme
   def theme_error
-    render ::Decor::Button.new(label: "Error Button", color: :error)
+    render ::Decor::Daisy::Button.new(label: "Error Button", color: :error)
   end
 
   # @group Colors
   # @label Warning Theme
   def theme_warning
-    render ::Decor::Button.new(label: "Warning Button", color: :warning)
+    render ::Decor::Daisy::Button.new(label: "Warning Button", color: :warning)
   end
 
   # @group Colors
   # @label Neutral Theme
   def theme_neutral
-    render ::Decor::Button.new(label: "Neutral Button", color: :neutral)
+    render ::Decor::Daisy::Button.new(label: "Neutral Button", color: :neutral)
   end
 
   # @group Styles
   # @label Filled Style
   def style_filled
-    render ::Decor::Button.new(label: "Filled Button", style: :filled)
+    render ::Decor::Daisy::Button.new(label: "Filled Button", style: :filled)
   end
 
   # @group Styles
   # @label Soft Style
   def style_soft
-    render ::Decor::Button.new(label: "Soft Button", style: :soft)
+    render ::Decor::Daisy::Button.new(label: "Soft Button", style: :soft)
   end
 
   # @group Styles
   # @label Outlined Style
   def style_outlined
-    render ::Decor::Button.new(label: "Outlined Button", style: :outlined)
+    render ::Decor::Daisy::Button.new(label: "Outlined Button", style: :outlined)
   end
 
   # @group Styles
   # @label Ghost Style
   def style_ghost
-    render ::Decor::Button.new(label: "Ghost Button", style: :ghost)
+    render ::Decor::Daisy::Button.new(label: "Ghost Button", style: :ghost)
   end
 
   # @group Sizes
   # @label Large Size
   def size_large
-    render ::Decor::Button.new(label: "Large Button", size: :lg)
+    render ::Decor::Daisy::Button.new(label: "Large Button", size: :lg)
   end
 
   # @group Sizes
   # @label Medium Size
   def size_medium
-    render ::Decor::Button.new(label: "Medium Button", size: :md)
+    render ::Decor::Daisy::Button.new(label: "Medium Button", size: :md)
   end
 
   # @group Sizes
   # @label Extra Large Size
   def size_xl
-    render ::Decor::Button.new(label: "Extra Large Button", size: :xl)
+    render ::Decor::Daisy::Button.new(label: "Extra Large Button", size: :xl)
   end
 
   # @group Sizes
   # @label Small Size
   def size_small
-    render ::Decor::Button.new(label: "Small Button", size: :sm)
+    render ::Decor::Daisy::Button.new(label: "Small Button", size: :sm)
   end
 
   # @group Sizes
@@ -138,91 +138,91 @@ class ::Decor::ButtonPreview < ::Lookbook::Preview
   # @group Sizes
   # @label XS Size (alias for micro)
   def size_xs
-    render ::Decor::Button.new(label: "XS Button", size: :xs)
+    render ::Decor::Daisy::Button.new(label: "XS Button", size: :xs)
   end
 
   # @group Size Aliases
   # @label Large Alias (lg)
   def size_alias_lg
-    render ::Decor::Button.new(label: "Large Alias", size: :lg)
+    render ::Decor::Daisy::Button.new(label: "Large Alias", size: :lg)
   end
 
   # @group Size Aliases
   # @label Medium Alias (md)
   def size_alias_md
-    render ::Decor::Button.new(label: "Medium Alias", size: :md)
+    render ::Decor::Daisy::Button.new(label: "Medium Alias", size: :md)
   end
 
   # @group Size Aliases
   # @label Small Alias (sm)
   def size_alias_sm
-    render ::Decor::Button.new(label: "Small Alias", size: :sm)
+    render ::Decor::Daisy::Button.new(label: "Small Alias", size: :sm)
   end
 
   # @group With Icons
   # @label Basic Icon
   def icon_basic
-    render ::Decor::Button.new(label: "Button with icon", icon: "star")
+    render ::Decor::Daisy::Button.new(label: "Button with icon", icon: "star")
   end
 
   # @group With Icons
   # @label Large with Icon
   def icon_large
-    render ::Decor::Button.new(label: "Large with icon", icon: "heart", size: :lg)
+    render ::Decor::Daisy::Button.new(label: "Large with icon", icon: "heart", size: :lg)
   end
 
   # @group With Icons
   # @label Small with Icon
   def icon_small
-    render ::Decor::Button.new(label: "Small with icon", icon: "bell", size: :sm)
+    render ::Decor::Daisy::Button.new(label: "Small with icon", icon: "bell", size: :sm)
   end
 
   # @group With Icons
   # @label Icon Only Mobile
   def icon_only_mobile
-    render ::Decor::Button.new(label: "Submit", icon: "check", icon_only_on_mobile: true)
+    render ::Decor::Daisy::Button.new(label: "Submit", icon: "check", icon_only_on_mobile: true)
   end
 
   # @group States
   # @label Disabled Primary
   def state_disabled_primary
-    render ::Decor::Button.new(label: "Disabled Primary", color: :primary, disabled: true)
+    render ::Decor::Daisy::Button.new(label: "Disabled Primary", color: :primary, disabled: true)
   end
 
   # @group States
   # @label Disabled Secondary
   def state_disabled_secondary
-    render ::Decor::Button.new(label: "Disabled Secondary", color: :secondary, disabled: true)
+    render ::Decor::Daisy::Button.new(label: "Disabled Secondary", color: :secondary, disabled: true)
   end
 
   # @group States
   # @label Disabled Error
   def state_disabled_error
-    render ::Decor::Button.new(label: "Disabled Error", color: :error, disabled: true)
+    render ::Decor::Daisy::Button.new(label: "Disabled Error", color: :error, disabled: true)
   end
 
   # @group Layout
   # @label Full Width
   def layout_full_width
-    render ::Decor::Button.new(label: "Full Width Button", full_width: true)
+    render ::Decor::Daisy::Button.new(label: "Full Width Button", full_width: true)
   end
 
   # @group Layout
   # @label Full Width Large
   def layout_full_width_large
-    render ::Decor::Button.new(label: "Full Width Large", full_width: true, size: :lg)
+    render ::Decor::Daisy::Button.new(label: "Full Width Large", full_width: true, size: :lg)
   end
 
   # @group Layout
   # @label Full Width with Icon
   def layout_full_width_icon
-    render ::Decor::Button.new(label: "Full Width with Icon", full_width: true, icon: "download")
+    render ::Decor::Daisy::Button.new(label: "Full Width with Icon", full_width: true, icon: "download")
   end
 
   # @group Examples
   # @label Outlined Primary Large
   def combo_outlined_primary_large
-    render ::Decor::Button.new(
+    render ::Decor::Daisy::Button.new(
       label: "Outlined Primary Large",
       style: :outlined,
       color: :primary,
@@ -233,7 +233,7 @@ class ::Decor::ButtonPreview < ::Lookbook::Preview
   # @group Examples
   # @label Ghost Error with Icon
   def combo_ghost_error_icon
-    render ::Decor::Button.new(
+    render ::Decor::Daisy::Button.new(
       label: "Delete Item",
       style: :ghost,
       color: :error,
@@ -244,7 +244,7 @@ class ::Decor::ButtonPreview < ::Lookbook::Preview
   # @group Examples
   # @label Large Secondary Outlined
   def combo_large_secondary_outlined
-    render ::Decor::Button.new(
+    render ::Decor::Daisy::Button.new(
       label: "Large Secondary",
       style: :outlined,
       color: :secondary,
@@ -255,12 +255,12 @@ class ::Decor::ButtonPreview < ::Lookbook::Preview
   # @group Element Types
   # @label As Button Element
   def element_button
-    render ::Decor::Button.new(label: "Button Element", element_tag: :button)
+    render ::Decor::Daisy::Button.new(label: "Button Element", element_tag: :button)
   end
 
   # @group Element Types
   # @label As Anchor Element
   def element_anchor
-    render ::Decor::Button.new(label: "Anchor Element", element_tag: :a)
+    render ::Decor::Daisy::Button.new(label: "Anchor Element", element_tag: :a)
   end
 end

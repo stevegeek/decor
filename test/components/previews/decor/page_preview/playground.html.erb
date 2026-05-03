@@ -37,7 +37,7 @@
       <% header.with_tag(label: "Active", icon: "check-circle", color: :success) %>
     <% end %>
     <% header.with_cta do %>
-      <%= render ::Decor::Button.new(label: "Add new", style: :outlined, color: :secondary) %>
+      <%= render ::Decor::Daisy::Button.new(label: "Add new", style: :outlined, color: :secondary) %>
     <% end %>
     <%= header %>
   <% end %>

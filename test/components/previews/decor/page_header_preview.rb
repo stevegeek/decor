@@ -24,8 +24,8 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
       subtitle: "Track your project progress"
     ) do |header|
       header.with_actions do
-        header.render ::Decor::Button.new(label: "Edit", color: :primary)
-        header.render ::Decor::Button.new(label: "Share", style: :outlined)
+        header.render ::Decor::Daisy::Button.new(label: "Edit", color: :primary)
+        header.render ::Decor::Daisy::Button.new(label: "Share", style: :outlined)
       end
     end
   end
@@ -53,7 +53,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
       end
 
       header.with_actions do
-        header.render ::Decor::Button.new(label: "Add Member", color: :primary, icon: "plus")
+        header.render ::Decor::Daisy::Button.new(label: "Add Member", color: :primary, icon: "plus")
       end
     end
   end
@@ -71,8 +71,8 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
       border: false
     ) do |header|
       header.with_actions do
-        header.render ::Decor::Button.new(label: "Get Started", color: :primary, size: :lg)
-        header.render ::Decor::Button.new(label: "Learn More", style: :outlined, size: :lg)
+        header.render ::Decor::Daisy::Button.new(label: "Get Started", color: :primary, size: :lg)
+        header.render ::Decor::Daisy::Button.new(label: "Learn More", style: :outlined, size: :lg)
       end
     end
   end
@@ -104,8 +104,8 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
       end
 
       header.with_actions do
-        header.render ::Decor::Button.new(label: "Contact", color: :primary, icon: "mail")
-        header.render ::Decor::Button.new(label: "Follow", style: :outlined, icon: "plus")
+        header.render ::Decor::Daisy::Button.new(label: "Contact", color: :primary, icon: "mail")
+        header.render ::Decor::Daisy::Button.new(label: "Follow", style: :outlined, icon: "plus")
       end
     end
   end
@@ -124,7 +124,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
       end
 
       header.with_actions do
-        header.render ::Decor::Button.new(label: "Edit", style: :outlined)
+        header.render ::Decor::Daisy::Button.new(label: "Edit", style: :outlined)
       end
     end
   end
@@ -155,7 +155,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
       end
 
       header.with_actions do
-        header.render ::Decor::Button.new(label: "View Details", color: :primary)
+        header.render ::Decor::Daisy::Button.new(label: "View Details", color: :primary)
       end
     end
   end
@@ -227,8 +227,8 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
 
       if show_actions
         header.with_actions do
-          header.render ::Decor::Button.new(label: "Primary Action", color: :primary)
-          header.render ::Decor::Button.new(label: "Secondary", style: :outlined)
+          header.render ::Decor::Daisy::Button.new(label: "Primary Action", color: :primary)
+          header.render ::Decor::Daisy::Button.new(label: "Secondary", style: :outlined)
         end
       end
     end
@@ -264,7 +264,7 @@ class ::Decor::PageHeaderPreview < ::Lookbook::Preview
       layout: :minimal
     ) do |header|
       header.with_actions do
-        header.render ::Decor::Button.new(label: "Action", color: :primary)
+        header.render ::Decor::Daisy::Button.new(label: "Action", color: :primary)
       end
     end
   end

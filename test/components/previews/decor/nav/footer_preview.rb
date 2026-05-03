@@ -88,8 +88,8 @@ class ::Decor::Nav::FooterPreview < ::Lookbook::Preview
           component.h3(class: "footer-title") { "Get in Touch" }
           component.p(class: "text-sm") { "Have questions? We'd love to hear from you." }
           component.div(class: "flex gap-2") do
-            component.render ::Decor::Button.new(label: "Contact Us", color: :primary, size: :sm)
-            component.render ::Decor::Button.new(label: "Schedule Demo", color: :secondary, style: :outlined, size: :sm)
+            component.render ::Decor::Daisy::Button.new(label: "Contact Us", color: :primary, size: :sm)
+            component.render ::Decor::Daisy::Button.new(label: "Schedule Demo", color: :secondary, style: :outlined, size: :sm)
           end
         end
       end

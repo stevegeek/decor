@@ -37,8 +37,8 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
         group.render ::Decor::Panel.new(title: "Bounce Rate", icon: "arrow-trending-down") { |p| p.plain("24.1%") }
       end
       group.cta do
-        group.render ::Decor::Button.new(color: :primary, size: :sm) { "Refresh" }
-        group.render ::Decor::Button.new(style: :outlined, size: :sm) { "Export" }
+        group.render ::Decor::Daisy::Button.new(color: :primary, size: :sm) { "Refresh" }
+        group.render ::Decor::Daisy::Button.new(style: :outlined, size: :sm) { "Export" }
       end
     end
   end
@@ -62,7 +62,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
         end
       end
       group.cta do
-        group.render ::Decor::Button.new(style: :outlined, size: :sm) { "Restart" }
+        group.render ::Decor::Daisy::Button.new(style: :outlined, size: :sm) { "Restart" }
       end
     end
   end
@@ -120,7 +120,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
       end
       if show_cta
         group.cta do
-          group.render ::Decor::Button.new(label: "Action", color: :primary)
+          group.render ::Decor::Daisy::Button.new(label: "Action", color: :primary)
         end
       end
     end
@@ -310,7 +310,7 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
         group.render ::Decor::Panel.new(title: "Panel 2") { |p| p.plain("Content") }
       end
       group.cta do
-        group.render ::Decor::Button.new(color: :primary) { "Take Action" }
+        group.render ::Decor::Daisy::Button.new(color: :primary) { "Take Action" }
       end
     end
   end
@@ -325,9 +325,9 @@ class ::Decor::PanelGroupPreview < ::Lookbook::Preview
         group.render ::Decor::Panel.new(title: "Panel 1") { |p| p.plain("Content") }
       end
       group.cta do
-        group.render ::Decor::Button.new(color: :primary) { "Primary" }
-        group.render ::Decor::Button.new(style: :outlined) { "Secondary" }
-        group.render ::Decor::Button.new(style: :ghost) { "Tertiary" }
+        group.render ::Decor::Daisy::Button.new(color: :primary) { "Primary" }
+        group.render ::Decor::Daisy::Button.new(style: :outlined) { "Secondary" }
+        group.render ::Decor::Daisy::Button.new(style: :ghost) { "Tertiary" }
       end
     end
   end

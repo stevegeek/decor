@@ -195,7 +195,7 @@ class ::Decor::PageSectionPreview < ::Lookbook::Preview
       page.with_tag(label: "Important", color: :warning, size: :sm)
 
       page.with_cta do
-        render ::Decor::Button.new(label: "Take Action", color: :primary)
+        render ::Decor::Daisy::Button.new(label: "Take Action", color: :primary)
       end
 
       page.div(class: "grid grid-cols-1 md:grid-cols-2 gap-4") do

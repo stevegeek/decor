@@ -13,7 +13,7 @@ class Decor::Modals::ModalCloseButtonTest < ActiveSupport::TestCase
   test "inherits from Button component" do
     component = Decor::Modals::ModalCloseButton.new
 
-    assert component.is_a?(Decor::Button)
+    assert component.is_a?(Decor::Daisy::Button)
   end
 
   test "renders with modal-closing data attributes" do

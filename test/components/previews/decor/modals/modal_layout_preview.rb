@@ -43,8 +43,8 @@ class ::Decor::Modals::ModalLayoutPreview < ::Lookbook::Preview
       classes: "opacity-100"
     ) do
       render ::Decor::Element.new(html_options: {class: "flex gap-4 justify-end"}) do
-        render ::Decor::Button.new(label: "Cancel", style: :ghost)
-        render ::Decor::Button.new(label: "Continue", color: :warning)
+        render ::Decor::Daisy::Button.new(label: "Cancel", style: :ghost)
+        render ::Decor::Daisy::Button.new(label: "Continue", color: :warning)
       end
     end
   end

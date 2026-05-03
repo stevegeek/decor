@@ -18,8 +18,8 @@ class ::Decor::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
 
       navbar.with_right do
         render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "flex items-center gap-1"}}) do
-          render ::Decor::Button.new(label: "Edit", size: :sm, style: :outlined, icon: "pencil")
-          render ::Decor::Button.new(label: "Add Product", size: :sm, icon: "plus")
+          render ::Decor::Daisy::Button.new(label: "Edit", size: :sm, style: :outlined, icon: "pencil")
+          render ::Decor::Daisy::Button.new(label: "Add Product", size: :sm, icon: "plus")
         end
       end
     end
@@ -46,8 +46,8 @@ class ::Decor::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
             placeholder: "Search users...",
             class: "input input-bordered input-sm w-64"
           }})
-          render ::Decor::Button.new(label: "Import", size: :sm, style: :outlined, icon: "upload")
-          render ::Decor::Button.new(label: "Add User", size: :sm, icon: "plus")
+          render ::Decor::Daisy::Button.new(label: "Import", size: :sm, style: :outlined, icon: "upload")
+          render ::Decor::Daisy::Button.new(label: "Add User", size: :sm, icon: "plus")
         end
       end
     end
@@ -72,7 +72,7 @@ class ::Decor::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
       end
 
       navbar.with_right do
-        render ::Decor::Button.new(label: "Save Changes", size: :sm)
+        render ::Decor::Daisy::Button.new(label: "Save Changes", size: :sm)
       end
     end
   end
@@ -120,8 +120,8 @@ class ::Decor::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
       if has_right_element
         navbar.with_right do
           render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "flex gap-2"}}) do
-            render ::Decor::Button.new(label: "Action", size: :sm, style: :outlined)
-            render ::Decor::Button.new(label: "Primary", size: :sm)
+            render ::Decor::Daisy::Button.new(label: "Action", size: :sm, style: :outlined)
+            render ::Decor::Daisy::Button.new(label: "Primary", size: :sm)
           end
         end
       end
@@ -142,7 +142,7 @@ class ::Decor::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
       end
 
       navbar.with_right do
-        render ::Decor::Button.new(label: "Action", size: :sm)
+        render ::Decor::Daisy::Button.new(label: "Action", size: :sm)
       end
     end
   end
@@ -157,7 +157,7 @@ class ::Decor::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
       end
 
       navbar.with_right do
-        render ::Decor::Button.new(label: "Action", size: :sm)
+        render ::Decor::Daisy::Button.new(label: "Action", size: :sm)
       end
     end
   end
@@ -195,8 +195,8 @@ class ::Decor::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
     render ::Decor::Nav::SecondaryNavbar.new(style: :narrow) do |navbar|
       navbar.with_right do
         render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "flex gap-2"}}) do
-          render ::Decor::Button.new(label: "Cancel", size: :sm, style: :outlined)
-          render ::Decor::Button.new(label: "Save", size: :sm)
+          render ::Decor::Daisy::Button.new(label: "Cancel", size: :sm, style: :outlined)
+          render ::Decor::Daisy::Button.new(label: "Save", size: :sm)
         end
       end
     end
@@ -221,8 +221,8 @@ class ::Decor::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
 
       navbar.with_right do
         render ::Decor::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "flex items-center gap-2"}}) do
-          render ::Decor::Button.new(label: "Export", size: :sm, style: :outlined, icon: "download")
-          render ::Decor::Button.new(label: "Settings", size: :sm, icon: "cog")
+          render ::Decor::Daisy::Button.new(label: "Export", size: :sm, style: :outlined, icon: "download")
+          render ::Decor::Daisy::Button.new(label: "Settings", size: :sm, icon: "cog")
         end
       end
     end

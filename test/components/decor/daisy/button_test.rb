@@ -1,8 +1,8 @@
 require "test_helper"
 
-class Decor::ButtonTest < ActiveSupport::TestCase
+class Decor::Daisy::ButtonTest < ActiveSupport::TestCase
   test "renders successfully with label" do
-    component = Decor::Button.new(label: "Click me")
+    component = Decor::Daisy::Button.new(label: "Click me")
     rendered = render_component(component)
 
     assert_includes rendered, "Click me"
@@ -11,7 +11,7 @@ class Decor::ButtonTest < ActiveSupport::TestCase
   end
 
   test "renders with disabled state" do
-    component = Decor::Button.new(label: "Disabled", disabled: true)
+    component = Decor::Daisy::Button.new(label: "Disabled", disabled: true)
     rendered = render_component(component)
 
     assert_includes rendered, 'disabled="disabled"'
@@ -19,35 +19,35 @@ class Decor::ButtonTest < ActiveSupport::TestCase
   end
 
   test "applies correct style classes" do
-    component = Decor::Button.new(label: "Outlined", style: :outlined)
+    component = Decor::Daisy::Button.new(label: "Outlined", style: :outlined)
     rendered = render_component(component)
 
     assert_includes rendered, "btn-outline"
   end
 
   test "applies correct color classes" do
-    component = Decor::Button.new(label: "Error", color: :error)
+    component = Decor::Daisy::Button.new(label: "Error", color: :error)
     rendered = render_component(component)
 
     assert_includes rendered, "btn-error"
   end
 
   test "applies correct size classes" do
-    component = Decor::Button.new(label: "Large", size: :lg)
+    component = Decor::Daisy::Button.new(label: "Large", size: :lg)
     rendered = render_component(component)
 
     assert_includes rendered, "btn-lg"
   end
 
   test "applies full width when specified" do
-    component = Decor::Button.new(label: "Full width", full_width: true)
+    component = Decor::Daisy::Button.new(label: "Full width", full_width: true)
     rendered = render_component(component)
 
     assert_includes rendered, "btn-block"
   end
 
   test "uses nokogiri for parsing button element" do
-    component = Decor::Button.new(label: "Test button")
+    component = Decor::Daisy::Button.new(label: "Test button")
     fragment = render_fragment(component)
 
     button = fragment.at_css("button")
@@ -57,7 +57,7 @@ class Decor::ButtonTest < ActiveSupport::TestCase
   end
 
   test "renders text center span" do
-    component = Decor::Button.new(label: "Centered")
+    component = Decor::Daisy::Button.new(label: "Centered")
     fragment = render_fragment(component)
 
     span = fragment.at_css("span.text-center")
@@ -66,7 +66,7 @@ class Decor::ButtonTest < ActiveSupport::TestCase
   end
 
   test "applies no color class when color is not specified" do
-    component = Decor::Button.new(label: "No Color")
+    component = Decor::Daisy::Button.new(label: "No Color")
     rendered = render_component(component)
 
     # Should have btn class but no color-specific class
@@ -79,49 +79,49 @@ class Decor::ButtonTest < ActiveSupport::TestCase
   end
 
   test "applies ghost style as ghost button" do
-    component = Decor::Button.new(label: "Ghost", style: :ghost)
+    component = Decor::Daisy::Button.new(label: "Ghost", style: :ghost)
     rendered = render_component(component)
 
     assert_includes rendered, "btn-ghost"
   end
 
   test "applies small size correctly" do
-    component = Decor::Button.new(label: "Small", size: :sm)
+    component = Decor::Daisy::Button.new(label: "Small", size: :sm)
     rendered = render_component(component)
 
     assert_includes rendered, "btn-sm"
   end
 
   test "applies xs size correctly" do
-    component = Decor::Button.new(label: "XS", size: :xs)
+    component = Decor::Daisy::Button.new(label: "XS", size: :xs)
     rendered = render_component(component)
 
     assert_includes rendered, "btn-xs"
   end
 
   test "applies xs size correctly (alias for micro)" do
-    component = Decor::Button.new(label: "XS", size: :xs)
+    component = Decor::Daisy::Button.new(label: "XS", size: :xs)
     rendered = render_component(component)
 
     assert_includes rendered, "btn-xs"
   end
 
   test "applies xl size correctly" do
-    component = Decor::Button.new(label: "XL", size: :xl)
+    component = Decor::Daisy::Button.new(label: "XL", size: :xl)
     rendered = render_component(component)
 
     assert_includes rendered, "btn-xl"
   end
 
   test "applies lg size alias correctly" do
-    component = Decor::Button.new(label: "Large Alias", size: :lg)
+    component = Decor::Daisy::Button.new(label: "Large Alias", size: :lg)
     rendered = render_component(component)
 
     assert_includes rendered, "btn-lg"
   end
 
   test "applies md size alias correctly (default size)" do
-    component = Decor::Button.new(label: "Medium Alias", size: :md)
+    component = Decor::Daisy::Button.new(label: "Medium Alias", size: :md)
     rendered = render_component(component)
 
     # Medium/md size should not add any btn-* size class (it's the default)
@@ -132,7 +132,7 @@ class Decor::ButtonTest < ActiveSupport::TestCase
   end
 
   test "applies sm size alias correctly" do
-    component = Decor::Button.new(label: "Small Alias", size: :sm)
+    component = Decor::Daisy::Button.new(label: "Small Alias", size: :sm)
     rendered = render_component(component)
 
     assert_includes rendered, "btn-sm"
@@ -140,8 +140,8 @@ class Decor::ButtonTest < ActiveSupport::TestCase
 
   test "size aliases work same as original sizes" do
     # Test that :lg works same as :large
-    lg_component = Decor::Button.new(label: "LG", size: :lg)
-    large_component = Decor::Button.new(label: "Large", size: :large)
+    lg_component = Decor::Daisy::Button.new(label: "LG", size: :lg)
+    large_component = Decor::Daisy::Button.new(label: "Large", size: :large)
     lg_rendered = render_component(lg_component)
     large_rendered = render_component(large_component)
 
@@ -150,8 +150,8 @@ class Decor::ButtonTest < ActiveSupport::TestCase
     assert_includes large_rendered, "btn-lg"
 
     # Test that :sm works same as :small
-    sm_component = Decor::Button.new(label: "SM", size: :sm)
-    small_component = Decor::Button.new(label: "Small", size: :small)
+    sm_component = Decor::Daisy::Button.new(label: "SM", size: :sm)
+    small_component = Decor::Daisy::Button.new(label: "Small", size: :small)
     sm_rendered = render_component(sm_component)
     small_rendered = render_component(small_component)
 
@@ -160,8 +160,8 @@ class Decor::ButtonTest < ActiveSupport::TestCase
     assert_includes small_rendered, "btn-sm"
 
     # Test that :xs works same as :micro
-    xs_component = Decor::Button.new(label: "XS", size: :xs)
-    micro_component = Decor::Button.new(label: "Micro", size: :micro)
+    xs_component = Decor::Daisy::Button.new(label: "XS", size: :xs)
+    micro_component = Decor::Daisy::Button.new(label: "Micro", size: :micro)
     xs_rendered = render_component(xs_component)
     micro_rendered = render_component(micro_component)
 
@@ -172,28 +172,28 @@ class Decor::ButtonTest < ActiveSupport::TestCase
 
   test "attribute validation accepts all size values" do
     # Test standard sizes
-    assert_nothing_raised { Decor::Button.new(label: "Test", size: :xs) }
-    assert_nothing_raised { Decor::Button.new(label: "Test", size: :sm) }
-    assert_nothing_raised { Decor::Button.new(label: "Test", size: :md) }
-    assert_nothing_raised { Decor::Button.new(label: "Test", size: :lg) }
-    assert_nothing_raised { Decor::Button.new(label: "Test", size: :xl) }
+    assert_nothing_raised { Decor::Daisy::Button.new(label: "Test", size: :xs) }
+    assert_nothing_raised { Decor::Daisy::Button.new(label: "Test", size: :sm) }
+    assert_nothing_raised { Decor::Daisy::Button.new(label: "Test", size: :md) }
+    assert_nothing_raised { Decor::Daisy::Button.new(label: "Test", size: :lg) }
+    assert_nothing_raised { Decor::Daisy::Button.new(label: "Test", size: :xl) }
 
     # Test size aliases (these should work through normalize_size)
-    assert_nothing_raised { Decor::Button.new(label: "Test", size: :small) }
-    assert_nothing_raised { Decor::Button.new(label: "Test", size: :medium) }
-    assert_nothing_raised { Decor::Button.new(label: "Test", size: :large) }
-    assert_nothing_raised { Decor::Button.new(label: "Test", size: :micro) }
-    assert_nothing_raised { Decor::Button.new(label: "Test", size: :extra_small) }
-    assert_nothing_raised { Decor::Button.new(label: "Test", size: :extra_large) }
+    assert_nothing_raised { Decor::Daisy::Button.new(label: "Test", size: :small) }
+    assert_nothing_raised { Decor::Daisy::Button.new(label: "Test", size: :medium) }
+    assert_nothing_raised { Decor::Daisy::Button.new(label: "Test", size: :large) }
+    assert_nothing_raised { Decor::Daisy::Button.new(label: "Test", size: :micro) }
+    assert_nothing_raised { Decor::Daisy::Button.new(label: "Test", size: :extra_small) }
+    assert_nothing_raised { Decor::Daisy::Button.new(label: "Test", size: :extra_large) }
 
     # Should raise for invalid values
-    assert_raises(Literal::TypeError) { Decor::Button.new(label: "Test", size: :invalid) }
-    assert_raises(Literal::TypeError) { Decor::Button.new(label: "Test", size: :wide) }
+    assert_raises(Literal::TypeError) { Decor::Daisy::Button.new(label: "Test", size: :invalid) }
+    assert_raises(Literal::TypeError) { Decor::Daisy::Button.new(label: "Test", size: :wide) }
   end
 
   # Icon size tests
   test "large size button icons get size-8 pr-2 classes" do
-    component = Decor::Button.new(label: "Large", size: :large, icon: "home")
+    component = Decor::Daisy::Button.new(label: "Large", size: :large, icon: "home")
     rendered = render_component(component)
 
     assert_includes rendered, "size-8"
@@ -201,7 +201,7 @@ class Decor::ButtonTest < ActiveSupport::TestCase
   end
 
   test "lg size alias button icons get size-8 pr-2 classes" do
-    component = Decor::Button.new(label: "LG", size: :lg, icon: "home")
+    component = Decor::Daisy::Button.new(label: "LG", size: :lg, icon: "home")
     rendered = render_component(component)
 
     assert_includes rendered, "size-8"
@@ -209,7 +209,7 @@ class Decor::ButtonTest < ActiveSupport::TestCase
   end
 
   test "medium size button icons get size-6 pr-1 classes" do
-    component = Decor::Button.new(label: "Medium", size: :medium, icon: "home")
+    component = Decor::Daisy::Button.new(label: "Medium", size: :medium, icon: "home")
     rendered = render_component(component)
 
     assert_includes rendered, "size-6"
@@ -217,7 +217,7 @@ class Decor::ButtonTest < ActiveSupport::TestCase
   end
 
   test "md size alias button icons get size-6 pr-1 classes" do
-    component = Decor::Button.new(label: "MD", size: :md, icon: "home")
+    component = Decor::Daisy::Button.new(label: "MD", size: :md, icon: "home")
     rendered = render_component(component)
 
     assert_includes rendered, "size-6"
@@ -225,7 +225,7 @@ class Decor::ButtonTest < ActiveSupport::TestCase
   end
 
   test "small size button icons get size-5.5 pr-1 classes" do
-    component = Decor::Button.new(label: "Small", size: :small, icon: "home")
+    component = Decor::Daisy::Button.new(label: "Small", size: :small, icon: "home")
     rendered = render_component(component)
 
     assert_includes rendered, "size-5.5"
@@ -233,7 +233,7 @@ class Decor::ButtonTest < ActiveSupport::TestCase
   end
 
   test "sm size alias button icons get size-5.5 pr-1 classes" do
-    component = Decor::Button.new(label: "SM", size: :sm, icon: "home")
+    component = Decor::Daisy::Button.new(label: "SM", size: :sm, icon: "home")
     rendered = render_component(component)
 
     assert_includes rendered, "size-5.5"
@@ -241,7 +241,7 @@ class Decor::ButtonTest < ActiveSupport::TestCase
   end
 
   test "micro size button icons get size-4.5 pr-1 classes" do
-    component = Decor::Button.new(label: "Micro", size: :micro, icon: "home")
+    component = Decor::Daisy::Button.new(label: "Micro", size: :micro, icon: "home")
     rendered = render_component(component)
 
     assert_includes rendered, "size-4.5"
@@ -249,7 +249,7 @@ class Decor::ButtonTest < ActiveSupport::TestCase
   end
 
   test "xs size alias button icons get size-4.5 pr-1 classes" do
-    component = Decor::Button.new(label: "XS", size: :xs, icon: "home")
+    component = Decor::Daisy::Button.new(label: "XS", size: :xs, icon: "home")
     rendered = render_component(component)
 
     assert_includes rendered, "size-4.5"
@@ -258,8 +258,8 @@ class Decor::ButtonTest < ActiveSupport::TestCase
 
   test "icon size classes match between original and alias sizes" do
     # Test that :lg and :large produce same icon classes
-    lg_component = Decor::Button.new(label: "LG", size: :lg, icon: "home")
-    large_component = Decor::Button.new(label: "Large", size: :large, icon: "home")
+    lg_component = Decor::Daisy::Button.new(label: "LG", size: :lg, icon: "home")
+    large_component = Decor::Daisy::Button.new(label: "Large", size: :large, icon: "home")
     lg_rendered = render_component(lg_component)
     large_rendered = render_component(large_component)
 
@@ -269,8 +269,8 @@ class Decor::ButtonTest < ActiveSupport::TestCase
     assert_includes large_rendered, "pr-2"
 
     # Test that :md and :medium produce same icon classes
-    md_component = Decor::Button.new(label: "MD", size: :md, icon: "home")
-    medium_component = Decor::Button.new(label: "Medium", size: :medium, icon: "home")
+    md_component = Decor::Daisy::Button.new(label: "MD", size: :md, icon: "home")
+    medium_component = Decor::Daisy::Button.new(label: "Medium", size: :medium, icon: "home")
     md_rendered = render_component(md_component)
     medium_rendered = render_component(medium_component)
 
@@ -278,8 +278,8 @@ class Decor::ButtonTest < ActiveSupport::TestCase
     assert_includes medium_rendered, "size-6"
 
     # Test that :sm and :small produce same icon classes
-    sm_component = Decor::Button.new(label: "SM", size: :sm, icon: "home")
-    small_component = Decor::Button.new(label: "Small", size: :small, icon: "home")
+    sm_component = Decor::Daisy::Button.new(label: "SM", size: :sm, icon: "home")
+    small_component = Decor::Daisy::Button.new(label: "Small", size: :small, icon: "home")
     sm_rendered = render_component(sm_component)
     small_rendered = render_component(small_component)
 
@@ -287,8 +287,8 @@ class Decor::ButtonTest < ActiveSupport::TestCase
     assert_includes small_rendered, "size-5.5"
 
     # Test that :xs and :micro produce same icon classes
-    xs_component = Decor::Button.new(label: "XS", size: :xs, icon: "home")
-    micro_component = Decor::Button.new(label: "Micro", size: :micro, icon: "home")
+    xs_component = Decor::Daisy::Button.new(label: "XS", size: :xs, icon: "home")
+    micro_component = Decor::Daisy::Button.new(label: "Micro", size: :micro, icon: "home")
     xs_rendered = render_component(xs_component)
     micro_rendered = render_component(micro_component)
 
@@ -297,7 +297,7 @@ class Decor::ButtonTest < ActiveSupport::TestCase
   end
 
   test "icons always include inline and mr-1 classes" do
-    component = Decor::Button.new(label: "Test", icon: "home")
+    component = Decor::Daisy::Button.new(label: "Test", icon: "home")
     rendered = render_component(component)
 
     assert_includes rendered, "inline"
@@ -305,7 +305,7 @@ class Decor::ButtonTest < ActiveSupport::TestCase
   end
 
   test "icon_only_on_mobile changes margin classes" do
-    component = Decor::Button.new(label: "Test", icon: "home", icon_only_on_mobile: true)
+    component = Decor::Daisy::Button.new(label: "Test", icon: "home", icon_only_on_mobile: true)
     rendered = render_component(component)
 
     assert_includes rendered, "mr-0"

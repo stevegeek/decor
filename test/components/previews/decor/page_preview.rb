@@ -38,7 +38,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
             page.div(class: "max-w-md") do
               page.h1(class: "text-5xl font-bold") { "Welcome!" }
               page.p(class: "py-6") { "Build amazing applications with our tools." }
-              render ::Decor::Button.new(label: "Get Started", style: :filled)
+              render ::Decor::Daisy::Button.new(label: "Get Started", style: :filled)
             end
           end
         end
@@ -76,7 +76,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
         )
         header.with_badge(label: "Pro", color: :accent)
         header.with_actions do
-          render ::Decor::Button.new(label: "Export", icon: "download", style: :outlined)
+          render ::Decor::Daisy::Button.new(label: "Export", icon: "download", style: :outlined)
         end
         header
       end
@@ -113,8 +113,8 @@ class ::Decor::PagePreview < ::Lookbook::Preview
               page.h1(class: "text-5xl font-bold") { "Premium Features" }
               page.p(class: "py-6") { "Everything you need in one place." }
               page.div(class: "flex gap-2 justify-center") do
-                render ::Decor::Button.new(label: "Start Free Trial", color: :primary, size: :lg)
-                render ::Decor::Button.new(label: "View Pricing", style: :outlined, size: :lg)
+                render ::Decor::Daisy::Button.new(label: "Start Free Trial", color: :primary, size: :lg)
+                render ::Decor::Daisy::Button.new(label: "View Pricing", style: :outlined, size: :lg)
               end
             end
           end
@@ -135,7 +135,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
         header.with_tag(label: "Enterprise", color: :primary, icon: "building-office")
         header.with_cta do
           page.div(class: "flex gap-2") do
-            render ::Decor::Button.new(label: "Contact Sales", color: :primary)
+            render ::Decor::Daisy::Button.new(label: "Contact Sales", color: :primary)
           end
         end
         header
@@ -157,7 +157,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
               page.h2(class: "card-title") { "Feature #{i + 1}" }
               page.p { "Comprehensive description of feature number #{i + 1}." }
               page.div(class: "card-actions justify-end") do
-                render ::Decor::Button.new(label: "Learn More", style: :ghost)
+                render ::Decor::Daisy::Button.new(label: "Learn More", style: :ghost)
               end
             end
           end
@@ -299,7 +299,7 @@ class ::Decor::PagePreview < ::Lookbook::Preview
           size: :lg
         )
         header.with_actions do
-          render ::Decor::Button.new(label: "Action", size: :lg, color: :primary)
+          render ::Decor::Daisy::Button.new(label: "Action", size: :lg, color: :primary)
         end
         header
       end

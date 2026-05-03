@@ -37,7 +37,7 @@ class ::Decor::FlowStepPreview < ::Lookbook::Preview
       color: :warning
     ) do
       content_tag :div, class: "mt-2" do
-        render ::Decor::Button.new(label: "Upload Files", color: :primary, size: :sm)
+        render ::Decor::Daisy::Button.new(label: "Upload Files", color: :primary, size: :sm)
       end
     end
   end
@@ -283,8 +283,8 @@ class ::Decor::FlowStepPreview < ::Lookbook::Preview
           end,
           content_tag(:div, class: "flex gap-2") do
             safe_join([
-              render(::Decor::Button.new(label: "Upload Files", color: :primary, size: :sm)),
-              render(::Decor::Button.new(label: "Skip for Now", style: :outlined, size: :sm))
+              render(::Decor::Daisy::Button.new(label: "Upload Files", color: :primary, size: :sm)),
+              render(::Decor::Daisy::Button.new(label: "Skip for Now", style: :outlined, size: :sm))
             ])
           end
         ])
@@ -305,7 +305,7 @@ class ::Decor::FlowStepPreview < ::Lookbook::Preview
       content_tag :div, class: "space-y-2" do
         safe_join([
           content_tag(:p, "Please check your payment details and try again.", class: "text-sm"),
-          render(::Decor::Button.new(label: "Retry Payment", color: :error, size: :sm))
+          render(::Decor::Daisy::Button.new(label: "Retry Payment", color: :error, size: :sm))
         ])
       end
     end

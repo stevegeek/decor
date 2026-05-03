@@ -306,7 +306,7 @@ module Decor
 
       def button(value = nil, options = {}, &)
         options[:label] = value if value
-        @template.render(::Decor::Button.new({view_context: @template}.merge(options)), &)
+        @template.render(::Decor::Daisy::Button.new({view_context: @template}.merge(options)), &)
       end
 
       def button_link_to(value, path, options = {}, &block)
@@ -339,7 +339,7 @@ module Decor
         html_options = options.fetch(:html_options, {})
         options[:html_options] = {type: :submit, name: "commit", value: label || submit_default_value}.merge(html_options)
         options[:id] ||= field_id_generator(options, "submit")
-        @template.render(::Decor::Button.new(label: label || "Submit", **options), &)
+        @template.render(::Decor::Daisy::Button.new(label: label || "Submit", **options), &)
       end
 
       private

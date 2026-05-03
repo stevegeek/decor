@@ -22,8 +22,8 @@ class ::Decor::Forms::LayoutContainerPreview < ::Lookbook::Preview
   def with_buttons
     render ::Decor::Forms::LayoutContainer.new do |container|
       container.with_buttons do
-        container.render ::Decor::Button.new(label: "Cancel", color: :secondary)
-        container.render ::Decor::Button.new(label: "Save Changes", color: :primary)
+        container.render ::Decor::Daisy::Button.new(label: "Cancel", color: :secondary)
+        container.render ::Decor::Daisy::Button.new(label: "Save Changes", color: :primary)
       end
 
       container.render ::Decor::Forms::LayoutSection.new(title: "Account Settings") do |section|
@@ -37,8 +37,8 @@ class ::Decor::Forms::LayoutContainerPreview < ::Lookbook::Preview
   def complex_form
     render ::Decor::Forms::LayoutContainer.new do |container|
       container.with_buttons do
-        container.render ::Decor::Button.new(label: "Reset", style: :outlined)
-        container.render ::Decor::Button.new(label: "Submit", color: :primary)
+        container.render ::Decor::Daisy::Button.new(label: "Reset", style: :outlined)
+        container.render ::Decor::Daisy::Button.new(label: "Submit", color: :primary)
       end
 
       container.render ::Decor::Forms::LayoutSection.new(
@@ -90,8 +90,8 @@ class ::Decor::Forms::LayoutContainerPreview < ::Lookbook::Preview
     render ::Decor::Forms::LayoutContainer.new do |container|
       if with_buttons
         container.with_buttons do
-          container.render ::Decor::Button.new(label: "Cancel", style: :secondary)
-          container.render ::Decor::Button.new(label: "Save", style: :primary)
+          container.render ::Decor::Daisy::Button.new(label: "Cancel", style: :secondary)
+          container.render ::Decor::Daisy::Button.new(label: "Save", style: :primary)
         end
       end
 
@@ -135,7 +135,7 @@ class ::Decor::Forms::LayoutContainerPreview < ::Lookbook::Preview
   def nested_layout
     render ::Decor::Forms::LayoutContainer.new do |container|
       container.with_buttons do
-        container.render ::Decor::Button.new(label: "Save All", style: :primary)
+        container.render ::Decor::Daisy::Button.new(label: "Save All", style: :primary)
       end
 
       container.render ::Decor::Forms::LayoutSection.new(
@@ -166,10 +166,10 @@ class ::Decor::Forms::LayoutContainerPreview < ::Lookbook::Preview
   def button_variations
     render ::Decor::Forms::LayoutContainer.new do |container|
       container.with_buttons do
-        container.render ::Decor::Button.new(label: "Delete", style: :danger, size: :sm)
-        container.render ::Decor::Button.new(label: "Cancel", style: :outline)
-        container.render ::Decor::Button.new(label: "Save Draft", style: :secondary)
-        container.render ::Decor::Button.new(label: "Publish", style: :primary)
+        container.render ::Decor::Daisy::Button.new(label: "Delete", style: :danger, size: :sm)
+        container.render ::Decor::Daisy::Button.new(label: "Cancel", style: :outline)
+        container.render ::Decor::Daisy::Button.new(label: "Save Draft", style: :secondary)
+        container.render ::Decor::Daisy::Button.new(label: "Publish", style: :primary)
       end
 
       container.render ::Decor::Forms::LayoutSection.new(title: "Content") do |section|
@@ -182,8 +182,8 @@ class ::Decor::Forms::LayoutContainerPreview < ::Lookbook::Preview
   def centered_buttons
     render ::Decor::Forms::LayoutContainer.new do |container|
       container.with_buttons(class: "justify-center") do
-        container.render ::Decor::Button.new(label: "Go Back", style: :outline)
-        container.render ::Decor::Button.new(label: "Continue", style: :primary)
+        container.render ::Decor::Daisy::Button.new(label: "Go Back", style: :outline)
+        container.render ::Decor::Daisy::Button.new(label: "Continue", style: :primary)
       end
 
       container.render ::Decor::Forms::LayoutSection.new(title: "Code") do |section|

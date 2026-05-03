@@ -10,7 +10,7 @@ class ::Decor::Daisy::TooltipPreview < ::Lookbook::Preview
   # @label Basic Tooltip
   def basic_tooltip
     render ::Decor::Daisy::Tooltip.new(tip_text: "This is a helpful tooltip") do |el|
-      el.render ::Decor::Button.new(label: "Hover me")
+      el.render ::Decor::Daisy::Button.new(label: "Hover me")
     end
   end
 
@@ -18,7 +18,7 @@ class ::Decor::Daisy::TooltipPreview < ::Lookbook::Preview
   # @label Tooltip with Position
   def tooltip_with_position
     render ::Decor::Daisy::Tooltip.new(tip_text: "I appear on the right", position: :right) do |el|
-      el.render ::Decor::Button.new(label: "Right tooltip", color: :primary)
+      el.render ::Decor::Daisy::Button.new(label: "Right tooltip", color: :primary)
     end
   end
 
@@ -26,7 +26,7 @@ class ::Decor::Daisy::TooltipPreview < ::Lookbook::Preview
   # @label Styled Tooltip
   def styled_tooltip
     render ::Decor::Daisy::Tooltip.new(tip_text: "Important information!", color: :error, style: :outlined) do |el|
-      el.render ::Decor::Button.new(label: "Important", color: :error)
+      el.render ::Decor::Daisy::Button.new(label: "Important", color: :error)
     end
   end
 
@@ -39,7 +39,7 @@ class ::Decor::Daisy::TooltipPreview < ::Lookbook::Preview
       color: :primary,
       position: :left
     ) do |t|
-      t.render ::Decor::Button.new(label: "Large Primary Left", color: :primary, size: :large)
+      t.render ::Decor::Daisy::Button.new(label: "Large Primary Left", color: :primary, size: :large)
     end
   end
 
@@ -52,7 +52,7 @@ class ::Decor::Daisy::TooltipPreview < ::Lookbook::Preview
       color: :error,
       position: :bottom
     ) do |t|
-      t.render ::Decor::Button.new(label: "Small Error Bottom", color: :error, size: :small)
+      t.render ::Decor::Daisy::Button.new(label: "Small Error Bottom", color: :error, size: :small)
     end
   end
 
@@ -65,7 +65,7 @@ class ::Decor::Daisy::TooltipPreview < ::Lookbook::Preview
       color: :warning,
       position: :right
     ) do |t|
-      t.render ::Decor::Button.new(label: "Ghost Warning Right", style: :ghost, color: :warning)
+      t.render ::Decor::Daisy::Button.new(label: "Ghost Warning Right", style: :ghost, color: :warning)
     end
   end
 
@@ -84,7 +84,7 @@ class ::Decor::Daisy::TooltipPreview < ::Lookbook::Preview
       color: color,
       style: style
     ) do |t|
-      t.render ::Decor::Button.new(label: "Hover for tooltip")
+      t.render ::Decor::Daisy::Button.new(label: "Hover for tooltip")
     end
   end
 
@@ -92,7 +92,7 @@ class ::Decor::Daisy::TooltipPreview < ::Lookbook::Preview
   # @label Top Position
   def position_top
     render ::Decor::Daisy::Tooltip.new(tip_text: "Top tooltip", position: :top) do
-      render ::Decor::Button.new(label: "Top")
+      render ::Decor::Daisy::Button.new(label: "Top")
     end
   end
 
@@ -100,7 +100,7 @@ class ::Decor::Daisy::TooltipPreview < ::Lookbook::Preview
   # @label Bottom Position
   def position_bottom
     render ::Decor::Daisy::Tooltip.new(tip_text: "Bottom tooltip", position: :bottom) do
-      render ::Decor::Button.new(label: "Bottom")
+      render ::Decor::Daisy::Button.new(label: "Bottom")
     end
   end
 
@@ -108,7 +108,7 @@ class ::Decor::Daisy::TooltipPreview < ::Lookbook::Preview
   # @label Left Position
   def position_left
     render ::Decor::Daisy::Tooltip.new(tip_text: "Left tooltip", position: :left) do
-      render ::Decor::Button.new(label: "Left")
+      render ::Decor::Daisy::Button.new(label: "Left")
     end
   end
 
@@ -116,7 +116,7 @@ class ::Decor::Daisy::TooltipPreview < ::Lookbook::Preview
   # @label Right Position
   def position_right
     render ::Decor::Daisy::Tooltip.new(tip_text: "Right tooltip", position: :right) do
-      render ::Decor::Button.new(label: "Right")
+      render ::Decor::Daisy::Button.new(label: "Right")
     end
   end
 
@@ -124,7 +124,7 @@ class ::Decor::Daisy::TooltipPreview < ::Lookbook::Preview
   # @label Extra Small Size
   def size_xs
     render ::Decor::Daisy::Tooltip.new(tip_text: "Extra small tooltip", size: :xs) do
-      render ::Decor::Button.new(label: "XS Tooltip", size: :small)
+      render ::Decor::Daisy::Button.new(label: "XS Tooltip", size: :small)
     end
   end
 
@@ -132,7 +132,7 @@ class ::Decor::Daisy::TooltipPreview < ::Lookbook::Preview
   # @label Small Size
   def size_sm
     render ::Decor::Daisy::Tooltip.new(tip_text: "Small tooltip", size: :sm) do
-      render ::Decor::Button.new(label: "SM Tooltip", size: :small)
+      render ::Decor::Daisy::Button.new(label: "SM Tooltip", size: :small)
     end
   end
 
@@ -140,7 +140,7 @@ class ::Decor::Daisy::TooltipPreview < ::Lookbook::Preview
   # @label Medium Size
   def size_md
     render ::Decor::Daisy::Tooltip.new(tip_text: "Medium tooltip (default)", size: :md) do
-      render ::Decor::Button.new(label: "MD Tooltip", size: :medium)
+      render ::Decor::Daisy::Button.new(label: "MD Tooltip", size: :medium)
     end
   end
 
@@ -148,7 +148,7 @@ class ::Decor::Daisy::TooltipPreview < ::Lookbook::Preview
   # @label Large Size
   def size_lg
     render ::Decor::Daisy::Tooltip.new(tip_text: "Large tooltip", size: :lg) do
-      render ::Decor::Button.new(label: "LG Tooltip", size: :large)
+      render ::Decor::Daisy::Button.new(label: "LG Tooltip", size: :large)
     end
   end
 
@@ -156,7 +156,7 @@ class ::Decor::Daisy::TooltipPreview < ::Lookbook::Preview
   # @label Extra Large Size
   def size_xl
     render ::Decor::Daisy::Tooltip.new(tip_text: "Extra large tooltip", size: :xl) do
-      render ::Decor::Button.new(label: "XL Tooltip", size: :large)
+      render ::Decor::Daisy::Button.new(label: "XL Tooltip", size: :large)
     end
   end
 
@@ -164,7 +164,7 @@ class ::Decor::Daisy::TooltipPreview < ::Lookbook::Preview
   # @label Base Color
   def color_base
     render ::Decor::Daisy::Tooltip.new(tip_text: "Base tooltip", color: :base) do
-      render ::Decor::Button.new(label: "Base")
+      render ::Decor::Daisy::Button.new(label: "Base")
     end
   end
 
@@ -172,7 +172,7 @@ class ::Decor::Daisy::TooltipPreview < ::Lookbook::Preview
   # @label Primary Color
   def color_primary
     render ::Decor::Daisy::Tooltip.new(tip_text: "Primary tooltip", color: :primary) do
-      render ::Decor::Button.new(label: "Primary", color: :primary)
+      render ::Decor::Daisy::Button.new(label: "Primary", color: :primary)
     end
   end
 
@@ -180,7 +180,7 @@ class ::Decor::Daisy::TooltipPreview < ::Lookbook::Preview
   # @label Secondary Color
   def color_secondary
     render ::Decor::Daisy::Tooltip.new(tip_text: "Secondary tooltip", color: :secondary) do
-      render ::Decor::Button.new(label: "Secondary", color: :secondary)
+      render ::Decor::Daisy::Button.new(label: "Secondary", color: :secondary)
     end
   end
 
@@ -188,7 +188,7 @@ class ::Decor::Daisy::TooltipPreview < ::Lookbook::Preview
   # @label Accent Color
   def color_accent
     render ::Decor::Daisy::Tooltip.new(tip_text: "Accent tooltip", color: :accent) do
-      render ::Decor::Button.new(label: "Accent")
+      render ::Decor::Daisy::Button.new(label: "Accent")
     end
   end
 
@@ -196,7 +196,7 @@ class ::Decor::Daisy::TooltipPreview < ::Lookbook::Preview
   # @label Success Color
   def color_success
     render ::Decor::Daisy::Tooltip.new(tip_text: "Success tooltip", color: :success) do
-      render ::Decor::Button.new(label: "Success")
+      render ::Decor::Daisy::Button.new(label: "Success")
     end
   end
 
@@ -204,7 +204,7 @@ class ::Decor::Daisy::TooltipPreview < ::Lookbook::Preview
   # @label Error Color
   def color_error
     render ::Decor::Daisy::Tooltip.new(tip_text: "Error tooltip", color: :error) do
-      render ::Decor::Button.new(label: "Error", color: :danger)
+      render ::Decor::Daisy::Button.new(label: "Error", color: :danger)
     end
   end
 
@@ -212,7 +212,7 @@ class ::Decor::Daisy::TooltipPreview < ::Lookbook::Preview
   # @label Warning Color
   def color_warning
     render ::Decor::Daisy::Tooltip.new(tip_text: "Warning tooltip", color: :warning) do
-      render ::Decor::Button.new(label: "Warning", color: :warning)
+      render ::Decor::Daisy::Button.new(label: "Warning", color: :warning)
     end
   end
 
@@ -220,7 +220,7 @@ class ::Decor::Daisy::TooltipPreview < ::Lookbook::Preview
   # @label Info Color
   def color_info
     render ::Decor::Daisy::Tooltip.new(tip_text: "Info tooltip", color: :info) do
-      render ::Decor::Button.new(label: "Info")
+      render ::Decor::Daisy::Button.new(label: "Info")
     end
   end
 
@@ -228,7 +228,7 @@ class ::Decor::Daisy::TooltipPreview < ::Lookbook::Preview
   # @label Neutral Color
   def color_neutral
     render ::Decor::Daisy::Tooltip.new(tip_text: "Neutral tooltip", color: :neutral) do
-      render ::Decor::Button.new(label: "Neutral", color: :neutral)
+      render ::Decor::Daisy::Button.new(label: "Neutral", color: :neutral)
     end
   end
 
@@ -236,7 +236,7 @@ class ::Decor::Daisy::TooltipPreview < ::Lookbook::Preview
   # @label Filled Style
   def style_filled
     render ::Decor::Daisy::Tooltip.new(tip_text: "Filled tooltip (default)", style: :filled) do
-      render ::Decor::Button.new(label: "Filled")
+      render ::Decor::Daisy::Button.new(label: "Filled")
     end
   end
 
@@ -244,7 +244,7 @@ class ::Decor::Daisy::TooltipPreview < ::Lookbook::Preview
   # @label Outlined Style
   def style_outlined
     render ::Decor::Daisy::Tooltip.new(tip_text: "Outlined tooltip", style: :outlined) do
-      render ::Decor::Button.new(label: "Outlined", style: :outlined)
+      render ::Decor::Daisy::Button.new(label: "Outlined", style: :outlined)
     end
   end
 
@@ -252,7 +252,7 @@ class ::Decor::Daisy::TooltipPreview < ::Lookbook::Preview
   # @label Ghost Style
   def style_ghost
     render ::Decor::Daisy::Tooltip.new(tip_text: "Ghost tooltip", style: :ghost) do
-      render ::Decor::Button.new(label: "Ghost", style: :ghost)
+      render ::Decor::Daisy::Button.new(label: "Ghost", style: :ghost)
     end
   end
 
@@ -260,7 +260,7 @@ class ::Decor::Daisy::TooltipPreview < ::Lookbook::Preview
   # @label Custom X Offset
   def offset_x_custom
     render ::Decor::Daisy::Tooltip.new(tip_text: "Custom X offset", offset_percent_x: 100) do
-      render ::Decor::Button.new(label: "Custom X Offset")
+      render ::Decor::Daisy::Button.new(label: "Custom X Offset")
     end
   end
 
@@ -268,7 +268,7 @@ class ::Decor::Daisy::TooltipPreview < ::Lookbook::Preview
   # @label Custom Y Offset
   def offset_y_custom
     render ::Decor::Daisy::Tooltip.new(tip_text: "Custom Y offset", offset_percent_y: 150) do
-      render ::Decor::Button.new(label: "Custom Y Offset")
+      render ::Decor::Daisy::Button.new(label: "Custom Y Offset")
     end
   end
 end

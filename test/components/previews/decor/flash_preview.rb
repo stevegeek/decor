@@ -54,8 +54,8 @@ class ::Decor::FlashPreview < ::Lookbook::Preview
             component.div(class: "mt-2 text-md") do
               component.p { "This flash message uses a custom content block with additional elements." }
               component.div(class: "mt-3 flex gap-2") do
-                component.render ::Decor::Button.new(label: "Action", color: :primary, size: :sm)
-                component.render ::Decor::Button.new(label: "Cancel", style: :outlined, size: :sm)
+                component.render ::Decor::Daisy::Button.new(label: "Action", color: :primary, size: :sm)
+                component.render ::Decor::Daisy::Button.new(label: "Cancel", style: :outlined, size: :sm)
               end
             end
           end

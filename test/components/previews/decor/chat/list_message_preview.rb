@@ -135,7 +135,7 @@ class ::Decor::Chat::ListMessagePreview < ::Lookbook::Preview
                 h4(class: "font-semibold") { "Design_Mockup_v2.png" }
                 p(class: "text-sm text-base-content/70") { "2.1 MB • PNG Image" }
                 div(class: "mt-2") do
-                  render ::Decor::Button.new(size: :sm, color: :primary) { "Download" }
+                  render ::Decor::Daisy::Button.new(size: :sm, color: :primary) { "Download" }
                 end
               end
             end

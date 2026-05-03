@@ -2,11 +2,11 @@
 
 module Decor
   module Components
-    # Abstract base for Link. Inherits from Button (still monolithic until
-    # Button itself is ported) and adds the link concern + style default.
-    # Concrete skins (Daisy, Suite) inherit and provide root_element_classes
-    # plus their visual-language overrides.
-    class Link < ::Decor::Button
+    # Abstract base for Link. Inherits from Components::Button (the abstract
+    # button base) and adds the link concern + style default. Concrete skins
+    # (Daisy, Suite) inherit and provide root_element_classes plus their
+    # visual-language overrides.
+    class Link < ::Decor::Components::Button
       include Decor::Concerns::ActsAsLink
 
       default_style :ghost

@@ -12,7 +12,7 @@ class Decor::Modals::ModalOpenButtonTest < ActiveSupport::TestCase
   test "inherits from Button component" do
     component = Decor::Modals::ModalOpenButton.new(modal_id: "modal-1")
 
-    assert component.is_a?(Decor::Button)
+    assert component.is_a?(Decor::Daisy::Button)
   end
 
   test "renders with modal-opening data attributes" do
