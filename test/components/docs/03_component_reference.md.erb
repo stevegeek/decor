@@ -95,7 +95,7 @@ If you find any issues or missing components, please open a PR to improve the do
 - [Decor::CodeSnippet](#decorcodesnippet)
 - [Decor::Element](#decorelement)
 - [Decor::EmptyState](#decoremptystate)
-- [Decor::FormattedEncodedId](#decorformattedencodedid)
+- [Decor::Daisy::FormattedEncodedId](#decordaisyformattedencodedid)
 - [Decor::Map](#decormap)
 - [Decor::Page](#decorpage)
 - [Decor::PageHeader](#decorpageheader)
@@ -2116,15 +2116,15 @@ _(and the shared properties `size`, `color`, and `style` as described above)_
 
 ---
 
-### Decor::FormattedEncodedId
+### Decor::Daisy::FormattedEncodedId
 
-<span id="decorformattedencodedid"></span>
+<span id="decordaisyformattedencodedid"></span>
 
 FormattedEncodedIdPreview A component to render an encoded id with a prefix in a consistent format.
 
 **Basic Usage:**
 ```ruby
-render Decor::FormattedEncodedId.new(encoded_id: "...") do
+render Decor::Daisy::FormattedEncodedId.new(encoded_id: "...") do
   "Content goes here"
 end
 ```
