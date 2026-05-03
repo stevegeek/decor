@@ -91,7 +91,7 @@ If you find any issues or missing components, please open a PR to improve the do
 - [Decor::Chat::List](#decorchatlist)
 - [Decor::Chat::ListMessage](#decorchatlistmessage)
 - [Decor::ClickToCopy](#decorclicktocopy)
-- [Decor::CodeBlock](#decorcodeblock)
+- [Decor::Daisy::CodeBlock](#decordaisycodeblock)
 - [Decor::Daisy::CodeSnippet](#decordaisycodesnippet)
 - [Decor::Element](#decorelement)
 - [Decor::EmptyState](#decoremptystate)
@@ -2016,15 +2016,15 @@ _(and the shared properties `size`, `color`, and `style` as described above)_
 
 ---
 
-### Decor::CodeBlock
+### Decor::Daisy::CodeBlock
 
-<span id="decorcodeblock"></span>
+<span id="decordaisycodeblock"></span>
 
 CodeBlock Multi-line code blocks with syntax highlighting support. Features include line numbers, copy functionality, filename display, and terminal style. Supports highlighting specific lines and various programming languages.
 
 **Basic Usage:**
 ```ruby
-render Decor::CodeBlock.new do
+render Decor::Daisy::CodeBlock.new do
   "Content goes here"
 end
 ```

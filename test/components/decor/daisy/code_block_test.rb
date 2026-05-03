@@ -2,9 +2,9 @@
 
 require "test_helper"
 
-class Decor::CodeBlockTest < ActiveSupport::TestCase
+class Decor::Daisy::CodeBlockTest < ActiveSupport::TestCase
   def test_renders_basic_code_block
-    component = Decor::CodeBlock.new
+    component = Decor::Daisy::CodeBlock.new
 
     rendered = render_fragment(component) do
       "function hello() {\n  console.log('Hello, world!');\n}"
@@ -27,7 +27,7 @@ class Decor::CodeBlockTest < ActiveSupport::TestCase
   end
 
   def test_renders_with_language
-    component = Decor::CodeBlock.new(language: "javascript", highlight: true)
+    component = Decor::Daisy::CodeBlock.new(language: "javascript", highlight: true)
 
     rendered = render_fragment(component) { "const x = 42;" }
 
@@ -36,7 +36,7 @@ class Decor::CodeBlockTest < ActiveSupport::TestCase
   end
 
   def test_renders_with_filename
-    component = Decor::CodeBlock.new(filename: "app.js")
+    component = Decor::Daisy::CodeBlock.new(filename: "app.js")
 
     rendered = render_fragment(component) { "// code here" }
 
@@ -49,7 +49,7 @@ class Decor::CodeBlockTest < ActiveSupport::TestCase
   end
 
   def test_renders_with_copy_button
-    component = Decor::CodeBlock.new(copy_button: true)
+    component = Decor::Daisy::CodeBlock.new(copy_button: true)
 
     rendered = render_fragment(component) { "copy me" }
 
@@ -64,7 +64,7 @@ class Decor::CodeBlockTest < ActiveSupport::TestCase
   end
 
   def test_renders_terminal_variant
-    component = Decor::CodeBlock.new(style: :terminal)
+    component = Decor::Daisy::CodeBlock.new(style: :terminal)
 
     rendered = render_fragment(component) do
       "$ npm install\n> installing...\n> Done!"
@@ -83,7 +83,7 @@ class Decor::CodeBlockTest < ActiveSupport::TestCase
   end
 
   def test_renders_with_line_numbers
-    component = Decor::CodeBlock.new(show_line_numbers: true)
+    component = Decor::Daisy::CodeBlock.new(show_line_numbers: true)
 
     rendered = render_fragment(component) do
       "line 1\nline 2\nline 3"
@@ -102,7 +102,7 @@ class Decor::CodeBlockTest < ActiveSupport::TestCase
   end
 
   def test_highlights_specific_lines
-    component = Decor::CodeBlock.new(
+    component = Decor::Daisy::CodeBlock.new(
       show_line_numbers: true,
       highlight_lines: [2]
     )
@@ -118,7 +118,7 @@ class Decor::CodeBlockTest < ActiveSupport::TestCase
   end
 
   def test_terminal_variant_with_highlights
-    component = Decor::CodeBlock.new(
+    component = Decor::Daisy::CodeBlock.new(
       style: :terminal,
       highlight_lines: [2]
     )
@@ -133,7 +133,7 @@ class Decor::CodeBlockTest < ActiveSupport::TestCase
   end
 
   def test_renders_with_both_filename_and_copy_button
-    component = Decor::CodeBlock.new(
+    component = Decor::Daisy::CodeBlock.new(
       filename: "example.rb",
       copy_button: true
     )
@@ -146,7 +146,7 @@ class Decor::CodeBlockTest < ActiveSupport::TestCase
   end
 
   def test_empty_content
-    component = Decor::CodeBlock.new
+    component = Decor::Daisy::CodeBlock.new
 
     rendered = render_fragment(component)
 
@@ -156,7 +156,7 @@ class Decor::CodeBlockTest < ActiveSupport::TestCase
   end
 
   def test_multiline_code_formatting
-    component = Decor::CodeBlock.new(language: "ruby")
+    component = Decor::Daisy::CodeBlock.new(language: "ruby")
 
     rendered = render_fragment(component) do
       <<~RUBY
@@ -175,7 +175,7 @@ class Decor::CodeBlockTest < ActiveSupport::TestCase
   end
 
   def test_stimulus_controller_setup
-    component = Decor::CodeBlock.new(copy_button: true)
+    component = Decor::Daisy::CodeBlock.new(copy_button: true)
 
     rendered = render_fragment(component) { "code" }
 
@@ -185,14 +185,14 @@ class Decor::CodeBlockTest < ActiveSupport::TestCase
   end
 
   def test_stimulus_controller_values
-    component = Decor::CodeBlock.new(language: "javascript", highlight: true)
+    component = Decor::Daisy::CodeBlock.new(language: "javascript", highlight: true)
 
     rendered = render_fragment(component) { "const x = 42;" }
 
     # Should have code block controller with values
-    assert_includes rendered.to_html, "data-controller=\"decor--code-block\""
-    assert_includes rendered.to_html, "data-decor--code-block-language-value=\"javascript\""
-    assert_includes rendered.to_html, "data-decor--code-block-highlight-value=\"true\""
-    assert_includes rendered.to_html, "data-decor--code-block-target=\"code\""
+    assert_includes rendered.to_html, "data-controller=\"decor--daisy--code-block\""
+    assert_includes rendered.to_html, "data-decor--daisy--code-block-language-value=\"javascript\""
+    assert_includes rendered.to_html, "data-decor--daisy--code-block-highlight-value=\"true\""
+    assert_includes rendered.to_html, "data-decor--daisy--code-block-target=\"code\""
   end
 end
