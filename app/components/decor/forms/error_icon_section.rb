@@ -12,7 +12,7 @@ module Decor
       def view_template
         root_element do |el|
           if @show_floating_message
-            render ::Decor::Tooltip.new(position: @tip_position, offset_percent_x: @tip_offset_percent, offset_percent_y: @tip_offset_percent) do |tip|
+            render ::Decor::Daisy::Tooltip.new(position: @tip_position, offset_percent_x: @tip_offset_percent, offset_percent_y: @tip_offset_percent) do |tip|
               tip.with_tip_content do
                 p(class: "text-error text-sm", **el.as_target(:error_text)) do
                   @error_text

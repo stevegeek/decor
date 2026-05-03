@@ -34,7 +34,7 @@ If you find any issues or missing components, please open a PR to improve the do
 - [Decor::Daisy::Spinner](#decordaisyspinner)
 - [Decor::Tag](#decortag)
 - [Decor::Title](#decortitle)
-- [Decor::Tooltip](#decortooltip)
+- [Decor::Daisy::Tooltip](#decordaisytooltip)
 
 ### Form Components
 - [Decor::Forms::ButtonRadioGroup](#decorformsbuttonradiogroup)
@@ -724,15 +724,15 @@ _(and the shared properties `size`, `color`, and `style` as described above)_
 
 ---
 
-### Decor::Tooltip
+### Decor::Daisy::Tooltip
 
-<span id="decortooltip"></span>
+<span id="decordaisytooltip"></span>
 
 Tooltips A tooltip is a small popover that displays additional information about something when the user hovers over it. Supports different positions, sizes, colors, and styles.
 
 **Basic Usage:**
 ```ruby
-render Decor::Tooltip.new do |c|
+render Decor::Daisy::Tooltip.new do |c|
   c.with_tip_content do
     # Slot content
   end
