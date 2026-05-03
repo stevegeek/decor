@@ -1,8 +1,8 @@
 require "test_helper"
 
-class Decor::StatTest < ActiveSupport::TestCase
+class Decor::Daisy::StatTest < ActiveSupport::TestCase
   test "renders successfully with basic attributes" do
-    component = Decor::Stat.new(
+    component = Decor::Daisy::Stat.new(
       title: "Test Title",
       value: "123",
       description: "Test description"
@@ -16,7 +16,7 @@ class Decor::StatTest < ActiveSupport::TestCase
   end
 
   test "renders with minimal attributes" do
-    component = Decor::Stat.new(value: "42")
+    component = Decor::Daisy::Stat.new(value: "42")
     rendered = render_component(component)
 
     assert_includes rendered, "stat"
@@ -24,7 +24,7 @@ class Decor::StatTest < ActiveSupport::TestCase
   end
 
   test "renders without any attributes" do
-    component = Decor::Stat.new
+    component = Decor::Daisy::Stat.new
     rendered = render_component(component)
 
     assert_includes rendered, "stat"
@@ -34,7 +34,7 @@ class Decor::StatTest < ActiveSupport::TestCase
   # Color tests
   test "applies correct color classes" do
     [:primary, :secondary, :accent, :success, :error, :warning, :info, :neutral].each do |color|
-      component = Decor::Stat.new(value: "Test", color: color)
+      component = Decor::Daisy::Stat.new(value: "Test", color: color)
       rendered = render_component(component)
 
       if color == :neutral
@@ -46,7 +46,7 @@ class Decor::StatTest < ActiveSupport::TestCase
   end
 
   test "defaults to neutral color" do
-    component = Decor::Stat.new(value: "Test")
+    component = Decor::Daisy::Stat.new(value: "Test")
     rendered = render_component(component)
 
     refute_includes rendered, "text-neutral"
@@ -55,14 +55,14 @@ class Decor::StatTest < ActiveSupport::TestCase
 
   # Centered layout tests
   test "applies centered class when centered is true" do
-    component = Decor::Stat.new(value: "Test", centered: true)
+    component = Decor::Daisy::Stat.new(value: "Test", centered: true)
     rendered = render_component(component)
 
     assert_includes rendered, "place-items-center"
   end
 
   test "does not apply centered class by default" do
-    component = Decor::Stat.new(value: "Test")
+    component = Decor::Daisy::Stat.new(value: "Test")
     rendered = render_component(component)
 
     refute_includes rendered, "place-items-center"
@@ -70,7 +70,7 @@ class Decor::StatTest < ActiveSupport::TestCase
 
   # Title tests
   test "renders title in stat-title div" do
-    component = Decor::Stat.new(title: "My Stat Title")
+    component = Decor::Daisy::Stat.new(title: "My Stat Title")
     rendered = render_component(component)
 
     assert_includes rendered, "stat-title"
@@ -78,7 +78,7 @@ class Decor::StatTest < ActiveSupport::TestCase
   end
 
   test "does not render title div when no title provided" do
-    component = Decor::Stat.new(value: "123")
+    component = Decor::Daisy::Stat.new(value: "123")
     rendered = render_component(component)
 
     refute_includes rendered, "stat-title"
@@ -86,7 +86,7 @@ class Decor::StatTest < ActiveSupport::TestCase
 
   # Value tests
   test "renders value in stat-value div" do
-    component = Decor::Stat.new(value: "42,000")
+    component = Decor::Daisy::Stat.new(value: "42,000")
     rendered = render_component(component)
 
     assert_includes rendered, "stat-value"
@@ -94,7 +94,7 @@ class Decor::StatTest < ActiveSupport::TestCase
   end
 
   test "applies color class to value" do
-    component = Decor::Stat.new(value: "123", color: :primary)
+    component = Decor::Daisy::Stat.new(value: "123", color: :primary)
     rendered = render_component(component)
 
     assert_includes rendered, "stat-value"
@@ -103,7 +103,7 @@ class Decor::StatTest < ActiveSupport::TestCase
 
   # Description tests
   test "renders description in stat-desc div" do
-    component = Decor::Stat.new(description: "Up 20% from last month")
+    component = Decor::Daisy::Stat.new(description: "Up 20% from last month")
     rendered = render_component(component)
 
     assert_includes rendered, "stat-desc"
@@ -111,7 +111,7 @@ class Decor::StatTest < ActiveSupport::TestCase
   end
 
   test "does not render description div when no description provided" do
-    component = Decor::Stat.new(value: "123")
+    component = Decor::Daisy::Stat.new(value: "123")
     rendered = render_component(component)
 
     refute_includes rendered, "stat-desc"
@@ -119,7 +119,7 @@ class Decor::StatTest < ActiveSupport::TestCase
 
   # Icon tests
   test "renders icon in figure when icon provided" do
-    component = Decor::Stat.new(icon: "star", value: "123")
+    component = Decor::Daisy::Stat.new(icon: "star", value: "123")
     rendered = render_component(component)
 
     assert_includes rendered, "stat-figure"
@@ -128,14 +128,14 @@ class Decor::StatTest < ActiveSupport::TestCase
   end
 
   test "does not render figure when no icon provided" do
-    component = Decor::Stat.new(value: "123")
+    component = Decor::Daisy::Stat.new(value: "123")
     rendered = render_component(component)
 
     refute_includes rendered, "stat-figure"
   end
 
   test "applies icon color class to figure" do
-    component = Decor::Stat.new(icon: "star", icon_color: :primary, value: "123")
+    component = Decor::Daisy::Stat.new(icon: "star", icon_color: :primary, value: "123")
     rendered = render_component(component)
 
     assert_includes rendered, "stat-figure"
@@ -143,7 +143,7 @@ class Decor::StatTest < ActiveSupport::TestCase
   end
 
   test "applies stat color to figure when no icon_color specified" do
-    component = Decor::Stat.new(icon: "star", color: :success, value: "123")
+    component = Decor::Daisy::Stat.new(icon: "star", color: :success, value: "123")
     rendered = render_component(component)
 
     assert_includes rendered, "stat-figure"
@@ -151,7 +151,7 @@ class Decor::StatTest < ActiveSupport::TestCase
   end
 
   test "does not apply color class to figure when stat color is neutral" do
-    component = Decor::Stat.new(icon: "star", color: :neutral, value: "123")
+    component = Decor::Daisy::Stat.new(icon: "star", color: :neutral, value: "123")
     rendered = render_component(component)
 
     assert_includes rendered, "stat-figure"
@@ -160,7 +160,7 @@ class Decor::StatTest < ActiveSupport::TestCase
 
   # Block content tests
   test "renders block content in value area" do
-    component = Decor::Stat.new(title: "Custom")
+    component = Decor::Daisy::Stat.new(title: "Custom")
 
     # Simulate block content
     component.instance_eval do
@@ -179,7 +179,7 @@ class Decor::StatTest < ActiveSupport::TestCase
 
   # Figure block tests
   test "renders figure block content" do
-    component = Decor::Stat.new(value: "123")
+    component = Decor::Daisy::Stat.new(value: "123")
     component.figure do
       div(class: "custom-figure") { "Figure Content" }
     end
@@ -191,7 +191,7 @@ class Decor::StatTest < ActiveSupport::TestCase
   end
 
   test "sets with_figure to true when figure block provided" do
-    component = Decor::Stat.new(value: "123")
+    component = Decor::Daisy::Stat.new(value: "123")
     component.figure do
       span { "test" }
     end
@@ -201,7 +201,7 @@ class Decor::StatTest < ActiveSupport::TestCase
 
   # Actions block tests
   test "renders actions block content" do
-    component = Decor::Stat.new(value: "123")
+    component = Decor::Daisy::Stat.new(value: "123")
     component.actions do
       button(class: "btn") { "Action Button" }
     end
@@ -213,7 +213,7 @@ class Decor::StatTest < ActiveSupport::TestCase
   end
 
   test "sets with_actions to true when actions block provided" do
-    component = Decor::Stat.new(value: "123")
+    component = Decor::Daisy::Stat.new(value: "123")
     component.actions do
       button { "test" }
     end
@@ -223,7 +223,7 @@ class Decor::StatTest < ActiveSupport::TestCase
 
   # Complete stat tests
   test "renders complete stat with all elements" do
-    component = Decor::Stat.new(
+    component = Decor::Daisy::Stat.new(
       title: "Total Sales",
       value: "$45,231",
       description: "+20% from last month",
@@ -251,7 +251,7 @@ class Decor::StatTest < ActiveSupport::TestCase
 
   # Nokogiri parsing tests
   test "uses nokogiri for parsing" do
-    component = Decor::Stat.new(value: "Test", color: :primary)
+    component = Decor::Daisy::Stat.new(value: "Test", color: :primary)
     fragment = render_fragment(component)
 
     stat_div = fragment.at_css(".stat")
@@ -265,7 +265,7 @@ class Decor::StatTest < ActiveSupport::TestCase
   end
 
   test "handles complex nested structure with nokogiri" do
-    component = Decor::Stat.new(
+    component = Decor::Daisy::Stat.new(
       title: "Complex Stat",
       value: "123",
       description: "Test desc",
@@ -299,7 +299,7 @@ class Decor::StatTest < ActiveSupport::TestCase
 
   # Edge cases
   test "handles nil values gracefully" do
-    component = Decor::Stat.new(
+    component = Decor::Daisy::Stat.new(
       title: nil,
       value: nil,
       description: nil
@@ -311,7 +311,7 @@ class Decor::StatTest < ActiveSupport::TestCase
   end
 
   test "handles empty strings gracefully" do
-    component = Decor::Stat.new(
+    component = Decor::Daisy::Stat.new(
       title: "",
       value: "",
       description: ""
@@ -324,7 +324,7 @@ class Decor::StatTest < ActiveSupport::TestCase
 
   # Default values tests
   test "has correct default values" do
-    component = Decor::Stat.new
+    component = Decor::Daisy::Stat.new
 
     assert_equal :neutral, component.instance_variable_get(:@color)
     assert_equal false, component.instance_variable_get(:@centered)
@@ -334,14 +334,14 @@ class Decor::StatTest < ActiveSupport::TestCase
 
   # HTML structure tests
   test "uses div as root element" do
-    component = Decor::Stat.new(value: "Test")
+    component = Decor::Daisy::Stat.new(value: "Test")
     fragment = render_fragment(component)
 
     assert_equal "div", fragment.children.first.name
   end
 
   test "renders elements in correct order" do
-    component = Decor::Stat.new(
+    component = Decor::Daisy::Stat.new(
       title: "Title",
       value: "Value",
       description: "Description",

@@ -69,7 +69,7 @@ If you find any issues or missing components, please open a PR to improve the do
 
 ### Data Display Components
 - [Decor::Pagination](#decorpagination)
-- [Decor::Stat](#decorstat)
+- [Decor::Daisy::Stat](#decordaisystat)
 - [Decor::Stats](#decorstats)
 - [Decor::Tables::DataTable](#decortablesdatatable)
 - [Decor::Tables::DataTableBuilder](#decortablesdatatablebuilder)
@@ -1483,15 +1483,15 @@ _(and the shared properties `size`, `color`, and `style` as described above)_
 
 ---
 
-### Decor::Stat
+### Decor::Daisy::Stat
 
-<span id="decorstat"></span>
+<span id="decordaisystat"></span>
 
 Stat A Stat component displays statistical information in a structured, visually appealing format. Perfect for dashboards, analytics displays, and anywhere numerical data needs to be prominently featured. Supports icons, descriptions, actions, and various color themes.
 
 **Basic Usage:**
 ```ruby
-render Decor::Stat.new do
+render Decor::Daisy::Stat.new do
   "Content goes here"
 end
 ```

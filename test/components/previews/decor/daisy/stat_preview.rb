@@ -1,5 +1,5 @@
 # @label Stat
-class ::Decor::StatPreview < ::Lookbook::Preview
+class ::Decor::Daisy::StatPreview < ::Lookbook::Preview
   # Stat
   # ----
   #
@@ -11,7 +11,7 @@ class ::Decor::StatPreview < ::Lookbook::Preview
   # @label Basic Stat
   def basic_stat
     render ::Decor::Stats.new do |el|
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "Total Revenue",
         value: "$45,231",
         description: "+20.1% from last month"
@@ -23,7 +23,7 @@ class ::Decor::StatPreview < ::Lookbook::Preview
   # @label Stat with Icon
   def stat_with_icon
     render ::Decor::Stats.new do |el|
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "Active Users",
         value: "2,847",
         description: "Currently online",
@@ -37,20 +37,20 @@ class ::Decor::StatPreview < ::Lookbook::Preview
   # @label Multiple Stats
   def multiple_stats
     render ::Decor::Stats.new(orientation: :horizontal) do |el|
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "Downloads",
         value: "31K",
         description: "Total downloads",
         icon: "download"
       )
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "New Users",
         value: "4,200",
         description: "↗︎ 400 (22%)",
         color: :success,
         icon: "users"
       )
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "Active Sessions",
         value: "1,250",
         description: "Currently active",
@@ -88,7 +88,7 @@ class ::Decor::StatPreview < ::Lookbook::Preview
     style: nil
   )
     render ::Decor::Stats.new(orientation: orientation.to_sym, shadow: shadow, responsive: responsive) do |el|
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: title,
         value: value,
         description: description,
@@ -106,7 +106,7 @@ class ::Decor::StatPreview < ::Lookbook::Preview
   # @label Left Aligned (Default)
   def align_left
     render ::Decor::Stats.new do |el|
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "Total Downloads",
         value: "31K",
         description: "From January 1st to February 1st",
@@ -119,7 +119,7 @@ class ::Decor::StatPreview < ::Lookbook::Preview
   # @label Center Aligned
   def align_center
     render ::Decor::Stats.new do |el|
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "Downloads",
         value: "31K",
         description: "From January 1st to February 1st",
@@ -132,7 +132,7 @@ class ::Decor::StatPreview < ::Lookbook::Preview
   # @label Primary Color
   def color_primary
     render ::Decor::Stats.new do |el|
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "Revenue",
         value: "$89,400",
         description: "12% increase from last quarter",
@@ -145,7 +145,7 @@ class ::Decor::StatPreview < ::Lookbook::Preview
   # @label Success Color
   def color_success
     render ::Decor::Stats.new do |el|
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "Completed Tasks",
         value: "147",
         description: "All goals achieved",
@@ -159,7 +159,7 @@ class ::Decor::StatPreview < ::Lookbook::Preview
   # @label Error Color
   def color_error
     render ::Decor::Stats.new do |el|
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "Failed Requests",
         value: "23",
         description: "5% error rate",
@@ -173,7 +173,7 @@ class ::Decor::StatPreview < ::Lookbook::Preview
   # @label Warning Color
   def color_warning
     render ::Decor::Stats.new do |el|
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "Pending Reviews",
         value: "12",
         description: "Requires attention",
@@ -187,7 +187,7 @@ class ::Decor::StatPreview < ::Lookbook::Preview
   # @label Chart Icon
   def icon_chart
     render ::Decor::Stats.new do |el|
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "Analytics",
         value: "89.4%",
         description: "Conversion rate",
@@ -201,7 +201,7 @@ class ::Decor::StatPreview < ::Lookbook::Preview
   # @label Users Icon
   def icon_users
     render ::Decor::Stats.new do |el|
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "Active Users",
         value: "2,847",
         description: "Currently online",
@@ -215,7 +215,7 @@ class ::Decor::StatPreview < ::Lookbook::Preview
   # @label Download Icon
   def icon_download
     render ::Decor::Stats.new do |el|
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "Total Downloads",
         value: "1.2M",
         description: "All time",
@@ -229,7 +229,7 @@ class ::Decor::StatPreview < ::Lookbook::Preview
   # @label Different Icon Color
   def icon_different_color
     render ::Decor::Stats.new do |el|
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "Premium Users",
         value: "567",
         description: "Subscribed members",
@@ -244,18 +244,18 @@ class ::Decor::StatPreview < ::Lookbook::Preview
   # @label Horizontal Layout
   def layout_horizontal
     render ::Decor::Stats.new(orientation: :horizontal) do |el|
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "Total Page Views",
         value: "89,400",
         description: "21% more than last month"
       )
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "Total Likes",
         value: "25.6K",
         description: "21% more than last month",
         color: :primary
       )
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "Downloads",
         value: "31K",
         description: "From January 1st to February 1st",
@@ -268,18 +268,18 @@ class ::Decor::StatPreview < ::Lookbook::Preview
   # @label Vertical Layout
   def layout_vertical
     render ::Decor::Stats.new(orientation: :vertical) do |el|
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "Downloads",
         value: "31K",
         description: "Jan 1st - Feb 1st"
       )
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "New Users",
         value: "4,200",
         description: "↗︎ 400 (22%)",
         color: :success
       )
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "Active Sessions",
         value: "1,250",
         description: "Currently active",
@@ -292,19 +292,19 @@ class ::Decor::StatPreview < ::Lookbook::Preview
   # @label Responsive Layout
   def layout_responsive
     render ::Decor::Stats.new(responsive: true) do |el|
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "Account Balance",
         value: "$89,400",
         description: "Available funds",
         color: :success
       )
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "Pending Transactions",
         value: "12",
         description: "Awaiting approval",
         color: :warning
       )
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "Monthly Spending",
         value: "$2,847",
         description: "This month",
@@ -317,7 +317,7 @@ class ::Decor::StatPreview < ::Lookbook::Preview
   # @label With Figure Block
   def custom_figure_block
     render ::Decor::Stats.new do |el|
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "Active Users",
         value: "86%",
         description: "31 tasks remaining",
@@ -338,7 +338,7 @@ class ::Decor::StatPreview < ::Lookbook::Preview
   # @label With Actions
   def custom_with_actions
     render ::Decor::Stats.new do |el|
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "Account Balance",
         value: "$89,400",
         description: "Available funds"
@@ -358,28 +358,28 @@ class ::Decor::StatPreview < ::Lookbook::Preview
   # @label Complex Dashboard Stats
   def custom_dashboard
     render ::Decor::Stats.new(responsive: true) do |el|
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "Revenue",
         value: "$45,231",
         description: "+20.1% from last month",
         color: :success,
         icon: "currency-dollar"
       )
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "Orders",
         value: "1,234",
         description: "+15% from last week",
         color: :primary,
         icon: "shopping-cart"
       )
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "Customers",
         value: "567",
         description: "↗︎ 90 (12%)",
         color: :info,
         icon: "users"
       )
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "Conversion",
         value: "12.5%",
         description: "↘︎ -2.3% from last month",
@@ -393,7 +393,7 @@ class ::Decor::StatPreview < ::Lookbook::Preview
   # @label Without Shadow
   def styling_no_shadow
     render ::Decor::Stats.new(shadow: false) do |el|
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "Clean Look",
         value: "42",
         description: "No shadow styling"
@@ -405,7 +405,7 @@ class ::Decor::StatPreview < ::Lookbook::Preview
   # @label With Background
   def styling_with_background
     render ::Decor::Stats.new(background: true) do |el|
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "Highlighted",
         value: "256",
         description: "With background color",
@@ -418,7 +418,7 @@ class ::Decor::StatPreview < ::Lookbook::Preview
   # @label Combined Styling
   def styling_combined
     render ::Decor::Stats.new(shadow: true, background: true) do |el|
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "Premium Stats",
         value: "1,337",
         description: "Shadow + background",
@@ -432,7 +432,7 @@ class ::Decor::StatPreview < ::Lookbook::Preview
   # @label Custom Value Content
   def custom_value_content
     render ::Decor::Stats.new do |el|
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "Complex Metric",
         description: "Multiple components"
       ) do |stat|
@@ -446,7 +446,7 @@ class ::Decor::StatPreview < ::Lookbook::Preview
   # @label Full Custom Content
   def custom_full_content
     render ::Decor::Stats.new do |el|
-      el.render ::Decor::Stat.new(centered: true) do |stat|
+      el.render ::Decor::Daisy::Stat.new(centered: true) do |stat|
         stat.div(class: "stat-title") { "Custom Layout" }
         stat.div(class: "stat-value text-secondary") { "∞" }
         stat.div(class: "stat-desc") { "Unlimited possibilities" }
@@ -458,28 +458,28 @@ class ::Decor::StatPreview < ::Lookbook::Preview
   # @label E-commerce Dashboard
   def ecommerce_dashboard
     render ::Decor::Stats.new(responsive: true, shadow: true) do |el|
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "Total Sales",
         value: "$54,239",
         description: "+12% from last month",
         color: :success,
         icon: "currency-dollar"
       )
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "Orders",
         value: "1,423",
         description: "This month",
         color: :primary,
         icon: "shopping-bag"
       )
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "Customers",
         value: "892",
         description: "Active users",
         color: :info,
         icon: "users"
       )
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "Conversion Rate",
         value: "2.4%",
         description: "↗︎ +0.3% this week",
@@ -493,28 +493,28 @@ class ::Decor::StatPreview < ::Lookbook::Preview
   # @label Website Analytics
   def website_analytics
     render ::Decor::Stats.new(orientation: :vertical, shadow: true) do |el|
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "Page Views",
         value: "125,847",
         description: "Last 30 days",
         color: :primary,
         icon: "eye"
       )
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "Unique Visitors",
         value: "23,456",
         description: "Monthly unique users",
         color: :info,
         icon: "users"
       )
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "Bounce Rate",
         value: "24.3%",
         description: "↘︎ -5.2% improvement",
         color: :success,
         icon: "chart-bar"
       )
-      el.render ::Decor::Stat.new(
+      el.render ::Decor::Daisy::Stat.new(
         title: "Average Session",
         value: "4m 32s",
         description: "Time on site",
