@@ -121,7 +121,7 @@ class ::Decor::CardPreview < ::Lookbook::Preview
     when :with_header_slot
       render ::Decor::Card.new(size: size, color: color, style: style) do |card|
         card.with_header do
-          card.render ::Decor::Progress.new(
+          card.render ::Decor::Daisy::Progress.new(
             current_step: 1,
             i18n_key: "registration.steps.progress",
             steps: [{label_key: "first"}, {label_key: "second"}, {label_key: "third"}, {label_key: "complete"}]

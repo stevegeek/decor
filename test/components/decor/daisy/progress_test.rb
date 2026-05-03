@@ -1,6 +1,6 @@
 require "test_helper"
 
-class Decor::ProgressTest < ActiveSupport::TestCase
+class Decor::Daisy::ProgressTest < ActiveSupport::TestCase
   def setup
     @steps = [
       {label_key: "step_one", href: "/step-1"},
@@ -10,7 +10,7 @@ class Decor::ProgressTest < ActiveSupport::TestCase
   end
 
   test "renders successfully with steps" do
-    component = Decor::Progress.new(steps: @steps, i18n_key: "progress")
+    component = Decor::Daisy::Progress.new(steps: @steps, i18n_key: "progress")
     rendered = render_component(component)
 
     assert_includes rendered, "steps"
@@ -18,7 +18,7 @@ class Decor::ProgressTest < ActiveSupport::TestCase
   end
 
   test "renders multiple steps" do
-    component = Decor::Progress.new(steps: @steps, i18n_key: "progress")
+    component = Decor::Daisy::Progress.new(steps: @steps, i18n_key: "progress")
 
     # Should have 3 list items for 3 steps
     fragment = render_fragment(component)
@@ -27,13 +27,13 @@ class Decor::ProgressTest < ActiveSupport::TestCase
   end
 
   test "defaults to step 1" do
-    component = Decor::Progress.new(steps: @steps, i18n_key: "progress")
+    component = Decor::Daisy::Progress.new(steps: @steps, i18n_key: "progress")
 
     assert_equal 1, component.instance_variable_get(:@current_step)
   end
 
   test "renders DaisyUI steps by default" do
-    component = Decor::Progress.new(steps: @steps)
+    component = Decor::Daisy::Progress.new(steps: @steps)
     rendered = render_component(component)
 
     assert_includes rendered, "steps"
@@ -41,7 +41,7 @@ class Decor::ProgressTest < ActiveSupport::TestCase
   end
 
   test "renders progress bar in progress style" do
-    component = Decor::Progress.new(steps: @steps, style: :progress)
+    component = Decor::Daisy::Progress.new(steps: @steps, style: :progress)
     rendered = render_component(component)
 
     assert_includes rendered, "<progress"
@@ -51,7 +51,7 @@ class Decor::ProgressTest < ActiveSupport::TestCase
   end
 
   test "renders both progress bar and steps in both style" do
-    component = Decor::Progress.new(steps: @steps, style: :both)
+    component = Decor::Daisy::Progress.new(steps: @steps, style: :both)
     rendered = render_component(component)
 
     assert_includes rendered, "<progress"
@@ -62,7 +62,7 @@ class Decor::ProgressTest < ActiveSupport::TestCase
   # Color style tests
   test "renders with different color styles" do
     [:primary, :secondary, :accent, :success, :error, :warning, :info].each do |color|
-      component = Decor::Progress.new(steps: @steps, color: color)
+      component = Decor::Daisy::Progress.new(steps: @steps, color: color)
       rendered = render_component(component)
 
       assert_includes rendered, "step-#{color}"
@@ -71,7 +71,7 @@ class Decor::ProgressTest < ActiveSupport::TestCase
 
   test "renders progress bar with correct color" do
     [:primary, :secondary, :accent, :success, :error, :warning, :info].each do |color|
-      component = Decor::Progress.new(
+      component = Decor::Daisy::Progress.new(
         steps: @steps,
         color: color,
         style: :progress
@@ -85,7 +85,7 @@ class Decor::ProgressTest < ActiveSupport::TestCase
   # Size style tests
   test "renders with different size styles" do
     [:xs, :sm, :md, :lg].each do |size|
-      component = Decor::Progress.new(
+      component = Decor::Daisy::Progress.new(
         steps: @steps,
         size: size,
         style: :progress
@@ -99,21 +99,21 @@ class Decor::ProgressTest < ActiveSupport::TestCase
   end
 
   test "renders vertical steps when vertical is true" do
-    component = Decor::Progress.new(steps: @steps, vertical: true)
+    component = Decor::Daisy::Progress.new(steps: @steps, vertical: true)
     rendered = render_component(component)
 
     assert_includes rendered, "steps-vertical"
   end
 
   test "does not render vertical steps when vertical is false" do
-    component = Decor::Progress.new(steps: @steps, vertical: false)
+    component = Decor::Daisy::Progress.new(steps: @steps, vertical: false)
     rendered = render_component(component)
 
     refute_includes rendered, "steps-vertical"
   end
 
   test "large size does not automatically force vertical layout" do
-    component = Decor::Progress.new(steps: @steps, size: :lg, vertical: false)
+    component = Decor::Daisy::Progress.new(steps: @steps, size: :lg, vertical: false)
     rendered = render_component(component)
 
     refute_includes rendered, "steps-vertical"
@@ -121,7 +121,7 @@ class Decor::ProgressTest < ActiveSupport::TestCase
 
   # Progress value calculation tests
   test "calculates progress value correctly" do
-    component = Decor::Progress.new(steps: @steps, current_step: 2, style: :progress)
+    component = Decor::Daisy::Progress.new(steps: @steps, current_step: 2, style: :progress)
     rendered = render_component(component)
 
     assert_includes rendered, 'value="33"'
@@ -130,19 +130,19 @@ class Decor::ProgressTest < ActiveSupport::TestCase
 
   test "handles edge cases for progress value" do
     # Current step 0
-    component = Decor::Progress.new(steps: @steps, current_step: 0, style: :progress)
+    component = Decor::Daisy::Progress.new(steps: @steps, current_step: 0, style: :progress)
     rendered = render_component(component)
     assert_includes rendered, 'value="0"'
 
     # Current step beyond total
-    component = Decor::Progress.new(steps: @steps, current_step: 5, style: :progress)
+    component = Decor::Daisy::Progress.new(steps: @steps, current_step: 5, style: :progress)
     rendered = render_component(component)
     assert_includes rendered, 'value="100"'
   end
 
   # Show numbers option test
   test "hides numbers when show_numbers is false" do
-    component = Decor::Progress.new(steps: @steps, show_numbers: false)
+    component = Decor::Daisy::Progress.new(steps: @steps, show_numbers: false)
     rendered = render_component(component)
 
     # When show_numbers is false, data-content attributes should not include numbers
@@ -152,7 +152,7 @@ class Decor::ProgressTest < ActiveSupport::TestCase
   end
 
   test "shows numbers when show_numbers is true" do
-    component = Decor::Progress.new(steps: @steps, show_numbers: true)
+    component = Decor::Daisy::Progress.new(steps: @steps, show_numbers: true)
     rendered = render_component(component)
 
     # Check that step numbers are shown via data-content
@@ -162,7 +162,7 @@ class Decor::ProgressTest < ActiveSupport::TestCase
 
   # Animation tests
   test "includes animation classes by default" do
-    component = Decor::Progress.new(
+    component = Decor::Daisy::Progress.new(
       steps: @steps,
       style: :progress
     )
@@ -173,7 +173,7 @@ class Decor::ProgressTest < ActiveSupport::TestCase
   end
 
   test "always includes animation classes" do
-    component = Decor::Progress.new(
+    component = Decor::Daisy::Progress.new(
       steps: @steps,
       style: :progress
     )
@@ -185,7 +185,7 @@ class Decor::ProgressTest < ActiveSupport::TestCase
 
   # Accessibility tests
   test "includes proper ARIA labels" do
-    component = Decor::Progress.new(steps: @steps)
+    component = Decor::Daisy::Progress.new(steps: @steps)
     rendered = render_component(component)
 
     # Uses ul/li structure with steps classes
@@ -195,7 +195,7 @@ class Decor::ProgressTest < ActiveSupport::TestCase
   end
 
   test "progress bar has proper ARIA label" do
-    component = Decor::Progress.new(steps: @steps, current_step: 2, style: :progress)
+    component = Decor::Daisy::Progress.new(steps: @steps, current_step: 2, style: :progress)
     rendered = render_component(component)
 
     assert_includes rendered, 'aria-label="Progress: 33% complete"'
@@ -203,7 +203,7 @@ class Decor::ProgressTest < ActiveSupport::TestCase
 
   # Edge cases
   test "handles empty steps array" do
-    component = Decor::Progress.new(steps: [])
+    component = Decor::Daisy::Progress.new(steps: [])
     rendered = render_component(component)
 
     assert rendered # Should not raise error
@@ -211,7 +211,7 @@ class Decor::ProgressTest < ActiveSupport::TestCase
 
   test "handles single step" do
     single_step = [{label_key: "only_step"}]
-    component = Decor::Progress.new(steps: single_step)
+    component = Decor::Daisy::Progress.new(steps: single_step)
     fragment = render_fragment(component)
 
     list_items = fragment.css("li")
@@ -220,7 +220,7 @@ class Decor::ProgressTest < ActiveSupport::TestCase
 
   # Links tests
   test "renders links for completed steps" do
-    component = Decor::Progress.new(
+    component = Decor::Daisy::Progress.new(
       steps: @steps,
       current_step: 3
     )
@@ -231,7 +231,7 @@ class Decor::ProgressTest < ActiveSupport::TestCase
   end
 
   test "does not render links for current or upcoming steps" do
-    component = Decor::Progress.new(
+    component = Decor::Daisy::Progress.new(
       steps: [
         {label_key: "step_one", href: "/step-1"},
         {label_key: "step_two", href: "/step-2"}
@@ -245,7 +245,7 @@ class Decor::ProgressTest < ActiveSupport::TestCase
 
   # Data content tests
   test "shows checkmark for completed steps" do
-    component = Decor::Progress.new(steps: @steps, current_step: 3)
+    component = Decor::Daisy::Progress.new(steps: @steps, current_step: 3)
     rendered = render_component(component)
 
     # The first two steps should be completed and show checkmarks
@@ -254,7 +254,7 @@ class Decor::ProgressTest < ActiveSupport::TestCase
 
   # Default attribute values
   test "has correct default values" do
-    component = Decor::Progress.new(steps: @steps)
+    component = Decor::Daisy::Progress.new(steps: @steps)
 
     assert_equal :primary, component.instance_variable_get(:@color)
     assert_equal :md, component.instance_variable_get(:@size)

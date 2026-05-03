@@ -1,5 +1,5 @@
 # @label Progress
-class ::Decor::ProgressPreview < ::Lookbook::Preview
+class ::Decor::Daisy::ProgressPreview < ::Lookbook::Preview
   # Progress Component
   # ==================
   #
@@ -16,7 +16,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
   # @group Examples
   # @label Checkout with both Steps and Progress Bar
   def example_checkout
-    render ::Decor::Progress.new(
+    render ::Decor::Daisy::Progress.new(
       steps: [
         {label_key: "Cart", href: "/cart"},
         {label_key: "Shipping", href: "/checkout/shipping"},
@@ -33,7 +33,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
   # @group Examples
   # @label Only Steps Display
   def example_file_upload
-    render ::Decor::Progress.new(
+    render ::Decor::Daisy::Progress.new(
       steps: [
         {label_key: "Selecting Files"},
         {label_key: "Uploading"},
@@ -50,7 +50,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
   # @group Examples
   # @label Steps without Numbers
   def example_onboarding
-    render ::Decor::Progress.new(
+    render ::Decor::Daisy::Progress.new(
       steps: [
         {label_key: "Welcome"},
         {label_key: "Setup Profile"},
@@ -81,7 +81,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
     color: nil,
     style: nil
   )
-    render ::Decor::Progress.new(
+    render ::Decor::Daisy::Progress.new(
       steps: [
         {label_key: "Account Setup", href: (current_step > 1) ? "#account" : nil},
         {label_key: "Profile Info", href: (current_step > 2) ? "#profile" : nil},
@@ -101,7 +101,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
   # @group Display Styles
   # @label Steps Only
   def style_steps_only
-    render ::Decor::Progress.new(
+    render ::Decor::Daisy::Progress.new(
       steps: [
         {label_key: "Register"},
         {label_key: "Choose Plan"},
@@ -116,7 +116,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
   # @group Display Styles
   # @label Progress Bar Only
   def style_progress_only
-    render ::Decor::Progress.new(
+    render ::Decor::Daisy::Progress.new(
       steps: [
         {label_key: "Uploading"},
         {label_key: "Processing"},
@@ -133,7 +133,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
   # @group Display Styles
   # @label Vertical Steps
   def style_vertical_steps
-    render ::Decor::Progress.new(
+    render ::Decor::Daisy::Progress.new(
       steps: [
         {label_key: "Account Setup"},
         {label_key: "Profile Info"},
@@ -150,7 +150,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
   # @group Display Styles
   # @label Combined Display
   def style_combined
-    render ::Decor::Progress.new(
+    render ::Decor::Daisy::Progress.new(
       steps: [
         {label_key: "Data Collection"},
         {label_key: "Processing"},
@@ -166,7 +166,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
   # @group Colors
   # @label Primary Color
   def color_primary
-    render ::Decor::Progress.new(
+    render ::Decor::Daisy::Progress.new(
       steps: standard_steps,
       current_step: 3,
       color: :primary
@@ -176,7 +176,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
   # @group Colors
   # @label Secondary Color
   def color_secondary
-    render ::Decor::Progress.new(
+    render ::Decor::Daisy::Progress.new(
       steps: standard_steps,
       current_step: 2,
       color: :secondary
@@ -186,7 +186,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
   # @group Colors
   # @label Success Color
   def color_success
-    render ::Decor::Progress.new(
+    render ::Decor::Daisy::Progress.new(
       steps: standard_steps,
       current_step: 4,
       color: :success
@@ -196,7 +196,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
   # @group Colors
   # @label Error Color
   def color_error
-    render ::Decor::Progress.new(
+    render ::Decor::Daisy::Progress.new(
       steps: standard_steps,
       current_step: 2,
       color: :error
@@ -206,7 +206,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
   # @group Colors
   # @label Warning Color
   def color_warning
-    render ::Decor::Progress.new(
+    render ::Decor::Daisy::Progress.new(
       steps: standard_steps,
       current_step: 2,
       color: :warning
@@ -216,7 +216,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
   # @group Colors
   # @label Info Color
   def color_info
-    render ::Decor::Progress.new(
+    render ::Decor::Daisy::Progress.new(
       steps: standard_steps,
       current_step: 3,
       color: :info
@@ -226,7 +226,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
   # @group Colors
   # @label Accent Color
   def color_accent
-    render ::Decor::Progress.new(
+    render ::Decor::Daisy::Progress.new(
       steps: standard_steps,
       current_step: 4,
       color: :accent
@@ -236,7 +236,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
   # @group Sizes
   # @label Extra Small
   def size_xs
-    render ::Decor::Progress.new(
+    render ::Decor::Daisy::Progress.new(
       steps: compact_steps,
       current_step: 2,
       size: :xs,
@@ -247,7 +247,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
   # @group Sizes
   # @label Small
   def size_sm
-    render ::Decor::Progress.new(
+    render ::Decor::Daisy::Progress.new(
       steps: compact_steps,
       current_step: 2,
       size: :sm,
@@ -258,7 +258,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
   # @group Sizes
   # @label Medium (Default)
   def size_md
-    render ::Decor::Progress.new(
+    render ::Decor::Daisy::Progress.new(
       steps: compact_steps,
       current_step: 2,
       size: :md,
@@ -269,7 +269,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
   # @group Sizes
   # @label Large
   def size_lg
-    render ::Decor::Progress.new(
+    render ::Decor::Daisy::Progress.new(
       steps: compact_steps,
       current_step: 2,
       size: :lg,
@@ -280,7 +280,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
   # @group Sizes
   # @label Large Vertical Steps
   def size_lg_steps
-    render ::Decor::Progress.new(
+    render ::Decor::Daisy::Progress.new(
       steps: [
         {label_key: "Account Created"},
         {label_key: "Email Verified"},
@@ -297,7 +297,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
   # @group States
   # @label Not Started
   def state_not_started
-    render ::Decor::Progress.new(
+    render ::Decor::Daisy::Progress.new(
       steps: standard_steps,
       current_step: 0,
       style: :both,
@@ -308,7 +308,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
   # @group States
   # @label In Progress
   def state_in_progress
-    render ::Decor::Progress.new(
+    render ::Decor::Daisy::Progress.new(
       steps: standard_steps,
       current_step: 2,
       style: :both,
@@ -319,7 +319,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
   # @group States
   # @label Completed
   def state_completed
-    render ::Decor::Progress.new(
+    render ::Decor::Daisy::Progress.new(
       steps: [
         {label_key: "Started", href: "#"},
         {label_key: "In Progress", href: "#"},
@@ -335,7 +335,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
   # @group Options
   # @label Without Numbers
   def option_no_numbers
-    render ::Decor::Progress.new(
+    render ::Decor::Daisy::Progress.new(
       steps: standard_steps,
       current_step: 3,
       show_numbers: false,
@@ -352,7 +352,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
         controllers: ["decor--progress-animation"]
       }
     ) do |el|
-      el.render ::Decor::Progress.new(
+      el.render ::Decor::Daisy::Progress.new(
         steps: [
           {label_key: "Initialize"},
           {label_key: "Process"},
@@ -371,7 +371,7 @@ class ::Decor::ProgressPreview < ::Lookbook::Preview
   # @group Options
   # @label With Clickable Links
   def option_with_links
-    render ::Decor::Progress.new(
+    render ::Decor::Daisy::Progress.new(
       steps: [
         {label_key: "Step 1", href: "#step1"},
         {label_key: "Step 2", href: "#step2"},
