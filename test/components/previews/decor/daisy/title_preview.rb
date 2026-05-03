@@ -1,5 +1,5 @@
 # @label Title
-class ::Decor::TitlePreview < ::Lookbook::Preview
+class ::Decor::Daisy::TitlePreview < ::Lookbook::Preview
   # Title
   # -------
   #
@@ -9,7 +9,7 @@ class ::Decor::TitlePreview < ::Lookbook::Preview
   # @group Examples
   # @label Basic Title
   def basic_title
-    render ::Decor::Title.new(
+    render ::Decor::Daisy::Title.new(
       title: "Page Title",
       description: "A clear description of what this section contains",
       size: :md
@@ -19,7 +19,7 @@ class ::Decor::TitlePreview < ::Lookbook::Preview
   # @group Examples
   # @label Title with Icon
   def title_with_icon
-    render ::Decor::Title.new(
+    render ::Decor::Daisy::Title.new(
       title: "Settings",
       description: "Manage your application preferences",
       icon: "cog",
@@ -30,7 +30,7 @@ class ::Decor::TitlePreview < ::Lookbook::Preview
   # @group Examples
   # @label Title with Actions
   def title_with_actions
-    render ::Decor::Title.new(
+    render ::Decor::Daisy::Title.new(
       title: "User Management",
       description: "View and manage all users in your organization",
       icon: "users",
@@ -46,7 +46,7 @@ class ::Decor::TitlePreview < ::Lookbook::Preview
   # @param include_icon [Boolean] toggle
   # @param include_actions [Boolean] toggle
   def playground(size: :md, include_description: true, include_icon: false, include_actions: true)
-    render ::Decor::Title.new(
+    render ::Decor::Daisy::Title.new(
       title: title_for_size(size),
       description: include_description ? "This is a description that explains what this section is about." : nil,
       icon: include_icon ? "academic-cap" : nil,
@@ -61,7 +61,7 @@ class ::Decor::TitlePreview < ::Lookbook::Preview
   # @group Sizes
   # @label Extra Small
   def size_xs
-    render ::Decor::Title.new(
+    render ::Decor::Daisy::Title.new(
       title: "Extra Small Title",
       description: "XS size for compact areas",
       size: :xs
@@ -71,7 +71,7 @@ class ::Decor::TitlePreview < ::Lookbook::Preview
   # @group Sizes
   # @label Small
   def size_sm
-    render ::Decor::Title.new(
+    render ::Decor::Daisy::Title.new(
       title: "Small Title",
       description: "Small size for secondary sections",
       size: :sm
@@ -81,7 +81,7 @@ class ::Decor::TitlePreview < ::Lookbook::Preview
   # @group Sizes
   # @label Medium (Default)
   def size_md
-    render ::Decor::Title.new(
+    render ::Decor::Daisy::Title.new(
       title: "Medium Title",
       description: "Default size for most use cases",
       size: :md
@@ -91,7 +91,7 @@ class ::Decor::TitlePreview < ::Lookbook::Preview
   # @group Sizes
   # @label Large
   def size_lg
-    render ::Decor::Title.new(
+    render ::Decor::Daisy::Title.new(
       title: "Large Title",
       description: "Large size for main sections",
       size: :lg
@@ -101,7 +101,7 @@ class ::Decor::TitlePreview < ::Lookbook::Preview
   # @group Sizes
   # @label Extra Large
   def size_xl
-    render ::Decor::Title.new(
+    render ::Decor::Daisy::Title.new(
       title: "Extra Large Title",
       description: "XL size for hero sections and page headers",
       size: :xl
@@ -111,7 +111,7 @@ class ::Decor::TitlePreview < ::Lookbook::Preview
   # @group With Icons
   # @label Small with Icon
   def icon_small
-    render ::Decor::Title.new(
+    render ::Decor::Daisy::Title.new(
       title: "Small Title with Icon",
       description: "Icon scales appropriately with size",
       icon: "star",
@@ -122,7 +122,7 @@ class ::Decor::TitlePreview < ::Lookbook::Preview
   # @group With Icons
   # @label Medium with Icon
   def icon_medium
-    render ::Decor::Title.new(
+    render ::Decor::Daisy::Title.new(
       title: "Medium Title with Icon",
       description: "Icon scales appropriately with size",
       icon: "star",
@@ -133,7 +133,7 @@ class ::Decor::TitlePreview < ::Lookbook::Preview
   # @group With Icons
   # @label Large with Icon
   def icon_large
-    render ::Decor::Title.new(
+    render ::Decor::Daisy::Title.new(
       title: "Large Title with Icon",
       description: "Icon scales appropriately with size",
       icon: "star",
@@ -144,7 +144,7 @@ class ::Decor::TitlePreview < ::Lookbook::Preview
   # @group Variations
   # @label Title Only
   def title_only
-    render ::Decor::Title.new(
+    render ::Decor::Daisy::Title.new(
       title: "Simple Title Without Description",
       size: :lg
     )
@@ -153,7 +153,7 @@ class ::Decor::TitlePreview < ::Lookbook::Preview
   # @group Variations
   # @label With Multiple Actions
   def multiple_actions
-    render ::Decor::Title.new(
+    render ::Decor::Daisy::Title.new(
       title: "Multiple Actions",
       description: "Example with multiple CTA elements",
       size: :md
@@ -166,7 +166,7 @@ class ::Decor::TitlePreview < ::Lookbook::Preview
   # @group Variations
   # @label With Badge Actions
   def badge_actions
-    render ::Decor::Title.new(
+    render ::Decor::Daisy::Title.new(
       title: "Status Overview",
       description: "Using badges as action elements",
       size: :md
@@ -179,7 +179,7 @@ class ::Decor::TitlePreview < ::Lookbook::Preview
   # @group Examples
   # @label Page Header
   def page_header
-    render ::Decor::Title.new(
+    render ::Decor::Daisy::Title.new(
       title: "Page Header",
       description: "Main page title with large size",
       size: :xl
@@ -191,7 +191,7 @@ class ::Decor::TitlePreview < ::Lookbook::Preview
   # @group Examples
   # @label Section Header
   def section_header
-    render ::Decor::Title.new(
+    render ::Decor::Daisy::Title.new(
       title: "Section Header",
       description: "Secondary section with medium size",
       size: :lg
@@ -203,7 +203,7 @@ class ::Decor::TitlePreview < ::Lookbook::Preview
   # @group Examples
   # @label Settings Panel
   def settings_panel
-    render ::Decor::Title.new(
+    render ::Decor::Daisy::Title.new(
       title: "User Profile Settings",
       description: "Manage your account preferences and personal information",
       size: :md
@@ -216,7 +216,7 @@ class ::Decor::TitlePreview < ::Lookbook::Preview
   # @group Examples
   # @label Stat Card Title
   def stat_card_title
-    render ::Decor::Title.new(
+    render ::Decor::Daisy::Title.new(
       title: "Active Users",
       icon: "users",
       size: :sm

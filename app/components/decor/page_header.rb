@@ -246,13 +246,13 @@ module Decor
     def render_title_only(compact: false)
       return unless @title.present?
 
-      # Map PageHeader sizes to Decor::Title sizes
+      # Map PageHeader sizes to Decor::Daisy::Title sizes
       title_size = map_title_size(compact: compact)
 
       # Determine the element tag based on layout
       tag_name = (@layout == :page_like) ? :h3 : :h1
 
-      render ::Decor::Title.new(
+      render ::Decor::Daisy::Title.new(
         title: @title,
         size: title_size,
         element_tag: tag_name

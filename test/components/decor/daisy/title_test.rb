@@ -2,9 +2,9 @@
 
 require "test_helper"
 
-class Decor::TitleTest < ActiveSupport::TestCase
+class Decor::Daisy::TitleTest < ActiveSupport::TestCase
   def test_renders_basic_title
-    component = Decor::Title.new(title: "Basic Title")
+    component = Decor::Daisy::Title.new(title: "Basic Title")
 
     rendered = render_fragment(component)
 
@@ -16,7 +16,7 @@ class Decor::TitleTest < ActiveSupport::TestCase
   end
 
   def test_renders_title_with_description
-    component = Decor::Title.new(
+    component = Decor::Daisy::Title.new(
       title: "Title with Description",
       description: "This is a subtitle"
     )
@@ -36,7 +36,7 @@ class Decor::TitleTest < ActiveSupport::TestCase
   end
 
   def test_renders_title_with_icon
-    component = Decor::Title.new(
+    component = Decor::Daisy::Title.new(
       title: "Title with Icon",
       icon: "academic-cap"
     )
@@ -54,7 +54,7 @@ class Decor::TitleTest < ActiveSupport::TestCase
   end
 
   def test_renders_title_with_actions_block
-    component = Decor::Title.new(title: "Title with Actions")
+    component = Decor::Daisy::Title.new(title: "Title with Actions")
 
     rendered = render_fragment(component) { "Action Button" }
 
@@ -70,7 +70,7 @@ class Decor::TitleTest < ActiveSupport::TestCase
   end
 
   def test_size_xs_uses_h5_and_small_text
-    component = Decor::Title.new(title: "XS Title", size: :xs)
+    component = Decor::Daisy::Title.new(title: "XS Title", size: :xs)
 
     rendered = render_fragment(component)
 
@@ -81,7 +81,7 @@ class Decor::TitleTest < ActiveSupport::TestCase
   end
 
   def test_size_sm_uses_h4_and_base_text
-    component = Decor::Title.new(title: "SM Title", size: :sm)
+    component = Decor::Daisy::Title.new(title: "SM Title", size: :sm)
 
     rendered = render_fragment(component)
 
@@ -92,7 +92,7 @@ class Decor::TitleTest < ActiveSupport::TestCase
   end
 
   def test_size_md_uses_h3_and_lg_text
-    component = Decor::Title.new(title: "MD Title", size: :md)
+    component = Decor::Daisy::Title.new(title: "MD Title", size: :md)
 
     rendered = render_fragment(component)
 
@@ -103,7 +103,7 @@ class Decor::TitleTest < ActiveSupport::TestCase
   end
 
   def test_size_lg_uses_h2_and_xl_text
-    component = Decor::Title.new(title: "LG Title", size: :lg)
+    component = Decor::Daisy::Title.new(title: "LG Title", size: :lg)
 
     rendered = render_fragment(component)
 
@@ -114,7 +114,7 @@ class Decor::TitleTest < ActiveSupport::TestCase
   end
 
   def test_size_xl_uses_h1_and_2xl_text
-    component = Decor::Title.new(title: "XL Title", size: :xl)
+    component = Decor::Daisy::Title.new(title: "XL Title", size: :xl)
 
     rendered = render_fragment(component)
 
@@ -125,8 +125,8 @@ class Decor::TitleTest < ActiveSupport::TestCase
   end
 
   def test_description_size_scales_with_title_size
-    xs_component = Decor::Title.new(title: "XS", description: "Small desc", size: :xs)
-    lg_component = Decor::Title.new(title: "LG", description: "Large desc", size: :lg)
+    xs_component = Decor::Daisy::Title.new(title: "XS", description: "Small desc", size: :xs)
+    lg_component = Decor::Daisy::Title.new(title: "LG", description: "Large desc", size: :lg)
 
     xs_rendered = render_fragment(xs_component)
     lg_rendered = render_fragment(lg_component)
@@ -141,7 +141,7 @@ class Decor::TitleTest < ActiveSupport::TestCase
   end
 
   def test_complete_title_with_all_features
-    component = Decor::Title.new(
+    component = Decor::Daisy::Title.new(
       title: "Complete Title",
       description: "With description and icon",
       icon: "academic-cap",
@@ -158,7 +158,7 @@ class Decor::TitleTest < ActiveSupport::TestCase
   end
 
   def test_title_without_description_or_actions
-    component = Decor::Title.new(title: "Simple Title")
+    component = Decor::Daisy::Title.new(title: "Simple Title")
 
     rendered = render_fragment(component)
 
@@ -169,7 +169,7 @@ class Decor::TitleTest < ActiveSupport::TestCase
   end
 
   def test_title_styling_classes
-    component = Decor::Title.new(title: "Styled Title")
+    component = Decor::Daisy::Title.new(title: "Styled Title")
 
     rendered = render_fragment(component)
 
@@ -183,7 +183,7 @@ class Decor::TitleTest < ActiveSupport::TestCase
   end
 
   def test_container_layout_classes
-    component = Decor::Title.new(title: "Layout Test")
+    component = Decor::Daisy::Title.new(title: "Layout Test")
 
     rendered = render_fragment(component) { "Action" }
 

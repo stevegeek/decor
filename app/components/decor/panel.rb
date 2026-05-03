@@ -15,7 +15,7 @@ module Decor
 
     def view_template(&)
       root_element do
-        render ::Decor::Title.new(
+        render ::Decor::Daisy::Title.new(
           title: @title,
           icon: @icon,
           size: :sm

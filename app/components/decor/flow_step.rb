@@ -20,7 +20,7 @@ module Decor
         render_step_indicator
 
         div(class: "space-y-4 md:space-y-6") do
-          render ::Decor::Title.new(
+          render ::Decor::Daisy::Title.new(
             title: @title,
             description: @description,
             size: title_size

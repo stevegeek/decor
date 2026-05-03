@@ -25,7 +25,7 @@ module Decor
           card.card_header do
             card.div(class: "p-4 lg:p-6") do
               card.div(class: "-ml-4 -mt-4 ml-4 mt-4") do
-                card.render ::Decor::Title.new(
+                card.render ::Decor::Daisy::Title.new(
                   title: @title,
                   description: @description,
                   size: :md
