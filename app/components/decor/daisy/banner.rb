@@ -1,0 +1,84 @@
+# frozen_string_literal: true
+
+module Decor
+  module Daisy
+    # A large alert banner used to display important messages to the user.
+    # Supports different styles, icons, links, and layout options using
+    # daisyUI alert styling.
+    class Banner < ::Decor::Components::Banner
+      private
+
+      def root_element_attributes
+        {
+          html_options: {role: "alert"}
+        }
+      end
+
+      def view_template
+        root_element do
+          if @icon
+            render ::Decor::Daisy::Icon.new(
+              name: @icon,
+              html_options: {class: "h-6 w-6"}
+            )
+          end
+          div(class: wrapper_classes) do
+            yield if block_given?
+          end
+          if @link.present?
+            link_to "Learn more", @link, class: button_classes
+          end
+          if @call_to_action.present?
+            div(class: "flex gap-2") do
+              render @call_to_action
+            end
+          end
+        end
+      end
+
+      def root_element_classes
+        "mb-4 w-full flex #{alert_classes}"
+      end
+
+      def wrapper_classes
+        @centered ? "w-full justify-center text-center" : "flex-1"
+      end
+
+      def alert_classes
+        style = case @color
+        when :success
+          "alert-success"
+        when :error
+          "alert-error"
+        when :warning
+          "alert-warning"
+        when :info
+          "alert-info"
+        else
+          # default color - no additional class needed
+          nil
+        end
+
+        "alert #{style}"
+      end
+
+      def button_classes
+        style = case @color
+        when :success
+          "btn-success"
+        when :error
+          "btn-error"
+        when :warning
+          "btn-warning"
+        when :info
+          "btn-info"
+        when :primary
+          "btn-primary"
+        else
+          "btn-secondary"
+        end
+        "btn btn-sm #{style}"
+      end
+    end
+  end
+end
