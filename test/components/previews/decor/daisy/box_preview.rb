@@ -1,5 +1,5 @@
 # @label Box
-class ::Decor::BoxPreview < ::Lookbook::Preview
+class ::Decor::Daisy::BoxPreview < ::Lookbook::Preview
   # Box
   # -------
   #
@@ -9,7 +9,7 @@ class ::Decor::BoxPreview < ::Lookbook::Preview
   # @group Examples
   # @label Simple Box
   def simple_box
-    render ::Decor::Box.new(
+    render ::Decor::Daisy::Box.new(
       title: "Simple Box",
       description: "Just a title and description with light grey background."
     )
@@ -18,7 +18,7 @@ class ::Decor::BoxPreview < ::Lookbook::Preview
   # @group Examples
   # @label Box with Actions
   def with_actions
-    render ::Decor::Box.new(
+    render ::Decor::Daisy::Box.new(
       title: "Box with Actions",
       description: "This box has action buttons in the content area."
     ) do
@@ -32,7 +32,7 @@ class ::Decor::BoxPreview < ::Lookbook::Preview
   # @group Examples
   # @label Box with Left Slot
   def with_left_slot
-    render ::Decor::Box.new(
+    render ::Decor::Daisy::Box.new(
       title: "Settings",
       description: "Configure your preferences"
     ) do |box|
@@ -47,7 +47,7 @@ class ::Decor::BoxPreview < ::Lookbook::Preview
   # @group Examples
   # @label Box with Right Slot
   def with_right_slot
-    render ::Decor::Box.new(
+    render ::Decor::Daisy::Box.new(
       title: "Notifications",
       description: "You have 3 new messages"
     ) do |box|
@@ -62,7 +62,7 @@ class ::Decor::BoxPreview < ::Lookbook::Preview
   # @group Examples
   # @label Box with Both Slots
   def with_both_slots
-    render ::Decor::Box.new(
+    render ::Decor::Daisy::Box.new(
       title: "User Profile",
       description: "John Doe - Software Developer"
     ) do |box|
@@ -82,7 +82,7 @@ class ::Decor::BoxPreview < ::Lookbook::Preview
   # @group Examples
   # @label Card Style Box
   def card_style
-    render ::Decor::Box.new(
+    render ::Decor::Daisy::Box.new(
       title: "Product Card",
       description: "Amazing product with great features",
       style: :filled,
@@ -100,7 +100,7 @@ class ::Decor::BoxPreview < ::Lookbook::Preview
   # @group Examples
   # @label Alert Style Box
   def alert_style
-    render ::Decor::Box.new(
+    render ::Decor::Daisy::Box.new(
       title: "Important Notice",
       description: "Please read this carefully",
       color: :warning,
@@ -115,7 +115,7 @@ class ::Decor::BoxPreview < ::Lookbook::Preview
   # @group Examples
   # @label Info Box
   def info_box
-    render ::Decor::Box.new(
+    render ::Decor::Daisy::Box.new(
       title: "Did you know?",
       description: "This component supports multiple styles and colors",
       color: :info,
@@ -138,7 +138,7 @@ class ::Decor::BoxPreview < ::Lookbook::Preview
     color: nil,
     style: nil
   )
-    render ::Decor::Box.new(title: title, description: description, size: size, color: color, style: style) do |box|
+    render ::Decor::Daisy::Box.new(title: title, description: description, size: size, color: color, style: style) do |box|
       if show_slots
         box.left do
           content_tag :div, "Custom Left Content", class: "font-bold"
@@ -159,7 +159,7 @@ class ::Decor::BoxPreview < ::Lookbook::Preview
   # @group Sizes
   # @label XS Size
   def size_xs
-    render ::Decor::Box.new(
+    render ::Decor::Daisy::Box.new(
       title: "Extra Small Box",
       description: "This is an extra small sized box",
       size: :xs
@@ -169,7 +169,7 @@ class ::Decor::BoxPreview < ::Lookbook::Preview
   # @group Sizes
   # @label SM Size
   def size_sm
-    render ::Decor::Box.new(
+    render ::Decor::Daisy::Box.new(
       title: "Small Box",
       description: "This is a small sized box",
       size: :sm
@@ -179,7 +179,7 @@ class ::Decor::BoxPreview < ::Lookbook::Preview
   # @group Sizes
   # @label MD Size (Default)
   def size_md
-    render ::Decor::Box.new(
+    render ::Decor::Daisy::Box.new(
       title: "Medium Box",
       description: "This is a medium sized box (default)",
       size: :md
@@ -189,7 +189,7 @@ class ::Decor::BoxPreview < ::Lookbook::Preview
   # @group Sizes
   # @label LG Size
   def size_lg
-    render ::Decor::Box.new(
+    render ::Decor::Daisy::Box.new(
       title: "Large Box",
       description: "This is a large sized box",
       size: :lg
@@ -199,7 +199,7 @@ class ::Decor::BoxPreview < ::Lookbook::Preview
   # @group Sizes
   # @label XL Size
   def size_xl
-    render ::Decor::Box.new(
+    render ::Decor::Daisy::Box.new(
       title: "Extra Large Box",
       description: "This is an extra large sized box",
       size: :xl
@@ -209,7 +209,7 @@ class ::Decor::BoxPreview < ::Lookbook::Preview
   # @group Colors
   # @label Base Color (Default)
   def color_base
-    render ::Decor::Box.new(
+    render ::Decor::Daisy::Box.new(
       title: "Base Color",
       description: "This is the default base color",
       color: :base
@@ -219,7 +219,7 @@ class ::Decor::BoxPreview < ::Lookbook::Preview
   # @group Colors
   # @label Primary Color
   def color_primary
-    render ::Decor::Box.new(
+    render ::Decor::Daisy::Box.new(
       title: "Primary Color",
       description: "This box uses the primary color",
       color: :primary
@@ -229,7 +229,7 @@ class ::Decor::BoxPreview < ::Lookbook::Preview
   # @group Colors
   # @label Secondary Color
   def color_secondary
-    render ::Decor::Box.new(
+    render ::Decor::Daisy::Box.new(
       title: "Secondary Color",
       description: "This box uses the secondary color",
       color: :secondary
@@ -239,7 +239,7 @@ class ::Decor::BoxPreview < ::Lookbook::Preview
   # @group Colors
   # @label Accent Color
   def color_accent
-    render ::Decor::Box.new(
+    render ::Decor::Daisy::Box.new(
       title: "Accent Color",
       description: "This box uses the accent color",
       color: :accent
@@ -249,7 +249,7 @@ class ::Decor::BoxPreview < ::Lookbook::Preview
   # @group Colors
   # @label Neutral Color
   def color_neutral
-    render ::Decor::Box.new(
+    render ::Decor::Daisy::Box.new(
       title: "Neutral Color",
       description: "This box uses the neutral color",
       color: :neutral
@@ -259,7 +259,7 @@ class ::Decor::BoxPreview < ::Lookbook::Preview
   # @group Colors
   # @label Success Color
   def color_success
-    render ::Decor::Box.new(
+    render ::Decor::Daisy::Box.new(
       title: "Success Color",
       description: "This box uses the success color",
       color: :success
@@ -269,7 +269,7 @@ class ::Decor::BoxPreview < ::Lookbook::Preview
   # @group Colors
   # @label Error Color
   def color_error
-    render ::Decor::Box.new(
+    render ::Decor::Daisy::Box.new(
       title: "Error Color",
       description: "This box uses the error color",
       color: :error
@@ -279,7 +279,7 @@ class ::Decor::BoxPreview < ::Lookbook::Preview
   # @group Colors
   # @label Warning Color
   def color_warning
-    render ::Decor::Box.new(
+    render ::Decor::Daisy::Box.new(
       title: "Warning Color",
       description: "This box uses the warning color",
       color: :warning
@@ -289,7 +289,7 @@ class ::Decor::BoxPreview < ::Lookbook::Preview
   # @group Colors
   # @label Info Color
   def color_info
-    render ::Decor::Box.new(
+    render ::Decor::Daisy::Box.new(
       title: "Info Color",
       description: "This box uses the info color",
       color: :info
@@ -299,7 +299,7 @@ class ::Decor::BoxPreview < ::Lookbook::Preview
   # @group Styles
   # @label Filled Style (Default)
   def style_filled
-    render ::Decor::Box.new(
+    render ::Decor::Daisy::Box.new(
       title: "Filled Style",
       description: "This is the default filled style",
       style: :filled
@@ -309,7 +309,7 @@ class ::Decor::BoxPreview < ::Lookbook::Preview
   # @group Styles
   # @label Outlined Style
   def style_outlined
-    render ::Decor::Box.new(
+    render ::Decor::Daisy::Box.new(
       title: "Outlined Style",
       description: "This box uses the outlined style",
       style: :outlined
@@ -319,7 +319,7 @@ class ::Decor::BoxPreview < ::Lookbook::Preview
   # @group Styles
   # @label Ghost Style
   def style_ghost
-    render ::Decor::Box.new(
+    render ::Decor::Daisy::Box.new(
       title: "Ghost Style",
       description: "This box uses the ghost style",
       style: :ghost

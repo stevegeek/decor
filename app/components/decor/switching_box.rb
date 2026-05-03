@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Decor
-  class SwitchingBox < Box
+  class SwitchingBox < ::Decor::Daisy::Box
     no_stimulus_controller
 
     prop :switch_options, Hash, default: -> { {} }

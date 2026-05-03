@@ -127,7 +127,7 @@ class Decor::SwitchingBoxTest < ActiveSupport::TestCase
       property_name: :active
     )
 
-    assert component.is_a?(Decor::Box)
+    assert component.is_a?(Decor::Daisy::Box)
   end
 
   test "can be initialized with required attributes" do

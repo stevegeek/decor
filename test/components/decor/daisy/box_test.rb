@@ -2,9 +2,9 @@
 
 require "test_helper"
 
-class BoxComponentTest < ActiveSupport::TestCase
+class Decor::Daisy::BoxTest < ActiveSupport::TestCase
   def test_renders_basic_box_with_title_and_description
-    component = Decor::Box.new(
+    component = Decor::Daisy::Box.new(
       title: "Test Title",
       description: "Test description"
     )
@@ -26,7 +26,7 @@ class BoxComponentTest < ActiveSupport::TestCase
   end
 
   def test_renders_box_with_html_title_slot
-    component = Decor::Box.new(description: "Test description")
+    component = Decor::Daisy::Box.new(description: "Test description")
     component.html_title { "Custom <strong>HTML</strong> Title".html_safe }
 
     rendered = render_fragment(component)
@@ -37,7 +37,7 @@ class BoxComponentTest < ActiveSupport::TestCase
   end
 
   def test_renders_box_with_left_slot
-    component = Decor::Box.new(title: "Title", description: "Description")
+    component = Decor::Daisy::Box.new(title: "Title", description: "Description")
     component.left { "Left content" }
 
     rendered = render_fragment(component)
@@ -51,7 +51,7 @@ class BoxComponentTest < ActiveSupport::TestCase
   end
 
   def test_renders_box_with_right_slot
-    component = Decor::Box.new(title: "Title", description: "Description")
+    component = Decor::Daisy::Box.new(title: "Title", description: "Description")
     component.right { "Right content" }
 
     rendered = render_fragment(component)
@@ -63,7 +63,7 @@ class BoxComponentTest < ActiveSupport::TestCase
   end
 
   def test_renders_box_with_block_content
-    component = Decor::Box.new(title: "Title", description: "Description")
+    component = Decor::Daisy::Box.new(title: "Title", description: "Description")
 
     rendered = render_fragment(component) { "Block content" }
 
@@ -77,7 +77,7 @@ class BoxComponentTest < ActiveSupport::TestCase
   end
 
   def test_renders_box_with_both_slots
-    component = Decor::Box.new(title: "Title", description: "Description")
+    component = Decor::Daisy::Box.new(title: "Title", description: "Description")
     component.left { "Left content" }
     component.right { "Right content" }
 
@@ -98,7 +98,7 @@ class BoxComponentTest < ActiveSupport::TestCase
   end
 
   def test_box_styling_classes
-    component = Decor::Box.new(title: "Title", description: "Description")
+    component = Decor::Daisy::Box.new(title: "Title", description: "Description")
     rendered = render_fragment(component)
 
     # Should have daisyUI card classes
