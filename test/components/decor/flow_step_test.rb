@@ -126,7 +126,7 @@ module Decor
       render_inline(FlowStep.new(title: "Test Title", description: "Test description", step: 1))
 
       # Should use Title component for title/description rendering
-      assert_selector ".decor--title"
+      assert_selector ".decor--daisy--title"
       assert_selector "h4.font-semibold.text-base-content", text: "Test Title"
       assert_selector "p.text-base-content\\/70", text: "Test description"
     end

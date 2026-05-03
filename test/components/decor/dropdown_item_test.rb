@@ -84,7 +84,7 @@ class Decor::DropdownItemTest < ActiveSupport::TestCase
 
     # DaisyUI handles padding automatically, no icon means no icon element
     assert_includes rendered, "No Icon"
-    refute_includes rendered, "decor--icon"
+    refute_includes rendered, "decor--daisy--icon"
   end
 
   test "yields block content when text is blank" do
