@@ -99,7 +99,7 @@ If you find any issues or missing components, please open a PR to improve the do
 - [Decor::Map](#decormap)
 - [Decor::Page](#decorpage)
 - [Decor::Daisy::PageHeader](#decordaisypageheader)
-- [Decor::PageSection](#decorpagesection)
+- [Decor::Daisy::PageSection](#decordaisypagesection)
 - [Decor::Daisy::Panel](#decordaisypanel)
 - [Decor::Daisy::PanelGroup](#decordaisypanelgroup)
 - [Decor::SearchAndFilter](#decorsearchandfilter)
@@ -2262,13 +2262,13 @@ _(and the shared properties `size`, `color`, and `style` as described above)_
 
 ---
 
-### Decor::PageSection
+### Decor::Daisy::PageSection
 
-<span id="decorpagesection"></span>
+<span id="decordaisypagesection"></span>
 
 **Basic Usage:**
 ```ruby
-render Decor::PageSection.new do |c|
+render Decor::Daisy::PageSection.new do |c|
   c.with_hero do
     # Slot content
   end

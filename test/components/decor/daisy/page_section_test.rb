@@ -1,9 +1,9 @@
 require "test_helper"
 
-class Decor::PageSectionTest < ActiveSupport::TestCase
+class Decor::Daisy::PageSectionTest < ActiveSupport::TestCase
   # Basic rendering tests
   test "renders successfully without any attributes" do
-    component = Decor::PageSection.new
+    component = Decor::Daisy::PageSection.new
     rendered = render_component(component)
 
     assert_includes rendered, "pb-6"
@@ -11,7 +11,7 @@ class Decor::PageSectionTest < ActiveSupport::TestCase
   end
 
   test "renders with title" do
-    component = Decor::PageSection.new(title: "Test Title")
+    component = Decor::Daisy::PageSection.new(title: "Test Title")
     rendered = render_component(component)
 
     assert_includes rendered, "Test Title"
@@ -20,7 +20,7 @@ class Decor::PageSectionTest < ActiveSupport::TestCase
   end
 
   test "renders with description" do
-    component = Decor::PageSection.new(description: "Test description")
+    component = Decor::Daisy::PageSection.new(description: "Test description")
     rendered = render_component(component)
 
     assert_includes rendered, "Test description"
@@ -28,7 +28,7 @@ class Decor::PageSectionTest < ActiveSupport::TestCase
   end
 
   test "renders with both title and description" do
-    component = Decor::PageSection.new(
+    component = Decor::Daisy::PageSection.new(
       title: "Section Title",
       description: "Section description"
     )
@@ -41,7 +41,7 @@ class Decor::PageSectionTest < ActiveSupport::TestCase
 
   # Separator tests
   test "renders separator when enabled" do
-    component = Decor::PageSection.new(
+    component = Decor::Daisy::PageSection.new(
       title: "With Separator",
       separator: true
     )
@@ -52,7 +52,7 @@ class Decor::PageSectionTest < ActiveSupport::TestCase
   end
 
   test "does not render separator by default" do
-    component = Decor::PageSection.new(title: "No Separator")
+    component = Decor::Daisy::PageSection.new(title: "No Separator")
     rendered = render_component(component)
 
     refute_includes rendered, "border-b"
@@ -61,7 +61,7 @@ class Decor::PageSectionTest < ActiveSupport::TestCase
   # Size tests
   test "applies correct size classes for title" do
     [:xs, :sm, :md, :lg, :xl].each do |size|
-      component = Decor::PageSection.new(title: "Test", size: size)
+      component = Decor::Daisy::PageSection.new(title: "Test", size: size)
       rendered = render_component(component)
 
       case size
@@ -81,7 +81,7 @@ class Decor::PageSectionTest < ActiveSupport::TestCase
 
   test "applies correct size classes for description" do
     [:xs, :sm, :md, :lg, :xl].each do |size|
-      component = Decor::PageSection.new(description: "Test", size: size)
+      component = Decor::Daisy::PageSection.new(description: "Test", size: size)
       rendered = render_component(component)
 
       case size
@@ -100,14 +100,14 @@ class Decor::PageSectionTest < ActiveSupport::TestCase
   end
 
   test "applies correct size classes for content area spacing" do
-    component = Decor::PageSection.new(size: :lg)
+    component = Decor::Daisy::PageSection.new(size: :lg)
     rendered = render_component(component) { "Content" }
 
     assert_includes rendered, "space-y-8"
   end
 
   test "medium size is default" do
-    component = Decor::PageSection.new(title: "Default Size")
+    component = Decor::Daisy::PageSection.new(title: "Default Size")
     rendered = render_component(component)
 
     assert_includes rendered, "text-lg leading-6"
@@ -116,7 +116,7 @@ class Decor::PageSectionTest < ActiveSupport::TestCase
   # Background tests
   test "applies correct background classes" do
     [:primary, :secondary, :neutral].each do |background|
-      component = Decor::PageSection.new(background: background)
+      component = Decor::Daisy::PageSection.new(background: background)
       rendered = render_component(component)
 
       assert_includes rendered, "bg-#{background}/10"
@@ -126,7 +126,7 @@ class Decor::PageSectionTest < ActiveSupport::TestCase
   end
 
   test "default background applies no background classes" do
-    component = Decor::PageSection.new(background: :default)
+    component = Decor::Daisy::PageSection.new(background: :default)
     rendered = render_component(component)
 
     refute_includes rendered, "bg-primary/10"
@@ -135,7 +135,7 @@ class Decor::PageSectionTest < ActiveSupport::TestCase
   end
 
   test "background defaults to default" do
-    component = Decor::PageSection.new
+    component = Decor::Daisy::PageSection.new
     rendered = render_component(component)
 
     refute_includes rendered, "bg-primary/10"
@@ -150,7 +150,7 @@ class Decor::PageSectionTest < ActiveSupport::TestCase
       lg: "pb-8",
       xl: "pb-10"
     }.each do |padding, expected_class|
-      component = Decor::PageSection.new(padding: padding)
+      component = Decor::Daisy::PageSection.new(padding: padding)
       rendered = render_component(component)
 
       if expected_class
@@ -166,7 +166,7 @@ class Decor::PageSectionTest < ActiveSupport::TestCase
   end
 
   test "medium padding is default" do
-    component = Decor::PageSection.new
+    component = Decor::Daisy::PageSection.new
     rendered = render_component(component)
 
     assert_includes rendered, "pb-6"
@@ -174,7 +174,7 @@ class Decor::PageSectionTest < ActiveSupport::TestCase
 
   # Slot tests
   test "renders hero slot when provided" do
-    component = Decor::PageSection.new
+    component = Decor::Daisy::PageSection.new
     component.with_hero { "Hero content" }
     rendered = render_component(component)
 
@@ -182,7 +182,7 @@ class Decor::PageSectionTest < ActiveSupport::TestCase
   end
 
   test "renders cta slot when provided" do
-    component = Decor::PageSection.new
+    component = Decor::Daisy::PageSection.new
     component.with_cta { "CTA content" }
     rendered = render_component(component)
 
@@ -190,7 +190,7 @@ class Decor::PageSectionTest < ActiveSupport::TestCase
   end
 
   test "adjusts content wrapper classes when cta slot is present" do
-    component = Decor::PageSection.new(title: "Test")
+    component = Decor::Daisy::PageSection.new(title: "Test")
     component.with_cta { "CTA" }
     rendered = render_component(component)
 
@@ -200,7 +200,7 @@ class Decor::PageSectionTest < ActiveSupport::TestCase
   end
 
   test "renders without hero slot by default" do
-    component = Decor::PageSection.new
+    component = Decor::Daisy::PageSection.new
     rendered = render_component(component)
 
     # Should render successfully without hero content
@@ -209,7 +209,7 @@ class Decor::PageSectionTest < ActiveSupport::TestCase
 
   # Tags tests
   test "renders tags when provided" do
-    component = Decor::PageSection.new
+    component = Decor::Daisy::PageSection.new
     component.with_tag(label: "Test Tag", color: :success)
     rendered = render_component(component)
 
@@ -218,7 +218,7 @@ class Decor::PageSectionTest < ActiveSupport::TestCase
   end
 
   test "renders multiple tags" do
-    component = Decor::PageSection.new
+    component = Decor::Daisy::PageSection.new
     component.with_tag(label: "Tag 1", color: :primary)
     component.with_tag(label: "Tag 2", color: :secondary)
     rendered = render_component(component)
@@ -231,14 +231,14 @@ class Decor::PageSectionTest < ActiveSupport::TestCase
 
   # Block content tests
   test "renders block content" do
-    component = Decor::PageSection.new
+    component = Decor::Daisy::PageSection.new
     rendered = render_component(component) { "Block content here" }
 
     assert_includes rendered, "Block content here"
   end
 
   test "renders without block content" do
-    component = Decor::PageSection.new(title: "Just title")
+    component = Decor::Daisy::PageSection.new(title: "Just title")
     rendered = render_component(component)
 
     assert_includes rendered, "Just title"
@@ -247,7 +247,7 @@ class Decor::PageSectionTest < ActiveSupport::TestCase
 
   # Combination tests
   test "renders with all features combined" do
-    component = Decor::PageSection.new(
+    component = Decor::Daisy::PageSection.new(
       title: "Full Feature Test",
       description: "With all options",
       separator: true,
@@ -280,7 +280,7 @@ class Decor::PageSectionTest < ActiveSupport::TestCase
 
   # Default values tests
   test "has correct default values" do
-    component = Decor::PageSection.new
+    component = Decor::Daisy::PageSection.new
 
     assert_equal false, component.instance_variable_get(:@separator)
     assert_equal :md, component.instance_variable_get(:@size)
@@ -290,7 +290,7 @@ class Decor::PageSectionTest < ActiveSupport::TestCase
 
   # DaisyUI semantic classes validation
   test "uses daisyUI semantic classes instead of legacy Tailwind" do
-    component = Decor::PageSection.new(
+    component = Decor::Daisy::PageSection.new(
       title: "Modern Classes",
       description: "Testing semantic classes",
       separator: true
@@ -310,7 +310,7 @@ class Decor::PageSectionTest < ActiveSupport::TestCase
 
   # Edge cases
   test "handles empty attributes gracefully" do
-    component = Decor::PageSection.new(
+    component = Decor::Daisy::PageSection.new(
       title: "",
       description: ""
     )
@@ -321,7 +321,7 @@ class Decor::PageSectionTest < ActiveSupport::TestCase
   end
 
   test "handles only title without description" do
-    component = Decor::PageSection.new(title: "Only Title")
+    component = Decor::Daisy::PageSection.new(title: "Only Title")
     rendered = render_component(component)
 
     assert_includes rendered, "Only Title"
@@ -330,7 +330,7 @@ class Decor::PageSectionTest < ActiveSupport::TestCase
   end
 
   test "handles only description without title" do
-    component = Decor::PageSection.new(description: "Only description")
+    component = Decor::Daisy::PageSection.new(description: "Only description")
     rendered = render_component(component)
 
     assert_includes rendered, "Only description"
@@ -340,7 +340,7 @@ class Decor::PageSectionTest < ActiveSupport::TestCase
 
   # Header padding behavior
   test "applies header padding when separator and content present" do
-    component = Decor::PageSection.new(
+    component = Decor::Daisy::PageSection.new(
       title: "Test",
       separator: true,
       size: :lg
@@ -351,7 +351,7 @@ class Decor::PageSectionTest < ActiveSupport::TestCase
   end
 
   test "does not apply header padding without separator" do
-    component = Decor::PageSection.new(
+    component = Decor::Daisy::PageSection.new(
       title: "Test",
       separator: false
     )
@@ -363,7 +363,7 @@ class Decor::PageSectionTest < ActiveSupport::TestCase
 
   # Nokogiri parsing test
   test "uses nokogiri for complex DOM assertions" do
-    component = Decor::PageSection.new(
+    component = Decor::Daisy::PageSection.new(
       title: "Parse Test",
       description: "DOM structure test",
       separator: true,
@@ -394,7 +394,7 @@ class Decor::PageSectionTest < ActiveSupport::TestCase
   # Backward compatibility tests
   test "maintains backward compatibility with existing usage" do
     # This simulates existing usage patterns that should continue to work
-    component = Decor::PageSection.new(
+    component = Decor::Daisy::PageSection.new(
       title: "Legacy Usage",
       description: "Should still work",
       separator: true
