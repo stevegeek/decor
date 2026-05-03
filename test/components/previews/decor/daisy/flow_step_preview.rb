@@ -1,4 +1,4 @@
-class ::Decor::FlowStepPreview < ::Lookbook::Preview
+class ::Decor::Daisy::FlowStepPreview < ::Lookbook::Preview
   # FlowStep
   # --------
   #
@@ -9,7 +9,7 @@ class ::Decor::FlowStepPreview < ::Lookbook::Preview
   # @group Examples
   # @label Basic Step
   def basic_step
-    render ::Decor::FlowStep.new(
+    render ::Decor::Daisy::FlowStep.new(
       title: "Create Account",
       description: "Set up your new account with basic information",
       step: 1
@@ -19,7 +19,7 @@ class ::Decor::FlowStepPreview < ::Lookbook::Preview
   # @group Examples
   # @label Step with Icon
   def step_with_icon
-    render ::Decor::FlowStep.new(
+    render ::Decor::Daisy::FlowStep.new(
       title: "Verification Complete",
       description: "Your account has been successfully verified",
       icon: "check",
@@ -30,7 +30,7 @@ class ::Decor::FlowStepPreview < ::Lookbook::Preview
   # @group Examples
   # @label Step with Content
   def step_with_content
-    render ::Decor::FlowStep.new(
+    render ::Decor::Daisy::FlowStep.new(
       title: "Upload Documents",
       description: "Upload required verification documents",
       step: 2,
@@ -52,7 +52,7 @@ class ::Decor::FlowStepPreview < ::Lookbook::Preview
   # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
   # @param style [Symbol] select [~, filled, outlined, ghost]
   def playground(title: "Step Title", description: "Step description goes here", step: 1, icon: nil, size: nil, color: nil, style: nil)
-    render ::Decor::FlowStep.new(
+    render ::Decor::Daisy::FlowStep.new(
       title: title,
       description: description,
       step: step,
@@ -68,7 +68,7 @@ class ::Decor::FlowStepPreview < ::Lookbook::Preview
   # @group Sizes
   # @label XS Size
   def size_xs
-    render ::Decor::FlowStep.new(
+    render ::Decor::Daisy::FlowStep.new(
       title: "Extra Small Step",
       description: "This flow step uses XS size",
       step: 1,
@@ -79,7 +79,7 @@ class ::Decor::FlowStepPreview < ::Lookbook::Preview
   # @group Sizes
   # @label SM Size
   def size_sm
-    render ::Decor::FlowStep.new(
+    render ::Decor::Daisy::FlowStep.new(
       title: "Small Step",
       description: "This flow step uses SM size",
       step: 2,
@@ -90,7 +90,7 @@ class ::Decor::FlowStepPreview < ::Lookbook::Preview
   # @group Sizes
   # @label MD Size (Default)
   def size_md
-    render ::Decor::FlowStep.new(
+    render ::Decor::Daisy::FlowStep.new(
       title: "Medium Step",
       description: "This flow step uses MD size",
       step: 3,
@@ -101,7 +101,7 @@ class ::Decor::FlowStepPreview < ::Lookbook::Preview
   # @group Sizes
   # @label LG Size
   def size_lg
-    render ::Decor::FlowStep.new(
+    render ::Decor::Daisy::FlowStep.new(
       title: "Large Step",
       description: "This flow step uses LG size",
       step: 4,
@@ -112,7 +112,7 @@ class ::Decor::FlowStepPreview < ::Lookbook::Preview
   # @group Sizes
   # @label XL Size
   def size_xl
-    render ::Decor::FlowStep.new(
+    render ::Decor::Daisy::FlowStep.new(
       title: "Extra Large Step",
       description: "This flow step uses XL size",
       step: 5,
@@ -123,7 +123,7 @@ class ::Decor::FlowStepPreview < ::Lookbook::Preview
   # @group Colors
   # @label Primary Color
   def color_primary
-    render ::Decor::FlowStep.new(
+    render ::Decor::Daisy::FlowStep.new(
       title: "Primary Step",
       description: "This step uses primary color",
       step: 1,
@@ -134,7 +134,7 @@ class ::Decor::FlowStepPreview < ::Lookbook::Preview
   # @group Colors
   # @label Success Color
   def color_success
-    render ::Decor::FlowStep.new(
+    render ::Decor::Daisy::FlowStep.new(
       title: "Success Step",
       description: "This step completed successfully",
       step: 2,
@@ -145,7 +145,7 @@ class ::Decor::FlowStepPreview < ::Lookbook::Preview
   # @group Colors
   # @label Warning Color
   def color_warning
-    render ::Decor::FlowStep.new(
+    render ::Decor::Daisy::FlowStep.new(
       title: "Warning Step",
       description: "This step needs attention",
       step: 3,
@@ -156,7 +156,7 @@ class ::Decor::FlowStepPreview < ::Lookbook::Preview
   # @group Colors
   # @label Error Color
   def color_error
-    render ::Decor::FlowStep.new(
+    render ::Decor::Daisy::FlowStep.new(
       title: "Error Step",
       description: "This step has an error",
       step: 4,
@@ -167,7 +167,7 @@ class ::Decor::FlowStepPreview < ::Lookbook::Preview
   # @group Colors
   # @label Info Color
   def color_info
-    render ::Decor::FlowStep.new(
+    render ::Decor::Daisy::FlowStep.new(
       title: "Information Step",
       description: "This is an informational step",
       step: 5,
@@ -178,7 +178,7 @@ class ::Decor::FlowStepPreview < ::Lookbook::Preview
   # @group Styles
   # @label Filled Style
   def style_filled
-    render ::Decor::FlowStep.new(
+    render ::Decor::Daisy::FlowStep.new(
       title: "Filled Style",
       description: "Solid background with contrasting text",
       step: 1,
@@ -189,7 +189,7 @@ class ::Decor::FlowStepPreview < ::Lookbook::Preview
   # @group Styles
   # @label Outlined Style
   def style_outlined
-    render ::Decor::FlowStep.new(
+    render ::Decor::Daisy::FlowStep.new(
       title: "Outlined Style",
       description: "Transparent background with colored border",
       step: 2,
@@ -200,7 +200,7 @@ class ::Decor::FlowStepPreview < ::Lookbook::Preview
   # @group Styles
   # @label Ghost Style
   def style_ghost
-    render ::Decor::FlowStep.new(
+    render ::Decor::Daisy::FlowStep.new(
       title: "Ghost Style",
       description: "Minimal styling with hover effects",
       step: 3,
@@ -213,7 +213,7 @@ class ::Decor::FlowStepPreview < ::Lookbook::Preview
   def onboarding_flow
     content_tag :div, class: "max-w-2xl space-y-4" do
       safe_join([
-        render(::Decor::FlowStep.new(
+        render(::Decor::Daisy::FlowStep.new(
           title: "Account Setup",
           description: "Create your account and verify your email",
           step: 1,
@@ -224,7 +224,7 @@ class ::Decor::FlowStepPreview < ::Lookbook::Preview
             "✓ Completed"
           end
         end),
-        render(::Decor::FlowStep.new(
+        render(::Decor::Daisy::FlowStep.new(
           title: "Profile Information",
           description: "Add your personal and professional details",
           step: 2,
@@ -235,14 +235,14 @@ class ::Decor::FlowStepPreview < ::Lookbook::Preview
             "In progress..."
           end
         end),
-        render(::Decor::FlowStep.new(
+        render(::Decor::Daisy::FlowStep.new(
           title: "Preferences",
           description: "Configure your notification and privacy settings",
           step: 3,
           color: :info,
           style: :outlined
         )),
-        render(::Decor::FlowStep.new(
+        render(::Decor::Daisy::FlowStep.new(
           title: "Review & Launch",
           description: "Review your setup and activate your account",
           step: 4,
@@ -256,7 +256,7 @@ class ::Decor::FlowStepPreview < ::Lookbook::Preview
   # @group Examples
   # @label Document Upload Step
   def document_upload_step
-    render ::Decor::FlowStep.new(
+    render ::Decor::Daisy::FlowStep.new(
       title: "Upload Documents",
       description: "Upload required verification documents",
       step: 2,
@@ -295,7 +295,7 @@ class ::Decor::FlowStepPreview < ::Lookbook::Preview
   # @group Examples
   # @label Error State Step
   def error_state_step
-    render ::Decor::FlowStep.new(
+    render ::Decor::Daisy::FlowStep.new(
       title: "Payment Failed",
       description: "There was an issue processing your payment",
       icon: "x",

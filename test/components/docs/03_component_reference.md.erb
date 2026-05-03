@@ -25,7 +25,7 @@ If you find any issues or missing components, please open a PR to improve the do
 - [Decor::Dropdown](#decordropdown)
 - [Decor::DropdownItem](#decordropdownitem)
 - [Decor::Flash](#decorflash)
-- [Decor::FlowStep](#decorflowstep)
+- [Decor::Daisy::FlowStep](#decordaisyflowstep)
 - [Decor::Daisy::Icon](#decordaisyicon)
 - [Decor::Daisy::Link](#decordaisylink)
 - [Decor::Notification](#decornotification)
@@ -477,15 +477,15 @@ _(and the shared properties `size`, `color`, and `style` as described above)_
 
 ---
 
-### Decor::FlowStep
+### Decor::Daisy::FlowStep
 
-<span id="decorflowstep"></span>
+<span id="decordaisyflowstep"></span>
 
 FlowStep A flow step component for displaying sequential process steps. Features icons or numbers, titles, descriptions, and custom content. Commonly used for multi-step forms, onboarding flows, and process indicators.
 
 **Basic Usage:**
 ```ruby
-render Decor::FlowStep.new do
+render Decor::Daisy::FlowStep.new do
   "Content goes here"
 end
 ```
