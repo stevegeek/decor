@@ -1,8 +1,8 @@
 require "test_helper"
 
-class Decor::ElementTest < ActiveSupport::TestCase
+class Decor::Daisy::ElementTest < ActiveSupport::TestCase
   test "renders successfully with default options" do
-    component = Decor::Element.new do
+    component = Decor::Daisy::Element.new do
       "test content"
     end
     rendered = render_component(component)
@@ -12,7 +12,7 @@ class Decor::ElementTest < ActiveSupport::TestCase
   end
 
   test "applies custom root element attributes" do
-    component = Decor::Element.new(root_element_attributes: {classes: "custom-class", id: "test-id"}) do
+    component = Decor::Daisy::Element.new(root_element_attributes: {classes: "custom-class", id: "test-id"}) do
       "content"
     end
     rendered = render_component(component)
@@ -23,7 +23,7 @@ class Decor::ElementTest < ActiveSupport::TestCase
   end
 
   test "handles empty root element attributes" do
-    component = Decor::Element.new(root_element_attributes: {}) do
+    component = Decor::Daisy::Element.new(root_element_attributes: {}) do
       "empty options"
     end
     rendered = render_component(component)
@@ -33,7 +33,7 @@ class Decor::ElementTest < ActiveSupport::TestCase
   end
 
   test "renders with html options" do
-    component = Decor::Element.new(root_element_attributes: {html_options: {"data-controller": "my-controller", role: "button"}}) do
+    component = Decor::Daisy::Element.new(root_element_attributes: {html_options: {"data-controller": "my-controller", role: "button"}}) do
       "stimulus content"
     end
     rendered = render_component(component)
