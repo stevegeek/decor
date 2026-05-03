@@ -2,7 +2,7 @@
 
 module Decor
   module Modals
-    class ModalCloseButton < Button
+    class ModalCloseButton < ::Decor::Daisy::Button
       prop :close_reason, _Nilable(String)
 
       # Configure Stimulus controller

@@ -26,7 +26,7 @@ module Decor
 
         div(class: "flex justify-center gap-4") do
           if @secondary_action_label && @secondary_action_href
-            render Decor::ButtonLink.new(
+            render Decor::Daisy::ButtonLink.new(
               label: @secondary_action_label,
               href: @secondary_action_href,
               style: :outlined
@@ -34,7 +34,7 @@ module Decor
           end
 
           if @primary_action_label && @primary_action_href
-            render Decor::ButtonLink.new(
+            render Decor::Daisy::ButtonLink.new(
               label: @primary_action_label,
               href: @primary_action_href,
               color: :primary

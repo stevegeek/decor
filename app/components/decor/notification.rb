@@ -66,7 +66,7 @@ module Decor
           div(class: "join-item flex flex-col justify-center p-2 gap-1") do
             @action_buttons.each do |button|
               if button.href
-                render ::Decor::ButtonLink.new(
+                render ::Decor::Daisy::ButtonLink.new(
                   label: button.label,
                   href: button.href,
                   style: button.style || (button.primary? ? :filled : :ghost),

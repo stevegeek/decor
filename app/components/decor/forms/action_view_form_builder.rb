@@ -315,7 +315,7 @@ module Decor
 
         path = url_for(path) if path.is_a? Hash
         options[:label] = value if value && !block
-        @template.render(::Decor::ButtonLink.new(href: path, http_method: options[:method], **options), &block)
+        @template.render(::Decor::Daisy::ButtonLink.new(href: path, http_method: options[:method], **options), &block)
       end
 
       def button_radio_group(method, choices, options = {}, html_options = {}, &block)

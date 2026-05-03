@@ -2,9 +2,9 @@
 
 require "test_helper"
 
-class Decor::ButtonLinkTest < ActiveSupport::TestCase
+class Decor::Daisy::ButtonLinkTest < ActiveSupport::TestCase
   def test_renders_as_link_when_not_disabled
-    component = Decor::ButtonLink.new(
+    component = Decor::Daisy::ButtonLink.new(
       label: "Click me",
       href: "/test-url"
     )
@@ -19,7 +19,7 @@ class Decor::ButtonLinkTest < ActiveSupport::TestCase
   end
 
   def test_renders_as_button_when_disabled
-    component = Decor::ButtonLink.new(
+    component = Decor::Daisy::ButtonLink.new(
       label: "Disabled",
       href: "/test-url",
       disabled: true
@@ -38,7 +38,7 @@ class Decor::ButtonLinkTest < ActiveSupport::TestCase
   end
 
   def test_adds_data_attributes
-    component = Decor::ButtonLink.new(
+    component = Decor::Daisy::ButtonLink.new(
       label: "Submit",
       href: "/submit",
       data: {confirm: "Are you sure?"}
@@ -53,7 +53,7 @@ class Decor::ButtonLinkTest < ActiveSupport::TestCase
   end
 
   def test_adds_http_method_data
-    component = Decor::ButtonLink.new(
+    component = Decor::Daisy::ButtonLink.new(
       label: "Delete",
       href: "/delete",
       http_method: :delete
@@ -67,7 +67,7 @@ class Decor::ButtonLinkTest < ActiveSupport::TestCase
   end
 
   def test_adds_turbo_frame_data
-    component = Decor::ButtonLink.new(
+    component = Decor::Daisy::ButtonLink.new(
       label: "In Frame",
       href: "/frame",
       turbo_frame: "modal"
@@ -81,7 +81,7 @@ class Decor::ButtonLinkTest < ActiveSupport::TestCase
   end
 
   def test_inherits_button_styling
-    component = Decor::ButtonLink.new(
+    component = Decor::Daisy::ButtonLink.new(
       label: "Styled Link",
       href: "/test",
       color: :primary,
@@ -98,7 +98,7 @@ class Decor::ButtonLinkTest < ActiveSupport::TestCase
   end
 
   def test_with_icon
-    component = Decor::ButtonLink.new(
+    component = Decor::Daisy::ButtonLink.new(
       label: "With Icon",
       href: "/test",
       icon: "star"

@@ -2,7 +2,7 @@
 
 module Decor
   module Modals
-    class ModalOpenButton < Button
+    class ModalOpenButton < ::Decor::Daisy::Button
       prop :modal_id, String, reader: :public
       prop :initial_content, _Nilable(String)
       prop :content_href, _Nilable(String)
