@@ -92,7 +92,7 @@ If you find any issues or missing components, please open a PR to improve the do
 - [Decor::Chat::ListMessage](#decorchatlistmessage)
 - [Decor::ClickToCopy](#decorclicktocopy)
 - [Decor::CodeBlock](#decorcodeblock)
-- [Decor::CodeSnippet](#decorcodesnippet)
+- [Decor::Daisy::CodeSnippet](#decordaisycodesnippet)
 - [Decor::Element](#decorelement)
 - [Decor::EmptyState](#decoremptystate)
 - [Decor::Daisy::FormattedEncodedId](#decordaisyformattedencodedid)
@@ -2048,15 +2048,15 @@ _(and the shared properties `size`, `color`, and `style` as described above)_
 
 ---
 
-### Decor::CodeSnippet
+### Decor::Daisy::CodeSnippet
 
-<span id="decorcodesnippet"></span>
+<span id="decordaisycodesnippet"></span>
 
 CodeSnippet Inline code snippets with various styling options. Used to highlight code fragments within text content. Supports different styles and sizes for visual emphasis.
 
 **Basic Usage:**
 ```ruby
-render Decor::CodeSnippet.new do
+render Decor::Daisy::CodeSnippet.new do
   "Content goes here"
 end
 ```

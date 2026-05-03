@@ -2,9 +2,9 @@
 
 require "test_helper"
 
-class Decor::CodeSnippetTest < ActiveSupport::TestCase
+class Decor::Daisy::CodeSnippetTest < ActiveSupport::TestCase
   def test_renders_with_content
-    component = Decor::CodeSnippet.new
+    component = Decor::Daisy::CodeSnippet.new
 
     rendered = render_fragment(component) { "const foo = 'bar';" }
 
@@ -21,7 +21,7 @@ class Decor::CodeSnippetTest < ActiveSupport::TestCase
   end
 
   def test_default_variant_styling
-    component = Decor::CodeSnippet.new
+    component = Decor::Daisy::CodeSnippet.new
 
     rendered = render_fragment(component) { "code" }
 
@@ -31,7 +31,7 @@ class Decor::CodeSnippetTest < ActiveSupport::TestCase
   end
 
   def test_primary_variant
-    component = Decor::CodeSnippet.new(color: :primary)
+    component = Decor::Daisy::CodeSnippet.new(color: :primary)
 
     rendered = render_fragment(component) { "code" }
 
@@ -41,7 +41,7 @@ class Decor::CodeSnippetTest < ActiveSupport::TestCase
   end
 
   def test_secondary_variant
-    component = Decor::CodeSnippet.new(color: :secondary)
+    component = Decor::Daisy::CodeSnippet.new(color: :secondary)
 
     rendered = render_fragment(component) { "code" }
 
@@ -51,7 +51,7 @@ class Decor::CodeSnippetTest < ActiveSupport::TestCase
   end
 
   def test_accent_variant
-    component = Decor::CodeSnippet.new(color: :accent)
+    component = Decor::Daisy::CodeSnippet.new(color: :accent)
 
     rendered = render_fragment(component) { "code" }
 
@@ -61,7 +61,7 @@ class Decor::CodeSnippetTest < ActiveSupport::TestCase
   end
 
   def test_size_xs
-    component = Decor::CodeSnippet.new(size: :xs)
+    component = Decor::Daisy::CodeSnippet.new(size: :xs)
 
     rendered = render_fragment(component) { "tiny code" }
 
@@ -70,7 +70,7 @@ class Decor::CodeSnippetTest < ActiveSupport::TestCase
   end
 
   def test_size_sm
-    component = Decor::CodeSnippet.new(size: :sm)
+    component = Decor::Daisy::CodeSnippet.new(size: :sm)
 
     rendered = render_fragment(component) { "small code" }
 
@@ -79,7 +79,7 @@ class Decor::CodeSnippetTest < ActiveSupport::TestCase
   end
 
   def test_size_md
-    component = Decor::CodeSnippet.new(size: :md)
+    component = Decor::Daisy::CodeSnippet.new(size: :md)
 
     rendered = render_fragment(component) { "medium code" }
 
@@ -88,7 +88,7 @@ class Decor::CodeSnippetTest < ActiveSupport::TestCase
   end
 
   def test_size_lg
-    component = Decor::CodeSnippet.new(size: :lg)
+    component = Decor::Daisy::CodeSnippet.new(size: :lg)
 
     rendered = render_fragment(component) { "large code" }
 
@@ -97,7 +97,7 @@ class Decor::CodeSnippetTest < ActiveSupport::TestCase
   end
 
   def test_with_complex_content
-    component = Decor::CodeSnippet.new
+    component = Decor::Daisy::CodeSnippet.new
 
     rendered = render_fragment(component) do
       "Array.from({ length: 5 }, (_, i) => i * 2)"
@@ -108,7 +108,7 @@ class Decor::CodeSnippetTest < ActiveSupport::TestCase
   end
 
   def test_combined_props
-    component = Decor::CodeSnippet.new(color: :primary, size: :sm)
+    component = Decor::Daisy::CodeSnippet.new(color: :primary, size: :sm)
 
     rendered = render_fragment(component) { "npm install" }
 
