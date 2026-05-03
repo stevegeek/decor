@@ -1,8 +1,8 @@
 require "test_helper"
 
-class Decor::SpinnerTest < ActiveSupport::TestCase
+class Decor::Daisy::SpinnerTest < ActiveSupport::TestCase
   test "renders successfully with default attributes" do
-    component = Decor::Spinner.new
+    component = Decor::Daisy::Spinner.new
     rendered = render_component(component)
 
     assert_includes rendered, "loading"
@@ -12,14 +12,14 @@ class Decor::SpinnerTest < ActiveSupport::TestCase
   end
 
   test "applies default spinner style" do
-    component = Decor::Spinner.new
+    component = Decor::Daisy::Spinner.new
     rendered = render_component(component)
 
     assert_includes rendered, "loading-spinner"
   end
 
   test "applies dots style" do
-    component = Decor::Spinner.new(style: :dots)
+    component = Decor::Daisy::Spinner.new(style: :dots)
     rendered = render_component(component)
 
     assert_includes rendered, "loading-dots"
@@ -27,7 +27,7 @@ class Decor::SpinnerTest < ActiveSupport::TestCase
   end
 
   test "applies ring style" do
-    component = Decor::Spinner.new(style: :ring)
+    component = Decor::Daisy::Spinner.new(style: :ring)
     rendered = render_component(component)
 
     assert_includes rendered, "loading-ring"
@@ -35,7 +35,7 @@ class Decor::SpinnerTest < ActiveSupport::TestCase
   end
 
   test "applies ball style" do
-    component = Decor::Spinner.new(style: :ball)
+    component = Decor::Daisy::Spinner.new(style: :ball)
     rendered = render_component(component)
 
     assert_includes rendered, "loading-ball"
@@ -43,7 +43,7 @@ class Decor::SpinnerTest < ActiveSupport::TestCase
   end
 
   test "applies bars style" do
-    component = Decor::Spinner.new(style: :bars)
+    component = Decor::Daisy::Spinner.new(style: :bars)
     rendered = render_component(component)
 
     assert_includes rendered, "loading-bars"
@@ -51,7 +51,7 @@ class Decor::SpinnerTest < ActiveSupport::TestCase
   end
 
   test "applies infinity style" do
-    component = Decor::Spinner.new(style: :infinity)
+    component = Decor::Daisy::Spinner.new(style: :infinity)
     rendered = render_component(component)
 
     assert_includes rendered, "loading-infinity"
@@ -59,63 +59,63 @@ class Decor::SpinnerTest < ActiveSupport::TestCase
   end
 
   test "applies correct size classes" do
-    component = Decor::Spinner.new(size: :lg)
+    component = Decor::Daisy::Spinner.new(size: :lg)
     rendered = render_component(component)
 
     assert_includes rendered, "loading-lg"
   end
 
   test "applies extra small size" do
-    component = Decor::Spinner.new(size: :xs)
+    component = Decor::Daisy::Spinner.new(size: :xs)
     rendered = render_component(component)
 
     assert_includes rendered, "loading-xs"
   end
 
   test "applies small size" do
-    component = Decor::Spinner.new(size: :sm)
+    component = Decor::Daisy::Spinner.new(size: :sm)
     rendered = render_component(component)
 
     assert_includes rendered, "loading-sm"
   end
 
   test "applies medium size by default" do
-    component = Decor::Spinner.new
+    component = Decor::Daisy::Spinner.new
     rendered = render_component(component)
 
     assert_includes rendered, "loading-md"
   end
 
   test "applies correct color classes" do
-    component = Decor::Spinner.new(color: :primary)
+    component = Decor::Daisy::Spinner.new(color: :primary)
     rendered = render_component(component)
 
     assert_includes rendered, "text-primary"
   end
 
   test "applies base color" do
-    component = Decor::Spinner.new(color: :base)
+    component = Decor::Daisy::Spinner.new(color: :base)
     rendered = render_component(component)
 
     assert_includes rendered, "text-base-content"
   end
 
   test "applies success color" do
-    component = Decor::Spinner.new(color: :success)
+    component = Decor::Daisy::Spinner.new(color: :success)
     rendered = render_component(component)
 
     assert_includes rendered, "text-success"
   end
 
   test "applies error color" do
-    component = Decor::Spinner.new(color: :error)
+    component = Decor::Daisy::Spinner.new(color: :error)
     rendered = render_component(component)
 
     assert_includes rendered, "text-error"
   end
 
   test "renders with default color class" do
-    component = Decor::Spinner.new
+    component = Decor::Daisy::Spinner.new
     rendered = render_component(component)
 
     assert_includes rendered, "text-neutral"
@@ -125,7 +125,7 @@ class Decor::SpinnerTest < ActiveSupport::TestCase
   end
 
   test "combines size and color classes" do
-    component = Decor::Spinner.new(size: :lg, color: :primary)
+    component = Decor::Daisy::Spinner.new(size: :lg, color: :primary)
     rendered = render_component(component)
 
     assert_includes rendered, "loading-lg"
@@ -133,7 +133,7 @@ class Decor::SpinnerTest < ActiveSupport::TestCase
   end
 
   test "uses nokogiri for parsing" do
-    component = Decor::Spinner.new(size: :sm, color: :success)
+    component = Decor::Daisy::Spinner.new(size: :sm, color: :success)
     fragment = render_fragment(component)
 
     spinner = fragment.at_css(".loading")
@@ -144,7 +144,7 @@ class Decor::SpinnerTest < ActiveSupport::TestCase
   end
 
   test "combines style, size and color classes" do
-    component = Decor::Spinner.new(style: :dots, size: :lg, color: :primary)
+    component = Decor::Daisy::Spinner.new(style: :dots, size: :lg, color: :primary)
     rendered = render_component(component)
 
     assert_includes rendered, "loading-dots"
@@ -153,7 +153,7 @@ class Decor::SpinnerTest < ActiveSupport::TestCase
   end
 
   test "supports xl size" do
-    component = Decor::Spinner.new(size: :xl)
+    component = Decor::Daisy::Spinner.new(size: :xl)
     rendered = render_component(component)
 
     assert_includes rendered, "loading-xl"

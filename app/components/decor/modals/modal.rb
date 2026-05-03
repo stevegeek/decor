@@ -27,7 +27,7 @@ module Decor
             if @initial_content.present?
               plain(@initial_content)
             else
-              render ::Decor::Spinner.new(html_options: {class: "mx-auto w-8 h-8"})
+              render ::Decor::Daisy::Spinner.new(html_options: {class: "mx-auto w-8 h-8"})
             end
           end
 

@@ -93,7 +93,7 @@ class Decor::Modals::ModalTest < ActiveSupport::TestCase
     component = Decor::Modals::Modal.new(id: "empty-modal")
     rendered = render_component(component)
 
-    assert_includes rendered, "decor--spinner"
+    assert_includes rendered, "decor--daisy--spinner"
     # Should still have the structure even without content
     assert_includes rendered, "empty-modal"
   end
