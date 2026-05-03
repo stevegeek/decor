@@ -1,5 +1,5 @@
 # @label EmptyState
-class ::Decor::EmptyStatePreview < ::Lookbook::Preview
+class ::Decor::Daisy::EmptyStatePreview < ::Lookbook::Preview
   # EmptyState
   # ----------
   #
@@ -10,7 +10,7 @@ class ::Decor::EmptyStatePreview < ::Lookbook::Preview
   # @group Examples
   # @label No Items Found
   def no_items_found
-    render ::Decor::EmptyState.new(
+    render ::Decor::Daisy::EmptyState.new(
       icon_name: "inbox",
       title: "No items found",
       description: "There are no items to display at the moment.",
@@ -22,7 +22,7 @@ class ::Decor::EmptyStatePreview < ::Lookbook::Preview
   # @group Examples
   # @label Search Results Empty
   def search_results_empty
-    render ::Decor::EmptyState.new(
+    render ::Decor::Daisy::EmptyState.new(
       icon_name: "magnifying-glass",
       title: "No search results",
       description: "We couldn't find any items matching your search criteria.",
@@ -36,7 +36,7 @@ class ::Decor::EmptyStatePreview < ::Lookbook::Preview
   # @group Examples
   # @label Success State
   def success_state
-    render ::Decor::EmptyState.new(
+    render ::Decor::Daisy::EmptyState.new(
       icon_name: "check-circle",
       title: "All tasks completed",
       description: "Great job! You've completed all your tasks.",
@@ -68,7 +68,7 @@ class ::Decor::EmptyStatePreview < ::Lookbook::Preview
     color: nil,
     style: nil
   )
-    render ::Decor::EmptyState.new(
+    render ::Decor::Daisy::EmptyState.new(
       icon_name: icon_name,
       title: title,
       description: description,
@@ -85,7 +85,7 @@ class ::Decor::EmptyStatePreview < ::Lookbook::Preview
   # @group States
   # @label Error State
   def error_state
-    render ::Decor::EmptyState.new(
+    render ::Decor::Daisy::EmptyState.new(
       icon_name: "exclamation-triangle",
       title: "Unable to load data",
       description: "There was an error loading your data. Please try again or contact support.",
@@ -99,7 +99,7 @@ class ::Decor::EmptyStatePreview < ::Lookbook::Preview
   # @group States
   # @label No Network Connection
   def no_network
-    render ::Decor::EmptyState.new(
+    render ::Decor::Daisy::EmptyState.new(
       icon_name: "wifi",
       title: "No internet connection",
       description: "Please check your internet connection and try again.",
@@ -111,7 +111,7 @@ class ::Decor::EmptyStatePreview < ::Lookbook::Preview
   # @group States
   # @label Access Denied
   def access_denied
-    render ::Decor::EmptyState.new(
+    render ::Decor::Daisy::EmptyState.new(
       icon_name: "lock-closed",
       title: "Access denied",
       description: "You don't have permission to view this content.",
@@ -125,7 +125,7 @@ class ::Decor::EmptyStatePreview < ::Lookbook::Preview
   # @group States
   # @label Coming Soon
   def coming_soon
-    render ::Decor::EmptyState.new(
+    render ::Decor::Daisy::EmptyState.new(
       icon_name: "clock",
       title: "Coming soon",
       description: "This feature is under development and will be available soon.",
@@ -137,7 +137,7 @@ class ::Decor::EmptyStatePreview < ::Lookbook::Preview
   # @group Variations
   # @label No Secondary Action
   def no_secondary_action
-    render ::Decor::EmptyState.new(
+    render ::Decor::Daisy::EmptyState.new(
       icon_name: "folder-open",
       title: "Folder is empty",
       description: "This folder doesn't contain any files yet.",
@@ -149,7 +149,7 @@ class ::Decor::EmptyStatePreview < ::Lookbook::Preview
   # @group Variations
   # @label No Actions
   def no_actions
-    render ::Decor::EmptyState.new(
+    render ::Decor::Daisy::EmptyState.new(
       icon_name: "information-circle",
       title: "No data available",
       description: "There is no data to display for the selected time period."
@@ -159,7 +159,7 @@ class ::Decor::EmptyStatePreview < ::Lookbook::Preview
   # @group Variations
   # @label Long Description
   def long_description
-    render ::Decor::EmptyState.new(
+    render ::Decor::Daisy::EmptyState.new(
       icon_name: "document-text",
       title: "No documents found",
       description: "We couldn't find any documents in your account. Documents help you organize and share important information with your team. You can upload PDFs, Word documents, spreadsheets, and more.",

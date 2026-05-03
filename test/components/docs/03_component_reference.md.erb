@@ -94,7 +94,7 @@ If you find any issues or missing components, please open a PR to improve the do
 - [Decor::Daisy::CodeBlock](#decordaisycodeblock)
 - [Decor::Daisy::CodeSnippet](#decordaisycodesnippet)
 - [Decor::Daisy::Element](#decordaisyelement)
-- [Decor::EmptyState](#decoremptystate)
+- [Decor::Daisy::EmptyState](#decordaisyemptystate)
 - [Decor::Daisy::FormattedEncodedId](#decordaisyformattedencodedid)
 - [Decor::Map](#decormap)
 - [Decor::Page](#decorpage)
@@ -2087,15 +2087,15 @@ _(and the shared properties `size`, `color`, and `style` as described above)_
 
 ---
 
-### Decor::EmptyState
+### Decor::Daisy::EmptyState
 
-<span id="decoremptystate"></span>
+<span id="decordaisyemptystate"></span>
 
 EmptyState An empty state component for displaying when there's no content to show. Typically includes an icon, title, description, and optional action buttons. Used for search results, empty lists, error states, and success confirmations.
 
 **Basic Usage:**
 ```ruby
-render Decor::EmptyState.new(
+render Decor::Daisy::EmptyState.new(
   icon_name: "star",
   title: "Title",
   description: "Description text"

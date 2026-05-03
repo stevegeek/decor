@@ -2,9 +2,9 @@
 
 require "test_helper"
 
-class Decor::EmptyStateTest < ActiveSupport::TestCase
+class Decor::Daisy::EmptyStateTest < ActiveSupport::TestCase
   def test_renders_with_all_required_props
-    component = Decor::EmptyState.new(
+    component = Decor::Daisy::EmptyState.new(
       icon_name: "inbox",
       title: "No messages",
       description: "You don't have any messages yet",
@@ -37,7 +37,7 @@ class Decor::EmptyStateTest < ActiveSupport::TestCase
   end
 
   def test_renders_with_secondary_action
-    component = Decor::EmptyState.new(
+    component = Decor::Daisy::EmptyState.new(
       icon_name: "document",
       title: "No documents",
       description: "Start by creating your first document",
@@ -67,7 +67,7 @@ class Decor::EmptyStateTest < ActiveSupport::TestCase
   end
 
   def test_renders_without_secondary_action
-    component = Decor::EmptyState.new(
+    component = Decor::Daisy::EmptyState.new(
       icon_name: "users",
       title: "No team members",
       description: "Invite people to collaborate",
@@ -88,7 +88,7 @@ class Decor::EmptyStateTest < ActiveSupport::TestCase
   end
 
   def test_applies_correct_classes
-    component = Decor::EmptyState.new(
+    component = Decor::Daisy::EmptyState.new(
       icon_name: "star",
       title: "No favorites",
       description: "Star items to access them quickly",
@@ -105,7 +105,7 @@ class Decor::EmptyStateTest < ActiveSupport::TestCase
   end
 
   def test_icon_has_correct_size_and_styling
-    component = Decor::EmptyState.new(
+    component = Decor::Daisy::EmptyState.new(
       icon_name: "bell",
       title: "No notifications",
       description: "You're all caught up!",
@@ -122,7 +122,7 @@ class Decor::EmptyStateTest < ActiveSupport::TestCase
   end
 
   def test_text_styling_classes
-    component = Decor::EmptyState.new(
+    component = Decor::Daisy::EmptyState.new(
       icon_name: "search",
       title: "No results found",
       description: "Try adjusting your search criteria",
@@ -146,7 +146,7 @@ class Decor::EmptyStateTest < ActiveSupport::TestCase
   end
 
   def test_action_buttons_layout
-    component = Decor::EmptyState.new(
+    component = Decor::Daisy::EmptyState.new(
       icon_name: "folder",
       title: "Empty folder",
       description: "This folder doesn't contain any files",
