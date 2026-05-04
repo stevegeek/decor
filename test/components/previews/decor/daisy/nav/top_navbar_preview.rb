@@ -1,4 +1,4 @@
-class ::Decor::Nav::TopNavbarPreview < ::Lookbook::Preview
+class ::Decor::Daisy::Nav::TopNavbarPreview < ::Lookbook::Preview
   # @label TopNavbar
   # A responsive navigation bar for the top of the page with support for branding, search, navigation items, and dropdown menus
 
@@ -6,7 +6,7 @@ class ::Decor::Nav::TopNavbarPreview < ::Lookbook::Preview
 
   # Basic navbar with brand only
   def basic
-    render ::Decor::Nav::TopNavbar.new(
+    render ::Decor::Daisy::Nav::TopNavbar.new(
       has_search: false,
       brand_text: "My App"
     )
@@ -14,7 +14,7 @@ class ::Decor::Nav::TopNavbarPreview < ::Lookbook::Preview
 
   # Navbar with search functionality
   def with_search
-    render ::Decor::Nav::TopNavbar.new(
+    render ::Decor::Daisy::Nav::TopNavbar.new(
       has_search: true,
       instant_search_path: "/search",
       brand_text: "Searchable App"
@@ -23,7 +23,7 @@ class ::Decor::Nav::TopNavbarPreview < ::Lookbook::Preview
 
   # Navbar with navigation items
   def with_navigation
-    render ::Decor::Nav::TopNavbar.new(
+    render ::Decor::Daisy::Nav::TopNavbar.new(
       has_search: false,
       brand_text: "Company",
       brand_href: "/"
@@ -39,7 +39,7 @@ class ::Decor::Nav::TopNavbarPreview < ::Lookbook::Preview
 
   # Full-featured navbar with all components
   def full_featured
-    render ::Decor::Nav::TopNavbar.new(has_search: true, instant_search_path: "/search") do |navbar|
+    render ::Decor::Daisy::Nav::TopNavbar.new(has_search: true, instant_search_path: "/search") do |navbar|
       # Custom brand with logo
       navbar.with_brand do
         a(href: "/", class: "btn btn-ghost text-xl font-bold") do
@@ -101,7 +101,7 @@ class ::Decor::Nav::TopNavbarPreview < ::Lookbook::Preview
     brand_href: "/",
     instant_search_path: "/search"
   )
-    render ::Decor::Nav::TopNavbar.new(
+    render ::Decor::Daisy::Nav::TopNavbar.new(
       has_search: has_search,
       brand_text: brand_text,
       brand_href: brand_href,
@@ -145,7 +145,7 @@ class ::Decor::Nav::TopNavbarPreview < ::Lookbook::Preview
 
   # Simple text brand
   def brand_text_only
-    render ::Decor::Nav::TopNavbar.new(
+    render ::Decor::Daisy::Nav::TopNavbar.new(
       has_search: false,
       brand_text: "Minimal Brand"
     )
@@ -153,7 +153,7 @@ class ::Decor::Nav::TopNavbarPreview < ::Lookbook::Preview
 
   # Brand with icon and custom styling
   def brand_with_icon
-    render ::Decor::Nav::TopNavbar.new(has_search: false) do |navbar|
+    render ::Decor::Daisy::Nav::TopNavbar.new(has_search: false) do |navbar|
       navbar.with_brand do
         a(href: "/", class: "btn btn-ghost text-xl") do
           render ::Decor::Daisy::Icon.new(name: "sparkles", classes: "h-8 w-8 text-accent")
@@ -168,7 +168,7 @@ class ::Decor::Nav::TopNavbarPreview < ::Lookbook::Preview
 
   # Account menu with login options
   def account_menu_login
-    render ::Decor::Nav::TopNavbar.new(
+    render ::Decor::Daisy::Nav::TopNavbar.new(
       has_search: false,
       brand_text: "Public Site"
     ) do |navbar|
@@ -184,7 +184,7 @@ class ::Decor::Nav::TopNavbarPreview < ::Lookbook::Preview
 
   # Notifications with badge indicator
   def notifications_with_badge
-    render ::Decor::Nav::TopNavbar.new(
+    render ::Decor::Daisy::Nav::TopNavbar.new(
       has_search: false,
       brand_text: "Notify App"
     ) do |navbar|
@@ -209,7 +209,7 @@ class ::Decor::Nav::TopNavbarPreview < ::Lookbook::Preview
       render ::Decor::Daisy::Element.new(element_tag: :div, classes: "camera")
       render ::Decor::Daisy::Element.new(element_tag: :div, classes: "display") do
         render ::Decor::Daisy::Element.new(element_tag: :div, classes: "artboard artboard-demo phone-1") do
-          render ::Decor::Nav::TopNavbar.new(has_search: true) do |navbar|
+          render ::Decor::Daisy::Nav::TopNavbar.new(has_search: true) do |navbar|
             navbar.with_account_menu do |menu|
               menu.trigger_button_content do
                 render ::Decor::Daisy::Avatar.new(initials: "U", size: :xs)

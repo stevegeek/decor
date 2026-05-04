@@ -3,7 +3,7 @@ require "test_helper"
 class Decor::Daisy::SearchResultsDropdownTest < ActiveSupport::TestCase
   def setup
     # Create a proper vident component for testing
-    @nav_element = Decor::Nav::TopNavbar.new
+    @nav_element = Decor::Daisy::Nav::TopNavbar.new
   end
 
   test "renders successfully with nav element" do
@@ -28,7 +28,7 @@ class Decor::Daisy::SearchResultsDropdownTest < ActiveSupport::TestCase
     rendered = render_component(component)
 
     assert_includes rendered, "flex items-center h-full"
-    assert_includes rendered, 'data-decor--nav--top-navbar-target="searchSpinner"'
+    assert_includes rendered, 'data-decor--daisy--nav--top-navbar-target="searchSpinner"'
   end
 
   test "includes search dropdown content area" do
@@ -36,7 +36,7 @@ class Decor::Daisy::SearchResultsDropdownTest < ActiveSupport::TestCase
     rendered = render_component(component)
 
     assert_includes rendered, "hidden max-w-7xl mx-auto px-8 h-full overflow-y-scroll lg:overflow-auto"
-    assert_includes rendered, 'data-decor--nav--top-navbar-target="searchDropdownContent"'
+    assert_includes rendered, 'data-decor--daisy--nav--top-navbar-target="searchDropdownContent"'
   end
 
   test "renders spinner component" do
@@ -61,8 +61,8 @@ class Decor::Daisy::SearchResultsDropdownTest < ActiveSupport::TestCase
     rendered = render_component(component)
 
     # Verify the nav element target method was called with correct parameters
-    assert_includes rendered, 'data-decor--nav--top-navbar-target="searchSpinner"'
-    assert_includes rendered, 'data-decor--nav--top-navbar-target="searchDropdownContent"'
+    assert_includes rendered, 'data-decor--daisy--nav--top-navbar-target="searchSpinner"'
+    assert_includes rendered, 'data-decor--daisy--nav--top-navbar-target="searchDropdownContent"'
   end
 
   test "uses nokogiri for parsing" do
@@ -80,12 +80,12 @@ class Decor::Daisy::SearchResultsDropdownTest < ActiveSupport::TestCase
     assert_equal "true", shadow["aria-hidden"]
 
     # Check spinner container
-    spinner_container = fragment.at_css('[data-decor--nav--top-navbar-target="searchSpinner"]')
+    spinner_container = fragment.at_css('[data-decor--daisy--nav--top-navbar-target="searchSpinner"]')
     assert_not_nil spinner_container
     assert_includes spinner_container["class"], "flex items-center h-full"
 
     # Check content area
-    content_area = fragment.at_css('[data-decor--nav--top-navbar-target="searchDropdownContent"]')
+    content_area = fragment.at_css('[data-decor--daisy--nav--top-navbar-target="searchDropdownContent"]')
     assert_not_nil content_area
     assert_includes content_area["class"], "hidden"
   end

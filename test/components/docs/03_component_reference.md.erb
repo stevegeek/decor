@@ -65,7 +65,7 @@ If you find any issues or missing components, please open a PR to improve the do
 - [Decor::Daisy::Nav::SideNavbarItem](#decordaisynavsidenavbaritem)
 - [Decor::Daisy::Nav::SideNavbarSection](#decordaisynavsidenavbarsection)
 - [Decor::Daisy::Nav::SideNavbarSubItem](#decordaisynavsidenavbarsubitem)
-- [Decor::Nav::TopNavbar](#decornavtopnavbar)
+- [Decor::Daisy::Nav::TopNavbar](#decordaisynavtopnavbar)
 
 ### Data Display Components
 - [Decor::Pagination](#decorpagination)
@@ -1422,15 +1422,15 @@ _(and the shared properties `size`, `color`, and `style` as described above)_
 
 ---
 
-### Decor::Nav::TopNavbar
+### Decor::Daisy::Nav::TopNavbar
 
-<span id="decornavtopnavbar"></span>
+<span id="decordaisynavtopnavbar"></span>
 
 Basic navbar with brand only
 
 **Basic Usage:**
 ```ruby
-render Decor::Nav::TopNavbar.new do |c|
+render Decor::Daisy::Nav::TopNavbar.new do |c|
   c.with_brand do
     # Slot content
   end
