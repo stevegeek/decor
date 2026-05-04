@@ -1,6 +1,6 @@
 require "test_helper"
 
-class Decor::Nav::BreadcrumbsTest < ActiveSupport::TestCase
+class Decor::Daisy::Nav::BreadcrumbsTest < ActiveSupport::TestCase
   test "renders successfully with hash array" do
     crumbs = [
       {
@@ -18,7 +18,7 @@ class Decor::Nav::BreadcrumbsTest < ActiveSupport::TestCase
       }
     ]
 
-    component = Decor::Nav::Breadcrumbs.new(breadcrumbs: crumbs)
+    component = Decor::Daisy::Nav::Breadcrumbs.new(breadcrumbs: crumbs)
     rendered = render_component(component)
 
     assert_includes rendered, "breadcrumbs"
@@ -29,12 +29,12 @@ class Decor::Nav::BreadcrumbsTest < ActiveSupport::TestCase
 
   test "renders with Literal::Data objects" do
     crumbs = [
-      Decor::Nav::Breadcrumbs::Breadcrumb.new(name: "Home", path: "/"),
-      Decor::Nav::Breadcrumbs::Breadcrumb.new(name: "Products", path: "/products"),
-      Decor::Nav::Breadcrumbs::Breadcrumb.new(name: "Current Page", path: "/current", current: true)
+      Decor::Daisy::Nav::Breadcrumbs::Breadcrumb.new(name: "Home", path: "/"),
+      Decor::Daisy::Nav::Breadcrumbs::Breadcrumb.new(name: "Products", path: "/products"),
+      Decor::Daisy::Nav::Breadcrumbs::Breadcrumb.new(name: "Current Page", path: "/current", current: true)
     ]
 
-    component = Decor::Nav::Breadcrumbs.new(breadcrumbs: crumbs)
+    component = Decor::Daisy::Nav::Breadcrumbs.new(breadcrumbs: crumbs)
     rendered = render_component(component)
 
     assert_includes rendered, "breadcrumbs"
@@ -44,7 +44,7 @@ class Decor::Nav::BreadcrumbsTest < ActiveSupport::TestCase
   end
 
   test "handles empty breadcrumbs array" do
-    component = Decor::Nav::Breadcrumbs.new(breadcrumbs: [])
+    component = Decor::Daisy::Nav::Breadcrumbs.new(breadcrumbs: [])
     rendered = render_component(component)
 
     assert_includes rendered, "breadcrumbs"
@@ -53,7 +53,7 @@ class Decor::Nav::BreadcrumbsTest < ActiveSupport::TestCase
   end
 
   test "supports custom home configuration" do
-    component = Decor::Nav::Breadcrumbs.new(
+    component = Decor::Daisy::Nav::Breadcrumbs.new(
       breadcrumbs: [],
       home_path: "/dashboard",
       home_icon: "dashboard"
@@ -64,7 +64,7 @@ class Decor::Nav::BreadcrumbsTest < ActiveSupport::TestCase
   end
 
   test "hides home link when show_home is false" do
-    component = Decor::Nav::Breadcrumbs.new(
+    component = Decor::Daisy::Nav::Breadcrumbs.new(
       breadcrumbs: [{name: "Test", path: "/test"}],
       show_home: false
     )
@@ -79,7 +79,7 @@ class Decor::Nav::BreadcrumbsTest < ActiveSupport::TestCase
       {name: "Settings", path: "/settings", icon: "cog", current: true}
     ]
 
-    component = Decor::Nav::Breadcrumbs.new(breadcrumbs: crumbs)
+    component = Decor::Daisy::Nav::Breadcrumbs.new(breadcrumbs: crumbs)
     rendered = render_component(component)
 
     assert_includes rendered, "Dashboard"
@@ -93,7 +93,7 @@ class Decor::Nav::BreadcrumbsTest < ActiveSupport::TestCase
       {name: "Current", path: "/current", current: true}
     ]
 
-    component = Decor::Nav::Breadcrumbs.new(breadcrumbs: crumbs)
+    component = Decor::Daisy::Nav::Breadcrumbs.new(breadcrumbs: crumbs)
     rendered = render_component(component)
 
     assert_includes rendered, "Active"
@@ -109,7 +109,7 @@ class Decor::Nav::BreadcrumbsTest < ActiveSupport::TestCase
       {name: "Level 2", path: "/level2", current: true}
     ]
 
-    component = Decor::Nav::Breadcrumbs.new(breadcrumbs: crumbs, mobile_select: true)
+    component = Decor::Daisy::Nav::Breadcrumbs.new(breadcrumbs: crumbs, mobile_select: true)
     rendered = render_component(component)
 
     assert_includes rendered, "Mobile navigation:"
@@ -121,7 +121,7 @@ class Decor::Nav::BreadcrumbsTest < ActiveSupport::TestCase
   test "hides mobile navigation when disabled" do
     crumbs = [{name: "Test", path: "/test"}]
 
-    component = Decor::Nav::Breadcrumbs.new(breadcrumbs: crumbs, mobile_select: false)
+    component = Decor::Daisy::Nav::Breadcrumbs.new(breadcrumbs: crumbs, mobile_select: false)
     rendered = render_component(component)
 
     refute_includes rendered, "Mobile navigation:"
@@ -135,7 +135,7 @@ class Decor::Nav::BreadcrumbsTest < ActiveSupport::TestCase
       {label: "Current", href: "/current", current: true}
     ]
 
-    component = Decor::Nav::Breadcrumbs.new(breadcrumbs: crumbs)
+    component = Decor::Daisy::Nav::Breadcrumbs.new(breadcrumbs: crumbs)
     rendered = render_component(component)
 
     assert_includes rendered, "Products"
@@ -147,10 +147,10 @@ class Decor::Nav::BreadcrumbsTest < ActiveSupport::TestCase
     crumbs = [
       {name: "Home", path: "/"},
       {label: "Products", href: "/products"},
-      Decor::Nav::Breadcrumbs::Breadcrumb.new(name: "Current", path: "/current", current: true)
+      Decor::Daisy::Nav::Breadcrumbs::Breadcrumb.new(name: "Current", path: "/current", current: true)
     ]
 
-    component = Decor::Nav::Breadcrumbs.new(breadcrumbs: crumbs)
+    component = Decor::Daisy::Nav::Breadcrumbs.new(breadcrumbs: crumbs)
     rendered = render_component(component)
 
     assert_includes rendered, "Products"
@@ -159,20 +159,20 @@ class Decor::Nav::BreadcrumbsTest < ActiveSupport::TestCase
   end
 
   test "component inherits from PhlexComponent" do
-    component = Decor::Nav::Breadcrumbs.new(breadcrumbs: [])
+    component = Decor::Daisy::Nav::Breadcrumbs.new(breadcrumbs: [])
 
     assert component.is_a?(Decor::PhlexComponent)
   end
 
   test "uses daisyUI breadcrumbs class" do
-    component = Decor::Nav::Breadcrumbs.new(breadcrumbs: [])
+    component = Decor::Daisy::Nav::Breadcrumbs.new(breadcrumbs: [])
     rendered = render_component(component)
 
     assert_includes rendered, "breadcrumbs"
   end
 
   test "includes proper accessibility attributes" do
-    component = Decor::Nav::Breadcrumbs.new(breadcrumbs: [])
+    component = Decor::Daisy::Nav::Breadcrumbs.new(breadcrumbs: [])
     rendered = render_component(component)
 
     assert_includes rendered, "aria-label=\"Breadcrumb\""
@@ -182,7 +182,7 @@ class Decor::Nav::BreadcrumbsTest < ActiveSupport::TestCase
     # Create a mock object that responds to name and path like Loaf::Breadcrumb would
     mock_crumb = Struct.new(:name, :path, :current).new("Legacy", "/legacy", false)
 
-    component = Decor::Nav::Breadcrumbs.new(breadcrumbs: [mock_crumb])
+    component = Decor::Daisy::Nav::Breadcrumbs.new(breadcrumbs: [mock_crumb])
     rendered = render_component(component)
 
     assert_includes rendered, "Legacy"

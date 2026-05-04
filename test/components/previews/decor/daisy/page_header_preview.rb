@@ -39,7 +39,7 @@ class ::Decor::Daisy::PageHeaderPreview < ::Lookbook::Preview
       description: "View team members, projects, and recent activity."
     ) do |header|
       header.with_breadcrumbs do
-        header.render ::Decor::Nav::Breadcrumbs.new(
+        header.render ::Decor::Daisy::Nav::Breadcrumbs.new(
           breadcrumbs: [
             {name: "Home", path: "/"},
             {name: "Teams", path: "/teams"},
@@ -200,7 +200,7 @@ class ::Decor::Daisy::PageHeaderPreview < ::Lookbook::Preview
     ) do |header|
       if show_breadcrumbs
         header.with_breadcrumbs do
-          header.render ::Decor::Nav::Breadcrumbs.new(
+          header.render ::Decor::Daisy::Nav::Breadcrumbs.new(
             breadcrumbs: [
               {name: "Home", path: "/"},
               {name: "Current", path: "/current", current: true}

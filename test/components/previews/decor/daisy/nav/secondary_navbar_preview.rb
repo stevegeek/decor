@@ -7,7 +7,7 @@ class ::Decor::Daisy::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
   def breadcrumb_navigation
     render ::Decor::Daisy::Nav::SecondaryNavbar.new(style: :narrow, bottom_border: true) do |navbar|
       navbar.with_left do
-        render ::Decor::Nav::Breadcrumbs.new(
+        render ::Decor::Daisy::Nav::Breadcrumbs.new(
           breadcrumbs: [
             {name: "Home", path: "/"},
             {name: "Products", path: "/products"},
@@ -99,7 +99,7 @@ class ::Decor::Daisy::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
     ) do |navbar|
       if has_left_element
         navbar.with_left do
-          render ::Decor::Nav::Breadcrumbs.new(
+          render ::Decor::Daisy::Nav::Breadcrumbs.new(
             breadcrumbs: [
               {name: "Home", path: "/"},
               {name: "Products", path: "/products"},

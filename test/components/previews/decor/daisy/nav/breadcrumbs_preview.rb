@@ -1,5 +1,5 @@
 # @label Breadcrumbs
-class ::Decor::Nav::BreadcrumbsPreview < ::Lookbook::Preview
+class ::Decor::Daisy::Nav::BreadcrumbsPreview < ::Lookbook::Preview
   # Breadcrumbs
   # -----------
   #
@@ -9,7 +9,7 @@ class ::Decor::Nav::BreadcrumbsPreview < ::Lookbook::Preview
   # @group Examples
   # @label Basic Breadcrumbs
   def default
-    render ::Decor::Nav::Breadcrumbs.new(
+    render ::Decor::Daisy::Nav::Breadcrumbs.new(
       breadcrumbs: [
         {name: "Dashboard", path: "/dashboard"},
         {name: "Products", path: "/products"},
@@ -21,7 +21,7 @@ class ::Decor::Nav::BreadcrumbsPreview < ::Lookbook::Preview
   # @group Examples
   # @label With Icons
   def with_icons
-    render ::Decor::Nav::Breadcrumbs.new(
+    render ::Decor::Daisy::Nav::Breadcrumbs.new(
       breadcrumbs: [
         {name: "Dashboard", path: "/dashboard", icon: "home"},
         {name: "Users", path: "/users", icon: "users"},
@@ -33,7 +33,7 @@ class ::Decor::Nav::BreadcrumbsPreview < ::Lookbook::Preview
   # @group Examples
   # @label Long Trail
   def long_trail
-    render ::Decor::Nav::Breadcrumbs.new(
+    render ::Decor::Daisy::Nav::Breadcrumbs.new(
       breadcrumbs: [
         {name: "Level 1", path: "/level1"},
         {name: "Level 2 with Long Name", path: "/level2"},
@@ -48,7 +48,7 @@ class ::Decor::Nav::BreadcrumbsPreview < ::Lookbook::Preview
   # @group Examples
   # @label With Disabled Items
   def with_disabled_items
-    render ::Decor::Nav::Breadcrumbs.new(
+    render ::Decor::Daisy::Nav::Breadcrumbs.new(
       breadcrumbs: [
         {name: "Active Page", path: "/active"},
         {name: "Disabled Page", path: "/disabled", disabled: true},
@@ -75,7 +75,7 @@ class ::Decor::Nav::BreadcrumbsPreview < ::Lookbook::Preview
     color: nil,
     style: nil
   )
-    render ::Decor::Nav::Breadcrumbs.new(
+    render ::Decor::Daisy::Nav::Breadcrumbs.new(
       breadcrumbs: [
         {name: "Home", path: "/", icon: "home"},
         {name: "Products", path: "/products", icon: "shopping-bag"},
@@ -95,7 +95,7 @@ class ::Decor::Nav::BreadcrumbsPreview < ::Lookbook::Preview
   # @group Home Configuration
   # @label Without Home
   def without_home
-    render ::Decor::Nav::Breadcrumbs.new(
+    render ::Decor::Daisy::Nav::Breadcrumbs.new(
       breadcrumbs: standard_breadcrumbs,
       show_home: false
     )
@@ -104,7 +104,7 @@ class ::Decor::Nav::BreadcrumbsPreview < ::Lookbook::Preview
   # @group Home Configuration
   # @label Custom Home
   def custom_home
-    render ::Decor::Nav::Breadcrumbs.new(
+    render ::Decor::Daisy::Nav::Breadcrumbs.new(
       breadcrumbs: [
         {name: "Settings", path: "/settings"},
         {name: "Account", path: "/account", current: true}
@@ -117,7 +117,7 @@ class ::Decor::Nav::BreadcrumbsPreview < ::Lookbook::Preview
   # @group Mobile Display
   # @label Mobile Select Enabled
   def mobile_select_enabled
-    render ::Decor::Nav::Breadcrumbs.new(
+    render ::Decor::Daisy::Nav::Breadcrumbs.new(
       breadcrumbs: long_breadcrumbs,
       mobile_select: true
     )
@@ -126,7 +126,7 @@ class ::Decor::Nav::BreadcrumbsPreview < ::Lookbook::Preview
   # @group Mobile Display
   # @label Mobile Select Disabled
   def mobile_select_disabled
-    render ::Decor::Nav::Breadcrumbs.new(
+    render ::Decor::Daisy::Nav::Breadcrumbs.new(
       breadcrumbs: long_breadcrumbs,
       mobile_select: false
     )
