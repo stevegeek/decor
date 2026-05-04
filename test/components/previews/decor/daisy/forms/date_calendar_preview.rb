@@ -2,14 +2,14 @@
 #
 # A calendar component for date selection with DaisyUI styling and Cally web components.
 # Supports single date, date range, and multi-date selection with various configuration options.
-class ::Decor::Forms::DateCalendarPreview < ::Lookbook::Preview
+class ::Decor::Daisy::Forms::DateCalendarPreview < ::Lookbook::Preview
   # @group Examples
   # ---------------
   # Key examples demonstrating common use cases
 
   # Basic single date selection
   def default
-    render ::Decor::Forms::DateCalendar.new(
+    render ::Decor::Daisy::Forms::DateCalendar.new(
       name: "appointment_date",
       label: "Select Date",
       value: Date.today
@@ -18,7 +18,7 @@ class ::Decor::Forms::DateCalendarPreview < ::Lookbook::Preview
 
   # Date range selection
   def date_range
-    render ::Decor::Forms::DateCalendar.new(
+    render ::Decor::Daisy::Forms::DateCalendar.new(
       name: "vacation_dates",
       label: "Vacation Dates",
       calendar_type: :range,
@@ -29,7 +29,7 @@ class ::Decor::Forms::DateCalendarPreview < ::Lookbook::Preview
 
   # Multiple date selection
   def multi_select
-    render ::Decor::Forms::DateCalendar.new(
+    render ::Decor::Daisy::Forms::DateCalendar.new(
       name: "meeting_dates",
       label: "Meeting Days",
       calendar_type: :multi,
@@ -40,7 +40,7 @@ class ::Decor::Forms::DateCalendarPreview < ::Lookbook::Preview
 
   # Date with constraints
   def with_constraints
-    render ::Decor::Forms::DateCalendar.new(
+    render ::Decor::Daisy::Forms::DateCalendar.new(
       name: "appointment",
       label: "Available Appointments",
       min_date: Date.today,
@@ -104,7 +104,7 @@ class ::Decor::Forms::DateCalendarPreview < ::Lookbook::Preview
     grid_span: nil,
     floating_error_text: false
   )
-    render ::Decor::Forms::DateCalendar.new(
+    render ::Decor::Daisy::Forms::DateCalendar.new(
       name: name,
       label: label,
       description: description,
@@ -139,7 +139,7 @@ class ::Decor::Forms::DateCalendarPreview < ::Lookbook::Preview
 
   # Single date selection
   def type_single
-    render ::Decor::Forms::DateCalendar.new(
+    render ::Decor::Daisy::Forms::DateCalendar.new(
       name: "single_date",
       label: "Event Date",
       calendar_type: :date,
@@ -150,7 +150,7 @@ class ::Decor::Forms::DateCalendarPreview < ::Lookbook::Preview
 
   # Date range selection
   def type_range
-    render ::Decor::Forms::DateCalendar.new(
+    render ::Decor::Daisy::Forms::DateCalendar.new(
       name: "date_range",
       label: "Trip Dates",
       calendar_type: :range,
@@ -161,7 +161,7 @@ class ::Decor::Forms::DateCalendarPreview < ::Lookbook::Preview
 
   # Multiple dates selection
   def type_multi
-    render ::Decor::Forms::DateCalendar.new(
+    render ::Decor::Daisy::Forms::DateCalendar.new(
       name: "multiple_dates",
       label: "Meeting Days",
       calendar_type: :multi,
@@ -176,7 +176,7 @@ class ::Decor::Forms::DateCalendarPreview < ::Lookbook::Preview
 
   # Multi-month display
   def multi_month
-    render ::Decor::Forms::DateCalendar.new(
+    render ::Decor::Daisy::Forms::DateCalendar.new(
       name: "multi_month",
       label: "Project Timeline",
       calendar_type: :range,
@@ -187,7 +187,7 @@ class ::Decor::Forms::DateCalendarPreview < ::Lookbook::Preview
 
   # Three month display
   def three_months
-    render ::Decor::Forms::DateCalendar.new(
+    render ::Decor::Daisy::Forms::DateCalendar.new(
       name: "quarter_view",
       label: "Quarterly View",
       months: 3,
@@ -201,7 +201,7 @@ class ::Decor::Forms::DateCalendarPreview < ::Lookbook::Preview
 
   # Min/max date range
   def constrained_range
-    render ::Decor::Forms::DateCalendar.new(
+    render ::Decor::Daisy::Forms::DateCalendar.new(
       name: "constrained_date",
       label: "Appointment Date",
       min_date: Date.today,
@@ -212,7 +212,7 @@ class ::Decor::Forms::DateCalendarPreview < ::Lookbook::Preview
 
   # Weekdays only
   def weekdays_only
-    render ::Decor::Forms::DateCalendar.new(
+    render ::Decor::Daisy::Forms::DateCalendar.new(
       name: "weekday_only",
       label: "Business Date",
       disabled_days_of_week: [0, 6],
@@ -222,7 +222,7 @@ class ::Decor::Forms::DateCalendarPreview < ::Lookbook::Preview
 
   # Specific disabled dates
   def disabled_dates
-    render ::Decor::Forms::DateCalendar.new(
+    render ::Decor::Daisy::Forms::DateCalendar.new(
       name: "holiday_blocked",
       label: "Delivery Date",
       disabled_dates: [Date.today + 1.day, Date.today + 2.days, Date.today + 5.days],
@@ -236,7 +236,7 @@ class ::Decor::Forms::DateCalendarPreview < ::Lookbook::Preview
 
   # US format (Sunday first)
   def locale_us
-    render ::Decor::Forms::DateCalendar.new(
+    render ::Decor::Daisy::Forms::DateCalendar.new(
       name: "us_calendar",
       label: "Date (US)",
       locale: "en-US",
@@ -247,7 +247,7 @@ class ::Decor::Forms::DateCalendarPreview < ::Lookbook::Preview
 
   # UK format (Monday first)
   def locale_uk
-    render ::Decor::Forms::DateCalendar.new(
+    render ::Decor::Daisy::Forms::DateCalendar.new(
       name: "uk_calendar",
       label: "Date (UK)",
       locale: "en-GB",
@@ -258,7 +258,7 @@ class ::Decor::Forms::DateCalendarPreview < ::Lookbook::Preview
 
   # French format
   def locale_french
-    render ::Decor::Forms::DateCalendar.new(
+    render ::Decor::Daisy::Forms::DateCalendar.new(
       name: "fr_calendar",
       label: "Date (FR)",
       locale: "fr-FR",
@@ -273,7 +273,7 @@ class ::Decor::Forms::DateCalendarPreview < ::Lookbook::Preview
 
   # Required field
   def state_required
-    render ::Decor::Forms::DateCalendar.new(
+    render ::Decor::Daisy::Forms::DateCalendar.new(
       name: "required_date",
       label: "Required Date",
       required: true,
@@ -283,7 +283,7 @@ class ::Decor::Forms::DateCalendarPreview < ::Lookbook::Preview
 
   # Disabled field
   def state_disabled
-    render ::Decor::Forms::DateCalendar.new(
+    render ::Decor::Daisy::Forms::DateCalendar.new(
       name: "disabled_date",
       label: "Disabled Date",
       disabled: true,
@@ -294,7 +294,7 @@ class ::Decor::Forms::DateCalendarPreview < ::Lookbook::Preview
 
   # With error
   def state_error
-    render ::Decor::Forms::DateCalendar.new(
+    render ::Decor::Daisy::Forms::DateCalendar.new(
       name: "error_date",
       label: "Date with Error",
       value: Date.today - 10.days,
@@ -310,7 +310,7 @@ class ::Decor::Forms::DateCalendarPreview < ::Lookbook::Preview
 
   # Small size
   def size_small
-    render ::Decor::Forms::DateCalendar.new(
+    render ::Decor::Daisy::Forms::DateCalendar.new(
       name: "small_calendar",
       label: "Small Calendar",
       size: :sm,
@@ -320,7 +320,7 @@ class ::Decor::Forms::DateCalendarPreview < ::Lookbook::Preview
 
   # Medium size (default)
   def size_medium
-    render ::Decor::Forms::DateCalendar.new(
+    render ::Decor::Daisy::Forms::DateCalendar.new(
       name: "medium_calendar",
       label: "Medium Calendar",
       size: :md,
@@ -330,7 +330,7 @@ class ::Decor::Forms::DateCalendarPreview < ::Lookbook::Preview
 
   # Large size
   def size_large
-    render ::Decor::Forms::DateCalendar.new(
+    render ::Decor::Daisy::Forms::DateCalendar.new(
       name: "large_calendar",
       label: "Large Calendar",
       size: :lg,
@@ -344,7 +344,7 @@ class ::Decor::Forms::DateCalendarPreview < ::Lookbook::Preview
 
   # Primary color
   def color_primary
-    render ::Decor::Forms::DateCalendar.new(
+    render ::Decor::Daisy::Forms::DateCalendar.new(
       name: "primary_calendar",
       label: "Primary Calendar",
       color: :primary,
@@ -354,7 +354,7 @@ class ::Decor::Forms::DateCalendarPreview < ::Lookbook::Preview
 
   # Secondary color
   def color_secondary
-    render ::Decor::Forms::DateCalendar.new(
+    render ::Decor::Daisy::Forms::DateCalendar.new(
       name: "secondary_calendar",
       label: "Secondary Calendar",
       color: :secondary,
@@ -364,7 +364,7 @@ class ::Decor::Forms::DateCalendarPreview < ::Lookbook::Preview
 
   # Accent color
   def color_accent
-    render ::Decor::Forms::DateCalendar.new(
+    render ::Decor::Daisy::Forms::DateCalendar.new(
       name: "accent_calendar",
       label: "Accent Calendar",
       color: :accent,
@@ -378,7 +378,7 @@ class ::Decor::Forms::DateCalendarPreview < ::Lookbook::Preview
 
   # Filled style
   def style_filled
-    render ::Decor::Forms::DateCalendar.new(
+    render ::Decor::Daisy::Forms::DateCalendar.new(
       name: "filled_style",
       label: "Filled Style",
       style: :filled,
@@ -388,7 +388,7 @@ class ::Decor::Forms::DateCalendarPreview < ::Lookbook::Preview
 
   # Outlined style
   def style_outlined
-    render ::Decor::Forms::DateCalendar.new(
+    render ::Decor::Daisy::Forms::DateCalendar.new(
       name: "outlined_style",
       label: "Outlined Style",
       style: :outlined,
@@ -398,7 +398,7 @@ class ::Decor::Forms::DateCalendarPreview < ::Lookbook::Preview
 
   # Ghost style
   def style_ghost
-    render ::Decor::Forms::DateCalendar.new(
+    render ::Decor::Daisy::Forms::DateCalendar.new(
       name: "ghost_style",
       label: "Ghost Style",
       style: :ghost,
@@ -412,7 +412,7 @@ class ::Decor::Forms::DateCalendarPreview < ::Lookbook::Preview
 
   # Top label (default)
   def label_top
-    render ::Decor::Forms::DateCalendar.new(
+    render ::Decor::Daisy::Forms::DateCalendar.new(
       name: "top_label",
       label: "Top Label",
       label_position: :top,
@@ -422,7 +422,7 @@ class ::Decor::Forms::DateCalendarPreview < ::Lookbook::Preview
 
   # Left label
   def label_left
-    render ::Decor::Forms::DateCalendar.new(
+    render ::Decor::Daisy::Forms::DateCalendar.new(
       name: "left_label",
       label: "Left Label",
       label_position: :left,
@@ -432,7 +432,7 @@ class ::Decor::Forms::DateCalendarPreview < ::Lookbook::Preview
 
   # Inline label
   def label_inline
-    render ::Decor::Forms::DateCalendar.new(
+    render ::Decor::Daisy::Forms::DateCalendar.new(
       name: "inline_label",
       label: "Inline Label",
       label_position: :inline,

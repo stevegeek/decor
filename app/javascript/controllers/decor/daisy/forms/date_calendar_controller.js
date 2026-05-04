@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Connects to data-controller="decor--forms--date-calendar"
+// Connects to data-controller="decor--daisy--forms--date-calendar"
 export default class extends Controller {
   static targets = ["calendar", "hiddenInput"]
   static values = {

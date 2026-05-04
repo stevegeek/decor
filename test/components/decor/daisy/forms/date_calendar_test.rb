@@ -1,8 +1,8 @@
 require "test_helper"
 
-class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
+class Decor::Daisy::Forms::DateCalendarTest < ActiveSupport::TestCase
   test "renders successfully with required attributes" do
-    component = Decor::Forms::DateCalendar.new(
+    component = Decor::Daisy::Forms::DateCalendar.new(
       name: "event_date",
       label: "Event Date"
     )
@@ -13,7 +13,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
   end
 
   test "renders with single date calendar by default" do
-    component = Decor::Forms::DateCalendar.new(
+    component = Decor::Daisy::Forms::DateCalendar.new(
       name: "event_date",
       label: "Event Date"
     )
@@ -25,7 +25,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
   end
 
   test "renders with range calendar when calendar_type is range" do
-    component = Decor::Forms::DateCalendar.new(
+    component = Decor::Daisy::Forms::DateCalendar.new(
       name: "date_range",
       label: "Date Range",
       calendar_type: :range
@@ -37,7 +37,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
   end
 
   test "renders with multi calendar when calendar_type is multi" do
-    component = Decor::Forms::DateCalendar.new(
+    component = Decor::Daisy::Forms::DateCalendar.new(
       name: "multiple_dates",
       label: "Multiple Dates",
       calendar_type: :multi
@@ -49,7 +49,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
   end
 
   test "supports date value" do
-    component = Decor::Forms::DateCalendar.new(
+    component = Decor::Daisy::Forms::DateCalendar.new(
       name: "event_date",
       label: "Event Date",
       value: Date.new(2024, 6, 15)
@@ -61,7 +61,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
   end
 
   test "renders with DaisyUI calendar classes" do
-    component = Decor::Forms::DateCalendar.new(
+    component = Decor::Daisy::Forms::DateCalendar.new(
       name: "event_date",
       label: "Event Date"
     )
@@ -75,7 +75,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
   end
 
   test "supports custom min and max dates" do
-    component = Decor::Forms::DateCalendar.new(
+    component = Decor::Daisy::Forms::DateCalendar.new(
       name: "event_date",
       label: "Event Date",
       min_date: Date.new(2024, 1, 1),
@@ -89,7 +89,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
   end
 
   test "supports locale configuration" do
-    component = Decor::Forms::DateCalendar.new(
+    component = Decor::Daisy::Forms::DateCalendar.new(
       name: "event_date",
       label: "Event Date",
       locale: "en-GB"
@@ -101,7 +101,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
   end
 
   test "supports multiple months display" do
-    component = Decor::Forms::DateCalendar.new(
+    component = Decor::Daisy::Forms::DateCalendar.new(
       name: "event_date",
       label: "Event Date",
       months: 2
@@ -113,7 +113,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
   end
 
   test "supports first day of week configuration" do
-    component = Decor::Forms::DateCalendar.new(
+    component = Decor::Daisy::Forms::DateCalendar.new(
       name: "event_date",
       label: "Event Date",
       first_day_of_week: 1
@@ -125,7 +125,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
   end
 
   test "component inherits from FormField" do
-    component = Decor::Forms::DateCalendar.new(
+    component = Decor::Daisy::Forms::DateCalendar.new(
       name: "event_date",
       label: "Event Date"
     )
@@ -134,7 +134,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
   end
 
   test "renders with hidden input for form submission" do
-    component = Decor::Forms::DateCalendar.new(
+    component = Decor::Daisy::Forms::DateCalendar.new(
       name: "event_date",
       label: "Event Date",
       value: Date.new(2024, 6, 15)
@@ -148,7 +148,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
   end
 
   test "supports disabled state" do
-    component = Decor::Forms::DateCalendar.new(
+    component = Decor::Daisy::Forms::DateCalendar.new(
       name: "event_date",
       label: "Event Date",
       disabled: true
@@ -160,7 +160,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
   end
 
   test "renders with form field layout structure" do
-    component = Decor::Forms::DateCalendar.new(
+    component = Decor::Daisy::Forms::DateCalendar.new(
       name: "event_date",
       label: "Event Date"
     )
@@ -171,7 +171,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
   end
 
   test "supports helper text" do
-    component = Decor::Forms::DateCalendar.new(
+    component = Decor::Daisy::Forms::DateCalendar.new(
       name: "event_date",
       label: "Event Date",
       helper_text: "Select the date for your event"
@@ -182,7 +182,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
   end
 
   test "renders navigation icons" do
-    component = Decor::Forms::DateCalendar.new(
+    component = Decor::Daisy::Forms::DateCalendar.new(
       name: "event_date",
       label: "Event Date"
     )
@@ -196,7 +196,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
   end
 
   test "renders calendar-month element" do
-    component = Decor::Forms::DateCalendar.new(
+    component = Decor::Daisy::Forms::DateCalendar.new(
       name: "event_date",
       label: "Event Date"
     )
@@ -207,7 +207,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
   end
 
   test "supports range date values" do
-    component = Decor::Forms::DateCalendar.new(
+    component = Decor::Daisy::Forms::DateCalendar.new(
       name: "date_range",
       label: "Date Range",
       calendar_type: :range,
@@ -221,7 +221,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
   end
 
   test "supports multi date values" do
-    component = Decor::Forms::DateCalendar.new(
+    component = Decor::Daisy::Forms::DateCalendar.new(
       name: "multiple_dates",
       label: "Multiple Dates",
       calendar_type: :multi,
@@ -235,7 +235,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
   end
 
   test "includes error styling when errors present" do
-    component = Decor::Forms::DateCalendar.new(
+    component = Decor::Daisy::Forms::DateCalendar.new(
       name: "event_date",
       label: "Event Date",
       error_messages: ["Date is required"]
@@ -248,7 +248,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
 
   test "supports disabled dates" do
     disabled_dates = [Date.today, Date.today + 1.day]
-    component = Decor::Forms::DateCalendar.new(
+    component = Decor::Daisy::Forms::DateCalendar.new(
       name: "event_date",
       label: "Event Date",
       disabled_dates: disabled_dates
@@ -261,7 +261,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
   end
 
   test "supports disabled days of week" do
-    component = Decor::Forms::DateCalendar.new(
+    component = Decor::Daisy::Forms::DateCalendar.new(
       name: "event_date",
       label: "Event Date",
       disabled_days_of_week: [0, 6]
@@ -274,7 +274,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
 
   test "supports enabled dates" do
     enabled_dates = [Date.today + 7.days, Date.today + 14.days]
-    component = Decor::Forms::DateCalendar.new(
+    component = Decor::Daisy::Forms::DateCalendar.new(
       name: "event_date",
       label: "Event Date",
       enabled_dates: enabled_dates
@@ -287,7 +287,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
   end
 
   test "supports enabled days of week" do
-    component = Decor::Forms::DateCalendar.new(
+    component = Decor::Daisy::Forms::DateCalendar.new(
       name: "event_date",
       label: "Event Date",
       enabled_days_of_week: [1, 2, 3, 4, 5]
@@ -299,7 +299,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
   end
 
   test "handles empty date filtering arrays" do
-    component = Decor::Forms::DateCalendar.new(
+    component = Decor::Daisy::Forms::DateCalendar.new(
       name: "event_date",
       label: "Event Date",
       disabled_dates: [],

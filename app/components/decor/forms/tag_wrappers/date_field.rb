@@ -6,10 +6,10 @@ module Decor
       class DateField < ActionView::Helpers::Tags::TextField
         include TagWrapper
 
-        DATE_FIELD_ATTRS = ::Decor::Forms::DateCalendar.prop_names.map(&:to_s).freeze
+        DATE_FIELD_ATTRS = ::Decor::Daisy::Forms::DateCalendar.prop_names.map(&:to_s).freeze
 
         def tag(_type, options)
-          @template_object.render ::Decor::Forms::DateCalendar.new(**component_options(options))
+          @template_object.render ::Decor::Daisy::Forms::DateCalendar.new(**component_options(options))
         end
 
         def component_options(options)
