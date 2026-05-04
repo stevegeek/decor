@@ -1,6 +1,6 @@
 require "test_helper"
 
-class Decor::Chat::ListTest < ActiveSupport::TestCase
+class Decor::Daisy::Chat::ListTest < ActiveSupport::TestCase
   def setup
     @message1 = Decor::Daisy::Chat::ListMessage.new(
       author_name: "John",
@@ -16,14 +16,14 @@ class Decor::Chat::ListTest < ActiveSupport::TestCase
   end
 
   test "renders successfully with messages" do
-    component = Decor::Chat::List.new(messages: @mock_messages)
+    component = Decor::Daisy::Chat::List.new(messages: @mock_messages)
     rendered = render_component(component)
 
     assert_includes rendered, "flex flex-col gap-2 p-4"
   end
 
   test "renders message content from collection" do
-    component = Decor::Chat::List.new(messages: @mock_messages)
+    component = Decor::Daisy::Chat::List.new(messages: @mock_messages)
     rendered = render_component(component)
 
     assert_includes rendered, "Hello there!"
@@ -31,14 +31,14 @@ class Decor::Chat::ListTest < ActiveSupport::TestCase
   end
 
   test "renders with proper container styling" do
-    component = Decor::Chat::List.new(messages: @mock_messages)
+    component = Decor::Daisy::Chat::List.new(messages: @mock_messages)
     rendered = render_component(component)
 
     assert_includes rendered, "flex flex-col gap-2 p-4"
   end
 
   test "renders each message as chat components" do
-    component = Decor::Chat::List.new(messages: @mock_messages)
+    component = Decor::Daisy::Chat::List.new(messages: @mock_messages)
     rendered = render_component(component)
 
     assert_includes rendered, "chat chat-start"
@@ -46,13 +46,13 @@ class Decor::Chat::ListTest < ActiveSupport::TestCase
   end
 
   test "component inherits from PhlexComponent" do
-    component = Decor::Chat::List.new(messages: @mock_messages)
+    component = Decor::Daisy::Chat::List.new(messages: @mock_messages)
 
     assert component.is_a?(Decor::PhlexComponent)
   end
 
   test "supports empty messages collection" do
-    component = Decor::Chat::List.new(messages: [])
+    component = Decor::Daisy::Chat::List.new(messages: [])
     rendered = render_component(component)
 
     assert_includes rendered, "No messages yet"
@@ -60,7 +60,7 @@ class Decor::Chat::ListTest < ActiveSupport::TestCase
   end
 
   test "renders empty state when no messages" do
-    component = Decor::Chat::List.new(messages: [])
+    component = Decor::Daisy::Chat::List.new(messages: [])
     rendered = render_component(component)
 
     assert_includes rendered, "No messages yet"
@@ -69,7 +69,7 @@ class Decor::Chat::ListTest < ActiveSupport::TestCase
   end
 
   test "renders with correct HTML structure" do
-    component = Decor::Chat::List.new(messages: @mock_messages)
+    component = Decor::Daisy::Chat::List.new(messages: @mock_messages)
     fragment = render_fragment(component)
 
     container = fragment.at_css("div")
@@ -78,7 +78,7 @@ class Decor::Chat::ListTest < ActiveSupport::TestCase
   end
 
   test "handles empty messages array gracefully" do
-    component = Decor::Chat::List.new(messages: [])
+    component = Decor::Daisy::Chat::List.new(messages: [])
     rendered = render_component(component)
 
     assert_includes rendered, "flex flex-col gap-2 p-4"
@@ -86,7 +86,7 @@ class Decor::Chat::ListTest < ActiveSupport::TestCase
   end
 
   test "renders ListMessage components correctly" do
-    component = Decor::Chat::List.new(messages: @mock_messages)
+    component = Decor::Daisy::Chat::List.new(messages: @mock_messages)
     rendered = render_component(component)
 
     # Should contain both messages
@@ -99,7 +99,7 @@ class Decor::Chat::ListTest < ActiveSupport::TestCase
   end
 
   test "supports empty state with action button" do
-    component = Decor::Chat::List.new(
+    component = Decor::Daisy::Chat::List.new(
       messages: [],
       empty_state_title: "Custom empty title",
       empty_state_description: "Custom description"

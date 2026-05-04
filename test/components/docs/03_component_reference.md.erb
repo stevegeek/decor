@@ -88,7 +88,7 @@ If you find any issues or missing components, please open a PR to improve the do
 - [Decor::Daisy::Modals::ModalOpenButton](#decordaisymodalsmodalopenbutton)
 
 ### Layout & Utility Components
-- [Decor::Chat::List](#decorchatlist)
+- [Decor::Daisy::Chat::List](#decordaisychatlist)
 - [Decor::Daisy::Chat::ListMessage](#decordaisychatlistmessage)
 - [Decor::Daisy::ClickToCopy](#decordaisyclicktocopy)
 - [Decor::Daisy::CodeBlock](#decordaisycodeblock)
@@ -1943,21 +1943,21 @@ render Decor::Daisy::Modals::ModalOpenButton.new(modal_id: "...")
 
 ## Layout & Utility Components
 
-### Decor::Chat::List
+### Decor::Daisy::Chat::List
 
-<span id="decorchatlist"></span>
+<span id="decordaisychatlist"></span>
 
 Chat List A chat list component using daisyUI chat styling for displaying conversations. Supports different message types, avatars, timestamps, and empty states.
 
 **Basic Usage:**
 ```ruby
-render Decor::Chat::List.new do
+render Decor::Daisy::Chat::List.new do
   "Content goes here"
 end
 ```
 
 **Key Attributes:**
-- `messages` (Array(::Decor::Chat::ListMessage), default: -> { [] }) (optional) - Default: `[]`
+- `messages` (Array(::Decor::Daisy::Chat::ListMessage), default: -> { [] }) (optional) - Default: `[]`
 - `empty_state_title` (String, default: "No messages yet.") (optional) - Default: `"No messages yet."`
 - `empty_state_description` (String, default: "Start a conversation by sending a message.") (optional) - Default: `"Start a conversation by sending a message."`
 

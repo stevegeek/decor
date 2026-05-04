@@ -1,5 +1,5 @@
 # @label Chat List
-class ::Decor::Chat::ListPreview < ::Lookbook::Preview
+class ::Decor::Daisy::Chat::ListPreview < ::Lookbook::Preview
   # Chat List
   # ---------
   #
@@ -7,7 +7,7 @@ class ::Decor::Chat::ListPreview < ::Lookbook::Preview
   # Supports different message types, avatars, timestamps, and empty states.
   # @!group Examples
   def basic_chat
-    render ::Decor::Chat::List.new(
+    render ::Decor::Daisy::Chat::List.new(
       messages: [
         ::Decor::Daisy::Chat::ListMessage.new(
           author_name: "Obi-Wan Kenobi",
@@ -26,7 +26,7 @@ class ::Decor::Chat::ListPreview < ::Lookbook::Preview
   end
 
   def chat_with_avatars
-    render ::Decor::Chat::List.new(
+    render ::Decor::Daisy::Chat::List.new(
       messages: [
         ::Decor::Daisy::Chat::ListMessage.new(
           author_name: "Emma Davis",
@@ -44,7 +44,7 @@ class ::Decor::Chat::ListPreview < ::Lookbook::Preview
   end
 
   def empty_chat_state
-    render ::Decor::Chat::List.new(
+    render ::Decor::Daisy::Chat::List.new(
       empty_state_title: "No conversations yet",
       empty_state_description: "Start chatting by sending your first message."
     ) do |list|
@@ -55,7 +55,7 @@ class ::Decor::Chat::ListPreview < ::Lookbook::Preview
   end
 
   def avatar_variations_example
-    render ::Decor::Chat::List.new(
+    render ::Decor::Daisy::Chat::List.new(
       messages: [
         ::Decor::Daisy::Chat::ListMessage.new(
           author_name: "Alice Johnson",
@@ -84,7 +84,7 @@ class ::Decor::Chat::ListPreview < ::Lookbook::Preview
   end
 
   def timestamp_formatting_example
-    render ::Decor::Chat::List.new(
+    render ::Decor::Daisy::Chat::List.new(
       messages: [
         ::Decor::Daisy::Chat::ListMessage.new(
           author_name: "Alice",
@@ -111,7 +111,7 @@ class ::Decor::Chat::ListPreview < ::Lookbook::Preview
   end
 
   def daisyui_examples_combined
-    render ::Decor::Chat::List.new(
+    render ::Decor::Daisy::Chat::List.new(
       messages: [
         # Messages with header and footer (first daisyUI pattern)
         ::Decor::Daisy::Chat::ListMessage.new(
@@ -159,13 +159,13 @@ class ::Decor::Chat::ListPreview < ::Lookbook::Preview
   def playground(chat_type: :simple)
     case chat_type
     when :empty
-      render ::Decor::Chat::List.new do |list|
+      render ::Decor::Daisy::Chat::List.new do |list|
         list.empty_state_action do
           render ::Decor::Daisy::Button.new(color: :primary) { "Start Conversation" }
         end
       end
     when :simple
-      render ::Decor::Chat::List.new(
+      render ::Decor::Daisy::Chat::List.new(
         messages: [
           ::Decor::Daisy::Chat::ListMessage.new(
             author_name: "Obi-Wan Kenobi",
@@ -183,7 +183,7 @@ class ::Decor::Chat::ListPreview < ::Lookbook::Preview
         ]
       )
     when :conversation
-      render ::Decor::Chat::List.new(
+      render ::Decor::Daisy::Chat::List.new(
         messages: [
           ::Decor::Daisy::Chat::ListMessage.new(
             author_name: "Obi-Wan Kenobi",
@@ -209,7 +209,7 @@ class ::Decor::Chat::ListPreview < ::Lookbook::Preview
         ]
       )
     when :mixed_users
-      render ::Decor::Chat::List.new(
+      render ::Decor::Daisy::Chat::List.new(
         messages: [
           ::Decor::Daisy::Chat::ListMessage.new(
             author_name: "Sarah Wilson",
@@ -232,7 +232,7 @@ class ::Decor::Chat::ListPreview < ::Lookbook::Preview
         ]
       )
     when :time_formats
-      render ::Decor::Chat::List.new(
+      render ::Decor::Daisy::Chat::List.new(
         messages: [
           ::Decor::Daisy::Chat::ListMessage.new(
             author_name: "Alice",

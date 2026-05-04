@@ -56,7 +56,7 @@ class ::Decor::Daisy::Chat::ListMessagePreview < ::Lookbook::Preview
   end
 
   def long_conversation_example
-    render ::Decor::Chat::List.new(
+    render ::Decor::Daisy::Chat::List.new(
       messages: [
         ::Decor::Daisy::Chat::ListMessage.new(
           author_name: "Team Lead",
@@ -90,7 +90,7 @@ class ::Decor::Daisy::Chat::ListMessagePreview < ::Lookbook::Preview
   def playground(message_type: :incoming)
     case message_type
     when :incoming
-      render ::Decor::Chat::List.new(
+      render ::Decor::Daisy::Chat::List.new(
         messages: [
           ::Decor::Daisy::Chat::ListMessage.new(
             author_name: "Sarah Wilson",
@@ -101,7 +101,7 @@ class ::Decor::Daisy::Chat::ListMessagePreview < ::Lookbook::Preview
         ]
       )
     when :outgoing
-      render ::Decor::Chat::List.new(
+      render ::Decor::Daisy::Chat::List.new(
         messages: [
           ::Decor::Daisy::Chat::ListMessage.new(
             author_name: "You",
@@ -111,7 +111,7 @@ class ::Decor::Daisy::Chat::ListMessagePreview < ::Lookbook::Preview
         ]
       )
     when :with_avatar
-      render ::Decor::Chat::List.new(
+      render ::Decor::Daisy::Chat::List.new(
         messages: [
           ::Decor::Daisy::Chat::ListMessage.new(
             author_name: "John Doe",
@@ -122,7 +122,7 @@ class ::Decor::Daisy::Chat::ListMessagePreview < ::Lookbook::Preview
         ]
       )
     when :with_attachment
-      render ::Decor::Chat::List.new(
+      render ::Decor::Daisy::Chat::List.new(
         messages: [
           ::Decor::Daisy::Chat::ListMessage.new(
             author_name: "Alice Johnson",
