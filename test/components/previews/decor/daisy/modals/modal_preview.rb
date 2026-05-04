@@ -123,7 +123,7 @@ class ::Decor::Daisy::Modals::ModalPreview < ::Lookbook::Preview
             )
           end
           form.with_section do
-            render ::Decor::Forms::TextArea.new(
+            render ::Decor::Daisy::Forms::TextArea.new(
               label: "Bio",
               name: "bio",
               rows: 4

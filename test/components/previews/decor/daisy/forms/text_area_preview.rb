@@ -1,5 +1,5 @@
 # @label TextArea
-class ::Decor::Forms::TextAreaPreview < ::Lookbook::Preview
+class ::Decor::Daisy::Forms::TextAreaPreview < ::Lookbook::Preview
   # Multi-line text input field for capturing longer text content like comments, descriptions, or messages.
 
   # @group Examples
@@ -7,7 +7,7 @@ class ::Decor::Forms::TextAreaPreview < ::Lookbook::Preview
   # @label Default
   # Basic textarea with standard configuration
   def default
-    render ::Decor::Forms::TextArea.new(
+    render ::Decor::Daisy::Forms::TextArea.new(
       name: "comment",
       label: "Comment",
       placeholder: "Enter your comment here..."
@@ -17,7 +17,7 @@ class ::Decor::Forms::TextAreaPreview < ::Lookbook::Preview
   # @label With Helper Text
   # TextArea with helper text to guide users
   def with_helper_text
-    render ::Decor::Forms::TextArea.new(
+    render ::Decor::Daisy::Forms::TextArea.new(
       name: "description",
       label: "Product Description",
       helper_text: "Provide a detailed description of the product (minimum 50 characters)",
@@ -29,7 +29,7 @@ class ::Decor::Forms::TextAreaPreview < ::Lookbook::Preview
   # @label Required Field
   # TextArea marked as required with validation
   def required_field
-    render ::Decor::Forms::TextArea.new(
+    render ::Decor::Daisy::Forms::TextArea.new(
       name: "feedback",
       label: "Your Feedback",
       required: true,
@@ -42,7 +42,7 @@ class ::Decor::Forms::TextAreaPreview < ::Lookbook::Preview
   # @label With Error State
   # TextArea showing error state
   def with_error
-    render ::Decor::Forms::TextArea.new(
+    render ::Decor::Daisy::Forms::TextArea.new(
       name: "bio",
       label: "Biography",
       value: "Too short",
@@ -105,7 +105,7 @@ class ::Decor::Forms::TextAreaPreview < ::Lookbook::Preview
     size: :md,
     style: nil
   )
-    render ::Decor::Forms::TextArea.new(
+    render ::Decor::Daisy::Forms::TextArea.new(
       name: name,
       label: label,
       description: description,
@@ -147,7 +147,7 @@ class ::Decor::Forms::TextAreaPreview < ::Lookbook::Preview
   # @label Disabled State
   # TextArea in disabled state
   def disabled_state
-    render ::Decor::Forms::TextArea.new(
+    render ::Decor::Daisy::Forms::TextArea.new(
       name: "disabled_textarea",
       label: "Disabled TextArea",
       value: "This textarea is disabled",
@@ -159,7 +159,7 @@ class ::Decor::Forms::TextAreaPreview < ::Lookbook::Preview
   # @label With Character Counter
   # TextArea with character limit indicator
   def with_character_counter
-    render ::Decor::Forms::TextArea.new(
+    render ::Decor::Daisy::Forms::TextArea.new(
       name: "limited_textarea",
       label: "Short Message",
       placeholder: "Type your message...",
@@ -252,7 +252,7 @@ class ::Decor::Forms::TextAreaPreview < ::Lookbook::Preview
   # @label Compact Mode
   # TextArea with compact spacing
   def compact_mode
-    render ::Decor::Forms::TextArea.new(
+    render ::Decor::Daisy::Forms::TextArea.new(
       name: "compact_notes",
       label: "Quick Notes",
       compact: true,
@@ -264,7 +264,7 @@ class ::Decor::Forms::TextAreaPreview < ::Lookbook::Preview
   # @label Custom Dimensions
   # TextArea with custom row and column settings
   def custom_dimensions
-    render ::Decor::Forms::TextArea.new(
+    render ::Decor::Daisy::Forms::TextArea.new(
       name: "custom_textarea",
       label: "Custom Size TextArea",
       rows: 10,

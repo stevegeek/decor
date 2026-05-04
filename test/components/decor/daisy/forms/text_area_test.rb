@@ -1,8 +1,8 @@
 require "test_helper"
 
-class Decor::Forms::TextAreaTest < ActiveSupport::TestCase
+class Decor::Daisy::Forms::TextAreaTest < ActiveSupport::TestCase
   test "renders successfully with valid attributes" do
-    component = Decor::Forms::TextArea.new(name: "my_text", label: "Label", value: "Lots of words")
+    component = Decor::Daisy::Forms::TextArea.new(name: "my_text", label: "Label", value: "Lots of words")
     rendered = render_component(component)
 
     assert_includes rendered, "Label"
@@ -12,13 +12,13 @@ class Decor::Forms::TextAreaTest < ActiveSupport::TestCase
 
   test "renders without errors when given valid attributes" do
     assert_nothing_raised do
-      component = Decor::Forms::TextArea.new(name: "my_text", label: "Label", value: "Lots of words")
+      component = Decor::Daisy::Forms::TextArea.new(name: "my_text", label: "Label", value: "Lots of words")
       render_component(component)
     end
   end
 
   test "textarea contains the correct value" do
-    component = Decor::Forms::TextArea.new(name: "my_text", label: "Label", value: "Lots of words")
+    component = Decor::Daisy::Forms::TextArea.new(name: "my_text", label: "Label", value: "Lots of words")
     fragment = render_fragment(component)
 
     textarea = fragment.at_css("textarea")
@@ -27,7 +27,7 @@ class Decor::Forms::TextAreaTest < ActiveSupport::TestCase
   end
 
   test "renders with DaisyUI textarea classes by default" do
-    component = Decor::Forms::TextArea.new(name: "my_text", label: "Label", value: "Test")
+    component = Decor::Daisy::Forms::TextArea.new(name: "my_text", label: "Label", value: "Test")
     fragment = render_fragment(component)
 
     textarea = fragment.at_css("textarea")
@@ -37,7 +37,7 @@ class Decor::Forms::TextAreaTest < ActiveSupport::TestCase
   end
 
   test "applies color attribute correctly" do
-    component = Decor::Forms::TextArea.new(name: "my_text", label: "Label", value: "Test", color: :secondary)
+    component = Decor::Daisy::Forms::TextArea.new(name: "my_text", label: "Label", value: "Test", color: :secondary)
     fragment = render_fragment(component)
 
     textarea = fragment.at_css("textarea")
@@ -45,7 +45,7 @@ class Decor::Forms::TextAreaTest < ActiveSupport::TestCase
   end
 
   test "applies size attribute correctly" do
-    component = Decor::Forms::TextArea.new(name: "my_text", label: "Label", value: "Test", size: :lg)
+    component = Decor::Daisy::Forms::TextArea.new(name: "my_text", label: "Label", value: "Test", size: :lg)
     fragment = render_fragment(component)
 
     textarea = fragment.at_css("textarea")
@@ -53,7 +53,7 @@ class Decor::Forms::TextAreaTest < ActiveSupport::TestCase
   end
 
   test "applies error styling when errors present" do
-    component = Decor::Forms::TextArea.new(
+    component = Decor::Daisy::Forms::TextArea.new(
       name: "my_text",
       label: "Label",
       value: "Test",
@@ -66,7 +66,7 @@ class Decor::Forms::TextAreaTest < ActiveSupport::TestCase
   end
 
   test "renders helper text when provided" do
-    component = Decor::Forms::TextArea.new(
+    component = Decor::Daisy::Forms::TextArea.new(
       name: "my_text",
       label: "Label",
       value: "Test",
