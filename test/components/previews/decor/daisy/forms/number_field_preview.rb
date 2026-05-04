@@ -1,5 +1,5 @@
 # @label NumberField
-class ::Decor::Forms::NumberFieldPreview < ::Lookbook::Preview
+class ::Decor::Daisy::Forms::NumberFieldPreview < ::Lookbook::Preview
   # A specialized text field for numeric input with mobile-optimized keyboards and float support.
   # Inherits all TextField features including prefixes, suffixes, and add-ons.
 
@@ -7,7 +7,7 @@ class ::Decor::Forms::NumberFieldPreview < ::Lookbook::Preview
 
   # Basic number field
   def default
-    render ::Decor::Forms::NumberField.new(
+    render ::Decor::Daisy::Forms::NumberField.new(
       name: "age",
       label: "Age",
       placeholder: "Enter your age"
@@ -16,7 +16,7 @@ class ::Decor::Forms::NumberFieldPreview < ::Lookbook::Preview
 
   # Number field with min/max constraints
   def with_constraints
-    render ::Decor::Forms::NumberField.new(
+    render ::Decor::Daisy::Forms::NumberField.new(
       name: "quantity",
       label: "Quantity",
       min: 1,
@@ -28,7 +28,7 @@ class ::Decor::Forms::NumberFieldPreview < ::Lookbook::Preview
 
   # Number field with currency add-ons
   def currency_input
-    render ::Decor::Forms::NumberField.new(
+    render ::Decor::Daisy::Forms::NumberField.new(
       name: "price",
       label: "Price",
       allow_float_input: true,
@@ -144,7 +144,7 @@ class ::Decor::Forms::NumberFieldPreview < ::Lookbook::Preview
     greater_than: nil,
     less_than: nil
   )
-    render ::Decor::Forms::NumberField.new(
+    render ::Decor::Daisy::Forms::NumberField.new(
       name: name,
       label: label,
       description: description,
@@ -199,7 +199,7 @@ class ::Decor::Forms::NumberFieldPreview < ::Lookbook::Preview
 
   # Integer-only input
   def integer_only
-    render ::Decor::Forms::NumberField.new(
+    render ::Decor::Daisy::Forms::NumberField.new(
       name: "whole_numbers",
       label: "Whole numbers only",
       allow_float_input: false,
@@ -209,7 +209,7 @@ class ::Decor::Forms::NumberFieldPreview < ::Lookbook::Preview
 
   # Float/decimal input
   def float_input
-    render ::Decor::Forms::NumberField.new(
+    render ::Decor::Daisy::Forms::NumberField.new(
       name: "decimal",
       label: "Decimal numbers",
       allow_float_input: true,
@@ -224,7 +224,7 @@ class ::Decor::Forms::NumberFieldPreview < ::Lookbook::Preview
 
   # With step validation
   def with_step
-    render ::Decor::Forms::NumberField.new(
+    render ::Decor::Daisy::Forms::NumberField.new(
       name: "increments",
       label: "Increments of 5",
       step: 5,
@@ -236,7 +236,7 @@ class ::Decor::Forms::NumberFieldPreview < ::Lookbook::Preview
 
   # With range validation
   def with_range
-    render ::Decor::Forms::NumberField.new(
+    render ::Decor::Daisy::Forms::NumberField.new(
       name: "percentage",
       label: "Percentage",
       min: 0,
@@ -252,7 +252,7 @@ class ::Decor::Forms::NumberFieldPreview < ::Lookbook::Preview
 
   # With measurement units
   def with_units
-    render ::Decor::Forms::NumberField.new(
+    render ::Decor::Daisy::Forms::NumberField.new(
       name: "weight",
       label: "Weight",
       trailing_text_add_on: "kg",
@@ -262,7 +262,7 @@ class ::Decor::Forms::NumberFieldPreview < ::Lookbook::Preview
 
   # With boxed add-ons
   def with_boxed_addons
-    render ::Decor::Forms::NumberField.new(
+    render ::Decor::Daisy::Forms::NumberField.new(
       name: "temperature",
       label: "Temperature",
       trailing_text_add_on: "°C",
