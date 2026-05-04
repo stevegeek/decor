@@ -1,38 +1,38 @@
 require "test_helper"
 
-class Decor::MapTest < ActiveSupport::TestCase
+class Decor::Daisy::MapTest < ActiveSupport::TestCase
   def setup
-    @default_center = Decor::Map::MapPoint.new(lat: 40.7128, lng: -74.0060, name: "NYC")
+    @default_center = Decor::Daisy::Map::MapPoint.new(lat: 40.7128, lng: -74.0060, name: "NYC")
     @default_zoom = 10
     @default_api_key = "test_api_key"
   end
 
   test "renders successfully with required attributes" do
-    component = Decor::Map.new(
+    component = Decor::Daisy::Map.new(
       center: @default_center,
       zoom: @default_zoom,
       api_key: @default_api_key
     )
     rendered = render_component(component)
 
-    assert_includes rendered, "decor--map"
+    assert_includes rendered, "decor--daisy--map"
     assert_includes rendered, "data-controller"
   end
 
   test "renders with Stimulus controller" do
-    component = Decor::Map.new(
+    component = Decor::Daisy::Map.new(
       center: @default_center,
       zoom: @default_zoom,
       api_key: @default_api_key
     )
     rendered = render_component(component)
 
-    assert_includes rendered, 'data-controller="decor--map"'
+    assert_includes rendered, 'data-controller="decor--daisy--map"'
   end
 
   test "includes center coordinates in data attributes" do
-    center = Decor::Map::MapPoint.new(lat: 37.7749, lng: -122.4194, name: "SF")
-    component = Decor::Map.new(
+    center = Decor::Daisy::Map::MapPoint.new(lat: 37.7749, lng: -122.4194, name: "SF")
+    component = Decor::Daisy::Map.new(
       center: center,
       zoom: @default_zoom,
       api_key: @default_api_key
@@ -44,7 +44,7 @@ class Decor::MapTest < ActiveSupport::TestCase
   end
 
   test "includes zoom level in data attributes" do
-    component = Decor::Map.new(
+    component = Decor::Daisy::Map.new(
       center: @default_center,
       zoom: 15,
       api_key: @default_api_key
@@ -55,7 +55,7 @@ class Decor::MapTest < ActiveSupport::TestCase
   end
 
   test "renders with default size (md)" do
-    component = Decor::Map.new(
+    component = Decor::Daisy::Map.new(
       center: @default_center,
       zoom: @default_zoom,
       api_key: @default_api_key
@@ -77,7 +77,7 @@ class Decor::MapTest < ActiveSupport::TestCase
     }
 
     sizes.each do |size, expected_class|
-      component = Decor::Map.new(
+      component = Decor::Daisy::Map.new(
         center: @default_center,
         zoom: @default_zoom,
         api_key: @default_api_key,
@@ -93,7 +93,7 @@ class Decor::MapTest < ActiveSupport::TestCase
     colors = [:primary, :secondary, :accent, :success, :error, :warning, :info, :neutral]
 
     colors.each do |color|
-      component = Decor::Map.new(
+      component = Decor::Daisy::Map.new(
         center: @default_center,
         zoom: @default_zoom,
         api_key: @default_api_key,
@@ -107,7 +107,7 @@ class Decor::MapTest < ActiveSupport::TestCase
   end
 
   test "supports disabled state" do
-    component = Decor::Map.new(
+    component = Decor::Daisy::Map.new(
       center: @default_center,
       zoom: @default_zoom,
       api_key: @default_api_key,
@@ -121,7 +121,7 @@ class Decor::MapTest < ActiveSupport::TestCase
   end
 
   test "uses consistent background styling" do
-    component = Decor::Map.new(
+    component = Decor::Daisy::Map.new(
       center: @default_center,
       zoom: @default_zoom,
       api_key: @default_api_key
@@ -129,11 +129,11 @@ class Decor::MapTest < ActiveSupport::TestCase
     rendered = render_component(component)
 
     assert_includes rendered, "bg-gray-50"
-    refute_includes rendered, "data-decor--map-loading-value"
+    refute_includes rendered, "data-decor--daisy--map-loading-value"
   end
 
   test "supports interactive controls" do
-    component = Decor::Map.new(
+    component = Decor::Daisy::Map.new(
       center: @default_center,
       zoom: @default_zoom,
       api_key: @default_api_key,
@@ -142,15 +142,15 @@ class Decor::MapTest < ActiveSupport::TestCase
     )
     rendered = render_component(component)
 
-    assert_includes rendered, "data-decor--map-interactive-value=\"false\""
-    assert_includes rendered, "data-decor--map-show-controls-value=\"false\""
+    assert_includes rendered, "data-decor--daisy--map-interactive-value=\"false\""
+    assert_includes rendered, "data-decor--daisy--map-show-controls-value=\"false\""
   end
 
   test "supports map types" do
     map_types = [:roadmap, :satellite, :hybrid, :terrain]
 
     map_types.each do |map_type|
-      component = Decor::Map.new(
+      component = Decor::Daisy::Map.new(
         center: @default_center,
         zoom: @default_zoom,
         api_key: @default_api_key,
@@ -158,17 +158,17 @@ class Decor::MapTest < ActiveSupport::TestCase
       )
       rendered = render_component(component)
 
-      assert_includes rendered, "data-decor--map-map-type-value=\"#{map_type}\""
+      assert_includes rendered, "data-decor--daisy--map-map-type-value=\"#{map_type}\""
     end
   end
 
   test "supports points array" do
     points = [
-      Decor::Map::MapPoint.new(lat: 40.7589, lng: -73.9851, name: "Times Square"),
-      Decor::Map::MapPoint.new(lat: 40.7484, lng: -73.9857, name: "Empire State Building")
+      Decor::Daisy::Map::MapPoint.new(lat: 40.7589, lng: -73.9851, name: "Times Square"),
+      Decor::Daisy::Map::MapPoint.new(lat: 40.7484, lng: -73.9857, name: "Empire State Building")
     ]
 
-    component = Decor::Map.new(
+    component = Decor::Daisy::Map.new(
       center: @default_center,
       zoom: @default_zoom,
       api_key: @default_api_key,
@@ -185,7 +185,7 @@ class Decor::MapTest < ActiveSupport::TestCase
       {type: "polygon", coordinates: [[[0, 0], [1, 0], [1, 1], [0, 1], [0, 0]]]}
     ]
 
-    component = Decor::Map.new(
+    component = Decor::Daisy::Map.new(
       center: @default_center,
       zoom: @default_zoom,
       api_key: @default_api_key,
@@ -193,11 +193,11 @@ class Decor::MapTest < ActiveSupport::TestCase
     )
     rendered = render_component(component)
 
-    assert_includes rendered, "data-decor--map-overlays-value"
+    assert_includes rendered, "data-decor--daisy--map-overlays-value"
   end
 
   test "full_width attribute works correctly" do
-    component_full = Decor::Map.new(
+    component_full = Decor::Daisy::Map.new(
       center: @default_center,
       zoom: @default_zoom,
       api_key: @default_api_key,
@@ -206,7 +206,7 @@ class Decor::MapTest < ActiveSupport::TestCase
     rendered_full = render_component(component_full)
     assert_includes rendered_full, "w-full"
 
-    component_fixed = Decor::Map.new(
+    component_fixed = Decor::Daisy::Map.new(
       center: @default_center,
       zoom: @default_zoom,
       api_key: @default_api_key,
@@ -217,7 +217,7 @@ class Decor::MapTest < ActiveSupport::TestCase
   end
 
   test "component inherits from PhlexComponent" do
-    component = Decor::Map.new(
+    component = Decor::Daisy::Map.new(
       center: @default_center,
       zoom: @default_zoom,
       api_key: @default_api_key
@@ -228,13 +228,13 @@ class Decor::MapTest < ActiveSupport::TestCase
 
   test "handles various coordinate formats" do
     coordinates = [
-      Decor::Map::MapPoint.new(lat: 40.7128, lng: -74.0060, name: "NYC"),
-      Decor::Map::MapPoint.new(lat: 51.5074, lng: -0.1278, name: "London"),
-      Decor::Map::MapPoint.new(lat: -33.8688, lng: 151.2093, name: "Sydney")
+      Decor::Daisy::Map::MapPoint.new(lat: 40.7128, lng: -74.0060, name: "NYC"),
+      Decor::Daisy::Map::MapPoint.new(lat: 51.5074, lng: -0.1278, name: "London"),
+      Decor::Daisy::Map::MapPoint.new(lat: -33.8688, lng: 151.2093, name: "Sydney")
     ]
 
     coordinates.each do |coord|
-      component = Decor::Map.new(
+      component = Decor::Daisy::Map.new(
         center: coord,
         zoom: @default_zoom,
         api_key: @default_api_key
@@ -250,7 +250,7 @@ class Decor::MapTest < ActiveSupport::TestCase
     zoom_levels = [1, 5, 10, 15, 20]
 
     zoom_levels.each do |zoom|
-      component = Decor::Map.new(
+      component = Decor::Daisy::Map.new(
         center: @default_center,
         zoom: zoom,
         api_key: @default_api_key
@@ -262,7 +262,7 @@ class Decor::MapTest < ActiveSupport::TestCase
   end
 
   test "renders as div element with map classes" do
-    component = Decor::Map.new(
+    component = Decor::Daisy::Map.new(
       center: @default_center,
       zoom: @default_zoom,
       api_key: @default_api_key
@@ -271,12 +271,12 @@ class Decor::MapTest < ActiveSupport::TestCase
 
     div = fragment.at_css("div")
     assert_not_nil div
-    assert_includes div["class"], "decor--map"
+    assert_includes div["class"], "decor--daisy--map"
     assert_includes div["class"], "h-96 w-full"
   end
 
   test "supports additional CSS classes" do
-    component = Decor::Map.new(
+    component = Decor::Daisy::Map.new(
       center: @default_center,
       zoom: @default_zoom,
       api_key: @default_api_key,
@@ -285,14 +285,14 @@ class Decor::MapTest < ActiveSupport::TestCase
     rendered = render_component(component)
 
     assert_includes rendered, "custom-map-class"
-    assert_includes rendered, "decor--map"
+    assert_includes rendered, "decor--daisy--map"
   end
 
   test "data attributes contain center and zoom information" do
-    center = Decor::Map::MapPoint.new(lat: 45.5017, lng: -73.5673, name: "Montreal")
+    center = Decor::Daisy::Map::MapPoint.new(lat: 45.5017, lng: -73.5673, name: "Montreal")
     zoom = 12
 
-    component = Decor::Map.new(
+    component = Decor::Daisy::Map.new(
       center: center,
       zoom: zoom,
       api_key: @default_api_key
@@ -304,6 +304,6 @@ class Decor::MapTest < ActiveSupport::TestCase
 
     # Should have data attributes for the Stimulus controller
     controller_attr = div["data-controller"]
-    assert_includes controller_attr, "decor--map"
+    assert_includes controller_attr, "decor--daisy--map"
   end
 end
