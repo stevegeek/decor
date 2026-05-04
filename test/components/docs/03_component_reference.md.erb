@@ -82,7 +82,7 @@ If you find any issues or missing components, please open a PR to improve the do
 
 ### Modal Components
 - [Decor::Modals::ConfirmModal](#decormodalsconfirmmodal)
-- [Decor::Modals::Modal](#decormodalsmodal)
+- [Decor::Daisy::Modals::Modal](#decordaisymodalsmodal)
 - [Decor::Modals::ModalCloseButton](#decormodalsmodalclosebutton)
 - [Decor::Daisy::Modals::ModalLayout](#decordaisymodalsmodallayout)
 - [Decor::Modals::ModalOpenButton](#decormodalsmodalopenbutton)
@@ -1842,15 +1842,15 @@ render Decor::Modals::ConfirmModal.new
 
 ---
 
-### Decor::Modals::Modal
+### Decor::Daisy::Modals::Modal
 
-<span id="decormodalsmodal"></span>
+<span id="decordaisymodalsmodal"></span>
 
 A modal is an overlay that blocks interaction, presenting necessary actions to the user. Modals should be used sparingly for critical interactions that require user attention. Generally, render only one modal at a time and reuse it by changing contents dynamically. A simple modal with text content
 
 **Basic Usage:**
 ```ruby
-render Decor::Modals::Modal.new
+render Decor::Daisy::Modals::Modal.new
 ```
 
 **Key Attributes:**

@@ -1,5 +1,5 @@
 # @label Modal
-class ::Decor::Modals::ModalPreview < ::Lookbook::Preview
+class ::Decor::Daisy::Modals::ModalPreview < ::Lookbook::Preview
   # A modal is an overlay that blocks interaction, presenting necessary actions to the user.
   # Modals should be used sparingly for critical interactions that require user attention.
   # Generally, render only one modal at a time and reuse it by changing contents dynamically.
@@ -7,7 +7,7 @@ class ::Decor::Modals::ModalPreview < ::Lookbook::Preview
   # @label Example
   # A simple modal with text content
   def basic_modal
-    render ::Decor::Modals::Modal.new(
+    render ::Decor::Daisy::Modals::Modal.new(
       initial_content: "This is a basic modal with simple text content.",
       start_shown: true
     )
@@ -16,7 +16,7 @@ class ::Decor::Modals::ModalPreview < ::Lookbook::Preview
   # @label Example: Modal with Remote Content
   # Load content from a URL dynamically
   def remote_content
-    render ::Decor::Modals::Modal.new(
+    render ::Decor::Daisy::Modals::Modal.new(
       content_href: "/lookbook/decor/button_preview/playground",
       start_shown: true
     )
@@ -25,7 +25,7 @@ class ::Decor::Modals::ModalPreview < ::Lookbook::Preview
   # @label Example: Click Outside to Close
   # Allow closing the modal by clicking the overlay
   def click_outside_close
-    render ::Decor::Modals::Modal.new(
+    render ::Decor::Daisy::Modals::Modal.new(
       initial_content: "Click outside this modal to close it.",
       start_shown: true,
       close_on_overlay_click: true
@@ -35,7 +35,7 @@ class ::Decor::Modals::ModalPreview < ::Lookbook::Preview
   # @label Example: Loading State
   # Shows spinner when no initial content is provided
   def loading_state
-    render ::Decor::Modals::Modal.new(
+    render ::Decor::Daisy::Modals::Modal.new(
       start_shown: true
     )
   end
@@ -51,7 +51,7 @@ class ::Decor::Modals::ModalPreview < ::Lookbook::Preview
     close_on_overlay_click: false,
     content_href: nil
   )
-    render ::Decor::Modals::Modal.new(
+    render ::Decor::Daisy::Modals::Modal.new(
       initial_content: initial_content,
       content_href: content_href,
       start_shown: start_shown,
@@ -80,7 +80,7 @@ class ::Decor::Modals::ModalPreview < ::Lookbook::Preview
   # @label With Modal Layout
   # Using ModalLayout for structured content
   def with_modal_layout
-    render ::Decor::Modals::Modal.new(
+    render ::Decor::Daisy::Modals::Modal.new(
       start_shown: true
     ) do
       render ::Decor::Daisy::Modals::ModalLayout.new(
@@ -106,7 +106,7 @@ class ::Decor::Modals::ModalPreview < ::Lookbook::Preview
   # @label Form in Modal
   # Display a form inside a modal
   def form_modal
-    render ::Decor::Modals::Modal.new(
+    render ::Decor::Daisy::Modals::Modal.new(
       start_shown: true
     ) do
       render ::Decor::Daisy::Modals::ModalLayout.new(
@@ -149,7 +149,7 @@ class ::Decor::Modals::ModalPreview < ::Lookbook::Preview
   # @label Initially Hidden
   # Modal starts hidden and requires trigger to show
   def initially_hidden
-    render ::Decor::Modals::Modal.new(
+    render ::Decor::Daisy::Modals::Modal.new(
       initial_content: "This modal started hidden and was opened via JavaScript.",
       start_shown: false
     )
@@ -162,7 +162,7 @@ class ::Decor::Modals::ModalPreview < ::Lookbook::Preview
       locals: {
         modals: [
           {
-            modal: ::Decor::Modals::Modal.new(
+            modal: ::Decor::Daisy::Modals::Modal.new(
               initial_content: "This modal stays open when clicking the overlay.",
               start_shown: true,
               close_on_overlay_click: false
@@ -170,7 +170,7 @@ class ::Decor::Modals::ModalPreview < ::Lookbook::Preview
             label: "Default (No close on overlay)"
           },
           {
-            modal: ::Decor::Modals::Modal.new(
+            modal: ::Decor::Daisy::Modals::Modal.new(
               initial_content: "Click the dark overlay to close this modal.",
               start_shown: true,
               close_on_overlay_click: true
