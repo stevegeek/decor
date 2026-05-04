@@ -72,7 +72,7 @@ If you find any issues or missing components, please open a PR to improve the do
 - [Decor::Daisy::Stat](#decordaisystat)
 - [Decor::Daisy::Stats](#decordaisystats)
 - [Decor::Daisy::Tables::DataTable](#decortablesdatatable)
-- [Decor::Tables::DataTableBuilder](#decortablesdatatablebuilder)
+- [Decor::Daisy::Tables::DataTableBuilder](#decortablesdatatablebuilder)
 - [Decor::Daisy::Tables::DataTableCell](#decortablesdatatablecell)
 - [Decor::Daisy::Tables::DataTableFooter](#decortablesdatatablefooter)
 - [Decor::Daisy::Tables::DataTableHeaderCell](#decortablesdatatableheadercell)
@@ -1581,7 +1581,7 @@ _(and the shared properties `size`, `color`, and `style` as described above)_
 
 ---
 
-### Decor::Tables::DataTableBuilder
+### Decor::Daisy::Tables::DataTableBuilder
 
 <span id="decortablesdatatablebuilder"></span>
 
@@ -1589,7 +1589,7 @@ A powerful table builder that provides automatic data fetching, sorting, filteri
 
 **Basic Usage:**
 ```ruby
-render Decor::Tables::DataTableBuilder.new(
+render Decor::Daisy::Tables::DataTableBuilder.new(
   params: "...",
   helpers: "...",
   row_nested_form: "..."

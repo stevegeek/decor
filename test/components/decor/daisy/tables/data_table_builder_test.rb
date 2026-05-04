@@ -1,6 +1,6 @@
 require "test_helper"
 
-class Decor::Tables::DataTableBuilderTest < ActiveSupport::TestCase
+class Decor::Daisy::Tables::DataTableBuilderTest < ActiveSupport::TestCase
   def setup
     @mock_data = [
       {id: 1, name: "John Doe", email: "john@example.com", active: true},
@@ -18,7 +18,7 @@ class Decor::Tables::DataTableBuilderTest < ActiveSupport::TestCase
       title: "Test Table",
       paginated: false
     }
-    Decor::Tables::DataTableBuilder.new(
+    Decor::Daisy::Tables::DataTableBuilder.new(
       params: @mock_params,
       helpers: @mock_helpers,
       **default_attributes.merge(attributes),

@@ -1,5 +1,5 @@
 # @label DataTableBuilder
-class ::Decor::Tables::DataTableBuilderPreview < ::Lookbook::Preview
+class ::Decor::Daisy::Tables::DataTableBuilderPreview < ::Lookbook::Preview
   # A powerful table builder that provides automatic data fetching, sorting, filtering,
   # and pagination. Use DataTableBuilder for complex tables that need server-side
   # features and state management, or when working with ActiveRecord/Query objects.
@@ -118,7 +118,7 @@ class ::Decor::Tables::DataTableBuilderPreview < ::Lookbook::Preview
   end
 
   # Example DataTableBuilder subclass used in previews
-  class DataTableBuilderSubclass < ::Decor::Tables::DataTableBuilder
+  class DataTableBuilderSubclass < ::Decor::Daisy::Tables::DataTableBuilder
     def title
       "The Amazing Table"
     end
