@@ -6,12 +6,12 @@ class ::Decor::Daisy::Forms::LayoutContainerPreview < ::Lookbook::Preview
   # Basic layout container with sections
   def default
     render ::Decor::Daisy::Forms::LayoutContainer.new do |container|
-      container.render ::Decor::Forms::LayoutSection.new(title: "Personal Information") do |section|
+      container.render ::Decor::Daisy::Forms::LayoutSection.new(title: "Personal Information") do |section|
         section.render ::Decor::Forms::TextField.new(label: "First Name", name: "first_name")
         section.render ::Decor::Forms::TextField.new(label: "Last Name", name: "last_name")
       end
 
-      container.render ::Decor::Forms::LayoutSection.new(title: "Contact Details") do |section|
+      container.render ::Decor::Daisy::Forms::LayoutSection.new(title: "Contact Details") do |section|
         section.render ::Decor::Forms::TextField.new(label: "Email", name: "email", type: :email)
         section.render ::Decor::Forms::TextField.new(label: "Phone", name: "phone", type: :tel)
       end
@@ -26,7 +26,7 @@ class ::Decor::Daisy::Forms::LayoutContainerPreview < ::Lookbook::Preview
         container.render ::Decor::Daisy::Button.new(label: "Save Changes", color: :primary)
       end
 
-      container.render ::Decor::Forms::LayoutSection.new(title: "Account Settings") do |section|
+      container.render ::Decor::Daisy::Forms::LayoutSection.new(title: "Account Settings") do |section|
         section.render ::Decor::Forms::TextField.new(label: "Username", name: "username")
         section.render ::Decor::Forms::Switch.new(label: "Enable notifications", name: "notifications")
       end
@@ -41,7 +41,7 @@ class ::Decor::Daisy::Forms::LayoutContainerPreview < ::Lookbook::Preview
         container.render ::Decor::Daisy::Button.new(label: "Submit", color: :primary)
       end
 
-      container.render ::Decor::Forms::LayoutSection.new(
+      container.render ::Decor::Daisy::Forms::LayoutSection.new(
         title: "Basic Information",
         description: "Please provide your basic details"
       ) do |section|
@@ -59,7 +59,7 @@ class ::Decor::Daisy::Forms::LayoutContainerPreview < ::Lookbook::Preview
         )
       end
 
-      container.render ::Decor::Forms::LayoutSection.new(
+      container.render ::Decor::Daisy::Forms::LayoutSection.new(
         title: "Preferences",
         description: "Customize your experience"
       ) do |section|
@@ -99,7 +99,7 @@ class ::Decor::Daisy::Forms::LayoutContainerPreview < ::Lookbook::Preview
         title = section_titles ? "Section #{i + 1}" : nil
         description = section_descriptions ? "Description for section #{i + 1}" : nil
 
-        container.render ::Decor::Forms::LayoutSection.new(
+        container.render ::Decor::Daisy::Forms::LayoutSection.new(
           title: title,
           description: description
         ) do |section|
@@ -123,7 +123,7 @@ class ::Decor::Daisy::Forms::LayoutContainerPreview < ::Lookbook::Preview
   # Single section layout
   def single_section
     render ::Decor::Daisy::Forms::LayoutContainer.new do |container|
-      container.render ::Decor::Forms::LayoutSection.new(title: "User Profile") do |section|
+      container.render ::Decor::Daisy::Forms::LayoutSection.new(title: "User Profile") do |section|
         section.render ::Decor::Forms::TextField.new(label: "Display Name", name: "display_name")
         section.render ::Decor::Forms::TextArea.new(label: "Bio", name: "bio", rows: 4)
         section.render ::Decor::Forms::FileUpload.new(label: "Profile Picture", name: "avatar")
@@ -138,14 +138,14 @@ class ::Decor::Daisy::Forms::LayoutContainerPreview < ::Lookbook::Preview
         container.render ::Decor::Daisy::Button.new(label: "Save All", style: :primary)
       end
 
-      container.render ::Decor::Forms::LayoutSection.new(
+      container.render ::Decor::Daisy::Forms::LayoutSection.new(
         title: "Company Information"
       ) do |section|
         section.render ::Decor::Forms::TextField.new(label: "Company Name", name: "company_name")
 
         # Nested container for address
         section.render ::Decor::Daisy::Forms::LayoutContainer.new do |nested|
-          nested.render ::Decor::Forms::LayoutSection.new(
+          nested.render ::Decor::Daisy::Forms::LayoutSection.new(
             title: "Address",
             description: "Primary business address"
           ) do |address_section|
@@ -172,7 +172,7 @@ class ::Decor::Daisy::Forms::LayoutContainerPreview < ::Lookbook::Preview
         container.render ::Decor::Daisy::Button.new(label: "Publish", style: :primary)
       end
 
-      container.render ::Decor::Forms::LayoutSection.new(title: "Content") do |section|
+      container.render ::Decor::Daisy::Forms::LayoutSection.new(title: "Content") do |section|
         section.render ::Decor::Forms::TextField.new(label: "Title", name: "title")
       end
     end
@@ -186,7 +186,7 @@ class ::Decor::Daisy::Forms::LayoutContainerPreview < ::Lookbook::Preview
         container.render ::Decor::Daisy::Button.new(label: "Continue", style: :primary)
       end
 
-      container.render ::Decor::Forms::LayoutSection.new(title: "Code") do |section|
+      container.render ::Decor::Daisy::Forms::LayoutSection.new(title: "Code") do |section|
         section.render ::Decor::Forms::TextField.new(label: "Enter code", name: "code")
       end
     end

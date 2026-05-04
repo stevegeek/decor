@@ -1,6 +1,6 @@
 <%= render ::Decor::Forms::Form.new(model: model, url: "#", local: true) do |form_component| %>
   <%= render ::Decor::Daisy::Forms::LayoutContainer.new do |container| %>
-    <%= render ::Decor::Forms::LayoutSection.new(title: "Select", stacked: stacked_form) do %>
+    <%= render ::Decor::Daisy::Forms::LayoutSection.new(title: "Select", stacked: stacked_form) do %>
       <%= form_component.builder.select :country,
                    options[:options_array],
                    {

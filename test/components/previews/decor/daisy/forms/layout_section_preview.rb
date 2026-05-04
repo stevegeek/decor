@@ -2,13 +2,13 @@
 #
 # Form sections organize related form fields with optional title, description, and additional content areas.
 # Supports both grid and stacked layouts for flexible form organization.
-class ::Decor::Forms::LayoutSectionPreview < ::Lookbook::Preview
+class ::Decor::Daisy::Forms::LayoutSectionPreview < ::Lookbook::Preview
   # @group Examples
 
   # @label Default
   # Basic form section with title and description
   def default
-    render ::Decor::Forms::LayoutSection.new(
+    render ::Decor::Daisy::Forms::LayoutSection.new(
       title: "Personal Information",
       description: "Please provide your basic details."
     ) do
@@ -26,7 +26,7 @@ class ::Decor::Forms::LayoutSectionPreview < ::Lookbook::Preview
   # @label With Flash Message
   # Section with an alert message displayed at the top
   def with_flash_message
-    render ::Decor::Forms::LayoutSection.new(
+    render ::Decor::Daisy::Forms::LayoutSection.new(
       title: "Account Settings",
       description: "Update your account preferences.",
       flash: true,
@@ -37,7 +37,7 @@ class ::Decor::Forms::LayoutSectionPreview < ::Lookbook::Preview
   # @label With Hero and CTA
   # Section with hero content and call-to-action button
   def with_hero_and_cta
-    render ::Decor::Forms::LayoutSection.new(
+    render ::Decor::Daisy::Forms::LayoutSection.new(
       title: "Premium Features",
       description: "Unlock additional capabilities for your account."
     ) do |section|
@@ -61,7 +61,7 @@ class ::Decor::Forms::LayoutSectionPreview < ::Lookbook::Preview
   # @label Stacked Layout
   # Vertical stacking of form elements instead of grid layout
   def stacked_layout
-    render ::Decor::Forms::LayoutSection.new(
+    render ::Decor::Daisy::Forms::LayoutSection.new(
       title: "Address Information",
       description: "Enter your complete mailing address.",
       stacked: true
@@ -100,7 +100,7 @@ class ::Decor::Forms::LayoutSectionPreview < ::Lookbook::Preview
     include_hero: false,
     include_cta: false
   )
-    render ::Decor::Forms::LayoutSection.new(
+    render ::Decor::Daisy::Forms::LayoutSection.new(
       title: title,
       description: description,
       stacked: stacked_layout,
@@ -158,7 +158,7 @@ class ::Decor::Forms::LayoutSectionPreview < ::Lookbook::Preview
   # @label Grid Layout (Default)
   # Standard grid-based form layout
   def grid_layout
-    render ::Decor::Forms::LayoutSection.new(
+    render ::Decor::Daisy::Forms::LayoutSection.new(
       title: "Contact Information",
       description: "How can we reach you?"
     ) do
@@ -184,7 +184,7 @@ class ::Decor::Forms::LayoutSectionPreview < ::Lookbook::Preview
   # @label Minimal Section
   # Section with minimal configuration
   def minimal_section
-    render ::Decor::Forms::LayoutSection.new(
+    render ::Decor::Daisy::Forms::LayoutSection.new(
       title: "Additional Comments"
     ) do
       '<div class="sm:col-span-6">
@@ -199,7 +199,7 @@ class ::Decor::Forms::LayoutSectionPreview < ::Lookbook::Preview
   # @label All Content Slots
   # Demonstration of all available content areas
   def all_content_slots
-    render ::Decor::Forms::LayoutSection.new(
+    render ::Decor::Daisy::Forms::LayoutSection.new(
       title: "Complete Example",
       description: "This section demonstrates all available content slots.",
       flash: true

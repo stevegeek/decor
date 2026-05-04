@@ -48,7 +48,7 @@ If you find any issues or missing components, please open a PR to improve the do
 - [Decor::Daisy::Forms::HelperTextSection](#decordaisyformshelpertextsection)
 - [Decor::Forms::HiddenField](#decorformshiddenfield)
 - [Decor::Daisy::Forms::LayoutContainer](#decordaisyformslayoutcontainer)
-- [Decor::Forms::LayoutSection](#decorformslayoutsection)
+- [Decor::Daisy::Forms::LayoutSection](#decordaisyformslayoutsection)
 - [Decor::Forms::NumberField](#decorformsnumberfield)
 - [Decor::Forms::Radio](#decorformsradio)
 - [Decor::Forms::Select](#decorformsselect)
@@ -1008,15 +1008,15 @@ end
 
 ---
 
-### Decor::Forms::LayoutSection
+### Decor::Daisy::Forms::LayoutSection
 
-<span id="decorformslayoutsection"></span>
+<span id="decordaisyformslayoutsection"></span>
 
 Basic form section with title and description
 
 **Basic Usage:**
 ```ruby
-render Decor::Forms::LayoutSection.new(title: "Title") do |c|
+render Decor::Daisy::Forms::LayoutSection.new(title: "Title") do |c|
   c.with_hero do
     # Slot content
   end
