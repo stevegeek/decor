@@ -47,7 +47,7 @@ module Decor
               data: input_data_attributes(el)
             ) { @value }
 
-            render ::Decor::Forms::ErrorIconSection.new(
+            render ::Decor::Daisy::Forms::ErrorIconSection.new(
               error_text: error_text,
               show_floating_message: floating_error_text?,
               html_options: {

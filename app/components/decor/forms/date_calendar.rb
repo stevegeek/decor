@@ -80,7 +80,7 @@ module Decor
               public_send(:calendar_month)
             end
 
-            render ::Decor::Forms::ErrorIconSection.new(
+            render ::Decor::Daisy::Forms::ErrorIconSection.new(
               error_text: error_text,
               show_floating_message: floating_error_text?,
               html_options: {

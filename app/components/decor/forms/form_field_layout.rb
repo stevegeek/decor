@@ -79,7 +79,7 @@ module Decor
         {
           outlets: [
             ::Decor::Forms::HelperTextSection.stimulus_identifier,
-            ::Decor::Forms::ErrorIconSection.stimulus_identifier
+            ::Decor::Daisy::Forms::ErrorIconSection.stimulus_identifier
           ]
         }
       end

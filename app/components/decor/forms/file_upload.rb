@@ -110,7 +110,7 @@ module Decor
               end
             end
 
-            render ::Decor::Forms::ErrorIconSection.new(
+            render ::Decor::Daisy::Forms::ErrorIconSection.new(
               error_text: error_text,
               show_floating_message: floating_error_text?,
               classes: "#{errors? ? "" : "hidden"} right-3"
