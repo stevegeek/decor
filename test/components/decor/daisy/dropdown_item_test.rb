@@ -1,8 +1,8 @@
 require "test_helper"
 
-class Decor::DropdownItemTest < ActiveSupport::TestCase
+class Decor::Daisy::DropdownItemTest < ActiveSupport::TestCase
   test "renders successfully with text" do
-    component = Decor::DropdownItem.new(text: "Menu Item")
+    component = Decor::Daisy::DropdownItem.new(text: "Menu Item")
     rendered = render_component(component)
 
     assert_includes rendered, "Menu Item"
@@ -11,21 +11,21 @@ class Decor::DropdownItemTest < ActiveSupport::TestCase
   end
 
   test "renders with custom href" do
-    component = Decor::DropdownItem.new(text: "Link Item", href: "/custom-path")
+    component = Decor::Daisy::DropdownItem.new(text: "Link Item", href: "/custom-path")
     rendered = render_component(component)
 
     assert_includes rendered, 'href="/custom-path"'
   end
 
   test "renders with default href" do
-    component = Decor::DropdownItem.new(text: "Default")
+    component = Decor::Daisy::DropdownItem.new(text: "Default")
     rendered = render_component(component)
 
     assert_includes rendered, 'href="#"'
   end
 
   test "renders with icon" do
-    component = Decor::DropdownItem.new(text: "Settings", icon_name: "cog")
+    component = Decor::Daisy::DropdownItem.new(text: "Settings", icon_name: "cog")
     rendered = render_component(component)
 
     assert_includes rendered, "cog"
@@ -33,7 +33,7 @@ class Decor::DropdownItemTest < ActiveSupport::TestCase
   end
 
   test "renders as separator" do
-    component = Decor::DropdownItem.new(separator: true)
+    component = Decor::Daisy::DropdownItem.new(separator: true)
     rendered = render_component(component)
 
     assert_includes rendered, "<hr"
@@ -41,7 +41,7 @@ class Decor::DropdownItemTest < ActiveSupport::TestCase
   end
 
   test "applies correct CSS classes for regular item" do
-    component = Decor::DropdownItem.new(text: "Regular Item")
+    component = Decor::Daisy::DropdownItem.new(text: "Regular Item")
     rendered = render_component(component)
 
     # DaisyUI menu items use minimal classes, styling is handled by the parent menu
@@ -50,7 +50,7 @@ class Decor::DropdownItemTest < ActiveSupport::TestCase
   end
 
   test "applies correct CSS classes for separator" do
-    component = Decor::DropdownItem.new(separator: true)
+    component = Decor::Daisy::DropdownItem.new(separator: true)
     rendered = render_component(component)
 
     # Separator uses DaisyUI menu-divider class
@@ -58,28 +58,28 @@ class Decor::DropdownItemTest < ActiveSupport::TestCase
   end
 
   test "renders with custom tabindex" do
-    component = Decor::DropdownItem.new(text: "Item", tabindex: 0)
+    component = Decor::Daisy::DropdownItem.new(text: "Item", tabindex: 0)
     rendered = render_component(component)
 
     assert_includes rendered, 'tabindex="0"'
   end
 
   test "renders with default tabindex" do
-    component = Decor::DropdownItem.new(text: "Item")
+    component = Decor::Daisy::DropdownItem.new(text: "Item")
     rendered = render_component(component)
 
     assert_includes rendered, 'tabindex="-1"'
   end
 
   test "renders with HTTP method" do
-    component = Decor::DropdownItem.new(text: "Delete", http_method: :delete)
+    component = Decor::Daisy::DropdownItem.new(text: "Delete", http_method: :delete)
     rendered = render_component(component)
 
     assert_includes rendered, 'data-method="delete"'
   end
 
   test "renders without icon has different padding" do
-    component = Decor::DropdownItem.new(text: "No Icon", icon_name: "")
+    component = Decor::Daisy::DropdownItem.new(text: "No Icon", icon_name: "")
     rendered = render_component(component)
 
     # DaisyUI handles padding automatically, no icon means no icon element
@@ -88,7 +88,7 @@ class Decor::DropdownItemTest < ActiveSupport::TestCase
   end
 
   test "yields block content when text is blank" do
-    component = Decor::DropdownItem.new(text: nil, icon_name: "star")
+    component = Decor::Daisy::DropdownItem.new(text: nil, icon_name: "star")
     rendered = render_component(component) do
       "Custom Content"
     end
@@ -98,7 +98,7 @@ class Decor::DropdownItemTest < ActiveSupport::TestCase
   end
 
   test "uses nokogiri for parsing" do
-    component = Decor::DropdownItem.new(text: "Test Item", icon_name: "home")
+    component = Decor::Daisy::DropdownItem.new(text: "Test Item", icon_name: "home")
     fragment = render_fragment(component)
 
     link = fragment.at_css("a")

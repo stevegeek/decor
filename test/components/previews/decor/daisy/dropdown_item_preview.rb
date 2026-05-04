@@ -1,5 +1,5 @@
 # @label Dropdown Item
-class ::Decor::DropdownItemPreview < ::Lookbook::Preview
+class ::Decor::Daisy::DropdownItemPreview < ::Lookbook::Preview
   # Dropdown Item
   # -------
   #
@@ -9,7 +9,7 @@ class ::Decor::DropdownItemPreview < ::Lookbook::Preview
   # @group Examples
   # @label Basic Item
   def basic_item
-    render ::Decor::DropdownItem.new(
+    render ::Decor::Daisy::DropdownItem.new(
       text: "Basic Menu Item",
       href: "#"
     )
@@ -18,7 +18,7 @@ class ::Decor::DropdownItemPreview < ::Lookbook::Preview
   # @group Examples
   # @label With Icon
   def with_icon
-    render ::Decor::DropdownItem.new(
+    render ::Decor::Daisy::DropdownItem.new(
       text: "Settings",
       href: "#",
       icon_name: "cog"
@@ -29,9 +29,9 @@ class ::Decor::DropdownItemPreview < ::Lookbook::Preview
   # @label Separator
   def separator
     render ::Decor::Daisy::Element.new do |el|
-      el.render ::Decor::DropdownItem.new(text: "Item 1", href: "#")
-      el.render ::Decor::DropdownItem.new(separator: true)
-      el.render ::Decor::DropdownItem.new(text: "Item 2", href: "#")
+      el.render ::Decor::Daisy::DropdownItem.new(text: "Item 1", href: "#")
+      el.render ::Decor::Daisy::DropdownItem.new(separator: true)
+      el.render ::Decor::Daisy::DropdownItem.new(text: "Item 2", href: "#")
     end
   end
 
@@ -39,10 +39,10 @@ class ::Decor::DropdownItemPreview < ::Lookbook::Preview
   # @label Multiple Items
   def multiple_items
     render ::Decor::Daisy::Element.new do |el|
-      el.render ::Decor::DropdownItem.new(text: "Profile", href: "#", icon_name: "user")
-      el.render ::Decor::DropdownItem.new(text: "Settings", href: "#", icon_name: "cog")
-      el.render ::Decor::DropdownItem.new(separator: true)
-      el.render ::Decor::DropdownItem.new(text: "Sign out", href: "#", icon_name: "logout", http_method: :delete)
+      el.render ::Decor::Daisy::DropdownItem.new(text: "Profile", href: "#", icon_name: "user")
+      el.render ::Decor::Daisy::DropdownItem.new(text: "Settings", href: "#", icon_name: "cog")
+      el.render ::Decor::Daisy::DropdownItem.new(separator: true)
+      el.render ::Decor::Daisy::DropdownItem.new(text: "Sign out", href: "#", icon_name: "logout", http_method: :delete)
     end
   end
 
@@ -53,7 +53,7 @@ class ::Decor::DropdownItemPreview < ::Lookbook::Preview
   # @param separator [Boolean] toggle
   # @param http_method select [get, post, patch, delete]
   def playground(text: "Menu Item", href: "#", icon_name: nil, separator: false, http_method: :get)
-    render ::Decor::DropdownItem.new(
+    render ::Decor::Daisy::DropdownItem.new(
       text: text,
       href: href,
       icon_name: icon_name,

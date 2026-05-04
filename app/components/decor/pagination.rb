@@ -69,7 +69,7 @@ module Decor
                   end
                   page_sizes.each_with_index do |s, i|
                     dropdown.menu_item(
-                      ::Decor::DropdownItem.new(
+                      ::Decor::Daisy::DropdownItem.new(
                         text: s.to_s,
                         href: page_size_selector_path(s),
                         tabindex: i
@@ -109,7 +109,7 @@ module Decor
                   ) do |dropdown|
                     dropdown.trigger_button_content { "..." }
                     page[:list_of_pages_for_dropdown]&.each do |pl|
-                      dropdown.menu_item(::Decor::DropdownItem.new(text: pl[:index].to_s, href: pl[:path], tabindex: pl[:index]))
+                      dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: pl[:index].to_s, href: pl[:path], tabindex: pl[:index]))
                     end
                   end
                 end

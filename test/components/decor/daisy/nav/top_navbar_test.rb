@@ -31,7 +31,7 @@ class Decor::Daisy::Nav::TopNavbarTest < ActiveSupport::TestCase
     component = Decor::Daisy::Nav::TopNavbar.new
     component.with_notifications_menu(position: :right) do |menu|
       menu.trigger_button_content { "Notifications" }
-      menu.menu_item(::Decor::DropdownItem.new(text: "Alert", href: "#"))
+      menu.menu_item(::Decor::Daisy::DropdownItem.new(text: "Alert", href: "#"))
     end
     rendered = render_component(component)
 

@@ -66,10 +66,10 @@ class ::Decor::Daisy::Nav::TopNavbarPreview < ::Lookbook::Preview
             render ::Decor::Daisy::Icon.new(name: "bell", classes: "h-6 w-6")
           end
         end
-        menu.menu_item(render(::Decor::DropdownItem.new(text: "New message from Sarah", href: "#")))
-        menu.menu_item(render(::Decor::DropdownItem.new(text: "Deployment completed", href: "#")))
-        menu.menu_item(render(::Decor::DropdownItem.new(text: "Server alert", href: "#")))
-        menu.menu_item(render(::Decor::DropdownItem.new(text: "View all notifications", href: "/notifications")))
+        menu.menu_item(render(::Decor::Daisy::DropdownItem.new(text: "New message from Sarah", href: "#")))
+        menu.menu_item(render(::Decor::Daisy::DropdownItem.new(text: "Deployment completed", href: "#")))
+        menu.menu_item(render(::Decor::Daisy::DropdownItem.new(text: "Server alert", href: "#")))
+        menu.menu_item(render(::Decor::Daisy::DropdownItem.new(text: "View all notifications", href: "/notifications")))
       end
 
       # Account menu with avatar
@@ -81,10 +81,10 @@ class ::Decor::Daisy::Nav::TopNavbarPreview < ::Lookbook::Preview
             color: :primary
           )
         end
-        menu.menu_item(render(::Decor::DropdownItem.new(text: "Profile", href: "/profile")))
-        menu.menu_item(render(::Decor::DropdownItem.new(text: "Account Settings", href: "/settings")))
-        menu.menu_item(render(::Decor::DropdownItem.new(text: "Billing", href: "/billing")))
-        menu.menu_item(render(::Decor::DropdownItem.new(text: "Sign out", href: "/logout")))
+        menu.menu_item(render(::Decor::Daisy::DropdownItem.new(text: "Profile", href: "/profile")))
+        menu.menu_item(render(::Decor::Daisy::DropdownItem.new(text: "Account Settings", href: "/settings")))
+        menu.menu_item(render(::Decor::Daisy::DropdownItem.new(text: "Billing", href: "/billing")))
+        menu.menu_item(render(::Decor::Daisy::DropdownItem.new(text: "Sign out", href: "/logout")))
       end
     end
   end
@@ -123,9 +123,9 @@ class ::Decor::Daisy::Nav::TopNavbarPreview < ::Lookbook::Preview
           span(class: "sr-only") { "View notifications" }
           render ::Decor::Daisy::Icon.new(name: "bell", classes: "h-6 w-6")
         end
-        menu.menu_item(render(::Decor::DropdownItem.new(text: "New message from John", href: "#")))
-        menu.menu_item(render(::Decor::DropdownItem.new(text: "System update available", href: "#")))
-        menu.menu_item(render(::Decor::DropdownItem.new(text: "View all notifications", href: "#")))
+        menu.menu_item(render(::Decor::Daisy::DropdownItem.new(text: "New message from John", href: "#")))
+        menu.menu_item(render(::Decor::Daisy::DropdownItem.new(text: "System update available", href: "#")))
+        menu.menu_item(render(::Decor::Daisy::DropdownItem.new(text: "View all notifications", href: "#")))
       end
 
       # Account menu
@@ -133,9 +133,9 @@ class ::Decor::Daisy::Nav::TopNavbarPreview < ::Lookbook::Preview
         menu.trigger_button_content do
           render ::Decor::Daisy::Avatar.new(initials: "CC", size: :sm)
         end
-        menu.menu_item(render(::Decor::DropdownItem.new(text: "Profile", href: "#")))
-        menu.menu_item(render(::Decor::DropdownItem.new(text: "Settings", href: "#")))
-        menu.menu_item(render(::Decor::DropdownItem.new(text: "Sign out", href: "#")))
+        menu.menu_item(render(::Decor::Daisy::DropdownItem.new(text: "Profile", href: "#")))
+        menu.menu_item(render(::Decor::Daisy::DropdownItem.new(text: "Settings", href: "#")))
+        menu.menu_item(render(::Decor::Daisy::DropdownItem.new(text: "Sign out", href: "#")))
       end
     end
   end
@@ -176,8 +176,8 @@ class ::Decor::Daisy::Nav::TopNavbarPreview < ::Lookbook::Preview
         menu.trigger_button_content do
           "Login"
         end
-        menu.menu_item(render(::Decor::DropdownItem.new(text: "Sign In", href: "/login")))
-        menu.menu_item(render(::Decor::DropdownItem.new(text: "Sign Up", href: "/register")))
+        menu.menu_item(render(::Decor::Daisy::DropdownItem.new(text: "Sign In", href: "/login")))
+        menu.menu_item(render(::Decor::Daisy::DropdownItem.new(text: "Sign Up", href: "/register")))
       end
     end
   end
@@ -195,7 +195,7 @@ class ::Decor::Daisy::Nav::TopNavbarPreview < ::Lookbook::Preview
             render ::Decor::Daisy::Icon.new(name: "bell", classes: "h-6 w-6")
           end
         end
-        menu.menu_item(render(::Decor::DropdownItem.new(text: "5 new notifications", href: "/notifications")))
+        menu.menu_item(render(::Decor::Daisy::DropdownItem.new(text: "5 new notifications", href: "/notifications")))
       end
     end
   end
@@ -214,8 +214,8 @@ class ::Decor::Daisy::Nav::TopNavbarPreview < ::Lookbook::Preview
               menu.trigger_button_content do
                 render ::Decor::Daisy::Avatar.new(initials: "U", size: :xs)
               end
-              menu.menu_item(render(::Decor::DropdownItem.new(text: "Profile", href: "#")))
-              menu.menu_item(render(::Decor::DropdownItem.new(text: "Logout", href: "#")))
+              menu.menu_item(render(::Decor::Daisy::DropdownItem.new(text: "Profile", href: "#")))
+              menu.menu_item(render(::Decor::Daisy::DropdownItem.new(text: "Logout", href: "#")))
             end
           end
         end

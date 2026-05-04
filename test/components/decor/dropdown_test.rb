@@ -3,7 +3,7 @@ require "test_helper"
 class Decor::DropdownTest < ActiveSupport::TestCase
   test "renders successfully with valid attributes" do
     rendered = render_component(Decor::Dropdown.new) do |dropdown|
-      dropdown.menu_item(::Decor::DropdownItem.new(text: "Item 1"))
+      dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Item 1"))
     end
 
     assert_includes rendered, "Item 1"
@@ -14,7 +14,7 @@ class Decor::DropdownTest < ActiveSupport::TestCase
       dropdown.trigger_button_content do
         "Click me"
       end
-      dropdown.menu_item(::Decor::DropdownItem.new(text: "Menu Item"))
+      dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item"))
     end
 
     assert_includes rendered, "Click me"
@@ -23,9 +23,9 @@ class Decor::DropdownTest < ActiveSupport::TestCase
 
   test "renders multiple menu items" do
     rendered = render_component(Decor::Dropdown.new) do |dropdown|
-      dropdown.menu_item(::Decor::DropdownItem.new(text: "Item 1"))
-      dropdown.menu_item(::Decor::DropdownItem.new(text: "Item 2"))
-      dropdown.menu_item(::Decor::DropdownItem.new(text: "Item 3"))
+      dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Item 1"))
+      dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Item 2"))
+      dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Item 3"))
     end
 
     assert_includes rendered, "Item 1"
@@ -35,7 +35,7 @@ class Decor::DropdownTest < ActiveSupport::TestCase
 
   test "applies correct position classes" do
     rendered = render_component(Decor::Dropdown.new(position: :right)) do |dropdown|
-      dropdown.menu_item(::Decor::DropdownItem.new(text: "Item 1"))
+      dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Item 1"))
     end
 
     assert_includes rendered, "dropdown-end"
@@ -43,7 +43,7 @@ class Decor::DropdownTest < ActiveSupport::TestCase
 
   test "applies menu classes" do
     rendered = render_component(Decor::Dropdown.new(color: :primary, style: :filled)) do |dropdown|
-      dropdown.menu_item(::Decor::DropdownItem.new(text: "Item 1"))
+      dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Item 1"))
     end
 
     assert_includes rendered, "bg-primary"
@@ -55,7 +55,7 @@ class Decor::DropdownTest < ActiveSupport::TestCase
       dropdown.menu_header do
         "Header Content"
       end
-      dropdown.menu_item(::Decor::DropdownItem.new(text: "Item 1"))
+      dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Item 1"))
     end
 
     assert_includes rendered, "Header Content"
@@ -66,7 +66,7 @@ class Decor::DropdownTest < ActiveSupport::TestCase
       dropdown.trigger_button do
         "Custom"
       end
-      dropdown.menu_item(::Decor::DropdownItem.new(text: "Item 1"))
+      dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Item 1"))
     end
 
     assert_includes rendered, "Custom"
@@ -75,7 +75,7 @@ class Decor::DropdownTest < ActiveSupport::TestCase
   test "uses nokogiri for parsing" do
     fragment = render_fragment(Decor::Dropdown.new) do |dropdown|
       dropdown.trigger_button_content { "Test Button" }
-      dropdown.menu_item(::Decor::DropdownItem.new(text: "Test Item"))
+      dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Test Item"))
     end
 
     button = fragment.at_css("button")
@@ -90,7 +90,7 @@ class Decor::DropdownTest < ActiveSupport::TestCase
   test "applies button active classes" do
     rendered = render_component(Decor::Dropdown.new(button_active_classes: ["bg-blue-100"])) do |dropdown|
       dropdown.trigger_button_content { "Button" }
-      dropdown.menu_item(::Decor::DropdownItem.new(text: "Item 1"))
+      dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Item 1"))
     end
 
     # The active classes are applied via Stimulus controller, so we check they're in the data attributes
@@ -101,7 +101,7 @@ class Decor::DropdownTest < ActiveSupport::TestCase
   test "applies modern size classes" do
     rendered = render_component(Decor::Dropdown.new(size: :lg)) do |dropdown|
       dropdown.trigger_button_content { "Large Button" }
-      dropdown.menu_item(::Decor::DropdownItem.new(text: "Item 1"))
+      dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Item 1"))
     end
 
     assert_includes rendered, "btn-lg"
@@ -110,7 +110,7 @@ class Decor::DropdownTest < ActiveSupport::TestCase
   test "applies modern color classes" do
     rendered = render_component(Decor::Dropdown.new(color: :primary)) do |dropdown|
       dropdown.trigger_button_content { "Primary Button" }
-      dropdown.menu_item(::Decor::DropdownItem.new(text: "Item 1"))
+      dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Item 1"))
     end
 
     assert_includes rendered, "btn-primary"
@@ -119,7 +119,7 @@ class Decor::DropdownTest < ActiveSupport::TestCase
   test "applies modern style classes" do
     rendered = render_component(Decor::Dropdown.new(style: :outlined)) do |dropdown|
       dropdown.trigger_button_content { "Outlined Button" }
-      dropdown.menu_item(::Decor::DropdownItem.new(text: "Item 1"))
+      dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Item 1"))
     end
 
     assert_includes rendered, "btn-outline"
@@ -128,7 +128,7 @@ class Decor::DropdownTest < ActiveSupport::TestCase
   test "applies modern position classes" do
     rendered = render_component(Decor::Dropdown.new(position: :right)) do |dropdown|
       dropdown.trigger_button_content { "Right Positioned" }
-      dropdown.menu_item(::Decor::DropdownItem.new(text: "Item 1"))
+      dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Item 1"))
     end
 
     assert_includes rendered, "dropdown-end"
@@ -137,7 +137,7 @@ class Decor::DropdownTest < ActiveSupport::TestCase
   test "applies DaisyUI dropdown structure" do
     fragment = render_fragment(Decor::Dropdown.new) do |dropdown|
       dropdown.trigger_button_content { "Modern Dropdown" }
-      dropdown.menu_item(::Decor::DropdownItem.new(text: "Test Item"))
+      dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Test Item"))
     end
 
     # Check for DaisyUI dropdown container
@@ -159,7 +159,7 @@ class Decor::DropdownTest < ActiveSupport::TestCase
       button_classes: ["custom-button"]
     )) do |dropdown|
       dropdown.trigger_button_content { "Custom Dropdown" }
-      dropdown.menu_item(::Decor::DropdownItem.new(text: "Item 1"))
+      dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Item 1"))
     end
 
     assert_includes rendered, "custom-button"
@@ -172,7 +172,7 @@ class Decor::DropdownTest < ActiveSupport::TestCase
       button_classes: ["custom-button"]
     )) do |dropdown|
       dropdown.trigger_button_content { "Mixed Attributes" }
-      dropdown.menu_item(::Decor::DropdownItem.new(text: "Item 1"))
+      dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Item 1"))
     end
 
     # Both color classes and custom button classes should be applied
