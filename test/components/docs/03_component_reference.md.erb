@@ -21,7 +21,7 @@ If you find any issues or missing components, please open a PR to improve the do
 - [Decor::Daisy::Button](#decordaisybutton)
 - [Decor::Daisy::ButtonLink](#decordaisybuttonlink)
 - [Decor::Daisy::Card](#decordaisycard)
-- [Decor::Carousel](#decorcarousel)
+- [Decor::Daisy::Carousel](#decordaisycarousel)
 - [Decor::Daisy::Dropdown](#decordaisydropdown)
 - [Decor::Daisy::DropdownItem](#decordaisydropdownitem)
 - [Decor::Daisy::Flash](#decordaisyflash)
@@ -352,15 +352,15 @@ _(and the shared properties `size`, `color`, and `style` as described above)_
 
 ---
 
-### Decor::Carousel
+### Decor::Daisy::Carousel
 
-<span id="decorcarousel"></span>
+<span id="decordaisycarousel"></span>
 
 Carousel A swipable container component for displaying a series of elements. Perfect for image galleries, testimonials, product showcases, or any content that benefits from horizontal scrolling. Built with DaisyUI carousel styling and supports both images and custom content.
 
 **Basic Usage:**
 ```ruby
-render Decor::Carousel.new do |c|
+render Decor::Daisy::Carousel.new do |c|
   c.with_slide do
     # Slot content
   end

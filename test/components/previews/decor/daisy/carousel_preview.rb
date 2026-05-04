@@ -1,5 +1,5 @@
 # @label Carousel
-class ::Decor::CarouselPreview < ::Lookbook::Preview
+class ::Decor::Daisy::CarouselPreview < ::Lookbook::Preview
   # Carousel
   # -------
   #
@@ -10,7 +10,7 @@ class ::Decor::CarouselPreview < ::Lookbook::Preview
   # @group Examples
   # @label Basic Image Carousel
   def basic_carousel
-    render ::Decor::Carousel.new(
+    render ::Decor::Daisy::Carousel.new(
       images: [
         {url: "https://picsum.photos/400/300?random=1", alt: "Slide 1"},
         {url: "https://picsum.photos/400/300?random=2", alt: "Slide 2"},
@@ -23,7 +23,7 @@ class ::Decor::CarouselPreview < ::Lookbook::Preview
   # @group Examples
   # @label Multiple Slides Per View
   def multiple_slides
-    render ::Decor::Carousel.new(
+    render ::Decor::Daisy::Carousel.new(
       images: [
         {url: "https://picsum.photos/300/200?random=4", alt: "Product 1"},
         {url: "https://picsum.photos/300/200?random=5", alt: "Product 2"},
@@ -39,7 +39,7 @@ class ::Decor::CarouselPreview < ::Lookbook::Preview
   # @group Examples
   # @label Custom Card Content
   def custom_content_carousel
-    render ::Decor::Carousel.new(slides_per_view: 2, max_height: 250) do |carousel|
+    render ::Decor::Daisy::Carousel.new(slides_per_view: 2, max_height: 250) do |carousel|
       carousel.with_slide do
         content_tag :div, class: "card bg-primary text-primary-content" do
           content_tag :div, class: "card-body" do
@@ -78,7 +78,7 @@ class ::Decor::CarouselPreview < ::Lookbook::Preview
   # @group Examples
   # @label Product Gallery
   def product_gallery
-    render ::Decor::Carousel.new(slides_per_view: 1, max_height: 400) do |carousel|
+    render ::Decor::Daisy::Carousel.new(slides_per_view: 1, max_height: 400) do |carousel|
       [1, 2, 3, 4].each do |i|
         carousel.with_slide do
           content_tag :div, class: "relative" do
@@ -100,7 +100,7 @@ class ::Decor::CarouselPreview < ::Lookbook::Preview
   # @group Examples
   # @label Testimonials
   def testimonial_carousel
-    render ::Decor::Carousel.new(slides_per_view: 1, max_height: 200) do |carousel|
+    render ::Decor::Daisy::Carousel.new(slides_per_view: 1, max_height: 200) do |carousel|
       [
         {name: "Sarah Johnson", role: "CEO", quote: "This product has transformed our business operations."},
         {name: "Mike Chen", role: "Developer", quote: "The best tool I've used for rapid development."},
@@ -128,7 +128,7 @@ class ::Decor::CarouselPreview < ::Lookbook::Preview
   # @group Examples
   # @label Feature Showcase
   def feature_showcase
-    render ::Decor::Carousel.new(slides_per_view: 3, max_height: 250) do |carousel|
+    render ::Decor::Daisy::Carousel.new(slides_per_view: 3, max_height: 250) do |carousel|
       [
         {icon: "lightning-bolt", title: "Fast Performance", desc: "Lightning fast load times"},
         {icon: "shield-check", title: "Secure", desc: "Bank-level security"},
@@ -158,7 +158,7 @@ class ::Decor::CarouselPreview < ::Lookbook::Preview
   # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
   # @param style [Symbol] select [~, filled, outlined, ghost]
   def playground(slides_per_view: 1, max_height: 200, size: nil, color: nil, style: nil)
-    render ::Decor::Carousel.new(
+    render ::Decor::Daisy::Carousel.new(
       images: [
         {path: "logo.png", alt: "Image 1"},
         {path: "pic.jpg", alt: "Image 2"},
@@ -176,7 +176,7 @@ class ::Decor::CarouselPreview < ::Lookbook::Preview
   # @group Slides Per View
   # @label Single Slide
   def single_slide_view
-    render ::Decor::Carousel.new(
+    render ::Decor::Daisy::Carousel.new(
       images: [
         {url: "https://picsum.photos/600/400?random=10", alt: "Full width slide 1"},
         {url: "https://picsum.photos/600/400?random=11", alt: "Full width slide 2"},
@@ -190,7 +190,7 @@ class ::Decor::CarouselPreview < ::Lookbook::Preview
   # @group Slides Per View
   # @label Two Slides
   def two_slides_view
-    render ::Decor::Carousel.new(
+    render ::Decor::Daisy::Carousel.new(
       images: [
         {url: "https://picsum.photos/350/250?random=13", alt: "Item 1"},
         {url: "https://picsum.photos/350/250?random=14", alt: "Item 2"},
@@ -205,7 +205,7 @@ class ::Decor::CarouselPreview < ::Lookbook::Preview
   # @group Slides Per View
   # @label Four Slides
   def four_slides_view
-    render ::Decor::Carousel.new(
+    render ::Decor::Daisy::Carousel.new(
       images: [
         {url: "https://picsum.photos/200/150?random=17", alt: "Thumbnail 1"},
         {url: "https://picsum.photos/200/150?random=18", alt: "Thumbnail 2"},
@@ -222,7 +222,7 @@ class ::Decor::CarouselPreview < ::Lookbook::Preview
   # @group Heights
   # @label Small Height
   def height_small
-    render ::Decor::Carousel.new(
+    render ::Decor::Daisy::Carousel.new(
       images: [
         {url: "https://picsum.photos/300/150?random=23", alt: "Small 1"},
         {url: "https://picsum.photos/300/150?random=24", alt: "Small 2"},
@@ -235,7 +235,7 @@ class ::Decor::CarouselPreview < ::Lookbook::Preview
   # @group Heights
   # @label Medium Height
   def height_medium
-    render ::Decor::Carousel.new(
+    render ::Decor::Daisy::Carousel.new(
       images: [
         {url: "https://picsum.photos/400/300?random=26", alt: "Medium 1"},
         {url: "https://picsum.photos/400/300?random=27", alt: "Medium 2"},
@@ -248,7 +248,7 @@ class ::Decor::CarouselPreview < ::Lookbook::Preview
   # @group Heights
   # @label Large Height
   def height_large
-    render ::Decor::Carousel.new(
+    render ::Decor::Daisy::Carousel.new(
       images: [
         {url: "https://picsum.photos/800/500?random=29", alt: "Large 1"},
         {url: "https://picsum.photos/800/500?random=30", alt: "Large 2"},
