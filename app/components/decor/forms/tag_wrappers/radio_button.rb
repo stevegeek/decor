@@ -6,12 +6,12 @@ module Decor
       class RadioButton < ActionView::Helpers::Tags::RadioButton
         include TagWrapper
 
-        RADIO_ATTRS = ::Decor::Forms::Radio.prop_names.map(&:to_s).freeze
+        RADIO_ATTRS = ::Decor::Daisy::Forms::Radio.prop_names.map(&:to_s).freeze
 
         def tag(_type, options)
           return super if options["type"] == "hidden"
           component_options = radio_options(options)
-          @template_object.render ::Decor::Forms::Radio.new(**component_options)
+          @template_object.render ::Decor::Daisy::Forms::Radio.new(**component_options)
         end
 
         private

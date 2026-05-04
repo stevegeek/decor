@@ -1,8 +1,8 @@
 require "test_helper"
 
-class Decor::Forms::RadioTest < ActiveSupport::TestCase
+class Decor::Daisy::Forms::RadioTest < ActiveSupport::TestCase
   test "renders successfully with valid attributes" do
-    component = Decor::Forms::Radio.new(name: "radio", label: "Label", value: "foo")
+    component = Decor::Daisy::Forms::Radio.new(name: "radio", label: "Label", value: "foo")
     rendered = render_component(component)
 
     assert_includes rendered, "Label"
@@ -13,13 +13,13 @@ class Decor::Forms::RadioTest < ActiveSupport::TestCase
 
   test "renders without errors when given valid attributes" do
     assert_nothing_raised do
-      component = Decor::Forms::Radio.new(name: "radio", label: "Label", value: "foo")
+      component = Decor::Daisy::Forms::Radio.new(name: "radio", label: "Label", value: "foo")
       render_component(component)
     end
   end
 
   test "renders with DaisyUI radio classes" do
-    component = Decor::Forms::Radio.new(name: "radio", label: "Radio", value: "test")
+    component = Decor::Daisy::Forms::Radio.new(name: "radio", label: "Radio", value: "test")
     fragment = render_fragment(component)
 
     input = fragment.at_css('input[type="radio"]')
@@ -28,7 +28,7 @@ class Decor::Forms::RadioTest < ActiveSupport::TestCase
   end
 
   test "renders as checked when checked attribute is true" do
-    component = Decor::Forms::Radio.new(name: "checked_radio", label: "Checked", value: "test", checked: true)
+    component = Decor::Daisy::Forms::Radio.new(name: "checked_radio", label: "Checked", value: "test", checked: true)
     fragment = render_fragment(component)
 
     input = fragment.at_css('input[type="radio"]')
@@ -37,7 +37,7 @@ class Decor::Forms::RadioTest < ActiveSupport::TestCase
   end
 
   test "renders as unchecked when checked attribute is false" do
-    component = Decor::Forms::Radio.new(name: "unchecked_radio", label: "Unchecked", value: "test", checked: false)
+    component = Decor::Daisy::Forms::Radio.new(name: "unchecked_radio", label: "Unchecked", value: "test", checked: false)
     fragment = render_fragment(component)
 
     input = fragment.at_css('input[type="radio"]')
@@ -46,7 +46,7 @@ class Decor::Forms::RadioTest < ActiveSupport::TestCase
   end
 
   test "renders with disabled attribute when disabled" do
-    component = Decor::Forms::Radio.new(name: "disabled_radio", label: "Disabled", value: "test", disabled: true)
+    component = Decor::Daisy::Forms::Radio.new(name: "disabled_radio", label: "Disabled", value: "test", disabled: true)
     fragment = render_fragment(component)
 
     input = fragment.at_css('input[type="radio"]')
@@ -55,7 +55,7 @@ class Decor::Forms::RadioTest < ActiveSupport::TestCase
   end
 
   test "renders with required attribute when required" do
-    component = Decor::Forms::Radio.new(name: "required_radio", label: "Required", value: "test", required: true)
+    component = Decor::Daisy::Forms::Radio.new(name: "required_radio", label: "Required", value: "test", required: true)
     fragment = render_fragment(component)
 
     input = fragment.at_css('input[type="radio"]')
@@ -64,7 +64,7 @@ class Decor::Forms::RadioTest < ActiveSupport::TestCase
   end
 
   test "renders with helper text" do
-    component = Decor::Forms::Radio.new(
+    component = Decor::Daisy::Forms::Radio.new(
       name: "radio_with_help",
       label: "Radio with Help",
       value: "test",
@@ -76,7 +76,7 @@ class Decor::Forms::RadioTest < ActiveSupport::TestCase
   end
 
   test "renders with different colors" do
-    component = Decor::Forms::Radio.new(name: "colored_radio", label: "Colored", value: "test", color: :success)
+    component = Decor::Daisy::Forms::Radio.new(name: "colored_radio", label: "Colored", value: "test", color: :success)
     fragment = render_fragment(component)
 
     input = fragment.at_css('input[type="radio"]')
@@ -85,7 +85,7 @@ class Decor::Forms::RadioTest < ActiveSupport::TestCase
   end
 
   test "renders with neutral color" do
-    component = Decor::Forms::Radio.new(name: "neutral_radio", label: "Neutral", value: "test", color: :neutral)
+    component = Decor::Daisy::Forms::Radio.new(name: "neutral_radio", label: "Neutral", value: "test", color: :neutral)
     fragment = render_fragment(component)
 
     input = fragment.at_css('input[type="radio"]')
@@ -94,7 +94,7 @@ class Decor::Forms::RadioTest < ActiveSupport::TestCase
   end
 
   test "renders with different sizes" do
-    component = Decor::Forms::Radio.new(name: "large_radio", label: "Large", value: "test", size: :lg)
+    component = Decor::Daisy::Forms::Radio.new(name: "large_radio", label: "Large", value: "test", size: :lg)
     fragment = render_fragment(component)
 
     input = fragment.at_css('input[type="radio"]')
@@ -103,7 +103,7 @@ class Decor::Forms::RadioTest < ActiveSupport::TestCase
   end
 
   test "renders with extra large size" do
-    component = Decor::Forms::Radio.new(name: "xl_radio", label: "Extra Large", value: "test", size: :xl)
+    component = Decor::Daisy::Forms::Radio.new(name: "xl_radio", label: "Extra Large", value: "test", size: :xl)
     fragment = render_fragment(component)
 
     input = fragment.at_css('input[type="radio"]')
@@ -112,7 +112,7 @@ class Decor::Forms::RadioTest < ActiveSupport::TestCase
   end
 
   test "renders with error styling when errors present" do
-    component = Decor::Forms::Radio.new(name: "error_radio", label: "Error", value: "test", error_messages: ["Something went wrong"])
+    component = Decor::Daisy::Forms::Radio.new(name: "error_radio", label: "Error", value: "test", error_messages: ["Something went wrong"])
     fragment = render_fragment(component)
 
     input = fragment.at_css('input[type="radio"]')
@@ -121,7 +121,7 @@ class Decor::Forms::RadioTest < ActiveSupport::TestCase
   end
 
   test "renders with warning color" do
-    component = Decor::Forms::Radio.new(name: "warning_radio", label: "Warning", value: "test", color: :warning)
+    component = Decor::Daisy::Forms::Radio.new(name: "warning_radio", label: "Warning", value: "test", color: :warning)
     fragment = render_fragment(component)
 
     input = fragment.at_css('input[type="radio"]')
@@ -130,7 +130,7 @@ class Decor::Forms::RadioTest < ActiveSupport::TestCase
   end
 
   test "renders with info color" do
-    component = Decor::Forms::Radio.new(name: "info_radio", label: "Info", value: "test", color: :info)
+    component = Decor::Daisy::Forms::Radio.new(name: "info_radio", label: "Info", value: "test", color: :info)
     fragment = render_fragment(component)
 
     input = fragment.at_css('input[type="radio"]')
@@ -139,8 +139,8 @@ class Decor::Forms::RadioTest < ActiveSupport::TestCase
   end
 
   test "preserves radio name for grouping" do
-    component1 = Decor::Forms::Radio.new(name: "radio_group", label: "Option 1", value: "option1")
-    component2 = Decor::Forms::Radio.new(name: "radio_group", label: "Option 2", value: "option2")
+    component1 = Decor::Daisy::Forms::Radio.new(name: "radio_group", label: "Option 1", value: "option1")
+    component2 = Decor::Daisy::Forms::Radio.new(name: "radio_group", label: "Option 2", value: "option2")
 
     fragment1 = render_fragment(component1)
     fragment2 = render_fragment(component2)

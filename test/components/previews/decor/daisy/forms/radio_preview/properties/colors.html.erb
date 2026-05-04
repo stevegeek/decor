@@ -2,7 +2,7 @@
   <% %w[primary secondary accent neutral success warning info error].each do |color| %>
     <div class="p-4 border rounded-lg">
       <p class="text-sm font-medium mb-2 capitalize"><%= color %></p>
-      <%= render ::Decor::Forms::Radio.new(
+      <%= render ::Decor::Daisy::Forms::Radio.new(
         name: "color_demo",
         label: "#{color.capitalize} radio",
         value: color,

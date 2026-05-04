@@ -1,11 +1,11 @@
 # @label Radio
 # Radio buttons allow users to select one option from a group. Built with DaisyUI styling.
-class ::Decor::Forms::RadioPreview < ::Lookbook::Preview
+class ::Decor::Daisy::Forms::RadioPreview < ::Lookbook::Preview
   # @group Examples
 
   # Basic radio button
   def default
-    render ::Decor::Forms::Radio.new(
+    render ::Decor::Daisy::Forms::Radio.new(
       name: "options",
       label: "Select this option",
       value: "option1"
@@ -88,7 +88,7 @@ class ::Decor::Forms::RadioPreview < ::Lookbook::Preview
     color: :primary,
     style: nil
   )
-    render ::Decor::Forms::Radio.new(
+    render ::Decor::Daisy::Forms::Radio.new(
       name: name,
       label: label,
       description: description,
