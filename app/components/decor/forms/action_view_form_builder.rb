@@ -112,7 +112,7 @@ module Decor
       def avatar_upload(method, options = {})
         # If image upload used in forms, then form must be mutlipart: true
         self.multipart = true
-        @template.render ::Decor::Forms::FileUpload.new(
+        @template.render ::Decor::Daisy::Forms::FileUpload.new(
           preview_type: :avatar,
           max_size_in_mb: 1,
           aspect_w: 1,
@@ -130,7 +130,7 @@ module Decor
       def image_upload(method, options = {})
         # If image upload used in forms, then form must be mutlipart: true
         self.multipart = true
-        @template.render ::Decor::Forms::FileUpload.new(
+        @template.render ::Decor::Daisy::Forms::FileUpload.new(
           preview_type: :image,
           name: field_name(object_name, method),
           object: @object,
@@ -142,7 +142,7 @@ module Decor
 
       def file_field(method, options = {})
         self.multipart = true
-        @template.render ::Decor::Forms::FileUpload.new(
+        @template.render ::Decor::Daisy::Forms::FileUpload.new(
           name: field_name(object_name, method),
           object: @object,
           object_name: object_name,

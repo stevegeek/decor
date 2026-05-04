@@ -1,11 +1,11 @@
 # @label FileUpload
 # A flexible file upload component supporting documents, images, and avatars with preview capabilities.
-class ::Decor::Forms::FileUploadPreview < ::Lookbook::Preview
+class ::Decor::Daisy::Forms::FileUploadPreview < ::Lookbook::Preview
   # @group Examples
 
   # Standard file upload for documents
   def default
-    render ::Decor::Forms::FileUpload.new(
+    render ::Decor::Daisy::Forms::FileUpload.new(
       name: "document",
       label: "Upload Document",
       preview_type: :file,
@@ -17,7 +17,7 @@ class ::Decor::Forms::FileUploadPreview < ::Lookbook::Preview
 
   # Image upload with preview functionality
   def image_upload
-    render ::Decor::Forms::FileUpload.new(
+    render ::Decor::Daisy::Forms::FileUpload.new(
       name: "product_image",
       label: "Product Image",
       preview_type: :image,
@@ -32,7 +32,7 @@ class ::Decor::Forms::FileUploadPreview < ::Lookbook::Preview
 
   # Avatar upload with circular preview
   def avatar_upload
-    render ::Decor::Forms::FileUpload.new(
+    render ::Decor::Daisy::Forms::FileUpload.new(
       name: "user_avatar",
       label: "Profile Picture",
       preview_type: :avatar,
@@ -138,7 +138,7 @@ class ::Decor::Forms::FileUploadPreview < ::Lookbook::Preview
     size: :md,
     style: nil
   )
-    render ::Decor::Forms::FileUpload.new(
+    render ::Decor::Daisy::Forms::FileUpload.new(
       preview_layout: preview_layout,
       preview_type: style || preview_type,
       name: name,
@@ -172,7 +172,7 @@ class ::Decor::Forms::FileUploadPreview < ::Lookbook::Preview
 
   # Standard file upload
   def file_type
-    render ::Decor::Forms::FileUpload.new(
+    render ::Decor::Daisy::Forms::FileUpload.new(
       name: "document",
       label: "Upload Document",
       preview_type: :file,
@@ -183,7 +183,7 @@ class ::Decor::Forms::FileUploadPreview < ::Lookbook::Preview
 
   # Image upload with preview
   def image_type
-    render ::Decor::Forms::FileUpload.new(
+    render ::Decor::Daisy::Forms::FileUpload.new(
       name: "photo",
       label: "Upload Photo",
       preview_type: :image,
@@ -196,7 +196,7 @@ class ::Decor::Forms::FileUploadPreview < ::Lookbook::Preview
 
   # Avatar upload with initials
   def avatar_type
-    render ::Decor::Forms::FileUpload.new(
+    render ::Decor::Daisy::Forms::FileUpload.new(
       name: "avatar",
       label: "Profile Picture",
       preview_type: :avatar,
@@ -213,7 +213,7 @@ class ::Decor::Forms::FileUploadPreview < ::Lookbook::Preview
 
   # Stacked preview layout
   def stacked_layout
-    render ::Decor::Forms::FileUpload.new(
+    render ::Decor::Daisy::Forms::FileUpload.new(
       name: "stacked_upload",
       label: "Stacked Layout",
       preview_type: :image,
@@ -225,7 +225,7 @@ class ::Decor::Forms::FileUploadPreview < ::Lookbook::Preview
 
   # Inline preview layout
   def inline_layout
-    render ::Decor::Forms::FileUpload.new(
+    render ::Decor::Daisy::Forms::FileUpload.new(
       name: "inline_upload",
       label: "Inline Layout",
       preview_type: :image,
@@ -241,7 +241,7 @@ class ::Decor::Forms::FileUploadPreview < ::Lookbook::Preview
 
   # Required field
   def required_state
-    render ::Decor::Forms::FileUpload.new(
+    render ::Decor::Daisy::Forms::FileUpload.new(
       name: "required_file",
       label: "Required Document",
       required: true,
@@ -252,7 +252,7 @@ class ::Decor::Forms::FileUploadPreview < ::Lookbook::Preview
 
   # Disabled state
   def disabled_state
-    render ::Decor::Forms::FileUpload.new(
+    render ::Decor::Daisy::Forms::FileUpload.new(
       name: "disabled_file",
       label: "Disabled Upload",
       disabled: true,
@@ -263,7 +263,7 @@ class ::Decor::Forms::FileUploadPreview < ::Lookbook::Preview
 
   # With error messages
   def error_state
-    render ::Decor::Forms::FileUpload.new(
+    render ::Decor::Daisy::Forms::FileUpload.new(
       name: "error_file",
       label: "File with Error",
       error_messages: ["File size exceeds 5MB limit", "Invalid file type"],

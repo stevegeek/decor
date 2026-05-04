@@ -126,7 +126,7 @@ class ::Decor::Daisy::Forms::LayoutContainerPreview < ::Lookbook::Preview
       container.render ::Decor::Daisy::Forms::LayoutSection.new(title: "User Profile") do |section|
         section.render ::Decor::Daisy::Forms::TextField.new(label: "Display Name", name: "display_name")
         section.render ::Decor::Daisy::Forms::TextArea.new(label: "Bio", name: "bio", rows: 4)
-        section.render ::Decor::Forms::FileUpload.new(label: "Profile Picture", name: "avatar")
+        section.render ::Decor::Daisy::Forms::FileUpload.new(label: "Profile Picture", name: "avatar")
       end
     end
   end

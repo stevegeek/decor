@@ -3,7 +3,7 @@
     <h3 class="text-lg font-semibold mb-4">Colors</h3>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <% [:primary, :secondary, :accent, :success, :error, :warning, :info, :ghost, :neutral].each do |color| %>
-        <%= render(::Decor::Forms::FileUpload.new(
+        <%= render(::Decor::Daisy::Forms::FileUpload.new(
           name: "file_upload_#{color}",
           label: "#{color.to_s.humanize} File Upload",
           color: color,
@@ -18,7 +18,7 @@
     <h3 class="text-lg font-semibold mb-4">Sizes</h3>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <% [:xs, :sm, :md, :lg, :xl].each do |size| %>
-        <%= render(::Decor::Forms::FileUpload.new(
+        <%= render(::Decor::Daisy::Forms::FileUpload.new(
           name: "file_upload_#{size}",
           label: "#{size.to_s.humanize} File Upload",
           size: size,
@@ -34,7 +34,7 @@
     <div class="space-y-6">
       <div>
         <h4 class="text-md font-medium mb-2">File Style</h4>
-        <%= render(::Decor::Forms::FileUpload.new(
+        <%= render(::Decor::Daisy::Forms::FileUpload.new(
           name: "file_upload_file",
           label: "Upload Document",
           style: :file,
@@ -45,7 +45,7 @@
 
       <div>
         <h4 class="text-md font-medium mb-2">Image Style</h4>
-        <%= render(::Decor::Forms::FileUpload.new(
+        <%= render(::Decor::Daisy::Forms::FileUpload.new(
           name: "file_upload_image",
           label: "Upload Image",
           style: :image,
@@ -57,7 +57,7 @@
 
       <div>
         <h4 class="text-md font-medium mb-2">Avatar Style</h4>
-        <%= render(::Decor::Forms::FileUpload.new(
+        <%= render(::Decor::Daisy::Forms::FileUpload.new(
           name: "file_upload_avatar",
           label: "Upload Avatar",
           style: :avatar,
@@ -72,7 +72,7 @@
 
   <div>
     <h3 class="text-lg font-semibold mb-4">Error State</h3>
-    <%= render(::Decor::Forms::FileUpload.new(
+    <%= render(::Decor::Daisy::Forms::FileUpload.new(
       name: "file_upload_error",
       label: "File Upload with Error",
       error_messages: ["File type not supported"],

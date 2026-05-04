@@ -1,8 +1,8 @@
 require "test_helper"
 
-class Decor::Forms::FileUploadTest < ActiveSupport::TestCase
+class Decor::Daisy::Forms::FileUploadTest < ActiveSupport::TestCase
   test "renders successfully with required attributes" do
-    component = Decor::Forms::FileUpload.new(
+    component = Decor::Daisy::Forms::FileUpload.new(
       name: "avatar",
       label: "Upload Avatar"
     )
@@ -13,7 +13,7 @@ class Decor::Forms::FileUploadTest < ActiveSupport::TestCase
   end
 
   test "renders with DaisyUI file-input classes by default" do
-    component = Decor::Forms::FileUpload.new(
+    component = Decor::Daisy::Forms::FileUpload.new(
       name: "avatar",
       label: "Upload Avatar"
     )
@@ -26,7 +26,7 @@ class Decor::Forms::FileUploadTest < ActiveSupport::TestCase
   end
 
   test "applies color attribute correctly" do
-    component = Decor::Forms::FileUpload.new(
+    component = Decor::Daisy::Forms::FileUpload.new(
       name: "avatar",
       label: "Upload Avatar",
       color: :secondary
@@ -38,7 +38,7 @@ class Decor::Forms::FileUploadTest < ActiveSupport::TestCase
   end
 
   test "applies size attribute correctly" do
-    component = Decor::Forms::FileUpload.new(
+    component = Decor::Daisy::Forms::FileUpload.new(
       name: "avatar",
       label: "Upload Avatar",
       size: :lg
@@ -50,7 +50,7 @@ class Decor::Forms::FileUploadTest < ActiveSupport::TestCase
   end
 
   test "applies error styling when errors present" do
-    component = Decor::Forms::FileUpload.new(
+    component = Decor::Daisy::Forms::FileUpload.new(
       name: "avatar",
       label: "Upload Avatar",
       error_messages: ["File is required"]
@@ -62,7 +62,7 @@ class Decor::Forms::FileUploadTest < ActiveSupport::TestCase
   end
 
   test "supports file mime types" do
-    component = Decor::Forms::FileUpload.new(
+    component = Decor::Daisy::Forms::FileUpload.new(
       name: "avatar",
       label: "Upload Avatar",
       file_mime_types: "image/png,image/jpeg"
@@ -74,7 +74,7 @@ class Decor::Forms::FileUploadTest < ActiveSupport::TestCase
   end
 
   test "component inherits from FormField" do
-    component = Decor::Forms::FileUpload.new(
+    component = Decor::Daisy::Forms::FileUpload.new(
       name: "avatar",
       label: "Upload Avatar"
     )
@@ -83,7 +83,7 @@ class Decor::Forms::FileUploadTest < ActiveSupport::TestCase
   end
 
   test "renders with correct name attribute" do
-    component = Decor::Forms::FileUpload.new(
+    component = Decor::Daisy::Forms::FileUpload.new(
       name: "avatar",
       label: "Upload Avatar"
     )
@@ -95,7 +95,7 @@ class Decor::Forms::FileUploadTest < ActiveSupport::TestCase
   end
 
   test "supports disabled state" do
-    component = Decor::Forms::FileUpload.new(
+    component = Decor::Daisy::Forms::FileUpload.new(
       name: "avatar",
       label: "Upload Avatar",
       disabled: true
@@ -107,7 +107,7 @@ class Decor::Forms::FileUploadTest < ActiveSupport::TestCase
   end
 
   test "supports required attribute" do
-    component = Decor::Forms::FileUpload.new(
+    component = Decor::Daisy::Forms::FileUpload.new(
       name: "avatar",
       label: "Upload Avatar",
       required: true
@@ -119,7 +119,7 @@ class Decor::Forms::FileUploadTest < ActiveSupport::TestCase
   end
 
   test "supports helper text" do
-    component = Decor::Forms::FileUpload.new(
+    component = Decor::Daisy::Forms::FileUpload.new(
       name: "avatar",
       label: "Upload Avatar",
       helper_text: "Choose an image file for your avatar"
@@ -130,7 +130,7 @@ class Decor::Forms::FileUploadTest < ActiveSupport::TestCase
   end
 
   test "supports image style with preview" do
-    component = Decor::Forms::FileUpload.new(
+    component = Decor::Daisy::Forms::FileUpload.new(
       name: "avatar",
       label: "Upload Avatar",
       preview_type: :image,
@@ -144,7 +144,7 @@ class Decor::Forms::FileUploadTest < ActiveSupport::TestCase
   end
 
   test "supports avatar style" do
-    component = Decor::Forms::FileUpload.new(
+    component = Decor::Daisy::Forms::FileUpload.new(
       name: "avatar",
       label: "Upload Avatar",
       preview_type: :avatar,
@@ -156,7 +156,7 @@ class Decor::Forms::FileUploadTest < ActiveSupport::TestCase
   end
 
   test "renders clear checkbox when file exists" do
-    component = Decor::Forms::FileUpload.new(
+    component = Decor::Daisy::Forms::FileUpload.new(
       name: "avatar",
       label: "Upload Avatar",
       existing_file_url: "https://example.com/avatar.jpg",
