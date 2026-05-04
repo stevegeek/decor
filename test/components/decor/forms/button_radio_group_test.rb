@@ -91,7 +91,7 @@ class Decor::Forms::ButtonRadioGroupTest < ActiveSupport::TestCase
       choices: @choices
     )
 
-    assert component.is_a?(Decor::Forms::FormField)
+    assert component.is_a?(Decor::Daisy::Forms::FormField)
   end
 
   test "renders each choice as radio button with correct attributes" do

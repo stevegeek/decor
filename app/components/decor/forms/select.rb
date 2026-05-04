@@ -2,7 +2,7 @@
 
 module Decor
   module Forms
-    class Select < FormField
+    class Select < ::Decor::Daisy::Forms::FormField
       include ::Phlex::Rails::Helpers::OptionsForSelect
       include ::Phlex::Rails::Helpers::GroupedOptionsForSelect
 

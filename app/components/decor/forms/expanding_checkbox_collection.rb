@@ -2,7 +2,7 @@
 
 module Decor
   module Forms
-    class ExpandingCheckboxCollection < FormField
+    class ExpandingCheckboxCollection < ::Decor::Daisy::Forms::FormField
       prop :size, _Nilable(Integer)
       prop :hide_after_showing, _Nilable(Integer)
 

@@ -2,7 +2,7 @@
 
 module Decor
   module Forms
-    class HiddenField < FormField
+    class HiddenField < ::Decor::Daisy::Forms::FormField
       def view_template
         root_element do |el|
           input(

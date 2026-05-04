@@ -2,7 +2,7 @@
 
 module Decor
   module Forms
-    class Checkbox < FormField
+    class Checkbox < ::Decor::Daisy::Forms::FormField
       include ::Decor::Forms::Concerns::CheckableFormField
 
       prop :label_position, _Union(:left, :right, :top), default: :right

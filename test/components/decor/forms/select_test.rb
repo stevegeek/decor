@@ -201,6 +201,6 @@ class Decor::Forms::SelectTest < ActiveSupport::TestCase
       options_array: [["Option 1", "1"]]
     )
 
-    assert component.is_a?(Decor::Forms::FormField)
+    assert component.is_a?(Decor::Daisy::Forms::FormField)
   end
 end

@@ -2,7 +2,7 @@
 
 module Decor
   module Forms
-    class DateCalendar < FormField
+    class DateCalendar < ::Decor::Daisy::Forms::FormField
       # Calendar type - single date, range, or multi-select
       prop :calendar_type, _Union(:date, :range, :multi, :month), default: :date
 

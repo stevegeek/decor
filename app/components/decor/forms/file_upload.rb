@@ -2,7 +2,7 @@
 
 module Decor
   module Forms
-    class FileUpload < FormField
+    class FileUpload < ::Decor::Daisy::Forms::FormField
       include ::Phlex::Rails::Helpers::FileField
       include ::Phlex::Rails::Helpers::FieldName
 

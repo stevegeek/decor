@@ -2,7 +2,7 @@
 
 module Decor
   module Forms
-    class ButtonRadioGroup < FormField
+    class ButtonRadioGroup < ::Decor::Daisy::Forms::FormField
       prop :choices, Array
       prop :selected_choice, _Nilable(String)
 

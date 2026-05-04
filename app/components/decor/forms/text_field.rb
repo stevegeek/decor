@@ -2,7 +2,7 @@
 
 module Decor
   module Forms
-    class TextField < FormField
+    class TextField < ::Decor::Daisy::Forms::FormField
       # Optionally specify the HTML size attribute to control the width in characters of the textbox
       prop :html_size, _Nilable(Integer)
 

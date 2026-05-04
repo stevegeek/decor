@@ -2,7 +2,7 @@
 
 module Decor
   module Forms
-    class TextArea < FormField
+    class TextArea < ::Decor::Daisy::Forms::FormField
       # HTML textarea size attributes by character rows and columns
       prop :rows, Integer, default: 5
       prop :cols, _Nilable(Integer)
