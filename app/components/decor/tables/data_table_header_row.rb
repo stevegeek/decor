@@ -10,7 +10,7 @@ module Decor
       end
 
       def with_data_table_header_cell(component = nil, **attributes, &block)
-        cell = component || ::Decor::Tables::DataTableHeaderCell.new(**attributes)
+        cell = component || ::Decor::Daisy::Tables::DataTableHeaderCell.new(**attributes)
         @data_table_header_cells << cell
         cell
       end

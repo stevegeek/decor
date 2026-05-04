@@ -4,6 +4,8 @@ module Decor
   module Daisy
     module Tables
       class DataTableCell < ::Decor::Components::Tables::DataTableCell
+        include ::Decor::Daisy::Tables::DataTableCellClasses
+
         def view_template(&block)
           root_element do |s|
             if @max_width.present? || @min_width_rem.present?
@@ -33,47 +35,6 @@ module Decor
           ].compact_blank
         end
 
-        def typography_classes
-          [
-            # DaisyUI color system (takes precedence over emphasis)
-            daisyui_color_class,
-            # Legacy emphasis system (only if no daisyUI color is set or is base)
-            (!@color || @color == :base) && @emphasis == :regular && "text-gray-900",
-            (!@color || @color == :base) && @emphasis == :low && "text-gray-500",
-            # Weight classes
-            @weight == :light && "font-light",
-            @weight == :medium && "font-medium",
-            @weight == :regular && "font-normal"
-          ]
-        end
-
-        def row_height_classes
-          case @row_height
-          when :tight
-            "px-3 py-1 text-xs"
-          when :comfortable
-            "px-4 py-4 text-sm"
-          else
-            "px-3 py-2 text-sm"
-          end
-        end
-
-        def daisyui_color_class
-          return nil unless @color && @color != :base
-
-          case @color
-          when :primary then "text-primary"
-          when :secondary then "text-secondary"
-          when :accent then "text-accent"
-          when :neutral then "text-neutral"
-          when :info then "text-info"
-          when :success then "text-success"
-          when :warning then "text-warning"
-          when :error then "text-error"
-          when :base then nil  # base is default, no special color
-          end
-        end
-
         def root_element_attributes
           attrs = {
             element_tag: :td
@@ -85,10 +46,6 @@ module Decor
         end
 
         private
-
-        def numeric?
-          @numeric
-        end
 
         def sort_key?
           @sort_key.present?
