@@ -1,5 +1,5 @@
 # @label ModalOpenButton
-class ::Decor::Modals::ModalOpenButtonPreview < ::Lookbook::Preview
+class ::Decor::Daisy::Modals::ModalOpenButtonPreview < ::Lookbook::Preview
   # Modal Open Button
   # -----------------
   #
@@ -9,7 +9,7 @@ class ::Decor::Modals::ModalOpenButtonPreview < ::Lookbook::Preview
   # @group Examples
   # @label Basic Modal Button
   def basic_modal_button
-    render ::Decor::Modals::ModalOpenButton.new(
+    render ::Decor::Daisy::Modals::ModalOpenButton.new(
       modal_id: "example-modal",
       label: "Open Modal"
     )
@@ -18,7 +18,7 @@ class ::Decor::Modals::ModalOpenButtonPreview < ::Lookbook::Preview
   # @group Examples
   # @label With Initial Content
   def with_initial_content
-    render ::Decor::Modals::ModalOpenButton.new(
+    render ::Decor::Daisy::Modals::ModalOpenButton.new(
       modal_id: "content-modal",
       label: "Open Modal",
       initial_content: "<p>This content appears immediately when the modal opens.</p>"
@@ -28,7 +28,7 @@ class ::Decor::Modals::ModalOpenButtonPreview < ::Lookbook::Preview
   # @group Examples
   # @label With Remote Content
   def with_remote_content
-    render ::Decor::Modals::ModalOpenButton.new(
+    render ::Decor::Daisy::Modals::ModalOpenButton.new(
       modal_id: "remote-modal",
       label: "Load Remote Content",
       content_href: "/lookbook/decor/button_preview/playground",
@@ -39,7 +39,7 @@ class ::Decor::Modals::ModalOpenButtonPreview < ::Lookbook::Preview
   # @group Examples
   # @label Styled Modal Trigger
   def styled_modal_trigger
-    render ::Decor::Modals::ModalOpenButton.new(
+    render ::Decor::Daisy::Modals::ModalOpenButton.new(
       modal_id: "styled-modal",
       label: "Delete Item",
       icon: "x",
@@ -74,7 +74,7 @@ class ::Decor::Modals::ModalOpenButtonPreview < ::Lookbook::Preview
     disabled: false,
     full_width: false
   )
-    render ::Decor::Modals::ModalOpenButton.new(
+    render ::Decor::Daisy::Modals::ModalOpenButton.new(
       modal_id: modal_id,
       label: label,
       initial_content: initial_content,
@@ -112,7 +112,7 @@ class ::Decor::Modals::ModalOpenButtonPreview < ::Lookbook::Preview
   # @group Sizes
   # @label Extra Small
   def size_xs
-    render ::Decor::Modals::ModalOpenButton.new(
+    render ::Decor::Daisy::Modals::ModalOpenButton.new(
       modal_id: "xs-modal",
       label: "XS Modal",
       size: :xs
@@ -122,7 +122,7 @@ class ::Decor::Modals::ModalOpenButtonPreview < ::Lookbook::Preview
   # @group Sizes
   # @label Small
   def size_sm
-    render ::Decor::Modals::ModalOpenButton.new(
+    render ::Decor::Daisy::Modals::ModalOpenButton.new(
       modal_id: "sm-modal",
       label: "Small Modal",
       size: :sm
@@ -132,7 +132,7 @@ class ::Decor::Modals::ModalOpenButtonPreview < ::Lookbook::Preview
   # @group Sizes
   # @label Medium
   def size_md
-    render ::Decor::Modals::ModalOpenButton.new(
+    render ::Decor::Daisy::Modals::ModalOpenButton.new(
       modal_id: "md-modal",
       label: "Medium Modal",
       size: :md
@@ -142,7 +142,7 @@ class ::Decor::Modals::ModalOpenButtonPreview < ::Lookbook::Preview
   # @group Sizes
   # @label Large
   def size_lg
-    render ::Decor::Modals::ModalOpenButton.new(
+    render ::Decor::Daisy::Modals::ModalOpenButton.new(
       modal_id: "lg-modal",
       label: "Large Modal",
       size: :lg
@@ -152,7 +152,7 @@ class ::Decor::Modals::ModalOpenButtonPreview < ::Lookbook::Preview
   # @group Sizes
   # @label Extra Large
   def size_xl
-    render ::Decor::Modals::ModalOpenButton.new(
+    render ::Decor::Daisy::Modals::ModalOpenButton.new(
       modal_id: "xl-modal",
       label: "XL Modal",
       size: :xl
@@ -162,7 +162,7 @@ class ::Decor::Modals::ModalOpenButtonPreview < ::Lookbook::Preview
   # @group States
   # @label Disabled State
   def disabled_state
-    render ::Decor::Modals::ModalOpenButton.new(
+    render ::Decor::Daisy::Modals::ModalOpenButton.new(
       modal_id: "disabled-modal",
       label: "Disabled Modal Button",
       disabled: true
@@ -172,7 +172,7 @@ class ::Decor::Modals::ModalOpenButtonPreview < ::Lookbook::Preview
   # @group States
   # @label Full Width
   def full_width_state
-    render ::Decor::Modals::ModalOpenButton.new(
+    render ::Decor::Daisy::Modals::ModalOpenButton.new(
       modal_id: "full-width-modal",
       label: "Full Width Modal Button",
       full_width: true
