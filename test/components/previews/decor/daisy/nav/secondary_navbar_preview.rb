@@ -1,11 +1,11 @@
 # @label SecondaryNavbar
-class ::Decor::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
+class ::Decor::Daisy::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
   # The SecondaryNavbar provides flexible sub-navigation for pages with left, center, and right content areas.
   # @!group Examples
 
   # @label Breadcrumb Navigation
   def breadcrumb_navigation
-    render ::Decor::Nav::SecondaryNavbar.new(style: :narrow, bottom_border: true) do |navbar|
+    render ::Decor::Daisy::Nav::SecondaryNavbar.new(style: :narrow, bottom_border: true) do |navbar|
       navbar.with_left do
         render ::Decor::Nav::Breadcrumbs.new(
           breadcrumbs: [
@@ -27,7 +27,7 @@ class ::Decor::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
 
   # @label Action Toolbar
   def action_toolbar
-    render ::Decor::Nav::SecondaryNavbar.new(style: :wide, bottom_border: true) do |navbar|
+    render ::Decor::Daisy::Nav::SecondaryNavbar.new(style: :wide, bottom_border: true) do |navbar|
       navbar.with_left do
         render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "flex items-center gap-4"}}) do
           render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :h2, html_root_element_attributes: {class: "text-xl font-bold text-base-content"}}) do
@@ -55,7 +55,7 @@ class ::Decor::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
 
   # @label Tab Navigation
   def tab_navigation
-    render ::Decor::Nav::SecondaryNavbar.new(style: :narrow, bottom_border: true) do |navbar|
+    render ::Decor::Daisy::Nav::SecondaryNavbar.new(style: :narrow, bottom_border: true) do |navbar|
       navbar.with_left do
         render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :h3, html_root_element_attributes: {class: "text-lg font-semibold text-base-content"}}) do
           "Project Settings"
@@ -91,7 +91,7 @@ class ::Decor::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
   # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
   # @param style [Symbol] select [~, filled, outlined, ghost]
   def playground(navbar_style: :narrow, has_left_element: true, has_center_element: true, has_right_element: true, has_bottom_border: false, size: nil, color: nil, style: nil)
-    render ::Decor::Nav::SecondaryNavbar.new(
+    render ::Decor::Daisy::Nav::SecondaryNavbar.new(
       style: navbar_style,
       bottom_border: has_bottom_border,
       size: size,
@@ -134,7 +134,7 @@ class ::Decor::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
 
   # @label Narrow Style
   def narrow_style
-    render ::Decor::Nav::SecondaryNavbar.new(style: :narrow, bottom_border: true) do |navbar|
+    render ::Decor::Daisy::Nav::SecondaryNavbar.new(style: :narrow, bottom_border: true) do |navbar|
       navbar.with_left do
         render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :h2, html_root_element_attributes: {class: "text-lg font-semibold text-base-content"}}) do
           "Narrow Container"
@@ -149,7 +149,7 @@ class ::Decor::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
 
   # @label Wide Style
   def wide_style
-    render ::Decor::Nav::SecondaryNavbar.new(style: :wide, bottom_border: true) do |navbar|
+    render ::Decor::Daisy::Nav::SecondaryNavbar.new(style: :wide, bottom_border: true) do |navbar|
       navbar.with_left do
         render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :h2, html_root_element_attributes: {class: "text-lg font-semibold text-base-content"}}) do
           "Wide Container"
@@ -168,7 +168,7 @@ class ::Decor::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
 
   # @label Left Content Only
   def left_only
-    render ::Decor::Nav::SecondaryNavbar.new(style: :narrow) do |navbar|
+    render ::Decor::Daisy::Nav::SecondaryNavbar.new(style: :narrow) do |navbar|
       navbar.with_left do
         render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :h2, html_root_element_attributes: {class: "text-lg font-semibold text-base-content"}}) do
           "Page Title"
@@ -179,7 +179,7 @@ class ::Decor::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
 
   # @label Center Content Only
   def center_only
-    render ::Decor::Nav::SecondaryNavbar.new(style: :narrow) do |navbar|
+    render ::Decor::Daisy::Nav::SecondaryNavbar.new(style: :narrow) do |navbar|
       navbar.with_center do
         render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "tabs tabs-boxed"}}) do
           render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :a, html_root_element_attributes: {class: "tab tab-active"}}) { "Tab 1" }
@@ -192,7 +192,7 @@ class ::Decor::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
 
   # @label Right Content Only
   def right_only
-    render ::Decor::Nav::SecondaryNavbar.new(style: :narrow) do |navbar|
+    render ::Decor::Daisy::Nav::SecondaryNavbar.new(style: :narrow) do |navbar|
       navbar.with_right do
         render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "flex gap-2"}}) do
           render ::Decor::Daisy::Button.new(label: "Cancel", size: :sm, style: :outlined)
@@ -204,7 +204,7 @@ class ::Decor::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
 
   # @label Full Layout
   def full_layout
-    render ::Decor::Nav::SecondaryNavbar.new(style: :wide, bottom_border: true) do |navbar|
+    render ::Decor::Daisy::Nav::SecondaryNavbar.new(style: :wide, bottom_border: true) do |navbar|
       navbar.with_left do
         render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :h1, html_root_element_attributes: {class: "text-lg font-semibold text-base-content"}}) do
           "Dashboard Overview"
