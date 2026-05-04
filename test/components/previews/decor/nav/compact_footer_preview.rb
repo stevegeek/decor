@@ -12,14 +12,14 @@ class ::Decor::Nav::CompactFooterPreview < ::Lookbook::Preview
     render ::Decor::Nav::CompactFooter.new(
       company_name: "Example Company",
       social_links: [
-        ::Decor::Nav::Footer::SocialLink.new(platform: :twitter, url: "https://twitter.com/example"),
-        ::Decor::Nav::Footer::SocialLink.new(platform: :github, url: "https://github.com/example"),
-        ::Decor::Nav::Footer::SocialLink.new(platform: :linkedin, url: "https://linkedin.com/company/example")
+        ::Decor::Daisy::Nav::Footer::SocialLink.new(platform: :twitter, url: "https://twitter.com/example"),
+        ::Decor::Daisy::Nav::Footer::SocialLink.new(platform: :github, url: "https://github.com/example"),
+        ::Decor::Daisy::Nav::Footer::SocialLink.new(platform: :linkedin, url: "https://linkedin.com/company/example")
       ],
       footer_links: [
-        ::Decor::Nav::Footer::FooterLink.new(label: "Support", href: "/support"),
-        ::Decor::Nav::Footer::FooterLink.new(label: "Privacy", href: "/privacy"),
-        ::Decor::Nav::Footer::FooterLink.new(label: "Terms", href: "/terms")
+        ::Decor::Daisy::Nav::Footer::FooterLink.new(label: "Support", href: "/support"),
+        ::Decor::Daisy::Nav::Footer::FooterLink.new(label: "Privacy", href: "/privacy"),
+        ::Decor::Daisy::Nav::Footer::FooterLink.new(label: "Terms", href: "/terms")
       ]
     )
   end
@@ -30,12 +30,12 @@ class ::Decor::Nav::CompactFooterPreview < ::Lookbook::Preview
     render ::Decor::Nav::CompactFooter.new(
       company_name: "Example Company",
       social_links: [
-        ::Decor::Nav::Footer::SocialLink.new(platform: :facebook, url: "https://facebook.com/example"),
-        ::Decor::Nav::Footer::SocialLink.new(platform: :twitter, url: "https://twitter.com/example"),
-        ::Decor::Nav::Footer::SocialLink.new(platform: :instagram, url: "https://instagram.com/example"),
-        ::Decor::Nav::Footer::SocialLink.new(platform: :linkedin, url: "https://linkedin.com/company/example"),
-        ::Decor::Nav::Footer::SocialLink.new(platform: :youtube, url: "https://youtube.com/@example"),
-        ::Decor::Nav::Footer::SocialLink.new(platform: :github, url: "https://github.com/example")
+        ::Decor::Daisy::Nav::Footer::SocialLink.new(platform: :facebook, url: "https://facebook.com/example"),
+        ::Decor::Daisy::Nav::Footer::SocialLink.new(platform: :twitter, url: "https://twitter.com/example"),
+        ::Decor::Daisy::Nav::Footer::SocialLink.new(platform: :instagram, url: "https://instagram.com/example"),
+        ::Decor::Daisy::Nav::Footer::SocialLink.new(platform: :linkedin, url: "https://linkedin.com/company/example"),
+        ::Decor::Daisy::Nav::Footer::SocialLink.new(platform: :youtube, url: "https://youtube.com/@example"),
+        ::Decor::Daisy::Nav::Footer::SocialLink.new(platform: :github, url: "https://github.com/example")
       ]
     )
   end
@@ -132,17 +132,17 @@ class ::Decor::Nav::CompactFooterPreview < ::Lookbook::Preview
 
   def standard_social_links
     [
-      ::Decor::Nav::Footer::SocialLink.new(platform: :twitter, url: "https://twitter.com/example"),
-      ::Decor::Nav::Footer::SocialLink.new(platform: :github, url: "https://github.com/example"),
-      ::Decor::Nav::Footer::SocialLink.new(platform: :linkedin, url: "https://linkedin.com/company/example")
+      ::Decor::Daisy::Nav::Footer::SocialLink.new(platform: :twitter, url: "https://twitter.com/example"),
+      ::Decor::Daisy::Nav::Footer::SocialLink.new(platform: :github, url: "https://github.com/example"),
+      ::Decor::Daisy::Nav::Footer::SocialLink.new(platform: :linkedin, url: "https://linkedin.com/company/example")
     ]
   end
 
   def standard_footer_links
     [
-      ::Decor::Nav::Footer::FooterLink.new(label: "Support", href: "/support"),
-      ::Decor::Nav::Footer::FooterLink.new(label: "Privacy", href: "/privacy"),
-      ::Decor::Nav::Footer::FooterLink.new(label: "Terms", href: "/terms")
+      ::Decor::Daisy::Nav::Footer::FooterLink.new(label: "Support", href: "/support"),
+      ::Decor::Daisy::Nav::Footer::FooterLink.new(label: "Privacy", href: "/privacy"),
+      ::Decor::Daisy::Nav::Footer::FooterLink.new(label: "Terms", href: "/terms")
     ]
   end
 end

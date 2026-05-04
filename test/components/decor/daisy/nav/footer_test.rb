@@ -1,8 +1,8 @@
 require "test_helper"
 
-class Decor::Nav::FooterTest < ActiveSupport::TestCase
+class Decor::Daisy::Nav::FooterTest < ActiveSupport::TestCase
   test "renders successfully with required attributes" do
-    component = Decor::Nav::Footer.new(company_name: "Test Company")
+    component = Decor::Daisy::Nav::Footer.new(company_name: "Test Company")
     rendered = render_component(component)
 
     assert_includes rendered, "footer"
@@ -10,7 +10,7 @@ class Decor::Nav::FooterTest < ActiveSupport::TestCase
   end
 
   test "renders with daisyUI footer classes" do
-    component = Decor::Nav::Footer.new(company_name: "Test Company")
+    component = Decor::Daisy::Nav::Footer.new(company_name: "Test Company")
     rendered = render_component(component)
 
     assert_includes rendered, "footer"
@@ -19,7 +19,7 @@ class Decor::Nav::FooterTest < ActiveSupport::TestCase
   end
 
   test "renders with light theme" do
-    component = Decor::Nav::Footer.new(company_name: "Test Company", theme: :light)
+    component = Decor::Daisy::Nav::Footer.new(company_name: "Test Company", theme: :light)
     rendered = render_component(component)
 
     assert_includes rendered, "footer"
@@ -29,16 +29,16 @@ class Decor::Nav::FooterTest < ActiveSupport::TestCase
 
   test "renders link groups with Literal::Data" do
     link_groups = [
-      Decor::Nav::Footer::LinkGroup.new(
+      Decor::Daisy::Nav::Footer::LinkGroup.new(
         title: "Products",
         links: [
-          Decor::Nav::Footer::FooterLink.new(label: "Feature A", href: "/feature-a"),
-          Decor::Nav::Footer::FooterLink.new(label: "Feature B", href: "/feature-b", external: true)
+          Decor::Daisy::Nav::Footer::FooterLink.new(label: "Feature A", href: "/feature-a"),
+          Decor::Daisy::Nav::Footer::FooterLink.new(label: "Feature B", href: "/feature-b", external: true)
         ]
       )
     ]
 
-    component = Decor::Nav::Footer.new(
+    component = Decor::Daisy::Nav::Footer.new(
       company_name: "Test Company",
       link_groups: link_groups
     )
@@ -53,11 +53,11 @@ class Decor::Nav::FooterTest < ActiveSupport::TestCase
 
   test "renders social links with Literal::Data" do
     social_links = [
-      Decor::Nav::Footer::SocialLink.new(platform: :twitter, url: "https://twitter.com/test"),
-      Decor::Nav::Footer::SocialLink.new(platform: :github, url: "https://github.com/test")
+      Decor::Daisy::Nav::Footer::SocialLink.new(platform: :twitter, url: "https://twitter.com/test"),
+      Decor::Daisy::Nav::Footer::SocialLink.new(platform: :github, url: "https://github.com/test")
     ]
 
-    component = Decor::Nav::Footer.new(
+    component = Decor::Daisy::Nav::Footer.new(
       company_name: "Test Company",
       social_links: social_links
     )
@@ -69,7 +69,7 @@ class Decor::Nav::FooterTest < ActiveSupport::TestCase
   end
 
   test "supports logo content slot" do
-    rendered = render_component(Decor::Nav::Footer.new(company_name: "Test Company")) do |f|
+    rendered = render_component(Decor::Daisy::Nav::Footer.new(company_name: "Test Company")) do |f|
       f.with_logo { f.div { "Custom Logo" } }
     end
 
@@ -77,7 +77,7 @@ class Decor::Nav::FooterTest < ActiveSupport::TestCase
   end
 
   test "supports custom content slot" do
-    rendered = render_component(Decor::Nav::Footer.new(company_name: "Test Company")) do |f|
+    rendered = render_component(Decor::Daisy::Nav::Footer.new(company_name: "Test Company")) do |f|
       f.with_content { f.div { "Footer content" } }
     end
 
@@ -85,7 +85,7 @@ class Decor::Nav::FooterTest < ActiveSupport::TestCase
   end
 
   test "supports custom links slot" do
-    rendered = render_component(Decor::Nav::Footer.new(company_name: "Test Company")) do |f|
+    rendered = render_component(Decor::Daisy::Nav::Footer.new(company_name: "Test Company")) do |f|
       f.with_links { f.a(href: "/about") { "About" } }
     end
 
@@ -93,7 +93,7 @@ class Decor::Nav::FooterTest < ActiveSupport::TestCase
   end
 
   test "supports copyright slot" do
-    rendered = render_component(Decor::Nav::Footer.new(company_name: "Test Company")) do |f|
+    rendered = render_component(Decor::Daisy::Nav::Footer.new(company_name: "Test Company")) do |f|
       f.with_copyright { f.plain "© 2024 Custom Copyright" }
     end
 
@@ -103,7 +103,7 @@ class Decor::Nav::FooterTest < ActiveSupport::TestCase
   # Newsletter test temporarily disabled due to complex form builder setup requirements
   # test "renders newsletter section when configured" do
   #   mock_model = TestModel.new
-  #   component = Decor::Nav::Footer.new(
+  #   component = Decor::Daisy::Nav::Footer.new(
   #     company_name: "Test Company",
   #     leads_model: mock_model,
   #     leads_submit_path: "/leads",
@@ -116,7 +116,7 @@ class Decor::Nav::FooterTest < ActiveSupport::TestCase
   # end
 
   test "hides newsletter section when disabled" do
-    component = Decor::Nav::Footer.new(
+    component = Decor::Daisy::Nav::Footer.new(
       company_name: "Test Company",
       show_newsletter: false
     )
@@ -127,19 +127,19 @@ class Decor::Nav::FooterTest < ActiveSupport::TestCase
 
   test "renders only visible link groups" do
     link_groups = [
-      Decor::Nav::Footer::LinkGroup.new(
+      Decor::Daisy::Nav::Footer::LinkGroup.new(
         title: "Visible Group",
         visible: true,
-        links: [Decor::Nav::Footer::FooterLink.new(label: "Visible Link", href: "/visible")]
+        links: [Decor::Daisy::Nav::Footer::FooterLink.new(label: "Visible Link", href: "/visible")]
       ),
-      Decor::Nav::Footer::LinkGroup.new(
+      Decor::Daisy::Nav::Footer::LinkGroup.new(
         title: "Hidden Group",
         visible: false,
-        links: [Decor::Nav::Footer::FooterLink.new(label: "Hidden Link", href: "/hidden")]
+        links: [Decor::Daisy::Nav::Footer::FooterLink.new(label: "Hidden Link", href: "/hidden")]
       )
     ]
 
-    component = Decor::Nav::Footer.new(
+    component = Decor::Daisy::Nav::Footer.new(
       company_name: "Test Company",
       link_groups: link_groups
     )
@@ -153,11 +153,11 @@ class Decor::Nav::FooterTest < ActiveSupport::TestCase
 
   test "renders only visible social links" do
     social_links = [
-      Decor::Nav::Footer::SocialLink.new(platform: :twitter, url: "https://twitter.com/test", visible: true),
-      Decor::Nav::Footer::SocialLink.new(platform: :facebook, url: "https://facebook.com/test", visible: false)
+      Decor::Daisy::Nav::Footer::SocialLink.new(platform: :twitter, url: "https://twitter.com/test", visible: true),
+      Decor::Daisy::Nav::Footer::SocialLink.new(platform: :facebook, url: "https://facebook.com/test", visible: false)
     ]
 
-    component = Decor::Nav::Footer.new(
+    component = Decor::Daisy::Nav::Footer.new(
       company_name: "Test Company",
       social_links: social_links
     )
@@ -168,14 +168,14 @@ class Decor::Nav::FooterTest < ActiveSupport::TestCase
   end
 
   test "component inherits from PhlexComponent" do
-    component = Decor::Nav::Footer.new(company_name: "Test Company")
+    component = Decor::Daisy::Nav::Footer.new(company_name: "Test Company")
 
     assert component.is_a?(Decor::PhlexComponent)
   end
 
   test "validates required company_name attribute" do
     assert_raises(Literal::TypeError) do
-      Decor::Nav::Footer.new(company_name: nil)
+      Decor::Daisy::Nav::Footer.new(company_name: nil)
     end
   end
 end

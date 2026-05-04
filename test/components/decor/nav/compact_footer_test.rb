@@ -38,8 +38,8 @@ class Decor::Nav::CompactFooterTest < ActiveSupport::TestCase
 
   test "renders social links with Literal::Data" do
     social_links = [
-      Decor::Nav::Footer::SocialLink.new(platform: :twitter, url: "https://twitter.com/test"),
-      Decor::Nav::Footer::SocialLink.new(platform: :github, url: "https://github.com/test")
+      Decor::Daisy::Nav::Footer::SocialLink.new(platform: :twitter, url: "https://twitter.com/test"),
+      Decor::Daisy::Nav::Footer::SocialLink.new(platform: :github, url: "https://github.com/test")
     ]
 
     component = Decor::Nav::CompactFooter.new(
@@ -55,8 +55,8 @@ class Decor::Nav::CompactFooterTest < ActiveSupport::TestCase
 
   test "renders footer links with Literal::Data" do
     footer_links = [
-      Decor::Nav::Footer::FooterLink.new(label: "Support", href: "/support"),
-      Decor::Nav::Footer::FooterLink.new(label: "Privacy", href: "/privacy", external: true)
+      Decor::Daisy::Nav::Footer::FooterLink.new(label: "Support", href: "/support"),
+      Decor::Daisy::Nav::Footer::FooterLink.new(label: "Privacy", href: "/privacy", external: true)
     ]
 
     component = Decor::Nav::CompactFooter.new(
@@ -107,8 +107,8 @@ class Decor::Nav::CompactFooterTest < ActiveSupport::TestCase
 
   test "renders only visible social links" do
     social_links = [
-      Decor::Nav::Footer::SocialLink.new(platform: :twitter, url: "https://twitter.com/test", visible: true),
-      Decor::Nav::Footer::SocialLink.new(platform: :facebook, url: "https://facebook.com/test", visible: false)
+      Decor::Daisy::Nav::Footer::SocialLink.new(platform: :twitter, url: "https://twitter.com/test", visible: true),
+      Decor::Daisy::Nav::Footer::SocialLink.new(platform: :facebook, url: "https://facebook.com/test", visible: false)
     ]
 
     component = Decor::Nav::CompactFooter.new(
@@ -123,12 +123,12 @@ class Decor::Nav::CompactFooterTest < ActiveSupport::TestCase
 
   test "renders all supported social platforms" do
     social_links = [
-      Decor::Nav::Footer::SocialLink.new(platform: :facebook, url: "https://facebook.com/test"),
-      Decor::Nav::Footer::SocialLink.new(platform: :twitter, url: "https://twitter.com/test"),
-      Decor::Nav::Footer::SocialLink.new(platform: :instagram, url: "https://instagram.com/test"),
-      Decor::Nav::Footer::SocialLink.new(platform: :linkedin, url: "https://linkedin.com/company/test"),
-      Decor::Nav::Footer::SocialLink.new(platform: :youtube, url: "https://youtube.com/@test"),
-      Decor::Nav::Footer::SocialLink.new(platform: :github, url: "https://github.com/test")
+      Decor::Daisy::Nav::Footer::SocialLink.new(platform: :facebook, url: "https://facebook.com/test"),
+      Decor::Daisy::Nav::Footer::SocialLink.new(platform: :twitter, url: "https://twitter.com/test"),
+      Decor::Daisy::Nav::Footer::SocialLink.new(platform: :instagram, url: "https://instagram.com/test"),
+      Decor::Daisy::Nav::Footer::SocialLink.new(platform: :linkedin, url: "https://linkedin.com/company/test"),
+      Decor::Daisy::Nav::Footer::SocialLink.new(platform: :youtube, url: "https://youtube.com/@test"),
+      Decor::Daisy::Nav::Footer::SocialLink.new(platform: :github, url: "https://github.com/test")
     ]
 
     component = Decor::Nav::CompactFooter.new(
@@ -144,8 +144,8 @@ class Decor::Nav::CompactFooterTest < ActiveSupport::TestCase
 
   test "renders external link attributes correctly" do
     footer_links = [
-      Decor::Nav::Footer::FooterLink.new(label: "Internal", href: "/internal", external: false),
-      Decor::Nav::Footer::FooterLink.new(label: "External", href: "https://external.com", external: true)
+      Decor::Daisy::Nav::Footer::FooterLink.new(label: "Internal", href: "/internal", external: false),
+      Decor::Daisy::Nav::Footer::FooterLink.new(label: "External", href: "https://external.com", external: true)
     ]
 
     component = Decor::Nav::CompactFooter.new(

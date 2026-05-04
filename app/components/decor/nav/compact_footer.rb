@@ -2,7 +2,7 @@
 
 module Decor
   module Nav
-    class CompactFooter < Footer
+    class CompactFooter < ::Decor::Daisy::Nav::Footer
       include Phlex::Rails::Helpers::ImagePath
 
       prop :status_site_url, _Nilable(String)

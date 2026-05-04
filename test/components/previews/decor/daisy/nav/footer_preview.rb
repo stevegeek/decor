@@ -1,5 +1,5 @@
 # @label Footer
-class ::Decor::Nav::FooterPreview < ::Lookbook::Preview
+class ::Decor::Daisy::Nav::FooterPreview < ::Lookbook::Preview
   # Footer
   # ------
   #
@@ -9,38 +9,38 @@ class ::Decor::Nav::FooterPreview < ::Lookbook::Preview
   # @group Examples
   # @label Default Footer
   def default
-    render ::Decor::Nav::Footer.new(
+    render ::Decor::Daisy::Nav::Footer.new(
       company_name: "Example Company",
       link_groups: [
-        ::Decor::Nav::Footer::LinkGroup.new(
+        ::Decor::Daisy::Nav::Footer::LinkGroup.new(
           title: "Products",
           links: [
-            ::Decor::Nav::Footer::FooterLink.new(label: "Features", href: "/features"),
-            ::Decor::Nav::Footer::FooterLink.new(label: "Pricing", href: "/pricing"),
-            ::Decor::Nav::Footer::FooterLink.new(label: "Enterprise", href: "/enterprise")
+            ::Decor::Daisy::Nav::Footer::FooterLink.new(label: "Features", href: "/features"),
+            ::Decor::Daisy::Nav::Footer::FooterLink.new(label: "Pricing", href: "/pricing"),
+            ::Decor::Daisy::Nav::Footer::FooterLink.new(label: "Enterprise", href: "/enterprise")
           ]
         ),
-        ::Decor::Nav::Footer::LinkGroup.new(
+        ::Decor::Daisy::Nav::Footer::LinkGroup.new(
           title: "Resources",
           links: [
-            ::Decor::Nav::Footer::FooterLink.new(label: "Documentation", href: "/docs"),
-            ::Decor::Nav::Footer::FooterLink.new(label: "API Reference", href: "/api", external: true),
-            ::Decor::Nav::Footer::FooterLink.new(label: "Support", href: "/support", icon: "support")
+            ::Decor::Daisy::Nav::Footer::FooterLink.new(label: "Documentation", href: "/docs"),
+            ::Decor::Daisy::Nav::Footer::FooterLink.new(label: "API Reference", href: "/api", external: true),
+            ::Decor::Daisy::Nav::Footer::FooterLink.new(label: "Support", href: "/support", icon: "support")
           ]
         ),
-        ::Decor::Nav::Footer::LinkGroup.new(
+        ::Decor::Daisy::Nav::Footer::LinkGroup.new(
           title: "Company",
           links: [
-            ::Decor::Nav::Footer::FooterLink.new(label: "About", href: "/about"),
-            ::Decor::Nav::Footer::FooterLink.new(label: "Blog", href: "/blog"),
-            ::Decor::Nav::Footer::FooterLink.new(label: "Careers", href: "/careers")
+            ::Decor::Daisy::Nav::Footer::FooterLink.new(label: "About", href: "/about"),
+            ::Decor::Daisy::Nav::Footer::FooterLink.new(label: "Blog", href: "/blog"),
+            ::Decor::Daisy::Nav::Footer::FooterLink.new(label: "Careers", href: "/careers")
           ]
         )
       ],
       social_links: [
-        ::Decor::Nav::Footer::SocialLink.new(platform: :twitter, url: "https://twitter.com/example"),
-        ::Decor::Nav::Footer::SocialLink.new(platform: :github, url: "https://github.com/example"),
-        ::Decor::Nav::Footer::SocialLink.new(platform: :linkedin, url: "https://linkedin.com/company/example")
+        ::Decor::Daisy::Nav::Footer::SocialLink.new(platform: :twitter, url: "https://twitter.com/example"),
+        ::Decor::Daisy::Nav::Footer::SocialLink.new(platform: :github, url: "https://github.com/example"),
+        ::Decor::Daisy::Nav::Footer::SocialLink.new(platform: :linkedin, url: "https://linkedin.com/company/example")
       ]
     )
   end
@@ -48,23 +48,23 @@ class ::Decor::Nav::FooterPreview < ::Lookbook::Preview
   # @group Examples
   # @label Footer with Newsletter
   def with_newsletter
-    render ::Decor::Nav::Footer.new(
+    render ::Decor::Daisy::Nav::Footer.new(
       company_name: "Example Company",
       show_newsletter: true,
       leads_submit_path: "/leads",
       link_groups: [
-        ::Decor::Nav::Footer::LinkGroup.new(
+        ::Decor::Daisy::Nav::Footer::LinkGroup.new(
           title: "Quick Links",
           links: [
-            ::Decor::Nav::Footer::FooterLink.new(label: "Home", href: "/"),
-            ::Decor::Nav::Footer::FooterLink.new(label: "About", href: "/about"),
-            ::Decor::Nav::Footer::FooterLink.new(label: "Contact", href: "/contact")
+            ::Decor::Daisy::Nav::Footer::FooterLink.new(label: "Home", href: "/"),
+            ::Decor::Daisy::Nav::Footer::FooterLink.new(label: "About", href: "/about"),
+            ::Decor::Daisy::Nav::Footer::FooterLink.new(label: "Contact", href: "/contact")
           ]
         )
       ],
       social_links: [
-        ::Decor::Nav::Footer::SocialLink.new(platform: :facebook, url: "https://facebook.com/example"),
-        ::Decor::Nav::Footer::SocialLink.new(platform: :instagram, url: "https://instagram.com/example")
+        ::Decor::Daisy::Nav::Footer::SocialLink.new(platform: :facebook, url: "https://facebook.com/example"),
+        ::Decor::Daisy::Nav::Footer::SocialLink.new(platform: :instagram, url: "https://instagram.com/example")
       ]
     )
   end
@@ -72,7 +72,7 @@ class ::Decor::Nav::FooterPreview < ::Lookbook::Preview
   # @group Examples
   # @label Custom Content Areas
   def with_custom_content
-    render ::Decor::Nav::Footer.new(
+    render ::Decor::Daisy::Nav::Footer.new(
       company_name: "Example Company",
       show_newsletter: false
     ) do |component|
@@ -124,7 +124,7 @@ class ::Decor::Nav::FooterPreview < ::Lookbook::Preview
   # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
   # @param style [Symbol] select [~, filled, outlined, ghost]
   def playground(company_name: "Example Company", theme: :dark, show_newsletter: true, show_social: true, size: nil, color: nil, style: nil)
-    render ::Decor::Nav::Footer.new(
+    render ::Decor::Daisy::Nav::Footer.new(
       company_name: company_name,
       theme: theme,
       show_newsletter: show_newsletter,
@@ -133,17 +133,17 @@ class ::Decor::Nav::FooterPreview < ::Lookbook::Preview
       color: color,
       style: style,
       link_groups: [
-        ::Decor::Nav::Footer::LinkGroup.new(
+        ::Decor::Daisy::Nav::Footer::LinkGroup.new(
           title: "Company",
           links: [
-            ::Decor::Nav::Footer::FooterLink.new(label: "About", href: "/about"),
-            ::Decor::Nav::Footer::FooterLink.new(label: "Careers", href: "/careers")
+            ::Decor::Daisy::Nav::Footer::FooterLink.new(label: "About", href: "/about"),
+            ::Decor::Daisy::Nav::Footer::FooterLink.new(label: "Careers", href: "/careers")
           ]
         )
       ],
       social_links: show_social ? [
-        ::Decor::Nav::Footer::SocialLink.new(platform: :twitter, url: "https://twitter.com/company"),
-        ::Decor::Nav::Footer::SocialLink.new(platform: :github, url: "https://github.com/company")
+        ::Decor::Daisy::Nav::Footer::SocialLink.new(platform: :twitter, url: "https://twitter.com/company"),
+        ::Decor::Daisy::Nav::Footer::SocialLink.new(platform: :github, url: "https://github.com/company")
       ] : []
     )
   end
@@ -151,7 +151,7 @@ class ::Decor::Nav::FooterPreview < ::Lookbook::Preview
   # @group Themes
   # @label Dark Theme
   def theme_dark
-    render ::Decor::Nav::Footer.new(
+    render ::Decor::Daisy::Nav::Footer.new(
       company_name: "Example Company",
       theme: :dark,
       link_groups: standard_link_groups,
@@ -162,7 +162,7 @@ class ::Decor::Nav::FooterPreview < ::Lookbook::Preview
   # @group Themes
   # @label Light Theme
   def theme_light
-    render ::Decor::Nav::Footer.new(
+    render ::Decor::Daisy::Nav::Footer.new(
       company_name: "Example Company",
       theme: :light,
       link_groups: standard_link_groups,
@@ -173,27 +173,27 @@ class ::Decor::Nav::FooterPreview < ::Lookbook::Preview
   # @group Link Visibility
   # @label Selective Visibility
   def with_visibility_control
-    render ::Decor::Nav::Footer.new(
+    render ::Decor::Daisy::Nav::Footer.new(
       company_name: "Example Company",
       link_groups: [
-        ::Decor::Nav::Footer::LinkGroup.new(
+        ::Decor::Daisy::Nav::Footer::LinkGroup.new(
           title: "Visible Group",
           visible: true,
           links: [
-            ::Decor::Nav::Footer::FooterLink.new(label: "Public Link", href: "/public")
+            ::Decor::Daisy::Nav::Footer::FooterLink.new(label: "Public Link", href: "/public")
           ]
         ),
-        ::Decor::Nav::Footer::LinkGroup.new(
+        ::Decor::Daisy::Nav::Footer::LinkGroup.new(
           title: "Hidden Group",
           visible: false,
           links: [
-            ::Decor::Nav::Footer::FooterLink.new(label: "Hidden Link", href: "/hidden")
+            ::Decor::Daisy::Nav::Footer::FooterLink.new(label: "Hidden Link", href: "/hidden")
           ]
         )
       ],
       social_links: [
-        ::Decor::Nav::Footer::SocialLink.new(platform: :twitter, url: "https://twitter.com/example", visible: true),
-        ::Decor::Nav::Footer::SocialLink.new(platform: :facebook, url: "https://facebook.com/example", visible: false)
+        ::Decor::Daisy::Nav::Footer::SocialLink.new(platform: :twitter, url: "https://twitter.com/example", visible: true),
+        ::Decor::Daisy::Nav::Footer::SocialLink.new(platform: :facebook, url: "https://facebook.com/example", visible: false)
       ]
     )
   end
@@ -202,12 +202,12 @@ class ::Decor::Nav::FooterPreview < ::Lookbook::Preview
 
   def standard_link_groups
     [
-      ::Decor::Nav::Footer::LinkGroup.new(
+      ::Decor::Daisy::Nav::Footer::LinkGroup.new(
         title: "Services",
         links: [
-          ::Decor::Nav::Footer::FooterLink.new(label: "Web Development", href: "/web"),
-          ::Decor::Nav::Footer::FooterLink.new(label: "Mobile Apps", href: "/mobile"),
-          ::Decor::Nav::Footer::FooterLink.new(label: "Consulting", href: "/consulting")
+          ::Decor::Daisy::Nav::Footer::FooterLink.new(label: "Web Development", href: "/web"),
+          ::Decor::Daisy::Nav::Footer::FooterLink.new(label: "Mobile Apps", href: "/mobile"),
+          ::Decor::Daisy::Nav::Footer::FooterLink.new(label: "Consulting", href: "/consulting")
         ]
       )
     ]
@@ -215,8 +215,8 @@ class ::Decor::Nav::FooterPreview < ::Lookbook::Preview
 
   def standard_social_links
     [
-      ::Decor::Nav::Footer::SocialLink.new(platform: :github, url: "https://github.com/example"),
-      ::Decor::Nav::Footer::SocialLink.new(platform: :youtube, url: "https://youtube.com/@example")
+      ::Decor::Daisy::Nav::Footer::SocialLink.new(platform: :github, url: "https://github.com/example"),
+      ::Decor::Daisy::Nav::Footer::SocialLink.new(platform: :youtube, url: "https://youtube.com/@example")
     ]
   end
 end
