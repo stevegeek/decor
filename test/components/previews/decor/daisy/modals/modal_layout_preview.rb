@@ -2,12 +2,12 @@
 #
 # A layout component for modals that provides a consistent structure with header, body, and footer sections.
 # Supports customizable icons, titles, descriptions, and various styling options.
-class ::Decor::Modals::ModalLayoutPreview < ::Lookbook::Preview
+class ::Decor::Daisy::Modals::ModalLayoutPreview < ::Lookbook::Preview
   # @!group Examples
 
   # @label Default
   def default
-    render ::Decor::Modals::ModalLayout.new(
+    render ::Decor::Daisy::Modals::ModalLayout.new(
       icon: "information-circle",
       title: "Modal Title",
       description: "This is a modal description",
@@ -19,7 +19,7 @@ class ::Decor::Modals::ModalLayoutPreview < ::Lookbook::Preview
 
   # @label With Slots
   def with_slots
-    modal = ::Decor::Modals::ModalLayout.new(size: :lg, color: :primary, classes: "opacity-100")
+    modal = ::Decor::Daisy::Modals::ModalLayout.new(size: :lg, color: :primary, classes: "opacity-100")
     modal.with_header do
       modal.h2(class: "text-xl font-bold") { "Custom Header" }
     end
@@ -35,7 +35,7 @@ class ::Decor::Modals::ModalLayoutPreview < ::Lookbook::Preview
 
   # @label Confirmation Dialog
   def confirmation_dialog
-    render ::Decor::Modals::ModalLayout.new(
+    render ::Decor::Daisy::Modals::ModalLayout.new(
       icon: "exclamation-triangle",
       color: :warning,
       title: "Are you sure?",
@@ -68,7 +68,7 @@ class ::Decor::Modals::ModalLayoutPreview < ::Lookbook::Preview
     color: nil,
     style: nil
   )
-    render ::Decor::Modals::ModalLayout.new(
+    render ::Decor::Daisy::Modals::ModalLayout.new(
       icon: icon,
       title: title,
       description: description,
@@ -91,7 +91,7 @@ class ::Decor::Modals::ModalLayoutPreview < ::Lookbook::Preview
       locals: {
         modals: %i[sm md lg xl].map do |size|
           {
-            modal: ::Decor::Modals::ModalLayout.new(
+            modal: ::Decor::Daisy::Modals::ModalLayout.new(
               size: size,
               title: "#{size.to_s.upcase} Modal",
               description: "This modal uses the #{size} size variant",
@@ -113,7 +113,7 @@ class ::Decor::Modals::ModalLayoutPreview < ::Lookbook::Preview
     render_with_template(
       locals: {
         modals: %i[primary secondary accent info success warning error].map do |color|
-          ::Decor::Modals::ModalLayout.new(
+          ::Decor::Daisy::Modals::ModalLayout.new(
             color: color,
             title: "#{color.to_s.capitalize} Modal",
             description: "This is a #{color} colored modal",
@@ -133,7 +133,7 @@ class ::Decor::Modals::ModalLayoutPreview < ::Lookbook::Preview
     render_with_template(
       locals: {
         modals: %i[filled outlined ghost].map do |style|
-          ::Decor::Modals::ModalLayout.new(
+          ::Decor::Daisy::Modals::ModalLayout.new(
             style: style,
             color: :primary,
             title: "#{style.to_s.capitalize} Style",

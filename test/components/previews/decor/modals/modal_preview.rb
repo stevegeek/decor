@@ -83,7 +83,7 @@ class ::Decor::Modals::ModalPreview < ::Lookbook::Preview
     render ::Decor::Modals::Modal.new(
       start_shown: true
     ) do
-      render ::Decor::Modals::ModalLayout.new(
+      render ::Decor::Daisy::Modals::ModalLayout.new(
         icon: "exclamation-triangle",
         title: "Confirm Action",
         description: "Are you sure you want to proceed? This action cannot be undone.",
@@ -109,7 +109,7 @@ class ::Decor::Modals::ModalPreview < ::Lookbook::Preview
     render ::Decor::Modals::Modal.new(
       start_shown: true
     ) do
-      render ::Decor::Modals::ModalLayout.new(
+      render ::Decor::Daisy::Modals::ModalLayout.new(
         title: "Edit Profile",
         description: "Update your profile information",
         size: :lg
