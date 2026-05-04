@@ -3,7 +3,7 @@
 module Decor
   module Chat
     class List < PhlexComponent
-      prop :messages, _Array(::Decor::Chat::ListMessage), default: -> { [] }
+      prop :messages, _Array(::Decor::Daisy::Chat::ListMessage), default: -> { [] }
       prop :empty_state_title, String, default: "No messages yet."
       prop :empty_state_description, String, default: "Start a conversation by sending a message."
 

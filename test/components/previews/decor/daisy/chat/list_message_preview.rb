@@ -1,5 +1,5 @@
 # @label Chat Message
-class ::Decor::Chat::ListMessagePreview < ::Lookbook::Preview
+class ::Decor::Daisy::Chat::ListMessagePreview < ::Lookbook::Preview
   # Chat Message
   # ------------
   #
@@ -9,7 +9,7 @@ class ::Decor::Chat::ListMessagePreview < ::Lookbook::Preview
   # @!group Examples
 
   def basic_incoming_message
-    render ::Decor::Chat::ListMessage.new(
+    render ::Decor::Daisy::Chat::ListMessage.new(
       author_name: "Bob Smith",
       author_initials: "BS",
       message: "Hello there!",
@@ -18,7 +18,7 @@ class ::Decor::Chat::ListMessagePreview < ::Lookbook::Preview
   end
 
   def basic_outgoing_message
-    render ::Decor::Chat::ListMessage.new(
+    render ::Decor::Daisy::Chat::ListMessage.new(
       author_name: "You",
       message: "Hi! How can I help you?",
       is_current_user: true
@@ -26,7 +26,7 @@ class ::Decor::Chat::ListMessagePreview < ::Lookbook::Preview
   end
 
   def message_with_profile_image
-    render ::Decor::Chat::ListMessage.new(
+    render ::Decor::Daisy::Chat::ListMessage.new(
       author_name: "Emma Davis",
       author_profile_image_url: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150",
       message: "Thanks for the quick response!",
@@ -35,7 +35,7 @@ class ::Decor::Chat::ListMessagePreview < ::Lookbook::Preview
   end
 
   def message_with_attachment
-    render ::Decor::Chat::ListMessage.new(
+    render ::Decor::Daisy::Chat::ListMessage.new(
       author_name: "Mike Chen",
       author_initials: "MC",
       message: "Here's the document you requested:",
@@ -58,24 +58,24 @@ class ::Decor::Chat::ListMessagePreview < ::Lookbook::Preview
   def long_conversation_example
     render ::Decor::Chat::List.new(
       messages: [
-        ::Decor::Chat::ListMessage.new(
+        ::Decor::Daisy::Chat::ListMessage.new(
           author_name: "Team Lead",
           author_initials: "TL",
           message: "Good morning team! Ready for today's standup?",
           is_current_user: false
         ),
-        ::Decor::Chat::ListMessage.new(
+        ::Decor::Daisy::Chat::ListMessage.new(
           author_name: "You",
           message: "Yes! I've completed the user authentication module and started working on the dashboard.",
           is_current_user: true
         ),
-        ::Decor::Chat::ListMessage.new(
+        ::Decor::Daisy::Chat::ListMessage.new(
           author_name: "Team Lead",
           author_initials: "TL",
           message: "Excellent progress! Any blockers?",
           is_current_user: false
         ),
-        ::Decor::Chat::ListMessage.new(
+        ::Decor::Daisy::Chat::ListMessage.new(
           author_name: "You",
           message: "No blockers currently. Everything is on track for the sprint goal.",
           is_current_user: true
@@ -92,7 +92,7 @@ class ::Decor::Chat::ListMessagePreview < ::Lookbook::Preview
     when :incoming
       render ::Decor::Chat::List.new(
         messages: [
-          ::Decor::Chat::ListMessage.new(
+          ::Decor::Daisy::Chat::ListMessage.new(
             author_name: "Sarah Wilson",
             author_initials: "SW",
             message: "Hey! How's the project coming along?",
@@ -103,7 +103,7 @@ class ::Decor::Chat::ListMessagePreview < ::Lookbook::Preview
     when :outgoing
       render ::Decor::Chat::List.new(
         messages: [
-          ::Decor::Chat::ListMessage.new(
+          ::Decor::Daisy::Chat::ListMessage.new(
             author_name: "You",
             message: "It's going great! Almost finished with the first milestone.",
             is_current_user: true
@@ -113,7 +113,7 @@ class ::Decor::Chat::ListMessagePreview < ::Lookbook::Preview
     when :with_avatar
       render ::Decor::Chat::List.new(
         messages: [
-          ::Decor::Chat::ListMessage.new(
+          ::Decor::Daisy::Chat::ListMessage.new(
             author_name: "John Doe",
             author_profile_image_url: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150",
             message: "The design looks fantastic!",
@@ -124,7 +124,7 @@ class ::Decor::Chat::ListMessagePreview < ::Lookbook::Preview
     when :with_attachment
       render ::Decor::Chat::List.new(
         messages: [
-          ::Decor::Chat::ListMessage.new(
+          ::Decor::Daisy::Chat::ListMessage.new(
             author_name: "Alice Johnson",
             author_initials: "AJ",
             message: "Here's the updated mockup for review:",

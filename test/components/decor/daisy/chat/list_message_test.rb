@@ -1,8 +1,8 @@
 require "test_helper"
 
-class Decor::Chat::ListMessageTest < ActiveSupport::TestCase
+class Decor::Daisy::Chat::ListMessageTest < ActiveSupport::TestCase
   def setup
-    @message_component = Decor::Chat::ListMessage.new(
+    @message_component = Decor::Daisy::Chat::ListMessage.new(
       author_name: "John Doe",
       message: "Hello, how are you today?",
       is_current_user: false,
@@ -36,7 +36,7 @@ class Decor::Chat::ListMessageTest < ActiveSupport::TestCase
   end
 
   test "supports current user message styling" do
-    current_user_message = Decor::Chat::ListMessage.new(
+    current_user_message = Decor::Daisy::Chat::ListMessage.new(
       author_name: "You",
       message: "My message",
       is_current_user: true
@@ -70,7 +70,7 @@ class Decor::Chat::ListMessageTest < ActiveSupport::TestCase
   end
 
   test "supports avatar display" do
-    message_with_avatar = Decor::Chat::ListMessage.new(
+    message_with_avatar = Decor::Daisy::Chat::ListMessage.new(
       author_name: "Jane Smith",
       author_initials: "JS",
       message: "Message with avatar",
@@ -83,7 +83,7 @@ class Decor::Chat::ListMessageTest < ActiveSupport::TestCase
   end
 
   test "supports timestamp display" do
-    timestamped_message = Decor::Chat::ListMessage.new(
+    timestamped_message = Decor::Daisy::Chat::ListMessage.new(
       author_name: "User",
       message: "Timestamped message",
       localised_created_at: 2.hours.ago,
@@ -97,7 +97,7 @@ class Decor::Chat::ListMessageTest < ActiveSupport::TestCase
   end
 
   test "supports footer text" do
-    message_with_footer = Decor::Chat::ListMessage.new(
+    message_with_footer = Decor::Daisy::Chat::ListMessage.new(
       author_name: "User",
       message: "Message with footer",
       footer_text: "Delivered",
@@ -110,7 +110,7 @@ class Decor::Chat::ListMessageTest < ActiveSupport::TestCase
   end
 
   test "handles old timestamps correctly" do
-    old_message = Decor::Chat::ListMessage.new(
+    old_message = Decor::Daisy::Chat::ListMessage.new(
       author_name: "User",
       message: "Old message",
       localised_created_at: 2.days.ago,
@@ -131,7 +131,7 @@ class Decor::Chat::ListMessageTest < ActiveSupport::TestCase
   end
 
   test "supports attachment block" do
-    message_with_attachment = Decor::Chat::ListMessage.new(
+    message_with_attachment = Decor::Daisy::Chat::ListMessage.new(
       author_name: "User",
       message: "Message with attachment",
       is_current_user: false
@@ -147,7 +147,7 @@ class Decor::Chat::ListMessageTest < ActiveSupport::TestCase
   end
 
   test "message text appears before attachment content" do
-    message_with_attachment = Decor::Chat::ListMessage.new(
+    message_with_attachment = Decor::Daisy::Chat::ListMessage.new(
       author_name: "User",
       message: "TEXT_FIRST",
       is_current_user: false
@@ -167,7 +167,7 @@ class Decor::Chat::ListMessageTest < ActiveSupport::TestCase
   end
 
   test "supports attachment without message text" do
-    message_attachment_only = Decor::Chat::ListMessage.new(
+    message_attachment_only = Decor::Daisy::Chat::ListMessage.new(
       author_name: "User",
       message: "",
       is_current_user: false
@@ -185,7 +185,7 @@ class Decor::Chat::ListMessageTest < ActiveSupport::TestCase
   end
 
   test "supports message text without attachment" do
-    message_text_only = Decor::Chat::ListMessage.new(
+    message_text_only = Decor::Daisy::Chat::ListMessage.new(
       author_name: "User",
       message: "TEXT_ONLY",
       is_current_user: false
@@ -199,7 +199,7 @@ class Decor::Chat::ListMessageTest < ActiveSupport::TestCase
   end
 
   test "complex attachment with card and button renders correctly" do
-    message_with_complex_attachment = Decor::Chat::ListMessage.new(
+    message_with_complex_attachment = Decor::Daisy::Chat::ListMessage.new(
       author_name: "Alice Johnson",
       message: "Complex message text",
       is_current_user: false

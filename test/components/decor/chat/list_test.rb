@@ -2,12 +2,12 @@ require "test_helper"
 
 class Decor::Chat::ListTest < ActiveSupport::TestCase
   def setup
-    @message1 = Decor::Chat::ListMessage.new(
+    @message1 = Decor::Daisy::Chat::ListMessage.new(
       author_name: "John",
       message: "Hello there!",
       is_current_user: false
     )
-    @message2 = Decor::Chat::ListMessage.new(
+    @message2 = Decor::Daisy::Chat::ListMessage.new(
       author_name: "Jane",
       message: "How are you?",
       is_current_user: false

@@ -9,13 +9,13 @@ class ::Decor::Chat::ListPreview < ::Lookbook::Preview
   def basic_chat
     render ::Decor::Chat::List.new(
       messages: [
-        ::Decor::Chat::ListMessage.new(
+        ::Decor::Daisy::Chat::ListMessage.new(
           author_name: "Obi-Wan Kenobi",
           message: "You were the Chosen One!",
           is_current_user: false,
           footer_text: "Seen"
         ),
-        ::Decor::Chat::ListMessage.new(
+        ::Decor::Daisy::Chat::ListMessage.new(
           author_name: "Anakin",
           message: "...",
           is_current_user: true,
@@ -28,13 +28,13 @@ class ::Decor::Chat::ListPreview < ::Lookbook::Preview
   def chat_with_avatars
     render ::Decor::Chat::List.new(
       messages: [
-        ::Decor::Chat::ListMessage.new(
+        ::Decor::Daisy::Chat::ListMessage.new(
           author_name: "Emma Davis",
           author_profile_image_url: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150",
           message: "Check out this amazing sunset!",
           is_current_user: false
         ),
-        ::Decor::Chat::ListMessage.new(
+        ::Decor::Daisy::Chat::ListMessage.new(
           author_name: "You",
           message: "Wow, that's beautiful! Where was this taken?",
           is_current_user: true
@@ -57,24 +57,24 @@ class ::Decor::Chat::ListPreview < ::Lookbook::Preview
   def avatar_variations_example
     render ::Decor::Chat::List.new(
       messages: [
-        ::Decor::Chat::ListMessage.new(
+        ::Decor::Daisy::Chat::ListMessage.new(
           author_name: "Alice Johnson",
           author_profile_image_url: "https://images.unsplash.com/photo-1494790108755-2616b612b606?w=150",
           message: "Using profile image URL with Decor::Daisy::Avatar",
           is_current_user: false
         ),
-        ::Decor::Chat::ListMessage.new(
+        ::Decor::Daisy::Chat::ListMessage.new(
           author_name: "Bob Smith",
           author_initials: "BS",
           message: "Using custom initials with Decor::Daisy::Avatar",
           is_current_user: false
         ),
-        ::Decor::Chat::ListMessage.new(
+        ::Decor::Daisy::Chat::ListMessage.new(
           author_name: "Carol Davis",
           message: "Using fallback (first letter) with Decor::Daisy::Avatar",
           is_current_user: false
         ),
-        ::Decor::Chat::ListMessage.new(
+        ::Decor::Daisy::Chat::ListMessage.new(
           author_name: "You",
           message: "Current user message (no avatar by default)",
           is_current_user: true
@@ -86,21 +86,21 @@ class ::Decor::Chat::ListPreview < ::Lookbook::Preview
   def timestamp_formatting_example
     render ::Decor::Chat::List.new(
       messages: [
-        ::Decor::Chat::ListMessage.new(
+        ::Decor::Daisy::Chat::ListMessage.new(
           author_name: "Alice",
           message: "Old message (shows date)",
           localised_created_at: 3.days.ago,
           is_current_user: false,
           footer_text: "Read"
         ),
-        ::Decor::Chat::ListMessage.new(
+        ::Decor::Daisy::Chat::ListMessage.new(
           author_name: "Bob",
           message: "Recent message (shows time)",
           localised_created_at: 30.minutes.ago,
           is_current_user: false,
           footer_text: "Delivered"
         ),
-        ::Decor::Chat::ListMessage.new(
+        ::Decor::Daisy::Chat::ListMessage.new(
           author_name: "You",
           message: "Just now",
           localised_created_at: 5.minutes.ago,
@@ -114,13 +114,13 @@ class ::Decor::Chat::ListPreview < ::Lookbook::Preview
     render ::Decor::Chat::List.new(
       messages: [
         # Messages with header and footer (first daisyUI pattern)
-        ::Decor::Chat::ListMessage.new(
+        ::Decor::Daisy::Chat::ListMessage.new(
           author_name: "Obi-Wan Kenobi",
           message: "You were the Chosen One!",
           is_current_user: false,
           footer_text: "Seen"
         ),
-        ::Decor::Chat::ListMessage.new(
+        ::Decor::Daisy::Chat::ListMessage.new(
           author_name: "Obi-Wan Kenobi",
           message: "I loved you.",
           is_current_user: false,
@@ -128,21 +128,21 @@ class ::Decor::Chat::ListPreview < ::Lookbook::Preview
         ),
 
         # Messages with avatars (second daisyUI pattern)
-        ::Decor::Chat::ListMessage.new(
+        ::Decor::Daisy::Chat::ListMessage.new(
           author_name: "Obi-Wan Kenobi",
           author_profile_image_url: "https://img.daisyui.com/images/profile/demo/kenobee@192.webp",
           message: "It was said that you would, destroy the Sith, not join them.",
           is_current_user: false,
           show_timestamp: false
         ),
-        ::Decor::Chat::ListMessage.new(
+        ::Decor::Daisy::Chat::ListMessage.new(
           author_name: "Obi-Wan Kenobi",
           author_profile_image_url: "https://img.daisyui.com/images/profile/demo/kenobee@192.webp",
           message: "It was you who would bring balance to the Force",
           is_current_user: false,
           show_timestamp: false
         ),
-        ::Decor::Chat::ListMessage.new(
+        ::Decor::Daisy::Chat::ListMessage.new(
           author_name: "Obi-Wan Kenobi",
           author_profile_image_url: "https://img.daisyui.com/images/profile/demo/kenobee@192.webp",
           message: "Not leave it in Darkness",
@@ -167,14 +167,14 @@ class ::Decor::Chat::ListPreview < ::Lookbook::Preview
     when :simple
       render ::Decor::Chat::List.new(
         messages: [
-          ::Decor::Chat::ListMessage.new(
+          ::Decor::Daisy::Chat::ListMessage.new(
             author_name: "Obi-Wan Kenobi",
             message: "You were the Chosen One!",
             is_current_user: false,
             footer_text: "Seen",
             localised_created_at: Time.current - 36.hours
           ),
-          ::Decor::Chat::ListMessage.new(
+          ::Decor::Daisy::Chat::ListMessage.new(
             author_name: "Obi-Wan Kenobi",
             message: "I loved you.",
             is_current_user: false,
@@ -185,21 +185,21 @@ class ::Decor::Chat::ListPreview < ::Lookbook::Preview
     when :conversation
       render ::Decor::Chat::List.new(
         messages: [
-          ::Decor::Chat::ListMessage.new(
+          ::Decor::Daisy::Chat::ListMessage.new(
             author_name: "Obi-Wan Kenobi",
             author_profile_image_url: "https://img.daisyui.com/images/profile/demo/kenobee@192.webp",
             message: "It was said that you would, destroy the Sith, not join them.",
             is_current_user: false,
             show_timestamp: false
           ),
-          ::Decor::Chat::ListMessage.new(
+          ::Decor::Daisy::Chat::ListMessage.new(
             author_name: "Obi-Wan Kenobi",
             author_profile_image_url: "https://img.daisyui.com/images/profile/demo/kenobee@192.webp",
             message: "It was you who would bring balance to the Force",
             is_current_user: false,
             show_timestamp: false
           ),
-          ::Decor::Chat::ListMessage.new(
+          ::Decor::Daisy::Chat::ListMessage.new(
             author_name: "Obi-Wan Kenobi",
             author_profile_image_url: "https://img.daisyui.com/images/profile/demo/kenobee@192.webp",
             message: "Not leave it in Darkness",
@@ -211,20 +211,20 @@ class ::Decor::Chat::ListPreview < ::Lookbook::Preview
     when :mixed_users
       render ::Decor::Chat::List.new(
         messages: [
-          ::Decor::Chat::ListMessage.new(
+          ::Decor::Daisy::Chat::ListMessage.new(
             author_name: "Sarah Wilson",
             author_initials: "SW",
             author_profile_image_url: "https://images.unsplash.com/photo-1494790108755-2616b612b606?w=150",
             message: "Welcome to the team chat!",
             is_current_user: false
           ),
-          ::Decor::Chat::ListMessage.new(
+          ::Decor::Daisy::Chat::ListMessage.new(
             author_name: "Mike Chen",
             author_initials: "MC",
             message: "Thanks! Excited to be working with everyone.",
             is_current_user: false
           ),
-          ::Decor::Chat::ListMessage.new(
+          ::Decor::Daisy::Chat::ListMessage.new(
             author_name: "You",
             message: "Great to have you aboard! Let me know if you need anything.",
             is_current_user: true
@@ -234,25 +234,25 @@ class ::Decor::Chat::ListPreview < ::Lookbook::Preview
     when :time_formats
       render ::Decor::Chat::List.new(
         messages: [
-          ::Decor::Chat::ListMessage.new(
+          ::Decor::Daisy::Chat::ListMessage.new(
             author_name: "Alice",
             message: "This message is from 2 days ago",
             localised_created_at: 2.days.ago,
             is_current_user: false
           ),
-          ::Decor::Chat::ListMessage.new(
+          ::Decor::Daisy::Chat::ListMessage.new(
             author_name: "Bob",
             message: "This message is from 1 day ago",
             localised_created_at: 1.day.ago,
             is_current_user: false
           ),
-          ::Decor::Chat::ListMessage.new(
+          ::Decor::Daisy::Chat::ListMessage.new(
             author_name: "You",
             message: "This message is from 2 hours ago",
             localised_created_at: 2.hours.ago,
             is_current_user: true
           ),
-          ::Decor::Chat::ListMessage.new(
+          ::Decor::Daisy::Chat::ListMessage.new(
             author_name: "Carol",
             message: "This message is recent (30 minutes ago)",
             localised_created_at: 30.minutes.ago,

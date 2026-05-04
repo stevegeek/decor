@@ -89,7 +89,7 @@ If you find any issues or missing components, please open a PR to improve the do
 
 ### Layout & Utility Components
 - [Decor::Chat::List](#decorchatlist)
-- [Decor::Chat::ListMessage](#decorchatlistmessage)
+- [Decor::Daisy::Chat::ListMessage](#decordaisychatlistmessage)
 - [Decor::Daisy::ClickToCopy](#decordaisyclicktocopy)
 - [Decor::Daisy::CodeBlock](#decordaisycodeblock)
 - [Decor::Daisy::CodeSnippet](#decordaisycodesnippet)
@@ -1966,15 +1966,15 @@ _(and the shared properties `size`, `color`, and `style` as described above)_
 
 ---
 
-### Decor::Chat::ListMessage
+### Decor::Daisy::Chat::ListMessage
 
-<span id="decorchatlistmessage"></span>
+<span id="decordaisychatlistmessage"></span>
 
 Chat Message Individual chat message component using daisyUI styling. Supports different message types, avatars, attachments, and user positioning.
 
 **Basic Usage:**
 ```ruby
-render Decor::Chat::ListMessage.new(author_name: "...") do
+render Decor::Daisy::Chat::ListMessage.new(author_name: "...") do
   "Content goes here"
 end
 ```
