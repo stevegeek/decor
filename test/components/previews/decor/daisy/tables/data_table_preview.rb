@@ -86,7 +86,7 @@ class ::Decor::Daisy::Tables::DataTablePreview < ::Lookbook::Preview
       title: "Transaction History"
     ) do |table|
       table.with_pagination do
-        render ::Decor::Pagination.new(
+        render ::Decor::Daisy::Pagination.new(
           path: "/",
           collection: collection,
           page_size: 10,
@@ -199,7 +199,7 @@ class ::Decor::Daisy::Tables::DataTablePreview < ::Lookbook::Preview
     ) do |table|
       if paginated
         table.with_pagination do
-          render ::Decor::Pagination.new(
+          render ::Decor::Daisy::Pagination.new(
             path: "/",
             collection: collection,
             page_size: 10,

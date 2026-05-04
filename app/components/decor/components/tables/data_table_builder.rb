@@ -256,7 +256,7 @@ module Decor
           if paginated?
             pagination_options = resolved_pagination_options
             data_table_component.with_pagination do
-              render ::Decor::Pagination.new(**pagination_options)
+              render ::Decor::Daisy::Pagination.new(**pagination_options)
             end
           end
         end

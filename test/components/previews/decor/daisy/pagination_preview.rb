@@ -1,5 +1,5 @@
 # @label Pagination
-class ::Decor::PaginationPreview < ::Lookbook::Preview
+class ::Decor::Daisy::PaginationPreview < ::Lookbook::Preview
   # Pagination
   # ----------
   #
@@ -11,7 +11,7 @@ class ::Decor::PaginationPreview < ::Lookbook::Preview
   def basic_pagination
     @collection = ::ApplicationCollectionBackedQuery.wrap((1..100).to_a).new(page: 3, page_size: 20)
 
-    render ::Decor::Pagination.new(
+    render ::Decor::Daisy::Pagination.new(
       current_page: 3,
       page_size: 20,
       path: "/products",
@@ -24,7 +24,7 @@ class ::Decor::PaginationPreview < ::Lookbook::Preview
   def pagination_with_selector
     @collection = ::ApplicationCollectionBackedQuery.wrap((1..250).to_a).new(page: 2, page_size: 25)
 
-    render ::Decor::Pagination.new(
+    render ::Decor::Daisy::Pagination.new(
       current_page: 2,
       page_size: 25,
       path: "/items",
@@ -38,7 +38,7 @@ class ::Decor::PaginationPreview < ::Lookbook::Preview
   def large_dataset_pagination
     @collection = ::ApplicationCollectionBackedQuery.wrap((1..1000).to_a).new(page: 15, page_size: 50)
 
-    render ::Decor::Pagination.new(
+    render ::Decor::Daisy::Pagination.new(
       current_page: 15,
       page_size: 50,
       path: "/records",
@@ -73,7 +73,7 @@ class ::Decor::PaginationPreview < ::Lookbook::Preview
       page_size: per_page || 20
     )
 
-    render ::Decor::Pagination.new(
+    render ::Decor::Daisy::Pagination.new(
       current_page: current_page,
       page_size: per_page,
       total_count: total_count,
@@ -91,7 +91,7 @@ class ::Decor::PaginationPreview < ::Lookbook::Preview
   def first_page
     @collection = ::ApplicationCollectionBackedQuery.wrap((1..100).to_a).new(page: 1, page_size: 10)
 
-    render ::Decor::Pagination.new(
+    render ::Decor::Daisy::Pagination.new(
       current_page: 1,
       page_size: 10,
       path: "/",
@@ -104,7 +104,7 @@ class ::Decor::PaginationPreview < ::Lookbook::Preview
   def last_page
     @collection = ::ApplicationCollectionBackedQuery.wrap((1..100).to_a).new(page: 10, page_size: 10)
 
-    render ::Decor::Pagination.new(
+    render ::Decor::Daisy::Pagination.new(
       current_page: 10,
       page_size: 10,
       path: "/",
@@ -117,7 +117,7 @@ class ::Decor::PaginationPreview < ::Lookbook::Preview
   def single_page
     @collection = ::ApplicationCollectionBackedQuery.wrap((1..8).to_a).new(page: 1, page_size: 20)
 
-    render ::Decor::Pagination.new(
+    render ::Decor::Daisy::Pagination.new(
       current_page: 1,
       page_size: 20,
       path: "/",
@@ -131,7 +131,7 @@ class ::Decor::PaginationPreview < ::Lookbook::Preview
   def few_pages
     @collection = ::ApplicationCollectionBackedQuery.wrap((1..50).to_a).new(page: 2, page_size: 10)
 
-    render ::Decor::Pagination.new(
+    render ::Decor::Daisy::Pagination.new(
       current_page: 2,
       page_size: 10,
       path: "/",
@@ -145,7 +145,7 @@ class ::Decor::PaginationPreview < ::Lookbook::Preview
     fake_items = (1..5000).to_a
     @collection = ::ApplicationCollectionBackedQuery.wrap(fake_items).new(page: 125, page_size: 20)
 
-    render ::Decor::Pagination.new(
+    render ::Decor::Daisy::Pagination.new(
       current_page: 125,
       page_size: 20,
       path: "/",
@@ -159,7 +159,7 @@ class ::Decor::PaginationPreview < ::Lookbook::Preview
   def default_page_sizes
     @collection = ::ApplicationCollectionBackedQuery.wrap((1..300).to_a).new(page: 1, page_size: 20)
 
-    render ::Decor::Pagination.new(
+    render ::Decor::Daisy::Pagination.new(
       current_page: 1,
       page_size: 20,
       path: "/",
@@ -173,7 +173,7 @@ class ::Decor::PaginationPreview < ::Lookbook::Preview
   def custom_page_sizes
     @collection = ::ApplicationCollectionBackedQuery.wrap((1..500).to_a).new(page: 1, page_size: 30)
 
-    render ::Decor::Pagination.new(
+    render ::Decor::Daisy::Pagination.new(
       current_page: 1,
       page_size: 30,
       path: "/",
@@ -188,7 +188,7 @@ class ::Decor::PaginationPreview < ::Lookbook::Preview
   def style_filled
     @collection = ::ApplicationCollectionBackedQuery.wrap((1..100).to_a).new(page: 3, page_size: 10)
 
-    render ::Decor::Pagination.new(
+    render ::Decor::Daisy::Pagination.new(
       current_page: 3,
       page_size: 10,
       path: "/products",
@@ -202,7 +202,7 @@ class ::Decor::PaginationPreview < ::Lookbook::Preview
   def style_outlined
     @collection = ::ApplicationCollectionBackedQuery.wrap((1..100).to_a).new(page: 3, page_size: 10)
 
-    render ::Decor::Pagination.new(
+    render ::Decor::Daisy::Pagination.new(
       current_page: 3,
       page_size: 10,
       path: "/products",
@@ -216,7 +216,7 @@ class ::Decor::PaginationPreview < ::Lookbook::Preview
   def style_ghost
     @collection = ::ApplicationCollectionBackedQuery.wrap((1..100).to_a).new(page: 3, page_size: 10)
 
-    render ::Decor::Pagination.new(
+    render ::Decor::Daisy::Pagination.new(
       current_page: 3,
       page_size: 10,
       path: "/products",
@@ -230,7 +230,7 @@ class ::Decor::PaginationPreview < ::Lookbook::Preview
   def color_primary
     @collection = ::ApplicationCollectionBackedQuery.wrap((1..100).to_a).new(page: 3, page_size: 10)
 
-    render ::Decor::Pagination.new(
+    render ::Decor::Daisy::Pagination.new(
       current_page: 3,
       page_size: 10,
       path: "/products",
@@ -245,7 +245,7 @@ class ::Decor::PaginationPreview < ::Lookbook::Preview
   def color_secondary
     @collection = ::ApplicationCollectionBackedQuery.wrap((1..100).to_a).new(page: 3, page_size: 10)
 
-    render ::Decor::Pagination.new(
+    render ::Decor::Daisy::Pagination.new(
       current_page: 3,
       page_size: 10,
       path: "/products",
@@ -260,7 +260,7 @@ class ::Decor::PaginationPreview < ::Lookbook::Preview
   def size_xs
     @collection = ::ApplicationCollectionBackedQuery.wrap((1..100).to_a).new(page: 3, page_size: 10)
 
-    render ::Decor::Pagination.new(
+    render ::Decor::Daisy::Pagination.new(
       current_page: 3,
       page_size: 10,
       path: "/products",
@@ -274,7 +274,7 @@ class ::Decor::PaginationPreview < ::Lookbook::Preview
   def size_sm
     @collection = ::ApplicationCollectionBackedQuery.wrap((1..100).to_a).new(page: 3, page_size: 10)
 
-    render ::Decor::Pagination.new(
+    render ::Decor::Daisy::Pagination.new(
       current_page: 3,
       page_size: 10,
       path: "/products",
@@ -288,7 +288,7 @@ class ::Decor::PaginationPreview < ::Lookbook::Preview
   def size_lg
     @collection = ::ApplicationCollectionBackedQuery.wrap((1..100).to_a).new(page: 3, page_size: 10)
 
-    render ::Decor::Pagination.new(
+    render ::Decor::Daisy::Pagination.new(
       current_page: 3,
       page_size: 10,
       path: "/products",
@@ -302,7 +302,7 @@ class ::Decor::PaginationPreview < ::Lookbook::Preview
   def size_xl
     @collection = ::ApplicationCollectionBackedQuery.wrap((1..100).to_a).new(page: 3, page_size: 10)
 
-    render ::Decor::Pagination.new(
+    render ::Decor::Daisy::Pagination.new(
       current_page: 3,
       page_size: 10,
       path: "/products",
