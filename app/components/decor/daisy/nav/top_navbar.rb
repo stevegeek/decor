@@ -90,12 +90,12 @@ module Decor
             # navbar-end section
             div(class: "navbar-end") do
               if @notifications_menu
-                notifications_menu = ::Decor::Dropdown.new(**(@notifications_menu_options || {}))
+                notifications_menu = ::Decor::Daisy::Dropdown.new(**(@notifications_menu_options || {}))
                 instance_exec(notifications_menu, &@notifications_menu)
                 render notifications_menu
               end
               if @account_menu
-                account_menu = ::Decor::Dropdown.new(**(@account_menu_options || {}))
+                account_menu = ::Decor::Daisy::Dropdown.new(**(@account_menu_options || {}))
                 instance_exec(account_menu, &@account_menu)
                 render account_menu
               end

@@ -22,7 +22,7 @@ If you find any issues or missing components, please open a PR to improve the do
 - [Decor::Daisy::ButtonLink](#decordaisybuttonlink)
 - [Decor::Daisy::Card](#decordaisycard)
 - [Decor::Carousel](#decorcarousel)
-- [Decor::Dropdown](#decordropdown)
+- [Decor::Daisy::Dropdown](#decordaisydropdown)
 - [Decor::Daisy::DropdownItem](#decordaisydropdownitem)
 - [Decor::Daisy::Flash](#decordaisyflash)
 - [Decor::Daisy::FlowStep](#decordaisyflowstep)
@@ -382,15 +382,15 @@ _(and the shared properties `size`, `color`, and `style` as described above)_
 
 ---
 
-### Decor::Dropdown
+### Decor::Daisy::Dropdown
 
-<span id="decordropdown"></span>
+<span id="decordaisydropdown"></span>
 
 Dropdown A dropdown is a menu that displays when a target button is clicked. Now supports modern DaisyUI attributes for consistent styling.
 
 **Basic Usage:**
 ```ruby
-render Decor::Dropdown.new do |c|
+render Decor::Daisy::Dropdown.new do |c|
   c.with_menu_item do
     # Slot content
   end

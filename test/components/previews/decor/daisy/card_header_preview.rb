@@ -168,7 +168,7 @@ class Decor::Daisy::CardHeaderPreview < ViewComponent::Preview
           color: :secondary
         )
 
-        render Decor::Dropdown.new(
+        render Decor::Daisy::Dropdown.new(
           size: :sm,
           style: :outlined,
           color: :base

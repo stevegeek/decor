@@ -1,5 +1,5 @@
 # @label Dropdown
-class ::Decor::DropdownPreview < ::Lookbook::Preview
+class ::Decor::Daisy::DropdownPreview < ::Lookbook::Preview
   # Dropdown
   # -------
   #
@@ -9,7 +9,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @group Examples
   # @label With Avatar Button
   def example_avatar_button
-    render ::Decor::Dropdown.new(
+    render ::Decor::Daisy::Dropdown.new(
       position: :right # Example of using modern position attribute
     ) do |dropdown|
       dropdown.trigger_button_content do
@@ -29,7 +29,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @group Examples
   # @label With Item Actions
   def example_item_actions
-    render ::Decor::Dropdown.new(color: :primary, style: :outlined) do |dropdown| # Example using modern attributes
+    render ::Decor::Daisy::Dropdown.new(color: :primary, style: :outlined) do |dropdown| # Example using modern attributes
       dropdown.trigger_button_content do
         plain "Actions"
         render ::Decor::Daisy::Icon.new(name: "chevron-down", html_options: {class: "ml-2 -mr-1 h-4 w-4"})
@@ -46,7 +46,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @group Examples
   # @label With Header
   def example_with_header
-    render ::Decor::Dropdown.new(color: :secondary) do |dropdown| # Example using modern attributes
+    render ::Decor::Daisy::Dropdown.new(color: :secondary) do |dropdown| # Example using modern attributes
       dropdown.trigger_button_content do
         plain "User Menu"
         render ::Decor::Daisy::Icon.new(name: "chevron-down", html_options: {class: "ml-2 -mr-1 h-4 w-4"})
@@ -70,7 +70,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @group Examples
   # @label Custom Button
   def example_custom_button
-    render ::Decor::Dropdown.new do |dropdown|
+    render ::Decor::Daisy::Dropdown.new do |dropdown|
       dropdown.trigger_button do
         # Custom button can still be used, ensure it has necessary DaisyUI classes or your own styling
         button(
@@ -97,7 +97,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @param force_open select [Symbol] [auto, open, closed]
   # @param button_active_classes text
   def playground(size: nil, color: nil, style: nil, position: :left, trigger: :click, force_open: :auto, button_active_classes: [])
-    render ::Decor::Dropdown.new(
+    render ::Decor::Daisy::Dropdown.new(
       size: size,
       color: color,
       style: style,
@@ -119,7 +119,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @group Sizes
   # @label XS Size
   def size_xs
-    render ::Decor::Dropdown.new(size: :xs, color: :primary) do |dropdown|
+    render ::Decor::Daisy::Dropdown.new(size: :xs, color: :primary) do |dropdown|
       dropdown.trigger_button_content { "XS Button" }
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 1", href: "#"))
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 2", href: "#"))
@@ -129,7 +129,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @group Sizes
   # @label SM Size
   def size_sm
-    render ::Decor::Dropdown.new(size: :sm, color: :primary) do |dropdown|
+    render ::Decor::Daisy::Dropdown.new(size: :sm, color: :primary) do |dropdown|
       dropdown.trigger_button_content { "SM Button" }
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 1", href: "#"))
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 2", href: "#"))
@@ -139,7 +139,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @group Sizes
   # @label MD Size (Default)
   def size_md
-    render ::Decor::Dropdown.new(size: :md, color: :primary) do |dropdown|
+    render ::Decor::Daisy::Dropdown.new(size: :md, color: :primary) do |dropdown|
       dropdown.trigger_button_content { "MD Button" }
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 1", href: "#"))
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 2", href: "#"))
@@ -149,7 +149,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @group Sizes
   # @label LG Size
   def size_lg
-    render ::Decor::Dropdown.new(size: :lg, color: :primary) do |dropdown|
+    render ::Decor::Daisy::Dropdown.new(size: :lg, color: :primary) do |dropdown|
       dropdown.trigger_button_content { "LG Button" }
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 1", href: "#"))
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 2", href: "#"))
@@ -159,7 +159,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @group Sizes
   # @label XL Size
   def size_xl
-    render ::Decor::Dropdown.new(size: :xl, color: :primary) do |dropdown|
+    render ::Decor::Daisy::Dropdown.new(size: :xl, color: :primary) do |dropdown|
       dropdown.trigger_button_content { "XL Button" }
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 1", href: "#"))
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 2", href: "#"))
@@ -169,7 +169,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @group Colors
   # @label Primary Color
   def color_primary
-    render ::Decor::Dropdown.new(color: :primary) do |dropdown|
+    render ::Decor::Daisy::Dropdown.new(color: :primary) do |dropdown|
       dropdown.trigger_button_content { "Primary" }
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 1", href: "#"))
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 2", href: "#"))
@@ -179,7 +179,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @group Colors
   # @label Secondary Color
   def color_secondary
-    render ::Decor::Dropdown.new(color: :secondary) do |dropdown|
+    render ::Decor::Daisy::Dropdown.new(color: :secondary) do |dropdown|
       dropdown.trigger_button_content { "Secondary" }
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 1", href: "#"))
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 2", href: "#"))
@@ -189,7 +189,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @group Colors
   # @label Accent Color
   def color_accent
-    render ::Decor::Dropdown.new(color: :accent) do |dropdown|
+    render ::Decor::Daisy::Dropdown.new(color: :accent) do |dropdown|
       dropdown.trigger_button_content { "Accent" }
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 1", href: "#"))
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 2", href: "#"))
@@ -199,7 +199,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @group Colors
   # @label Success Color
   def color_success
-    render ::Decor::Dropdown.new(color: :success) do |dropdown|
+    render ::Decor::Daisy::Dropdown.new(color: :success) do |dropdown|
       dropdown.trigger_button_content { "Success" }
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 1", href: "#"))
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 2", href: "#"))
@@ -209,7 +209,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @group Colors
   # @label Error Color
   def color_error
-    render ::Decor::Dropdown.new(color: :error) do |dropdown|
+    render ::Decor::Daisy::Dropdown.new(color: :error) do |dropdown|
       dropdown.trigger_button_content { "Error" }
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 1", href: "#"))
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 2", href: "#"))
@@ -219,7 +219,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @group Colors
   # @label Warning Color
   def color_warning
-    render ::Decor::Dropdown.new(color: :warning) do |dropdown|
+    render ::Decor::Daisy::Dropdown.new(color: :warning) do |dropdown|
       dropdown.trigger_button_content { "Warning" }
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 1", href: "#"))
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 2", href: "#"))
@@ -229,7 +229,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @group Colors
   # @label Info Color
   def color_info
-    render ::Decor::Dropdown.new(color: :info) do |dropdown|
+    render ::Decor::Daisy::Dropdown.new(color: :info) do |dropdown|
       dropdown.trigger_button_content { "Info" }
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 1", href: "#"))
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 2", href: "#"))
@@ -239,7 +239,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @group Colors
   # @label Neutral Color
   def color_neutral
-    render ::Decor::Dropdown.new(color: :neutral) do |dropdown|
+    render ::Decor::Daisy::Dropdown.new(color: :neutral) do |dropdown|
       dropdown.trigger_button_content { "Neutral" }
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 1", href: "#"))
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 2", href: "#"))
@@ -249,7 +249,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @group Styles
   # @label Filled Style
   def style_filled
-    render ::Decor::Dropdown.new(style: :filled, color: :primary) do |dropdown|
+    render ::Decor::Daisy::Dropdown.new(style: :filled, color: :primary) do |dropdown|
       dropdown.trigger_button_content { "Filled Style" }
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 1", href: "#"))
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 2", href: "#"))
@@ -259,7 +259,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @group Styles
   # @label Outlined Style
   def style_outlined
-    render ::Decor::Dropdown.new(style: :outlined, color: :primary) do |dropdown|
+    render ::Decor::Daisy::Dropdown.new(style: :outlined, color: :primary) do |dropdown|
       dropdown.trigger_button_content { "Outlined Style" }
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 1", href: "#"))
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 2", href: "#"))
@@ -269,7 +269,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @group Positions
   # @label Left Position (Default)
   def position_left
-    render ::Decor::Dropdown.new(position: :left, color: :accent) do |dropdown|
+    render ::Decor::Daisy::Dropdown.new(position: :left, color: :accent) do |dropdown|
       dropdown.trigger_button_content { "Left Position" }
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 1", href: "#"))
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 2", href: "#"))
@@ -279,7 +279,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @group Positions
   # @label Right Position
   def position_right
-    render ::Decor::Dropdown.new(position: :right, color: :accent) do |dropdown|
+    render ::Decor::Daisy::Dropdown.new(position: :right, color: :accent) do |dropdown|
       dropdown.trigger_button_content { "Right Position" }
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 1", href: "#"))
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 2", href: "#"))
@@ -289,7 +289,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @group Positions
   # @label Top Position
   def position_top
-    render ::Decor::Dropdown.new(position: :top, color: :accent) do |dropdown|
+    render ::Decor::Daisy::Dropdown.new(position: :top, color: :accent) do |dropdown|
       dropdown.trigger_button_content { "Top Position" }
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 1", href: "#"))
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 2", href: "#"))
@@ -299,7 +299,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @group Positions
   # @label Bottom Position
   def position_bottom
-    render ::Decor::Dropdown.new(position: :bottom, color: :accent) do |dropdown|
+    render ::Decor::Daisy::Dropdown.new(position: :bottom, color: :accent) do |dropdown|
       dropdown.trigger_button_content { "Bottom Position" }
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 1", href: "#"))
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 2", href: "#"))
@@ -309,7 +309,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @group Positions
   # @label End Position
   def position_end
-    render ::Decor::Dropdown.new(position: :end, color: :accent) do |dropdown|
+    render ::Decor::Daisy::Dropdown.new(position: :end, color: :accent) do |dropdown|
       dropdown.trigger_button_content { "End Position" }
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 1", href: "#"))
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 2", href: "#"))
@@ -319,7 +319,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @group Positions
   # @label Center Position
   def position_center
-    render ::Decor::Dropdown.new(position: :center, color: :accent) do |dropdown|
+    render ::Decor::Daisy::Dropdown.new(position: :center, color: :accent) do |dropdown|
       dropdown.trigger_button_content { "Center Position" }
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 1", href: "#"))
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 2", href: "#"))
@@ -329,7 +329,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @group Positions
   # @label Start Position
   def position_start
-    render ::Decor::Dropdown.new(position: :start, color: :accent) do |dropdown|
+    render ::Decor::Daisy::Dropdown.new(position: :start, color: :accent) do |dropdown|
       dropdown.trigger_button_content { "Start Position" }
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 1", href: "#"))
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 2", href: "#"))
@@ -339,7 +339,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @group Examples
   # @label Modern User Profile
   def example_user_profile
-    render ::Decor::Dropdown.new(
+    render ::Decor::Daisy::Dropdown.new(
       position: :end,
       color: :primary,
       style: :outlined
@@ -369,7 +369,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @group Examples
   # @label Large Menu
   def example_large_menu
-    render ::Decor::Dropdown.new(
+    render ::Decor::Daisy::Dropdown.new(
       size: :lg,
       color: :secondary,
       style: :filled
@@ -396,7 +396,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @group Trigger Modes
   # @label Click Trigger (Default)
   def trigger_click
-    render ::Decor::Dropdown.new(trigger: :click, color: :primary) do |dropdown|
+    render ::Decor::Daisy::Dropdown.new(trigger: :click, color: :primary) do |dropdown|
       dropdown.trigger_button_content { "Click to Open" }
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 1", href: "#"))
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 2", href: "#"))
@@ -406,7 +406,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @group Trigger Modes
   # @label Hover Trigger
   def trigger_hover
-    render ::Decor::Dropdown.new(trigger: :hover, color: :secondary) do |dropdown|
+    render ::Decor::Daisy::Dropdown.new(trigger: :hover, color: :secondary) do |dropdown|
       dropdown.trigger_button_content { "Hover to Open" }
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 1", href: "#"))
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 2", href: "#"))
@@ -416,7 +416,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @group Trigger Modes
   # @label Focus Trigger
   def trigger_focus
-    render ::Decor::Dropdown.new(trigger: :focus, color: :accent) do |dropdown|
+    render ::Decor::Daisy::Dropdown.new(trigger: :focus, color: :accent) do |dropdown|
       dropdown.trigger_button_content { "Focus to Open" }
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 1", href: "#"))
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 2", href: "#"))
@@ -426,7 +426,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @group Force States
   # @label Force Open
   def force_open
-    render ::Decor::Dropdown.new(force_open: :open, color: :info) do |dropdown|
+    render ::Decor::Daisy::Dropdown.new(force_open: :open, color: :info) do |dropdown|
       dropdown.trigger_button_content { "Always Open" }
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 1", href: "#"))
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Menu Item 2", href: "#"))
@@ -436,7 +436,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @group Card Content
   # @label Simple Card
   def card_simple
-    render ::Decor::Dropdown.new(
+    render ::Decor::Daisy::Dropdown.new(
       color: :primary,
       position: :end
     ) do |dropdown|
@@ -459,7 +459,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @group Card Content
   # @label Profile Card
   def card_profile
-    render ::Decor::Dropdown.new(
+    render ::Decor::Daisy::Dropdown.new(
       color: :secondary,
       position: :end,
       trigger: :hover
@@ -506,7 +506,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @group Card Content
   # @label Notification Card
   def card_notifications
-    render ::Decor::Dropdown.new(
+    render ::Decor::Daisy::Dropdown.new(
       color: :info,
       position: :end
     ) do |dropdown|
@@ -562,7 +562,7 @@ class ::Decor::DropdownPreview < ::Lookbook::Preview
   # @group Examples
   # @label Custom HTML Content
   def custom_content_example
-    render ::Decor::Dropdown.new(
+    render ::Decor::Daisy::Dropdown.new(
       color: :accent,
       position: :center
     ) do |dropdown|

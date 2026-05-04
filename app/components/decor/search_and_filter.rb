@@ -91,7 +91,7 @@ module Decor
             end
 
             if @filters.present?
-              render ::Decor::Dropdown.new(
+              render ::Decor::Daisy::Dropdown.new(
                 position: :right,
                 stimulus_outlet_host: el
               ) do |dropdown|

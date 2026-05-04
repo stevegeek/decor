@@ -58,7 +58,7 @@ module Decor
             if @page_size_selector
               div(class: "flex items-center gap-2") do
                 span(class: "text-sm text-base-content/70 hidden lg:inline") { "Per page:" }
-                render ::Decor::Dropdown.new(
+                render ::Decor::Daisy::Dropdown.new(
                   size: dropdown_size,
                   style: @style,
                   color: @color
@@ -102,7 +102,7 @@ module Decor
                   ) { page[:index].to_s }
                 else
                   # Ellipsis dropdown with DaisyUI styling
-                  render ::Decor::Dropdown.new(
+                  render ::Decor::Daisy::Dropdown.new(
                     size: dropdown_size,
                     style: :ghost,
                     button_classes: ["border-y-black", "join-item"]
