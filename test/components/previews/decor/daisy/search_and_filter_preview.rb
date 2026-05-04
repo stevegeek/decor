@@ -1,5 +1,5 @@
 # @label SearchAndFilter
-class ::Decor::SearchAndFilterPreview < ::Lookbook::Preview
+class ::Decor::Daisy::SearchAndFilterPreview < ::Lookbook::Preview
   # SearchAndFilter
   # -------
   #
@@ -10,9 +10,9 @@ class ::Decor::SearchAndFilterPreview < ::Lookbook::Preview
   # @group Examples
   # @label Basic Search
   def basic_search
-    render ::Decor::SearchAndFilter.new(
+    render ::Decor::Daisy::SearchAndFilter.new(
       url: "/search",
-      search: ::Decor::SearchAndFilter::Search.new(
+      search: ::Decor::Daisy::SearchAndFilter::Search.new(
         name: "q",
         label: "Search",
         value: ""
@@ -23,15 +23,15 @@ class ::Decor::SearchAndFilterPreview < ::Lookbook::Preview
   # @group Examples
   # @label Search with Select Filter
   def search_with_select
-    render ::Decor::SearchAndFilter.new(
+    render ::Decor::Daisy::SearchAndFilter.new(
       url: "/products",
-      search: ::Decor::SearchAndFilter::Search.new(
+      search: ::Decor::Daisy::SearchAndFilter::Search.new(
         name: "search",
         label: "Search Products",
         value: ""
       ),
       filters: [
-        ::Decor::SearchAndFilter::Filter.new(
+        ::Decor::Daisy::SearchAndFilter::Filter.new(
           type: :select,
           name: "category",
           label: "Category",
@@ -51,16 +51,16 @@ class ::Decor::SearchAndFilterPreview < ::Lookbook::Preview
   # @group Examples
   # @label Full Featured Filters
   def full_featured_filters
-    render ::Decor::SearchAndFilter.new(
+    render ::Decor::Daisy::SearchAndFilter.new(
       url: "/users",
-      search: ::Decor::SearchAndFilter::Search.new(
+      search: ::Decor::Daisy::SearchAndFilter::Search.new(
         name: "search",
         label: "Search Users",
         value: "",
         placeholder: "Name, email, or ID..."
       ),
       filters: [
-        ::Decor::SearchAndFilter::Filter.new(
+        ::Decor::Daisy::SearchAndFilter::Filter.new(
           type: :select,
           name: "status",
           label: "Status",
@@ -72,13 +72,13 @@ class ::Decor::SearchAndFilterPreview < ::Lookbook::Preview
             ["pending", "Pending"]
           ]
         ),
-        ::Decor::SearchAndFilter::Filter.new(
+        ::Decor::Daisy::SearchAndFilter::Filter.new(
           type: :checkbox,
           name: "verified",
           label: "Verified Only",
           value: "true"
         ),
-        ::Decor::SearchAndFilter::Filter.new(
+        ::Decor::Daisy::SearchAndFilter::Filter.new(
           type: :date_range,
           name: "created_at",
           label: "Registration Date",
@@ -101,7 +101,7 @@ class ::Decor::SearchAndFilterPreview < ::Lookbook::Preview
     search = nil
 
     if show_search
-      search = ::Decor::SearchAndFilter::Search.new(
+      search = ::Decor::Daisy::SearchAndFilter::Search.new(
         name: "search_table",
         label: "Search",
         value: ""
@@ -110,27 +110,27 @@ class ::Decor::SearchAndFilterPreview < ::Lookbook::Preview
 
     if show_filters
       filters = [
-        ::Decor::SearchAndFilter::Filter.new(
+        ::Decor::Daisy::SearchAndFilter::Filter.new(
           type: :select,
           name: "select_filter",
           label: "Select Filter",
           value: "",
           options: [["Option 1", "option_1"], ["Option 2", "option_2"]]
         ),
-        ::Decor::SearchAndFilter::Filter.new(
+        ::Decor::Daisy::SearchAndFilter::Filter.new(
           type: :checkbox,
           name: "checkbox",
           label: "Checkbox",
           value: ""
         ),
-        ::Decor::SearchAndFilter::Filter.new(
+        ::Decor::Daisy::SearchAndFilter::Filter.new(
           type: :checkbox,
           name: "checkbox_disabled",
           label: "Checkbox Disabled",
           value: "",
           disabled: true
         ),
-        ::Decor::SearchAndFilter::Filter.new(
+        ::Decor::Daisy::SearchAndFilter::Filter.new(
           type: :date_range,
           name: "date_range",
           label: "Date Range",
@@ -139,7 +139,7 @@ class ::Decor::SearchAndFilterPreview < ::Lookbook::Preview
       ]
     end
 
-    render ::Decor::SearchAndFilter.new(
+    render ::Decor::Daisy::SearchAndFilter.new(
       url: url,
       search: search,
       filters: filters,
@@ -153,15 +153,15 @@ class ::Decor::SearchAndFilterPreview < ::Lookbook::Preview
   # @group Filter Types
   # @label Select Filter
   def filter_select
-    render ::Decor::SearchAndFilter.new(
+    render ::Decor::Daisy::SearchAndFilter.new(
       url: "/filter",
-      search: ::Decor::SearchAndFilter::Search.new(
+      search: ::Decor::Daisy::SearchAndFilter::Search.new(
         name: "q",
         label: "Search",
         value: ""
       ),
       filters: [
-        ::Decor::SearchAndFilter::Filter.new(
+        ::Decor::Daisy::SearchAndFilter::Filter.new(
           type: :select,
           name: "sort_by",
           label: "Sort By",
@@ -180,27 +180,27 @@ class ::Decor::SearchAndFilterPreview < ::Lookbook::Preview
   # @group Filter Types
   # @label Checkbox Filter
   def filter_checkbox
-    render ::Decor::SearchAndFilter.new(
+    render ::Decor::Daisy::SearchAndFilter.new(
       url: "/filter",
-      search: ::Decor::SearchAndFilter::Search.new(
+      search: ::Decor::Daisy::SearchAndFilter::Search.new(
         name: "q",
         label: "Search",
         value: ""
       ),
       filters: [
-        ::Decor::SearchAndFilter::Filter.new(
+        ::Decor::Daisy::SearchAndFilter::Filter.new(
           type: :checkbox,
           name: "in_stock",
           label: "In Stock Only",
           value: ""
         ),
-        ::Decor::SearchAndFilter::Filter.new(
+        ::Decor::Daisy::SearchAndFilter::Filter.new(
           type: :checkbox,
           name: "on_sale",
           label: "On Sale",
           value: ""
         ),
-        ::Decor::SearchAndFilter::Filter.new(
+        ::Decor::Daisy::SearchAndFilter::Filter.new(
           type: :checkbox,
           name: "free_shipping",
           label: "Free Shipping",
@@ -213,10 +213,10 @@ class ::Decor::SearchAndFilterPreview < ::Lookbook::Preview
   # @group Filter Types
   # @label Date Range Filter
   def filter_date_range
-    render ::Decor::SearchAndFilter.new(
+    render ::Decor::Daisy::SearchAndFilter.new(
       url: "/filter",
       filters: [
-        ::Decor::SearchAndFilter::Filter.new(
+        ::Decor::Daisy::SearchAndFilter::Filter.new(
           type: :date_range,
           name: "date_range",
           label: "Date Range",
@@ -230,15 +230,15 @@ class ::Decor::SearchAndFilterPreview < ::Lookbook::Preview
   # @group Filter States
   # @label Disabled Filters
   def disabled_filters
-    render ::Decor::SearchAndFilter.new(
+    render ::Decor::Daisy::SearchAndFilter.new(
       url: "/filter",
-      search: ::Decor::SearchAndFilter::Search.new(
+      search: ::Decor::Daisy::SearchAndFilter::Search.new(
         name: "search",
         label: "Search",
         value: ""
       ),
       filters: [
-        ::Decor::SearchAndFilter::Filter.new(
+        ::Decor::Daisy::SearchAndFilter::Filter.new(
           type: :select,
           name: "category",
           label: "Category (Disabled)",
@@ -246,7 +246,7 @@ class ::Decor::SearchAndFilterPreview < ::Lookbook::Preview
           disabled: true,
           options: [["option1", "Option 1"]]
         ),
-        ::Decor::SearchAndFilter::Filter.new(
+        ::Decor::Daisy::SearchAndFilter::Filter.new(
           type: :checkbox,
           name: "filter",
           label: "Filter (Disabled)",
@@ -260,15 +260,15 @@ class ::Decor::SearchAndFilterPreview < ::Lookbook::Preview
   # @group Filter States
   # @label Pre-filled Values
   def prefilled_values
-    render ::Decor::SearchAndFilter.new(
+    render ::Decor::Daisy::SearchAndFilter.new(
       url: "/search",
-      search: ::Decor::SearchAndFilter::Search.new(
+      search: ::Decor::Daisy::SearchAndFilter::Search.new(
         name: "q",
         label: "Search",
         value: "example search"
       ),
       filters: [
-        ::Decor::SearchAndFilter::Filter.new(
+        ::Decor::Daisy::SearchAndFilter::Filter.new(
           type: :select,
           name: "category",
           label: "Category",
@@ -279,7 +279,7 @@ class ::Decor::SearchAndFilterPreview < ::Lookbook::Preview
             ["books", "Books"]
           ]
         ),
-        ::Decor::SearchAndFilter::Filter.new(
+        ::Decor::Daisy::SearchAndFilter::Filter.new(
           type: :checkbox,
           name: "in_stock",
           label: "In Stock",
@@ -292,16 +292,16 @@ class ::Decor::SearchAndFilterPreview < ::Lookbook::Preview
   # @group Examples
   # @label E-commerce Product Filter
   def ecommerce_filter
-    render ::Decor::SearchAndFilter.new(
+    render ::Decor::Daisy::SearchAndFilter.new(
       url: "/products",
-      search: ::Decor::SearchAndFilter::Search.new(
+      search: ::Decor::Daisy::SearchAndFilter::Search.new(
         name: "search",
         label: "Search Products",
         value: "",
         placeholder: "Search products..."
       ),
       filters: [
-        ::Decor::SearchAndFilter::Filter.new(
+        ::Decor::Daisy::SearchAndFilter::Filter.new(
           type: :select,
           name: "category",
           label: "Category",
@@ -313,7 +313,7 @@ class ::Decor::SearchAndFilterPreview < ::Lookbook::Preview
             ["books", "Books"]
           ]
         ),
-        ::Decor::SearchAndFilter::Filter.new(
+        ::Decor::Daisy::SearchAndFilter::Filter.new(
           type: :select,
           name: "price_range",
           label: "Price Range",
@@ -326,13 +326,13 @@ class ::Decor::SearchAndFilterPreview < ::Lookbook::Preview
             ["200+", "Over $200"]
           ]
         ),
-        ::Decor::SearchAndFilter::Filter.new(
+        ::Decor::Daisy::SearchAndFilter::Filter.new(
           type: :checkbox,
           name: "in_stock",
           label: "In Stock Only",
           value: ""
         ),
-        ::Decor::SearchAndFilter::Filter.new(
+        ::Decor::Daisy::SearchAndFilter::Filter.new(
           type: :checkbox,
           name: "free_shipping",
           label: "Free Shipping",
@@ -345,16 +345,16 @@ class ::Decor::SearchAndFilterPreview < ::Lookbook::Preview
   # @group Examples
   # @label Admin User Management
   def admin_user_filter
-    render ::Decor::SearchAndFilter.new(
+    render ::Decor::Daisy::SearchAndFilter.new(
       url: "/admin/users",
-      search: ::Decor::SearchAndFilter::Search.new(
+      search: ::Decor::Daisy::SearchAndFilter::Search.new(
         name: "search",
         label: "Search Users",
         value: "",
         placeholder: "Name, email, or user ID..."
       ),
       filters: [
-        ::Decor::SearchAndFilter::Filter.new(
+        ::Decor::Daisy::SearchAndFilter::Filter.new(
           type: :select,
           name: "role",
           label: "User Role",
@@ -367,7 +367,7 @@ class ::Decor::SearchAndFilterPreview < ::Lookbook::Preview
             ["guest", "Guest"]
           ]
         ),
-        ::Decor::SearchAndFilter::Filter.new(
+        ::Decor::Daisy::SearchAndFilter::Filter.new(
           type: :select,
           name: "status",
           label: "Account Status",
@@ -379,13 +379,13 @@ class ::Decor::SearchAndFilterPreview < ::Lookbook::Preview
             ["pending", "Pending Verification"]
           ]
         ),
-        ::Decor::SearchAndFilter::Filter.new(
+        ::Decor::Daisy::SearchAndFilter::Filter.new(
           type: :date_range,
           name: "last_login",
           label: "Last Login",
           value: ""
         ),
-        ::Decor::SearchAndFilter::Filter.new(
+        ::Decor::Daisy::SearchAndFilter::Filter.new(
           type: :checkbox,
           name: "verified",
           label: "Email Verified",

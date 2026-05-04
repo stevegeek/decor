@@ -225,7 +225,7 @@ module Decor
           if search_or_filter_element?
             filter_options = resolved_search_and_filter_options
             data_table_component.with_search_and_filter do
-              render ::Decor::SearchAndFilter.new(**filter_options) do |component|
+              render ::Decor::Daisy::SearchAndFilter.new(**filter_options) do |component|
                 component.with_actions(&@cta) if @cta
               end
             end

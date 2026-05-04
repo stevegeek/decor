@@ -1,9 +1,9 @@
 require "test_helper"
 require "ostruct"
 
-class Decor::SearchAndFilterTest < ActiveSupport::TestCase
+class Decor::Daisy::SearchAndFilterTest < ActiveSupport::TestCase
   def setup
-    @search = Decor::SearchAndFilter::Search.new(
+    @search = Decor::Daisy::SearchAndFilter::Search.new(
       name: "search",
       label: "Search",
       value: "test search"
@@ -12,18 +12,18 @@ class Decor::SearchAndFilterTest < ActiveSupport::TestCase
   end
 
   test "renders successfully with required attributes" do
-    component = Decor::SearchAndFilter.new(
+    component = Decor::Daisy::SearchAndFilter.new(
       search: @search,
       url: @url
     )
     rendered = render_component(component)
 
-    assert_includes rendered, "decor--search-and-filter"
+    assert_includes rendered, "decor--daisy--search-and-filter"
     assert_includes rendered, "test search"
   end
 
   test "renders search field with current search term" do
-    component = Decor::SearchAndFilter.new(
+    component = Decor::Daisy::SearchAndFilter.new(
       search: @search,
       url: @url
     )
@@ -34,7 +34,7 @@ class Decor::SearchAndFilterTest < ActiveSupport::TestCase
   end
 
   test "renders with form structure" do
-    component = Decor::SearchAndFilter.new(
+    component = Decor::Daisy::SearchAndFilter.new(
       search: @search,
       url: @url
     )
@@ -47,7 +47,7 @@ class Decor::SearchAndFilterTest < ActiveSupport::TestCase
   end
 
   test "renders filters slot when provided" do
-    component = Decor::SearchAndFilter.new(
+    component = Decor::Daisy::SearchAndFilter.new(
       search: @search,
       url: @url
     )
@@ -59,7 +59,7 @@ class Decor::SearchAndFilterTest < ActiveSupport::TestCase
   end
 
   test "renders actions slot when provided" do
-    component = Decor::SearchAndFilter.new(
+    component = Decor::Daisy::SearchAndFilter.new(
       search: @search,
       url: @url
     )
@@ -71,7 +71,7 @@ class Decor::SearchAndFilterTest < ActiveSupport::TestCase
   end
 
   test "supports both filters and actions slots" do
-    component = Decor::SearchAndFilter.new(
+    component = Decor::Daisy::SearchAndFilter.new(
       search: @search,
       url: @url
     )
@@ -85,12 +85,12 @@ class Decor::SearchAndFilterTest < ActiveSupport::TestCase
   end
 
   test "handles empty search term" do
-    empty_search = Decor::SearchAndFilter::Search.new(
+    empty_search = Decor::Daisy::SearchAndFilter::Search.new(
       name: "search",
       label: "Search",
       value: ""
     )
-    component = Decor::SearchAndFilter.new(
+    component = Decor::Daisy::SearchAndFilter.new(
       search: empty_search,
       url: @url
     )
@@ -101,7 +101,7 @@ class Decor::SearchAndFilterTest < ActiveSupport::TestCase
   end
 
   test "component inherits from PhlexComponent" do
-    component = Decor::SearchAndFilter.new(
+    component = Decor::Daisy::SearchAndFilter.new(
       search: @search,
       url: @url
     )
@@ -110,17 +110,17 @@ class Decor::SearchAndFilterTest < ActiveSupport::TestCase
   end
 
   test "renders with correct CSS classes" do
-    component = Decor::SearchAndFilter.new(
+    component = Decor::Daisy::SearchAndFilter.new(
       search: @search,
       url: @url
     )
     rendered = render_component(component)
 
-    assert_includes rendered, "decor--search-and-filter"
+    assert_includes rendered, "decor--daisy--search-and-filter"
   end
 
   test "form has GET method by default" do
-    component = Decor::SearchAndFilter.new(
+    component = Decor::Daisy::SearchAndFilter.new(
       search: @search,
       url: @url
     )
@@ -131,7 +131,7 @@ class Decor::SearchAndFilterTest < ActiveSupport::TestCase
   end
 
   test "search input has correct attributes" do
-    component = Decor::SearchAndFilter.new(
+    component = Decor::Daisy::SearchAndFilter.new(
       search: @search,
       url: @url
     )
@@ -144,12 +144,12 @@ class Decor::SearchAndFilterTest < ActiveSupport::TestCase
   end
 
   test "handles query with nil search_term" do
-    nil_search = Decor::SearchAndFilter::Search.new(
+    nil_search = Decor::Daisy::SearchAndFilter::Search.new(
       name: "search",
       label: "Search",
       value: ""
     )
-    component = Decor::SearchAndFilter.new(
+    component = Decor::Daisy::SearchAndFilter.new(
       search: nil_search,
       url: @url
     )
@@ -164,7 +164,7 @@ class Decor::SearchAndFilterTest < ActiveSupport::TestCase
     test_urls = ["/search", "/admin/products", "/api/v1/items"]
 
     test_urls.each do |url|
-      component = Decor::SearchAndFilter.new(
+      component = Decor::Daisy::SearchAndFilter.new(
         search: @search,
         url: url
       )

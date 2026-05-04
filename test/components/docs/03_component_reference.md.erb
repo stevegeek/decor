@@ -102,7 +102,7 @@ If you find any issues or missing components, please open a PR to improve the do
 - [Decor::Daisy::PageSection](#decordaisypagesection)
 - [Decor::Daisy::Panel](#decordaisypanel)
 - [Decor::Daisy::PanelGroup](#decordaisypanelgroup)
-- [Decor::SearchAndFilter](#decorsearchandfilter)
+- [Decor::Daisy::SearchAndFilter](#decorsearchandfilter)
 - [Decor::Daisy::SearchResultsDropdown](#decordaisysearchresultsdropdown)
 - [Decor::Daisy::Svg](#decordaisysvg)
 - [Decor::Daisy::SwitchingBox](#decordaisyswitchingbox)
@@ -2350,7 +2350,7 @@ _(and the shared properties `size`, `color`, and `style` as described above)_
 
 ---
 
-### Decor::SearchAndFilter
+### Decor::Daisy::SearchAndFilter
 
 <span id="decorsearchandfilter"></span>
 
@@ -2358,7 +2358,7 @@ SearchAndFilter A comprehensive search and filter component for data tables and 
 
 **Basic Usage:**
 ```ruby
-render Decor::SearchAndFilter.new(
+render Decor::Daisy::SearchAndFilter.new(
   type: :default,
   name: "field_name",
   label: "Label",
@@ -2391,7 +2391,7 @@ end
 - `placeholder` (String?, default: "Search...") (optional) - Default: `"Search..."`
 - `apply` (Proc?) (optional)
 - `url` (String) (required)
-- `filters` (Array(::Decor::SearchAndFilter::Filter), default: -> { [] }) (optional) - Default: `[]`
+- `filters` (Array(::Decor::Daisy::SearchAndFilter::Filter), default: -> { [] }) (optional) - Default: `[]`
 - `search` (Search?) (optional)
 - `download_path` (String?) (optional)
 
