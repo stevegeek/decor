@@ -1,8 +1,8 @@
 require "test_helper"
 
-class Decor::Forms::TextFieldTest < ActiveSupport::TestCase
+class Decor::Daisy::Forms::TextFieldTest < ActiveSupport::TestCase
   test "renders successfully with valid attributes" do
-    component = Decor::Forms::TextField.new(
+    component = Decor::Daisy::Forms::TextField.new(
       name: "my_text",
       label: "Label",
       value: "Wow!"
@@ -19,7 +19,7 @@ class Decor::Forms::TextFieldTest < ActiveSupport::TestCase
   end
 
   test "renders successfully with valid attributes for password field" do
-    component = Decor::Forms::TextField.new(
+    component = Decor::Daisy::Forms::TextField.new(
       type: :password,
       name: "my_pass",
       label: "Label",
@@ -36,7 +36,7 @@ class Decor::Forms::TextFieldTest < ActiveSupport::TestCase
   end
 
   test "text field contains correct attributes" do
-    component = Decor::Forms::TextField.new(
+    component = Decor::Daisy::Forms::TextField.new(
       name: "my_text",
       label: "Label",
       value: "Wow!"
@@ -50,7 +50,7 @@ class Decor::Forms::TextFieldTest < ActiveSupport::TestCase
   end
 
   test "password field contains correct attributes" do
-    component = Decor::Forms::TextField.new(
+    component = Decor::Daisy::Forms::TextField.new(
       type: :password,
       name: "my_pass",
       label: "Label",
@@ -65,7 +65,7 @@ class Decor::Forms::TextFieldTest < ActiveSupport::TestCase
   end
 
   test "renders with leading icon using DaisyUI label structure" do
-    component = Decor::Forms::TextField.new(
+    component = Decor::Daisy::Forms::TextField.new(
       name: "username",
       label: "Username",
       leading_icon_name: "user"
@@ -81,7 +81,7 @@ class Decor::Forms::TextFieldTest < ActiveSupport::TestCase
   end
 
   test "renders with trailing icon using DaisyUI label structure" do
-    component = Decor::Forms::TextField.new(
+    component = Decor::Daisy::Forms::TextField.new(
       name: "email",
       label: "Email",
       trailing_icon_name: "envelope"
@@ -97,7 +97,7 @@ class Decor::Forms::TextFieldTest < ActiveSupport::TestCase
   end
 
   test "adds validator class when validation attributes present" do
-    component = Decor::Forms::TextField.new(
+    component = Decor::Daisy::Forms::TextField.new(
       name: "validated_field",
       label: "Validated Field",
       leading_icon_name: "user",
@@ -111,7 +111,7 @@ class Decor::Forms::TextFieldTest < ActiveSupport::TestCase
   end
 
   test "renders helper text with validator-hint class" do
-    component = Decor::Forms::TextField.new(
+    component = Decor::Daisy::Forms::TextField.new(
       name: "field_with_help",
       label: "Field with Help",
       helper_text: "This is helper text"
@@ -123,7 +123,7 @@ class Decor::Forms::TextFieldTest < ActiveSupport::TestCase
   end
 
   test "renders with leading text add-on using DaisyUI label structure" do
-    component = Decor::Forms::TextField.new(
+    component = Decor::Daisy::Forms::TextField.new(
       name: "url_field",
       label: "Website URL",
       leading_text_add_on: "https://"
@@ -139,7 +139,7 @@ class Decor::Forms::TextFieldTest < ActiveSupport::TestCase
   end
 
   test "renders with trailing text add-on using DaisyUI label structure" do
-    component = Decor::Forms::TextField.new(
+    component = Decor::Daisy::Forms::TextField.new(
       name: "price_field",
       label: "Price",
       trailing_text_add_on: "USD"
@@ -155,7 +155,7 @@ class Decor::Forms::TextFieldTest < ActiveSupport::TestCase
   end
 
   test "renders with leading add-on slot using DaisyUI label structure" do
-    component = Decor::Forms::TextField.new(
+    component = Decor::Daisy::Forms::TextField.new(
       name: "custom_field",
       label: "Custom Field"
     )

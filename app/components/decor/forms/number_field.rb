@@ -2,7 +2,7 @@
 
 module Decor
   module Forms
-    class NumberField < TextField
+    class NumberField < ::Decor::Daisy::Forms::TextField
       # A number field is a input that allows only number values to be entered. However it is essentially a TextField so
       # `value` attribute is actually a string
       prop :type, Symbol, default: :number

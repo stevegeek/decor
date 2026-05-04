@@ -116,7 +116,7 @@ class ::Decor::Daisy::Modals::ModalPreview < ::Lookbook::Preview
       ) do
         render ::Decor::Daisy::Forms::LayoutContainer.new do |form|
           form.with_section do
-            render ::Decor::Forms::TextField.new(
+            render ::Decor::Daisy::Forms::TextField.new(
               label: "Name",
               name: "name",
               value: "John Doe"

@@ -1,12 +1,12 @@
 # Text input field component for collecting single-line text from users.
 # Supports various input types, validation patterns, and add-ons for enhanced functionality.
 # @label TextField
-class ::Decor::Forms::TextFieldPreview < ::Lookbook::Preview
+class ::Decor::Daisy::Forms::TextFieldPreview < ::Lookbook::Preview
   # @group Examples
 
   # Basic text field with label
   def default
-    render ::Decor::Forms::TextField.new(
+    render ::Decor::Daisy::Forms::TextField.new(
       name: "username",
       label: "Username",
       placeholder: "Enter your username"
@@ -15,7 +15,7 @@ class ::Decor::Forms::TextFieldPreview < ::Lookbook::Preview
 
   # Email input with validation
   def email_field
-    render ::Decor::Forms::TextField.new(
+    render ::Decor::Daisy::Forms::TextField.new(
       name: "email",
       label: "Email address",
       type: :email,
@@ -27,7 +27,7 @@ class ::Decor::Forms::TextFieldPreview < ::Lookbook::Preview
 
   # Password field with icons
   def password_field
-    render ::Decor::Forms::TextField.new(
+    render ::Decor::Daisy::Forms::TextField.new(
       name: "password",
       label: "Password",
       type: :password,
@@ -41,7 +41,7 @@ class ::Decor::Forms::TextFieldPreview < ::Lookbook::Preview
 
   # Field with add-ons
   def with_add_ons
-    render ::Decor::Forms::TextField.new(
+    render ::Decor::Daisy::Forms::TextField.new(
       name: "website",
       label: "Website URL",
       type: :url,
@@ -120,7 +120,7 @@ class ::Decor::Forms::TextFieldPreview < ::Lookbook::Preview
     greater_than: nil,
     less_than: nil
   )
-    render ::Decor::Forms::TextField.new(
+    render ::Decor::Daisy::Forms::TextField.new(
       size: size,
       color: color,
       style: style,
@@ -160,7 +160,7 @@ class ::Decor::Forms::TextFieldPreview < ::Lookbook::Preview
 
   # Search field
   def search_input
-    render ::Decor::Forms::TextField.new(
+    render ::Decor::Daisy::Forms::TextField.new(
       name: "search",
       label: "Search",
       type: :search,
@@ -171,7 +171,7 @@ class ::Decor::Forms::TextFieldPreview < ::Lookbook::Preview
 
   # Number input with constraints
   def number_input
-    render ::Decor::Forms::TextField.new(
+    render ::Decor::Daisy::Forms::TextField.new(
       name: "quantity",
       label: "Quantity",
       type: :number,
@@ -184,7 +184,7 @@ class ::Decor::Forms::TextFieldPreview < ::Lookbook::Preview
 
   # Phone number field
   def phone_input
-    render ::Decor::Forms::TextField.new(
+    render ::Decor::Daisy::Forms::TextField.new(
       name: "phone",
       label: "Phone number",
       type: :tel,
@@ -198,7 +198,7 @@ class ::Decor::Forms::TextFieldPreview < ::Lookbook::Preview
 
   # Field with pattern validation
   def with_pattern
-    render ::Decor::Forms::TextField.new(
+    render ::Decor::Daisy::Forms::TextField.new(
       name: "code",
       label: "Product code",
       pattern: "[A-Z]{3}-[0-9]{4}",
@@ -209,7 +209,7 @@ class ::Decor::Forms::TextFieldPreview < ::Lookbook::Preview
 
   # Field with length constraints
   def with_length_validation
-    render ::Decor::Forms::TextField.new(
+    render ::Decor::Daisy::Forms::TextField.new(
       name: "bio",
       label: "Short bio",
       minimum_length: 10,

@@ -9,10 +9,10 @@ module Decor
       class TextField < ActionView::Helpers::Tags::TextField
         include TagWrapper
 
-        TEXT_FIELD_ATTRS = ::Decor::Forms::TextField.prop_names.map(&:to_s).freeze
+        TEXT_FIELD_ATTRS = ::Decor::Daisy::Forms::TextField.prop_names.map(&:to_s).freeze
 
         def tag(_type, options)
-          @template_object.render ::Decor::Forms::TextField.new(**component_options(options))
+          @template_object.render ::Decor::Daisy::Forms::TextField.new(**component_options(options))
         end
 
         def component_options(options)

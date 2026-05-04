@@ -10,7 +10,7 @@ module Decor
             div(class: "sm:flex sm:rounded-md sm:shadow-sm") do
               div(class: "relative flex-grow focus-within:z-10") do
                 if @search.present?
-                  render ::Decor::Forms::TextField.new(
+                  render ::Decor::Daisy::Forms::TextField.new(
                     name: @search.name,
                     label: @search.label,
                     value: @search.value,
@@ -87,7 +87,7 @@ module Decor
                             stimulus_outlet_host: el
                           )
                         when :date_range
-                          render ::Decor::Forms::TextField.new(
+                          render ::Decor::Daisy::Forms::TextField.new(
                             label_position: :inside,
                             name: filter.name,
                             label: filter.label,
