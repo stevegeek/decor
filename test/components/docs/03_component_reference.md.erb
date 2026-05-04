@@ -73,7 +73,7 @@ If you find any issues or missing components, please open a PR to improve the do
 - [Decor::Daisy::Stats](#decordaisystats)
 - [Decor::Tables::DataTable](#decortablesdatatable)
 - [Decor::Tables::DataTableBuilder](#decortablesdatatablebuilder)
-- [Decor::Tables::DataTableCell](#decortablesdatatablecell)
+- [Decor::Daisy::Tables::DataTableCell](#decortablesdatatablecell)
 - [Decor::Tables::DataTableFooter](#decortablesdatatablefooter)
 - [Decor::Tables::DataTableHeaderCell](#decortablesdatatableheadercell)
 - [Decor::Tables::DataTableHeaderRow](#decortablesdatatableheaderrow)
@@ -1636,13 +1636,13 @@ _(and the shared properties `size`, `color`, and `style` as described above)_
 
 ---
 
-### Decor::Tables::DataTableCell
+### Decor::Daisy::Tables::DataTableCell
 
 <span id="decortablesdatatablecell"></span>
 
 **Basic Usage:**
 ```ruby
-render Decor::Tables::DataTableCell.new do
+render Decor::Daisy::Tables::DataTableCell.new do
   "Content goes here"
 end
 ```
@@ -1769,7 +1769,7 @@ end
 - `selectable_as` (String?) (optional) - If row has a select box next to it
 - `selected` (Boolean, default: false) (optional) - Whether the row should get an indicator on the left side - Default: `false`
 - `path` (String?) (optional) - A row can optionally link to another page.
-- `data_table_cells` (Array(::Decor::Tables::DataTableCell), default: -> { [] }) (optional) - Default: `[]`
+- `data_table_cells` (Array(::Decor::Daisy::Tables::DataTableCell), default: -> { [] }) (optional) - Default: `[]`
 - `form_builder` (::ActionView::Helpers::FormBuilder?) (optional) - is normally prepared by the data table builder when preparing the table row data.
 
 

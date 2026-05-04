@@ -1,6 +1,6 @@
 # Table cell component for displaying data with formatting options and optional interactivity
 # @label Data Table Cell
-class ::Decor::Tables::DataTableCellPreview < ::Lookbook::Preview
+class ::Decor::Daisy::Tables::DataTableCellPreview < ::Lookbook::Preview
   # @!group Examples
 
   # @label Default
@@ -83,7 +83,7 @@ class ::Decor::Tables::DataTableCellPreview < ::Lookbook::Preview
         e.tbody do
           [:regular, :low].each do |emphasis|
             e.tr(class: "bg-white border-b border-gray-200") do
-              e.render ::Decor::Tables::DataTableCell.new(
+              e.render ::Decor::Daisy::Tables::DataTableCell.new(
                 value: "#{emphasis.to_s.capitalize} emphasis",
                 emphasis: emphasis
               )
@@ -101,7 +101,7 @@ class ::Decor::Tables::DataTableCellPreview < ::Lookbook::Preview
         e.tbody do
           [:light, :regular, :medium].each do |weight|
             e.tr(class: "bg-white border-b border-gray-200") do
-              e.render ::Decor::Tables::DataTableCell.new(
+              e.render ::Decor::Daisy::Tables::DataTableCell.new(
                 value: "#{weight.to_s.capitalize} weight",
                 weight: weight
               )
@@ -123,7 +123,7 @@ class ::Decor::Tables::DataTableCellPreview < ::Lookbook::Preview
         e.tbody do
           [:comfortable, :standard, :tight].each do |height|
             e.tr(class: "bg-white border-b border-gray-200") do
-              e.render ::Decor::Tables::DataTableCell.new(
+              e.render ::Decor::Daisy::Tables::DataTableCell.new(
                 value: "#{height.to_s.capitalize} row height",
                 row_height: height
               )
@@ -143,7 +143,7 @@ class ::Decor::Tables::DataTableCellPreview < ::Lookbook::Preview
       e.table(class: "min-w-full border border-gray-200") do
         e.tbody do
           e.tr(class: "bg-white") do
-            e.render ::Decor::Tables::DataTableCell.new(**options)
+            e.render ::Decor::Daisy::Tables::DataTableCell.new(**options)
           end
         end
       end

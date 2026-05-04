@@ -29,7 +29,7 @@ module Decor
       # A row can optionally link to another page.
       prop :path, _Nilable(String)
 
-      prop :data_table_cells, _Array(::Decor::Tables::DataTableCell), default: -> { [] }
+      prop :data_table_cells, _Array(::Decor::Daisy::Tables::DataTableCell), default: -> { [] }
 
       # A row can optionally have a form builder which can then be used to created nested forms per row. The form builder
       # is normally prepared by the data table builder when preparing the table row data.
@@ -48,7 +48,7 @@ module Decor
       end
 
       def with_data_table_cell(component = nil, **attributes, &block)
-        cell = component || ::Decor::Tables::DataTableCell.new(**attributes)
+        cell = component || ::Decor::Daisy::Tables::DataTableCell.new(**attributes)
         @data_table_cells << [cell, block]
         cell
       end

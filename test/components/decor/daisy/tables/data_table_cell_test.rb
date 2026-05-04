@@ -1,8 +1,8 @@
 require "test_helper"
 
-class Decor::Tables::DataTableCellTest < ActiveSupport::TestCase
+class Decor::Daisy::Tables::DataTableCellTest < ActiveSupport::TestCase
   test "renders successfully with content" do
-    component = Decor::Tables::DataTableCell.new
+    component = Decor::Daisy::Tables::DataTableCell.new
     rendered = render_component(component) do
       "Cell content"
     end
@@ -12,7 +12,7 @@ class Decor::Tables::DataTableCellTest < ActiveSupport::TestCase
   end
 
   test "renders as td element by default" do
-    component = Decor::Tables::DataTableCell.new(value: "Test")
+    component = Decor::Daisy::Tables::DataTableCell.new(value: "Test")
     rendered = render_component(component)
 
     # Just test the string contains td and the text
@@ -21,42 +21,42 @@ class Decor::Tables::DataTableCellTest < ActiveSupport::TestCase
   end
 
   test "applies default CSS classes" do
-    component = Decor::Tables::DataTableCell.new
+    component = Decor::Daisy::Tables::DataTableCell.new
     rendered = render_component(component)
 
-    assert_includes rendered, "decor--tables--data-table-cell"
+    assert_includes rendered, "decor--daisy--tables--data-table-cell"
   end
 
   test "supports custom CSS classes" do
-    component = Decor::Tables::DataTableCell.new(html_options: {class: "custom-cell"})
+    component = Decor::Daisy::Tables::DataTableCell.new(html_options: {class: "custom-cell"})
     rendered = render_component(component)
 
     assert_includes rendered, "custom-cell"
-    assert_includes rendered, "decor--tables--data-table-cell"
+    assert_includes rendered, "decor--daisy--tables--data-table-cell"
   end
 
   test "supports colspan attribute" do
-    component = Decor::Tables::DataTableCell.new(colspan: 2)
+    component = Decor::Daisy::Tables::DataTableCell.new(colspan: 2)
     rendered = render_component(component)
 
     assert_includes rendered, 'colspan="2"'
   end
 
   test "component inherits from PhlexComponent" do
-    component = Decor::Tables::DataTableCell.new
+    component = Decor::Daisy::Tables::DataTableCell.new
 
     assert component.is_a?(Decor::PhlexComponent)
   end
 
   test "renders with alignment classes" do
-    component = Decor::Tables::DataTableCell.new(html_options: {class: "text-center"})
+    component = Decor::Daisy::Tables::DataTableCell.new(html_options: {class: "text-center"})
     rendered = render_component(component)
 
     assert_includes rendered, "text-center"
   end
 
   test "supports various content types" do
-    component = Decor::Tables::DataTableCell.new
+    component = Decor::Daisy::Tables::DataTableCell.new
     rendered = render_component(component) do
       "<strong>Bold text</strong>"
     end
@@ -66,15 +66,15 @@ class Decor::Tables::DataTableCellTest < ActiveSupport::TestCase
   end
 
   test "renders without content when none provided" do
-    component = Decor::Tables::DataTableCell.new
+    component = Decor::Daisy::Tables::DataTableCell.new
     rendered = render_component(component)
 
     assert_includes rendered, "<td"
-    assert_includes rendered, "decor--tables--data-table-cell"
+    assert_includes rendered, "decor--daisy--tables--data-table-cell"
   end
 
   test "handles numeric content" do
-    component = Decor::Tables::DataTableCell.new
+    component = Decor::Daisy::Tables::DataTableCell.new
     rendered = render_component(component) do
       "123.45"
     end
@@ -83,7 +83,7 @@ class Decor::Tables::DataTableCellTest < ActiveSupport::TestCase
   end
 
   test "supports data attributes" do
-    component = Decor::Tables::DataTableCell.new(
+    component = Decor::Daisy::Tables::DataTableCell.new(
       html_options: {data: {sortable: "true", value: "test"}}
     )
     rendered = render_component(component)
@@ -93,7 +93,7 @@ class Decor::Tables::DataTableCellTest < ActiveSupport::TestCase
   end
 
   test "renders with custom attributes" do
-    component = Decor::Tables::DataTableCell.new(
+    component = Decor::Daisy::Tables::DataTableCell.new(
       id: "cell-1",
       html_options: {title: "Cell tooltip"}
     )
@@ -104,28 +104,28 @@ class Decor::Tables::DataTableCellTest < ActiveSupport::TestCase
   end
 
   test "applies element classes correctly" do
-    component = Decor::Tables::DataTableCell.new
+    component = Decor::Daisy::Tables::DataTableCell.new
 
     # Test that root_element_classes method exists and returns expected classes
     assert_respond_to component, :root_element_classes
   end
 
   test "supports numeric alignment" do
-    component = Decor::Tables::DataTableCell.new(numeric: true)
+    component = Decor::Daisy::Tables::DataTableCell.new(numeric: true)
     rendered = render_component(component)
 
     assert_includes rendered, "text-right"
   end
 
   test "supports text alignment" do
-    component = Decor::Tables::DataTableCell.new(numeric: false)
+    component = Decor::Daisy::Tables::DataTableCell.new(numeric: false)
     rendered = render_component(component)
 
     assert_includes rendered, "text-left"
   end
 
   test "supports daisyUI color system" do
-    component = Decor::Tables::DataTableCell.new(color: :primary)
+    component = Decor::Daisy::Tables::DataTableCell.new(color: :primary)
     rendered = render_component(component)
 
     assert_includes rendered, "text-primary"
@@ -133,7 +133,7 @@ class Decor::Tables::DataTableCellTest < ActiveSupport::TestCase
 
   test "supports all daisyUI colors" do
     [:primary, :secondary, :accent, :neutral, :info, :success, :warning, :error].each do |color|
-      component = Decor::Tables::DataTableCell.new(color: color)
+      component = Decor::Daisy::Tables::DataTableCell.new(color: color)
       rendered = render_component(component)
 
       assert_includes rendered, "text-#{color}"
@@ -141,7 +141,7 @@ class Decor::Tables::DataTableCellTest < ActiveSupport::TestCase
   end
 
   test "daisyUI colors take precedence over emphasis" do
-    component = Decor::Tables::DataTableCell.new(color: :primary, emphasis: :low)
+    component = Decor::Daisy::Tables::DataTableCell.new(color: :primary, emphasis: :low)
     rendered = render_component(component)
 
     assert_includes rendered, "text-primary"
@@ -149,35 +149,35 @@ class Decor::Tables::DataTableCellTest < ActiveSupport::TestCase
   end
 
   test "supports legacy emphasis system when no daisyUI color is set" do
-    component = Decor::Tables::DataTableCell.new(emphasis: :low)
+    component = Decor::Daisy::Tables::DataTableCell.new(emphasis: :low)
     rendered = render_component(component)
 
     assert_includes rendered, "text-gray-500"
   end
 
   test "supports typography weights" do
-    component = Decor::Tables::DataTableCell.new(weight: :medium)
+    component = Decor::Daisy::Tables::DataTableCell.new(weight: :medium)
     rendered = render_component(component)
 
     assert_includes rendered, "font-medium"
   end
 
   test "supports row height variants" do
-    component = Decor::Tables::DataTableCell.new(row_height: :tight)
+    component = Decor::Daisy::Tables::DataTableCell.new(row_height: :tight)
     rendered = render_component(component)
 
     assert_includes rendered, "px-3 py-1 text-xs"
   end
 
   test "supports value attribute" do
-    component = Decor::Tables::DataTableCell.new(value: "Test Value")
+    component = Decor::Daisy::Tables::DataTableCell.new(value: "Test Value")
     rendered = render_component(component)
 
     assert_includes rendered, "Test Value"
   end
 
   test "supports width constraints" do
-    component = Decor::Tables::DataTableCell.new(min_width_rem: 10, max_width: 200)
+    component = Decor::Daisy::Tables::DataTableCell.new(min_width_rem: 10, max_width: 200)
     rendered = render_component(component)
 
     assert_includes rendered, "min-width: 10rem"
@@ -185,14 +185,14 @@ class Decor::Tables::DataTableCellTest < ActiveSupport::TestCase
   end
 
   test "supports clickable content" do
-    component = Decor::Tables::DataTableCell.new(content_clickable: true)
+    component = Decor::Daisy::Tables::DataTableCell.new(content_clickable: true)
     rendered = render_component(component)
 
     assert_includes rendered, "absolute inset-0"
   end
 
   test "supports path navigation" do
-    component = Decor::Tables::DataTableCell.new(path: "/test/path")
+    component = Decor::Daisy::Tables::DataTableCell.new(path: "/test/path")
     rendered = render_component(component)
 
     assert_includes rendered, "cursor-pointer"
@@ -200,7 +200,7 @@ class Decor::Tables::DataTableCellTest < ActiveSupport::TestCase
   end
 
   test "maintains backward compatibility" do
-    component = Decor::Tables::DataTableCell.new(
+    component = Decor::Daisy::Tables::DataTableCell.new(
       emphasis: :regular,
       weight: :light,
       row_height: :comfortable

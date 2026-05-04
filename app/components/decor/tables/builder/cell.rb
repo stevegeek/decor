@@ -11,7 +11,7 @@ module Decor
         prop :item_index, _Nilable(Integer)
 
         # Component instance
-        prop :component, ::Decor::Tables::DataTableCell
+        prop :component, ::Decor::Daisy::Tables::DataTableCell
 
         def render_block
           column.cell_block
@@ -31,7 +31,7 @@ module Decor
             **cell_props
           }.compact
 
-          component_instance = ::Decor::Tables::DataTableCell.new(**component_props)
+          component_instance = ::Decor::Daisy::Tables::DataTableCell.new(**component_props)
 
           new(
             column: column,
