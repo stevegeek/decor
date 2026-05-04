@@ -31,7 +31,7 @@
 
     <%= render ::Decor::Daisy::Modals::Modal.new %>
     <%= render ::Decor::Daisy::Modals::ConfirmModal.new %>
-    <%= render ::Decor::NotificationManager.new(
+    <%= render ::Decor::Daisy::NotificationManager.new(
       stimulus_values: {
         initial_notifications: [notice, alert].compact.map do |message|
           {content: {content: render(::Decor::Daisy::Notification.new(title: message)), __safe: true}}

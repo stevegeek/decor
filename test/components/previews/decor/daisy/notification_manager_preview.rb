@@ -1,5 +1,5 @@
 # @label NotificationManager
-class ::Decor::NotificationManagerPreview < ::Lookbook::Preview
+class ::Decor::Daisy::NotificationManagerPreview < ::Lookbook::Preview
   # NotificationManager
   # -------
   #
@@ -11,9 +11,9 @@ class ::Decor::NotificationManagerPreview < ::Lookbook::Preview
   #
   # ## Event API
   #
-  # - `decor--notification-manager:show@window` - Show notification
-  # - `decor--notification-manager:dismissAll@window` - Dismiss all notifications
-  # - `decor--notification-manager:dismiss@window` - Dismiss single notification
+  # - `decor--daisy--notification-manager:show@window` - Show notification
+  # - `decor--daisy--notification-manager:dismissAll@window` - Dismiss all notifications
+  # - `decor--daisy--notification-manager:dismiss@window` - Dismiss single notification
   #
   # ## Event Detail Options
   #
@@ -340,7 +340,7 @@ class ::Decor::NotificationManagerPreview < ::Lookbook::Preview
     timeout_value = (timeout == "Infinity") ? "Infinity" : timeout.to_i
 
     <<~JS.html_safe
-      const evt = new CustomEvent("decor--notification-manager:show", {
+      const evt = new CustomEvent("decor--daisy--notification-manager:show", {
         bubbles: true,
         cancelable: false,
         detail: { 
@@ -355,7 +355,7 @@ class ::Decor::NotificationManagerPreview < ::Lookbook::Preview
 
   def playground_dismiss_all_js
     <<~JS.html_safe
-      const evt = new CustomEvent("decor--notification-manager:dismissAll", {
+      const evt = new CustomEvent("decor--daisy--notification-manager:dismissAll", {
         bubbles: true,
         cancelable: false
       });
@@ -374,7 +374,7 @@ class ::Decor::NotificationManagerPreview < ::Lookbook::Preview
       notifications.forEach((notif, index) => {
         setTimeout(() => {
           const content = `#{styled_notification_content("success", "Notification", "Multiple notification test").gsub('"', '\\"')}`;
-          const evt = new CustomEvent("decor--notification-manager:show", {
+          const evt = new CustomEvent("decor--daisy--notification-manager:show", {
             bubbles: true,
             cancelable: false,
             detail: { 
@@ -394,7 +394,7 @@ class ::Decor::NotificationManagerPreview < ::Lookbook::Preview
     detail = {__safe: true, content: content, timeout: "Infinity"}
 
     <<~JS.html_safe
-      const evt = new CustomEvent("decor--notification-manager:show", {
+      const evt = new CustomEvent("decor--daisy--notification-manager:show", {
         bubbles: true,
         cancelable: false,
         detail: #{detail.to_json}
@@ -407,7 +407,7 @@ class ::Decor::NotificationManagerPreview < ::Lookbook::Preview
     detail = {__safe: true, content: "<div class='alert'><div><h4>#{title}</h4><p>#{description}</p></div></div>", timeout: 3000}
 
     <<~JS.html_safe
-      const evt = new CustomEvent("decor--notification-manager:show", {
+      const evt = new CustomEvent("decor--daisy--notification-manager:show", {
         bubbles: true,
         cancelable: false,
         detail: #{detail.to_json}
@@ -422,7 +422,7 @@ class ::Decor::NotificationManagerPreview < ::Lookbook::Preview
     content = "<div class='alert alert-info'><div><h4>#{title}</h4><p>#{description}</p></div></div>"
 
     <<~JS.html_safe
-      const evt = new CustomEvent("decor--notification-manager:show", {
+      const evt = new CustomEvent("decor--daisy--notification-manager:show", {
         bubbles: true,
         cancelable: false,
         detail: { 
@@ -439,7 +439,7 @@ class ::Decor::NotificationManagerPreview < ::Lookbook::Preview
     content = "<div class='alert alert-warning'><div><h4>#{title}</h4><p>#{description}</p></div></div>"
 
     <<~JS.html_safe
-      const evt = new CustomEvent("decor--notification-manager:show", {
+      const evt = new CustomEvent("decor--daisy--notification-manager:show", {
         bubbles: true,
         cancelable: false,
         detail: { 
@@ -462,7 +462,7 @@ class ::Decor::NotificationManagerPreview < ::Lookbook::Preview
       
       notifications.forEach((notif, index) => {
         setTimeout(() => {
-          const evt = new CustomEvent("decor--notification-manager:show", {
+          const evt = new CustomEvent("decor--daisy--notification-manager:show", {
             bubbles: true,
             cancelable: false,
             detail: { 
@@ -482,7 +482,7 @@ class ::Decor::NotificationManagerPreview < ::Lookbook::Preview
     detail = {__safe: true, content: content, timeout: 4000}
 
     <<~JS.html_safe
-      const evt = new CustomEvent("decor--notification-manager:show", {
+      const evt = new CustomEvent("decor--daisy--notification-manager:show", {
         bubbles: true,
         cancelable: false,
         detail: #{detail.to_json}
@@ -495,7 +495,7 @@ class ::Decor::NotificationManagerPreview < ::Lookbook::Preview
     content = notification_with_actions(title, description, primary_action, secondary_action)
 
     <<~JS.html_safe
-      const evt = new CustomEvent("decor--notification-manager:show", {
+      const evt = new CustomEvent("decor--daisy--notification-manager:show", {
         bubbles: true,
         cancelable: false,
         detail: { 
@@ -512,7 +512,7 @@ class ::Decor::NotificationManagerPreview < ::Lookbook::Preview
     content = notification_with_actions(title, description, action_label)
 
     <<~JS.html_safe
-      const evt = new CustomEvent("decor--notification-manager:show", {
+      const evt = new CustomEvent("decor--daisy--notification-manager:show", {
         bubbles: true,
         cancelable: false,
         detail: { 

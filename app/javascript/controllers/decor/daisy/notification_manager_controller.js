@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 import { markAsSafeHTML, safelySetInnerHTML, createHTTPClient } from "controllers/decor";
 
-export const NOTIFICATION_MANAGER_CLASS_NAME = "decor--notification-manager";
+export const NOTIFICATION_MANAGER_CLASS_NAME = "decor--daisy--notification-manager";
 const NOTIFICATION_CLASSNAME = `${NOTIFICATION_MANAGER_CLASS_NAME}-notification`;
 const DEFAULT_DISMISS_AFTER_MS = 3000;
 const DISMISS_ALL_STAGGER_MS = 50;

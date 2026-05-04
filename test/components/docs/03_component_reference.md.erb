@@ -29,7 +29,7 @@ If you find any issues or missing components, please open a PR to improve the do
 - [Decor::Daisy::Icon](#decordaisyicon)
 - [Decor::Daisy::Link](#decordaisylink)
 - [Decor::Daisy::Notification](#decordaisynotification)
-- [Decor::NotificationManager](#decornotificationmanager)
+- [Decor::Daisy::NotificationManager](#decordaisynotificationmanager)
 - [Decor::Daisy::Progress](#decordaisyprogress)
 - [Decor::Daisy::Spinner](#decordaisyspinner)
 - [Decor::Daisy::Tag](#decordaisytag)
@@ -586,15 +586,15 @@ _(and the shared properties `size`, `color`, and `style` as described above)_
 
 ---
 
-### Decor::NotificationManager
+### Decor::Daisy::NotificationManager
 
-<span id="decornotificationmanager"></span>
+<span id="decordaisynotificationmanager"></span>
 
 NotificationManager The NotificationManager is a component which provides the mechanism and display area for notifications or alerts that slide into view in the top right of the screen. In general we may render only 1 NotificationManager at a time & then reuse it at runtime by adding notifications via the JS part of the component.
 
 
 
-Event API - `decor--notification-manager:show@window` - Show notification - `decor--notification-manager:dismissAll@window` - Dismiss all notifications - `decor--notification-manager:dismiss@window` - Dismiss single notification
+Event API - `decor--daisy--notification-manager:show@window` - Show notification - `decor--daisy--notification-manager:dismissAll@window` - Dismiss all notifications - `decor--daisy--notification-manager:dismiss@window` - Dismiss single notification
 
 
 
@@ -602,7 +602,7 @@ Event Detail Options - `content` - HTML content (must be marked safe) - `content
 
 **Basic Usage:**
 ```ruby
-render Decor::NotificationManager.new
+render Decor::Daisy::NotificationManager.new
 ```
 
 ---
