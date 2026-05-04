@@ -134,7 +134,7 @@ module Decor
       # Returns the view component ready to render
       def component
         return @component if defined?(@component)
-        @component = ::Decor::Tables::DataTable.new(
+        @component = ::Decor::Daisy::Tables::DataTable.new(
           title: title,
           subtitle: subtitle,
           html_options: html_options

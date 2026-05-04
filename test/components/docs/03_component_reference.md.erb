@@ -71,7 +71,7 @@ If you find any issues or missing components, please open a PR to improve the do
 - [Decor::Pagination](#decorpagination)
 - [Decor::Daisy::Stat](#decordaisystat)
 - [Decor::Daisy::Stats](#decordaisystats)
-- [Decor::Tables::DataTable](#decortablesdatatable)
+- [Decor::Daisy::Tables::DataTable](#decortablesdatatable)
 - [Decor::Tables::DataTableBuilder](#decortablesdatatablebuilder)
 - [Decor::Daisy::Tables::DataTableCell](#decortablesdatatablecell)
 - [Decor::Daisy::Tables::DataTableFooter](#decortablesdatatablefooter)
@@ -1536,7 +1536,7 @@ _(and the shared properties `size`, `color`, and `style` as described above)_
 
 ---
 
-### Decor::Tables::DataTable
+### Decor::Daisy::Tables::DataTable
 
 <span id="decortablesdatatable"></span>
 
@@ -1544,7 +1544,7 @@ A flexible table component for displaying tabulated data with support for sortin
 
 **Basic Usage:**
 ```ruby
-render Decor::Tables::DataTable.new do |c|
+render Decor::Daisy::Tables::DataTable.new do |c|
   c.with_data_table_header do
     # Slot content
   end

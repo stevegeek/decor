@@ -1,5 +1,5 @@
 # @label DataTable
-class ::Decor::Tables::DataTablePreview < ::Lookbook::Preview
+class ::Decor::Daisy::Tables::DataTablePreview < ::Lookbook::Preview
   # A flexible table component for displaying tabulated data with support for sorting,
   # selection, pagination, and various styling options.
   #
@@ -12,7 +12,7 @@ class ::Decor::Tables::DataTablePreview < ::Lookbook::Preview
   # ----------------
   # A simple table with sortable headers and numeric columns.
   def default
-    render ::Decor::Tables::DataTable.new(
+    render ::Decor::Daisy::Tables::DataTable.new(
       title: "Product Inventory"
     ) do |table|
       table.with_data_table_header_row do |table_header|
@@ -42,7 +42,7 @@ class ::Decor::Tables::DataTablePreview < ::Lookbook::Preview
   # ----------------------------
   # Demonstrates row selection, highlighting, and different row states.
   def selectable
-    render ::Decor::Tables::DataTable.new(
+    render ::Decor::Daisy::Tables::DataTable.new(
       title: "User Management",
       subtitle: "Select users to perform bulk actions"
     ) do |table|
@@ -82,7 +82,7 @@ class ::Decor::Tables::DataTablePreview < ::Lookbook::Preview
   def with_pagination
     collection = ::ApplicationCollectionBackedQuery.wrap((1..10).to_a).new
 
-    render ::Decor::Tables::DataTable.new(
+    render ::Decor::Daisy::Tables::DataTable.new(
       title: "Transaction History"
     ) do |table|
       table.with_pagination do
@@ -117,7 +117,7 @@ class ::Decor::Tables::DataTablePreview < ::Lookbook::Preview
   # ------------------------
   # Demonstrates daisyUI color system and styling options.
   def styled
-    render ::Decor::Tables::DataTable.new(
+    render ::Decor::Daisy::Tables::DataTable.new(
       title: "Task Status",
       size: :sm,
       zebra: true
@@ -191,7 +191,7 @@ class ::Decor::Tables::DataTablePreview < ::Lookbook::Preview
   )
     collection = ::ApplicationCollectionBackedQuery.wrap((1..10).to_a).new
 
-    render ::Decor::Tables::DataTable.new(
+    render ::Decor::Daisy::Tables::DataTable.new(
       title: title,
       size: size,
       color: color,
@@ -274,7 +274,7 @@ class ::Decor::Tables::DataTablePreview < ::Lookbook::Preview
 
   # @param size select [xs, sm, md, lg, xl]
   def sizes(size: :md)
-    render ::Decor::Tables::DataTable.new(
+    render ::Decor::Daisy::Tables::DataTable.new(
       title: "Table Size: #{size}",
       size: size
     ) do |table|
@@ -303,7 +303,7 @@ class ::Decor::Tables::DataTablePreview < ::Lookbook::Preview
   # @param row_height select [comfortable, standard, tight]
   # @param header_row_height select [comfortable, standard, tight]
   def row_heights(row_height: :standard, header_row_height: :standard)
-    render ::Decor::Tables::DataTable.new(
+    render ::Decor::Daisy::Tables::DataTable.new(
       title: "Row Height Demo"
     ) do |table|
       table.with_data_table_header_row do |table_header|
@@ -332,7 +332,7 @@ class ::Decor::Tables::DataTablePreview < ::Lookbook::Preview
   # --------------------------
   # Shows different cell typography, emphasis, and weight options.
   def typography
-    render ::Decor::Tables::DataTable.new(
+    render ::Decor::Daisy::Tables::DataTable.new(
       title: "Financial Summary"
     ) do |table|
       table.with_data_table_header_row do |table_header|
@@ -370,7 +370,7 @@ class ::Decor::Tables::DataTablePreview < ::Lookbook::Preview
   # --------------
   # Alternating row colors for better readability.
   def zebra_striping
-    render ::Decor::Tables::DataTable.new(
+    render ::Decor::Daisy::Tables::DataTable.new(
       title: "Zebra Striped Table",
       zebra: true
     ) do |table|
@@ -400,7 +400,7 @@ class ::Decor::Tables::DataTablePreview < ::Lookbook::Preview
   # ------------------
   # Sticky headers that remain visible while scrolling.
   def pinned_rows
-    render ::Decor::Tables::DataTable.new(
+    render ::Decor::Daisy::Tables::DataTable.new(
       title: "Pinned Headers (Scroll to see effect)",
       pin_rows: true,
       zebra: true
@@ -430,7 +430,7 @@ class ::Decor::Tables::DataTablePreview < ::Lookbook::Preview
   def stretch_columns(test_stretch: 2)
     collection = ::ApplicationCollectionBackedQuery.wrap((1..5).to_a).new
 
-    render ::Decor::Tables::DataTable.new(
+    render ::Decor::Daisy::Tables::DataTable.new(
       title: "Flexible Column Widths"
     ) do |table|
       table.with_data_table_header_row do |table_header|
@@ -457,7 +457,7 @@ class ::Decor::Tables::DataTablePreview < ::Lookbook::Preview
   # ----------------------
   # Shows rows with expandable details section.
   def expandable_content
-    render ::Decor::Tables::DataTable.new(
+    render ::Decor::Daisy::Tables::DataTable.new(
       title: "Order Management",
       subtitle: "Click to expand order details"
     ) do |table|

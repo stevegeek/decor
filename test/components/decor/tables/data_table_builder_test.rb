@@ -95,7 +95,7 @@ class Decor::Tables::DataTableBuilderTest < ActiveSupport::TestCase
     builder = create_builder
     component = builder.component
 
-    assert component.is_a?(Decor::Tables::DataTable)
+    assert component.is_a?(Decor::Daisy::Tables::DataTable)
   end
 
   test "supports empty data collection" do
@@ -198,6 +198,6 @@ class Decor::Tables::DataTableBuilderTest < ActiveSupport::TestCase
     component = builder.component
 
     # Should not raise an error
-    assert component.is_a?(Decor::Tables::DataTable)
+    assert component.is_a?(Decor::Daisy::Tables::DataTable)
   end
 end
