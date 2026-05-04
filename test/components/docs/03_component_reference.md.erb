@@ -74,7 +74,7 @@ If you find any issues or missing components, please open a PR to improve the do
 - [Decor::Tables::DataTable](#decortablesdatatable)
 - [Decor::Tables::DataTableBuilder](#decortablesdatatablebuilder)
 - [Decor::Daisy::Tables::DataTableCell](#decortablesdatatablecell)
-- [Decor::Tables::DataTableFooter](#decortablesdatatablefooter)
+- [Decor::Daisy::Tables::DataTableFooter](#decortablesdatatablefooter)
 - [Decor::Daisy::Tables::DataTableHeaderCell](#decortablesdatatableheadercell)
 - [Decor::Daisy::Tables::DataTableHeaderRow](#decortablesdatatableheaderrow)
 - [Decor::Daisy::Tables::DataTableRow](#decortablesdatatablerow)
@@ -1668,7 +1668,7 @@ _(and the shared properties `size`, `color`, and `style` as described above)_
 
 ---
 
-### Decor::Tables::DataTableFooter
+### Decor::Daisy::Tables::DataTableFooter
 
 <span id="decortablesdatatablefooter"></span>
 
@@ -1676,7 +1676,7 @@ Basic footer with a simple message
 
 **Basic Usage:**
 ```ruby
-render Decor::Tables::DataTableFooter.new(title: "Title", value: "value") do |c|
+render Decor::Daisy::Tables::DataTableFooter.new(title: "Title", value: "value") do |c|
   c.with_left do
     # Slot content
   end

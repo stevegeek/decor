@@ -48,7 +48,7 @@ module Decor
       end
 
       def with_data_table_footer(component = nil, **attributes, &block)
-        @data_table_footer = component || ::Decor::Tables::DataTableFooter.new(**attributes)
+        @data_table_footer = component || ::Decor::Daisy::Tables::DataTableFooter.new(**attributes)
         self
       end
 
