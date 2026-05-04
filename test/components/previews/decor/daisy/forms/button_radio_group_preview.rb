@@ -1,5 +1,5 @@
 # @label ButtonRadioGroup
-class ::Decor::Forms::ButtonRadioGroupPreview < ::Lookbook::Preview
+class ::Decor::Daisy::Forms::ButtonRadioGroupPreview < ::Lookbook::Preview
   # -------
   #
   # A ButtonRadioGroup is a radio group, styled as a set of toggle buttons. The
@@ -38,7 +38,7 @@ class ::Decor::Forms::ButtonRadioGroupPreview < ::Lookbook::Preview
     helper_text: nil,
     hide_label_required_asterisk: false
   )
-    render ::Decor::Forms::ButtonRadioGroup.new(
+    render ::Decor::Daisy::Forms::ButtonRadioGroup.new(
       choices: [["yes", "Yes"], ["no", "No"], ["maybe", "Maybe"]],
       selected_choice: selected_choice,
       name: name,

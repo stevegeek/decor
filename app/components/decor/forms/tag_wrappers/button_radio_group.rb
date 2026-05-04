@@ -6,7 +6,7 @@ module Decor
       class ButtonRadioGroup < ActionView::Helpers::Tags::Base
         include TagWrapper
 
-        BUTTON_RADIO_GROUP_ATTRS = ::Decor::Forms::ButtonRadioGroup.prop_names.map(&:to_s).freeze
+        BUTTON_RADIO_GROUP_ATTRS = ::Decor::Daisy::Forms::ButtonRadioGroup.prop_names.map(&:to_s).freeze
 
         def initialize(object_name, method_name, template_object, choices, options, html_options)
           @choices = block_given? ? template_object.capture { yield || "" } : choices
@@ -21,7 +21,7 @@ module Decor
           options = @options.stringify_keys
           add_default_name_and_id(options)
           component_options = button_radio_group_options(@choices, options)
-          @template_object.render ::Decor::Forms::ButtonRadioGroup.new(**component_options)
+          @template_object.render ::Decor::Daisy::Forms::ButtonRadioGroup.new(**component_options)
         end
 
         private

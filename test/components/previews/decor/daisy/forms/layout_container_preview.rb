@@ -63,7 +63,7 @@ class ::Decor::Daisy::Forms::LayoutContainerPreview < ::Lookbook::Preview
         title: "Preferences",
         description: "Customize your experience"
       ) do |section|
-        section.render ::Decor::Forms::ButtonRadioGroup.new(
+        section.render ::Decor::Daisy::Forms::ButtonRadioGroup.new(
           label: "Theme",
           name: "theme",
           choices: [["Light", "light"], ["Dark", "dark"], ["Auto", "auto"]],
