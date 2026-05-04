@@ -1,5 +1,5 @@
 # @label CompactFooter
-class ::Decor::Nav::CompactFooterPreview < ::Lookbook::Preview
+class ::Decor::Daisy::Nav::CompactFooterPreview < ::Lookbook::Preview
   # CompactFooter
   # -------------
   #
@@ -9,7 +9,7 @@ class ::Decor::Nav::CompactFooterPreview < ::Lookbook::Preview
   # @group Examples
   # @label Default Compact Footer
   def default
-    render ::Decor::Nav::CompactFooter.new(
+    render ::Decor::Daisy::Nav::CompactFooter.new(
       company_name: "Example Company",
       social_links: [
         ::Decor::Daisy::Nav::Footer::SocialLink.new(platform: :twitter, url: "https://twitter.com/example"),
@@ -27,7 +27,7 @@ class ::Decor::Nav::CompactFooterPreview < ::Lookbook::Preview
   # @group Examples
   # @label All Social Platforms
   def all_social_platforms
-    render ::Decor::Nav::CompactFooter.new(
+    render ::Decor::Daisy::Nav::CompactFooter.new(
       company_name: "Example Company",
       social_links: [
         ::Decor::Daisy::Nav::Footer::SocialLink.new(platform: :facebook, url: "https://facebook.com/example"),
@@ -43,7 +43,7 @@ class ::Decor::Nav::CompactFooterPreview < ::Lookbook::Preview
   # @group Examples
   # @label Custom Content
   def custom_content
-    render ::Decor::Nav::CompactFooter.new(
+    render ::Decor::Daisy::Nav::CompactFooter.new(
       company_name: "Example Company",
       show_logo: false
     ) do |component|
@@ -83,7 +83,7 @@ class ::Decor::Nav::CompactFooterPreview < ::Lookbook::Preview
     color: nil,
     style: nil
   )
-    render ::Decor::Nav::CompactFooter.new(
+    render ::Decor::Daisy::Nav::CompactFooter.new(
       company_name: company_name,
       theme: theme,
       show_logo: show_logo,
@@ -98,7 +98,7 @@ class ::Decor::Nav::CompactFooterPreview < ::Lookbook::Preview
   # @group Themes
   # @label Dark Theme
   def theme_dark
-    render ::Decor::Nav::CompactFooter.new(
+    render ::Decor::Daisy::Nav::CompactFooter.new(
       company_name: "Example Company",
       theme: :dark,
       social_links: standard_social_links,
@@ -109,7 +109,7 @@ class ::Decor::Nav::CompactFooterPreview < ::Lookbook::Preview
   # @group Themes
   # @label Light Theme
   def theme_light
-    render ::Decor::Nav::CompactFooter.new(
+    render ::Decor::Daisy::Nav::CompactFooter.new(
       company_name: "Example Company",
       theme: :light,
       social_links: standard_social_links,
@@ -120,7 +120,7 @@ class ::Decor::Nav::CompactFooterPreview < ::Lookbook::Preview
   # @group Logo Display
   # @label Without Logo
   def without_logo
-    render ::Decor::Nav::CompactFooter.new(
+    render ::Decor::Daisy::Nav::CompactFooter.new(
       company_name: "Example Company",
       show_logo: false,
       social_links: standard_social_links,

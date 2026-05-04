@@ -1,8 +1,8 @@
 require "test_helper"
 
-class Decor::Nav::CompactFooterTest < ActiveSupport::TestCase
+class Decor::Daisy::Nav::CompactFooterTest < ActiveSupport::TestCase
   test "renders successfully with required attributes" do
-    component = Decor::Nav::CompactFooter.new(
+    component = Decor::Daisy::Nav::CompactFooter.new(
       company_name: "Test Company"
     )
     rendered = render_component(component)
@@ -13,7 +13,7 @@ class Decor::Nav::CompactFooterTest < ActiveSupport::TestCase
   end
 
   test "renders with daisyUI footer classes" do
-    component = Decor::Nav::CompactFooter.new(
+    component = Decor::Daisy::Nav::CompactFooter.new(
       company_name: "Test Company"
     )
     rendered = render_component(component)
@@ -25,7 +25,7 @@ class Decor::Nav::CompactFooterTest < ActiveSupport::TestCase
   end
 
   test "renders with dark theme" do
-    component = Decor::Nav::CompactFooter.new(
+    component = Decor::Daisy::Nav::CompactFooter.new(
       company_name: "Test Company",
       theme: :dark
     )
@@ -42,7 +42,7 @@ class Decor::Nav::CompactFooterTest < ActiveSupport::TestCase
       Decor::Daisy::Nav::Footer::SocialLink.new(platform: :github, url: "https://github.com/test")
     ]
 
-    component = Decor::Nav::CompactFooter.new(
+    component = Decor::Daisy::Nav::CompactFooter.new(
       company_name: "Test Company",
       social_links: social_links
     )
@@ -59,7 +59,7 @@ class Decor::Nav::CompactFooterTest < ActiveSupport::TestCase
       Decor::Daisy::Nav::Footer::FooterLink.new(label: "Privacy", href: "/privacy", external: true)
     ]
 
-    component = Decor::Nav::CompactFooter.new(
+    component = Decor::Daisy::Nav::CompactFooter.new(
       company_name: "Test Company",
       footer_links: footer_links
     )
@@ -72,7 +72,7 @@ class Decor::Nav::CompactFooterTest < ActiveSupport::TestCase
   end
 
   test "supports logo content slot" do
-    rendered = render_component(Decor::Nav::CompactFooter.new(company_name: "Test Company")) do |f|
+    rendered = render_component(Decor::Daisy::Nav::CompactFooter.new(company_name: "Test Company")) do |f|
       f.with_logo { f.div { "Custom Logo" } }
     end
 
@@ -80,7 +80,7 @@ class Decor::Nav::CompactFooterTest < ActiveSupport::TestCase
   end
 
   test "supports custom links slot" do
-    rendered = render_component(Decor::Nav::CompactFooter.new(company_name: "Test Company")) do |f|
+    rendered = render_component(Decor::Daisy::Nav::CompactFooter.new(company_name: "Test Company")) do |f|
       f.with_links { f.a(href: "/custom") { "Custom Link" } }
     end
 
@@ -88,7 +88,7 @@ class Decor::Nav::CompactFooterTest < ActiveSupport::TestCase
   end
 
   test "supports copyright slot" do
-    rendered = render_component(Decor::Nav::CompactFooter.new(company_name: "Test Company")) do |f|
+    rendered = render_component(Decor::Daisy::Nav::CompactFooter.new(company_name: "Test Company")) do |f|
       f.with_copyright { f.plain "© 2024 Custom Copyright" }
     end
 
@@ -96,7 +96,7 @@ class Decor::Nav::CompactFooterTest < ActiveSupport::TestCase
   end
 
   test "hides logo when show_logo is false" do
-    component = Decor::Nav::CompactFooter.new(
+    component = Decor::Daisy::Nav::CompactFooter.new(
       company_name: "Test Company",
       show_logo: false
     )
@@ -111,7 +111,7 @@ class Decor::Nav::CompactFooterTest < ActiveSupport::TestCase
       Decor::Daisy::Nav::Footer::SocialLink.new(platform: :facebook, url: "https://facebook.com/test", visible: false)
     ]
 
-    component = Decor::Nav::CompactFooter.new(
+    component = Decor::Daisy::Nav::CompactFooter.new(
       company_name: "Test Company",
       social_links: social_links
     )
@@ -131,7 +131,7 @@ class Decor::Nav::CompactFooterTest < ActiveSupport::TestCase
       Decor::Daisy::Nav::Footer::SocialLink.new(platform: :github, url: "https://github.com/test")
     ]
 
-    component = Decor::Nav::CompactFooter.new(
+    component = Decor::Daisy::Nav::CompactFooter.new(
       company_name: "Test Company",
       social_links: social_links
     )
@@ -148,7 +148,7 @@ class Decor::Nav::CompactFooterTest < ActiveSupport::TestCase
       Decor::Daisy::Nav::Footer::FooterLink.new(label: "External", href: "https://external.com", external: true)
     ]
 
-    component = Decor::Nav::CompactFooter.new(
+    component = Decor::Daisy::Nav::CompactFooter.new(
       company_name: "Test Company",
       footer_links: footer_links
     )
@@ -167,7 +167,7 @@ class Decor::Nav::CompactFooterTest < ActiveSupport::TestCase
   end
 
   test "component inherits from PhlexComponent" do
-    component = Decor::Nav::CompactFooter.new(
+    component = Decor::Daisy::Nav::CompactFooter.new(
       company_name: "Test Company"
     )
 
@@ -176,7 +176,7 @@ class Decor::Nav::CompactFooterTest < ActiveSupport::TestCase
 
   test "validates required company_name attribute" do
     assert_raises(Literal::TypeError) do
-      Decor::Nav::CompactFooter.new(
+      Decor::Daisy::Nav::CompactFooter.new(
         company_name: ""
       )
     end
