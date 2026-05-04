@@ -2,7 +2,7 @@
 
 module Decor
   module Forms
-    class FormField < FormChild
+    class FormField < ::Decor::Components::Forms::FormChild
       # The name attribute of the form field
       prop :name, _String(_Predicate("present", &:present?))
 

@@ -2,7 +2,7 @@
 
 module Decor
   module Forms
-    class FormFieldLayout < FormChild
+    class FormFieldLayout < ::Decor::Components::Forms::FormChild
       prop :input_container_classes, _Nilable(String), default: "", reader: :private
 
       prop :form_field_element, _Nilable(_Any)
