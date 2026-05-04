@@ -90,7 +90,7 @@ class ::Decor::Daisy::Modals::ModalPreview < ::Lookbook::Preview
         color: :warning
       ) do
         render ::Decor::Daisy::Element.new(html_options: {class: "flex gap-4 justify-end mt-4"}) do
-          render ::Decor::Modals::ModalCloseButton.new(
+          render ::Decor::Daisy::Modals::ModalCloseButton.new(
             label: "Cancel",
             style: :ghost
           )
@@ -131,7 +131,7 @@ class ::Decor::Daisy::Modals::ModalPreview < ::Lookbook::Preview
           end
           form.with_section do
             render ::Decor::Daisy::Element.new(html_options: {class: "flex gap-4 justify-end"}) do
-              render ::Decor::Modals::ModalCloseButton.new(
+              render ::Decor::Daisy::Modals::ModalCloseButton.new(
                 label: "Cancel",
                 style: :ghost
               )

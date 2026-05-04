@@ -83,7 +83,7 @@ If you find any issues or missing components, please open a PR to improve the do
 ### Modal Components
 - [Decor::Modals::ConfirmModal](#decormodalsconfirmmodal)
 - [Decor::Daisy::Modals::Modal](#decordaisymodalsmodal)
-- [Decor::Modals::ModalCloseButton](#decormodalsmodalclosebutton)
+- [Decor::Daisy::Modals::ModalCloseButton](#decordaisymodalsmodalclosebutton)
 - [Decor::Daisy::Modals::ModalLayout](#decordaisymodalsmodallayout)
 - [Decor::Daisy::Modals::ModalOpenButton](#decordaisymodalsmodalopenbutton)
 
@@ -1864,15 +1864,15 @@ _(and the shared properties `size`, `color`, and `style` as described above)_
 
 ---
 
-### Decor::Modals::ModalCloseButton
+### Decor::Daisy::Modals::ModalCloseButton
 
-<span id="decormodalsmodalclosebutton"></span>
+<span id="decordaisymodalsmodalclosebutton"></span>
 
 A button that triggers the modal close action, typically rendered inside modal views as a Cancel or OK button. The `close_reason` is passed to the modal's `onClose` callback. Key examples demonstrating common use cases for modal close buttons
 
 **Basic Usage:**
 ```ruby
-render Decor::Modals::ModalCloseButton.new do
+render Decor::Daisy::Modals::ModalCloseButton.new do
   "Content goes here"
 end
 ```
