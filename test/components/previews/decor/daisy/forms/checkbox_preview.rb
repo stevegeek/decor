@@ -1,11 +1,11 @@
 # @label Checkbox
 # Renders a styled checkbox input with DaisyUI styling, supporting various colors, sizes, and states.
-class ::Decor::Forms::CheckboxPreview < ::Lookbook::Preview
+class ::Decor::Daisy::Forms::CheckboxPreview < ::Lookbook::Preview
   # @group Examples
 
   # Basic checkbox with label
   def default
-    render ::Decor::Forms::Checkbox.new(
+    render ::Decor::Daisy::Forms::Checkbox.new(
       name: "terms",
       label: "I agree to the terms and conditions"
     )
@@ -13,7 +13,7 @@ class ::Decor::Forms::CheckboxPreview < ::Lookbook::Preview
 
   # Checkbox with helper text and required state
   def with_helper_text
-    render ::Decor::Forms::Checkbox.new(
+    render ::Decor::Daisy::Forms::Checkbox.new(
       name: "subscribe",
       label: "Subscribe to newsletter",
       helper_text: "You can unsubscribe at any time",
@@ -23,7 +23,7 @@ class ::Decor::Forms::CheckboxPreview < ::Lookbook::Preview
 
   # Pre-checked checkbox with custom color
   def checked_with_color
-    render ::Decor::Forms::Checkbox.new(
+    render ::Decor::Daisy::Forms::Checkbox.new(
       name: "notifications",
       label: "Enable email notifications",
       checked: true,
@@ -81,7 +81,7 @@ class ::Decor::Forms::CheckboxPreview < ::Lookbook::Preview
     size: nil,
     style: nil
   )
-    render ::Decor::Forms::Checkbox.new(
+    render ::Decor::Daisy::Forms::Checkbox.new(
       name: name,
       label: label,
       description: description,
@@ -131,7 +131,7 @@ class ::Decor::Forms::CheckboxPreview < ::Lookbook::Preview
 
   # Disabled checkbox
   def disabled
-    render ::Decor::Forms::Checkbox.new(
+    render ::Decor::Daisy::Forms::Checkbox.new(
       name: "disabled_example",
       label: "This checkbox is disabled",
       disabled: true
@@ -140,7 +140,7 @@ class ::Decor::Forms::CheckboxPreview < ::Lookbook::Preview
 
   # Required checkbox with asterisk
   def required
-    render ::Decor::Forms::Checkbox.new(
+    render ::Decor::Daisy::Forms::Checkbox.new(
       name: "required_example",
       label: "This field is required",
       required: true

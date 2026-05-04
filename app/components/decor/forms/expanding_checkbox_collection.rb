@@ -14,7 +14,7 @@ module Decor
       redefine_styles :default, :joined
 
       stimulus do
-        outlets checkbox: ::Decor::Forms::Checkbox.stimulus_identifier
+        outlets checkbox: ::Decor::Daisy::Forms::Checkbox.stimulus_identifier
         values label: "collection", required: -> { @required }
         classes(
           valid_label: -> { @disabled ? "text-disabled" : "text-gray-900" },

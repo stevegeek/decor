@@ -96,7 +96,7 @@ module Decor
 
             if @clear_checkbox && (file_url || @existing_file_url.present?)
               div(class: "flex items-center") do
-                checkbox = ::Decor::Forms::Checkbox.new(
+                checkbox = ::Decor::Daisy::Forms::Checkbox.new(
                   name: field_name(@object_name, :"#{@method_name}_delete"),
                   disabled: @disabled,
                   collapsing_helper_text: true,

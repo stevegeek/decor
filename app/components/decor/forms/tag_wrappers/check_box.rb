@@ -6,12 +6,12 @@ module Decor
       class CheckBox < ActionView::Helpers::Tags::CheckBox
         include TagWrapper
 
-        CHECKBOX_ATTRS = ::Decor::Forms::Checkbox.prop_names.map(&:to_s).freeze
+        CHECKBOX_ATTRS = ::Decor::Daisy::Forms::Checkbox.prop_names.map(&:to_s).freeze
 
         def tag(_type, options)
           return super if options["type"] == "hidden"
           component_options = check_options(options)
-          @template_object.render ::Decor::Forms::Checkbox.new(**component_options)
+          @template_object.render ::Decor::Daisy::Forms::Checkbox.new(**component_options)
         end
 
         private

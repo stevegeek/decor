@@ -77,7 +77,7 @@ module Decor
                             stimulus_outlet_host: el
                           )
                         when :checkbox
-                          render ::Decor::Forms::Checkbox.new(
+                          render ::Decor::Daisy::Forms::Checkbox.new(
                             name: filter.name,
                             label: filter.label,
                             checked: filter.value == "true",

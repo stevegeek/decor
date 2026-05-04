@@ -1,8 +1,8 @@
 require "test_helper"
 
-class Decor::Forms::CheckboxTest < ActiveSupport::TestCase
+class Decor::Daisy::Forms::CheckboxTest < ActiveSupport::TestCase
   test "renders successfully with valid attributes" do
-    component = Decor::Forms::Checkbox.new(name: "checkbox", label: "Label")
+    component = Decor::Daisy::Forms::Checkbox.new(name: "checkbox", label: "Label")
     rendered = render_component(component)
 
     assert_includes rendered, "Label"
@@ -11,28 +11,28 @@ class Decor::Forms::CheckboxTest < ActiveSupport::TestCase
   end
 
   test "renders with checked state" do
-    component = Decor::Forms::Checkbox.new(name: "test", label: "Test", checked: true)
+    component = Decor::Daisy::Forms::Checkbox.new(name: "test", label: "Test", checked: true)
     rendered = render_component(component)
 
     assert_includes rendered, "checked"
   end
 
   test "renders with disabled state" do
-    component = Decor::Forms::Checkbox.new(name: "test", label: "Test", disabled: true)
+    component = Decor::Daisy::Forms::Checkbox.new(name: "test", label: "Test", disabled: true)
     rendered = render_component(component)
 
     assert_includes rendered, "disabled"
   end
 
   test "renders with required attribute" do
-    component = Decor::Forms::Checkbox.new(name: "test", label: "Test", required: true)
+    component = Decor::Daisy::Forms::Checkbox.new(name: "test", label: "Test", required: true)
     rendered = render_component(component)
 
     assert_includes rendered, "required"
   end
 
   test "renders with helper text" do
-    component = Decor::Forms::Checkbox.new(
+    component = Decor::Daisy::Forms::Checkbox.new(
       name: "test",
       label: "Test",
       helper_text: "This is helpful information"
@@ -43,7 +43,7 @@ class Decor::Forms::CheckboxTest < ActiveSupport::TestCase
   end
 
   test "renders with error text" do
-    component = Decor::Forms::Checkbox.new(
+    component = Decor::Daisy::Forms::Checkbox.new(
       name: "test",
       label: "Test",
       error_messages: ["This field is required"]
@@ -55,7 +55,7 @@ class Decor::Forms::CheckboxTest < ActiveSupport::TestCase
   end
 
   test "renders with DaisyUI checkbox classes" do
-    component = Decor::Forms::Checkbox.new(name: "checkbox", label: "Checkbox")
+    component = Decor::Daisy::Forms::Checkbox.new(name: "checkbox", label: "Checkbox")
     fragment = render_fragment(component)
 
     input = fragment.at_css('input[type="checkbox"]')
@@ -64,7 +64,7 @@ class Decor::Forms::CheckboxTest < ActiveSupport::TestCase
   end
 
   test "renders with different colors" do
-    component = Decor::Forms::Checkbox.new(name: "colored_checkbox", label: "Colored", color: :success)
+    component = Decor::Daisy::Forms::Checkbox.new(name: "colored_checkbox", label: "Colored", color: :success)
     fragment = render_fragment(component)
 
     input = fragment.at_css('input[type="checkbox"]')
@@ -73,7 +73,7 @@ class Decor::Forms::CheckboxTest < ActiveSupport::TestCase
   end
 
   test "renders with different sizes" do
-    component = Decor::Forms::Checkbox.new(name: "large_checkbox", label: "Large", size: :lg)
+    component = Decor::Daisy::Forms::Checkbox.new(name: "large_checkbox", label: "Large", size: :lg)
     fragment = render_fragment(component)
 
     input = fragment.at_css('input[type="checkbox"]')
@@ -82,7 +82,7 @@ class Decor::Forms::CheckboxTest < ActiveSupport::TestCase
   end
 
   test "renders with extra large size" do
-    component = Decor::Forms::Checkbox.new(name: "xl_checkbox", label: "Extra Large", size: :xl)
+    component = Decor::Daisy::Forms::Checkbox.new(name: "xl_checkbox", label: "Extra Large", size: :xl)
     fragment = render_fragment(component)
 
     input = fragment.at_css('input[type="checkbox"]')
@@ -91,7 +91,7 @@ class Decor::Forms::CheckboxTest < ActiveSupport::TestCase
   end
 
   test "renders with error styling when errors present" do
-    component = Decor::Forms::Checkbox.new(name: "error_checkbox", label: "Error", error_messages: ["Something went wrong"])
+    component = Decor::Daisy::Forms::Checkbox.new(name: "error_checkbox", label: "Error", error_messages: ["Something went wrong"])
     fragment = render_fragment(component)
 
     input = fragment.at_css('input[type="checkbox"]')
@@ -100,7 +100,7 @@ class Decor::Forms::CheckboxTest < ActiveSupport::TestCase
   end
 
   test "renders with neutral color" do
-    component = Decor::Forms::Checkbox.new(name: "neutral_checkbox", label: "Neutral", color: :neutral)
+    component = Decor::Daisy::Forms::Checkbox.new(name: "neutral_checkbox", label: "Neutral", color: :neutral)
     fragment = render_fragment(component)
 
     input = fragment.at_css('input[type="checkbox"]')
@@ -109,7 +109,7 @@ class Decor::Forms::CheckboxTest < ActiveSupport::TestCase
   end
 
   test "renders with warning color" do
-    component = Decor::Forms::Checkbox.new(name: "warning_checkbox", label: "Warning", color: :warning)
+    component = Decor::Daisy::Forms::Checkbox.new(name: "warning_checkbox", label: "Warning", color: :warning)
     fragment = render_fragment(component)
 
     input = fragment.at_css('input[type="checkbox"]')
@@ -118,7 +118,7 @@ class Decor::Forms::CheckboxTest < ActiveSupport::TestCase
   end
 
   test "renders with info color" do
-    component = Decor::Forms::Checkbox.new(name: "info_checkbox", label: "Info", color: :info)
+    component = Decor::Daisy::Forms::Checkbox.new(name: "info_checkbox", label: "Info", color: :info)
     fragment = render_fragment(component)
 
     input = fragment.at_css('input[type="checkbox"]')
@@ -127,7 +127,7 @@ class Decor::Forms::CheckboxTest < ActiveSupport::TestCase
   end
 
   test "uses nokogiri for parsing" do
-    component = Decor::Forms::Checkbox.new(name: "test", label: "Test Label")
+    component = Decor::Daisy::Forms::Checkbox.new(name: "test", label: "Test Label")
     fragment = render_fragment(component)
 
     checkbox = fragment.at_css('input[type="checkbox"]')

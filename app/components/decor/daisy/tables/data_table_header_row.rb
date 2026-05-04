@@ -9,7 +9,7 @@ module Decor
           root_element do |el|
             if @selectable_as.present?
               td(class: "px-4") do
-                render ::Decor::Forms::Checkbox.new(
+                render ::Decor::Daisy::Forms::Checkbox.new(
                   stimulus_actions: [el.stimulus_action(:change, :handle_checkbox_change)],
                   stimulus_outlet_host: el,
                   show_label: false,
