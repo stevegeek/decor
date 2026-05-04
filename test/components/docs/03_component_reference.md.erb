@@ -43,7 +43,7 @@ If you find any issues or missing components, please open a PR to improve the do
 - [Decor::Daisy::Forms::ErrorIconSection](#decordaisyformserroriconsection)
 - [Decor::Forms::ExpandingCheckboxCollection](#decorformsexpandingcheckboxcollection)
 - [Decor::Forms::FileUpload](#decorformsfileupload)
-- [Decor::Forms::Form](#decorformsform)
+- [Decor::Daisy::Forms::Form](#decordaisyformsform)
 - [Decor::Forms::FormFieldLayout](#decorformsformfieldlayout)
 - [Decor::Daisy::Forms::HelperTextSection](#decordaisyformshelpertextsection)
 - [Decor::Forms::HiddenField](#decorformshiddenfield)
@@ -898,15 +898,15 @@ render Decor::Forms::FileUpload.new
 
 ---
 
-### Decor::Forms::Form
+### Decor::Daisy::Forms::Form
 
-<span id="decorformsform"></span>
+<span id="decordaisyformsform"></span>
 
 A form component that wraps Rails form_with helper with Stimulus functionality. Provides form validation, AJAX submission handling, and custom events.
 
 **Basic Usage:**
 ```ruby
-render Decor::Forms::Form.new do
+render Decor::Daisy::Forms::Form.new do
   "Content goes here"
 end
 ```

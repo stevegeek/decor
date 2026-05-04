@@ -46,7 +46,7 @@ module Decor
             h3(class: "footer-title") { "Subscribe to our newsletter" }
             p(class: "text-sm opacity-70 mb-4") { "Stay in the loop with the latest features, updates, and efficiency-boosting tips." }
 
-            render ::Decor::Forms::Form.new(model: @leads_model, local: true, url: @leads_submit_path, html: {class: "flex flex-col sm:flex-row gap-2"}) do |form|
+            render ::Decor::Daisy::Forms::Form.new(model: @leads_model, local: true, url: @leads_submit_path, html: {class: "flex flex-col sm:flex-row gap-2"}) do |form|
               raw(form.builder.hidden_field(:from_entry_point, value: "corp_site_footer").html_safe)
               raw(form.builder.email_field(:email, label_position: :inside, required: true, placeholder: "Enter your email", class: "input input-bordered flex-1").html_safe)
               raw(form.builder.submit("Subscribe", class: "btn btn-primary").html_safe)

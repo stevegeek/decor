@@ -1,6 +1,6 @@
 require "test_helper"
 
-class Decor::Forms::FormTest < ActiveSupport::TestCase
+class Decor::Daisy::Forms::FormTest < ActiveSupport::TestCase
   class TestModel
     include ActiveModel::Model
     include ActiveModel::Attributes
@@ -31,7 +31,7 @@ class Decor::Forms::FormTest < ActiveSupport::TestCase
   end
 
   test "renders successfully with model" do
-    component = Decor::Forms::Form.new(model: @model, url: "/test")
+    component = Decor::Daisy::Forms::Form.new(model: @model, url: "/test")
     rendered = render_component(component)
 
     assert_includes rendered, "<form"
@@ -40,14 +40,14 @@ class Decor::Forms::FormTest < ActiveSupport::TestCase
   end
 
   test "renders with custom URL" do
-    component = Decor::Forms::Form.new(model: @model, url: "/custom-path")
+    component = Decor::Daisy::Forms::Form.new(model: @model, url: "/custom-path")
     rendered = render_component(component)
 
     assert_includes rendered, 'action="/custom-path"'
   end
 
   test "renders with HTTP method" do
-    component = Decor::Forms::Form.new(model: @model, url: "/test", http_method: :patch)
+    component = Decor::Daisy::Forms::Form.new(model: @model, url: "/test", http_method: :patch)
     rendered = render_component(component)
 
     # Rails uses hidden fields for non-GET/POST methods
@@ -56,14 +56,14 @@ class Decor::Forms::FormTest < ActiveSupport::TestCase
   end
 
   test "renders as local form by default" do
-    component = Decor::Forms::Form.new(model: @model, url: "/test")
+    component = Decor::Daisy::Forms::Form.new(model: @model, url: "/test")
     rendered = render_component(component)
 
     assert_includes rendered, 'data-turbo="false"'
   end
 
   test "renders as remote form when local is false" do
-    component = Decor::Forms::Form.new(model: @model, url: "/test", local: false)
+    component = Decor::Daisy::Forms::Form.new(model: @model, url: "/test", local: false)
     rendered = render_component(component)
 
     assert_includes rendered, 'data-type="json"'
@@ -72,7 +72,7 @@ class Decor::Forms::FormTest < ActiveSupport::TestCase
   test "includes lock version when model responds to it" do
     model_with_lock = TestModel.new(name: "Test", lock_version: 5)
 
-    component = Decor::Forms::Form.new(model: model_with_lock, url: "/test")
+    component = Decor::Daisy::Forms::Form.new(model: model_with_lock, url: "/test")
     rendered = render_component(component)
 
     assert_includes rendered, "test_model[lock_version]"
@@ -81,7 +81,7 @@ class Decor::Forms::FormTest < ActiveSupport::TestCase
 
   test "handles hash model with lock_version" do
     # This test demonstrates that hash models work when passed without a model param
-    component = Decor::Forms::Form.new(url: "/test") do |form|
+    component = Decor::Daisy::Forms::Form.new(url: "/test") do |form|
       # Hash-based form data would be handled in the block content
       form.raw '<input name="lock_version" value="3" type="hidden">'.html_safe
     end
@@ -92,7 +92,7 @@ class Decor::Forms::FormTest < ActiveSupport::TestCase
   end
 
   test "renders with custom namespace" do
-    component = Decor::Forms::Form.new(
+    component = Decor::Daisy::Forms::Form.new(
       model: @model,
       url: "/test",
       namespace: :admin
@@ -105,16 +105,16 @@ class Decor::Forms::FormTest < ActiveSupport::TestCase
   end
 
   test "sets up stimulus actions for local forms" do
-    component = Decor::Forms::Form.new(model: @model, url: "/test", local: true)
+    component = Decor::Daisy::Forms::Form.new(model: @model, url: "/test", local: true)
     rendered = render_component(component)
 
     # Local forms should have stimulus controller
     assert_includes rendered, "data-controller="
-    assert_includes rendered, "decor--forms--form"
+    assert_includes rendered, "decor--daisy--forms--form"
   end
 
   test "sets up stimulus actions for remote forms" do
-    component = Decor::Forms::Form.new(model: @model, url: "/test", local: false)
+    component = Decor::Daisy::Forms::Form.new(model: @model, url: "/test", local: false)
     rendered = render_component(component)
 
     # Remote forms should have remote=true and json data type
@@ -128,7 +128,7 @@ class Decor::Forms::FormTest < ActiveSupport::TestCase
   # requires exact ActionView::Helpers::FormBuilder inheritance
 
   test "uses nokogiri for parsing" do
-    component = Decor::Forms::Form.new(model: @model, url: "/test")
+    component = Decor::Daisy::Forms::Form.new(model: @model, url: "/test")
     fragment = render_fragment(component)
 
     form = fragment.at_css("form")

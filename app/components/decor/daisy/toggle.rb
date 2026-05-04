@@ -5,7 +5,7 @@ module Decor
     class Toggle < ::Decor::Components::Toggle
       def view_template(&block)
         root_element do
-          render ::Decor::Forms::Form.new(model: @model, url: @url, local: false, http_method: @http_method) do |form_component|
+          render ::Decor::Daisy::Forms::Form.new(model: @model, url: @url, local: false, http_method: @http_method) do |form_component|
             if block_given?
               capture(&block)
             else

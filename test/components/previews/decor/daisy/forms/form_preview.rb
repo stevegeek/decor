@@ -1,5 +1,5 @@
 # @label Form
-class ::Decor::Forms::FormPreview < ::Lookbook::Preview
+class ::Decor::Daisy::Forms::FormPreview < ::Lookbook::Preview
   # A form component that wraps Rails form_with helper with Stimulus functionality.
   # Provides form validation, AJAX submission handling, and custom events.
 
@@ -17,7 +17,7 @@ class ::Decor::Forms::FormPreview < ::Lookbook::Preview
     end
     model = klass.new(title: "", description: "")
 
-    render ::Decor::Forms::Form.new(
+    render ::Decor::Daisy::Forms::Form.new(
       model: model,
       url: "#",
       local: true
@@ -50,7 +50,7 @@ class ::Decor::Forms::FormPreview < ::Lookbook::Preview
     end
     model = klass.new(feedback: "")
 
-    render ::Decor::Forms::Form.new(
+    render ::Decor::Daisy::Forms::Form.new(
       model: model,
       url: "#",
       local: false # AJAX form
@@ -81,7 +81,7 @@ class ::Decor::Forms::FormPreview < ::Lookbook::Preview
     end
     model = klass.new(theme: "dark", notifications: true)
 
-    render ::Decor::Forms::Form.new(
+    render ::Decor::Daisy::Forms::Form.new(
       model: model,
       url: "#",
       namespace: :settings
@@ -121,7 +121,7 @@ class ::Decor::Forms::FormPreview < ::Lookbook::Preview
     end
     model = klass.new(name: "", email: "", message: "")
 
-    render ::Decor::Forms::Form.new(
+    render ::Decor::Daisy::Forms::Form.new(
       model: model,
       url: "#",
       local: local,
