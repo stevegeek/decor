@@ -1,7 +1,7 @@
 # @label ConfirmModal
 # An overlay modal designed to request a negative or positive response from the user.
 # Typically rendered once and controlled via JavaScript events at runtime.
-class ::Decor::Modals::ConfirmModalPreview < ::Lookbook::Preview
+class ::Decor::Daisy::Modals::ConfirmModalPreview < ::Lookbook::Preview
   # @!group Examples
 
   # @label Default

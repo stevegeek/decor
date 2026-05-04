@@ -30,7 +30,7 @@
     </main>
 
     <%= render ::Decor::Daisy::Modals::Modal.new %>
-    <%= render ::Decor::Modals::ConfirmModal.new %>
+    <%= render ::Decor::Daisy::Modals::ConfirmModal.new %>
     <%= render ::Decor::NotificationManager.new(
       stimulus_values: {
         initial_notifications: [notice, alert].compact.map do |message|
