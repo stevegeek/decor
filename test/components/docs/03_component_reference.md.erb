@@ -47,7 +47,7 @@ If you find any issues or missing components, please open a PR to improve the do
 - [Decor::Forms::FormFieldLayout](#decorformsformfieldlayout)
 - [Decor::Daisy::Forms::HelperTextSection](#decordaisyformshelpertextsection)
 - [Decor::Forms::HiddenField](#decorformshiddenfield)
-- [Decor::Forms::LayoutContainer](#decorformslayoutcontainer)
+- [Decor::Daisy::Forms::LayoutContainer](#decordaisyformslayoutcontainer)
 - [Decor::Forms::LayoutSection](#decorformslayoutsection)
 - [Decor::Forms::NumberField](#decorformsnumberfield)
 - [Decor::Forms::Radio](#decorformsradio)
@@ -987,15 +987,15 @@ render Decor::Forms::HiddenField.new
 
 ---
 
-### Decor::Forms::LayoutContainer
+### Decor::Daisy::Forms::LayoutContainer
 
-<span id="decorformslayoutcontainer"></span>
+<span id="decordaisyformslayoutcontainer"></span>
 
 Basic layout container with sections
 
 **Basic Usage:**
 ```ruby
-render Decor::Forms::LayoutContainer.new do |c|
+render Decor::Daisy::Forms::LayoutContainer.new do |c|
   c.with_buttons do
     # Slot content
   end

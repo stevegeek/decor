@@ -1,11 +1,11 @@
 # Form layout container for organizing form sections with optional action buttons
 # @label LayoutContainer
-class ::Decor::Forms::LayoutContainerPreview < ::Lookbook::Preview
+class ::Decor::Daisy::Forms::LayoutContainerPreview < ::Lookbook::Preview
   # @!group Examples
 
   # Basic layout container with sections
   def default
-    render ::Decor::Forms::LayoutContainer.new do |container|
+    render ::Decor::Daisy::Forms::LayoutContainer.new do |container|
       container.render ::Decor::Forms::LayoutSection.new(title: "Personal Information") do |section|
         section.render ::Decor::Forms::TextField.new(label: "First Name", name: "first_name")
         section.render ::Decor::Forms::TextField.new(label: "Last Name", name: "last_name")
@@ -20,7 +20,7 @@ class ::Decor::Forms::LayoutContainerPreview < ::Lookbook::Preview
 
   # Layout container with action buttons
   def with_buttons
-    render ::Decor::Forms::LayoutContainer.new do |container|
+    render ::Decor::Daisy::Forms::LayoutContainer.new do |container|
       container.with_buttons do
         container.render ::Decor::Daisy::Button.new(label: "Cancel", color: :secondary)
         container.render ::Decor::Daisy::Button.new(label: "Save Changes", color: :primary)
@@ -35,7 +35,7 @@ class ::Decor::Forms::LayoutContainerPreview < ::Lookbook::Preview
 
   # Complex form with multiple sections and helper text
   def complex_form
-    render ::Decor::Forms::LayoutContainer.new do |container|
+    render ::Decor::Daisy::Forms::LayoutContainer.new do |container|
       container.with_buttons do
         container.render ::Decor::Daisy::Button.new(label: "Reset", style: :outlined)
         container.render ::Decor::Daisy::Button.new(label: "Submit", color: :primary)
@@ -87,7 +87,7 @@ class ::Decor::Forms::LayoutContainerPreview < ::Lookbook::Preview
     section_titles: true,
     section_descriptions: false
   )
-    render ::Decor::Forms::LayoutContainer.new do |container|
+    render ::Decor::Daisy::Forms::LayoutContainer.new do |container|
       if with_buttons
         container.with_buttons do
           container.render ::Decor::Daisy::Button.new(label: "Cancel", style: :secondary)
@@ -122,7 +122,7 @@ class ::Decor::Forms::LayoutContainerPreview < ::Lookbook::Preview
 
   # Single section layout
   def single_section
-    render ::Decor::Forms::LayoutContainer.new do |container|
+    render ::Decor::Daisy::Forms::LayoutContainer.new do |container|
       container.render ::Decor::Forms::LayoutSection.new(title: "User Profile") do |section|
         section.render ::Decor::Forms::TextField.new(label: "Display Name", name: "display_name")
         section.render ::Decor::Forms::TextArea.new(label: "Bio", name: "bio", rows: 4)
@@ -133,7 +133,7 @@ class ::Decor::Forms::LayoutContainerPreview < ::Lookbook::Preview
 
   # Nested form layout
   def nested_layout
-    render ::Decor::Forms::LayoutContainer.new do |container|
+    render ::Decor::Daisy::Forms::LayoutContainer.new do |container|
       container.with_buttons do
         container.render ::Decor::Daisy::Button.new(label: "Save All", style: :primary)
       end
@@ -144,7 +144,7 @@ class ::Decor::Forms::LayoutContainerPreview < ::Lookbook::Preview
         section.render ::Decor::Forms::TextField.new(label: "Company Name", name: "company_name")
 
         # Nested container for address
-        section.render ::Decor::Forms::LayoutContainer.new do |nested|
+        section.render ::Decor::Daisy::Forms::LayoutContainer.new do |nested|
           nested.render ::Decor::Forms::LayoutSection.new(
             title: "Address",
             description: "Primary business address"
@@ -164,7 +164,7 @@ class ::Decor::Forms::LayoutContainerPreview < ::Lookbook::Preview
 
   # Multiple button styles
   def button_variations
-    render ::Decor::Forms::LayoutContainer.new do |container|
+    render ::Decor::Daisy::Forms::LayoutContainer.new do |container|
       container.with_buttons do
         container.render ::Decor::Daisy::Button.new(label: "Delete", style: :danger, size: :sm)
         container.render ::Decor::Daisy::Button.new(label: "Cancel", style: :outline)
@@ -180,7 +180,7 @@ class ::Decor::Forms::LayoutContainerPreview < ::Lookbook::Preview
 
   # Centered button layout
   def centered_buttons
-    render ::Decor::Forms::LayoutContainer.new do |container|
+    render ::Decor::Daisy::Forms::LayoutContainer.new do |container|
       container.with_buttons(class: "justify-center") do
         container.render ::Decor::Daisy::Button.new(label: "Go Back", style: :outline)
         container.render ::Decor::Daisy::Button.new(label: "Continue", style: :primary)

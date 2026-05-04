@@ -114,7 +114,7 @@ class ::Decor::Daisy::Modals::ModalPreview < ::Lookbook::Preview
         description: "Update your profile information",
         size: :lg
       ) do
-        render ::Decor::Forms::LayoutContainer.new do |form|
+        render ::Decor::Daisy::Forms::LayoutContainer.new do |form|
           form.with_section do
             render ::Decor::Forms::TextField.new(
               label: "Name",
