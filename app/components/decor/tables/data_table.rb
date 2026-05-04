@@ -23,7 +23,7 @@ module Decor
       end
 
       def with_data_table_header_row(component = nil, **attributes, &block)
-        header_row = component || ::Decor::Tables::DataTableHeaderRow.new(**attributes)
+        header_row = component || ::Decor::Daisy::Tables::DataTableHeaderRow.new(**attributes)
         @data_table_header_rows << if block_given?
           [header_row, block]
         else
@@ -70,7 +70,7 @@ module Decor
       prop :pin_cols, _Boolean, default: false
 
       stimulus do
-        outlets header_row: ::Decor::Tables::DataTableHeaderRow.stimulus_identifier, row: ::Decor::Daisy::Tables::DataTableRow.stimulus_identifier
+        outlets header_row: ::Decor::Daisy::Tables::DataTableHeaderRow.stimulus_identifier, row: ::Decor::Daisy::Tables::DataTableRow.stimulus_identifier
       end
 
       def view_template(&)
