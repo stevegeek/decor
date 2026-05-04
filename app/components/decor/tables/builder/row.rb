@@ -10,11 +10,11 @@ module Decor
         prop :expanded_content_renderer, _Nilable(Proc)
 
         # Component instance
-        prop :component, ::Decor::Tables::DataTableRow
+        prop :component, ::Decor::Daisy::Tables::DataTableRow
 
         # Initialize with component instance
         def self.new_with_component(cells:, item_index:, expanded_content_renderer: nil, **component_props)
-          component_instance = ::Decor::Tables::DataTableRow.new(**component_props.compact)
+          component_instance = ::Decor::Daisy::Tables::DataTableRow.new(**component_props.compact)
           new(
             cells: cells,
             item_index: item_index,

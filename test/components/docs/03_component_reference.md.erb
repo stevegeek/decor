@@ -77,7 +77,7 @@ If you find any issues or missing components, please open a PR to improve the do
 - [Decor::Tables::DataTableFooter](#decortablesdatatablefooter)
 - [Decor::Daisy::Tables::DataTableHeaderCell](#decortablesdatatableheadercell)
 - [Decor::Tables::DataTableHeaderRow](#decortablesdatatableheaderrow)
-- [Decor::Tables::DataTableRow](#decortablesdatatablerow)
+- [Decor::Daisy::Tables::DataTableRow](#decortablesdatatablerow)
 - [Decor::Daisy::Tabs](#decordaisytabs)
 
 ### Modal Components
@@ -1746,7 +1746,7 @@ _(and the shared properties `size`, `color`, and `style` as described above)_
 
 ---
 
-### Decor::Tables::DataTableRow
+### Decor::Daisy::Tables::DataTableRow
 
 <span id="decortablesdatatablerow"></span>
 
@@ -1754,7 +1754,7 @@ A table row component that can contain multiple data cells, handle selection, pr
 
 **Basic Usage:**
 ```ruby
-render Decor::Tables::DataTableRow.new do |c|
+render Decor::Daisy::Tables::DataTableRow.new do |c|
   c.with_expanded_content do
     # Slot content
   end
