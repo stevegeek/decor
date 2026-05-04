@@ -130,7 +130,7 @@ class Decor::Forms::DateCalendarTest < ActiveSupport::TestCase
       label: "Event Date"
     )
 
-    assert component.is_a?(Decor::Daisy::Forms::FormField)
+    assert component.is_a?(Decor::Components::Forms::FormField)
   end
 
   test "renders with hidden input for form submission" do

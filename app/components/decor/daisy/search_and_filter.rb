@@ -62,7 +62,7 @@ module Decor
                       component_filters.each do |filter|
                         case filter.type
                         when :select
-                          render ::Decor::Forms::Select.new(
+                          render ::Decor::Daisy::Forms::Select.new(
                             name: filter.name,
                             label: filter.label,
                             value: filter.value,

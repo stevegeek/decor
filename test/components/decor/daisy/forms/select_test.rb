@@ -1,8 +1,8 @@
 require "test_helper"
 
-class Decor::Forms::SelectTest < ActiveSupport::TestCase
+class Decor::Daisy::Forms::SelectTest < ActiveSupport::TestCase
   test "renders successfully with valid attributes" do
-    component = Decor::Forms::Select.new(
+    component = Decor::Daisy::Forms::Select.new(
       name: "category",
       label: "Select Category",
       options_array: [["Option 1", "1"], ["Option 2", "2"]]
@@ -16,7 +16,7 @@ class Decor::Forms::SelectTest < ActiveSupport::TestCase
   end
 
   test "renders with DaisyUI select classes by default" do
-    component = Decor::Forms::Select.new(
+    component = Decor::Daisy::Forms::Select.new(
       name: "category",
       label: "Select Category",
       options_array: [["Option 1", "1"]]
@@ -30,7 +30,7 @@ class Decor::Forms::SelectTest < ActiveSupport::TestCase
   end
 
   test "applies color attribute correctly" do
-    component = Decor::Forms::Select.new(
+    component = Decor::Daisy::Forms::Select.new(
       name: "category",
       label: "Select Category",
       options_array: [["Option 1", "1"]],
@@ -43,7 +43,7 @@ class Decor::Forms::SelectTest < ActiveSupport::TestCase
   end
 
   test "applies size attribute correctly" do
-    component = Decor::Forms::Select.new(
+    component = Decor::Daisy::Forms::Select.new(
       name: "category",
       label: "Select Category",
       options_array: [["Option 1", "1"]],
@@ -56,7 +56,7 @@ class Decor::Forms::SelectTest < ActiveSupport::TestCase
   end
 
   test "applies error styling when errors present" do
-    component = Decor::Forms::Select.new(
+    component = Decor::Daisy::Forms::Select.new(
       name: "category",
       label: "Select Category",
       options_array: [["Option 1", "1"]],
@@ -69,7 +69,7 @@ class Decor::Forms::SelectTest < ActiveSupport::TestCase
   end
 
   test "renders with correct name attribute" do
-    component = Decor::Forms::Select.new(
+    component = Decor::Daisy::Forms::Select.new(
       name: "category",
       label: "Select Category",
       options_array: [["Option 1", "1"]]
@@ -82,7 +82,7 @@ class Decor::Forms::SelectTest < ActiveSupport::TestCase
   end
 
   test "supports disabled state" do
-    component = Decor::Forms::Select.new(
+    component = Decor::Daisy::Forms::Select.new(
       name: "category",
       label: "Select Category",
       options_array: [["Option 1", "1"]],
@@ -95,7 +95,7 @@ class Decor::Forms::SelectTest < ActiveSupport::TestCase
   end
 
   test "supports required attribute" do
-    component = Decor::Forms::Select.new(
+    component = Decor::Daisy::Forms::Select.new(
       name: "category",
       label: "Select Category",
       options_array: [["Option 1", "1"]],
@@ -108,7 +108,7 @@ class Decor::Forms::SelectTest < ActiveSupport::TestCase
   end
 
   test "renders helper text when provided" do
-    component = Decor::Forms::Select.new(
+    component = Decor::Daisy::Forms::Select.new(
       name: "category",
       label: "Select Category",
       options_array: [["Option 1", "1"]],
@@ -121,7 +121,7 @@ class Decor::Forms::SelectTest < ActiveSupport::TestCase
 
   test "renders options with correct values and text" do
     options = [["First Option", "first"], ["Second Option", "second"]]
-    component = Decor::Forms::Select.new(
+    component = Decor::Daisy::Forms::Select.new(
       name: "category",
       label: "Select Category",
       options_array: options
@@ -136,7 +136,7 @@ class Decor::Forms::SelectTest < ActiveSupport::TestCase
   end
 
   test "renders selected option correctly" do
-    component = Decor::Forms::Select.new(
+    component = Decor::Daisy::Forms::Select.new(
       name: "category",
       label: "Select Category",
       options_array: [["Option 1", "1"], ["Option 2", "2"]],
@@ -154,7 +154,7 @@ class Decor::Forms::SelectTest < ActiveSupport::TestCase
       ["Group 1", [["Option 1A", "1a"], ["Option 1B", "1b"]]],
       ["Group 2", [["Option 2A", "2a"], ["Option 2B", "2b"]]]
     ]
-    component = Decor::Forms::Select.new(
+    component = Decor::Daisy::Forms::Select.new(
       name: "category",
       label: "Select Category",
       options_array: grouped_options
@@ -168,7 +168,7 @@ class Decor::Forms::SelectTest < ActiveSupport::TestCase
   end
 
   test "includes blank option when requested" do
-    component = Decor::Forms::Select.new(
+    component = Decor::Daisy::Forms::Select.new(
       name: "category",
       label: "Select Category",
       options_array: [["Option 1", "1"]],
@@ -181,7 +181,7 @@ class Decor::Forms::SelectTest < ActiveSupport::TestCase
   end
 
   test "supports placeholder option" do
-    component = Decor::Forms::Select.new(
+    component = Decor::Daisy::Forms::Select.new(
       name: "category",
       label: "Select Category",
       options_array: [["Option 1", "1"]],
@@ -195,12 +195,12 @@ class Decor::Forms::SelectTest < ActiveSupport::TestCase
   end
 
   test "component inherits from FormField" do
-    component = Decor::Forms::Select.new(
+    component = Decor::Daisy::Forms::Select.new(
       name: "category",
       label: "Select Category",
       options_array: [["Option 1", "1"]]
     )
 
-    assert component.is_a?(Decor::Daisy::Forms::FormField)
+    assert component.is_a?(Decor::Components::Forms::FormField)
   end
 end

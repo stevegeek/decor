@@ -71,7 +71,7 @@ class Decor::Forms::ExpandingCheckboxCollectionTest < ActiveSupport::TestCase
       size: 5
     )
 
-    assert component.is_a?(Decor::Daisy::Forms::FormField)
+    assert component.is_a?(Decor::Components::Forms::FormField)
   end
 
   test "renders show more button when needed" do

@@ -79,7 +79,7 @@ class Decor::Forms::FileUploadTest < ActiveSupport::TestCase
       label: "Upload Avatar"
     )
 
-    assert component.is_a?(Decor::Daisy::Forms::FormField)
+    assert component.is_a?(Decor::Components::Forms::FormField)
   end
 
   test "renders with correct name attribute" do

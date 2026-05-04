@@ -51,7 +51,7 @@ class ::Decor::Daisy::Forms::LayoutContainerPreview < ::Lookbook::Preview
           required: true,
           helper_text: "Enter your full legal name"
         )
-        section.render ::Decor::Forms::Select.new(
+        section.render ::Decor::Daisy::Forms::Select.new(
           options_array: [["United States", "US"], ["Canada", "CA"], ["Mexico", "MX"]],
           label: "Country",
           name: "country",
