@@ -1,11 +1,11 @@
 # @label Switch
 # A toggle switch component that renders as a styled checkbox input.
-class ::Decor::Forms::SwitchPreview < ::Lookbook::Preview
+class ::Decor::Daisy::Forms::SwitchPreview < ::Lookbook::Preview
   # @!group Examples
 
   # Basic switch with label
   def default
-    render ::Decor::Forms::Switch.new(
+    render ::Decor::Daisy::Forms::Switch.new(
       name: "notifications",
       label: "Enable notifications",
       checked: true
@@ -14,7 +14,7 @@ class ::Decor::Forms::SwitchPreview < ::Lookbook::Preview
 
   # Switch with helper text and description
   def with_helper_text
-    render ::Decor::Forms::Switch.new(
+    render ::Decor::Daisy::Forms::Switch.new(
       name: "auto_save",
       label: "Auto-save",
       description: "Automatically save your work",
@@ -25,7 +25,7 @@ class ::Decor::Forms::SwitchPreview < ::Lookbook::Preview
 
   # Disabled switch
   def disabled_state
-    render ::Decor::Forms::Switch.new(
+    render ::Decor::Daisy::Forms::Switch.new(
       name: "maintenance_mode",
       label: "Maintenance mode",
       disabled: true,
@@ -123,7 +123,7 @@ class ::Decor::Forms::SwitchPreview < ::Lookbook::Preview
     size: nil,
     style: nil
   )
-    render ::Decor::Forms::Switch.new(
+    render ::Decor::Daisy::Forms::Switch.new(
       name: name,
       label: label,
       description: description,
@@ -151,7 +151,7 @@ class ::Decor::Forms::SwitchPreview < ::Lookbook::Preview
 
   # Primary color switch
   def color_primary
-    render ::Decor::Forms::Switch.new(
+    render ::Decor::Daisy::Forms::Switch.new(
       name: "primary_switch",
       label: "Primary color",
       color: :primary,
@@ -161,7 +161,7 @@ class ::Decor::Forms::SwitchPreview < ::Lookbook::Preview
 
   # Secondary color switch
   def color_secondary
-    render ::Decor::Forms::Switch.new(
+    render ::Decor::Daisy::Forms::Switch.new(
       name: "secondary_switch",
       label: "Secondary color",
       color: :secondary,
@@ -171,7 +171,7 @@ class ::Decor::Forms::SwitchPreview < ::Lookbook::Preview
 
   # Success color switch
   def color_success
-    render ::Decor::Forms::Switch.new(
+    render ::Decor::Daisy::Forms::Switch.new(
       name: "success_switch",
       label: "Success color",
       color: :success,
@@ -181,7 +181,7 @@ class ::Decor::Forms::SwitchPreview < ::Lookbook::Preview
 
   # Error color switch
   def color_error
-    render ::Decor::Forms::Switch.new(
+    render ::Decor::Daisy::Forms::Switch.new(
       name: "error_switch",
       label: "Error color",
       color: :error,
@@ -200,7 +200,7 @@ class ::Decor::Forms::SwitchPreview < ::Lookbook::Preview
 
   # Extra small size
   def size_xs
-    render ::Decor::Forms::Switch.new(
+    render ::Decor::Daisy::Forms::Switch.new(
       name: "xs_switch",
       label: "Extra small",
       size: :xs,
@@ -210,7 +210,7 @@ class ::Decor::Forms::SwitchPreview < ::Lookbook::Preview
 
   # Small size
   def size_sm
-    render ::Decor::Forms::Switch.new(
+    render ::Decor::Daisy::Forms::Switch.new(
       name: "sm_switch",
       label: "Small",
       size: :sm,
@@ -220,7 +220,7 @@ class ::Decor::Forms::SwitchPreview < ::Lookbook::Preview
 
   # Medium size (default)
   def size_md
-    render ::Decor::Forms::Switch.new(
+    render ::Decor::Daisy::Forms::Switch.new(
       name: "md_switch",
       label: "Medium",
       size: :md,
@@ -230,7 +230,7 @@ class ::Decor::Forms::SwitchPreview < ::Lookbook::Preview
 
   # Large size
   def size_lg
-    render ::Decor::Forms::Switch.new(
+    render ::Decor::Daisy::Forms::Switch.new(
       name: "lg_switch",
       label: "Large",
       size: :lg,
@@ -244,7 +244,7 @@ class ::Decor::Forms::SwitchPreview < ::Lookbook::Preview
 
   # Label on the left (default)
   def label_left
-    render ::Decor::Forms::Switch.new(
+    render ::Decor::Daisy::Forms::Switch.new(
       name: "left_label",
       label: "Label on left",
       label_position: :left
@@ -253,7 +253,7 @@ class ::Decor::Forms::SwitchPreview < ::Lookbook::Preview
 
   # Label on the right
   def label_right
-    render ::Decor::Forms::Switch.new(
+    render ::Decor::Daisy::Forms::Switch.new(
       name: "right_label",
       label: "Label on right",
       label_position: :right
@@ -262,7 +262,7 @@ class ::Decor::Forms::SwitchPreview < ::Lookbook::Preview
 
   # Label on top
   def label_top
-    render ::Decor::Forms::Switch.new(
+    render ::Decor::Daisy::Forms::Switch.new(
       name: "top_label",
       label: "Label on top",
       label_position: :top
@@ -271,7 +271,7 @@ class ::Decor::Forms::SwitchPreview < ::Lookbook::Preview
 
   # Inline label
   def label_inline
-    render ::Decor::Forms::Switch.new(
+    render ::Decor::Daisy::Forms::Switch.new(
       name: "inline_label",
       label: "Inline label",
       label_position: :inline
@@ -284,7 +284,7 @@ class ::Decor::Forms::SwitchPreview < ::Lookbook::Preview
 
   # Required switch
   def required
-    render ::Decor::Forms::Switch.new(
+    render ::Decor::Daisy::Forms::Switch.new(
       name: "terms",
       label: "I accept the terms and conditions",
       required: true
@@ -293,7 +293,7 @@ class ::Decor::Forms::SwitchPreview < ::Lookbook::Preview
 
   # Switch in a group
   def in_group
-    render ::Decor::Forms::Switch.new(
+    render ::Decor::Daisy::Forms::Switch.new(
       name: "group_option",
       label: "Part of a group",
       in_group: true
@@ -302,7 +302,7 @@ class ::Decor::Forms::SwitchPreview < ::Lookbook::Preview
 
   # Compact switch
   def compact
-    render ::Decor::Forms::Switch.new(
+    render ::Decor::Daisy::Forms::Switch.new(
       name: "compact_switch",
       label: "Compact switch",
       compact: true,

@@ -28,7 +28,7 @@ class ::Decor::Daisy::Forms::LayoutContainerPreview < ::Lookbook::Preview
 
       container.render ::Decor::Daisy::Forms::LayoutSection.new(title: "Account Settings") do |section|
         section.render ::Decor::Daisy::Forms::TextField.new(label: "Username", name: "username")
-        section.render ::Decor::Forms::Switch.new(label: "Enable notifications", name: "notifications")
+        section.render ::Decor::Daisy::Forms::Switch.new(label: "Enable notifications", name: "notifications")
       end
     end
   end

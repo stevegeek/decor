@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus";
 
-// Connects to data-controller="decor--switch"
+// Connects to data-controller="decor--daisy--forms--switch"
 export default class extends Controller {
   static targets = ["checkbox"];
   static values = {

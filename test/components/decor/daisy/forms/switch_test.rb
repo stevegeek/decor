@@ -1,8 +1,8 @@
 require "test_helper"
 
-class Decor::Forms::SwitchTest < ActiveSupport::TestCase
+class Decor::Daisy::Forms::SwitchTest < ActiveSupport::TestCase
   test "renders successfully with valid attributes" do
-    component = Decor::Forms::Switch.new(name: "sw", label: "Switch!")
+    component = Decor::Daisy::Forms::Switch.new(name: "sw", label: "Switch!")
     rendered = render_component(component)
 
     assert_includes rendered, "Switch!"
@@ -12,13 +12,13 @@ class Decor::Forms::SwitchTest < ActiveSupport::TestCase
 
   test "renders without errors when given valid attributes" do
     assert_nothing_raised do
-      component = Decor::Forms::Switch.new(name: "sw", label: "Switch!")
+      component = Decor::Daisy::Forms::Switch.new(name: "sw", label: "Switch!")
       render_component(component)
     end
   end
 
   test "renders with DaisyUI toggle classes" do
-    component = Decor::Forms::Switch.new(name: "toggle", label: "Toggle")
+    component = Decor::Daisy::Forms::Switch.new(name: "toggle", label: "Toggle")
     fragment = render_fragment(component)
 
     input = fragment.at_css('input[type="checkbox"]')
@@ -27,7 +27,7 @@ class Decor::Forms::SwitchTest < ActiveSupport::TestCase
   end
 
   test "renders as checked when checked attribute is true" do
-    component = Decor::Forms::Switch.new(name: "checked_switch", label: "Checked", checked: true)
+    component = Decor::Daisy::Forms::Switch.new(name: "checked_switch", label: "Checked", checked: true)
     fragment = render_fragment(component)
 
     input = fragment.at_css('input[type="checkbox"]')
@@ -36,7 +36,7 @@ class Decor::Forms::SwitchTest < ActiveSupport::TestCase
   end
 
   test "renders as unchecked when checked attribute is false" do
-    component = Decor::Forms::Switch.new(name: "unchecked_switch", label: "Unchecked", checked: false)
+    component = Decor::Daisy::Forms::Switch.new(name: "unchecked_switch", label: "Unchecked", checked: false)
     fragment = render_fragment(component)
 
     input = fragment.at_css('input[type="checkbox"]')
@@ -45,7 +45,7 @@ class Decor::Forms::SwitchTest < ActiveSupport::TestCase
   end
 
   test "renders with disabled attribute when disabled" do
-    component = Decor::Forms::Switch.new(name: "disabled_switch", label: "Disabled", disabled: true)
+    component = Decor::Daisy::Forms::Switch.new(name: "disabled_switch", label: "Disabled", disabled: true)
     fragment = render_fragment(component)
 
     input = fragment.at_css('input[type="checkbox"]')
@@ -54,7 +54,7 @@ class Decor::Forms::SwitchTest < ActiveSupport::TestCase
   end
 
   test "renders with required attribute when required" do
-    component = Decor::Forms::Switch.new(name: "required_switch", label: "Required", required: true)
+    component = Decor::Daisy::Forms::Switch.new(name: "required_switch", label: "Required", required: true)
     fragment = render_fragment(component)
 
     input = fragment.at_css('input[type="checkbox"]')
@@ -63,7 +63,7 @@ class Decor::Forms::SwitchTest < ActiveSupport::TestCase
   end
 
   test "renders with helper text" do
-    component = Decor::Forms::Switch.new(
+    component = Decor::Daisy::Forms::Switch.new(
       name: "switch_with_help",
       label: "Switch with Help",
       helper_text: "This is helper text"
@@ -74,7 +74,7 @@ class Decor::Forms::SwitchTest < ActiveSupport::TestCase
   end
 
   test "renders with different colors" do
-    component = Decor::Forms::Switch.new(name: "colored_switch", label: "Colored", color: :secondary)
+    component = Decor::Daisy::Forms::Switch.new(name: "colored_switch", label: "Colored", color: :secondary)
     fragment = render_fragment(component)
 
     input = fragment.at_css('input[type="checkbox"]')
@@ -83,7 +83,7 @@ class Decor::Forms::SwitchTest < ActiveSupport::TestCase
   end
 
   test "renders with different sizes" do
-    component = Decor::Forms::Switch.new(name: "large_switch", label: "Large", size: :lg)
+    component = Decor::Daisy::Forms::Switch.new(name: "large_switch", label: "Large", size: :lg)
     fragment = render_fragment(component)
 
     input = fragment.at_css('input[type="checkbox"]')
@@ -92,7 +92,7 @@ class Decor::Forms::SwitchTest < ActiveSupport::TestCase
   end
 
   test "renders with error styling when errors present" do
-    component = Decor::Forms::Switch.new(
+    component = Decor::Daisy::Forms::Switch.new(
       name: "error_switch",
       label: "Error",
       error_messages: ["Something went wrong"]
@@ -105,7 +105,7 @@ class Decor::Forms::SwitchTest < ActiveSupport::TestCase
   end
 
   test "includes switch role attribute" do
-    component = Decor::Forms::Switch.new(name: "role_switch", label: "Role")
+    component = Decor::Daisy::Forms::Switch.new(name: "role_switch", label: "Role")
     fragment = render_fragment(component)
 
     input = fragment.at_css('input[type="checkbox"]')

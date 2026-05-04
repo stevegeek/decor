@@ -46,7 +46,7 @@ module Decor
         if @model.present?
           right do
             render(::Decor::Daisy::Forms::Form.new(model: @model, url: @url, local: true, http_method: @http_method)) do |form_component|
-              render(::Decor::Forms::Switch.new(
+              render(::Decor::Daisy::Forms::Switch.new(
                 disabled: false,
                 name: "#{@model.class.name.underscore}[#{@property_name}]",
                 checked: @model.public_send(@property_name),

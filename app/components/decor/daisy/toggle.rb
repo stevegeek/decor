@@ -9,7 +9,7 @@ module Decor
             if block_given?
               capture(&block)
             else
-              render(::Decor::Forms::Switch.new(
+              render(::Decor::Daisy::Forms::Switch.new(
                 name: @model ? "#{@model.class.name.underscore}[#{@property_name}]" : @property_name.to_s,
                 checked: @model ? @model.public_send(@property_name) : false,
                 value: @checked_value,
