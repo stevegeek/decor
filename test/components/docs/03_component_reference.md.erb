@@ -41,7 +41,7 @@ If you find any issues or missing components, please open a PR to improve the do
 - [Decor::Daisy::Forms::Checkbox](#decordaisyformscheckbox)
 - [Decor::Forms::DateCalendar](#decorformsdatecalendar)
 - [Decor::Daisy::Forms::ErrorIconSection](#decordaisyformserroriconsection)
-- [Decor::Forms::ExpandingCheckboxCollection](#decorformsexpandingcheckboxcollection)
+- [Decor::Daisy::Forms::ExpandingCheckboxCollection](#decordaisyformsexpandingcheckboxcollection)
 - [Decor::Forms::FileUpload](#decorformsfileupload)
 - [Decor::Daisy::Forms::Form](#decordaisyformsform)
 - [Decor::Daisy::Forms::FormFieldLayout](#decordaisyformsformfieldlayout)
@@ -846,15 +846,15 @@ _(and the shared properties `size`, `color`, and `style` as described above)_
 
 ---
 
-### Decor::Forms::ExpandingCheckboxCollection
+### Decor::Daisy::Forms::ExpandingCheckboxCollection
 
-<span id="decorformsexpandingcheckboxcollection"></span>
+<span id="decordaisyformsexpandingcheckboxcollection"></span>
 
 A ExpandingCheckboxCollection is a group of checkboxes. It shows a certain number of checkboxes, then hides the rest, which can be expanded by clicking a 'Show more' link. Behaviour is controlled by a StimulusJS controller. The component is a type of FormField component. Form field attrs
 
 **Basic Usage:**
 ```ruby
-render Decor::Forms::ExpandingCheckboxCollection.new do
+render Decor::Daisy::Forms::ExpandingCheckboxCollection.new do
   "Content goes here"
 end
 ```

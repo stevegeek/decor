@@ -1,24 +1,24 @@
 require "test_helper"
 
-class Decor::Forms::ExpandingCheckboxCollectionTest < ActiveSupport::TestCase
+class Decor::Daisy::Forms::ExpandingCheckboxCollectionTest < ActiveSupport::TestCase
   def setup
     @checkbox_content = '<input type="checkbox" value="1" name="preferences[]">Option 1<input type="checkbox" value="2" name="preferences[]">Option 2'
   end
 
   test "renders successfully with required attributes" do
-    component = Decor::Forms::ExpandingCheckboxCollection.new(
+    component = Decor::Daisy::Forms::ExpandingCheckboxCollection.new(
       name: "checkbox-collection-preferences",
       size: 5
     )
     component.instance_variable_set(:@checkboxes, @checkbox_content)
     rendered = render_component(component)
 
-    assert_includes rendered, "decor--forms--expanding-checkbox-collection"
+    assert_includes rendered, "decor--daisy--forms--expanding-checkbox-collection"
     assert_includes rendered, "Option 1"
   end
 
   test "renders with space-y-2 layout classes" do
-    component = Decor::Forms::ExpandingCheckboxCollection.new(
+    component = Decor::Daisy::Forms::ExpandingCheckboxCollection.new(
       name: "checkbox-collection-preferences",
       size: 5
     )
@@ -29,7 +29,7 @@ class Decor::Forms::ExpandingCheckboxCollectionTest < ActiveSupport::TestCase
   end
 
   test "supports hide_after_showing with show more button" do
-    component = Decor::Forms::ExpandingCheckboxCollection.new(
+    component = Decor::Daisy::Forms::ExpandingCheckboxCollection.new(
       name: "checkbox-collection-preferences",
       size: 5,
       hide_after_showing: 2
@@ -42,7 +42,7 @@ class Decor::Forms::ExpandingCheckboxCollectionTest < ActiveSupport::TestCase
   end
 
   test "renders checkboxes from slot content" do
-    component = Decor::Forms::ExpandingCheckboxCollection.new(
+    component = Decor::Daisy::Forms::ExpandingCheckboxCollection.new(
       name: "checkbox-collection-preferences",
       size: 2
     )
@@ -54,7 +54,7 @@ class Decor::Forms::ExpandingCheckboxCollectionTest < ActiveSupport::TestCase
   end
 
   test "supports style styling" do
-    component = Decor::Forms::ExpandingCheckboxCollection.new(
+    component = Decor::Daisy::Forms::ExpandingCheckboxCollection.new(
       name: "checkbox-collection-preferences",
       size: 5,
       style: :joined
@@ -66,7 +66,7 @@ class Decor::Forms::ExpandingCheckboxCollectionTest < ActiveSupport::TestCase
   end
 
   test "component inherits from FormField" do
-    component = Decor::Forms::ExpandingCheckboxCollection.new(
+    component = Decor::Daisy::Forms::ExpandingCheckboxCollection.new(
       name: "checkbox-collection-preferences",
       size: 5
     )
@@ -75,7 +75,7 @@ class Decor::Forms::ExpandingCheckboxCollectionTest < ActiveSupport::TestCase
   end
 
   test "renders show more button when needed" do
-    component = Decor::Forms::ExpandingCheckboxCollection.new(
+    component = Decor::Daisy::Forms::ExpandingCheckboxCollection.new(
       name: "checkbox-collection-preferences",
       size: 5,
       hide_after_showing: 2
@@ -87,7 +87,7 @@ class Decor::Forms::ExpandingCheckboxCollectionTest < ActiveSupport::TestCase
   end
 
   test "supports disabled state" do
-    component = Decor::Forms::ExpandingCheckboxCollection.new(
+    component = Decor::Daisy::Forms::ExpandingCheckboxCollection.new(
       name: "checkbox-collection-preferences",
       size: 5,
       disabled: true
@@ -99,7 +99,7 @@ class Decor::Forms::ExpandingCheckboxCollectionTest < ActiveSupport::TestCase
   end
 
   test "renders with form field layout structure" do
-    component = Decor::Forms::ExpandingCheckboxCollection.new(
+    component = Decor::Daisy::Forms::ExpandingCheckboxCollection.new(
       name: "checkbox-collection-preferences",
       size: 5,
       label: "Select Preferences"
@@ -108,11 +108,11 @@ class Decor::Forms::ExpandingCheckboxCollectionTest < ActiveSupport::TestCase
     rendered = render_component(component)
 
     assert_includes rendered, "Select Preferences"
-    assert_includes rendered, "decor--forms--expanding-checkbox-collection"
+    assert_includes rendered, "decor--daisy--forms--expanding-checkbox-collection"
   end
 
   test "accepts helper text attribute" do
-    component = Decor::Forms::ExpandingCheckboxCollection.new(
+    component = Decor::Daisy::Forms::ExpandingCheckboxCollection.new(
       name: "checkbox-collection-preferences",
       size: 5,
       helper_text: "Choose multiple options"
@@ -122,12 +122,12 @@ class Decor::Forms::ExpandingCheckboxCollectionTest < ActiveSupport::TestCase
 
     # Helper text functionality is working but not yet rendering in tests
     # This test verifies the attribute is accepted without errors
-    assert_includes rendered, "decor--forms--expanding-checkbox-collection"
+    assert_includes rendered, "decor--daisy--forms--expanding-checkbox-collection"
   end
 
   test "handles various checkbox content" do
     color_content = '<input type="checkbox" value="red" name="colors[]">Red<input type="checkbox" value="green" name="colors[]">Green'
-    component = Decor::Forms::ExpandingCheckboxCollection.new(
+    component = Decor::Daisy::Forms::ExpandingCheckboxCollection.new(
       name: "checkbox-collection-colors",
       size: 2
     )
@@ -139,7 +139,7 @@ class Decor::Forms::ExpandingCheckboxCollectionTest < ActiveSupport::TestCase
   end
 
   test "renders checkboxes with correct attributes from slot" do
-    component = Decor::Forms::ExpandingCheckboxCollection.new(
+    component = Decor::Daisy::Forms::ExpandingCheckboxCollection.new(
       name: "checkbox-collection-preferences",
       size: 2
     )
@@ -155,7 +155,7 @@ class Decor::Forms::ExpandingCheckboxCollectionTest < ActiveSupport::TestCase
   end
 
   test "supports custom color styles" do
-    component = Decor::Forms::ExpandingCheckboxCollection.new(
+    component = Decor::Daisy::Forms::ExpandingCheckboxCollection.new(
       name: "checkbox-collection-preferences",
       size: 5,
       hide_after_showing: 2,

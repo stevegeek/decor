@@ -1,5 +1,5 @@
 # @label ExpandingCheckboxCollection
-class ::Decor::Forms::ExpandingCheckboxCollectionPreview < ::Lookbook::Preview
+class ::Decor::Daisy::Forms::ExpandingCheckboxCollectionPreview < ::Lookbook::Preview
   # -------
   #
   # A ExpandingCheckboxCollection is a group of checkboxes. It shows a certain number of checkboxes, then
@@ -31,7 +31,7 @@ class ::Decor::Forms::ExpandingCheckboxCollectionPreview < ::Lookbook::Preview
     helper_text: nil,
     hide_label_required_asterisk: false
   )
-    component = ::Decor::Forms::ExpandingCheckboxCollection.new(
+    component = ::Decor::Daisy::Forms::ExpandingCheckboxCollection.new(
       name: name,
       label: label,
       size: size,

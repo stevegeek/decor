@@ -89,7 +89,7 @@ module Decor
           end
         head, *tail = elements
         boxes = tail.inject(head) { |e, m| m.concat(e) }
-        component = ::Decor::Forms::ExpandingCheckboxCollection.new(
+        component = ::Decor::Daisy::Forms::ExpandingCheckboxCollection.new(
           **options.merge(name: "checkbox-collection-#{method}", size: collection.size)
         )
         component.instance_variable_set(:@checkboxes, boxes)
