@@ -22,7 +22,7 @@ module Decor
           )
 
           layout.helper_text_section do
-            render ::Decor::Forms::HelperTextSection.new(
+            render ::Decor::Daisy::Forms::HelperTextSection.new(
               html_options: {class: (label_inline? || label_right?) ? "ml-8" : "ml-0"},
               helper_text: @helper_text,
               error_text: error_text,

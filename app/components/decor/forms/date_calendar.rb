@@ -47,7 +47,7 @@ module Decor
           )
 
           layout.helper_text_section do
-            render ::Decor::Forms::HelperTextSection.new(
+            render ::Decor::Daisy::Forms::HelperTextSection.new(
               helper_text: @helper_text,
               error_text: error_text,
               disabled: @disabled,
