@@ -156,7 +156,7 @@ module Decor
         options[:include_blank] ||=
           "Please search for and select #{options[:multiple] ? "some options" : "an option"}..."
         @template.render(
-          ::Decor::Forms::FormFieldLayout.new(
+          ::Decor::Daisy::Forms::FormFieldLayout.new(
             field_id: field_id_generator(options, "form_field_select_with_search"),
             **options
           )
@@ -238,7 +238,7 @@ module Decor
         options[:html_options][:class] ||= ""
         options[:html_options][:class] += " pb-6"
         @template.render(
-          ::Decor::Forms::FormFieldLayout.new(
+          ::Decor::Daisy::Forms::FormFieldLayout.new(
             field_id: field_id_generator(options, "form_field_tags"),
             **options
           )
@@ -268,7 +268,7 @@ module Decor
         options[:html_options][:class] ||= ""
         options[:html_options][:class] += " w-full col-span-6"
         @template.render(
-          ::Decor::Forms::FormFieldLayout.new(
+          ::Decor::Daisy::Forms::FormFieldLayout.new(
             field_id: field_id_generator(options, "form_field_rich_text_area"),
             **options
           )

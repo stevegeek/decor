@@ -26,7 +26,7 @@ module Decor
 
       def view_template
         root_element do |el|
-          layout = ::Decor::Forms::FormFieldLayout.new(
+          layout = ::Decor::Daisy::Forms::FormFieldLayout.new(
             **form_field_layout_options(el),
             stimulus_classes: {
               valid_label: @disabled ? "text-disabled" : "text-gray-900",
