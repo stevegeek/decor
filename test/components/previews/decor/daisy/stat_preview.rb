@@ -150,7 +150,7 @@ class ::Decor::Daisy::StatPreview < ::Lookbook::Preview
         value: "147",
         description: "All goals achieved",
         color: :success,
-        icon: "check-circle"
+        icon: "circle-check"
       )
     end
   end
@@ -164,7 +164,7 @@ class ::Decor::Daisy::StatPreview < ::Lookbook::Preview
         value: "23",
         description: "5% error rate",
         color: :error,
-        icon: "exclamation-triangle"
+        icon: "alert-triangle"
       )
     end
   end

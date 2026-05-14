@@ -217,7 +217,7 @@ class Decor::Daisy::TabsTest < ActiveSupport::TestCase
 
   test "renders tab with icon after text" do
     links = [
-      {title: "Settings", href: "/settings", icon: "cog", icon_position: :after}
+      {title: "Settings", href: "/settings", icon: "settings", icon_position: :after}
     ]
     component = Decor::Daisy::Tabs.new(links: links)
     rendered = render_component(component)

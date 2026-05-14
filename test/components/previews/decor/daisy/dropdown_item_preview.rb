@@ -21,7 +21,7 @@ class ::Decor::Daisy::DropdownItemPreview < ::Lookbook::Preview
     render ::Decor::Daisy::DropdownItem.new(
       text: "Settings",
       href: "#",
-      icon_name: "cog"
+      icon_name: "settings"
     )
   end
 
@@ -40,7 +40,7 @@ class ::Decor::Daisy::DropdownItemPreview < ::Lookbook::Preview
   def multiple_items
     render ::Decor::Daisy::Element.new do |el|
       el.render ::Decor::Daisy::DropdownItem.new(text: "Profile", href: "#", icon_name: "user")
-      el.render ::Decor::Daisy::DropdownItem.new(text: "Settings", href: "#", icon_name: "cog")
+      el.render ::Decor::Daisy::DropdownItem.new(text: "Settings", href: "#", icon_name: "settings")
       el.render ::Decor::Daisy::DropdownItem.new(separator: true)
       el.render ::Decor::Daisy::DropdownItem.new(text: "Sign out", href: "#", icon_name: "logout", http_method: :delete)
     end

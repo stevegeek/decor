@@ -133,7 +133,7 @@ module Decor
           if @leading_add_on.present?
             render @leading_add_on
           elsif @leading_icon_name.present?
-            render ::Decor::Daisy::Icon.new(name: @leading_icon_name, html_options: {class: "decor:h-[1em] decor:opacity-50"})
+            render ::Decor::Icon.new(name: @leading_icon_name, html_options: {class: "decor:h-[1em] decor:opacity-50"})
           elsif @leading_text_add_on.present?
             span(
               class: "decor:opacity-50",
@@ -148,7 +148,7 @@ module Decor
           if @trailing_add_on.present?
             render @trailing_add_on
           elsif @trailing_icon_name.present?
-            render ::Decor::Daisy::Icon.new(name: @trailing_icon_name, html_options: {class: "decor:h-[1em] decor:opacity-50"})
+            render ::Decor::Icon.new(name: @trailing_icon_name, html_options: {class: "decor:h-[1em] decor:opacity-50"})
           elsif @trailing_text_add_on.present?
             span(
               class: "decor:opacity-50",

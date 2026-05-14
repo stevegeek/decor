@@ -43,7 +43,7 @@ module Decor
                   ) do |dropdown|
                     dropdown.trigger_button_content do
                       span(class: "decor:text-sm") { page_size_for_selector.to_s }
-                      render ::Decor::Daisy::Icon.new(name: "chevron-down", style: :solid, html_options: {class: "decor:w-4 decor:h-4"})
+                      render ::Decor::Icon.new(name: "chevron-down", style: :solid, html_options: {class: "decor:w-4 decor:h-4"})
                     end
                     page_sizes.each_with_index do |s, i|
                       dropdown.menu_item(
@@ -66,7 +66,7 @@ module Decor
                   disabled: first_page?
                 ) do
                   # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
-                  render ::Decor::Daisy::Icon.new(name: "chevron-left", style: :solid, html_options: {class: icon_size_class})
+                  render ::Decor::Icon.new(name: "chevron-left", style: :solid, html_options: {class: icon_size_class})
                   span(class: "decor:sr-only") { "Previous" }
                 end
 
@@ -100,7 +100,7 @@ module Decor
                   disabled: last_page?
                 ) do
                   # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
-                  render ::Decor::Daisy::Icon.new(name: "chevron-right", style: :solid, html_options: {class: icon_size_class})
+                  render ::Decor::Icon.new(name: "chevron-right", style: :solid, html_options: {class: icon_size_class})
                   span(class: "decor:sr-only") { "Next" }
                 end
               end

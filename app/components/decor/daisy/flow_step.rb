@@ -32,7 +32,7 @@ module Decor
         if @icon
           # Custom span for icons
           span(class: step_indicator_classes) do
-            render ::Decor::Daisy::Icon.new(name: @icon, html_options: {class: icon_classes})
+            render ::Decor::Icon.new(name: @icon, html_options: {class: icon_classes})
           end
         elsif @step
           # Custom span for step numbers to maintain consistent styling

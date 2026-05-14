@@ -17,7 +17,7 @@ module Decor
                   class: "decor:list-none decor:text-base-content decor:hover:bg-base-200 decor:group decor:flex decor:items-center decor:px-2 decor:py-2 decor:text-sm decor:font-medium decor:rounded-md decor:cursor-pointer"
                 ) do
                   if @icon.present?
-                    render ::Decor::Daisy::Icon.new(
+                    render ::Decor::Icon.new(
                       name: @icon,
                       html_options: {
                         class: "#{resolve_selected? ? "decor:text-primary" : "decor:text-base-content/70 decor:group-hover:text-primary"} decor:mr-3 decor:flex-shrink-0 decor:h-6 decor:w-6"
@@ -61,7 +61,7 @@ module Decor
                 class: "#{component_name}-link #{resolve_selected? ? "decor:active decor:bg-primary decor:text-primary-content" : "decor:text-base-content decor:hover:bg-base-200 decor:hover:text-primary"} decor:group decor:flex decor:items-center decor:shrink-0 decor:px-2 decor:py-2 decor:text-sm decor:font-medium decor:rounded-md"
               ) do
                 if @icon.present?
-                  render ::Decor::Daisy::Icon.new(
+                  render ::Decor::Icon.new(
                     name: @icon,
                     html_options: {
                       class: "#{resolve_selected? ? "decor:text-primary-content" : "decor:text-base-content/70 decor:group-hover:text-primary"} decor:mr-3 decor:flex-shrink-0 decor:h-6 decor:w-6"

@@ -27,7 +27,7 @@ module Decor
                     class: "decor:ml-1 decor:flex decor:items-center decor:justify-center decor:h-10 decor:w-10 decor:rounded-full decor:focus:outline-none decor:focus:ring-2 decor:focus:ring-inset decor:focus:ring-white"
                   ) do
                     span(class: "decor:sr-only") { "Close sidebar" }
-                    render ::Decor::Daisy::Icon.new(name: "x", html_options: {class: "decor:h-6 decor:w-6 decor:text-white"})
+                    render ::Decor::Icon.new(name: "x", html_options: {class: "decor:h-6 decor:w-6 decor:text-white"})
                   end
                 end
 
@@ -43,7 +43,7 @@ module Decor
                     label(for: "mobile-search", class: "decor:sr-only") { "Search" }
                     div(class: "decor:relative") do
                       div(class: "decor:pointer-events-none decor:absolute decor:inset-y-0 decor:left-0 decor:pl-3 decor:flex decor:items-center") do
-                        render ::Decor::Daisy::Icon.new(name: "search", style: :solid, html_options: {class: "decor:h-5 decor:w-5 decor:text-base-content/70"})
+                        render ::Decor::Icon.new(name: "search", style: :solid, html_options: {class: "decor:h-5 decor:w-5 decor:text-base-content/70"})
                       end
                       input(
                         class: "decor:d-input decor:d-input-bordered decor:w-full decor:pl-10 decor:bg-base-100 decor:text-base-content decor:placeholder-base-content/70 decor:focus:border-primary",
@@ -99,12 +99,12 @@ module Decor
                     data: {**el.stimulus_action(:click, :toggle_collapse_desktop_menu)},
                     class: "decor:text-base-content/70 decor:hover:text-base-content"
                   ) do
-                    render ::Decor::Daisy::Icon.new(
-                      name: "menu-alt-2",
+                    render ::Decor::Icon.new(
+                      name: "menu-2",
                       html_options: {class: "decor:h-6 decor:w-6 #{@collapsed ? "decor:hidden" : nil}"},
                       stimulus_targets: [el.stimulus_target(:desktop_collapse_icon)]
                     )
-                    render ::Decor::Daisy::Icon.new(
+                    render ::Decor::Icon.new(
                       name: "chevron-right",
                       html_options: {class: "decor:h-6 decor:w-6 #{@collapsed ? "" : "decor:hidden"}"},
                       stimulus_targets: [el.stimulus_target(:desktop_expand_icon)]
@@ -117,7 +117,7 @@ module Decor
                     label(for: "side-navbar-desktop-search-input", class: "decor:sr-only") { "Search" }
                     div(class: "decor:relative decor:h-9") do
                       div(class: "decor:pointer-events-none decor:absolute decor:inset-y-0 decor:left-0 decor:pl-3 decor:flex decor:items-center") do
-                        render ::Decor::Daisy::Icon.new(name: "search", style: :solid, html_options: {class: "decor:h-5 decor:w-5 decor:text-base-content/70"})
+                        render ::Decor::Icon.new(name: "search", style: :solid, html_options: {class: "decor:h-5 decor:w-5 decor:text-base-content/70"})
                       end
                       input(
                         class: "decor:d-input decor:d-input-bordered decor:w-full decor:pl-10 decor:bg-base-100 decor:text-base-content decor:placeholder-base-content/70 decor:focus:border-primary",

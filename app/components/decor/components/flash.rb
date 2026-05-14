@@ -51,13 +51,13 @@ module Decor
       def icon
         case resolved_color
         when :success
-          "check-circle"
+          "circle-check"
         when :error
-          "x-circle"
+          "circle-x"
         when :warning
-          "exclamation"
+          "exclamation-mark"
         else
-          "information-circle"
+          "info-circle"
         end
       end
 

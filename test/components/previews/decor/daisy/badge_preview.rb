@@ -9,7 +9,7 @@ class ::Decor::Daisy::BadgePreview < ::Lookbook::Preview
   # @group Examples
   # @label Example Badge
   def status_online
-    render ::Decor::Daisy::Badge.new(label: "Online", color: :success, style: :filled, icon: "check-circle")
+    render ::Decor::Daisy::Badge.new(label: "Online", color: :success, style: :filled, icon: "circle-check")
   end
 
   # @group Examples
@@ -35,7 +35,7 @@ class ::Decor::Daisy::BadgePreview < ::Lookbook::Preview
   def combo_filled_success_icon
     render ::Decor::Daisy::Badge.new(
       label: "Approved",
-      icon: "check-circle",
+      icon: "circle-check",
       color: :success,
       style: :filled
     )
@@ -165,7 +165,7 @@ class ::Decor::Daisy::BadgePreview < ::Lookbook::Preview
   # @group With Icons
   # @label Success with Check
   def icon_success_check
-    render ::Decor::Daisy::Badge.new(label: "Completed", icon: "check-circle", color: :success)
+    render ::Decor::Daisy::Badge.new(label: "Completed", icon: "circle-check", color: :success)
   end
 
   # @group With Icons
@@ -177,7 +177,7 @@ class ::Decor::Daisy::BadgePreview < ::Lookbook::Preview
   # @group With Icons
   # @label Warning with Alert
   def icon_warning_alert
-    render ::Decor::Daisy::Badge.new(label: "Warning", icon: "exclamation-triangle", color: :warning)
+    render ::Decor::Daisy::Badge.new(label: "Warning", icon: "alert-triangle", color: :warning)
   end
 
   # @group With Icons

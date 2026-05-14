@@ -82,7 +82,7 @@ module Decor
                     rel: (link.external? ? "noopener noreferrer" : nil)
                   ) do
                     if link.icon.present?
-                      render ::Decor::Daisy::Icon.new(name: link.icon, html_options: {class: "decor:inline-block decor:w-4 decor:h-4 decor:mr-2"})
+                      render ::Decor::Icon.new(name: link.icon, html_options: {class: "decor:inline-block decor:w-4 decor:h-4 decor:mr-2"})
                     end
                     plain link.label
                   end

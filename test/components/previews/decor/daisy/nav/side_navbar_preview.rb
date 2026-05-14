@@ -21,7 +21,7 @@ class ::Decor::Daisy::Nav::SideNavbarPreview < ::Lookbook::Preview
 
       navbar.with_section(title: "Navigation") do |section|
         section.with_item(title: "Users", icon: "users", path: "/users", counter: 23)
-        section.with_item(title: "Settings", icon: "cog", path: "/settings")
+        section.with_item(title: "Settings", icon: "settings", path: "/settings")
       end
     end
   end
@@ -40,7 +40,7 @@ class ::Decor::Daisy::Nav::SideNavbarPreview < ::Lookbook::Preview
           item.with_sub_item(title: "User Roles", path: "/users/roles", counter: 5)
         end
 
-        section.with_item(title: "Settings", icon: "cog", path: "/settings") do |item|
+        section.with_item(title: "Settings", icon: "settings", path: "/settings") do |item|
           item.with_sub_item(title: "General", path: "/settings/general")
           item.with_sub_item(title: "Security", path: "/settings/security")
           item.with_sub_item(title: "Notifications", path: "/settings/notifications")
@@ -63,7 +63,7 @@ class ::Decor::Daisy::Nav::SideNavbarPreview < ::Lookbook::Preview
       end
 
       navbar.with_section(title: "Content") do |section|
-        section.with_item(title: "Posts", icon: "document-text", path: "/posts", counter: 156)
+        section.with_item(title: "Posts", icon: "file-text", path: "/posts", counter: 156)
         section.with_item(title: "Comments", icon: "chat", path: "/comments", counter: 23)
       end
     end
@@ -90,7 +90,7 @@ class ::Decor::Daisy::Nav::SideNavbarPreview < ::Lookbook::Preview
           item.with_sub_item(title: "User Roles", path: "/users/roles", counter: 5)
         end
 
-        section.with_item(title: "Settings", icon: "cog", path: "/settings") do |item|
+        section.with_item(title: "Settings", icon: "settings", path: "/settings") do |item|
           item.with_sub_item(title: "General", path: "/settings/general")
           item.with_sub_item(title: "Security", path: "/settings/security")
           item.with_sub_item(title: "Notifications", path: "/settings/notifications")
@@ -99,7 +99,7 @@ class ::Decor::Daisy::Nav::SideNavbarPreview < ::Lookbook::Preview
 
       # Content section
       navbar.with_section(title: "Content Management") do |section|
-        section.with_item(title: "Posts", icon: "document-text", path: "/posts", counter: 156)
+        section.with_item(title: "Posts", icon: "file-text", path: "/posts", counter: 156)
         section.with_item(title: "Media", icon: "photograph", path: "/media")
       end
     end
@@ -134,7 +134,7 @@ class ::Decor::Daisy::Nav::SideNavbarPreview < ::Lookbook::Preview
           item.with_sub_item(title: "All Users", path: "/users")
           item.with_sub_item(title: "Add User", path: "/users/new")
         end
-        section.with_item(title: "Settings", icon: "cog", path: "/settings")
+        section.with_item(title: "Settings", icon: "settings", path: "/settings")
       end
     end
   end
@@ -151,7 +151,7 @@ class ::Decor::Daisy::Nav::SideNavbarPreview < ::Lookbook::Preview
         section.with_item(title: "Home", icon: "home", path: "#", selected: true)
         section.with_item(title: "Analytics", icon: "chart-bar", path: "#")
         section.with_item(title: "Users", icon: "users", path: "#", counter: 23)
-        section.with_item(title: "Settings", icon: "cog", path: "#")
+        section.with_item(title: "Settings", icon: "settings", path: "#")
       end
     end
   end

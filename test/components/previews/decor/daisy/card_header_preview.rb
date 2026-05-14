@@ -15,7 +15,7 @@ class Decor::Daisy::CardHeaderPreview < ViewComponent::Preview
     render Decor::Daisy::CardHeader.new(
       title: "Settings",
       subtitle: "Configure your preferences",
-      icon: "cog-6-tooth"
+      icon: "settings"
     )
   end
 
@@ -151,7 +151,7 @@ class Decor::Daisy::CardHeaderPreview < ViewComponent::Preview
     render Decor::Daisy::CardHeader.new(
       title: "Document Management",
       subtitle: "Organize and share your files",
-      icon: "document-text"
+      icon: "file-text"
     ) do |header|
       header.with_actions do
         render Decor::Daisy::Button.new(
@@ -174,7 +174,7 @@ class Decor::Daisy::CardHeaderPreview < ViewComponent::Preview
           color: :base
         ) do |dropdown|
           dropdown.trigger_button_content do
-            render Decor::Daisy::Icon.new(name: "ellipsis-vertical", size: :sm)
+            render Decor::Icon.new(name: "dots-vertical", size: :sm)
           end
 
           dropdown.menu_item(label: "Export", href: "#")

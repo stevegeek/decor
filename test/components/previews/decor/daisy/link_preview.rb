@@ -46,7 +46,7 @@ class ::Decor::Daisy::LinkPreview < ::Lookbook::Preview
         links: [
           ::Decor::Daisy::Link.new(label: "Edit", href: "/edit", icon: "pencil", color: :primary, size: :sm),
           ::Decor::Daisy::Link.new(label: "Delete", href: "/delete", icon: "trash", color: :error, size: :sm, http_method: :delete, turbo_confirm: "Are you sure?"),
-          ::Decor::Daisy::Link.new(label: "Archive", href: "/archive", icon: "archive-box", color: :neutral, size: :sm)
+          ::Decor::Daisy::Link.new(label: "Archive", href: "/archive", icon: "archive", color: :neutral, size: :sm)
         ]
       }
     )

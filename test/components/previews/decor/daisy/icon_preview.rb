@@ -3,10 +3,10 @@ class ::Decor::Daisy::IconPreview < ::Lookbook::Preview
   # Icon
   # -------
   #
-  # An Icon is an inline SVG icon that is read from a collection of SVG files in the assets directory.
-  # Inherits from Svg component, so supports all sizing and accessibility features.
+  # A sprite-based SVG icon component backed by the Tabler icon set (~5000 outline icons).
+  # Use `Decor::Icon` directly; both Daisy and Suite skins share this same class.
   #
-  # Set the color using `classes` prop. The icon can be inlined in the HTML or loaded externally.
+  # Set the color using Tailwind classes via `html_options: {class: "..."}`.
   #
   # @group Examples
   # @label Action Icons
@@ -14,10 +14,10 @@ class ::Decor::Daisy::IconPreview < ::Lookbook::Preview
     render_with_template(
       locals: {
         icons: [
-          ::Decor::Daisy::Icon.new(name: "plus", title: "Add"),
-          ::Decor::Daisy::Icon.new(name: "minus", title: "Remove"),
-          ::Decor::Daisy::Icon.new(name: "check", title: "Confirm"),
-          ::Decor::Daisy::Icon.new(name: "download", title: "Download")
+          ::Decor::Icon.new(name: "plus", title: "Add"),
+          ::Decor::Icon.new(name: "minus", title: "Remove"),
+          ::Decor::Icon.new(name: "check", title: "Confirm"),
+          ::Decor::Icon.new(name: "download", title: "Download")
         ]
       }
     )
@@ -29,59 +29,57 @@ class ::Decor::Daisy::IconPreview < ::Lookbook::Preview
     render_with_template(
       locals: {
         icons: [
-          ::Decor::Daisy::Icon.new(name: "heart", style: :outline, title: "Like"),
-          ::Decor::Daisy::Icon.new(name: "star", style: :outline, title: "Favorite"),
-          ::Decor::Daisy::Icon.new(name: "bell", title: "Notifications"),
-          ::Decor::Daisy::Icon.new(name: "gift", title: "Gift")
+          ::Decor::Icon.new(name: "heart", style: :outline, title: "Like"),
+          ::Decor::Icon.new(name: "star", style: :outline, title: "Favorite"),
+          ::Decor::Icon.new(name: "bell", title: "Notifications"),
+          ::Decor::Icon.new(name: "gift", title: "Gift")
         ]
       }
     )
   end
 
   # @group Examples
-  # @label Large Solid with Accessibility
+  # @label Large Solid
   def combo_large_solid_accessible
-    render ::Decor::Daisy::Icon.new(
+    render ::Decor::Icon.new(
       name: "star",
       style: :solid,
-      size: :lg,
-      title: "Favorite Star",
-      description: "A solid star icon indicating this item is favorited"
+      width: 40,
+      height: 40,
+      title: "Favorite Star"
     )
   end
 
   # @group Examples
-  # @label Custom Dimensions Inline
+  # @label Custom Dimensions
   def combo_custom_inline
-    render ::Decor::Daisy::Icon.new(
-      name: "play",
+    render ::Decor::Icon.new(
+      name: "player-play",
       style: :solid,
       width: 80,
       height: 80,
-      inline: true,
-      title: "Play Button",
-      description: "Large play button with inline SVG"
+      title: "Play Button"
     )
   end
 
   # @group Examples
-  # @label Small Solid Collection Icons
+  # @label Small Solid Icons
   def combo_small_solid_icons
     render_with_template(
       locals: {
         icons: [
-          ::Decor::Daisy::Icon.new(
+          ::Decor::Icon.new(
             name: "star",
-            collection: :heroicons,
             style: :small_solid,
-            size: :sm,
+            width: 16,
+            height: 16,
             title: "Small Solid Star"
           ),
-          ::Decor::Daisy::Icon.new(
+          ::Decor::Icon.new(
             name: "heart",
-            collection: :heroicons,
             style: :small_solid,
-            size: :sm,
+            width: 16,
+            height: 16,
             title: "Small Solid Heart"
           )
         ]
@@ -90,68 +88,54 @@ class ::Decor::Daisy::IconPreview < ::Lookbook::Preview
   end
 
   # @group Playground
-  # @param name select [chevron-right, gift, cube, download, play, home, user, star, heart, bell, check, x, plus, minus]
-  # @param collection select [heroicons, icons]
-  # @param inline toggle
+  # @param name select [chevron-right, gift, cube, download, player-play, home, user, star, heart, bell, check, x, plus, minus]
   # @param width number
   # @param height number
   # @param title text
-  # @param description text
-  # @param size [Symbol] select [~, xs, sm, md, lg, xl]
-  # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
   # @param style [Symbol] select [~, outline, solid, small_solid]
   def playground(
     name: "cube",
-    collection: :heroicons,
-    inline: false,
     width: nil,
     height: nil,
-    title: "Gift",
-    description: "A gift icon",
-    size: nil,
-    color: nil,
+    title: "Icon",
     style: nil
   )
-    render ::Decor::Daisy::Icon.new(
+    render ::Decor::Icon.new(
       name: name,
-      collection: collection,
-      inline: inline,
       width: width,
       height: height,
       title: title,
-      description: description,
-      size: size,
-      color: color,
       style: style
     )
   end
 
-  # @group Collections
-  # @label Heroicons Collection
-  def collection_heroicons
-    render ::Decor::Daisy::Icon.new(
+  # @group Sprites
+  # @label Tabler Sprite (default)
+  def sprite_tabler
+    render ::Decor::Icon.new(
       name: "home",
-      collection: :heroicons,
       style: :outline,
-      title: "Home Icon from Heroicons"
+      title: "Home Icon from Tabler"
     )
   end
 
-  # @group Collections
-  # @label Icons Collection
-  def collection_icons
-    render ::Decor::Daisy::Icon.new(
-      name: "star",
-      collection: :heroicons,
-      style: :outline,
-      title: "Star Icon from Heroicons Collection"
+  # @group Sprites
+  # @label Decor Custom Sprite
+  def sprite_decor
+    render ::Decor::Icon.new(
+      name: "check-tick",
+      sprite: :decor,
+      view_box: "0 0 12 10",
+      width: 16,
+      height: 16,
+      title: "Check Tick from Decor sprite"
     )
   end
 
   # @group Styles
   # @label Outline Style
   def style_outline
-    render ::Decor::Daisy::Icon.new(
+    render ::Decor::Icon.new(
       name: "heart",
       style: :outline,
       title: "Outline Heart Icon"
@@ -161,7 +145,7 @@ class ::Decor::Daisy::IconPreview < ::Lookbook::Preview
   # @group Styles
   # @label Solid Style
   def style_solid
-    render ::Decor::Daisy::Icon.new(
+    render ::Decor::Icon.new(
       name: "heart",
       style: :solid,
       title: "Solid Heart Icon"
@@ -171,67 +155,17 @@ class ::Decor::Daisy::IconPreview < ::Lookbook::Preview
   # @group Styles
   # @label Small Solid Style
   def style_small_solid
-    render ::Decor::Daisy::Icon.new(
+    render ::Decor::Icon.new(
       name: "star",
       style: :small_solid,
       title: "Small Solid Star Icon"
     )
   end
 
-  # @group Sizes
-  # @label Extra Small (xs)
-  def size_xs
-    render ::Decor::Daisy::Icon.new(
-      name: "bell",
-      size: :xs,
-      title: "Extra Small Bell"
-    )
-  end
-
-  # @group Sizes
-  # @label Small (sm)
-  def size_sm
-    render ::Decor::Daisy::Icon.new(
-      name: "bell",
-      size: :sm,
-      title: "Small Bell"
-    )
-  end
-
-  # @group Sizes
-  # @label Medium (md)
-  def size_md
-    render ::Decor::Daisy::Icon.new(
-      name: "bell",
-      size: :md,
-      title: "Medium Bell"
-    )
-  end
-
-  # @group Sizes
-  # @label Large (lg)
-  def size_lg
-    render ::Decor::Daisy::Icon.new(
-      name: "bell",
-      size: :lg,
-      title: "Large Bell"
-    )
-  end
-
-  # @group Sizes
-  # @label Extra Large (xl)
-  def size_xl
-    render ::Decor::Daisy::Icon.new(
-      name: "bell",
-      size: :xl,
-      title: "Extra Large Bell"
-    )
-  end
-
   # @group Custom Dimensions
-  # @label Custom Width and Height
+  # @label Width and Height via pixels
   def custom_dimensions
-    render ::Decor::Daisy::Icon.new(
+    render ::Decor::Icon.new(
       name: "user",
       width: 48,
       height: 48,
@@ -242,43 +176,20 @@ class ::Decor::Daisy::IconPreview < ::Lookbook::Preview
   # @group Custom Dimensions
   # @label Custom Width Only
   def custom_width
-    render ::Decor::Daisy::Icon.new(
+    render ::Decor::Icon.new(
       name: "download",
       width: 64,
       title: "Custom Width Download Icon"
     )
   end
 
-  # @group Loading Types
-  # @label Inline Icon
-  def inline_true
-    render ::Decor::Daisy::Icon.new(
-      name: "check",
-      inline: true,
-      title: "Inline Check Icon",
-      description: "Icon content is inlined in the HTML"
-    )
-  end
-
-  # @group Loading Types
-  # @label External Icon
-  def inline_false
-    render ::Decor::Daisy::Icon.new(
-      name: "check",
-      inline: false,
-      title: "External Check Icon",
-      description: "Icon is loaded externally via data-src"
-    )
-  end
-
   # @group Edge Cases
   # @label Nil Style (Should Use Default)
   def nil_style
-    render ::Decor::Daisy::Icon.new(
+    render ::Decor::Icon.new(
       name: "cube",
       style: nil,
-      title: "Icon with nil style",
-      description: "Should fall back to default :outline style"
+      title: "Icon with nil style"
     )
   end
 end

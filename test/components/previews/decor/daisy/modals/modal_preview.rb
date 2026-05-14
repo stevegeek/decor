@@ -84,7 +84,7 @@ class ::Decor::Daisy::Modals::ModalPreview < ::Lookbook::Preview
       start_shown: true
     ) do
       render ::Decor::Daisy::Modals::ModalLayout.new(
-        icon: "exclamation-triangle",
+        icon: "alert-triangle",
         title: "Confirm Action",
         description: "Are you sure you want to proceed? This action cannot be undone.",
         color: :warning

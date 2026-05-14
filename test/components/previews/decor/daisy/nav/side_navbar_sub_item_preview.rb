@@ -25,7 +25,7 @@ class ::Decor::Daisy::Nav::SideNavbarSubItemPreview < ::Lookbook::Preview
   def sub_item_with_icon
     render ::Decor::Daisy::Nav::SideNavbarSubItem.new(
       title: "Settings",
-      icon: "cog",
+      icon: "settings",
       path: "/dashboard/settings"
     )
   end

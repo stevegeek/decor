@@ -507,23 +507,25 @@ _(and the shared properties `size`, `color`, and `style` as described above)_
 
 ### Decor::Daisy::Icon
 
-<span id="decordaisyicon"></span>
+<span id="decoricon"></span>
 
-Icon An Icon is an inline SVG icon that is read from a collection of SVG files in the assets directory. Inherits from Svg component, so supports all sizing and accessibility features. Set the color using `classes` prop. The icon can be inlined in the HTML or loaded externally.
+Icon A sprite-based SVG icon component backed by the Tabler icon set. Set the color using Tailwind classes via `html_options`. Both Daisy and Suite consumers use `Decor::Icon` directly.
 
 **Basic Usage:**
 ```ruby
-render Decor::Daisy::Icon.new(name: "star")
+render Decor::Icon.new(name: "star")
 ```
 
-**Redefined Properties:**
-- `styles`: `outline`, `solid`, `small_solid`
+**Styles:**
+- `outline` (default), `solid`, `small_solid`
 
 **Key Attributes:**
-- `inline` (Boolean, default: false) (optional) - Default: `false`
 - `name` (String) (required)
-- `file_name` (String?) (optional)
-- `collection` (Union[:heroicons], default: :heroicons) (optional) - Default: `:heroicons`
+- `style` (Symbol, default: :outline) (optional)
+- `sprite` (Symbol, default: :tabler) (optional) - `:tabler` or `:decor`
+- `width` (Integer, default: 24) (optional)
+- `height` (Integer, default: 24) (optional)
+- `title` (String?) (optional)
 
 
 ---

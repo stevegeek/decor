@@ -24,7 +24,7 @@ class ::Decor::Daisy::TabsPreview < ::Lookbook::Preview
     links = [
       {title: "Dashboard", href: "/dashboard", icon: "home", active: true},
       {title: "Messages", href: "/messages", icon: "envelope", badge_text: "3", badge_color: :error},
-      {title: "Settings", href: "/settings", icon: "cog"}
+      {title: "Settings", href: "/settings", icon: "settings"}
     ]
     render ::Decor::Daisy::Tabs.new(links: links, style: :bordered)
   end
@@ -51,7 +51,7 @@ class ::Decor::Daisy::TabsPreview < ::Lookbook::Preview
     links = [
       {title: "Dashboard", href: "/dashboard", icon: "home"},
       {title: "Messages", href: "/messages", icon: "envelope", badge_text: "3", badge_color: :error},
-      {title: "Settings", href: "/settings", icon: "cog"},
+      {title: "Settings", href: "/settings", icon: "settings"},
       {title: "Disabled", href: "#", disabled: true}
     ]
     links[selected_link - 1][:active] = true if links[selected_link - 1]
@@ -64,7 +64,7 @@ class ::Decor::Daisy::TabsPreview < ::Lookbook::Preview
     links = [
       {title: "Dashboard", href: "/dashboard", icon: "chart-bar", icon_position: :before, active: true},
       {title: "Users", href: "/users", icon: "user-group", icon_position: :before},
-      {title: "Settings", href: "/settings", icon: "cog", icon_position: :before}
+      {title: "Settings", href: "/settings", icon: "settings", icon_position: :before}
     ]
     render ::Decor::Daisy::Tabs.new(links: links)
   end
@@ -73,7 +73,7 @@ class ::Decor::Daisy::TabsPreview < ::Lookbook::Preview
   # @label Icons After Text
   def icons_after
     links = [
-      {title: "Export", href: "/export", icon: "arrow-down-tray", icon_position: :after, active: true},
+      {title: "Export", href: "/export", icon: "download", icon_position: :after, active: true},
       {title: "Share", href: "/share", icon: "share", icon_position: :after},
       {title: "Print", href: "/print", icon: "printer", icon_position: :after}
     ]
@@ -85,7 +85,7 @@ class ::Decor::Daisy::TabsPreview < ::Lookbook::Preview
   def icons_only
     links = [
       {title: "Home", href: "/home", icon: "home", icon_position: :only, active: true},
-      {title: "Search", href: "/search", icon: "magnifying-glass", icon_position: :only},
+      {title: "Search", href: "/search", icon: "search", icon_position: :only},
       {title: "Profile", href: "/profile", icon: "user", icon_position: :only}
     ]
     render ::Decor::Daisy::Tabs.new(links: links)
@@ -97,7 +97,7 @@ class ::Decor::Daisy::TabsPreview < ::Lookbook::Preview
     links = [
       {title: "Inbox", href: "/inbox", icon: "inbox", badge_text: "12", badge_color: :primary, active: true},
       {title: "Alerts", href: "/alerts", icon: "bell", badge_text: "3", badge_color: :error},
-      {title: "Archive", href: "/archive", icon: "archive-box"},
+      {title: "Archive", href: "/archive", icon: "archive"},
       {title: "Spam", href: "/spam", icon: "ban", badge_text: "99+", badge_color: :warning}
     ]
     render ::Decor::Daisy::Tabs.new(links: links)
@@ -107,7 +107,7 @@ class ::Decor::Daisy::TabsPreview < ::Lookbook::Preview
   # @label Extra Small Size
   def size_xs
     links = [
-      {title: "Tab One", href: "#", active: true, icon: "cog"},
+      {title: "Tab One", href: "#", active: true, icon: "settings"},
       {title: "Tab Two", href: "#", icon: "bell"},
       {title: "Tab Three", href: "#"}
     ]
@@ -118,7 +118,7 @@ class ::Decor::Daisy::TabsPreview < ::Lookbook::Preview
   # @label Small Size
   def size_sm
     links = [
-      {title: "Tab One", href: "#", active: true, icon: "cog"},
+      {title: "Tab One", href: "#", active: true, icon: "settings"},
       {title: "Tab Two", href: "#", icon: "heart"},
       {title: "Tab Three", href: "#"}
     ]
@@ -129,7 +129,7 @@ class ::Decor::Daisy::TabsPreview < ::Lookbook::Preview
   # @label Medium Size
   def size_md
     links = [
-      {title: "Tab One", href: "#", active: true, icon: "cog"},
+      {title: "Tab One", href: "#", active: true, icon: "settings"},
       {title: "Tab Two", href: "#", icon: "inbox"},
       {title: "Tab Three", href: "#"}
     ]
@@ -140,7 +140,7 @@ class ::Decor::Daisy::TabsPreview < ::Lookbook::Preview
   # @label Large Size
   def size_lg
     links = [
-      {title: "Tab One", href: "#", active: true, icon: "cog"},
+      {title: "Tab One", href: "#", active: true, icon: "settings"},
       {title: "Tab Two", href: "#", icon: "user"},
       {title: "Tab Three", href: "#"}
     ]
@@ -151,7 +151,7 @@ class ::Decor::Daisy::TabsPreview < ::Lookbook::Preview
   # @label Extra Large Size
   def size_xl
     links = [
-      {title: "Tab One", href: "#", active: true, icon: "cog"},
+      {title: "Tab One", href: "#", active: true, icon: "settings"},
       {title: "Tab Two", href: "#", icon: "heart"},
       {title: "Tab Three", href: "#"}
     ]
@@ -414,7 +414,7 @@ class ::Decor::Daisy::TabsPreview < ::Lookbook::Preview
       {
         title: "Tasks",
         href: "/tasks",
-        icon: "check-circle",
+        icon: "circle-check",
         icon_position: :before,
         badge_text: "12",
         badge_color: :warning
@@ -422,7 +422,7 @@ class ::Decor::Daisy::TabsPreview < ::Lookbook::Preview
       {
         title: "Settings",
         href: "/settings",
-        icon: "cog",
+        icon: "settings",
         icon_position: :before
       },
       {

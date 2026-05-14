@@ -17,7 +17,7 @@ module Decor
               data: @http_method ? {method: @http_method} : {}
             ) do
               if @icon_name.present?
-                render ::Decor::Daisy::Icon.new(name: @icon_name, html_options: {class: "decor:mr-2 decor:h-4 decor:w-4"})
+                render ::Decor::Icon.new(name: @icon_name, html_options: {class: "decor:mr-2 decor:h-4 decor:w-4"})
               end
               plain(@text) if @text.present?
               yield if block_given? && @text.blank?

@@ -16,7 +16,7 @@ module Decor
             if @icon
               icon_options = {name: @icon, html_options: {class: icon_classes}}
               icon_options[:variant] = @icon_variant if @icon_variant
-              render ::Decor::Daisy::Icon.new(**icon_options)
+              render ::Decor::Icon.new(**icon_options)
             end
             span(class: @icon_only_on_mobile ? "decor:hidden decor:md:inline" : "") do
               if @content

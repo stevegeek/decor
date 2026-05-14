@@ -8,7 +8,7 @@ class ::Decor::Daisy::TagPreview < ::Lookbook::Preview
   #
   # ## Features
   # - **DaisyUI Integration**: Uses DaisyUI badge classes for consistent theming
-  # - **Icon Support**: Optional leading icons using Decor::Daisy::Icon
+  # - **Icon Support**: Optional leading icons using Decor::Icon
   # - **Removable Tags**: Optional close button (removal logic handled by parent components)
   # - **Multiple Styles**: Filled, outlined, and ghost styles
   # - **Semantic Colors**: Full DaisyUI color palette support
@@ -34,7 +34,7 @@ class ::Decor::Daisy::TagPreview < ::Lookbook::Preview
   def combo_outline_icon_removable
     render ::Decor::Daisy::Tag.new(
       label: "Draft",
-      icon: "document",
+      icon: "file",
       color: :warning,
       style: :outlined,
       removable: true
@@ -46,7 +46,7 @@ class ::Decor::Daisy::TagPreview < ::Lookbook::Preview
   def combo_large_filled_removable
     render ::Decor::Daisy::Tag.new(
       label: "Important",
-      icon: "exclamation-triangle",
+      icon: "alert-triangle",
       color: :error,
       style: :filled,
       size: :lg,
@@ -132,7 +132,7 @@ class ::Decor::Daisy::TagPreview < ::Lookbook::Preview
 
   # @group Playground
   # @param label text
-  # @param icon select [~, check-circle, x-mark, check, star, heart, user, tag]
+  # @param icon select [~, circle-check, x, check, star, heart, user, tag]
   # @param size [Symbol] select [~, xs, sm, md, lg, xl]
   # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
   # @param style [Symbol] select [~, ghost, bordered, lifted, boxed]
@@ -260,7 +260,7 @@ class ::Decor::Daisy::TagPreview < ::Lookbook::Preview
   # @group With Icons
   # @label Success with Check
   def icon_success_check
-    render ::Decor::Daisy::Tag.new(label: "Verified", icon: "check-circle", color: :success)
+    render ::Decor::Daisy::Tag.new(label: "Verified", icon: "circle-check", color: :success)
   end
 
   # @group With Icons

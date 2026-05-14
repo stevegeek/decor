@@ -10,7 +10,7 @@ module Decor
           root_element do
             div(class: "decor:group decor:flex decor:items-center") do
               if sort_key?
-                render ::Decor::Daisy::Icon.new(
+                render ::Decor::Icon.new(
                   name: sort_icon,
                   html_options: {class: "decor:mr-2 decor:h-4 decor:w-4 #{sorted_direction? ? "decor:opacity-100" : "decor:opacity-25"} decor:group-hover:opacity-100 decor:group-hover:text-primary"}
                 )

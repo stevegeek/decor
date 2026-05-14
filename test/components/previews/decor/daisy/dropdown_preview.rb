@@ -17,9 +17,9 @@ class ::Decor::Daisy::DropdownPreview < ::Lookbook::Preview
       end
 
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Profile", href: "#", icon_name: "user"))
-      dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Settings", href: "#", icon_name: "cog-6-tooth"))
+      dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Settings", href: "#", icon_name: "settings"))
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(separator: true))
-      dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Sign out", href: "#", icon_name: "arrow-right-on-rectangle"))
+      dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Sign out", href: "#", icon_name: "logout"))
     end
   end
 
@@ -28,13 +28,13 @@ class ::Decor::Daisy::DropdownPreview < ::Lookbook::Preview
   def example_item_actions
     render ::Decor::Daisy::Dropdown.new(color: :primary, style: :outlined) do |dropdown| # Example using modern attributes
       dropdown.trigger_button_content do
-        render ::Decor::Daisy::Icon.new(name: "chevron-down", html_options: {class: "decor:ml-2 decor:-mr-1 decor:h-4 decor:w-4"})
+        render ::Decor::Icon.new(name: "chevron-down", html_options: {class: "decor:ml-2 decor:-mr-1 decor:h-4 decor:w-4"})
       end
 
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Edit", href: "#", icon_name: "pencil"))
-      dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Duplicate", href: "#", icon_name: "document-duplicate"))
+      dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Duplicate", href: "#", icon_name: "copy"))
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(separator: true))
-      dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Archive", href: "#", icon_name: "archive-box"))
+      dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Archive", href: "#", icon_name: "archive"))
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Delete", href: "#", icon_name: "trash", http_method: :delete))
     end
   end
@@ -44,7 +44,7 @@ class ::Decor::Daisy::DropdownPreview < ::Lookbook::Preview
   def example_with_header
     render ::Decor::Daisy::Dropdown.new(color: :secondary) do |dropdown| # Example using modern attributes
       dropdown.trigger_button_content do
-        render ::Decor::Daisy::Icon.new(name: "chevron-down", html_options: {class: "decor:ml-2 decor:-mr-1 decor:h-4 decor:w-4"})
+        render ::Decor::Icon.new(name: "chevron-down", html_options: {class: "decor:ml-2 decor:-mr-1 decor:h-4 decor:w-4"})
       end
 
       dropdown.menu_header do
@@ -52,10 +52,10 @@ class ::Decor::Daisy::DropdownPreview < ::Lookbook::Preview
       end
 
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Your Profile", href: "#", icon_name: "user"))
-      dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Settings", href: "#", icon_name: "cog-6-tooth"))
+      dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Settings", href: "#", icon_name: "settings"))
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Billing", href: "#", icon_name: "credit-card"))
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(separator: true))
-      dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Sign out", href: "#", icon_name: "arrow-right-on-rectangle"))
+      dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Sign out", href: "#", icon_name: "logout"))
     end
   end
 
@@ -336,10 +336,10 @@ class ::Decor::Daisy::DropdownPreview < ::Lookbook::Preview
       end
 
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Profile", href: "#", icon_name: "user"))
-      dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Settings", href: "#", icon_name: "cog-6-tooth"))
+      dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Settings", href: "#", icon_name: "settings"))
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Billing", href: "#", icon_name: "credit-card"))
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(separator: true))
-      dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Sign out", href: "#", icon_name: "arrow-right-on-rectangle"))
+      dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Sign out", href: "#", icon_name: "logout"))
     end
   end
 
@@ -352,17 +352,17 @@ class ::Decor::Daisy::DropdownPreview < ::Lookbook::Preview
       style: :filled
     ) do |dropdown|
       dropdown.trigger_button_content do
-        render ::Decor::Daisy::Icon.new(name: "ellipsis-vertical", html_options: {class: "decor:h-5 decor:w-5"})
+        render ::Decor::Icon.new(name: "dots-vertical", html_options: {class: "decor:h-5 decor:w-5"})
       end
 
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Edit", href: "#", icon_name: "pencil"))
-      dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Duplicate", href: "#", icon_name: "document-duplicate"))
+      dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Duplicate", href: "#", icon_name: "copy"))
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Share", href: "#", icon_name: "share"))
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(separator: true))
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Move to folder", href: "#", icon_name: "folder"))
-      dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Download", href: "#", icon_name: "arrow-down-tray"))
+      dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Download", href: "#", icon_name: "download"))
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(separator: true))
-      dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Archive", href: "#", icon_name: "archive-box"))
+      dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Archive", href: "#", icon_name: "archive"))
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Delete", href: "#", icon_name: "trash", http_method: :delete))
     end
   end
@@ -474,7 +474,7 @@ class ::Decor::Daisy::DropdownPreview < ::Lookbook::Preview
       position: :end
     ) do |dropdown|
       dropdown.trigger_button_content do
-        render ::Decor::Daisy::Icon.new(name: "bell", html_options: {class: "decor:h-5 decor:w-5"})
+        render ::Decor::Icon.new(name: "bell", html_options: {class: "decor:h-5 decor:w-5"})
       end
 
       dropdown.card_content do

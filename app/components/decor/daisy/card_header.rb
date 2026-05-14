@@ -28,7 +28,7 @@ module Decor
 
       def render_icon
         div(class: "decor:flex-shrink-0 decor:mt-1") do
-          render ::Decor::Daisy::Icon.new(name: @icon, size: icon_size)
+          render ::Decor::Icon.new(name: @icon, size: icon_size)
         end
       end
 

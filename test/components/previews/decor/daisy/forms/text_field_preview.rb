@@ -31,7 +31,7 @@ class ::Decor::Daisy::Forms::TextFieldPreview < ::Lookbook::Preview
       name: "password",
       label: "Password",
       type: :password,
-      leading_icon_name: "lock-closed",
+      leading_icon_name: "lock",
       trailing_icon_name: "eye",
       required: true,
       minimum_length: 8,

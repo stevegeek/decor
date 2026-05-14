@@ -12,7 +12,7 @@ class ::Decor::Daisy::NotificationPreview < ::Lookbook::Preview
     render ::Decor::Daisy::Notification.new(
       title: "Welcome!",
       description: "Your account has been successfully created.",
-      icon: "check-circle",
+      icon: "circle-check",
       color: :success,
       action_buttons: [
         ::Decor::Daisy::Notification::ActionButton.new(
@@ -30,7 +30,7 @@ class ::Decor::Daisy::NotificationPreview < ::Lookbook::Preview
     render ::Decor::Daisy::Notification.new(
       title: "Payment Failed",
       description: "We couldn't process your payment. Please update your payment method.",
-      icon: "x-circle",
+      icon: "circle-x",
       color: :error,
       action_buttons: [
         ::Decor::Daisy::Notification::ActionButton.new(
@@ -77,7 +77,7 @@ class ::Decor::Daisy::NotificationPreview < ::Lookbook::Preview
     render ::Decor::Daisy::Notification.new(
       title: "Scheduled Maintenance",
       description: "The system will be down for maintenance on Sunday at 2 AM.",
-      icon: "exclamation-triangle",
+      icon: "alert-triangle",
       color: :warning
     )
   end
@@ -88,7 +88,7 @@ class ::Decor::Daisy::NotificationPreview < ::Lookbook::Preview
     render ::Decor::Daisy::Notification.new(
       title: "Upload Complete",
       description: "Your file 'document.pdf' has been uploaded successfully.",
-      icon: "check-circle",
+      icon: "circle-check",
       color: :success,
       action_buttons: [
         ::Decor::Daisy::Notification::ActionButton.new(
@@ -110,7 +110,7 @@ class ::Decor::Daisy::NotificationPreview < ::Lookbook::Preview
   # @param size [Symbol] select [~, xs, sm, md, lg, xl]
   # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
   # @param style [Symbol] select [~, filled, outlined, ghost]
-  def playground(title: "Notification Title", description: "This is a sample notification message.", icon: "information-circle", has_avatar: false, has_action_buttons: false, size: nil, color: nil, style: nil)
+  def playground(title: "Notification Title", description: "This is a sample notification message.", icon: "info-circle", has_avatar: false, has_action_buttons: false, size: nil, color: nil, style: nil)
     render ::Decor::Daisy::Notification.new(
       title: title,
       description: description,
@@ -147,7 +147,7 @@ class ::Decor::Daisy::NotificationPreview < ::Lookbook::Preview
     render ::Decor::Daisy::Notification.new(
       title: "Information",
       description: "Here's some helpful information for you.",
-      icon: "information-circle",
+      icon: "info-circle",
       color: :info
     )
   end
@@ -158,7 +158,7 @@ class ::Decor::Daisy::NotificationPreview < ::Lookbook::Preview
     render ::Decor::Daisy::Notification.new(
       title: "Success!",
       description: "Your account has been created successfully.",
-      icon: "check-circle",
+      icon: "circle-check",
       color: :success
     )
   end
@@ -169,7 +169,7 @@ class ::Decor::Daisy::NotificationPreview < ::Lookbook::Preview
     render ::Decor::Daisy::Notification.new(
       title: "Warning",
       description: "Please verify your email address.",
-      icon: "exclamation-triangle",
+      icon: "alert-triangle",
       color: :warning
     )
   end
@@ -180,7 +180,7 @@ class ::Decor::Daisy::NotificationPreview < ::Lookbook::Preview
     render ::Decor::Daisy::Notification.new(
       title: "Error",
       description: "Something went wrong. Please try again.",
-      icon: "x-circle",
+      icon: "circle-x",
       color: :error
     )
   end
@@ -202,7 +202,7 @@ class ::Decor::Daisy::NotificationPreview < ::Lookbook::Preview
     render ::Decor::Daisy::Notification.new(
       title: "",
       description: "Just a simple message without a title.",
-      icon: "information-circle",
+      icon: "info-circle",
       color: :info
     )
   end
@@ -257,7 +257,7 @@ class ::Decor::Daisy::NotificationPreview < ::Lookbook::Preview
     render ::Decor::Daisy::Notification.new(
       title: "Confirm Action",
       description: "Please confirm this important action.",
-      icon: "exclamation-triangle",
+      icon: "alert-triangle",
       color: :warning,
       action_buttons: [
         ::Decor::Daisy::Notification::ActionButton.new(
@@ -275,7 +275,7 @@ class ::Decor::Daisy::NotificationPreview < ::Lookbook::Preview
     render ::Decor::Daisy::Notification.new(
       title: "Save Changes?",
       description: "You have unsaved changes.",
-      icon: "exclamation-triangle",
+      icon: "alert-triangle",
       color: :warning,
       action_buttons: [
         ::Decor::Daisy::Notification::ActionButton.new(
@@ -297,7 +297,7 @@ class ::Decor::Daisy::NotificationPreview < ::Lookbook::Preview
     render ::Decor::Daisy::Notification.new(
       title: "Custom Action Buttons",
       description: "Demonstration of custom colors and variants for action buttons.",
-      icon: "information-circle",
+      icon: "info-circle",
       color: :info,
       action_buttons: [
         ::Decor::Daisy::Notification::ActionButton.new(
@@ -328,7 +328,7 @@ class ::Decor::Daisy::NotificationPreview < ::Lookbook::Preview
     render ::Decor::Daisy::Notification.new(
       title: "Delete Account",
       description: "This action cannot be undone.",
-      icon: "exclamation-triangle",
+      icon: "alert-triangle",
       color: :error,
       action_buttons: [
         ::Decor::Daisy::Notification::ActionButton.new(

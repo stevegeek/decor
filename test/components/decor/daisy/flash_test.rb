@@ -34,10 +34,10 @@ module Decor
 
       def test_renders_appropriate_icons_for_variants
         icon_mapping = {
-          success: "check-circle",
-          error: "x-circle",
-          warning: "exclamation",
-          info: "information-circle"
+          success: "circle-check",
+          error: "circle-x",
+          warning: "exclamation-mark",
+          info: "info-circle"
         }
 
         icon_mapping.each do |variant, expected_icon|

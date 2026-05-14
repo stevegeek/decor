@@ -12,7 +12,7 @@ module Decor
               if block_given?
                 yield
               else
-                render ::Decor::Daisy::Icon.new(
+                render ::Decor::Icon.new(
                   name: "copy",
                   html_options: {class: "decor:ml-2 decor:h-4 decor:w-4"}
                 )

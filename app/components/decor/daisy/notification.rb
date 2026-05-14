@@ -14,7 +14,7 @@ module Decor
           if @icon
             # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
             div(class: "decor:d-join-item decor:p-4 #{icon_background_class} #{icon_text_class} decor:text-xl") do
-              render ::Decor::Daisy::Icon.new(name: @icon, html_options: {class: "decor:h-6 decor:w-6"})
+              render ::Decor::Icon.new(name: @icon, html_options: {class: "decor:h-6 decor:w-6"})
             end
           elsif @avatar.present?
             div(class: "decor:d-join-item decor:p-4 decor:bg-base-300") do

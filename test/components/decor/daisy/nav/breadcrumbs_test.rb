@@ -76,7 +76,7 @@ class Decor::Daisy::Nav::BreadcrumbsTest < ActiveSupport::TestCase
   test "renders with icons" do
     crumbs = [
       {name: "Dashboard", path: "/dashboard", icon: "dashboard"},
-      {name: "Settings", path: "/settings", icon: "cog", current: true}
+      {name: "Settings", path: "/settings", icon: "settings", current: true}
     ]
 
     component = Decor::Daisy::Nav::Breadcrumbs.new(breadcrumbs: crumbs)

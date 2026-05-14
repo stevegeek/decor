@@ -222,7 +222,7 @@ class ::Decor::Daisy::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
       navbar.with_right do
         render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "decor:flex decor:items-center decor:gap-2"}}) do
           render ::Decor::Daisy::Button.new(label: "Export", size: :sm, style: :outlined, icon: "download")
-          render ::Decor::Daisy::Button.new(label: "Settings", size: :sm, icon: "cog")
+          render ::Decor::Daisy::Button.new(label: "Settings", size: :sm, icon: "settings")
         end
       end
     end

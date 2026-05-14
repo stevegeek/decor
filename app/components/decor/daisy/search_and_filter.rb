@@ -47,14 +47,14 @@ module Decor
                       class: "decor:-ml-px decor:relative decor:inline-flex decor:items-center decor:px-4 decor:py-2 decor:mt-4 decor:sm:mt-0 decor:w-full decor:sm:w-auto decor:border decor:border-gray-300 decor:text-sm decor:font-medium #{@search.present? ? "decor:rounded-md decor:sm:rounded-r-md decor:sm:rounded-l-none" : "decor:rounded-md"} decor:text-gray-700 decor:bg-white decor:sm:bg-gray-50 decor:hover:bg-gray-100 decor:focus:outline-none decor:focus:ring-1 decor:focus:ring-blue-500 decor:focus:border-blue-500",
                       data: {**stimulus_actions([:click, :toggle], [:"click@window", :hide_on_click_outside])}
                     ) do
-                      render ::Decor::Daisy::Icon.new(
+                      render ::Decor::Icon.new(
                         name: "filter",
                         style: filters_active ? :solid : :outline,
                         html_options: {class: "decor:h-5 decor:w-5 decor:text-gray-400"}
                       )
 
                       span(class: "decor:ml-auto decor:mr-2 decor:sm:ml-2") { "Filter" }
-                      render ::Decor::Daisy::Icon.new(name: "chevron-down", style: :solid, html_options: {class: "decor:h-5 decor:w-5 decor:text-gray-400"})
+                      render ::Decor::Icon.new(name: "chevron-down", style: :solid, html_options: {class: "decor:h-5 decor:w-5 decor:text-gray-400"})
                     end
                   end
 
@@ -147,7 +147,7 @@ module Decor
                 class: "decor:w-[38px] decor:h-[38px] decor:flex-shrink-0 decor:grid decor:place-content-center decor:border decor:border-gray-300 decor:rounded-md decor:shadow-sm decor:bg-white decor:hover:bg-gray-50 decor:focus:outline-none",
                 data: {confirm: "Do you wish to download the data currently shown in the table?", "confirm-yes": "Yes, download"}
               ) do
-                render ::Decor::Daisy::Icon.new(name: "download", html_options: {class: "decor:h-4 decor:w-4 decor:text-blue-500"})
+                render ::Decor::Icon.new(name: "download", html_options: {class: "decor:h-4 decor:w-4 decor:text-blue-500"})
               end
             end
 

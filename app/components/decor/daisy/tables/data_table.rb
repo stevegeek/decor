@@ -59,7 +59,7 @@ module Decor
                 end
                 unless @data_table_rows.any?
                   div(class: "decor:bg-base-100 decor:relative decor:block decor:my-6 decor:mx-6 decor:border-2 decor:border-base-300 decor:border-dashed decor:rounded-md decor:py-12 decor:text-center decor:hover:border-base-200") do
-                    render ::Decor::Daisy::Icon.new(name: "database", html_options: {class: "decor:mx-auto decor:h-6 decor:w-6 decor:text-base-content/40"})
+                    render ::Decor::Icon.new(name: "database", html_options: {class: "decor:mx-auto decor:h-6 decor:w-6 decor:text-base-content/40"})
                     span(class: "decor:mt-2 decor:block decor:text-sm decor:font-medium decor:text-base-content") { "No data..." }
                   end
                 end

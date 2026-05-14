@@ -24,7 +24,7 @@ module Decor
                     # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
                     div(class: "decor:mx-auto decor:flex-shrink-0 decor:flex decor:items-center decor:justify-center decor:h-12 decor:w-12 decor:rounded-full #{icon_background_classes} decor:sm:mx-0 decor:sm:h-10 decor:sm:w-10") do
                       # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
-                      render ::Decor::Daisy::Icon.new(name: @icon, html_options: {class: "decor:h-6 decor:w-6 #{icon_text_classes}"})
+                      render ::Decor::Icon.new(name: @icon, html_options: {class: "decor:h-6 decor:w-6 #{icon_text_classes}"})
                     end
                   end
                   div(class: "#{show_icon? ? "decor:mt-3 decor:sm:mt-0 decor:sm:ml-4" : ""} decor:text-center decor:sm:text-left") do

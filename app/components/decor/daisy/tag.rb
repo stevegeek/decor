@@ -16,7 +16,7 @@ module Decor
         root_element do
           # Icon (if present)
           if @icon.present?
-            render ::Decor::Daisy::Icon.new(
+            render ::Decor::Icon.new(
               name: @icon,
               style: :outline,
               html_options: {
@@ -73,7 +73,7 @@ module Decor
           type: "button"
         ) do
           span(class: "decor:sr-only") { "Remove tag" }
-          render ::Decor::Daisy::Icon.new(
+          render ::Decor::Icon.new(
             name: "x-mark",
             style: :outline,
             html_options: {

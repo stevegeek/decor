@@ -114,7 +114,7 @@ class ::Decor::Daisy::Modals::ModalCloseButtonPreview < ::Lookbook::Preview
     render ::Decor::Daisy::Modals::ModalCloseButton.new(
       close_reason: "accept",
       label: "Accept",
-      icon: "check-circle",
+      icon: "circle-check",
       color: :primary
     )
   end

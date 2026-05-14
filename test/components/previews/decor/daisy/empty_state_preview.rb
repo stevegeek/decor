@@ -23,7 +23,7 @@ class ::Decor::Daisy::EmptyStatePreview < ::Lookbook::Preview
   # @label Search Results Empty
   def search_results_empty
     render ::Decor::Daisy::EmptyState.new(
-      icon_name: "magnifying-glass",
+      icon_name: "search",
       title: "No search results",
       description: "We couldn't find any items matching your search criteria.",
       primary_action_label: "Clear Search",
@@ -37,7 +37,7 @@ class ::Decor::Daisy::EmptyStatePreview < ::Lookbook::Preview
   # @label Success State
   def success_state
     render ::Decor::Daisy::EmptyState.new(
-      icon_name: "check-circle",
+      icon_name: "circle-check",
       title: "All tasks completed",
       description: "Great job! You've completed all your tasks.",
       primary_action_label: "Add New Task",
@@ -86,7 +86,7 @@ class ::Decor::Daisy::EmptyStatePreview < ::Lookbook::Preview
   # @label Error State
   def error_state
     render ::Decor::Daisy::EmptyState.new(
-      icon_name: "exclamation-triangle",
+      icon_name: "alert-triangle",
       title: "Unable to load data",
       description: "There was an error loading your data. Please try again or contact support.",
       primary_action_label: "Retry",
@@ -112,7 +112,7 @@ class ::Decor::Daisy::EmptyStatePreview < ::Lookbook::Preview
   # @label Access Denied
   def access_denied
     render ::Decor::Daisy::EmptyState.new(
-      icon_name: "lock-closed",
+      icon_name: "lock",
       title: "Access denied",
       description: "You don't have permission to view this content.",
       primary_action_label: "Request Access",
@@ -150,7 +150,7 @@ class ::Decor::Daisy::EmptyStatePreview < ::Lookbook::Preview
   # @label No Actions
   def no_actions
     render ::Decor::Daisy::EmptyState.new(
-      icon_name: "information-circle",
+      icon_name: "info-circle",
       title: "No data available",
       description: "There is no data to display for the selected time period."
     )
@@ -160,7 +160,7 @@ class ::Decor::Daisy::EmptyStatePreview < ::Lookbook::Preview
   # @label Long Description
   def long_description
     render ::Decor::Daisy::EmptyState.new(
-      icon_name: "document-text",
+      icon_name: "file-text",
       title: "No documents found",
       description: "We couldn't find any documents in your account. Documents help you organize and share important information with your team. You can upload PDFs, Word documents, spreadsheets, and more.",
       primary_action_label: "Upload Document",

@@ -25,10 +25,10 @@ class Decor::Daisy::DropdownItemTest < ActiveSupport::TestCase
   end
 
   test "renders with icon" do
-    component = Decor::Daisy::DropdownItem.new(text: "Settings", icon_name: "cog")
+    component = Decor::Daisy::DropdownItem.new(text: "Settings", icon_name: "settings")
     rendered = render_component(component)
 
-    assert_includes rendered, "cog"
+    assert_includes rendered, "settings"
     assert_includes rendered, "mr-2 h-4 w-4"
   end
 

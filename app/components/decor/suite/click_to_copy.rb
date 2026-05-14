@@ -15,7 +15,7 @@ module Decor
           child_element(:span, stimulus_target: :content) do
             raw safe(@content) if @content.present?
           end
-          render ::Decor::Suite::Icon.new(
+          render ::Decor::Icon.new(
             name: "copy", width: 12, height: 12,
             classes: icon_classes
           )

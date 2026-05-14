@@ -25,7 +25,7 @@ module Decor
 
           if @copy_button
             render Decor::Daisy::ClickToCopy.new(to_copy: @code_content&.strip || "") do
-              render Decor::Daisy::Icon.new(name: "duplicate", size: :sm, html_options: {class: "decor:h-4 decor:w-4"})
+              render Decor::Icon.new(name: "copy", size: :sm, html_options: {class: "decor:h-4 decor:w-4"})
             end
           end
         end

@@ -8,7 +8,7 @@ module Decor
     class EmptyState < ::Decor::Components::EmptyState
       def view_template
         root_element do
-          render ::Decor::Daisy::Icon.new(name: @icon_name, size: :xl, classes: "decor:text-base-content/60 decor:mx-auto decor:mb-4")
+          render ::Decor::Icon.new(name: @icon_name, size: :xl, classes: "decor:text-base-content/60 decor:mx-auto decor:mb-4")
 
           h3(class: "decor:text-lg decor:font-semibold decor:text-base-content decor:mb-2") do
             @title

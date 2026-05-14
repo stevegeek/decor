@@ -110,7 +110,7 @@ class ::Decor::Daisy::Nav::BreadcrumbsPreview < ::Lookbook::Preview
         {name: "Account", path: "/account", current: true}
       ],
       home_path: "/dashboard",
-      home_icon: "cog"
+      home_icon: "settings"
     )
   end
 

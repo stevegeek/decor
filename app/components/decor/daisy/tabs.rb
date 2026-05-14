@@ -87,7 +87,7 @@ module Decor
 
       def render_tab_content(link)
         if link.icon.present? && link.icon_position == :before
-          render ::Decor::Daisy::Icon.new(name: link.icon, size: @size, html_options: {class: "decor:mr-2"})
+          render ::Decor::Icon.new(name: link.icon, size: @size, html_options: {class: "decor:mr-2"})
         end
 
         unless link.icon.present? && link.icon_position == :only
@@ -95,11 +95,11 @@ module Decor
         end
 
         if link.icon.present? && link.icon_position == :after
-          render ::Decor::Daisy::Icon.new(name: link.icon, size: @size, html_options: {class: "decor:ml-2"})
+          render ::Decor::Icon.new(name: link.icon, size: @size, html_options: {class: "decor:ml-2"})
         end
 
         if link.icon.present? && link.icon_position == :only
-          render ::Decor::Daisy::Icon.new(name: link.icon, size: @size)
+          render ::Decor::Icon.new(name: link.icon, size: @size)
         end
 
         if link.badge_text.present?

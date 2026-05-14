@@ -44,7 +44,7 @@ class ::Decor::Daisy::Chat::ListMessagePreview < ::Lookbook::Preview
       message.attachment do
         div(class: "decor:bg-base-200 decor:rounded-lg decor:p-3 decor:border decor:border-base-300") do
           div(class: "decor:flex decor:items-center decor:space-x-2") do
-            render ::Decor::Daisy::Icon.new(name: "document-text", style: :outline, html_options: {class: "decor:w-6 decor:h-6 decor:text-primary"})
+            render ::Decor::Icon.new(name: "file-text", style: :outline, html_options: {class: "decor:w-6 decor:h-6 decor:text-primary"})
             div do
               p(class: "decor:font-medium decor:text-sm") { "Project_Requirements.pdf" }
               p(class: "decor:text-xs decor:text-base-content/70") { "1.8 MB" }

@@ -47,7 +47,7 @@ class ::Decor::Daisy::FlashPreview < ::Lookbook::Preview
       component.div(class: "decor:d-alert decor:d-alert-info") do
         component.div(class: "decor:flex") do
           component.div(class: "decor:flex-shrink-0") do
-            component.render ::Decor::Daisy::Icon.new(name: "information-circle", html_options: {class: "decor:h-5 decor:w-5"})
+            component.render ::Decor::Icon.new(name: "info-circle", html_options: {class: "decor:h-5 decor:w-5"})
           end
           component.div(class: "decor:ml-3") do
             component.h3(class: "decor:text-md decor:font-medium") { "Custom Flash Content" }

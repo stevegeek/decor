@@ -28,7 +28,7 @@ module Decor
                 # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
                 icon_options = {name: icon_name, html_options: {class: icon_classes}}
                 icon_options[:variant] = @icon_variant if @icon_variant
-                render ::Decor::Daisy::Icon.new(**icon_options)
+                render ::Decor::Icon.new(**icon_options)
 
                 span(class: @icon_only_on_mobile ? "decor:hidden decor:md:inline" : "") do
                   render @content || @label

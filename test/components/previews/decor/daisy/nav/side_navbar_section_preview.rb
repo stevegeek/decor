@@ -22,7 +22,7 @@ class ::Decor::Daisy::Nav::SideNavbarSectionPreview < ::Lookbook::Preview
         item.with_sub_item(title: "Permissions", path: "/admin/permissions")
       end
 
-      section.with_item(title: "System", icon: "cog") do |item|
+      section.with_item(title: "System", icon: "settings") do |item|
         item.with_sub_item(title: "Configuration", path: "/admin/config")
         item.with_sub_item(title: "Logs", path: "/admin/logs")
       end
@@ -37,7 +37,7 @@ class ::Decor::Daisy::Nav::SideNavbarSectionPreview < ::Lookbook::Preview
       section.with_item(title: "Inbox", icon: "inbox", path: "/inbox", counter: 12)
       section.with_item(title: "Notifications", icon: "bell", path: "/notifications", counter: 5)
       section.with_item(title: "Messages", icon: "mail", path: "/messages", counter: 28)
-      section.with_item(title: "Alerts", icon: "exclamation", path: "/alerts", counter: 3)
+      section.with_item(title: "Alerts", icon: "exclamation-mark", path: "/alerts", counter: 3)
     end
   end
 
@@ -54,7 +54,7 @@ class ::Decor::Daisy::Nav::SideNavbarSectionPreview < ::Lookbook::Preview
           item.with_sub_item(title: "Members", path: "/team/members")
           item.with_sub_item(title: "Roles", path: "/team/roles")
         end
-        section.with_item(title: "Settings", icon: "cog", path: "/settings")
+        section.with_item(title: "Settings", icon: "settings", path: "/settings")
       end
 
       nav.render ::Decor::Daisy::Nav::SideNavbarSection.new do |section|
@@ -76,7 +76,7 @@ class ::Decor::Daisy::Nav::SideNavbarSectionPreview < ::Lookbook::Preview
       (1..items_count).each do |i|
         section.with_item(
           title: "Item #{i}",
-          icon: ["home", "users", "cog", "chart-bar", "folder"][i % 5],
+          icon: ["home", "users", "settings", "chart-bar", "folder"][i % 5],
           path: "/item-#{i}"
         )
       end
@@ -99,7 +99,7 @@ class ::Decor::Daisy::Nav::SideNavbarSectionPreview < ::Lookbook::Preview
   # @label Without Title
   def without_title
     render ::Decor::Daisy::Nav::SideNavbarSection.new do |section|
-      section.with_item(title: "Settings", icon: "cog", path: "/settings")
+      section.with_item(title: "Settings", icon: "settings", path: "/settings")
       section.with_item(title: "Help", icon: "question-mark-circle", path: "/help")
       section.with_item(title: "Logout", icon: "logout", path: "/logout")
     end

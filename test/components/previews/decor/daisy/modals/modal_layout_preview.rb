@@ -8,7 +8,7 @@ class ::Decor::Daisy::Modals::ModalLayoutPreview < ::Lookbook::Preview
   # @label Default
   def default
     render ::Decor::Daisy::Modals::ModalLayout.new(
-      icon: "information-circle",
+      icon: "info-circle",
       title: "Modal Title",
       description: "This is a modal description",
       classes: "decor:opacity-100"
@@ -36,7 +36,7 @@ class ::Decor::Daisy::Modals::ModalLayoutPreview < ::Lookbook::Preview
   # @label Confirmation Dialog
   def confirmation_dialog
     render ::Decor::Daisy::Modals::ModalLayout.new(
-      icon: "exclamation-triangle",
+      icon: "alert-triangle",
       color: :warning,
       title: "Are you sure?",
       description: "This action cannot be undone.",
@@ -61,7 +61,7 @@ class ::Decor::Daisy::Modals::ModalLayoutPreview < ::Lookbook::Preview
   # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
   # @param style [Symbol] select [~, filled, outlined, ghost]
   def playground(
-    icon: "information-circle",
+    icon: "info-circle",
     title: "My modal title",
     description: "Wow such modal!",
     size: nil,

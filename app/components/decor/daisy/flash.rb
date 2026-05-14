@@ -16,7 +16,7 @@ module Decor
               div(class: "decor:d-alert #{alert_variant_class}") do
                 div(class: "decor:flex") do
                   div(class: "decor:flex-shrink-0") do
-                    render ::Decor::Daisy::Icon.new(name: icon, html_options: {class: "decor:h-5 decor:w-5"})
+                    render ::Decor::Icon.new(name: icon, html_options: {class: "decor:h-5 decor:w-5"})
                   end
                   div(class: "decor:ml-3") do
                     h3(class: "decor:text-md decor:font-medium") { title_with_defaults }

@@ -22,7 +22,7 @@ class ::Decor::Daisy::TitlePreview < ::Lookbook::Preview
     render ::Decor::Daisy::Title.new(
       title: "Settings",
       description: "Manage your application preferences",
-      icon: "cog",
+      icon: "settings",
       size: :lg
     )
   end

@@ -26,7 +26,7 @@ class ::Decor::Daisy::Nav::SideNavbarItemPreview < ::Lookbook::Preview
   def expandable_with_sub_items
     render ::Decor::Daisy::Nav::SideNavbarItem.new(
       title: "Settings",
-      icon: "cog"
+      icon: "settings"
     ) do |item|
       item.with_sub_item(title: "General", path: "/settings/general")
       item.with_sub_item(title: "Security", path: "/settings/security", selected: true)
@@ -60,7 +60,7 @@ class ::Decor::Daisy::Nav::SideNavbarItemPreview < ::Lookbook::Preview
       )
       nav.render ::Decor::Daisy::Nav::SideNavbarItem.new(
         title: "Settings",
-        icon: "cog",
+        icon: "settings",
         path: "/settings"
       )
     end

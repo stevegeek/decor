@@ -12,7 +12,7 @@ class ::Decor::Daisy::BannerPreview < ::Lookbook::Preview
     render ::Decor::Daisy::Banner.new(
       color: :success,
       centered: true,
-      icon: "check-circle",
+      icon: "circle-check",
       link: "/dashboard"
     ) do
       "Welcome! Your account setup is complete."
@@ -22,7 +22,7 @@ class ::Decor::Daisy::BannerPreview < ::Lookbook::Preview
   # @group Examples
   # @label Warning Left with Icon and Action
   def combo_warning_left_icon_action
-    render ::Decor::Daisy::Banner.new(color: :warning, icon: "exclamation-triangle") do |banner|
+    render ::Decor::Daisy::Banner.new(color: :warning, icon: "alert-triangle") do |banner|
       banner.call_to_action do
         render ::Decor::Daisy::Button.new(label: "Dismiss", style: :ghost, size: :sm)
       end
@@ -60,7 +60,7 @@ class ::Decor::Daisy::BannerPreview < ::Lookbook::Preview
   # @group Examples
   # @label Account Verification
   def usecase_account_verification
-    render ::Decor::Daisy::Banner.new(color: :warning, icon: "exclamation-triangle", link: "/verify") do
+    render ::Decor::Daisy::Banner.new(color: :warning, icon: "alert-triangle", link: "/verify") do
       "Please verify your email address to access all features."
     end
   end
@@ -130,7 +130,7 @@ class ::Decor::Daisy::BannerPreview < ::Lookbook::Preview
   # @group With Icons
   # @label Success with Check Icon
   def icon_success_check
-    render ::Decor::Daisy::Banner.new(color: :success, icon: "check-circle") do
+    render ::Decor::Daisy::Banner.new(color: :success, icon: "circle-check") do
       "Your changes have been saved successfully!"
     end
   end
@@ -138,7 +138,7 @@ class ::Decor::Daisy::BannerPreview < ::Lookbook::Preview
   # @group With Icons
   # @label Warning with Alert Icon
   def icon_warning_alert
-    render ::Decor::Daisy::Banner.new(color: :warning, icon: "exclamation-triangle") do
+    render ::Decor::Daisy::Banner.new(color: :warning, icon: "alert-triangle") do
       "Your session will expire in 5 minutes."
     end
   end
@@ -154,7 +154,7 @@ class ::Decor::Daisy::BannerPreview < ::Lookbook::Preview
   # @group With Icons
   # @label Info with Information Icon
   def icon_info_information
-    render ::Decor::Daisy::Banner.new(color: :info, icon: "information-circle") do
+    render ::Decor::Daisy::Banner.new(color: :info, icon: "info-circle") do
       "Did you know you can customize your dashboard?"
     end
   end
@@ -186,7 +186,7 @@ class ::Decor::Daisy::BannerPreview < ::Lookbook::Preview
   # @group Layout
   # @label Centered with Icon
   def layout_centered_icon
-    render ::Decor::Daisy::Banner.new(color: :success, centered: true, icon: "check-circle") do
+    render ::Decor::Daisy::Banner.new(color: :success, centered: true, icon: "circle-check") do
       "Centered banner with icon."
     end
   end
@@ -202,7 +202,7 @@ class ::Decor::Daisy::BannerPreview < ::Lookbook::Preview
   # @group With Links
   # @label Success with Link
   def link_success
-    render ::Decor::Daisy::Banner.new(color: :success, link: "/settings", icon: "check-circle") do
+    render ::Decor::Daisy::Banner.new(color: :success, link: "/settings", icon: "circle-check") do
       "Account verified! Configure your preferences."
     end
   end
@@ -210,7 +210,7 @@ class ::Decor::Daisy::BannerPreview < ::Lookbook::Preview
   # @group With Links
   # @label Warning with Link
   def link_warning
-    render ::Decor::Daisy::Banner.new(color: :warning, link: "/billing", icon: "exclamation-triangle") do
+    render ::Decor::Daisy::Banner.new(color: :warning, link: "/billing", icon: "alert-triangle") do
       "Your payment method expires soon."
     end
   end

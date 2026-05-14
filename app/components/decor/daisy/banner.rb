@@ -17,7 +17,7 @@ module Decor
       def view_template
         root_element do
           if @icon
-            render ::Decor::Daisy::Icon.new(
+            render ::Decor::Icon.new(
               name: @icon,
               html_options: {class: "decor:h-6 decor:w-6"}
             )

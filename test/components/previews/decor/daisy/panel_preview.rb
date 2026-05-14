@@ -119,7 +119,7 @@ class ::Decor::Daisy::PanelPreview < ::Lookbook::Preview
   # @group Icons
   # @label Settings Icon
   def icon_settings
-    render ::Decor::Daisy::Panel.new(title: "Preferences", icon: "cog") do
+    render ::Decor::Daisy::Panel.new(title: "Preferences", icon: "settings") do
       "Configure your application preferences and defaults."
     end
   end
@@ -127,7 +127,7 @@ class ::Decor::Daisy::PanelPreview < ::Lookbook::Preview
   # @group Icons
   # @label Check Icon
   def icon_check
-    render ::Decor::Daisy::Panel.new(title: "Completed Tasks", icon: "check-circle") do
+    render ::Decor::Daisy::Panel.new(title: "Completed Tasks", icon: "circle-check") do
       content_tag :ul, class: "decor:space-y-1" do
         safe_join([
           content_tag(:li, "✓ Database backup completed"),

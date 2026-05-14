@@ -119,7 +119,7 @@ class ::Decor::Daisy::PageHeaderPreview < ::Lookbook::Preview
       header.with_title_content do
         header.div(class: "decor:flex decor:items-center decor:gap-3") do
           header.h1(class: "decor:text-2xl decor:font-bold") { "Custom Title with Icon" }
-          header.render ::Decor::Daisy::Icon.new(name: "star", html_options: {class: "decor:w-6 decor:h-6 decor:text-yellow-500"})
+          header.render ::Decor::Icon.new(name: "star", html_options: {class: "decor:w-6 decor:h-6 decor:text-yellow-500"})
         end
       end
 
@@ -139,12 +139,12 @@ class ::Decor::Daisy::PageHeaderPreview < ::Lookbook::Preview
       header.with_meta_content do
         header.div(class: "decor:flex decor:flex-wrap decor:items-center decor:gap-4 decor:text-sm") do
           header.div(class: "decor:flex decor:items-center decor:gap-2") do
-            header.render ::Decor::Daisy::Icon.new(name: "calendar", html_options: {class: "decor:w-4 decor:h-4"})
+            header.render ::Decor::Icon.new(name: "calendar", html_options: {class: "decor:w-4 decor:h-4"})
             header.span { "Due: Dec 31, 2024" }
           end
 
           header.div(class: "decor:flex decor:items-center decor:gap-2") do
-            header.render ::Decor::Daisy::Icon.new(name: "users", html_options: {class: "decor:w-4 decor:h-4"})
+            header.render ::Decor::Icon.new(name: "users", html_options: {class: "decor:w-4 decor:h-4"})
             header.span { "5 team members" }
           end
 

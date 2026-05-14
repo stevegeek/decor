@@ -25,7 +25,7 @@ module Decor
         root_element do
           if @icon.present?
             render(
-              ::Decor::Daisy::Icon.new(
+              ::Decor::Icon.new(
                 name: @icon,
                 style: :solid,
                 # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed

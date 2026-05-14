@@ -13,10 +13,10 @@ module Decor
                     @error_text
                   end
                 end
-                render ::Decor::Daisy::Icon.new(name: "exclamation-circle", style: :solid, html_options: {class: "decor:z-10 decor:h-5 decor:w-5 decor:text-red-500"})
+                render ::Decor::Icon.new(name: "exclamation-circle", style: :solid, html_options: {class: "decor:z-10 decor:h-5 decor:w-5 decor:text-red-500"})
               end
             else
-              render ::Decor::Daisy::Icon.new(name: "exclamation-circle", style: :solid, html_options: {class: "decor:h-5 decor:w-5 decor:text-red-500"})
+              render ::Decor::Icon.new(name: "exclamation-circle", style: :solid, html_options: {class: "decor:h-5 decor:w-5 decor:text-red-500"})
             end
           end
         end

@@ -43,7 +43,7 @@ class ::Decor::Daisy::Nav::TopNavbarPreview < ::Lookbook::Preview
       # Custom brand with logo
       navbar.with_brand do
         a(href: "/", class: "decor:d-btn decor:d-btn-ghost decor:text-xl decor:font-bold") do
-          render ::Decor::Daisy::Icon.new(name: "cube", classes: "decor:h-8 decor:w-8 decor:mr-2")
+          render ::Decor::Icon.new(name: "cube", classes: "decor:h-8 decor:w-8 decor:mr-2")
           "My App"
         end
       end
@@ -63,7 +63,7 @@ class ::Decor::Daisy::Nav::TopNavbarPreview < ::Lookbook::Preview
         menu.trigger_button_content do
           div(class: "decor:d-indicator") do
             span(class: "decor:d-indicator-item decor:d-badge decor:d-badge-secondary decor:d-badge-sm") { "3" }
-            render ::Decor::Daisy::Icon.new(name: "bell", classes: "decor:h-6 decor:w-6")
+            render ::Decor::Icon.new(name: "bell", classes: "decor:h-6 decor:w-6")
           end
         end
         menu.menu_item(render(::Decor::Daisy::DropdownItem.new(text: "New message from Sarah", href: "#")))
@@ -121,7 +121,7 @@ class ::Decor::Daisy::Nav::TopNavbarPreview < ::Lookbook::Preview
       ) do |menu|
         menu.trigger_button_content do
           span(class: "decor:sr-only") { "View notifications" }
-          render ::Decor::Daisy::Icon.new(name: "bell", classes: "decor:h-6 decor:w-6")
+          render ::Decor::Icon.new(name: "bell", classes: "decor:h-6 decor:w-6")
         end
         menu.menu_item(render(::Decor::Daisy::DropdownItem.new(text: "New message from John", href: "#")))
         menu.menu_item(render(::Decor::Daisy::DropdownItem.new(text: "System update available", href: "#")))
@@ -156,7 +156,7 @@ class ::Decor::Daisy::Nav::TopNavbarPreview < ::Lookbook::Preview
     render ::Decor::Daisy::Nav::TopNavbar.new(has_search: false) do |navbar|
       navbar.with_brand do
         a(href: "/", class: "decor:d-btn decor:d-btn-ghost decor:text-xl") do
-          render ::Decor::Daisy::Icon.new(name: "sparkles", classes: "decor:h-8 decor:w-8 decor:text-accent")
+          render ::Decor::Icon.new(name: "sparkles", classes: "decor:h-8 decor:w-8 decor:text-accent")
           span(class: "decor:ml-2 decor:font-bold decor:text-gradient decor:bg-gradient-to-r decor:from-primary decor:to-accent") { "Design Co" }
         end
       end
@@ -192,7 +192,7 @@ class ::Decor::Daisy::Nav::TopNavbarPreview < ::Lookbook::Preview
         menu.trigger_button_content do
           div(class: "decor:d-indicator") do
             span(class: "decor:d-indicator-item decor:d-badge decor:d-badge-secondary decor:d-badge-sm") { "5" }
-            render ::Decor::Daisy::Icon.new(name: "bell", classes: "decor:h-6 decor:w-6")
+            render ::Decor::Icon.new(name: "bell", classes: "decor:h-6 decor:w-6")
           end
         end
         menu.menu_item(render(::Decor::Daisy::DropdownItem.new(text: "5 new notifications", href: "/notifications")))

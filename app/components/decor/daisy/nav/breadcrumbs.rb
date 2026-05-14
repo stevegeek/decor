@@ -111,7 +111,7 @@ module Decor
           return unless icon_name.present?
 
           begin
-            render ::Decor::Daisy::Icon.new(
+            render ::Decor::Icon.new(
               name: icon_name,
               html_options: {class: "decor:w-4 decor:h-4 decor:mr-1 decor:inline-block"}
             )

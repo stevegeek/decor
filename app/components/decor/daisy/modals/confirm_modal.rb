@@ -36,7 +36,7 @@ module Decor
                     modal_types.each do |type|
                       div(class: "#{component_name}-#{type}-icon decor:hidden decor:mx-auto decor:flex-shrink-0 decor:flex decor:items-center decor:justify-center decor:h-12 decor:w-12 decor:rounded-full #{icon_bg_color(type)} decor:sm:mx-0 decor:sm:h-10 decor:sm:w-10") do
                         # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
-                        render ::Decor::Daisy::Icon.new(name: icon_name(type), classes: "decor:h-6 decor:w-6 #{icon_color(type)}")
+                        render ::Decor::Icon.new(name: icon_name(type), classes: "decor:h-6 decor:w-6 #{icon_color(type)}")
                       end
                     end
                     div(class: "decor:mt-3 decor:text-center decor:sm:mt-0 decor:sm:ml-4 decor:sm:text-left") do
@@ -133,13 +133,13 @@ module Decor
         def icon_name(type)
           case type
           when :warning
-            "exclamation"
+            "exclamation-mark"
           when :error
             "exclamation-circle"
           when :success
             "check"
           else
-            "information-circle"
+            "info-circle"
           end
         end
 
