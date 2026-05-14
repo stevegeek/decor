@@ -2,15 +2,15 @@ import { Controller } from "@hotwired/stimulus";
 import { markAsSafeHTML, safelySetInnerHTML, replaceContentsWithChildren, createHTTPClient } from "controllers/decor";
 export var ModalEvents;
 (function (ModalEvents) {
-    ModalEvents["Open"] = "decor--modals--modal:open";
-    ModalEvents["Opening"] = "decor--modals--modal:opening";
-    ModalEvents["Loading"] = "decor--modals--modal:loading";
-    ModalEvents["Loaded"] = "decor--modals--modal:loaded";
-    ModalEvents["Ready"] = "decor--modals--modal:ready";
-    ModalEvents["Opened"] = "decor--modals--modal:opened";
-    ModalEvents["Close"] = "decor--modals--modal:close";
-    ModalEvents["Closing"] = "decor--modals--modal:closing";
-    ModalEvents["Closed"] = "decor--modals--modal:closed";
+    ModalEvents["Open"] = "decor--daisy--modals--modal:open";
+    ModalEvents["Opening"] = "decor--daisy--modals--modal:opening";
+    ModalEvents["Loading"] = "decor--daisy--modals--modal:loading";
+    ModalEvents["Loaded"] = "decor--daisy--modals--modal:loaded";
+    ModalEvents["Ready"] = "decor--daisy--modals--modal:ready";
+    ModalEvents["Opened"] = "decor--daisy--modals--modal:opened";
+    ModalEvents["Close"] = "decor--daisy--modals--modal:close";
+    ModalEvents["Closing"] = "decor--daisy--modals--modal:closing";
+    ModalEvents["Closed"] = "decor--daisy--modals--modal:closed";
 })(ModalEvents || (ModalEvents = {}));
 export default class extends Controller {
     static targets = ["overlay", "modal"];

@@ -9,7 +9,7 @@ export default class extends Controller {
         const reason = this.closeReasonValue;
         
         // Dispatch event for tracking/logging purposes
-        window.dispatchEvent(new CustomEvent('decor--modals--modal:close', {
+        window.dispatchEvent(new CustomEvent('decor--daisy--modals--modal:close', {
             detail: { closeReason: reason ? reason : undefined }
         }));
     }

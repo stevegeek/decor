@@ -1,4 +1,4 @@
-import ModalController from "controllers/decor/modals/modal_controller";
+import ModalController from "controllers/decor/daisy/modals/modal_controller";
 import { safelySetInnerHTML } from "controllers/decor";
 
 export var ModalConfirmEvents;
