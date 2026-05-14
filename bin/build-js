@@ -21,6 +21,6 @@ node_modules/.bin/esbuild \
   --external:cally \
   --external:tailwind-merge \
   --external:@highlightjs/cdn-assets \
-  "--alias:controllers/decor=${ROOT}/app/javascript/controllers/decor.js" \
-  "--alias:controllers/decor/modals/modal_controller=${ROOT}/app/javascript/controllers/decor/daisy/modals/modal_controller.js" \
-  "--alias:controllers/decor/http=${ROOT}/app/javascript/controllers/decor/http.js"
+  "--alias:controllers/decor/daisy/modals/modal_controller=${ROOT}/app/javascript/controllers/decor/daisy/modals/modal_controller.js" \
+  "--alias:controllers/decor/http=${ROOT}/app/javascript/controllers/decor/http.js" \
+  "--alias:controllers/decor=${ROOT}/app/javascript/controllers/decor.js"

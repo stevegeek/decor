@@ -8,9 +8,9 @@ var __export = (target, all) => {
 var controllers_exports = {};
 __export(controllers_exports, {
   ButtonController: () => button_controller_default,
-  ClickToCopyController: () => click_to_copy_controller_default,
   CodeBlockController: () => code_block_controller_default,
   ConfirmModalController: () => confirm_modal_controller_default,
+  DaisyClickToCopyController: () => click_to_copy_controller_default,
   DateCalendarController: () => date_calendar_controller_default,
   DropdownController: () => dropdown_controller_default,
   FlashController: () => flash_controller_default,
@@ -21,6 +21,7 @@ __export(controllers_exports, {
   NotificationManagerController: () => notification_manager_controller_default,
   ProgressAnimationController: () => progress_animation_controller_default,
   ProgressController: () => progress_controller_default,
+  SuiteClickToCopyController: () => click_to_copy_controller_default,
   SwitchController: () => switch_controller_default,
   TabsController: () => tabs_controller_default
 });
@@ -1022,15 +1023,15 @@ var map_controller_default = class extends Controller8 {
 import { Controller as Controller9 } from "@hotwired/stimulus";
 var ModalEvents;
 (function(ModalEvents2) {
-  ModalEvents2["Open"] = "decor--modals--modal:open";
-  ModalEvents2["Opening"] = "decor--modals--modal:opening";
-  ModalEvents2["Loading"] = "decor--modals--modal:loading";
-  ModalEvents2["Loaded"] = "decor--modals--modal:loaded";
-  ModalEvents2["Ready"] = "decor--modals--modal:ready";
-  ModalEvents2["Opened"] = "decor--modals--modal:opened";
-  ModalEvents2["Close"] = "decor--modals--modal:close";
-  ModalEvents2["Closing"] = "decor--modals--modal:closing";
-  ModalEvents2["Closed"] = "decor--modals--modal:closed";
+  ModalEvents2["Open"] = "decor--daisy--modals--modal:open";
+  ModalEvents2["Opening"] = "decor--daisy--modals--modal:opening";
+  ModalEvents2["Loading"] = "decor--daisy--modals--modal:loading";
+  ModalEvents2["Loaded"] = "decor--daisy--modals--modal:loaded";
+  ModalEvents2["Ready"] = "decor--daisy--modals--modal:ready";
+  ModalEvents2["Opened"] = "decor--daisy--modals--modal:opened";
+  ModalEvents2["Close"] = "decor--daisy--modals--modal:close";
+  ModalEvents2["Closing"] = "decor--daisy--modals--modal:closing";
+  ModalEvents2["Closed"] = "decor--daisy--modals--modal:closed";
 })(ModalEvents || (ModalEvents = {}));
 var modal_controller_default = class extends Controller9 {
   static targets = ["overlay", "modal"];
@@ -1244,7 +1245,7 @@ var modal_close_button_controller_default = class extends Controller10 {
   };
   handleButtonClick(event) {
     const reason = this.closeReasonValue;
-    window.dispatchEvent(new CustomEvent("decor--modals--modal:close", {
+    window.dispatchEvent(new CustomEvent("decor--daisy--modals--modal:close", {
       detail: { closeReason: reason ? reason : void 0 }
     }));
   }
@@ -1260,7 +1261,7 @@ var modal_open_button_controller_default = class extends Controller11 {
   };
   handleButtonClick(event) {
     event.preventDefault();
-    window.dispatchEvent(new CustomEvent("decor--modals--modal:open", {
+    window.dispatchEvent(new CustomEvent("decor--daisy--modals--modal:open", {
       detail: {
         contentHref: this.contentHrefValue,
         closeOnOverlayClick: this.closeOnOverlayClickValue,

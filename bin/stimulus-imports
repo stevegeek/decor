@@ -10,11 +10,27 @@ OUT = ROOT.join("app/javascript/decor/controllers.js")
 abort "Source dir not found: #{SRC}" unless SRC.directory?
 
 entries = []
+seen_names = Hash.new(0)
+
+# First pass: collect all candidates with their basename-derived names
+candidates = []
 SRC.glob("**/*_controller.{ts,js}").sort.each do |path|
   rel = path.relative_path_from(SRC).to_s.sub(/\.(ts|js)$/, "")
   basename = path.basename.to_s.sub(/\.(ts|js)$/, "")
   export_name = basename.split("_").map(&:capitalize).join
   import_path = "../controllers/decor/#{rel}"
+  seen_names[export_name] += 1
+  candidates << [export_name, rel, import_path]
+end
+
+# Second pass: disambiguate colliding names using the full path
+candidates.each do |base_name, rel, import_path|
+  if seen_names[base_name] > 1
+    # Use full relative path segments to build a unique name
+    export_name = rel.split("/").map { |part| part.split("_").map(&:capitalize).join }.join
+  else
+    export_name = base_name
+  end
   entries << [export_name, import_path]
 end
 
