@@ -2,6 +2,9 @@ require_relative "boot"
 
 require "rails/all"
 
+$LOAD_PATH.unshift File.expand_path("../lib", __dir__)
+require_relative "../lib/decor"
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
