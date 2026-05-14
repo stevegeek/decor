@@ -14,14 +14,14 @@ module Decor
             size: :sm
           )
 
-          div(class: "mt-1.5 text-sm", &)
+          div(class: "decor:mt-1.5 decor:text-sm", &)
         end
       end
 
       private
 
       def root_element_classes
-        classes = ["space-y-2"]
+        classes = ["decor:space-y-2"]
         classes << size_classes
         classes << style_classes
         classes.compact.join(" ")
@@ -29,11 +29,11 @@ module Decor
 
       def component_size_classes(size)
         case size
-        when :xs then "p-2 text-xs"
-        when :sm then "p-3 text-sm"
-        when :md then "p-4 text-base"
-        when :lg then "p-6 text-lg"
-        when :xl then "p-8 text-xl"
+        when :xs then "decor:p-2 decor:text-xs"
+        when :sm then "decor:p-3 decor:text-sm"
+        when :md then "decor:p-4 decor:text-base"
+        when :lg then "decor:p-6 decor:text-lg"
+        when :xl then "decor:p-8 decor:text-xl"
         else
           ""
         end
@@ -42,11 +42,14 @@ module Decor
       def component_style_classes(style)
         case style
         when :filled
-          "#{filled_color_classes(@color)} rounded-box border border-base-300"
+          # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
+          "#{filled_color_classes(@color)} decor:rounded-box decor:border decor:border-base-300"
         when :outlined
-          "#{outline_color_classes(@color)} bg-base-100 rounded-box"
+          # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
+          "#{outline_color_classes(@color)} decor:bg-base-100 decor:rounded-box"
         when :ghost
-          "#{ghost_color_classes(@color)} rounded-box"
+          # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
+          "#{ghost_color_classes(@color)} decor:rounded-box"
         else
           ""
         end

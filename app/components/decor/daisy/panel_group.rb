@@ -10,10 +10,10 @@ module Decor
         content = capture(&) if block_given?
 
         root_element do
-          render ::Decor::Daisy::Card.new(size: @size, color: @color, style: @style, classes: "overflow-hidden") do |card|
+          render ::Decor::Daisy::Card.new(size: @size, color: @color, style: @style, classes: "decor:overflow-hidden") do |card|
             card.card_header do
-              card.div(class: "p-4 lg:p-6") do
-                card.div(class: "-ml-4 -mt-4 ml-4 mt-4") do
+              card.div(class: "decor:p-4 decor:lg:p-6") do
+                card.div(class: "decor:-ml-4 decor:-mt-4 decor:ml-4 decor:mt-4") do
                   card.render ::Decor::Daisy::Title.new(
                     title: @title,
                     description: @description,
@@ -27,12 +27,12 @@ module Decor
 
             @panel_rows.each_with_index do |row_block, idx|
               card.div(class: section_classes(idx)) do
-                card.div(class: "flex flex-wrap gap-4 md:gap-5", &row_block)
+                card.div(class: "decor:flex decor:flex-wrap decor:gap-4 decor:md:gap-5", &row_block)
               end
             end
 
             if content.present?
-              card.div(class: "p-4 lg:p-6") do
+              card.div(class: "decor:p-4 decor:lg:p-6") do
                 card.render content
               end
             end
@@ -41,17 +41,19 @@ module Decor
       end
 
       def root_element_classes
-        "space-y-4"
+        "decor:space-y-4"
       end
 
       private
 
       def section_classes(idx)
-        base_classes = "px-4 py-5 lg:px-6"
+        base_classes = "decor:px-4 decor:py-5 decor:lg:px-6"
         if idx.odd?
-          "#{base_classes} bg-base-100"
+          # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
+          "#{base_classes} decor:bg-base-100"
         else
-          "#{base_classes} bg-base-200/50"
+          # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
+          "#{base_classes} decor:bg-base-200/50"
         end
       end
     end

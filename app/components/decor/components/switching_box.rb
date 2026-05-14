@@ -31,13 +31,13 @@ module Decor
 
         left do
           if @title.present?
-            h2(class: "card-title") do
+            h2(class: "decor:d-card-title") do
               plain(@title)
             end
           end
 
           if @description.present?
-            p(class: "text-base-content/70") do
+            p(class: "decor:text-base-content/70") do
               plain(@description)
             end
           end

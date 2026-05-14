@@ -43,10 +43,10 @@ module Decor
 
       def root_element_classes
         classes = []
-        classes << "space-y-4"
+        classes << "decor:space-y-4"
         if @background != :default
           classes << background_classes
-          classes << "p-6 rounded-lg"
+          classes << "decor:p-6 decor:rounded-lg"
         else
           classes << padding_bottom_classes
         end
@@ -54,88 +54,88 @@ module Decor
       end
 
       def header_wrapper_classes
-        classes = ["sm:flex", "justify-between", "items-center", "lg:flex-nowrap", "lg:space-x-3"]
+        classes = ["decor:sm:flex", "decor:justify-between", "decor:items-center", "decor:lg:flex-nowrap", "decor:lg:space-x-3"]
         classes << header_padding_classes if has_header_content? && @separator
         classes << separator_classes if @separator
         classes.compact.join(" ")
       end
 
       def content_wrapper_classes
-        @cta.present? ? "pr-4 pb-4 sm:pb-0" : ""
+        @cta.present? ? "decor:pr-4 decor:pb-4 decor:sm:pb-0" : ""
       end
 
       def title_classes
-        classes = ["font-medium", "text-base-content"]
+        classes = ["decor:font-medium", "decor:text-base-content"]
         classes << title_size_classes
         classes.join(" ")
       end
 
       def description_classes
-        classes = ["text-base-content/70"]
+        classes = ["decor:text-base-content/70"]
         classes << description_size_classes
-        classes << "mt-2" if @title.present?
+        classes << "decor:mt-2" if @title.present?
         classes.join(" ")
       end
 
       def content_area_classes
         case @size
-        when :xs then "space-y-4"
-        when :sm then "space-y-5"
-        when :md then "space-y-6"
-        when :lg then "space-y-8"
-        when :xl then "space-y-10"
+        when :xs then "decor:space-y-4"
+        when :sm then "decor:space-y-5"
+        when :md then "decor:space-y-6"
+        when :lg then "decor:space-y-8"
+        when :xl then "decor:space-y-10"
         end
       end
 
       def padding_bottom_classes
         case @padding
         when :none then nil
-        when :sm then "pb-4"
-        when :md then "pb-6"
-        when :lg then "pb-8"
-        when :xl then "pb-10"
+        when :sm then "decor:pb-4"
+        when :md then "decor:pb-6"
+        when :lg then "decor:pb-8"
+        when :xl then "decor:pb-10"
         end
       end
 
       def header_padding_classes
         case @size
-        when :xs then "pb-3"
-        when :sm then "pb-4"
-        when :md then "pb-5"
-        when :lg then "pb-6"
-        when :xl then "pb-8"
+        when :xs then "decor:pb-3"
+        when :sm then "decor:pb-4"
+        when :md then "decor:pb-5"
+        when :lg then "decor:pb-6"
+        when :xl then "decor:pb-8"
         end
       end
 
       def separator_classes
-        "border-b border-base-300"
+        "decor:border-b decor:border-base-300"
       end
 
       def title_size_classes
         case @size
-        when :xs then "text-sm leading-5"
-        when :sm then "text-base leading-5"
-        when :md then "text-lg leading-6"
-        when :lg then "text-xl leading-7"
-        when :xl then "text-2xl leading-8"
+        when :xs then "decor:text-sm decor:leading-5"
+        when :sm then "decor:text-base decor:leading-5"
+        when :md then "decor:text-lg decor:leading-6"
+        when :lg then "decor:text-xl decor:leading-7"
+        when :xl then "decor:text-2xl decor:leading-8"
         end
       end
 
       def description_size_classes
         case @size
-        when :xs then "text-xs"
-        when :sm then "text-sm"
-        when :md then "text-sm"
-        when :lg then "text-base"
-        when :xl then "text-lg"
+        when :xs then "decor:text-xs"
+        when :sm then "decor:text-sm"
+        when :md then "decor:text-sm"
+        when :lg then "decor:text-base"
+        when :xl then "decor:text-lg"
         end
       end
 
       def background_classes
         case @background
-        when :primary then "bg-primary/10"
-        when :secondary then "bg-secondary/10"
-        when :neutral then "bg-neutral/10"
+        when :primary then "decor:bg-primary/10"
+        when :secondary then "decor:bg-secondary/10"
+        when :neutral then "decor:bg-neutral/10"
         end
       end
     end

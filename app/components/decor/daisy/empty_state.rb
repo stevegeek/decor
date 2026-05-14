@@ -8,17 +8,17 @@ module Decor
     class EmptyState < ::Decor::Components::EmptyState
       def view_template
         root_element do
-          render ::Decor::Daisy::Icon.new(name: @icon_name, size: :xl, classes: "text-base-content/60 mx-auto mb-4")
+          render ::Decor::Daisy::Icon.new(name: @icon_name, size: :xl, classes: "decor:text-base-content/60 decor:mx-auto decor:mb-4")
 
-          h3(class: "text-lg font-semibold text-base-content mb-2") do
+          h3(class: "decor:text-lg decor:font-semibold decor:text-base-content decor:mb-2") do
             @title
           end
 
-          p(class: "text-base-content/70 mb-6") do
+          p(class: "decor:text-base-content/70 decor:mb-6") do
             @description
           end
 
-          div(class: "flex justify-center gap-4") do
+          div(class: "decor:flex decor:justify-center decor:gap-4") do
             if @secondary_action_label && @secondary_action_href
               render ::Decor::Daisy::ButtonLink.new(
                 label: @secondary_action_label,
@@ -41,25 +41,25 @@ module Decor
       private
 
       def root_element_classes
-        "text-center py-12"
+        "decor:text-center decor:py-12"
       end
 
       def component_size_classes
         {
-          xs: "py-6",
-          sm: "py-8",
-          md: "py-12",
-          lg: "py-16",
-          xl: "py-20"
+          xs: "decor:py-6",
+          sm: "decor:py-8",
+          md: "decor:py-12",
+          lg: "decor:py-16",
+          xl: "decor:py-20"
         }
       end
 
       def component_variant_classes
         {
           default: "",
-          minimal: "py-6",
-          card: "bg-base-100 rounded-lg shadow-sm border border-base-300 p-8",
-          hero: "bg-base-200 rounded-xl p-12"
+          minimal: "decor:py-6",
+          card: "decor:bg-base-100 decor:rounded-lg decor:shadow-sm decor:border decor:border-base-300 decor:p-8",
+          hero: "decor:bg-base-200 decor:rounded-xl decor:p-12"
         }
       end
     end

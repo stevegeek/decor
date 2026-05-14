@@ -32,14 +32,14 @@ module Decor
           end
 
           if @status.present?
-            div(class: "ml-auto hidden md:flex items-center") do
-              p(class: "text-sm text-base-content/70") { @status }
+            div(class: "decor:ml-auto decor:hidden decor:md:flex decor:items-center") do
+              p(class: "decor:text-sm decor:text-base-content/70") { @status }
             end
           end
         end
 
         if @tab_content.present?
-          div(class: "tab-content bg-base-100 border-base-300 p-6") do
+          div(class: "decor:d-tab-content decor:bg-base-100 decor:border-base-300 decor:p-6") do
             result = @tab_content.call
             raw result.html_safe if result.is_a?(String)
           end
@@ -47,12 +47,12 @@ module Decor
       end
 
       def render_mobile_tabs
-        nav(class: "sm:hidden border-y border-base-300 p-4") do
-          label(for: "#{id}-select", class: "block text-sm text-base-content/70 mb-2") { "Navigate to a tab:" }
+        nav(class: "decor:sm:hidden decor:border-y decor:border-base-300 decor:p-4") do
+          label(for: "#{id}-select", class: "decor:block decor:text-sm decor:text-base-content/70 decor:mb-2") { "Navigate to a tab:" }
           select(
             id: "#{id}-select",
             name: "#{id}-select",
-            class: "select select-bordered w-full"
+            class: "decor:d-select decor:d-select-bordered decor:w-full"
           ) do
             @links.each do |link|
               option(
@@ -63,21 +63,21 @@ module Decor
             end
           end
           if @status.present?
-            p(class: "text-sm text-base-content/70 mt-2") { @status }
+            p(class: "decor:text-sm decor:text-base-content/70 decor:mt-2") { @status }
           end
         end
       end
 
       def render_tab_link(link)
         if link.disabled?
-          span(class: "tab tab-disabled", aria_disabled: "true") do
+          span(class: "decor:d-tab decor:d-tab-disabled", aria_disabled: "true") do
             render_tab_content(link)
           end
         else
           a(
             href: link.href,
             role: "tab",
-            class: "tab #{link.active? ? "tab-active" : ""}",
+            class: "decor:d-tab #{link.active? ? "decor:d-tab-active" : ""}",
             **tab_link_attributes(link)
           ) do
             render_tab_content(link)
@@ -87,7 +87,7 @@ module Decor
 
       def render_tab_content(link)
         if link.icon.present? && link.icon_position == :before
-          render ::Decor::Daisy::Icon.new(name: link.icon, size: @size, html_options: {class: "mr-2"})
+          render ::Decor::Daisy::Icon.new(name: link.icon, size: @size, html_options: {class: "decor:mr-2"})
         end
 
         unless link.icon.present? && link.icon_position == :only
@@ -95,7 +95,7 @@ module Decor
         end
 
         if link.icon.present? && link.icon_position == :after
-          render ::Decor::Daisy::Icon.new(name: link.icon, size: @size, html_options: {class: "ml-2"})
+          render ::Decor::Daisy::Icon.new(name: link.icon, size: @size, html_options: {class: "decor:ml-2"})
         end
 
         if link.icon.present? && link.icon_position == :only
@@ -107,44 +107,45 @@ module Decor
             label: link.badge_text,
             style: :filled,
             size: :sm,
-            html_options: {class: "ml-2"}
+            html_options: {class: "decor:ml-2"}
           )
         end
       end
 
       def tabs_container_classes
-        "tabs #{select_on_mobile? ? "hidden sm:block" : ""} #{style_classes} #{size_classes} #{color_classes}".strip
+        # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
+        "decor:d-tabs #{select_on_mobile? ? "decor:hidden decor:sm:block" : ""} #{style_classes} #{size_classes} #{color_classes}".strip
       end
 
       def component_style_classes(style)
         case style
-        when :bordered then "tabs-border"
-        when :lifted then "tabs-lift"
-        when :boxed then "tabs-box"
-        else "hover:tabs-lift" # ghost style
+        when :bordered then "decor:d-tabs-border"
+        when :lifted then "decor:d-tabs-lift"
+        when :boxed then "decor:d-tabs-box"
+        else "decor:hover:d-tabs-lift" # ghost style
         end
       end
 
       def component_size_classes(size)
         case size
-        when :xs then "tabs-xs"
-        when :sm then "tabs-sm"
-        when :lg then "tabs-lg"
-        when :xl then "tabs-xl"
+        when :xs then "decor:d-tabs-xs"
+        when :sm then "decor:d-tabs-sm"
+        when :lg then "decor:d-tabs-lg"
+        when :xl then "decor:d-tabs-xl"
         else "" # md is default, no class needed
         end
       end
 
       def component_color_classes(color)
         case color
-        when :primary then "text-primary"
-        when :secondary then "text-secondary"
-        when :accent then "text-accent"
-        when :success then "text-success"
-        when :error then "text-error"
-        when :warning then "text-warning"
-        when :info then "text-info"
-        when :neutral then "text-neutral"
+        when :primary then "decor:text-primary"
+        when :secondary then "decor:text-secondary"
+        when :accent then "decor:text-accent"
+        when :success then "decor:text-success"
+        when :error then "decor:text-error"
+        when :warning then "decor:text-warning"
+        when :info then "decor:text-info"
+        when :neutral then "decor:text-neutral"
         else "" # base is default
         end
       end

@@ -9,8 +9,8 @@ module Decor
       def view_template(&)
         vanish(&)
         root_element do
-          div(class: "flex items-start justify-between") do
-            div(class: "flex items-start gap-3 min-w-0 flex-1") do
+          div(class: "decor:flex decor:items-start decor:justify-between") do
+            div(class: "decor:flex decor:items-start decor:gap-3 decor:min-w-0 decor:flex-1") do
               render_icon if @icon.present?
               render_title_section
             end
@@ -23,17 +23,17 @@ module Decor
       end
 
       def root_element_classes
-        "card-header"
+        "decor:d-card-header"
       end
 
       def render_icon
-        div(class: "flex-shrink-0 mt-1") do
+        div(class: "decor:flex-shrink-0 decor:mt-1") do
           render ::Decor::Daisy::Icon.new(name: @icon, size: icon_size)
         end
       end
 
       def render_title_section
-        div(class: "min-w-0 flex-1") do
+        div(class: "decor:min-w-0 decor:flex-1") do
           if @title.present?
             h3(class: title_classes) do
               plain @title
@@ -49,44 +49,46 @@ module Decor
       end
 
       def render_actions
-        div(class: "card-actions flex-shrink-0 flex items-center gap-2") do
+        div(class: "decor:d-card-actions decor:flex-shrink-0 decor:flex decor:items-center decor:gap-2") do
           render @actions_content
         end
       end
 
       def render_meta
-        div(class: "mt-3 pt-3 border-t border-base-300") do
+        div(class: "decor:mt-3 decor:pt-3 decor:border-t decor:border-base-300") do
           render @meta_content
         end
       end
 
       def title_classes
-        base_classes = "card-title truncate"
+        base_classes = "decor:d-card-title decor:truncate"
 
         size_classes = case @size
-        when :xs then "text-sm"
-        when :sm then "text-base"
-        when :md then "text-lg"
-        when :lg then "text-xl"
-        when :xl then "text-2xl"
-        else "text-lg"
+        when :xs then "decor:text-sm"
+        when :sm then "decor:text-base"
+        when :md then "decor:text-lg"
+        when :lg then "decor:text-xl"
+        when :xl then "decor:text-2xl"
+        else "decor:text-lg"
         end
 
+        # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
         "#{base_classes} #{size_classes}"
       end
 
       def subtitle_classes
-        base_classes = "text-base-content/70 mt-1"
+        base_classes = "decor:text-base-content/70 decor:mt-1"
 
         size_classes = case @size
-        when :xs then "text-xs"
-        when :sm then "text-xs"
-        when :md then "text-sm"
-        when :lg then "text-base"
-        when :xl then "text-lg"
-        else "text-sm"
+        when :xs then "decor:text-xs"
+        when :sm then "decor:text-xs"
+        when :md then "decor:text-sm"
+        when :lg then "decor:text-base"
+        when :xl then "decor:text-lg"
+        else "decor:text-sm"
         end
 
+        # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
         "#{base_classes} #{size_classes}"
       end
 

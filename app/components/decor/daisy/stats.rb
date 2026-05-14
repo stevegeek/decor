@@ -23,12 +23,12 @@ module Decor
       end
 
       def root_element_classes
-        classes = ["stats"]
+        classes = ["decor:d-stats"]
 
         if @responsive
-          classes << "stats-vertical lg:stats-horizontal"
+          classes << "decor:d-stats-vertical decor:lg:d-stats-horizontal"
         elsif @orientation == :vertical
-          classes << "stats-vertical"
+          classes << "decor:d-stats-vertical"
         end
 
         classes << component_shadow_classes if component_shadow_classes
@@ -38,11 +38,11 @@ module Decor
       end
 
       def component_shadow_classes
-        "shadow" if @shadow
+        "decor:shadow" if @shadow
       end
 
       def component_background_classes
-        "bg-base-100" if @background
+        "decor:bg-base-100" if @background
       end
     end
   end

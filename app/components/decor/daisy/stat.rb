@@ -26,8 +26,8 @@ module Decor
       end
 
       def root_element_classes
-        classes = ["stat"]
-        classes << "place-items-center" if @centered
+        classes = ["decor:d-stat"]
+        classes << "decor:place-items-center" if @centered
         classes.join(" ")
       end
 
@@ -39,14 +39,14 @@ module Decor
             render ::Decor::Daisy::Icon.new(
               name: @icon,
               style: :outline,
-              html_options: {class: "inline-block h-8 w-8 stroke-current"}
+              html_options: {class: "decor:inline-block decor:h-8 decor:w-8 decor:stroke-current"}
             )
           end
         end
       end
 
       def render_title
-        div(class: "stat-title") { plain(@title) }
+        div(class: "decor:d-stat-title") { plain(@title) }
       end
 
       def render_value(&block)
@@ -60,11 +60,11 @@ module Decor
       end
 
       def render_description
-        div(class: "stat-desc") { plain(@description) }
+        div(class: "decor:d-stat-desc") { plain(@description) }
       end
 
       def render_actions
-        div(class: "stat-actions") do
+        div(class: "decor:d-stat-actions") do
           if @actions_content
             instance_exec(&@actions_content)
           end
@@ -72,7 +72,7 @@ module Decor
       end
 
       def figure_classes
-        classes = ["stat-figure"]
+        classes = ["decor:d-stat-figure"]
         color_to_use = @icon_color || @color
         if color_to_use && color_to_use != :neutral
           classes << figure_color_class(color_to_use)
@@ -82,21 +82,21 @@ module Decor
 
       def figure_color_class(color)
         case color
-        when :base then "text-base-content"
-        when :primary then "text-primary"
-        when :secondary then "text-secondary"
-        when :accent then "text-accent"
-        when :success then "text-success"
-        when :error then "text-error"
-        when :warning then "text-warning"
-        when :info then "text-info"
-        when :neutral then "text-neutral"
+        when :base then "decor:text-base-content"
+        when :primary then "decor:text-primary"
+        when :secondary then "decor:text-secondary"
+        when :accent then "decor:text-accent"
+        when :success then "decor:text-success"
+        when :error then "decor:text-error"
+        when :warning then "decor:text-warning"
+        when :info then "decor:text-info"
+        when :neutral then "decor:text-neutral"
         else ""
         end
       end
 
       def value_classes
-        classes = ["stat-value"]
+        classes = ["decor:d-stat-value"]
         if @color && @color != :neutral
           classes << text_color_classes(@color)
         end

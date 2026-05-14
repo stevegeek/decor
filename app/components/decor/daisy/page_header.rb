@@ -21,7 +21,7 @@ module Decor
       end
 
       def root_element_classes
-        classes = ["page-header"]
+        classes = ["decor:page-header"]
         classes << background_classes
         classes << padding_classes
         classes << border_classes
@@ -30,30 +30,30 @@ module Decor
 
       def background_classes
         case @background
-        when :hero then "bg-base-200"
-        when :gradient then "bg-gradient-to-r from-primary to-secondary text-primary-content"
+        when :hero then "decor:bg-base-200"
+        when :gradient then "decor:bg-gradient-to-r decor:from-primary decor:to-secondary decor:text-primary-content"
         when :transparent then ""
-        else "bg-base-100"
+        else "decor:bg-base-100"
         end
       end
 
       def padding_classes
         case @padding
         when :none then ""
-        when :sm then "p-4"
-        when :md then "p-6 lg:p-8"
-        when :lg then "p-8 lg:p-12"
-        when :xl then "p-12 lg:p-16"
-        else "p-6 lg:p-8"
+        when :sm then "decor:p-4"
+        when :md then "decor:p-6 decor:lg:p-8"
+        when :lg then "decor:p-8 decor:lg:p-12"
+        when :xl then "decor:p-12 decor:lg:p-16"
+        else "decor:p-6 decor:lg:p-8"
         end
       end
 
       def border_classes
-        @border ? "border-b border-base-300" : ""
+        @border ? "decor:border-b decor:border-base-300" : ""
       end
 
       def render_breadcrumbs
-        div(class: "mb-4") do
+        div(class: "decor:mb-4") do
           render @breadcrumbs_content if @breadcrumbs_content
         end
       end
@@ -70,8 +70,8 @@ module Decor
       end
 
       def render_default_layout
-        div(class: "flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6") do
-          div(class: "flex flex-col sm:flex-row items-start sm:items-center gap-4 min-w-0 flex-1") do
+        div(class: "decor:flex decor:flex-col decor:lg:flex-row decor:lg:items-center decor:lg:justify-between decor:gap-6") do
+          div(class: "decor:flex decor:flex-col decor:sm:flex-row decor:items-start decor:sm:items-center decor:gap-4 decor:min-w-0 decor:flex-1") do
             render_avatar_section if @avatar_content
             render_content_section
           end
@@ -80,13 +80,14 @@ module Decor
       end
 
       def render_page_like_layout
-        classes = ["bg-base-100"]
-        classes << (@cta_snap_large ? "xl:flex" : "md:flex")
-        classes << (@cta_snap_large ? "xl:items-center" : "md:items-center")
-        classes << (@cta_snap_large ? "xl:justify-between" : "md:justify-between")
+        classes = ["decor:bg-base-100"]
+        classes << (@cta_snap_large ? "decor:xl:flex" : "decor:md:flex")
+        classes << (@cta_snap_large ? "decor:xl:items-center" : "decor:md:items-center")
+        classes << (@cta_snap_large ? "decor:xl:justify-between" : "decor:md:justify-between")
 
         div(class: classes.join(" ")) do
-          div(class: "space-y-2.5 #{@cta_snap_large ? "xl:pr-6" : "md:pr-6"} pb-4 sm:pb-0 border-b sm:border-b-0 border-base-300") do
+          # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
+          div(class: "decor:space-y-2.5 #{@cta_snap_large ? "decor:xl:pr-6" : "decor:md:pr-6"} decor:pb-4 decor:sm:pb-0 decor:border-b decor:sm:border-b-0 decor:border-base-300") do
             render_avatar_section if @avatar_content
             render_content_section
           end
@@ -95,7 +96,7 @@ module Decor
       end
 
       def render_centered_layout
-        div(class: "text-center max-w-4xl mx-auto") do
+        div(class: "decor:text-center decor:max-w-4xl decor:mx-auto") do
           render_avatar_section(centered: true) if @avatar_content
           render_content_section(centered: true)
           render_actions_section(centered: true) if @actions_content || @secondary_actions_content
@@ -104,8 +105,8 @@ module Decor
       end
 
       def render_minimal_layout
-        div(class: "flex items-center justify-between") do
-          div(class: "min-w-0 flex-1") do
+        div(class: "decor:flex decor:items-center decor:justify-between") do
+          div(class: "decor:min-w-0 decor:flex-1") do
             render_title_only
           end
           render_actions_section if @actions_content
@@ -113,9 +114,9 @@ module Decor
       end
 
       def render_hero_layout
-        div(class: "hero") do
-          div(class: "hero-content text-center") do
-            div(class: "max-w-5xl") do
+        div(class: "decor:d-hero") do
+          div(class: "decor:d-hero-content decor:text-center") do
+            div(class: "decor:max-w-5xl") do
               render_avatar_section(centered: true, large: true) if @avatar_content
               render_content_section(centered: true, large: true)
               render_actions_section(centered: true, large: true) if @actions_content || @secondary_actions_content
@@ -126,8 +127,8 @@ module Decor
       end
 
       def render_compact_layout
-        div(class: "flex items-center justify-between py-2") do
-          div(class: "flex items-center gap-3 min-w-0 flex-1") do
+        div(class: "decor:flex decor:items-center decor:justify-between decor:py-2") do
+          div(class: "decor:flex decor:items-center decor:gap-3 decor:min-w-0 decor:flex-1") do
             render_avatar_section(compact: true) if @avatar_content
             render_content_section(compact: true)
           end
@@ -136,8 +137,8 @@ module Decor
       end
 
       def render_avatar_section(centered: false, large: false, compact: false)
-        classes = ["flex-shrink-0"]
-        classes << (centered ? "mb-4" : "")
+        classes = ["decor:flex-shrink-0"]
+        classes << (centered ? "decor:mb-4" : "")
 
         div(class: classes.compact.join(" ")) do
           render @avatar_content if @avatar_content
@@ -145,19 +146,19 @@ module Decor
       end
 
       def render_content_section(centered: false, large: false, compact: false)
-        classes = ["min-w-0"]
-        classes << (centered ? "text-center" : "")
+        classes = ["decor:min-w-0"]
+        classes << (centered ? "decor:text-center" : "")
 
         div(class: classes.compact.join(" ")) do
           if @layout == :page_like
-            div(class: "sm:flex items-center sm:space-x-3") do
+            div(class: "decor:sm:flex decor:items-center decor:sm:space-x-3") do
               render_title_section(centered: centered, large: large, compact: compact)
               render_badges_section
             end
 
             render_subtitle_section(centered: centered, compact: compact) if @subtitle.present?
 
-            div(class: "sm:flex items-center sm:space-x-3") do
+            div(class: "decor:sm:flex decor:items-center decor:sm:space-x-3") do
               render_description_section(centered: centered, compact: compact) if @description.present?
               render_tags_section
             end
@@ -221,16 +222,17 @@ module Decor
         return if compact && @subtitle.blank?
 
         size_classes = case @size
-        when :xs then "text-xs"
-        when :sm then "text-xs"
-        when :md then "text-xs"
-        when :lg then "text-sm"
-        when :xl then "text-base"
-        else "text-xs"
+        when :xs then "decor:text-xs"
+        when :sm then "decor:text-xs"
+        when :md then "decor:text-xs"
+        when :lg then "decor:text-sm"
+        when :xl then "decor:text-base"
+        else "decor:text-xs"
         end
 
-        classes = ["py-2 sm:py-0 text-base-content/70 #{size_classes}"]
-        classes << (centered ? "text-center" : "")
+        # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
+        classes = ["decor:py-2 decor:sm:py-0 decor:text-base-content/70 #{size_classes}"]
+        classes << (centered ? "decor:text-center" : "")
 
         h4(class: classes.compact.join(" ")) do
           plain @subtitle if @subtitle.present?
@@ -241,16 +243,17 @@ module Decor
         return if compact || @description.blank?
 
         size_classes = case @size
-        when :xs then "text-xs"
-        when :sm then "text-sm"
-        when :md then "text-sm"
-        when :lg then "text-base"
-        when :xl then "text-lg"
-        else "text-sm"
+        when :xs then "decor:text-xs"
+        when :sm then "decor:text-sm"
+        when :md then "decor:text-sm"
+        when :lg then "decor:text-base"
+        when :xl then "decor:text-lg"
+        else "decor:text-sm"
         end
 
-        classes = ["text-base-content/70 #{size_classes}"]
-        classes << (centered ? "text-center" : "")
+        # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
+        classes = ["decor:text-base-content/70 #{size_classes}"]
+        classes << (centered ? "decor:text-center" : "")
 
         p(class: classes.compact.join(" ")) do
           plain @description
@@ -260,8 +263,8 @@ module Decor
       def render_meta_section(centered: false, compact: false)
         return unless @meta_content
 
-        classes = ["mt-3"]
-        classes << (centered ? "flex justify-center" : "")
+        classes = ["decor:mt-3"]
+        classes << (centered ? "decor:flex decor:justify-center" : "")
 
         div(class: classes.compact.join(" ")) do
           render @meta_content if @meta_content
@@ -271,15 +274,15 @@ module Decor
       def render_actions_section(centered: false, large: false, compact: false)
         return unless @actions_content || @secondary_actions_content || @cta_content
 
-        classes = ["mt-4"]
-        classes << (@cta_snap_large ? "xl:mt-0" : "md:mt-0")
+        classes = ["decor:mt-4"]
+        classes << (@cta_snap_large ? "decor:xl:mt-0" : "decor:md:mt-0")
 
         if centered
-          div(class: "mt-6 flex flex-col sm:flex-row gap-3 justify-center") do
+          div(class: "decor:mt-6 decor:flex decor:flex-col decor:sm:flex-row decor:gap-3 decor:justify-center") do
             render_action_buttons(large: large)
           end
         elsif compact
-          div(class: "flex items-center gap-2") do
+          div(class: "decor:flex decor:items-center decor:gap-2") do
             render_action_buttons(compact: true)
           end
         else
@@ -291,13 +294,13 @@ module Decor
 
       def render_action_buttons(large: false, compact: false)
         if @actions_content
-          div(class: "flex gap-2") do
+          div(class: "decor:flex decor:gap-2") do
             render @actions_content
           end
         end
 
         if @secondary_actions_content
-          div(class: "flex gap-2") do
+          div(class: "decor:flex decor:gap-2") do
             render @secondary_actions_content
           end
         end
@@ -310,8 +313,8 @@ module Decor
       def render_status_section(centered: false)
         return unless @status_content
 
-        classes = ["mt-4"]
-        classes << (centered ? "flex justify-center" : "")
+        classes = ["decor:mt-4"]
+        classes << (centered ? "decor:flex decor:justify-center" : "")
 
         div(class: classes.compact.join(" ")) do
           render @status_content if @status_content
