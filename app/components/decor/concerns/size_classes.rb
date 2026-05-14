@@ -100,17 +100,17 @@ module Decor
 
         case normalized_size
         when :xs
-          "text-xs"
+          "decor:text-xs"
         when :sm
-          "text-sm"
+          "decor:text-sm"
         when :md
-          "text-base"
+          "decor:text-base"
         when :lg
-          "text-xl"
+          "decor:text-xl"
         when :xl
-          "text-2xl"
+          "decor:text-2xl"
         else
-          "text-base"
+          "decor:text-base"
         end
       end
     end

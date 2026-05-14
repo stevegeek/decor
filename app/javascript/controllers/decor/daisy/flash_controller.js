@@ -1,10 +1,10 @@
 import { Controller } from "@hotwired/stimulus";
 import { replaceContentsWithChildren } from "controllers/decor";
 
-const INITIAL_CLASSES = "invisible opacity-0";
-const VISIBLE_CLASSES = "transition-opacity duration-300 opacity-100 visible";
-const COLLAPSED_CLASS = "hidden";
-const TEXT_CLASS = "text-sm";
+const INITIAL_CLASSES = "decor:invisible decor:opacity-0";
+const VISIBLE_CLASSES = "decor:transition-opacity decor:duration-300 decor:opacity-100 decor:visible";
+const COLLAPSED_CLASS = "decor:hidden";
+const TEXT_CLASS = "decor:text-sm";
 
 export default class extends Controller {
     static values = {
@@ -108,7 +108,7 @@ export default class extends Controller {
 
     createHeading(content) {
         const heading = document.createElement("h2");
-        heading.classList.add("c-h7");
+        heading.classList.add("decor:c-h7");
         heading.textContent = content;
         return heading;
     }

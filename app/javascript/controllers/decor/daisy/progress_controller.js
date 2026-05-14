@@ -58,7 +58,7 @@ export default class extends Controller {
     if (progressBar) {
       progressBar.value = progressPercentage;
       progressBar.setAttribute('aria-label', `Progress: ${progressPercentage}% complete`);
-      progressBar.classList.add('transition-all', 'duration-300');
+      progressBar.classList.add('decor:transition-all', 'decor:duration-300');
     }
   }
 
@@ -68,8 +68,8 @@ export default class extends Controller {
     steps.forEach((step, index) => {
       const stepNumber = index + 1;
       // Remove existing state classes
-      step.classList.remove('step-primary', 'step-secondary', 'step-accent', 
-                           'step-success', 'step-error', 'step-warning', 'step-info');
+      step.classList.remove('decor:d-step-primary', 'decor:d-step-secondary', 'decor:d-step-accent',
+                           'decor:d-step-success', 'decor:d-step-error', 'decor:d-step-warning', 'decor:d-step-info');
       
       // Add appropriate state class based on progress
       if (stepNumber <= this.currentStepValue) {

@@ -378,13 +378,13 @@ export default class extends Controller {
   // Loading state management
   showLoadingState() {
     this.loadingState = true;
-    this.mapContainerTarget.classList.add('map-loading');
+    this.mapContainerTarget.classList.add('decor:map-loading');
     this.mapContainerTarget.setAttribute('aria-busy', 'true');
   }
 
   hideLoadingState() {
     this.loadingState = false;
-    this.mapContainerTarget.classList.remove('map-loading');
+    this.mapContainerTarget.classList.remove('decor:map-loading');
     this.mapContainerTarget.removeAttribute('aria-busy');
   }
 
@@ -409,7 +409,7 @@ export default class extends Controller {
     
     // Show user-friendly error message
     if (this.mapContainerTarget) {
-      this.mapContainerTarget.classList.add('map-error');
+      this.mapContainerTarget.classList.add('decor:map-error');
       this.mapContainerTarget.innerHTML = `
         <div class="flex items-center justify-center h-full bg-gray-50 text-gray-600">
           <div class="text-center p-4">

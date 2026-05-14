@@ -55,7 +55,7 @@ export default class extends Controller {
     }
     displayMenu(state) {
         if (state) {
-            this.menuTarget.classList.remove("hidden");
+            this.menuTarget.classList.remove("decor:hidden");
             this.menuTarget.classList.add(...this.enteringClasses);
             this.menuTarget.classList.add(...this.enteringFromClasses);
             
@@ -73,7 +73,7 @@ export default class extends Controller {
             }, 10);
             
             setTimeout(() => {
-                this.menuTarget.classList.add("hidden");
+                this.menuTarget.classList.add("decor:hidden");
                 this.menuTarget.classList.remove(...this.enteringClasses, ...this.enteringToClasses, ...this.leavingClasses, ...this.leavingToClasses);
             }, this.leaveTimeoutValue || 75);
         }

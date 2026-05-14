@@ -32,7 +32,7 @@ export default class extends Controller {
         }
         // Replace the content with highlighted version
         codeElement.innerHTML = result.value
-        codeElement.classList.add('hljs')
+        codeElement.classList.add('decor:hljs')
         codeElement.dataset.highlighted = "yes"
       } catch (error) {
         console.warn("Failed to highlight code block:", error)
