@@ -1,19 +1,4 @@
 GIT
-  remote: https://github.com/parruda/claude-swarm.git
-  revision: 0a1da4a79c1d850c7dd84b0798d616ba0307e664
-  branch: main
-  specs:
-    claude_swarm (0.3.11)
-      claude-code-sdk-ruby (~> 0.1)
-      faraday-net_http_persistent (~> 2.0)
-      faraday-retry (~> 2.0)
-      fast-mcp-annotations (~> 1.5)
-      ruby-mcp-client (~> 0.7)
-      ruby-openai (>= 7.0, < 9.0)
-      thor (~> 1.3)
-      zeitwerk (~> 2.6)
-
-GIT
   remote: https://github.com/stevegeek/encoded_id.git
   revision: e76a77403e6fee8e20c61cb8a4063ea31f2306e0
   branch: main
@@ -33,6 +18,19 @@ GIT
       activerecord (>= 7.2, < 9)
       activesupport (>= 7.2, < 9)
       literal (>= 1.6.0, < 2)
+
+PATH
+  remote: .
+  specs:
+    decor (0.1.0)
+      inline_svg
+      js_regex (~> 3.5)
+      literal (>= 1.0)
+      phlex-rails (>= 2.0)
+      rails (>= 7.2, < 9)
+      tailwind_merge (>= 0.5.2, < 2)
+      vident (~> 2.0)
+      vident-phlex (~> 2.0)
 
 GEM
   remote: https://rubygems.org/
@@ -114,40 +112,14 @@ GEM
     addressable (2.8.8)
       public_suffix (>= 2.0.2, < 8.0)
     ast (2.4.3)
-    async (2.32.0)
-      console (~> 1.29)
-      fiber-annotation
-      io-event (~> 1.11)
-      metrics (~> 0.12)
-      traces (~> 0.18)
     base64 (0.3.0)
-    bcrypt_pbkdf (1.1.1)
     bigdecimal (3.3.1)
-    bindex (0.8.1)
     bootsnap (1.19.0)
       msgpack (~> 1.2)
-    brakeman (7.1.0)
-      racc
     builder (3.3.0)
-    capybara (3.40.0)
-      addressable
-      matrix
-      mini_mime (>= 0.1.3)
-      nokogiri (~> 1.11)
-      rack (>= 1.6.0)
-      rack-test (>= 0.6.3)
-      regexp_parser (>= 1.5, < 3.0)
-      xpath (~> 3.2)
     character_set (1.8.0)
-    claude-code-sdk-ruby (0.1.6)
-      async (~> 2)
-      logger (~> 1)
     concurrent-ruby (1.3.6)
     connection_pool (2.5.5)
-    console (1.34.0)
-      fiber-annotation
-      fiber-local (~> 1.1)
-      json
     crass (1.0.6)
     css_parser (1.21.1)
       addressable
@@ -155,72 +127,11 @@ GEM
     debug (1.11.0)
       irb (~> 1.10)
       reline (>= 0.3.8)
-    dotenv (3.1.8)
-    dotenv-rails (3.1.8)
-      dotenv (= 3.1.8)
-      railties (>= 6.1)
     drb (2.2.3)
-    dry-configurable (1.3.0)
-      dry-core (~> 1.1)
-      zeitwerk (~> 2.6)
-    dry-core (1.1.0)
-      concurrent-ruby (~> 1.0)
-      logger
-      zeitwerk (~> 2.6)
-    dry-inflector (1.2.0)
-    dry-initializer (3.2.0)
-    dry-logic (1.6.0)
-      bigdecimal
-      concurrent-ruby (~> 1.0)
-      dry-core (~> 1.1)
-      zeitwerk (~> 2.6)
-    dry-schema (1.14.1)
-      concurrent-ruby (~> 1.0)
-      dry-configurable (~> 1.0, >= 1.0.1)
-      dry-core (~> 1.1)
-      dry-initializer (~> 3.2)
-      dry-logic (~> 1.5)
-      dry-types (~> 1.8)
-      zeitwerk (~> 2.6)
-    dry-types (1.8.3)
-      bigdecimal (~> 3.0)
-      concurrent-ruby (~> 1.0)
-      dry-core (~> 1.0)
-      dry-inflector (~> 1.0)
-      dry-logic (~> 1.4)
-      zeitwerk (~> 2.6)
-    ed25519 (1.4.0)
     erb (6.0.1)
     erubi (1.13.1)
     et-orbi (1.4.0)
       tzinfo
-    event_stream_parser (1.0.0)
-    faraday (2.13.4)
-      faraday-net_http (>= 2.0, < 3.5)
-      json
-      logger
-    faraday-follow_redirects (0.3.0)
-      faraday (>= 1, < 3)
-    faraday-multipart (1.1.1)
-      multipart-post (~> 2.0)
-    faraday-net_http (3.4.1)
-      net-http (>= 0.5.0)
-    faraday-net_http_persistent (2.3.1)
-      faraday (~> 2.5)
-      net-http-persistent (>= 4.0.4, < 5)
-    faraday-retry (2.3.2)
-      faraday (~> 2.0)
-    fast-mcp-annotations (1.5.3)
-      addressable (~> 2.8)
-      base64
-      dry-schema (~> 1.14)
-      json (~> 2.0)
-      mime-types (~> 3.4)
-      rack (< 3)
-    fiber-annotation (0.2.0)
-    fiber-local (1.1.0)
-      fiber-storage
-    fiber-storage (1.0.1)
     fugit (1.12.1)
       et-orbi (~> 1.4)
       raabro (~> 1.4)
@@ -238,30 +149,15 @@ GEM
       activesupport (>= 3.0)
       nokogiri (>= 1.6)
     io-console (0.8.2)
-    io-event (1.14.0)
     irb (1.16.0)
       pp (>= 0.6.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
-    jbuilder (2.14.1)
-      actionview (>= 7.0.0)
-      activesupport (>= 7.0.0)
     js_regex (3.14.0)
       character_set (~> 1.4)
       regexp_parser (~> 2.11)
       regexp_property_values (~> 1.0)
     json (2.15.0)
-    kamal (2.7.0)
-      activesupport (>= 7.0)
-      base64 (~> 0.2)
-      bcrypt_pbkdf (~> 1.0)
-      concurrent-ruby (~> 1.2)
-      dotenv (~> 3.1)
-      ed25519 (~> 1.4)
-      net-ssh (~> 7.3)
-      sshkit (>= 1.23.0, < 2.0)
-      thor (~> 1.3)
-      zeitwerk (>= 2.6.18, < 3.0)
     language_server-protocol (3.17.0.5)
     lint_roller (1.1.0)
     literal (1.8.1)
@@ -289,20 +185,9 @@ GEM
       net-pop
       net-smtp
     marcel (1.1.0)
-    matrix (0.4.3)
-    metrics (0.15.0)
-    mime-types (3.7.0)
-      logger
-      mime-types-data (~> 3.2025, >= 3.2025.0507)
-    mime-types-data (3.2025.0924)
     mini_mime (1.1.5)
     minitest (5.27.0)
     msgpack (1.8.0)
-    multipart-post (2.4.1)
-    net-http (0.6.0)
-      uri
-    net-http-persistent (4.0.6)
-      connection_pool (~> 2.2, >= 2.2.4)
     net-imap (0.6.2)
       date
       net-protocol
@@ -310,13 +195,8 @@ GEM
       net-protocol
     net-protocol (0.2.2)
       timeout
-    net-scp (4.1.0)
-      net-ssh (>= 2.6.5, < 8.0.0)
-    net-sftp (4.0.0)
-      net-ssh (>= 5.0.0, < 8.0.0)
     net-smtp (0.5.1)
       net-protocol
-    net-ssh (7.3.0)
     nio4r (2.7.5)
     nokogiri (1.18.10-aarch64-linux-gnu)
       racc (~> 1.4)
@@ -330,7 +210,6 @@ GEM
       racc (~> 1.4)
     nokogiri (1.18.10-x86_64-linux-musl)
       racc (~> 1.4)
-    ostruct (0.6.3)
     parallel (1.27.0)
     parser (3.3.9.0)
       ast (~> 2.4.1)
@@ -406,7 +285,6 @@ GEM
     regexp_property_values (1.5.2)
     reline (0.6.3)
       io-console (~> 0.5)
-    rexml (3.4.4)
     rouge (4.6.1)
     rubocop (1.80.2)
       json (~> 2.3)
@@ -426,33 +304,8 @@ GEM
       lint_roller (~> 1.1)
       rubocop (>= 1.75.0, < 2.0)
       rubocop-ast (>= 1.38.0, < 2.0)
-    rubocop-rails (2.33.3)
-      activesupport (>= 4.2.0)
-      lint_roller (~> 1.1)
-      rack (>= 1.1)
-      rubocop (>= 1.75.0, < 2.0)
-      rubocop-ast (>= 1.44.0, < 2.0)
-    rubocop-rails-omakase (1.1.0)
-      rubocop (>= 1.72)
-      rubocop-performance (>= 1.24)
-      rubocop-rails (>= 2.30)
-    ruby-mcp-client (0.8.1)
-      faraday (~> 2.0)
-      faraday-follow_redirects (~> 0.3)
-      faraday-retry (~> 2.0)
-    ruby-openai (8.3.0)
-      event_stream_parser (>= 0.3.0, < 2.0.0)
-      faraday (>= 1)
-      faraday-multipart (>= 1)
     ruby-progressbar (1.13.0)
-    rubyzip (3.1.0)
     securerandom (0.4.1)
-    selenium-webdriver (4.35.0)
-      base64 (~> 0.2)
-      logger (~> 1.4)
-      rexml (~> 3.2, >= 3.2.5)
-      rubyzip (>= 1.2.2, < 4.0)
-      websocket (~> 1.0)
     sin_lru_redux (2.5.2)
     solid_cable (3.0.12)
       actioncable (>= 7.2)
@@ -476,13 +329,6 @@ GEM
     sqlite3 (2.8.1-arm-linux-musl)
     sqlite3 (2.8.1-x86_64-linux-gnu)
     sqlite3 (2.8.1-x86_64-linux-musl)
-    sshkit (1.24.0)
-      base64
-      logger
-      net-scp (>= 1.1.2)
-      net-sftp (>= 2.1.2)
-      net-ssh (>= 2.8.0)
-      ostruct
     standard (1.51.1)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.0)
@@ -500,20 +346,8 @@ GEM
     stringio (3.2.0)
     tailwind_merge (1.5.0)
       sin_lru_redux (~> 2.5)
-    tailwindcss-rails (4.4.0)
-      railties (>= 7.0.0)
-      tailwindcss-ruby (~> 4.0)
-    tailwindcss-ruby (4.1.18)
-    tailwindcss-ruby (4.1.18-aarch64-linux-gnu)
-    tailwindcss-ruby (4.1.18-aarch64-linux-musl)
-    tailwindcss-ruby (4.1.18-x86_64-linux-gnu)
-    tailwindcss-ruby (4.1.18-x86_64-linux-musl)
     thor (1.4.0)
-    thruster (0.1.17)
-    thruster (0.1.17-aarch64-linux)
-    thruster (0.1.17-x86_64-linux)
     timeout (0.6.0)
-    traces (0.18.2)
     tsort (0.2.0)
     turbo-rails (2.0.20)
       actionpack (>= 7.1.0)
@@ -539,19 +373,11 @@ GEM
       actionview (>= 7.1.0, < 8.2)
       activesupport (>= 7.1.0, < 8.2)
       concurrent-ruby (~> 1)
-    web-console (4.2.1)
-      actionview (>= 6.0.0)
-      activemodel (>= 6.0.0)
-      bindex (>= 0.4.0)
-      railties (>= 6.0.0)
     webrick (1.9.2)
-    websocket (1.2.11)
     websocket-driver (0.8.0)
       base64
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    xpath (3.2.0)
-      nokogiri (~> 1.8)
     yard (0.9.38)
     zeitwerk (2.7.4)
 
@@ -567,41 +393,23 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap
-  brakeman
-  capybara
-  claude_swarm!
   debug
-  dotenv-rails
+  decor!
   encoded_id-rails (= 1.0.0.rc6)!
   importmap-rails
-  inline_svg
-  jbuilder
-  js_regex (~> 3.5)
-  kamal
-  literal
   lookbook
   minitest (~> 5.25)
-  phlex-rails (>= 2.0.0)
+  nokogiri
   propshaft
   puma (>= 5.0)
   quo!
-  rails (~> 8.1.3)
-  rubocop-rails-omakase
-  selenium-webdriver
   solid_cable
   solid_cache
   solid_queue
   sqlite3 (>= 2.1)
   standard (>= 1.35.1)
   stimulus-rails
-  tailwind_merge (>= 0.5.2, < 2)
-  tailwindcss-rails
-  thruster
   turbo-rails
-  tzinfo-data
-  vident (~> 2.0)
-  vident-phlex (~> 2.0)
-  web-console
 
 BUNDLED WITH
    2.6.9
