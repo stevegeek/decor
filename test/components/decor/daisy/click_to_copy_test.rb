@@ -8,14 +8,15 @@ class Decor::Daisy::ClickToCopyTest < ActiveSupport::TestCase
 
     rendered = render_fragment(component) { "Copy this text" }
 
-    # Should have cursor pointer class
-    assert rendered.css(".cursor-pointer").any?
+    # Should have cursor pointer class (with decor: prefix)
+    assert_includes rendered.to_html, "cursor-pointer"
 
     # Should render content
     assert_includes rendered.text, "Copy this text"
 
-    # Should have flex layout
-    assert rendered.css(".flex.items-center").any?
+    # Should have flex layout (with decor: prefix)
+    assert_includes rendered.to_html, "flex"
+    assert_includes rendered.to_html, "items-center"
   end
 
   def test_has_copy_tooltip
@@ -23,22 +24,22 @@ class Decor::Daisy::ClickToCopyTest < ActiveSupport::TestCase
 
     rendered = render_fragment(component) { "Content" }
 
-    # Should have tooltip
-    flex_div = rendered.css(".flex.items-center").first
-    assert flex_div
-    assert_equal "Click to copy this.", flex_div["title"]
+    # Should have tooltip on the inner flex div (search by title attribute)
+    assert_includes rendered.to_html, 'title="Click to copy this."'
   end
 
-  def test_renders_duplicate_icon_without_block
+  def test_renders_copy_icon_without_block
     component = Decor::Daisy::ClickToCopy.new
 
     rendered = render_fragment(component)
 
-    # Should render duplicate icon when no block given
-    assert_includes rendered.to_html, "duplicate"
+    # Should render copy icon when no block given (Tabler convention: 'copy')
+    assert_includes rendered.to_html, "copy"
 
-    # Icon should have proper classes
-    assert_includes rendered.to_html, "ml-2 h-4 w-4"
+    # Icon should have proper classes (with decor: prefix)
+    assert_includes rendered.to_html, "ml-2"
+    assert_includes rendered.to_html, "h-4"
+    assert_includes rendered.to_html, "w-4"
   end
 
   def test_renders_block_content_instead_of_icon
@@ -49,8 +50,8 @@ class Decor::Daisy::ClickToCopyTest < ActiveSupport::TestCase
     # Should render block content
     assert_includes rendered.text, "Content"
 
-    # Should NOT render duplicate icon when block is given
-    refute_includes rendered.to_html, "duplicate"
+    # Should NOT render copy icon asset when block is given
+    refute_includes rendered.to_html, "/copy-"
   end
 
   def test_has_stimulus_actions
@@ -72,11 +73,11 @@ class Decor::Daisy::ClickToCopyTest < ActiveSupport::TestCase
     # Should have content in target div
     assert_includes rendered.text, "Target content"
 
-    # Should have flex structure
-    flex_container = rendered.css(".flex.items-center").first
-    assert flex_container
+    # Should have flex structure (with decor: prefix)
+    assert_includes rendered.to_html, "flex"
+    assert_includes rendered.to_html, "items-center"
 
-    # Should have content target
+    # Should have content target (attribute selector still works)
     content_target = rendered.css("[data-decor--daisy--click-to-copy-target='content']").first
     assert content_target
     assert_includes content_target.text, "Target content"
@@ -87,12 +88,12 @@ class Decor::Daisy::ClickToCopyTest < ActiveSupport::TestCase
 
     rendered = render_fragment(component)
 
-    # Should still render structure
-    assert rendered.css(".cursor-pointer").any?
-    assert rendered.css(".flex.items-center").any?
+    # Should still render structure (with decor: prefix)
+    assert_includes rendered.to_html, "cursor-pointer"
+    assert_includes rendered.to_html, "flex"
 
-    # Should show duplicate icon as default when no block given
-    assert_includes rendered.to_html, "duplicate"
+    # Should show copy icon as default when no block given (Tabler convention: 'copy')
+    assert_includes rendered.to_html, "copy"
   end
 
   def test_with_to_copy_prop

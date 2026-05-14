@@ -136,11 +136,11 @@ class Decor::Daisy::SpinnerTest < ActiveSupport::TestCase
     component = Decor::Daisy::Spinner.new(size: :sm, color: :success)
     fragment = render_fragment(component)
 
-    spinner = fragment.at_css(".loading")
-    assert_not_nil spinner
-    assert_includes spinner["class"], "loading-spinner"
-    assert_includes spinner["class"], "loading-sm"
-    assert_includes spinner["class"], "text-success"
+    # Classes use decor: prefix (e.g. "decor:d-loading"), so use to_html string matching
+    html = fragment.to_html
+    assert_includes html, "loading-spinner"
+    assert_includes html, "loading-sm"
+    assert_includes html, "text-success"
   end
 
   test "combines style, size and color classes" do
