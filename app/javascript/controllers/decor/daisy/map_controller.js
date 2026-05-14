@@ -345,19 +345,19 @@ export default class extends Controller {
   // Create safe info window content
   createInfoWindowContent(location) {
     const content = document.createElement('div');
-    content.className = 'map-info-window';
+    content.className = 'decor:map-info-window';
     
     if (location.name) {
       const title = document.createElement('h3');
       title.textContent = location.name;
-      title.className = 'text-lg font-semibold mb-2';
+      title.className = 'decor:text-lg decor:font-semibold decor:mb-2';
       content.appendChild(title);
     }
     
     if (location.description) {
       const description = document.createElement('p');
       description.textContent = location.description;
-      description.className = 'text-sm text-gray-600';
+      description.className = 'decor:text-sm decor:text-gray-600';
       content.appendChild(description);
     }
     
@@ -411,13 +411,13 @@ export default class extends Controller {
     if (this.mapContainerTarget) {
       this.mapContainerTarget.classList.add('decor:map-error');
       this.mapContainerTarget.innerHTML = `
-        <div class="flex items-center justify-center h-full bg-gray-50 text-gray-600">
-          <div class="text-center p-4">
-            <svg class="mx-auto h-12 w-12 text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 48 48">
+        <div class="decor:flex decor:items-center decor:justify-center decor:h-full decor:bg-gray-50 decor:text-gray-600">
+          <div class="decor:text-center decor:p-4">
+            <svg class="decor:mx-auto decor:h-12 decor:w-12 decor:text-gray-300 decor:mb-4" fill="none" stroke="currentColor" viewBox="0 0 48 48">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
             </svg>
-            <p class="text-sm font-medium">${userMessage}</p>
-            <p class="text-xs text-gray-500 mt-2">Please check console for details</p>
+            <p class="decor:text-sm decor:font-medium">${userMessage}</p>
+            <p class="decor:text-xs decor:text-gray-500 decor:mt-2">Please check console for details</p>
           </div>
         </div>
       `;
