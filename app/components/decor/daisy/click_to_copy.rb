@@ -13,7 +13,7 @@ module Decor
                 yield
               else
                 render ::Decor::Daisy::Icon.new(
-                  name: "duplicate",
+                  name: "copy",
                   html_options: {class: "decor:ml-2 decor:h-4 decor:w-4"}
                 )
               end
