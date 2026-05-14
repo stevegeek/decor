@@ -23,9 +23,8 @@ module Decor
 
         private
 
-        # CODEMOD-REVIEW: interpolated class expression — verify "no-pointer-events" inside ternary is already prefixed or prefix manually
         def root_element_classes
-          "decor:absolute decor:inset-y-1 decor:flex decor:items-center #{@show_floating_message ? "" : "no-pointer-events"}"
+          "decor:absolute decor:inset-y-1 decor:flex decor:items-center #{@show_floating_message ? "" : "decor:no-pointer-events"}"
         end
       end
     end

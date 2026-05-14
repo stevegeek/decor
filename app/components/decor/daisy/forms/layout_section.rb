@@ -32,8 +32,7 @@ module Decor
             if @custom_content_wrapper
               yield if block_given?
             elsif block_given?
-              # CODEMOD-REVIEW: interpolated class expression — verify ternary branches inside #{} are already prefixed or prefix manually
-              div(class: "decor:mt-6 #{@stacked ? "sm:mt-5 divide-y" : "grid grid-cols-1 gap-y-1 gap-x-4 sm:grid-cols-6"}") do
+              div(class: "decor:mt-6 #{@stacked ? "decor:sm:mt-5 decor:divide-y" : "decor:grid decor:grid-cols-1 decor:gap-y-1 decor:gap-x-4 decor:sm:grid-cols-6"}") do
                 yield
               end
             end

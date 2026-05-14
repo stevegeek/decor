@@ -65,12 +65,11 @@ module Decor
                 )
               end
 
-              # CODEMOD-REVIEW: interpolated class expression — verify ternary branches inside #{} are already prefixed or prefix manually
               render ::Decor::Daisy::Forms::ErrorIconSection.new(
                 error_text: error_text,
                 show_floating_message: floating_error_text?,
                 html_options: {
-                  class: "#{errors? ? "" : "hidden"} #{number_field? ? "right-7" : "right-3"}"
+                  class: "#{errors? ? "" : "decor:hidden"} #{number_field? ? "decor:right-7" : "decor:right-3"}"
                 }
               )
             end
