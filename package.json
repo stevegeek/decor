@@ -1,13 +1,28 @@
 {
   "name": "decor",
-  "version": "1.0.0",
-  "main": "index.js",
-  "repository": "git@github.com:stevegeek/decor.git",
-  "author": "Stephen Ierodiaconou <stevegeek@gmail.com>",
-  "license": "MIT",
-  "dependencies": {
-    "daisyui": "^5.0.43"
+  "version": "0.1.0",
+  "main": "app/assets/builds/decor.js",
+  "module": "app/assets/builds/decor.js",
+  "type": "module",
+  "files": [
+    "app/assets/builds/decor.js",
+    "app/assets/builds/decor.js.map"
+  ],
+  "peerDependencies": {
+    "@hotwired/stimulus": ">= 3.2",
+    "@floating-ui/dom": ">= 1.0",
+    "swiper": ">= 11",
+    "cally": ">= 0.7",
+    "tailwind-merge": ">= 2"
   },
-  "devDependencies": {},
-  "scripts": {}
+  "devDependencies": {
+    "esbuild": "^0.25.0",
+    "@tailwindcss/cli": "^4.0.0",
+    "daisyui": "^5.0",
+    "@hotwired/stimulus": ">= 3.2",
+    "@floating-ui/dom": ">= 1.0",
+    "swiper": ">= 11",
+    "cally": ">= 0.7",
+    "tailwind-merge": ">= 2"
+  }
 }
