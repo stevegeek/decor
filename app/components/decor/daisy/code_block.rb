@@ -16,16 +16,16 @@ module Decor
       end
 
       def render_header
-        div(class: "flex items-center justify-between px-4 py-2 border-b border-base-300 bg-base-200") do
+        div(class: "decor:flex decor:items-center decor:justify-between decor:px-4 decor:py-2 decor:border-b decor:border-base-300 decor:bg-base-200") do
           if @filename
-            span(class: "text-sm font-medium") { @filename }
+            span(class: "decor:text-sm decor:font-medium") { @filename }
           else
             span { "" }
           end
 
           if @copy_button
             render Decor::Daisy::ClickToCopy.new(to_copy: @code_content&.strip || "") do
-              render Decor::Daisy::Icon.new(name: "duplicate", size: :sm, html_options: {class: "h-4 w-4"})
+              render Decor::Daisy::Icon.new(name: "duplicate", size: :sm, html_options: {class: "decor:h-4 decor:w-4"})
             end
           end
         end
@@ -77,11 +77,11 @@ module Decor
         content = capture { yield }
         lines = content.strip.split("\n")
 
-        div(class: "flex") do
+        div(class: "decor:flex") do
           # Line numbers column
-          div(class: "select-none pr-4 text-base-content/50") do
+          div(class: "decor:select-none decor:pr-4 decor:text-base-content/50") do
             lines.each_index do |i|
-              div(class: "text-right") { (i + 1).to_s }
+              div(class: "decor:text-right") { (i + 1).to_s }
             end
           end
 
