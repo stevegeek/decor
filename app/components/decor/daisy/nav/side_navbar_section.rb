@@ -10,7 +10,7 @@ module Decor
           vanish(&)
           root_element do |el|
             if @title.present?
-              child_element(:li, stimulus_target: :title, class: "#{component_name}-title menu-title text-base-content/70 uppercase") do
+              child_element(:li, stimulus_target: :title, class: "#{component_name}-title decor:d-menu-title decor:text-base-content/70 decor:uppercase") do
                 @title
               end
             end
@@ -21,7 +21,7 @@ module Decor
         end
 
         def root_element_classes
-          "menu menu-vertical w-full"
+          "decor:d-menu decor:d-menu-vertical decor:w-full"
         end
 
         def root_element_attributes

@@ -9,13 +9,13 @@ module Decor
       def view_template
         root_element do
           # Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow
-          div(class: "absolute inset-0 top-1/2 bg-white shadow-xl", aria_hidden: "true")
+          div(class: "decor:absolute decor:inset-0 decor:top-1/2 decor:bg-white decor:shadow-xl", aria_hidden: "true")
 
-          div(class: "relative bg-white h-full overflow-hidden") do
-            div(class: "flex items-center h-full", data: {**@nav_element.stimulus_target(:search_spinner)}) do
-              render ::Decor::Daisy::Spinner.new(classes: "mx-auto")
+          div(class: "decor:relative decor:bg-white decor:h-full decor:overflow-hidden") do
+            div(class: "decor:flex decor:items-center decor:h-full", data: {**@nav_element.stimulus_target(:search_spinner)}) do
+              render ::Decor::Daisy::Spinner.new(classes: "decor:mx-auto")
             end
-            div(class: "hidden max-w-7xl mx-auto px-8 h-full overflow-y-scroll lg:overflow-auto", data: {**@nav_element.stimulus_target(:search_dropdown_content)}) do
+            div(class: "decor:hidden decor:max-w-7xl decor:mx-auto decor:px-8 decor:h-full decor:overflow-y-scroll decor:lg:overflow-auto", data: {**@nav_element.stimulus_target(:search_dropdown_content)}) do
               # Search results view goes here
             end
           end
@@ -25,7 +25,7 @@ module Decor
       private
 
       def root_element_classes
-        "hidden absolute top-full inset-x-0 text-sm text-gray-500 h-[375px] border-l border-r border-b border-gray-200"
+        "decor:hidden decor:absolute decor:top-full decor:inset-x-0 decor:text-sm decor:text-gray-500 decor:h-[375px] decor:border-l decor:border-r decor:border-b decor:border-gray-200"
       end
     end
   end

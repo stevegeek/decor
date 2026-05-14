@@ -13,37 +13,40 @@ module Decor
           @sections_html = render_sections.html_safe
           root_element do |el|
             # Mobile menu overlay
-            div(class: "fixed inset-0 flex z-40 hidden", role: "dialog", aria_modal: "true", data: {**el.stimulus_target(:mobile_menu)}) do
-              div(class: "fixed inset-0 bg-gray-600 bg-opacity-75 #{class_list_for_stimulus_classes(:mobile_menu_overlay_entering_from)}", aria_hidden: "true", data: {**el.stimulus_target(:mobile_menu_overlay)})
+            div(class: "decor:fixed decor:inset-0 decor:flex decor:z-40 decor:hidden", role: "dialog", aria_modal: "true", data: {**el.stimulus_target(:mobile_menu)}) do
+              # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
+              div(class: "decor:fixed decor:inset-0 decor:bg-gray-600 decor:bg-opacity-75 #{class_list_for_stimulus_classes(:mobile_menu_overlay_entering_from)}", aria_hidden: "true", data: {**el.stimulus_target(:mobile_menu_overlay)})
 
-              div(class: "relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-base-200 #{class_list_for_stimulus_classes(:mobile_menu_canvas_entering_from)}", data: {**el.stimulus_target(:mobile_menu_canvas)}) do
-                div(class: "absolute top-0 right-0 -mr-12 pt-2 #{class_list_for_stimulus_classes(:mobile_menu_close_button_entering_from)}", data: {**el.stimulus_target(:mobile_menu_close_button)}) do
+              # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
+              div(class: "decor:relative decor:flex-1 decor:flex decor:flex-col decor:max-w-xs decor:w-full decor:pt-5 decor:pb-4 decor:bg-base-200 #{class_list_for_stimulus_classes(:mobile_menu_canvas_entering_from)}", data: {**el.stimulus_target(:mobile_menu_canvas)}) do
+                # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
+                div(class: "decor:absolute decor:top-0 decor:right-0 decor:-mr-12 decor:pt-2 #{class_list_for_stimulus_classes(:mobile_menu_close_button_entering_from)}", data: {**el.stimulus_target(:mobile_menu_close_button)}) do
                   button(
                     type: "button",
                     data: {**el.stimulus_action(:click, :toggle_mobile_menu)},
-                    class: "ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+                    class: "decor:ml-1 decor:flex decor:items-center decor:justify-center decor:h-10 decor:w-10 decor:rounded-full decor:focus:outline-none decor:focus:ring-2 decor:focus:ring-inset decor:focus:ring-white"
                   ) do
-                    span(class: "sr-only") { "Close sidebar" }
-                    render ::Decor::Daisy::Icon.new(name: "x", html_options: {class: "h-6 w-6 text-white"})
+                    span(class: "decor:sr-only") { "Close sidebar" }
+                    render ::Decor::Daisy::Icon.new(name: "x", html_options: {class: "decor:h-6 decor:w-6 decor:text-white"})
                   end
                 end
 
-                div(class: "flex-shrink-0 flex items-center font-righteous px-4") do
-                  div(class: "h-20 flex-shrink-0 flex items-center gap-3 font-righteous px-5 relative") do
-                    img(src: @landscape_logo_url, alt: "Logo", class: "h-12 object-contain")
-                    span(class: "text-lg font-semibold text-base-content") { @app_title } if @app_title.present?
+                div(class: "decor:flex-shrink-0 decor:flex decor:items-center decor:font-righteous decor:px-4") do
+                  div(class: "decor:h-20 decor:flex-shrink-0 decor:flex decor:items-center decor:gap-3 decor:font-righteous decor:px-5 decor:relative") do
+                    img(src: @landscape_logo_url, alt: "Logo", class: "decor:h-12 decor:object-contain")
+                    span(class: "decor:text-lg decor:font-semibold decor:text-base-content") { @app_title } if @app_title.present?
                   end
                 end
 
-                div(class: "mt-5 flex-1 h-0 overflow-y-auto") do
-                  div(class: "w-full px-5", id: "mobile-sidebar-search") do
-                    label(for: "mobile-search", class: "sr-only") { "Search" }
-                    div(class: "relative") do
-                      div(class: "pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center") do
-                        render ::Decor::Daisy::Icon.new(name: "search", style: :solid, html_options: {class: "h-5 w-5 text-base-content/70"})
+                div(class: "decor:mt-5 decor:flex-1 decor:h-0 decor:overflow-y-auto") do
+                  div(class: "decor:w-full decor:px-5", id: "mobile-sidebar-search") do
+                    label(for: "mobile-search", class: "decor:sr-only") { "Search" }
+                    div(class: "decor:relative") do
+                      div(class: "decor:pointer-events-none decor:absolute decor:inset-y-0 decor:left-0 decor:pl-3 decor:flex decor:items-center") do
+                        render ::Decor::Daisy::Icon.new(name: "search", style: :solid, html_options: {class: "decor:h-5 decor:w-5 decor:text-base-content/70"})
                       end
                       input(
-                        class: "input input-bordered w-full pl-10 bg-base-100 text-base-content placeholder-base-content/70 focus:border-primary",
+                        class: "decor:d-input decor:d-input-bordered decor:w-full decor:pl-10 decor:bg-base-100 decor:text-base-content decor:placeholder-base-content/70 decor:focus:border-primary",
                         id: "mobile-search",
                         autocomplete: "on",
                         data: {
@@ -57,67 +60,67 @@ module Decor
                     end
                   end
 
-                  nav(class: "flex-1 px-5") do
+                  nav(class: "decor:flex-1 decor:px-5") do
                     raw @sections_html
                   end
                 end
               end
 
-              div(class: "flex-shrink-0 w-14", aria_hidden: "true")
+              div(class: "decor:flex-shrink-0 decor:w-14", aria_hidden: "true")
             end
 
             # Desktop sidebar
             div(
               data: {**el.stimulus_target(:desktop_menu)},
               id: "side-navbar-desktop",
-              class: "side-navbar-desktop hidden lg:fixed lg:flex lg:flex-col #{@collapsed ? "lg:w-20" : "lg:w-72"} lg:inset-y-0 transition-all duration-300 z-50"
+              class: "decor:side-navbar-desktop decor:hidden decor:lg:fixed decor:lg:flex decor:lg:flex-col #{@collapsed ? "decor:lg:w-20" : "decor:lg:w-72"} decor:lg:inset-y-0 decor:transition-all decor:duration-300 decor:z-50"
             ) do
-              div(class: "flex-1 flex flex-col min-h-0 bg-base-300") do
-                div(class: "h-20 flex-shrink-0 flex items-center justify-between font-righteous px-5 relative") do
-                  div(class: "flex items-center gap-3") do
+              div(class: "decor:flex-1 decor:flex decor:flex-col decor:min-h-0 decor:bg-base-300") do
+                div(class: "decor:h-20 decor:flex-shrink-0 decor:flex decor:items-center decor:justify-between decor:font-righteous decor:px-5 decor:relative") do
+                  div(class: "decor:flex decor:items-center decor:gap-3") do
                     render ::Decor::Daisy::Avatar.new(
                       size: :md,
                       initials: "C",
                       url: @avatar_logo_url,
-                      classes: "hidden",
+                      classes: "decor:hidden",
                       stimulus_targets: [el.stimulus_target(:desktop_avatar_logo)]
                     )
 
                     child_element(:div, stimulus_target: :desktop_logo) do
-                      img(src: @landscape_logo_url, alt: "Logo", class: "h-12 object-contain max-w-[180px]")
+                      img(src: @landscape_logo_url, alt: "Logo", class: "decor:h-12 decor:object-contain decor:max-w-[180px]")
                     end
 
-                    span(class: "text-lg font-semibold text-base-content") { @app_title } if @app_title.present?
+                    span(class: "decor:text-lg decor:font-semibold decor:text-base-content") { @app_title } if @app_title.present?
                   end
 
                   button(
                     type: "button",
                     id: "side-navbar-desktop-collapse-button",
                     data: {**el.stimulus_action(:click, :toggle_collapse_desktop_menu)},
-                    class: "text-base-content/70 hover:text-base-content"
+                    class: "decor:text-base-content/70 decor:hover:text-base-content"
                   ) do
                     render ::Decor::Daisy::Icon.new(
                       name: "menu-alt-2",
-                      html_options: {class: "h-6 w-6 #{@collapsed ? "hidden" : nil}"},
+                      html_options: {class: "decor:h-6 decor:w-6 #{@collapsed ? "decor:hidden" : nil}"},
                       stimulus_targets: [el.stimulus_target(:desktop_collapse_icon)]
                     )
                     render ::Decor::Daisy::Icon.new(
                       name: "chevron-right",
-                      html_options: {class: "h-6 w-6 #{@collapsed ? "" : "hidden"}"},
+                      html_options: {class: "decor:h-6 decor:w-6 #{@collapsed ? "" : "decor:hidden"}"},
                       stimulus_targets: [el.stimulus_target(:desktop_expand_icon)]
                     )
                   end
                 end
 
-                div(class: "side-navbar-desktop-custom-scrollbar flex-1 flex flex-col overflow-y-auto py-7") do
-                  div(id: "side-navbar-desktop-search", class: "w-full pl-5 pr-3") do
-                    label(for: "side-navbar-desktop-search-input", class: "sr-only") { "Search" }
-                    div(class: "relative h-9") do
-                      div(class: "pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center") do
-                        render ::Decor::Daisy::Icon.new(name: "search", style: :solid, html_options: {class: "h-5 w-5 text-base-content/70"})
+                div(class: "decor:side-navbar-desktop-custom-scrollbar decor:flex-1 decor:flex decor:flex-col decor:overflow-y-auto decor:py-7") do
+                  div(id: "side-navbar-desktop-search", class: "decor:w-full decor:pl-5 decor:pr-3") do
+                    label(for: "side-navbar-desktop-search-input", class: "decor:sr-only") { "Search" }
+                    div(class: "decor:relative decor:h-9") do
+                      div(class: "decor:pointer-events-none decor:absolute decor:inset-y-0 decor:left-0 decor:pl-3 decor:flex decor:items-center") do
+                        render ::Decor::Daisy::Icon.new(name: "search", style: :solid, html_options: {class: "decor:h-5 decor:w-5 decor:text-base-content/70"})
                       end
                       input(
-                        class: "input input-bordered w-full pl-10 bg-base-100 text-base-content placeholder-base-content/70 focus:border-primary",
+                        class: "decor:d-input decor:d-input-bordered decor:w-full decor:pl-10 decor:bg-base-100 decor:text-base-content decor:placeholder-base-content/70 decor:focus:border-primary",
                         id: "side-navbar-desktop-search-input",
                         autocomplete: "on",
                         data: {
@@ -131,7 +134,7 @@ module Decor
                     end
                   end
 
-                  nav(class: "flex-1 pl-5 pr-3") do
+                  nav(class: "decor:flex-1 decor:pl-5 decor:pr-3") do
                     raw @sections_html
                   end
                 end

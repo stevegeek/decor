@@ -11,18 +11,18 @@ module Decor
           vanish(&)
           root_element do |el|
             # navbar-start section
-            div(class: "navbar-start") do
+            div(class: "decor:d-navbar-start") do
               # Mobile menu button (only show if we have nav items)
               if @nav_items_block
                 button(
                   type: "button",
-                  class: "btn btn-ghost btn-circle lg:hidden",
+                  class: "decor:d-btn decor:d-btn-ghost decor:d-btn-circle decor:lg:hidden",
                   data: {
                     action: "click->#{stimulus_identifier}#toggle_mobile_menu"
                   }
                 ) do
-                  span(class: "sr-only") { "Open sidebar" }
-                  render ::Decor::Daisy::Icon.new(name: "bars-3", classes: "h-6 w-6")
+                  span(class: "decor:sr-only") { "Open sidebar" }
+                  render ::Decor::Daisy::Icon.new(name: "bars-3", classes: "decor:h-6 decor:w-6")
                 end
               end
 
@@ -30,15 +30,15 @@ module Decor
               if @brand_block
                 instance_eval(&@brand_block)
               elsif @brand_text
-                a(href: @brand_href, class: "btn btn-ghost text-xl font-bold") do
+                a(href: @brand_href, class: "decor:d-btn decor:d-btn-ghost decor:text-xl decor:font-bold") do
                   @brand_text
                 end
               end
 
               # Desktop navigation items
               if @nav_items_block
-                div(class: "hidden lg:flex") do
-                  ul(class: "menu menu-horizontal px-1") do
+                div(class: "decor:hidden decor:lg:flex") do
+                  ul(class: "decor:d-menu decor:d-menu-horizontal decor:px-1") do
                     instance_eval(&@nav_items_block)
                   end
                 end
@@ -46,20 +46,20 @@ module Decor
             end
 
             # navbar-center section (search)
-            div(class: "navbar-center px-2 lg:px-4 min-w-36") do
+            div(class: "decor:d-navbar-center decor:px-2 decor:lg:px-4 decor:min-w-36") do
               if @has_search
                 child_element(
                   :div,
                   stimulus_target: :search,
-                  class: "form-control w-full max-w-xs sm:max-w-md lg:max-w-lg"
+                  class: "decor:form-control decor:w-full decor:max-w-xs decor:sm:max-w-md decor:lg:max-w-lg"
                 ) do
-                  form(class: "relative w-full") do
-                    div(class: "relative") do
-                      div(class: "absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none") do
+                  form(class: "decor:relative decor:w-full") do
+                    div(class: "decor:relative") do
+                      div(class: "decor:absolute decor:inset-y-0 decor:left-0 decor:flex decor:items-center decor:pl-3 decor:pointer-events-none") do
                         render ::Decor::Daisy::Icon.new(
                           name: "search",
                           style: :solid,
-                          classes: "h-5 w-5 text-base-content/40"
+                          classes: "decor:h-5 decor:w-5 decor:text-base-content/40"
                         )
                       end
                       child_element(
@@ -69,7 +69,7 @@ module Decor
                         type: "search",
                         autocomplete: "on",
                         value: "",
-                        class: "input input-bordered w-full pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary",
+                        class: "decor:d-input decor:d-input-bordered decor:w-full decor:pl-10 decor:pr-4 decor:focus:outline-none decor:focus:ring-2 decor:focus:ring-primary",
                         placeholder: "Search",
                         stimulus_target: :search_input,
                         stimulus_actions: [
@@ -88,7 +88,7 @@ module Decor
             end
 
             # navbar-end section
-            div(class: "navbar-end") do
+            div(class: "decor:d-navbar-end") do
               if @notifications_menu
                 notifications_menu = ::Decor::Daisy::Dropdown.new(**(@notifications_menu_options || {}))
                 instance_exec(notifications_menu, &@notifications_menu)
@@ -117,7 +117,7 @@ module Decor
         end
 
         def root_element_classes
-          "navbar sticky top-0 z-10 bg-base-100 shadow-lg min-h-16"
+          "decor:d-navbar decor:sticky decor:top-0 decor:z-10 decor:bg-base-100 decor:shadow-lg decor:min-h-16"
         end
       end
     end

@@ -11,31 +11,32 @@ module Decor
         def view_template
           root_element do |el|
             if sub_items.any?
-              details(class: "relative", data: {**el.stimulus_target(:details), open: resolve_selected?}) do
+              details(class: "decor:relative", data: {**el.stimulus_target(:details), open: resolve_selected?}) do
                 summary(
                   data: {**el.stimulus_action(:click, :button_clicked)},
-                  class: "list-none text-base-content hover:bg-base-200 group flex items-center px-2 py-2 text-sm font-medium rounded-md cursor-pointer"
+                  class: "decor:list-none decor:text-base-content decor:hover:bg-base-200 decor:group decor:flex decor:items-center decor:px-2 decor:py-2 decor:text-sm decor:font-medium decor:rounded-md decor:cursor-pointer"
                 ) do
                   if @icon.present?
                     render ::Decor::Daisy::Icon.new(
                       name: @icon,
                       html_options: {
-                        class: "#{resolve_selected? ? "text-primary" : "text-base-content/70 group-hover:text-primary"} mr-3 flex-shrink-0 h-6 w-6"
+                        class: "#{resolve_selected? ? "decor:text-primary" : "decor:text-base-content/70 decor:group-hover:text-primary"} decor:mr-3 decor:flex-shrink-0 decor:h-6 decor:w-6"
                       }
                     )
                   end
 
-                  span(class: "#{component_name}-text #{@counter ? "flex-1 flex items-center" : nil}") do
-                    child_element(:p, stimulus_target: :title, class: "shrink-0") { @title }
+                  span(class: "#{component_name}-text #{@counter ? "decor:flex-1 decor:flex decor:items-center" : nil}") do
+                    child_element(:p, stimulus_target: :title, class: "decor:shrink-0") { @title }
                     if @counter
-                      span(class: "badge badge-primary badge-sm ml-auto") do
+                      span(class: "decor:d-badge decor:d-badge-primary decor:d-badge-sm decor:ml-auto") do
                         @counter.to_s
                       end
                     end
                   end
 
+                  # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
                   svg(
-                    class: "#{component_name}-arrow flex-shrink-0 w-5 h-5 ml-auto transform duration-150 #{resolve_selected? ? class_list_for_stimulus_classes(:arrow_up) : class_list_for_stimulus_classes(:arrow_down)}",
+                    class: "#{component_name}-arrow decor:flex-shrink-0 decor:w-5 decor:h-5 decor:ml-auto decor:transform decor:duration-150 #{resolve_selected? ? class_list_for_stimulus_classes(:arrow_up) : class_list_for_stimulus_classes(:arrow_down)}",
                     **el.stimulus_target(:arrow),
                     viewBox: "0 0 20 20",
                     fill: "none"
@@ -45,33 +46,33 @@ module Decor
                 end
 
                 if sub_items.any?
-                  ul(class: "#{component_name}-sub-items-container menu menu-vertical w-full pl-8 py-2", data: {**el.stimulus_target(:sub_menu)}) do
+                  ul(class: "#{component_name}-sub-items-container decor:d-menu decor:d-menu-vertical decor:w-full decor:pl-8 decor:py-2", data: {**el.stimulus_target(:sub_menu)}) do
                     sub_items.each do |sub_item|
                       render sub_item
                     end
                   end
                 else
-                  ul(class: "#{component_name}-sub-items-container menu menu-vertical w-full pl-8 py-2", data: {**el.stimulus_target(:sub_menu)})
+                  ul(class: "#{component_name}-sub-items-container decor:d-menu decor:d-menu-vertical decor:w-full decor:pl-8 decor:py-2", data: {**el.stimulus_target(:sub_menu)})
                 end
               end
             else
               a(
                 href: @path,
-                class: "#{component_name}-link #{resolve_selected? ? "active bg-primary text-primary-content" : "text-base-content hover:bg-base-200 hover:text-primary"} group flex items-center shrink-0 px-2 py-2 text-sm font-medium rounded-md"
+                class: "#{component_name}-link #{resolve_selected? ? "decor:active decor:bg-primary decor:text-primary-content" : "decor:text-base-content decor:hover:bg-base-200 decor:hover:text-primary"} decor:group decor:flex decor:items-center decor:shrink-0 decor:px-2 decor:py-2 decor:text-sm decor:font-medium decor:rounded-md"
               ) do
                 if @icon.present?
                   render ::Decor::Daisy::Icon.new(
                     name: @icon,
                     html_options: {
-                      class: "#{resolve_selected? ? "text-primary-content" : "text-base-content/70 group-hover:text-primary"} mr-3 flex-shrink-0 h-6 w-6"
+                      class: "#{resolve_selected? ? "decor:text-primary-content" : "decor:text-base-content/70 decor:group-hover:text-primary"} decor:mr-3 decor:flex-shrink-0 decor:h-6 decor:w-6"
                     }
                   )
                 end
 
-                span(class: "#{component_name}-text #{@counter ? "flex-1 flex items-center" : nil}") do
-                  child_element(:p, stimulus_target: :title, class: "shrink-0") { @title }
+                span(class: "#{component_name}-text #{@counter ? "decor:flex-1 decor:flex decor:items-center" : nil}") do
+                  child_element(:p, stimulus_target: :title, class: "decor:shrink-0") { @title }
                   if @counter
-                    span(class: "badge badge-primary badge-sm ml-auto") do
+                    span(class: "decor:d-badge decor:d-badge-primary decor:d-badge-sm decor:ml-auto") do
                       @counter.to_s
                     end
                   end

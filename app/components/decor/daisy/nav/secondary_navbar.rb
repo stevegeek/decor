@@ -10,18 +10,18 @@ module Decor
         def view_template(&)
           vanish(&)
           root_element do
-            div(class: "flex-1 flex items-center") do
+            div(class: "decor:flex-1 decor:flex decor:items-center") do
               instance_eval(&@left_block) if @left_block
             end
 
             if @center_block
-              div(class: "flex-1 flex items-center") do
+              div(class: "decor:flex-1 decor:flex decor:items-center") do
                 instance_eval(&@center_block)
               end
             end
 
             if @right_block
-              div(class: "ml-auto flex items-center") do
+              div(class: "decor:ml-auto decor:flex decor:items-center") do
                 instance_eval(&@right_block)
               end
             end
@@ -41,19 +41,19 @@ module Decor
 
         def root_element_classes
           [
-            "navbar",
-            "bg-base-100",
+            "decor:d-navbar",
+            "decor:bg-base-100",
             *component_style_classes(@style),
-            @bottom_border ? "border-b border-base-300" : nil
+            @bottom_border ? "decor:border-b decor:border-base-300" : nil
           ].compact.join(" ")
         end
 
         def component_style_classes(style)
           case style
           when :wide
-            ["min-h-[68px]"]
+            ["decor:min-h-[68px]"]
           when :narrow
-            ["min-h-12"]
+            ["decor:min-h-12"]
           else
             []
           end

@@ -11,16 +11,16 @@ module Decor
           root_element do |el|
             render ::Decor::Daisy::Link.new(
               href: @path,
-              html_options: {class: "#{component_name}-link #{@selected ? "active bg-primary text-primary-content" : "text-base-content hover:bg-base-200 hover:text-primary"} group flex items-center px-2 py-2 text-sm font-medium rounded-md"}
+              html_options: {class: "#{component_name}-link #{@selected ? "decor:active decor:bg-primary decor:text-primary-content" : "decor:text-base-content decor:hover:bg-base-200 decor:hover:text-primary"} decor:group decor:flex decor:items-center decor:px-2 decor:py-2 decor:text-sm decor:font-medium decor:rounded-md"}
             ) do
               if @counter.present?
-                child_element(:span, stimulus_target: :counter, class: "badge badge-primary badge-sm mr-2") { @counter }
+                child_element(:span, stimulus_target: :counter, class: "decor:d-badge decor:d-badge-primary decor:d-badge-sm decor:mr-2") { @counter }
               end
               if @icon.present?
                 render(::Decor::Daisy::Icon.new(
                   name: @icon,
                   html_options: {
-                    class: "#{@selected ? "text-primary-content" : "text-base-content/70 group-hover:text-primary"} mr-3 flex-shrink-0 h-6 w-6"
+                    class: "#{@selected ? "decor:text-primary-content" : "decor:text-base-content/70 decor:group-hover:text-primary"} decor:mr-3 decor:flex-shrink-0 decor:h-6 decor:w-6"
                   }
                 ))
               end

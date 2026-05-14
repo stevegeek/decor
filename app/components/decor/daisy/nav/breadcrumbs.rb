@@ -9,7 +9,7 @@ module Decor
       class Breadcrumbs < ::Decor::Components::Nav::Breadcrumbs
         def view_template
           root_element do
-            div(class: "breadcrumbs") do
+            div(class: "decor:d-breadcrumbs") do
               ul do
                 render_home_item if @show_home
                 render_breadcrumb_items
@@ -34,14 +34,14 @@ module Decor
         def render_home_item
           li do
             if @home_path == current_path
-              span(class: "text-base-content/60", "aria-current": "page") do
+              span(class: "decor:text-base-content/60", "aria-current": "page") do
                 render_icon(@home_icon) if @home_icon.present?
-                span(class: "sr-only") { "Home" }
+                span(class: "decor:sr-only") { "Home" }
               end
             else
-              a(href: @home_path, class: "text-base-content/60 hover:text-base-content") do
+              a(href: @home_path, class: "decor:text-base-content/60 decor:hover:text-base-content") do
                 render_icon(@home_icon) if @home_icon.present?
-                span(class: "sr-only") { "Home" }
+                span(class: "decor:sr-only") { "Home" }
               end
             end
           end
@@ -72,16 +72,16 @@ module Decor
         end
 
         def render_mobile_select
-          div(class: "md:hidden mt-4") do
-            div(class: "text-sm font-medium text-base-content mb-2") do
+          div(class: "decor:md:hidden decor:mt-4") do
+            div(class: "decor:text-sm decor:font-medium decor:text-base-content decor:mb-2") do
               plain "Mobile navigation:"
             end
 
-            div(class: "space-y-1") do
+            div(class: "decor:space-y-1") do
               if @show_home
                 a(
                   href: @home_path,
-                  class: "block py-2 px-3 rounded-md text-sm #{(@home_path == current_path) ? "bg-primary text-primary-content" : "text-base-content hover:bg-base-300"}"
+                  class: "decor:block decor:py-2 decor:px-3 decor:rounded-md decor:text-sm #{(@home_path == current_path) ? "decor:bg-primary decor:text-primary-content" : "decor:text-base-content decor:hover:bg-base-300"}"
                 ) do
                   plain "Home"
                 end
@@ -91,13 +91,13 @@ module Decor
                 next if crumb.disabled
 
                 if crumb.current || crumb.path == current_path
-                  div(class: "block py-2 px-3 rounded-md text-sm bg-primary text-primary-content") do
+                  div(class: "decor:block decor:py-2 decor:px-3 decor:rounded-md decor:text-sm decor:bg-primary decor:text-primary-content") do
                     plain crumb.name
                   end
                 else
                   a(
                     href: crumb.path,
-                    class: "block py-2 px-3 rounded-md text-sm text-base-content hover:bg-base-300"
+                    class: "decor:block decor:py-2 decor:px-3 decor:rounded-md decor:text-sm decor:text-base-content decor:hover:bg-base-300"
                   ) do
                     plain crumb.name
                   end
@@ -113,11 +113,11 @@ module Decor
           begin
             render ::Decor::Daisy::Icon.new(
               name: icon_name,
-              html_options: {class: "w-4 h-4 mr-1 inline-block"}
+              html_options: {class: "decor:w-4 decor:h-4 decor:mr-1 decor:inline-block"}
             )
           rescue
             # Fallback if icon component fails
-            span(class: "w-4 h-4 mr-1 inline-block") { plain ">" }
+            span(class: "decor:w-4 decor:h-4 decor:mr-1 decor:inline-block") { plain ">" }
           end
         end
 
@@ -128,7 +128,7 @@ module Decor
         end
 
         def crumb_text_classes(current: false)
-          "#{current ? "font-medium" : ""} text-base-content/60 hover:text-base-content transition-colors text-sm"
+          "#{current ? "decor:font-medium" : ""} decor:text-base-content/60 decor:hover:text-base-content decor:transition-colors decor:text-sm"
         end
       end
     end
