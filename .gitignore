@@ -46,4 +46,12 @@ node_modules/
 
 # Decor library stuff, comment out if you clone for your app
 
+# test/dummy runtime artifacts
+/test/dummy/log/*
+/test/dummy/storage/*
+/test/dummy/tmp/*
+!/test/dummy/log/.keep
+!/test/dummy/storage/.keep
+!/test/dummy/tmp/.keep
+
 # End of Decor library stuff
