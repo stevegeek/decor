@@ -22,9 +22,9 @@ class ::Decor::Daisy::BoxPreview < ::Lookbook::Preview
       title: "Box with Actions",
       description: "This box has action buttons in the content area."
     ) do
-      content_tag :div, class: "card-actions justify-end" do
-        content_tag(:button, "Cancel", class: "btn btn-ghost") +
-          content_tag(:button, "Save", class: "btn btn-primary")
+      content_tag :div, class: "decor:d-card-actions decor:justify-end" do
+        content_tag(:button, "Cancel", class: "decor:d-btn decor:d-btn-ghost") +
+          content_tag(:button, "Save", class: "decor:d-btn decor:d-btn-primary")
       end
     end
   end
@@ -37,7 +37,7 @@ class ::Decor::Daisy::BoxPreview < ::Lookbook::Preview
       description: "Configure your preferences"
     ) do |box|
       box.left do
-        content_tag :div, class: "text-4xl" do
+        content_tag :div, class: "decor:text-4xl" do
           "⚙️"
         end
       end
@@ -52,7 +52,7 @@ class ::Decor::Daisy::BoxPreview < ::Lookbook::Preview
       description: "You have 3 new messages"
     ) do |box|
       box.right do
-        content_tag :div, class: "badge badge-primary" do
+        content_tag :div, class: "decor:d-badge decor:d-badge-primary" do
           "3"
         end
       end
@@ -67,14 +67,14 @@ class ::Decor::Daisy::BoxPreview < ::Lookbook::Preview
       description: "John Doe - Software Developer"
     ) do |box|
       box.left do
-        content_tag :div, class: "avatar" do
-          content_tag :div, class: "w-12 rounded-full bg-primary text-primary-content" do
-            content_tag :span, "JD", class: "text-xl"
+        content_tag :div, class: "decor:d-avatar" do
+          content_tag :div, class: "decor:w-12 decor:rounded-full decor:bg-primary decor:text-primary-content" do
+            content_tag :span, "JD", class: "decor:text-xl"
           end
         end
       end
       box.right do
-        content_tag :button, "Edit", class: "btn btn-sm btn-primary"
+        content_tag :button, "Edit", class: "decor:d-btn decor:d-btn-sm decor:d-btn-primary"
       end
     end
   end
@@ -89,9 +89,9 @@ class ::Decor::Daisy::BoxPreview < ::Lookbook::Preview
       color: :base
     ) do
       content_tag :div do
-        content_tag(:p, "Price: $99.99", class: "text-lg font-bold") +
-          content_tag(:div, class: "card-actions justify-end mt-4") do
-            content_tag :button, "Add to Cart", class: "btn btn-primary"
+        content_tag(:p, "Price: $99.99", class: "decor:text-lg decor:font-bold") +
+          content_tag(:div, class: "decor:d-card-actions decor:justify-end decor:mt-4") do
+            content_tag :button, "Add to Cart", class: "decor:d-btn decor:d-btn-primary"
           end
       end
     end
@@ -107,7 +107,7 @@ class ::Decor::Daisy::BoxPreview < ::Lookbook::Preview
       style: :filled
     ) do |box|
       box.left do
-        content_tag :span, "⚠️", class: "text-2xl"
+        content_tag :span, "⚠️", class: "decor:text-2xl"
       end
     end
   end
@@ -141,16 +141,16 @@ class ::Decor::Daisy::BoxPreview < ::Lookbook::Preview
     render ::Decor::Daisy::Box.new(title: title, description: description, size: size, color: color, style: style) do |box|
       if show_slots
         box.left do
-          content_tag :div, "Custom Left Content", class: "font-bold"
+          content_tag :div, "Custom Left Content", class: "decor:font-bold"
         end
         box.right do
-          content_tag :div, class: "card-actions justify-end" do
-            content_tag :button, "Buy Now", class: "btn btn-primary"
+          content_tag :div, class: "decor:d-card-actions decor:justify-end" do
+            content_tag :button, "Buy Now", class: "decor:d-btn decor:d-btn-primary"
           end
         end
       else
-        content_tag :div, class: "card-actions justify-end" do
-          content_tag :button, "Buy Now", class: "btn btn-primary"
+        content_tag :div, class: "decor:d-card-actions decor:justify-end" do
+          content_tag :button, "Buy Now", class: "decor:d-btn decor:d-btn-primary"
         end
       end
     end

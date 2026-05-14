@@ -23,7 +23,7 @@ class ::Decor::Daisy::Forms::FormPreview < ::Lookbook::Preview
       local: true
     ) do |form|
       form.render ::Decor::Daisy::Element.new do |el|
-        el.h3(class: "text-md font-medium") { "Basic Form Example" }
+        el.h3(class: "decor:text-md decor:font-medium") { "Basic Form Example" }
 
         form.raw form.builder.text_field(:title,
           label: "Title",
@@ -34,7 +34,7 @@ class ::Decor::Daisy::Forms::FormPreview < ::Lookbook::Preview
           placeholder: "Enter description",
           rows: 3)
 
-        form.raw form.builder.submit("Save", classes: "btn btn-primary")
+        form.raw form.builder.submit("Save", classes: "decor:d-btn decor:d-btn-primary")
       end
     end
   end
@@ -56,15 +56,15 @@ class ::Decor::Daisy::Forms::FormPreview < ::Lookbook::Preview
       local: false # AJAX form
     ) do |form|
       form.render ::Decor::Daisy::Element.new do |el|
-        el.h3(class: "text-md font-medium") { "AJAX Form Example" }
-        el.p(class: "text-sm text-gray-600") { "This form submits via AJAX with custom event handlers" }
+        el.h3(class: "decor:text-md decor:font-medium") { "AJAX Form Example" }
+        el.p(class: "decor:text-sm decor:text-gray-600") { "This form submits via AJAX with custom event handlers" }
 
         form.raw form.builder.text_area(:feedback,
           label: "Feedback",
           placeholder: "Share your feedback",
           rows: 3)
 
-        form.raw form.builder.submit("Submit Feedback", classes: "btn btn-primary")
+        form.raw form.builder.submit("Submit Feedback", classes: "decor:d-btn decor:d-btn-primary")
       end
     end
   end
@@ -87,7 +87,7 @@ class ::Decor::Daisy::Forms::FormPreview < ::Lookbook::Preview
       namespace: :settings
     ) do |form|
       form.render ::Decor::Daisy::Element.new do |el|
-        el.h3(class: "text-md font-medium") { "Settings Form" }
+        el.h3(class: "decor:text-md decor:font-medium") { "Settings Form" }
 
         form.raw form.builder.select(:theme,
           [["Light", "light"], ["Dark", "dark"]],
@@ -96,7 +96,7 @@ class ::Decor::Daisy::Forms::FormPreview < ::Lookbook::Preview
         form.raw form.builder.check_box(:notifications,
           label: "Enable Notifications")
 
-        form.raw form.builder.submit("Save Settings", classes: "btn btn-primary")
+        form.raw form.builder.submit("Save Settings", classes: "decor:d-btn decor:d-btn-primary")
       end
     end
   end
@@ -128,26 +128,26 @@ class ::Decor::Daisy::Forms::FormPreview < ::Lookbook::Preview
       http_method: http_method
     ) do |form|
       form.render ::Decor::Daisy::Element.new do |el|
-        el.h2(class: "text-lg font-medium text-gray-900") { "Contact Form" }
+        el.h2(class: "decor:text-lg decor:font-medium decor:text-gray-900") { "Contact Form" }
 
         # TODO: work out why we need the `raw` method here
         form.raw form.builder.text_field(:name,
           label: "Full Name",
           placeholder: "Enter your full name",
           required: true,
-          classes: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500")
+          classes: "decor:mt-1 decor:block decor:w-full decor:border-gray-300 decor:rounded-md decor:shadow-sm decor:focus:ring-indigo-500 decor:focus:border-indigo-500")
         form.raw form.builder.email_field(:email,
           label: "Email Address",
           placeholder: "Enter your email",
           required: true,
-          classes: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500")
+          classes: "decor:mt-1 decor:block decor:w-full decor:border-gray-300 decor:rounded-md decor:shadow-sm decor:focus:ring-indigo-500 decor:focus:border-indigo-500")
         form.raw form.builder.text_area(:message,
           label: "Message",
           placeholder: "Enter your message",
           rows: 4,
-          classes: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500")
-        el.div class: "flex justify-end" do
-          form.raw form.builder.submit("Send Message", classes: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500")
+          classes: "decor:mt-1 decor:block decor:w-full decor:border-gray-300 decor:rounded-md decor:shadow-sm decor:focus:ring-indigo-500 decor:focus:border-indigo-500")
+        el.div class: "decor:flex decor:justify-end" do
+          form.raw form.builder.submit("Send Message", classes: "decor:inline-flex decor:justify-center decor:py-2 decor:px-4 decor:border decor:border-transparent decor:shadow-sm decor:text-sm decor:font-medium decor:rounded-md decor:text-white decor:bg-indigo-600 decor:hover:bg-indigo-700 decor:focus:outline-none decor:focus:ring-2 decor:focus:ring-offset-2 decor:focus:ring-indigo-500")
         end
       end
     end

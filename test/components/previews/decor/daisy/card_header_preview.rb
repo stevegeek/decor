@@ -122,8 +122,8 @@ class Decor::Daisy::CardHeaderPreview < ViewComponent::Preview
       end
 
       # Card content
-      div(class: "p-4 space-y-3") do
-        div(class: "flex items-center justify-between") do
+      div(class: "decor:p-4 decor:space-y-3") do
+        div(class: "decor:flex decor:items-center decor:justify-between") do
           span { "Email notifications" }
           render Decor::Daisy::Toggle.new(
             property_name: "email_notifications",
@@ -133,7 +133,7 @@ class Decor::Daisy::CardHeaderPreview < ViewComponent::Preview
           )
         end
 
-        div(class: "flex items-center justify-between") do
+        div(class: "decor:flex decor:items-center decor:justify-between") do
           span { "Push notifications" }
           render Decor::Daisy::Toggle.new(
             property_name: "push_notifications",

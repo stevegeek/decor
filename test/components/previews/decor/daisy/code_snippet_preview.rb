@@ -105,7 +105,7 @@ class ::Decor::Daisy::CodeSnippetPreview < ::Lookbook::Preview
   # @group Examples
   # @label Authentication Header
   def authentication_header
-    render ::Decor::Daisy::Element.new(classes: "prose max-w-none") do |el|
+    render ::Decor::Daisy::Element.new(classes: "decor:d-prose decor:max-w-none") do |el|
       el.p do
         el.plain "To authenticate, include your API key in the "
         el.render ::Decor::Daisy::CodeSnippet.new { "Authorization" }
@@ -132,7 +132,7 @@ class ::Decor::Daisy::CodeSnippetPreview < ::Lookbook::Preview
   # @group Examples
   # @label Special Characters
   def special_characters
-    render ::Decor::Daisy::Element.new(classes: "space-y-4") do |el|
+    render ::Decor::Daisy::Element.new(classes: "decor:space-y-4") do |el|
       el.p do
         el.plain "HTML entities: "
         el.render ::Decor::Daisy::CodeSnippet.new { "<div class=\"container\">" }

@@ -11,7 +11,7 @@ class ::Decor::Daisy::Modals::ModalLayoutPreview < ::Lookbook::Preview
       icon: "information-circle",
       title: "Modal Title",
       description: "This is a modal description",
-      classes: "opacity-100"
+      classes: "decor:opacity-100"
     ) do
       "Modal content goes here"
     end
@@ -19,16 +19,16 @@ class ::Decor::Daisy::Modals::ModalLayoutPreview < ::Lookbook::Preview
 
   # @label With Slots
   def with_slots
-    modal = ::Decor::Daisy::Modals::ModalLayout.new(size: :lg, color: :primary, classes: "opacity-100")
+    modal = ::Decor::Daisy::Modals::ModalLayout.new(size: :lg, color: :primary, classes: "decor:opacity-100")
     modal.with_header do
-      modal.h2(class: "text-xl font-bold") { "Custom Header" }
+      modal.h2(class: "decor:text-xl decor:font-bold") { "Custom Header" }
     end
     modal.with_body do
-      modal.p(class: "py-4") { "This is the modal body content using slots!" }
+      modal.p(class: "decor:py-4") { "This is the modal body content using slots!" }
     end
     modal.with_footer do
-      modal.button(class: "btn") { "Close" }
-      modal.button(class: "btn btn-primary") { "Save changes" }
+      modal.button(class: "decor:d-btn") { "Close" }
+      modal.button(class: "decor:d-btn decor:d-btn-primary") { "Save changes" }
     end
     render modal
   end
@@ -40,9 +40,9 @@ class ::Decor::Daisy::Modals::ModalLayoutPreview < ::Lookbook::Preview
       color: :warning,
       title: "Are you sure?",
       description: "This action cannot be undone.",
-      classes: "opacity-100"
+      classes: "decor:opacity-100"
     ) do
-      render ::Decor::Daisy::Element.new(html_options: {class: "flex gap-4 justify-end"}) do
+      render ::Decor::Daisy::Element.new(html_options: {class: "decor:flex decor:gap-4 decor:justify-end"}) do
         render ::Decor::Daisy::Button.new(label: "Cancel", style: :ghost)
         render ::Decor::Daisy::Button.new(label: "Continue", color: :warning)
       end
@@ -75,7 +75,7 @@ class ::Decor::Daisy::Modals::ModalLayoutPreview < ::Lookbook::Preview
       size: size,
       color: color,
       style: style,
-      classes: "opacity-100"
+      classes: "decor:opacity-100"
     ) do
       "This is where content goes"
     end
@@ -95,7 +95,7 @@ class ::Decor::Daisy::Modals::ModalLayoutPreview < ::Lookbook::Preview
               size: size,
               title: "#{size.to_s.upcase} Modal",
               description: "This modal uses the #{size} size variant",
-              classes: "opacity-100"
+              classes: "decor:opacity-100"
             ),
             content: "Content for #{size} modal"
           }
@@ -117,7 +117,7 @@ class ::Decor::Daisy::Modals::ModalLayoutPreview < ::Lookbook::Preview
             color: color,
             title: "#{color.to_s.capitalize} Modal",
             description: "This is a #{color} colored modal",
-            classes: "opacity-100"
+            classes: "decor:opacity-100"
           )
         end
       }
@@ -138,7 +138,7 @@ class ::Decor::Daisy::Modals::ModalLayoutPreview < ::Lookbook::Preview
             color: :primary,
             title: "#{style.to_s.capitalize} Style",
             description: "This is a #{style} style modal",
-            classes: "opacity-100"
+            classes: "decor:opacity-100"
           )
         end
       }

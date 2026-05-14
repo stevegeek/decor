@@ -18,7 +18,7 @@ class ::Decor::Daisy::PagePreview < ::Lookbook::Preview
         )
       end
 
-      page.div(class: "prose") do
+      page.div(class: "decor:d-prose") do
         page.h2 { "Getting Started" }
         page.p { "This is your basic page content. You can add any content here." }
       end
@@ -33,11 +33,11 @@ class ::Decor::Daisy::PagePreview < ::Lookbook::Preview
       padding: :lg
     ) do |page|
       page.with_hero do
-        page.div(class: "hero min-h-[200px] bg-gradient-to-r from-primary to-secondary rounded-lg") do
-          page.div(class: "hero-content text-center text-primary-content") do
-            page.div(class: "max-w-md") do
-              page.h1(class: "text-5xl font-bold") { "Welcome!" }
-              page.p(class: "py-6") { "Build amazing applications with our tools." }
+        page.div(class: "decor:d-hero decor:min-h-[200px] decor:bg-gradient-to-r decor:from-primary decor:to-secondary decor:rounded-lg") do
+          page.div(class: "decor:d-hero-content decor:text-center decor:text-primary-content") do
+            page.div(class: "decor:max-w-md") do
+              page.h1(class: "decor:text-5xl decor:font-bold") { "Welcome!" }
+              page.p(class: "decor:py-6") { "Build amazing applications with our tools." }
               render ::Decor::Daisy::Button.new(label: "Get Started", style: :filled)
             end
           end
@@ -51,13 +51,13 @@ class ::Decor::Daisy::PagePreview < ::Lookbook::Preview
         )
       end
 
-      page.div(class: "grid grid-cols-1 md:grid-cols-2 gap-4") do
-        page.div(class: "card bg-base-100 shadow-lg p-6") do
-          page.h3(class: "text-lg font-semibold mb-2") { "Feature One" }
+      page.div(class: "decor:grid decor:grid-cols-1 decor:md:grid-cols-2 decor:gap-4") do
+        page.div(class: "decor:d-card decor:bg-base-100 decor:shadow-lg decor:p-6") do
+          page.h3(class: "decor:text-lg decor:font-semibold decor:mb-2") { "Feature One" }
           page.p { "Description of the first feature." }
         end
-        page.div(class: "card bg-base-100 shadow-lg p-6") do
-          page.h3(class: "text-lg font-semibold mb-2") { "Feature Two" }
+        page.div(class: "decor:d-card decor:bg-base-100 decor:shadow-lg decor:p-6") do
+          page.h3(class: "decor:text-lg decor:font-semibold decor:mb-2") { "Feature Two" }
           page.p { "Description of the second feature." }
         end
       end
@@ -90,7 +90,7 @@ class ::Decor::Daisy::PagePreview < ::Lookbook::Preview
         end
       end
 
-      page.div(class: "prose") do
+      page.div(class: "decor:d-prose") do
         page.h3 { "Overview" }
         page.p { "This is the overview content for your dashboard." }
       end
@@ -107,12 +107,12 @@ class ::Decor::Daisy::PagePreview < ::Lookbook::Preview
       spacing: :lg
     ) do |page|
       page.with_hero do
-        page.div(class: "hero min-h-[300px] bg-gradient-to-r from-primary to-secondary rounded-lg") do
-          page.div(class: "hero-content text-center text-primary-content") do
-            page.div(class: "max-w-md") do
-              page.h1(class: "text-5xl font-bold") { "Premium Features" }
-              page.p(class: "py-6") { "Everything you need in one place." }
-              page.div(class: "flex gap-2 justify-center") do
+        page.div(class: "decor:d-hero decor:min-h-[300px] decor:bg-gradient-to-r decor:from-primary decor:to-secondary decor:rounded-lg") do
+          page.div(class: "decor:d-hero-content decor:text-center decor:text-primary-content") do
+            page.div(class: "decor:max-w-md") do
+              page.h1(class: "decor:text-5xl decor:font-bold") { "Premium Features" }
+              page.p(class: "decor:py-6") { "Everything you need in one place." }
+              page.div(class: "decor:flex decor:gap-2 decor:justify-center") do
                 render ::Decor::Daisy::Button.new(label: "Start Free Trial", color: :primary, size: :lg)
                 render ::Decor::Daisy::Button.new(label: "View Pricing", style: :outlined, size: :lg)
               end
@@ -134,7 +134,7 @@ class ::Decor::Daisy::PagePreview < ::Lookbook::Preview
         header.with_badge(label: "Popular", color: :warning)
         header.with_tag(label: "Enterprise", color: :primary, icon: "building-office")
         header.with_cta do
-          page.div(class: "flex gap-2") do
+          page.div(class: "decor:flex decor:gap-2") do
             render ::Decor::Daisy::Button.new(label: "Contact Sales", color: :primary)
           end
         end
@@ -150,13 +150,13 @@ class ::Decor::Daisy::PagePreview < ::Lookbook::Preview
         end
       end
 
-      page.div(class: "grid grid-cols-1 lg:grid-cols-3 gap-6") do
+      page.div(class: "decor:grid decor:grid-cols-1 decor:lg:grid-cols-3 decor:gap-6") do
         3.times do |i|
-          page.div(class: "card bg-base-100 shadow-xl") do
-            page.div(class: "card-body") do
-              page.h2(class: "card-title") { "Feature #{i + 1}" }
+          page.div(class: "decor:d-card decor:bg-base-100 decor:shadow-xl") do
+            page.div(class: "decor:d-card-body") do
+              page.h2(class: "decor:d-card-title") { "Feature #{i + 1}" }
               page.p { "Comprehensive description of feature number #{i + 1}." }
-              page.div(class: "card-actions justify-end") do
+              page.div(class: "decor:d-card-actions decor:justify-end") do
                 render ::Decor::Daisy::Button.new(label: "Learn More", style: :ghost)
               end
             end
@@ -237,7 +237,7 @@ class ::Decor::Daisy::PagePreview < ::Lookbook::Preview
         header
       end
 
-      page.div(class: "prose prose-sm") do
+      page.div(class: "decor:d-prose decor:d-prose-sm") do
         page.p { "This page uses the smallest text sizes and minimal spacing." }
       end
     end
@@ -257,7 +257,7 @@ class ::Decor::Daisy::PagePreview < ::Lookbook::Preview
         )
       end
 
-      page.div(class: "prose prose-sm") do
+      page.div(class: "decor:d-prose decor:d-prose-sm") do
         page.p { "Small size page with compact elements." }
       end
     end
@@ -278,7 +278,7 @@ class ::Decor::Daisy::PagePreview < ::Lookbook::Preview
         )
       end
 
-      page.div(class: "prose") do
+      page.div(class: "decor:d-prose") do
         page.p { "Medium size provides a balanced layout." }
       end
     end
@@ -304,7 +304,7 @@ class ::Decor::Daisy::PagePreview < ::Lookbook::Preview
         header
       end
 
-      page.div(class: "prose prose-lg") do
+      page.div(class: "decor:d-prose decor:d-prose-lg") do
         page.p { "Large page with generous spacing." }
       end
     end
@@ -326,7 +326,7 @@ class ::Decor::Daisy::PagePreview < ::Lookbook::Preview
         )
       end
 
-      page.div(class: "prose prose-xl") do
+      page.div(class: "decor:d-prose decor:d-prose-xl") do
         page.p { "Extra large page for maximum visual impact." }
       end
     end
@@ -345,7 +345,7 @@ class ::Decor::Daisy::PagePreview < ::Lookbook::Preview
         )
       end
 
-      page.div(class: "p-4 rounded bg-base-200") do
+      page.div(class: "decor:p-4 decor:rounded decor:bg-base-200") do
         page.p { "Content stands out against the default background." }
       end
     end
@@ -364,7 +364,7 @@ class ::Decor::Daisy::PagePreview < ::Lookbook::Preview
         )
       end
 
-      page.div(class: "card bg-base-100 shadow p-4") do
+      page.div(class: "decor:d-card decor:bg-base-100 decor:shadow decor:p-4") do
         page.p { "Cards pop against the hero background." }
       end
     end
@@ -383,7 +383,7 @@ class ::Decor::Daisy::PagePreview < ::Lookbook::Preview
         )
       end
 
-      page.div(class: "alert alert-info") do
+      page.div(class: "decor:d-alert decor:d-alert-info") do
         page.p { "Primary themed background." }
       end
     end
@@ -402,7 +402,7 @@ class ::Decor::Daisy::PagePreview < ::Lookbook::Preview
         )
       end
 
-      page.div(class: "bg-primary/10 p-4") do
+      page.div(class: "decor:bg-primary/10 decor:p-4") do
         page.p { "This shows the page has no padding." }
       end
     end
@@ -421,7 +421,7 @@ class ::Decor::Daisy::PagePreview < ::Lookbook::Preview
         )
       end
 
-      page.div(class: "bg-secondary/10 p-4") do
+      page.div(class: "decor:bg-secondary/10 decor:p-4") do
         page.p { "Small padding for compact layouts." }
       end
     end
@@ -440,7 +440,7 @@ class ::Decor::Daisy::PagePreview < ::Lookbook::Preview
         )
       end
 
-      page.div(class: "bg-accent/10 p-4") do
+      page.div(class: "decor:bg-accent/10 decor:p-4") do
         page.p { "Default medium padding." }
       end
     end
@@ -459,7 +459,7 @@ class ::Decor::Daisy::PagePreview < ::Lookbook::Preview
         )
       end
 
-      page.div(class: "bg-info/10 p-4") do
+      page.div(class: "decor:bg-info/10 decor:p-4") do
         page.p { "Large padding for spacious feel." }
       end
     end
@@ -478,7 +478,7 @@ class ::Decor::Daisy::PagePreview < ::Lookbook::Preview
         )
       end
 
-      page.div(class: "bg-warning/10 p-4") do
+      page.div(class: "decor:bg-warning/10 decor:p-4") do
         page.p { "Extra large padding for maximum space." }
       end
     end
@@ -497,9 +497,9 @@ class ::Decor::Daisy::PagePreview < ::Lookbook::Preview
         )
       end
 
-      page.div(class: "bg-base-200 p-2") { "Block 1" }
-      page.div(class: "bg-base-300 p-2") { "Block 2" }
-      page.div(class: "bg-base-200 p-2") { "Block 3" }
+      page.div(class: "decor:bg-base-200 decor:p-2") { "Block 1" }
+      page.div(class: "decor:bg-base-300 decor:p-2") { "Block 2" }
+      page.div(class: "decor:bg-base-200 decor:p-2") { "Block 3" }
     end
   end
 
@@ -516,8 +516,8 @@ class ::Decor::Daisy::PagePreview < ::Lookbook::Preview
         )
       end
 
-      page.div(class: "card bg-base-100 shadow p-4") { "Card 1" }
-      page.div(class: "card bg-base-100 shadow p-4") { "Card 2" }
+      page.div(class: "decor:d-card decor:bg-base-100 decor:shadow decor:p-4") { "Card 1" }
+      page.div(class: "decor:d-card decor:bg-base-100 decor:shadow decor:p-4") { "Card 2" }
     end
   end
 
@@ -534,8 +534,8 @@ class ::Decor::Daisy::PagePreview < ::Lookbook::Preview
         )
       end
 
-      page.div(class: "card bg-base-100 shadow p-4") { "Card 1" }
-      page.div(class: "card bg-base-100 shadow p-4") { "Card 2" }
+      page.div(class: "decor:d-card decor:bg-base-100 decor:shadow decor:p-4") { "Card 1" }
+      page.div(class: "decor:d-card decor:bg-base-100 decor:shadow decor:p-4") { "Card 2" }
     end
   end
 
@@ -552,8 +552,8 @@ class ::Decor::Daisy::PagePreview < ::Lookbook::Preview
         )
       end
 
-      page.div(class: "card bg-base-100 shadow p-4") { "Card 1" }
-      page.div(class: "card bg-base-100 shadow p-4") { "Card 2" }
+      page.div(class: "decor:d-card decor:bg-base-100 decor:shadow decor:p-4") { "Card 1" }
+      page.div(class: "decor:d-card decor:bg-base-100 decor:shadow decor:p-4") { "Card 2" }
     end
   end
 
@@ -570,8 +570,8 @@ class ::Decor::Daisy::PagePreview < ::Lookbook::Preview
         )
       end
 
-      page.div(class: "card bg-base-100 shadow p-4") { "Card 1" }
-      page.div(class: "card bg-base-100 shadow p-4") { "Card 2" }
+      page.div(class: "decor:d-card decor:bg-base-100 decor:shadow decor:p-4") { "Card 1" }
+      page.div(class: "decor:d-card decor:bg-base-100 decor:shadow decor:p-4") { "Card 2" }
     end
   end
 
@@ -589,9 +589,9 @@ class ::Decor::Daisy::PagePreview < ::Lookbook::Preview
         )
       end
 
-      page.div(class: "flex items-center justify-center bg-neutral/10 rounded-lg h-64") do
-        page.div(class: "text-center") do
-          page.h3(class: "text-xl font-semibold mb-2") { "Full Height" }
+      page.div(class: "decor:flex decor:items-center decor:justify-center decor:bg-neutral/10 decor:rounded-lg decor:h-64") do
+        page.div(class: "decor:text-center") do
+          page.h3(class: "decor:text-xl decor:font-semibold decor:mb-2") { "Full Height" }
           page.p { "This page takes up the full screen height." }
         end
       end
@@ -611,7 +611,7 @@ class ::Decor::Daisy::PagePreview < ::Lookbook::Preview
         )
       end
 
-      page.div(class: "bg-warning/10 p-6 rounded-lg") do
+      page.div(class: "decor:bg-warning/10 decor:p-6 decor:rounded-lg") do
         page.p { "This page only takes the space needed for content." }
       end
     end

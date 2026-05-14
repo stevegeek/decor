@@ -102,8 +102,8 @@ class ::Decor::Daisy::Tables::DataTableHeaderCellPreview < ::Lookbook::Preview
     style: :filled
   )
     render ::Decor::Daisy::Element.new do |e|
-      e.table(class: "min-w-full border border-gray-200") do
-        e.thead(class: "bg-gray-50") do
+      e.table(class: "decor:min-w-full decor:border decor:border-gray-200") do
+        e.thead(class: "decor:bg-gray-50") do
           e.tr do
             e.render ::Decor::Daisy::Tables::DataTableHeaderCell.new(
               title: title,
@@ -275,8 +275,8 @@ class ::Decor::Daisy::Tables::DataTableHeaderCellPreview < ::Lookbook::Preview
 
   def render_header_row(row_height: :standard)
     render ::Decor::Daisy::Element.new do |e|
-      e.table(class: "min-w-full border border-gray-200") do
-        e.thead(class: "bg-gray-50") do
+      e.table(class: "decor:min-w-full decor:border decor:border-gray-200") do
+        e.thead(class: "decor:bg-gray-50") do
           e.tr do
             yield(e)
           end

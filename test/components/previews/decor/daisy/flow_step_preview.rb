@@ -36,7 +36,7 @@ class ::Decor::Daisy::FlowStepPreview < ::Lookbook::Preview
       step: 2,
       color: :warning
     ) do
-      content_tag :div, class: "mt-2" do
+      content_tag :div, class: "decor:mt-2" do
         render ::Decor::Daisy::Button.new(label: "Upload Files", color: :primary, size: :sm)
       end
     end
@@ -211,7 +211,7 @@ class ::Decor::Daisy::FlowStepPreview < ::Lookbook::Preview
   # @group Examples
   # @label Onboarding Flow
   def onboarding_flow
-    content_tag :div, class: "max-w-2xl space-y-4" do
+    content_tag :div, class: "decor:max-w-2xl decor:space-y-4" do
       safe_join([
         render(::Decor::Daisy::FlowStep.new(
           title: "Account Setup",
@@ -220,7 +220,7 @@ class ::Decor::Daisy::FlowStepPreview < ::Lookbook::Preview
           color: :success,
           style: :filled
         ) do
-          content_tag :div, class: "text-sm font-medium text-success" do
+          content_tag :div, class: "decor:text-sm decor:font-medium decor:text-success" do
             "✓ Completed"
           end
         end),
@@ -231,7 +231,7 @@ class ::Decor::Daisy::FlowStepPreview < ::Lookbook::Preview
           color: :info,
           style: :filled
         ) do
-          content_tag :div, class: "text-sm" do
+          content_tag :div, class: "decor:text-sm" do
             "In progress..."
           end
         end),
@@ -263,25 +263,25 @@ class ::Decor::Daisy::FlowStepPreview < ::Lookbook::Preview
       color: :warning,
       style: :filled
     ) do
-      content_tag :div, class: "space-y-3" do
+      content_tag :div, class: "decor:space-y-3" do
         safe_join([
-          content_tag(:div, class: "grid grid-cols-1 gap-2") do
+          content_tag(:div, class: "decor:grid decor:grid-cols-1 decor:gap-2") do
             safe_join([
-              content_tag(:div, class: "flex items-center justify-between p-2 bg-gray-50 rounded") do
+              content_tag(:div, class: "decor:flex decor:items-center decor:justify-between decor:p-2 decor:bg-gray-50 decor:rounded") do
                 safe_join([
-                  content_tag(:span, "ID Document", class: "text-sm"),
+                  content_tag(:span, "ID Document", class: "decor:text-sm"),
                   render(::Decor::Daisy::Badge.new(label: "Required", color: :warning))
                 ])
               end,
-              content_tag(:div, class: "flex items-center justify-between p-2 bg-gray-50 rounded") do
+              content_tag(:div, class: "decor:flex decor:items-center decor:justify-between decor:p-2 decor:bg-gray-50 decor:rounded") do
                 safe_join([
-                  content_tag(:span, "Proof of Address", class: "text-sm"),
+                  content_tag(:span, "Proof of Address", class: "decor:text-sm"),
                   render(::Decor::Daisy::Badge.new(label: "Optional", color: :neutral))
                 ])
               end
             ])
           end,
-          content_tag(:div, class: "flex gap-2") do
+          content_tag(:div, class: "decor:flex decor:gap-2") do
             safe_join([
               render(::Decor::Daisy::Button.new(label: "Upload Files", color: :primary, size: :sm)),
               render(::Decor::Daisy::Button.new(label: "Skip for Now", style: :outlined, size: :sm))
@@ -302,9 +302,9 @@ class ::Decor::Daisy::FlowStepPreview < ::Lookbook::Preview
       color: :error,
       style: :filled
     ) do
-      content_tag :div, class: "space-y-2" do
+      content_tag :div, class: "decor:space-y-2" do
         safe_join([
-          content_tag(:p, "Please check your payment details and try again.", class: "text-sm"),
+          content_tag(:p, "Please check your payment details and try again.", class: "decor:text-sm"),
           render(::Decor::Daisy::Button.new(label: "Retry Payment", color: :error, size: :sm))
         ])
       end

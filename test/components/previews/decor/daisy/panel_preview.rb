@@ -19,7 +19,7 @@ class ::Decor::Daisy::PanelPreview < ::Lookbook::Preview
   # @label Panel with Icon
   def panel_with_icon
     render ::Decor::Daisy::Panel.new(title: "Notifications", icon: "bell") do
-      content_tag :div, class: "space-y-2" do
+      content_tag :div, class: "decor:space-y-2" do
         safe_join([
           content_tag(:p, "Email notifications: Enabled"),
           content_tag(:p, "Push notifications: Disabled"),
@@ -33,30 +33,30 @@ class ::Decor::Daisy::PanelPreview < ::Lookbook::Preview
   # @label System Status Panel
   def system_status
     render ::Decor::Daisy::Panel.new(title: "System Status", icon: "server") do
-      content_tag :div, class: "space-y-2" do
+      content_tag :div, class: "decor:space-y-2" do
         safe_join([
-          content_tag(:div, class: "flex justify-between") do
+          content_tag(:div, class: "decor:flex decor:justify-between") do
             safe_join([
               content_tag(:span, "API Status:"),
-              content_tag(:span, "Operational", class: "text-success font-medium")
+              content_tag(:span, "Operational", class: "decor:text-success decor:font-medium")
             ])
           end,
-          content_tag(:div, class: "flex justify-between") do
+          content_tag(:div, class: "decor:flex decor:justify-between") do
             safe_join([
               content_tag(:span, "Database:"),
-              content_tag(:span, "Connected", class: "text-success font-medium")
+              content_tag(:span, "Connected", class: "decor:text-success decor:font-medium")
             ])
           end,
-          content_tag(:div, class: "flex justify-between") do
+          content_tag(:div, class: "decor:flex decor:justify-between") do
             safe_join([
               content_tag(:span, "Cache:"),
-              content_tag(:span, "Active", class: "text-success font-medium")
+              content_tag(:span, "Active", class: "decor:text-success decor:font-medium")
             ])
           end,
-          content_tag(:div, class: "flex justify-between") do
+          content_tag(:div, class: "decor:flex decor:justify-between") do
             safe_join([
               content_tag(:span, "Uptime:"),
-              content_tag(:span, "99.9%", class: "font-medium")
+              content_tag(:span, "99.9%", class: "decor:font-medium")
             ])
           end
         ])
@@ -68,21 +68,21 @@ class ::Decor::Daisy::PanelPreview < ::Lookbook::Preview
   # @label Contact Information
   def contact_info
     render ::Decor::Daisy::Panel.new(title: "Contact Details", icon: "mail") do
-      content_tag :address, class: "space-y-1 not-italic" do
+      content_tag :address, class: "decor:space-y-1 decor:not-italic" do
         safe_join([
-          content_tag(:p, class: "font-medium") { "John Doe" },
+          content_tag(:p, class: "decor:font-medium") { "John Doe" },
           content_tag(:p) { "123 Main Street" },
           content_tag(:p) { "New York, NY 10001" },
-          content_tag(:p, class: "mt-2") do
+          content_tag(:p, class: "decor:mt-2") do
             safe_join([
               content_tag(:span, "Email: "),
-              content_tag(:a, "john@example.com", href: "mailto:john@example.com", class: "link link-primary")
+              content_tag(:a, "john@example.com", href: "mailto:john@example.com", class: "decor:d-link decor:d-link-primary")
             ])
           end,
           content_tag(:p) do
             safe_join([
               content_tag(:span, "Phone: "),
-              content_tag(:a, "+1 (555) 123-4567", href: "tel:+15551234567", class: "link link-primary")
+              content_tag(:a, "+1 (555) 123-4567", href: "tel:+15551234567", class: "decor:d-link decor:d-link-primary")
             ])
           end
         ])
@@ -106,7 +106,7 @@ class ::Decor::Daisy::PanelPreview < ::Lookbook::Preview
   # @label User Icon
   def icon_user
     render ::Decor::Daisy::Panel.new(title: "Account Information", icon: "user") do
-      content_tag :div, class: "space-y-2" do
+      content_tag :div, class: "decor:space-y-2" do
         safe_join([
           content_tag(:p, "Email: user@example.com"),
           content_tag(:p, "Status: Active"),
@@ -128,7 +128,7 @@ class ::Decor::Daisy::PanelPreview < ::Lookbook::Preview
   # @label Check Icon
   def icon_check
     render ::Decor::Daisy::Panel.new(title: "Completed Tasks", icon: "check-circle") do
-      content_tag :ul, class: "space-y-1" do
+      content_tag :ul, class: "decor:space-y-1" do
         safe_join([
           content_tag(:li, "✓ Database backup completed"),
           content_tag(:li, "✓ Security scan passed"),
@@ -150,7 +150,7 @@ class ::Decor::Daisy::PanelPreview < ::Lookbook::Preview
   # @label List Content
   def content_list
     render ::Decor::Daisy::Panel.new(title: "Features", icon: "star") do
-      content_tag :ul, class: "list-disc list-inside space-y-1" do
+      content_tag :ul, class: "decor:list-disc decor:list-inside decor:space-y-1" do
         safe_join([
           content_tag(:li, "Fast performance"),
           content_tag(:li, "Secure by default"),
@@ -165,18 +165,18 @@ class ::Decor::Daisy::PanelPreview < ::Lookbook::Preview
   # @label Form Content
   def content_form
     render ::Decor::Daisy::Panel.new(title: "Quick Settings", icon: "adjustments") do
-      content_tag :div, class: "space-y-3" do
+      content_tag :div, class: "decor:space-y-3" do
         safe_join([
-          content_tag(:div, class: "form-control") do
+          content_tag(:div, class: "decor:d-form-control") do
             safe_join([
-              content_tag(:label, "Enable notifications", class: "label"),
-              content_tag(:input, nil, type: "checkbox", class: "toggle toggle-primary", checked: true)
+              content_tag(:label, "Enable notifications", class: "decor:d-label"),
+              content_tag(:input, nil, type: "checkbox", class: "decor:d-toggle decor:d-toggle-primary", checked: true)
             ])
           end,
-          content_tag(:div, class: "form-control") do
+          content_tag(:div, class: "decor:d-form-control") do
             safe_join([
-              content_tag(:label, "Auto-save drafts", class: "label"),
-              content_tag(:input, nil, type: "checkbox", class: "toggle toggle-primary")
+              content_tag(:label, "Auto-save drafts", class: "decor:d-label"),
+              content_tag(:input, nil, type: "checkbox", class: "decor:d-toggle decor:d-toggle-primary")
             ])
           end
         ])

@@ -17,7 +17,7 @@ class ::Decor::Daisy::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
       end
 
       navbar.with_right do
-        render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "flex items-center gap-1"}}) do
+        render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "decor:flex decor:items-center decor:gap-1"}}) do
           render ::Decor::Daisy::Button.new(label: "Edit", size: :sm, style: :outlined, icon: "pencil")
           render ::Decor::Daisy::Button.new(label: "Add Product", size: :sm, icon: "plus")
         end
@@ -29,22 +29,22 @@ class ::Decor::Daisy::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
   def action_toolbar
     render ::Decor::Daisy::Nav::SecondaryNavbar.new(style: :wide, bottom_border: true) do |navbar|
       navbar.with_left do
-        render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "flex items-center gap-4"}}) do
-          render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :h2, html_root_element_attributes: {class: "text-xl font-bold text-base-content"}}) do
+        render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "decor:flex decor:items-center decor:gap-4"}}) do
+          render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :h2, html_root_element_attributes: {class: "decor:text-xl decor:font-bold decor:text-base-content"}}) do
             "User Management"
           end
-          render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "badge badge-primary"}}) do
+          render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "decor:d-badge decor:d-badge-primary"}}) do
             "1,234 users"
           end
         end
       end
 
       navbar.with_right do
-        render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "flex items-center gap-2"}}) do
+        render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "decor:flex decor:items-center decor:gap-2"}}) do
           render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :input, html_root_element_attributes: {
             type: "search",
             placeholder: "Search users...",
-            class: "input input-bordered input-sm w-64"
+            class: "decor:d-input decor:d-input-bordered decor:d-input-sm decor:w-64"
           }})
           render ::Decor::Daisy::Button.new(label: "Import", size: :sm, style: :outlined, icon: "upload")
           render ::Decor::Daisy::Button.new(label: "Add User", size: :sm, icon: "plus")
@@ -57,17 +57,17 @@ class ::Decor::Daisy::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
   def tab_navigation
     render ::Decor::Daisy::Nav::SecondaryNavbar.new(style: :narrow, bottom_border: true) do |navbar|
       navbar.with_left do
-        render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :h3, html_root_element_attributes: {class: "text-lg font-semibold text-base-content"}}) do
+        render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :h3, html_root_element_attributes: {class: "decor:text-lg decor:font-semibold decor:text-base-content"}}) do
           "Project Settings"
         end
       end
 
       navbar.with_center do
-        render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "tabs tabs-lifted"}}) do
-          render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :a, html_root_element_attributes: {class: "tab tab-active"}}) { "General" }
-          render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :a, html_root_element_attributes: {class: "tab"}}) { "Team" }
-          render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :a, html_root_element_attributes: {class: "tab"}}) { "Integrations" }
-          render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :a, html_root_element_attributes: {class: "tab"}}) { "Advanced" }
+        render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "decor:d-tabs decor:d-tabs-lifted"}}) do
+          render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :a, html_root_element_attributes: {class: "decor:d-tab decor:d-tab-active"}}) { "General" }
+          render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :a, html_root_element_attributes: {class: "decor:d-tab"}}) { "Team" }
+          render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :a, html_root_element_attributes: {class: "decor:d-tab"}}) { "Integrations" }
+          render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :a, html_root_element_attributes: {class: "decor:d-tab"}}) { "Advanced" }
         end
       end
 
@@ -111,7 +111,7 @@ class ::Decor::Daisy::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
 
       if has_center_element
         navbar.with_center do
-          render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :span, html_root_element_attributes: {class: "text-sm font-medium text-base-content"}}) do
+          render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :span, html_root_element_attributes: {class: "decor:text-sm decor:font-medium decor:text-base-content"}}) do
             "Secondary Navigation Center"
           end
         end
@@ -119,7 +119,7 @@ class ::Decor::Daisy::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
 
       if has_right_element
         navbar.with_right do
-          render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "flex gap-2"}}) do
+          render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "decor:flex decor:gap-2"}}) do
             render ::Decor::Daisy::Button.new(label: "Action", size: :sm, style: :outlined)
             render ::Decor::Daisy::Button.new(label: "Primary", size: :sm)
           end
@@ -136,7 +136,7 @@ class ::Decor::Daisy::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
   def narrow_style
     render ::Decor::Daisy::Nav::SecondaryNavbar.new(style: :narrow, bottom_border: true) do |navbar|
       navbar.with_left do
-        render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :h2, html_root_element_attributes: {class: "text-lg font-semibold text-base-content"}}) do
+        render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :h2, html_root_element_attributes: {class: "decor:text-lg decor:font-semibold decor:text-base-content"}}) do
           "Narrow Container"
         end
       end
@@ -151,7 +151,7 @@ class ::Decor::Daisy::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
   def wide_style
     render ::Decor::Daisy::Nav::SecondaryNavbar.new(style: :wide, bottom_border: true) do |navbar|
       navbar.with_left do
-        render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :h2, html_root_element_attributes: {class: "text-lg font-semibold text-base-content"}}) do
+        render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :h2, html_root_element_attributes: {class: "decor:text-lg decor:font-semibold decor:text-base-content"}}) do
           "Wide Container"
         end
       end
@@ -170,7 +170,7 @@ class ::Decor::Daisy::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
   def left_only
     render ::Decor::Daisy::Nav::SecondaryNavbar.new(style: :narrow) do |navbar|
       navbar.with_left do
-        render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :h2, html_root_element_attributes: {class: "text-lg font-semibold text-base-content"}}) do
+        render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :h2, html_root_element_attributes: {class: "decor:text-lg decor:font-semibold decor:text-base-content"}}) do
           "Page Title"
         end
       end
@@ -181,10 +181,10 @@ class ::Decor::Daisy::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
   def center_only
     render ::Decor::Daisy::Nav::SecondaryNavbar.new(style: :narrow) do |navbar|
       navbar.with_center do
-        render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "tabs tabs-boxed"}}) do
-          render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :a, html_root_element_attributes: {class: "tab tab-active"}}) { "Tab 1" }
-          render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :a, html_root_element_attributes: {class: "tab"}}) { "Tab 2" }
-          render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :a, html_root_element_attributes: {class: "tab"}}) { "Tab 3" }
+        render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "decor:d-tabs decor:d-tabs-boxed"}}) do
+          render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :a, html_root_element_attributes: {class: "decor:d-tab decor:d-tab-active"}}) { "Tab 1" }
+          render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :a, html_root_element_attributes: {class: "decor:d-tab"}}) { "Tab 2" }
+          render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :a, html_root_element_attributes: {class: "decor:d-tab"}}) { "Tab 3" }
         end
       end
     end
@@ -194,7 +194,7 @@ class ::Decor::Daisy::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
   def right_only
     render ::Decor::Daisy::Nav::SecondaryNavbar.new(style: :narrow) do |navbar|
       navbar.with_right do
-        render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "flex gap-2"}}) do
+        render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "decor:flex decor:gap-2"}}) do
           render ::Decor::Daisy::Button.new(label: "Cancel", size: :sm, style: :outlined)
           render ::Decor::Daisy::Button.new(label: "Save", size: :sm)
         end
@@ -206,21 +206,21 @@ class ::Decor::Daisy::Nav::SecondaryNavbarPreview < ::Lookbook::Preview
   def full_layout
     render ::Decor::Daisy::Nav::SecondaryNavbar.new(style: :wide, bottom_border: true) do |navbar|
       navbar.with_left do
-        render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :h1, html_root_element_attributes: {class: "text-lg font-semibold text-base-content"}}) do
+        render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :h1, html_root_element_attributes: {class: "decor:text-lg decor:font-semibold decor:text-base-content"}}) do
           "Dashboard Overview"
         end
       end
 
       navbar.with_center do
-        render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "tabs tabs-boxed"}}) do
-          render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :a, html_root_element_attributes: {class: "tab tab-active"}}) { "Overview" }
-          render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :a, html_root_element_attributes: {class: "tab"}}) { "Details" }
-          render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :a, html_root_element_attributes: {class: "tab"}}) { "Charts" }
+        render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "decor:d-tabs decor:d-tabs-boxed"}}) do
+          render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :a, html_root_element_attributes: {class: "decor:d-tab decor:d-tab-active"}}) { "Overview" }
+          render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :a, html_root_element_attributes: {class: "decor:d-tab"}}) { "Details" }
+          render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :a, html_root_element_attributes: {class: "decor:d-tab"}}) { "Charts" }
         end
       end
 
       navbar.with_right do
-        render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "flex items-center gap-2"}}) do
+        render ::Decor::Daisy::Element.new(root_element_attributes: {element_tag: :div, html_root_element_attributes: {class: "decor:flex decor:items-center decor:gap-2"}}) do
           render ::Decor::Daisy::Button.new(label: "Export", size: :sm, style: :outlined, icon: "download")
           render ::Decor::Daisy::Button.new(label: "Settings", size: :sm, icon: "cog")
         end

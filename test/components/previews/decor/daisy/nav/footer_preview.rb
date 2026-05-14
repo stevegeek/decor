@@ -77,17 +77,17 @@ class ::Decor::Daisy::Nav::FooterPreview < ::Lookbook::Preview
       show_newsletter: false
     ) do |component|
       component.with_logo do
-        component.div(class: "mb-6") do
-          component.h2(class: "text-2xl font-bold mb-2") { "Custom Logo Area" }
-          component.p(class: "text-sm opacity-70") { "This is a custom logo section with additional branding content." }
+        component.div(class: "decor:mb-6") do
+          component.h2(class: "decor:text-2xl decor:font-bold decor:mb-2") { "Custom Logo Area" }
+          component.p(class: "decor:text-sm decor:opacity-70") { "This is a custom logo section with additional branding content." }
         end
       end
 
       component.with_content do
-        component.div(class: "space-y-4") do
-          component.h3(class: "footer-title") { "Get in Touch" }
-          component.p(class: "text-sm") { "Have questions? We'd love to hear from you." }
-          component.div(class: "flex gap-2") do
+        component.div(class: "decor:space-y-4") do
+          component.h3(class: "decor:d-footer-title") { "Get in Touch" }
+          component.p(class: "decor:text-sm") { "Have questions? We'd love to hear from you." }
+          component.div(class: "decor:flex decor:gap-2") do
             component.render ::Decor::Daisy::Button.new(label: "Contact Us", color: :primary, size: :sm)
             component.render ::Decor::Daisy::Button.new(label: "Schedule Demo", color: :secondary, style: :outlined, size: :sm)
           end
@@ -95,21 +95,21 @@ class ::Decor::Daisy::Nav::FooterPreview < ::Lookbook::Preview
       end
 
       component.with_links do
-        component.div(class: "grid grid-cols-1 md:grid-cols-3 gap-6") do
+        component.div(class: "decor:grid decor:grid-cols-1 decor:md:grid-cols-3 decor:gap-6") do
           component.div do
-            component.h3(class: "footer-title") { "Custom Links Section" }
-            component.ul(class: "space-y-2") do
-              component.li { component.a(href: "#", class: "link link-hover") { "Custom Link 1" } }
-              component.li { component.a(href: "#", class: "link link-hover") { "Custom Link 2" } }
+            component.h3(class: "decor:d-footer-title") { "Custom Links Section" }
+            component.ul(class: "decor:space-y-2") do
+              component.li { component.a(href: "#", class: "decor:d-link decor:d-link-hover") { "Custom Link 1" } }
+              component.li { component.a(href: "#", class: "decor:d-link decor:d-link-hover") { "Custom Link 2" } }
             end
           end
         end
       end
 
       component.with_copyright do
-        component.p(class: "text-sm opacity-70 text-center") do
-          component.a(href: "/privacy", class: "link") { "Privacy Policy" }
-          component.a(href: "/terms", class: "link") { "Terms of Service" }
+        component.p(class: "decor:text-sm decor:opacity-70 decor:text-center") do
+          component.a(href: "/privacy", class: "decor:d-link") { "Privacy Policy" }
+          component.a(href: "/terms", class: "decor:d-link") { "Terms of Service" }
         end
       end
     end

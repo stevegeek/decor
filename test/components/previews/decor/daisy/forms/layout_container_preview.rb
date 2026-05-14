@@ -181,7 +181,7 @@ class ::Decor::Daisy::Forms::LayoutContainerPreview < ::Lookbook::Preview
   # Centered button layout
   def centered_buttons
     render ::Decor::Daisy::Forms::LayoutContainer.new do |container|
-      container.with_buttons(class: "justify-center") do
+      container.with_buttons(class: "decor:justify-center") do
         container.render ::Decor::Daisy::Button.new(label: "Go Back", style: :outline)
         container.render ::Decor::Daisy::Button.new(label: "Continue", style: :primary)
       end

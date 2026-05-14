@@ -45,9 +45,9 @@ class ::Decor::Daisy::ClickToCopyPreview < ::Lookbook::Preview
   def api_key_copy
     render ::Decor::Daisy::Element.new do |el|
       el.div do
-        el.h4(class: "font-semibold mb-2") { "API Key:" }
+        el.h4(class: "decor:font-semibold decor:mb-2") { "API Key:" }
         el.render ::Decor::Daisy::ClickToCopy.new(to_copy: "sk-1234567890abcdef") do
-          el.code(class: "bg-gray-100 px-2 py-1 rounded") { "sk-****cdef" }
+          el.code(class: "decor:bg-gray-100 decor:px-2 decor:py-1 decor:rounded") { "sk-****cdef" }
         end
       end
     end
@@ -58,9 +58,9 @@ class ::Decor::Daisy::ClickToCopyPreview < ::Lookbook::Preview
   def share_link_copy
     render ::Decor::Daisy::Element.new do |el|
       el.div do
-        el.h4(class: "font-semibold mb-2") { "Share Link:" }
+        el.h4(class: "decor:font-semibold decor:mb-2") { "Share Link:" }
         el.render ::Decor::Daisy::ClickToCopy.new do
-          el.span(class: "text-blue-600 underline") { "https://example.com/share/xyz" }
+          el.span(class: "decor:text-blue-600 decor:underline") { "https://example.com/share/xyz" }
         end
       end
     end
@@ -71,7 +71,7 @@ class ::Decor::Daisy::ClickToCopyPreview < ::Lookbook::Preview
   def quick_copy_icon
     render ::Decor::Daisy::Element.new do |el|
       el.div do
-        el.h4(class: "font-semibold mb-2") { "Quick Copy Icon:" }
+        el.h4(class: "decor:font-semibold decor:mb-2") { "Quick Copy Icon:" }
         el.render ::Decor::Daisy::ClickToCopy.new(to_copy: "Quick copy text")
       end
     end

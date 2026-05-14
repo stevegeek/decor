@@ -42,12 +42,12 @@ class ::Decor::Daisy::Chat::ListMessagePreview < ::Lookbook::Preview
       is_current_user: false
     ) do |message|
       message.attachment do
-        div(class: "bg-base-200 rounded-lg p-3 border border-base-300") do
-          div(class: "flex items-center space-x-2") do
-            render ::Decor::Daisy::Icon.new(name: "document-text", style: :outline, html_options: {class: "w-6 h-6 text-primary"})
+        div(class: "decor:bg-base-200 decor:rounded-lg decor:p-3 decor:border decor:border-base-300") do
+          div(class: "decor:flex decor:items-center decor:space-x-2") do
+            render ::Decor::Daisy::Icon.new(name: "document-text", style: :outline, html_options: {class: "decor:w-6 decor:h-6 decor:text-primary"})
             div do
-              p(class: "font-medium text-sm") { "Project_Requirements.pdf" }
-              p(class: "text-xs text-base-content/70") { "1.8 MB" }
+              p(class: "decor:font-medium decor:text-sm") { "Project_Requirements.pdf" }
+              p(class: "decor:text-xs decor:text-base-content/70") { "1.8 MB" }
             end
           end
         end
@@ -131,10 +131,10 @@ class ::Decor::Daisy::Chat::ListMessagePreview < ::Lookbook::Preview
             is_current_user: false
           ) do |message|
             message.attachment do
-              div(class: "card bg-base-200 p-4 max-w-sm") do
-                h4(class: "font-semibold") { "Design_Mockup_v2.png" }
-                p(class: "text-sm text-base-content/70") { "2.1 MB • PNG Image" }
-                div(class: "mt-2") do
+              div(class: "decor:d-card decor:bg-base-200 decor:p-4 decor:max-w-sm") do
+                h4(class: "decor:font-semibold") { "Design_Mockup_v2.png" }
+                p(class: "decor:text-sm decor:text-base-content/70") { "2.1 MB • PNG Image" }
+                div(class: "decor:mt-2") do
                   render ::Decor::Daisy::Button.new(size: :sm, color: :primary) { "Download" }
                 end
               end

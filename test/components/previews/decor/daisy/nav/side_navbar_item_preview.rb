@@ -37,7 +37,7 @@ class ::Decor::Daisy::Nav::SideNavbarItemPreview < ::Lookbook::Preview
 
   # @label Complete Navigation
   def complete_navigation
-    render ::Decor::Daisy::Element.new html_options: {class: "space-y-1"} do |nav|
+    render ::Decor::Daisy::Element.new html_options: {class: "decor:space-y-1"} do |nav|
       nav.render ::Decor::Daisy::Nav::SideNavbarItem.new(
         title: "Dashboard",
         icon: "home",

@@ -54,8 +54,8 @@ class ::Decor::Daisy::Tables::DataTableRowPreview < ::Lookbook::Preview
         row.with_data_table_cell(value: "$4,567.89", numeric: true)
         row.with_data_table_cell(value: "Enterprise")
         row.with_expandable_content do |content|
-          content.div(class: "p-4 bg-gray-50") do
-            content.h4(class: "font-medium mb-2") { "Additional Information" }
+          content.div(class: "decor:p-4 decor:bg-gray-50") do
+            content.h4(class: "decor:font-medium decor:mb-2") { "Additional Information" }
             content.p { "Last login: 2 hours ago" }
             content.p { "Account created: January 1, 2024" }
             content.p { "Total orders: 42" }
@@ -227,8 +227,8 @@ class ::Decor::Daisy::Tables::DataTableRowPreview < ::Lookbook::Preview
 
   def render_table(&block)
     render ::Decor::Daisy::Element.new do |e|
-      e.table(class: "min-w-full border border-gray-200") do
-        e.tbody(class: "bg-white divide-y divide-gray-200", &block)
+      e.table(class: "decor:min-w-full decor:border decor:border-gray-200") do
+        e.tbody(class: "decor:bg-white decor:divide-y decor:divide-gray-200", &block)
       end
     end
   end

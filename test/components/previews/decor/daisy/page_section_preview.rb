@@ -185,8 +185,8 @@ class ::Decor::Daisy::PageSectionPreview < ::Lookbook::Preview
       padding: :lg
     ) do |page|
       page.with_hero do
-        page.div(class: "hero bg-base-200 rounded-lg p-8") do
-          page.h2(class: "text-2xl font-bold") { "Hero Content" }
+        page.div(class: "decor:d-hero decor:bg-base-200 decor:rounded-lg decor:p-8") do
+          page.h2(class: "decor:text-2xl decor:font-bold") { "Hero Content" }
           page.p { "This is a hero slot content area" }
         end
       end
@@ -198,13 +198,13 @@ class ::Decor::Daisy::PageSectionPreview < ::Lookbook::Preview
         render ::Decor::Daisy::Button.new(label: "Take Action", color: :primary)
       end
 
-      page.div(class: "grid grid-cols-1 md:grid-cols-2 gap-4") do
-        page.div(class: "card bg-base-100 shadow-md p-4") do
-          page.h4(class: "font-semibold") { "Card 1" }
+      page.div(class: "decor:grid decor:grid-cols-1 decor:md:grid-cols-2 decor:gap-4") do
+        page.div(class: "decor:d-card decor:bg-base-100 decor:shadow-md decor:p-4") do
+          page.h4(class: "decor:font-semibold") { "Card 1" }
           page.p { "Some content in the first card" }
         end
-        page.div(class: "card bg-base-100 shadow-md p-4") do
-          page.h4(class: "font-semibold") { "Card 2" }
+        page.div(class: "decor:d-card decor:bg-base-100 decor:shadow-md decor:p-4") do
+          page.h4(class: "decor:font-semibold") { "Card 2" }
           page.p { "Some content in the second card" }
         end
       end

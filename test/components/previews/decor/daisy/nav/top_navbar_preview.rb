@@ -29,10 +29,10 @@ class ::Decor::Daisy::Nav::TopNavbarPreview < ::Lookbook::Preview
       brand_href: "/"
     ) do |navbar|
       navbar.with_nav_items do
-        li { a(href: "/", class: "btn btn-ghost") { "Home" } }
-        li { a(href: "/about", class: "btn btn-ghost") { "About" } }
-        li { a(href: "/services", class: "btn btn-ghost") { "Services" } }
-        li { a(href: "/contact", class: "btn btn-ghost") { "Contact" } }
+        li { a(href: "/", class: "decor:d-btn decor:d-btn-ghost") { "Home" } }
+        li { a(href: "/about", class: "decor:d-btn decor:d-btn-ghost") { "About" } }
+        li { a(href: "/services", class: "decor:d-btn decor:d-btn-ghost") { "Services" } }
+        li { a(href: "/contact", class: "decor:d-btn decor:d-btn-ghost") { "Contact" } }
       end
     end
   end
@@ -42,28 +42,28 @@ class ::Decor::Daisy::Nav::TopNavbarPreview < ::Lookbook::Preview
     render ::Decor::Daisy::Nav::TopNavbar.new(has_search: true, instant_search_path: "/search") do |navbar|
       # Custom brand with logo
       navbar.with_brand do
-        a(href: "/", class: "btn btn-ghost text-xl font-bold") do
-          render ::Decor::Daisy::Icon.new(name: "cube", classes: "h-8 w-8 mr-2")
+        a(href: "/", class: "decor:d-btn decor:d-btn-ghost decor:text-xl decor:font-bold") do
+          render ::Decor::Daisy::Icon.new(name: "cube", classes: "decor:h-8 decor:w-8 decor:mr-2")
           "My App"
         end
       end
 
       # Navigation items
       navbar.with_nav_items do
-        li { a(href: "/dashboard", class: "btn btn-ghost") { "Dashboard" } }
-        li { a(href: "/projects", class: "btn btn-ghost") { "Projects" } }
-        li { a(href: "/team", class: "btn btn-ghost") { "Team" } }
+        li { a(href: "/dashboard", class: "decor:d-btn decor:d-btn-ghost") { "Dashboard" } }
+        li { a(href: "/projects", class: "decor:d-btn decor:d-btn-ghost") { "Projects" } }
+        li { a(href: "/team", class: "decor:d-btn decor:d-btn-ghost") { "Team" } }
       end
 
       # Notifications menu
       navbar.with_notifications_menu(
         position: :right,
-        classes: "mr-2"
+        classes: "decor:mr-2"
       ) do |menu|
         menu.trigger_button_content do
-          div(class: "indicator") do
-            span(class: "indicator-item badge badge-secondary badge-sm") { "3" }
-            render ::Decor::Daisy::Icon.new(name: "bell", classes: "h-6 w-6")
+          div(class: "decor:d-indicator") do
+            span(class: "decor:d-indicator-item decor:d-badge decor:d-badge-secondary decor:d-badge-sm") { "3" }
+            render ::Decor::Daisy::Icon.new(name: "bell", classes: "decor:h-6 decor:w-6")
           end
         end
         menu.menu_item(render(::Decor::Daisy::DropdownItem.new(text: "New message from Sarah", href: "#")))
@@ -109,19 +109,19 @@ class ::Decor::Daisy::Nav::TopNavbarPreview < ::Lookbook::Preview
     ) do |navbar|
       # Navigation items
       navbar.with_nav_items do
-        li { a(href: "/home", class: "btn btn-ghost") { "Home" } }
-        li { a(href: "/products", class: "btn btn-ghost") { "Products" } }
-        li { a(href: "/about", class: "btn btn-ghost") { "About" } }
+        li { a(href: "/home", class: "decor:d-btn decor:d-btn-ghost") { "Home" } }
+        li { a(href: "/products", class: "decor:d-btn decor:d-btn-ghost") { "Products" } }
+        li { a(href: "/about", class: "decor:d-btn decor:d-btn-ghost") { "About" } }
       end
 
       # Notifications menu
       navbar.with_notifications_menu(
         position: :right,
-        classes: "mr-2"
+        classes: "decor:mr-2"
       ) do |menu|
         menu.trigger_button_content do
-          span(class: "sr-only") { "View notifications" }
-          render ::Decor::Daisy::Icon.new(name: "bell", classes: "h-6 w-6")
+          span(class: "decor:sr-only") { "View notifications" }
+          render ::Decor::Daisy::Icon.new(name: "bell", classes: "decor:h-6 decor:w-6")
         end
         menu.menu_item(render(::Decor::Daisy::DropdownItem.new(text: "New message from John", href: "#")))
         menu.menu_item(render(::Decor::Daisy::DropdownItem.new(text: "System update available", href: "#")))
@@ -129,7 +129,7 @@ class ::Decor::Daisy::Nav::TopNavbarPreview < ::Lookbook::Preview
       end
 
       # Account menu
-      navbar.with_account_menu(position: :right, classes: "ml-3") do |menu|
+      navbar.with_account_menu(position: :right, classes: "decor:ml-3") do |menu|
         menu.trigger_button_content do
           render ::Decor::Daisy::Avatar.new(initials: "CC", size: :sm)
         end
@@ -155,9 +155,9 @@ class ::Decor::Daisy::Nav::TopNavbarPreview < ::Lookbook::Preview
   def brand_with_icon
     render ::Decor::Daisy::Nav::TopNavbar.new(has_search: false) do |navbar|
       navbar.with_brand do
-        a(href: "/", class: "btn btn-ghost text-xl") do
-          render ::Decor::Daisy::Icon.new(name: "sparkles", classes: "h-8 w-8 text-accent")
-          span(class: "ml-2 font-bold text-gradient bg-gradient-to-r from-primary to-accent") { "Design Co" }
+        a(href: "/", class: "decor:d-btn decor:d-btn-ghost decor:text-xl") do
+          render ::Decor::Daisy::Icon.new(name: "sparkles", classes: "decor:h-8 decor:w-8 decor:text-accent")
+          span(class: "decor:ml-2 decor:font-bold decor:text-gradient decor:bg-gradient-to-r decor:from-primary decor:to-accent") { "Design Co" }
         end
       end
     end
@@ -190,9 +190,9 @@ class ::Decor::Daisy::Nav::TopNavbarPreview < ::Lookbook::Preview
     ) do |navbar|
       navbar.with_notifications_menu(position: :right) do |menu|
         menu.trigger_button_content do
-          div(class: "indicator") do
-            span(class: "indicator-item badge badge-secondary badge-sm") { "5" }
-            render ::Decor::Daisy::Icon.new(name: "bell", classes: "h-6 w-6")
+          div(class: "decor:d-indicator") do
+            span(class: "decor:d-indicator-item decor:d-badge decor:d-badge-secondary decor:d-badge-sm") { "5" }
+            render ::Decor::Daisy::Icon.new(name: "bell", classes: "decor:h-6 decor:w-6")
           end
         end
         menu.menu_item(render(::Decor::Daisy::DropdownItem.new(text: "5 new notifications", href: "/notifications")))
@@ -205,10 +205,10 @@ class ::Decor::Daisy::Nav::TopNavbarPreview < ::Lookbook::Preview
 
   # Mobile view demonstration
   def mobile_responsive
-    render ::Decor::Daisy::Element.new(element_tag: :div, classes: "mockup-phone") do
-      render ::Decor::Daisy::Element.new(element_tag: :div, classes: "camera")
-      render ::Decor::Daisy::Element.new(element_tag: :div, classes: "display") do
-        render ::Decor::Daisy::Element.new(element_tag: :div, classes: "artboard artboard-demo phone-1") do
+    render ::Decor::Daisy::Element.new(element_tag: :div, classes: "decor:d-mockup-phone") do
+      render ::Decor::Daisy::Element.new(element_tag: :div, classes: "decor:camera")
+      render ::Decor::Daisy::Element.new(element_tag: :div, classes: "decor:display") do
+        render ::Decor::Daisy::Element.new(element_tag: :div, classes: "decor:artboard decor:artboard-demo decor:phone-1") do
           render ::Decor::Daisy::Nav::TopNavbar.new(has_search: true) do |navbar|
             navbar.with_account_menu do |menu|
               menu.trigger_button_content do

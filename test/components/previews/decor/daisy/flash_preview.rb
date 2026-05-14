@@ -44,16 +44,16 @@ class ::Decor::Daisy::FlashPreview < ::Lookbook::Preview
   # @label Custom Content
   def custom_content
     render ::Decor::Daisy::Flash.new do |component|
-      component.div(class: "alert alert-info") do
-        component.div(class: "flex") do
-          component.div(class: "flex-shrink-0") do
-            component.render ::Decor::Daisy::Icon.new(name: "information-circle", html_options: {class: "h-5 w-5"})
+      component.div(class: "decor:d-alert decor:d-alert-info") do
+        component.div(class: "decor:flex") do
+          component.div(class: "decor:flex-shrink-0") do
+            component.render ::Decor::Daisy::Icon.new(name: "information-circle", html_options: {class: "decor:h-5 decor:w-5"})
           end
-          component.div(class: "ml-3") do
-            component.h3(class: "text-md font-medium") { "Custom Flash Content" }
-            component.div(class: "mt-2 text-md") do
+          component.div(class: "decor:ml-3") do
+            component.h3(class: "decor:text-md decor:font-medium") { "Custom Flash Content" }
+            component.div(class: "decor:mt-2 decor:text-md") do
               component.p { "This flash message uses a custom content block with additional elements." }
-              component.div(class: "mt-3 flex gap-2") do
+              component.div(class: "decor:mt-3 decor:flex decor:gap-2") do
                 component.render ::Decor::Daisy::Button.new(label: "Action", color: :primary, size: :sm)
                 component.render ::Decor::Daisy::Button.new(label: "Cancel", style: :outlined, size: :sm)
               end

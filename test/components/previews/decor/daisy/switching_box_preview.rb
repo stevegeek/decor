@@ -30,7 +30,7 @@ class ::Decor::Daisy::SwitchingBoxPreview < ::Lookbook::Preview
       url: "/settings/security"
     ) do |box|
       box.left do
-        content_tag :div, class: "text-sm text-warning" do
+        content_tag :div, class: "decor:text-sm decor:text-warning" do
           "Requires authenticator app"
         end
       end
@@ -49,7 +49,7 @@ class ::Decor::Daisy::SwitchingBoxPreview < ::Lookbook::Preview
       url: "/features/beta"
     ) do |box|
       box.left do
-        content_tag :div, class: "flex gap-2" do
+        content_tag :div, class: "decor:flex decor:gap-2" do
           box.render(::Decor::Daisy::Badge.new(label: "BETA", color: :warning))
           box.render(::Decor::Daisy::Badge.new(label: "Experimental", color: :info))
         end
@@ -133,7 +133,7 @@ class ::Decor::Daisy::SwitchingBoxPreview < ::Lookbook::Preview
       url: "/privacy/analytics"
     ) do |box|
       box.left do
-        content_tag :a, "Privacy Policy", href: "#", class: "link link-primary text-sm"
+        content_tag :a, "Privacy Policy", href: "#", class: "decor:d-link decor:d-link-primary decor:text-sm"
       end
     end
   end
@@ -149,7 +149,7 @@ class ::Decor::Daisy::SwitchingBoxPreview < ::Lookbook::Preview
       url: "/privacy/profile"
     ) do |box|
       box.left do
-        content_tag :div, class: "text-sm text-base-content/70" do
+        content_tag :div, class: "decor:text-sm decor:text-base-content/70" do
           "Visible to: Everyone"
         end
       end
@@ -168,10 +168,10 @@ class ::Decor::Daisy::SwitchingBoxPreview < ::Lookbook::Preview
       url: "/system/updates"
     ) do |box|
       box.left do
-        content_tag :div, class: "text-sm" do
+        content_tag :div, class: "decor:text-sm" do
           safe_join([
-            content_tag(:span, "Last checked: ", class: "text-base-content/70"),
-            content_tag(:span, "2 hours ago", class: "font-medium")
+            content_tag(:span, "Last checked: ", class: "decor:text-base-content/70"),
+            content_tag(:span, "2 hours ago", class: "decor:font-medium")
           ])
         end
       end
@@ -190,10 +190,10 @@ class ::Decor::Daisy::SwitchingBoxPreview < ::Lookbook::Preview
       url: "/subscription/toggle"
     ) do |box|
       box.left do
-        content_tag :div, class: "flex items-center gap-2" do
+        content_tag :div, class: "decor:flex decor:items-center decor:gap-2" do
           safe_join([
             render(::Decor::Daisy::Badge.new(label: "$9.99/month", color: :primary)),
-            content_tag(:span, "7-day free trial", class: "text-sm text-success")
+            content_tag(:span, "7-day free trial", class: "decor:text-sm decor:text-success")
           ])
         end
       end

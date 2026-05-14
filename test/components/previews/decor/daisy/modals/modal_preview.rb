@@ -89,7 +89,7 @@ class ::Decor::Daisy::Modals::ModalPreview < ::Lookbook::Preview
         description: "Are you sure you want to proceed? This action cannot be undone.",
         color: :warning
       ) do
-        render ::Decor::Daisy::Element.new(html_options: {class: "flex gap-4 justify-end mt-4"}) do
+        render ::Decor::Daisy::Element.new(html_options: {class: "decor:flex decor:gap-4 decor:justify-end decor:mt-4"}) do
           render ::Decor::Daisy::Modals::ModalCloseButton.new(
             label: "Cancel",
             style: :ghost
@@ -130,7 +130,7 @@ class ::Decor::Daisy::Modals::ModalPreview < ::Lookbook::Preview
             )
           end
           form.with_section do
-            render ::Decor::Daisy::Element.new(html_options: {class: "flex gap-4 justify-end"}) do
+            render ::Decor::Daisy::Element.new(html_options: {class: "decor:flex decor:gap-4 decor:justify-end"}) do
               render ::Decor::Daisy::Modals::ModalCloseButton.new(
                 label: "Cancel",
                 style: :ghost

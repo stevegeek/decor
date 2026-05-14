@@ -481,21 +481,21 @@ class ::Decor::Daisy::Tables::DataTablePreview < ::Lookbook::Preview
 
           if idx == 1  # Show expanded content for second row as example
             row.with_expanded_content do |expanded|
-              expanded.td(colspan: 4, class: "px-6 py-4 bg-gray-50") do
-                expanded.div(class: "space-y-3") do
-                  expanded.h4("Order Details", class: "font-medium text-gray-900")
-                  expanded.div(class: "grid grid-cols-2 gap-4 text-sm") do
+              expanded.td(colspan: 4, class: "decor:px-6 decor:py-4 decor:bg-gray-50") do
+                expanded.div(class: "decor:space-y-3") do
+                  expanded.h4("Order Details", class: "decor:font-medium decor:text-gray-900")
+                  expanded.div(class: "decor:grid decor:grid-cols-2 decor:gap-4 decor:text-sm") do
                     expanded.div do
-                      expanded.p("Items:", class: "font-medium text-gray-700")
-                      expanded.ul(class: "mt-1 text-gray-600") do
+                      expanded.p("Items:", class: "decor:font-medium decor:text-gray-700")
+                      expanded.ul(class: "decor:mt-1 decor:text-gray-600") do
                         expanded.li("MacBook Pro 16\" × 1")
                         expanded.li("Magic Mouse × 1")
                       end
                     end
                     expanded.div do
-                      expanded.p("Shipping:", class: "font-medium text-gray-700")
-                      expanded.p("123 Main St, City, ST 12345", class: "mt-1 text-gray-600")
-                      expanded.p("Expected: Dec 20, 2023", class: "text-gray-600")
+                      expanded.p("Shipping:", class: "decor:font-medium decor:text-gray-700")
+                      expanded.p("123 Main St, City, ST 12345", class: "decor:mt-1 decor:text-gray-600")
+                      expanded.p("Expected: Dec 20, 2023", class: "decor:text-gray-600")
                     end
                   end
                 end

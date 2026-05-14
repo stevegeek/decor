@@ -369,17 +369,17 @@ class ::Decor::Daisy::PanelGroupPreview < ::Lookbook::Preview
         group.render ::Decor::Daisy::Panel.new(title: "Status", icon: "signal") do |p|
           p.plain("🟢 All Systems Operational")
           p.br
-          p.span(class: "text-sm text-base-content/70") { "Last checked: 5 mins ago" }
+          p.span(class: "decor:text-sm decor:text-base-content/70") { "Last checked: 5 mins ago" }
         end
         group.render ::Decor::Daisy::Panel.new(title: "Performance", icon: "chart-bar") do |p|
-          p.div(class: "space-y-1") do
-            p.div(class: "flex justify-between") do
+          p.div(class: "decor:space-y-1") do
+            p.div(class: "decor:flex decor:justify-between") do
               p.span { "CPU" }
-              p.span(class: "font-medium") { "45%" }
+              p.span(class: "decor:font-medium") { "45%" }
             end
-            p.div(class: "flex justify-between") do
+            p.div(class: "decor:flex decor:justify-between") do
               p.span { "Memory" }
-              p.span(class: "font-medium") { "72%" }
+              p.span(class: "decor:font-medium") { "72%" }
             end
           end
         end

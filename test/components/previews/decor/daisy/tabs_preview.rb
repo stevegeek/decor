@@ -344,20 +344,20 @@ class ::Decor::Daisy::TabsPreview < ::Lookbook::Preview
   def slot_custom_buttons
     render ::Decor::Daisy::Tabs.new(style: :boxed, size: :lg) do |component|
       component.with_tab_buttons do
-        button(role: "tab", class: "tab tab-active") do
-          svg(class: "w-5 h-5 mr-2", fill: "currentColor", viewBox: "0 0 20 20") do |s|
+        button(role: "tab", class: "decor:d-tab decor:d-tab-active") do
+          svg(class: "decor:w-5 decor:h-5 decor:mr-2", fill: "currentColor", viewBox: "0 0 20 20") do |s|
             s.path(d: "M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z")
           end
           plain "Dashboard"
         end
-        button(role: "tab", class: "tab") do
-          svg(class: "w-5 h-5 mr-2", fill: "currentColor", viewBox: "0 0 20 20") do |s|
+        button(role: "tab", class: "decor:d-tab") do
+          svg(class: "decor:w-5 decor:h-5 decor:mr-2", fill: "currentColor", viewBox: "0 0 20 20") do |s|
             s.path(d: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z")
           end
           plain "Tasks"
-          span(class: "badge badge-primary badge-sm ml-2") { "5" }
+          span(class: "decor:d-badge decor:d-badge-primary decor:d-badge-sm decor:ml-2") { "5" }
         end
-        button(role: "tab", class: "tab") { "Reports" }
+        button(role: "tab", class: "decor:d-tab") { "Reports" }
       end
     end
   end
@@ -367,14 +367,14 @@ class ::Decor::Daisy::TabsPreview < ::Lookbook::Preview
   def slot_with_content
     render ::Decor::Daisy::Tabs.new(style: :lifted, color: :primary) do |component|
       component.with_tab_buttons do
-        button(role: "tab", class: "tab tab-active") { "Overview" }
-        button(role: "tab", class: "tab") { "Details" }
-        button(role: "tab", class: "tab") { "Settings" }
+        button(role: "tab", class: "decor:d-tab decor:d-tab-active") { "Overview" }
+        button(role: "tab", class: "decor:d-tab") { "Details" }
+        button(role: "tab", class: "decor:d-tab") { "Settings" }
       end
       component.with_tab_content do
-        div(class: "mt-6 p-6 bg-base-100 rounded-lg border") do
-          h4(class: "text-lg font-medium mb-3") { "Content Panel" }
-          p(class: "text-base-content/70") { "This demonstrates tab content using the slot-based API. You can put any content here." }
+        div(class: "decor:mt-6 decor:p-6 decor:bg-base-100 decor:rounded-lg decor:border") do
+          h4(class: "decor:text-lg decor:font-medium decor:mb-3") { "Content Panel" }
+          p(class: "decor:text-base-content/70") { "This demonstrates tab content using the slot-based API. You can put any content here." }
         end
       end
     end
@@ -385,9 +385,9 @@ class ::Decor::Daisy::TabsPreview < ::Lookbook::Preview
   def slot_minimal
     render ::Decor::Daisy::Tabs.new(size: :sm) do |component|
       component.with_tab_buttons do
-        a(role: "tab", class: "tab tab-active", href: "#tab1") { "Simple" }
-        a(role: "tab", class: "tab", href: "#tab2") { "Clean" }
-        a(role: "tab", class: "tab", href: "#tab3") { "Minimal" }
+        a(role: "tab", class: "decor:d-tab decor:d-tab-active", href: "#tab1") { "Simple" }
+        a(role: "tab", class: "decor:d-tab", href: "#tab2") { "Clean" }
+        a(role: "tab", class: "decor:d-tab", href: "#tab3") { "Minimal" }
       end
     end
   end

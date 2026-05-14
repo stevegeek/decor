@@ -324,8 +324,8 @@ class ::Decor::Daisy::StatPreview < ::Lookbook::Preview
         color: :primary
       ) do |stat|
         stat.figure do
-          div(class: "avatar online") do
-            div(class: "w-16 rounded-full") do
+          div(class: "decor:d-avatar decor:online") do
+            div(class: "decor:w-16 decor:rounded-full") do
               img(src: "https://i.pravatar.cc/150", alt: "User avatar")
             end
           end
@@ -436,8 +436,8 @@ class ::Decor::Daisy::StatPreview < ::Lookbook::Preview
         title: "Complex Metric",
         description: "Multiple components"
       ) do |stat|
-        stat.span(class: "text-3xl font-bold text-primary") { "$12,345" }
-        stat.span(class: "text-sm text-success ml-2") { "+15%" }
+        stat.span(class: "decor:text-3xl decor:font-bold decor:text-primary") { "$12,345" }
+        stat.span(class: "decor:text-sm decor:text-success decor:ml-2") { "+15%" }
       end
     end
   end
@@ -447,9 +447,9 @@ class ::Decor::Daisy::StatPreview < ::Lookbook::Preview
   def custom_full_content
     render ::Decor::Daisy::Stats.new do |el|
       el.render ::Decor::Daisy::Stat.new(centered: true) do |stat|
-        stat.div(class: "stat-title") { "Custom Layout" }
-        stat.div(class: "stat-value text-secondary") { "∞" }
-        stat.div(class: "stat-desc") { "Unlimited possibilities" }
+        stat.div(class: "decor:d-stat-title") { "Custom Layout" }
+        stat.div(class: "decor:d-stat-value decor:text-secondary") { "∞" }
+        stat.div(class: "decor:d-stat-desc") { "Unlimited possibilities" }
       end
     end
   end

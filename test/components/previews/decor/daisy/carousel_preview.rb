@@ -41,10 +41,10 @@ class ::Decor::Daisy::CarouselPreview < ::Lookbook::Preview
   def custom_content_carousel
     render ::Decor::Daisy::Carousel.new(slides_per_view: 2, max_height: 250) do |carousel|
       carousel.with_slide do
-        content_tag :div, class: "card bg-primary text-primary-content" do
-          content_tag :div, class: "card-body" do
+        content_tag :div, class: "decor:d-card decor:bg-primary decor:text-primary-content" do
+          content_tag :div, class: "decor:d-card-body" do
             safe_join([
-              content_tag(:h2, "Card 1", class: "card-title"),
+              content_tag(:h2, "Card 1", class: "decor:d-card-title"),
               content_tag(:p, "Custom content in a carousel card")
             ])
           end
@@ -52,10 +52,10 @@ class ::Decor::Daisy::CarouselPreview < ::Lookbook::Preview
       end
 
       carousel.with_slide do
-        content_tag :div, class: "card bg-secondary text-secondary-content" do
-          content_tag :div, class: "card-body" do
+        content_tag :div, class: "decor:d-card decor:bg-secondary decor:text-secondary-content" do
+          content_tag :div, class: "decor:d-card-body" do
             safe_join([
-              content_tag(:h2, "Card 2", class: "card-title"),
+              content_tag(:h2, "Card 2", class: "decor:d-card-title"),
               content_tag(:p, "Another custom carousel item")
             ])
           end
@@ -63,10 +63,10 @@ class ::Decor::Daisy::CarouselPreview < ::Lookbook::Preview
       end
 
       carousel.with_slide do
-        content_tag :div, class: "card bg-accent text-accent-content" do
-          content_tag :div, class: "card-body" do
+        content_tag :div, class: "decor:d-card decor:bg-accent decor:text-accent-content" do
+          content_tag :div, class: "decor:d-card-body" do
             safe_join([
-              content_tag(:h2, "Card 3", class: "card-title"),
+              content_tag(:h2, "Card 3", class: "decor:d-card-title"),
               content_tag(:p, "Third custom content card")
             ])
           end
@@ -81,13 +81,13 @@ class ::Decor::Daisy::CarouselPreview < ::Lookbook::Preview
     render ::Decor::Daisy::Carousel.new(slides_per_view: 1, max_height: 400) do |carousel|
       [1, 2, 3, 4].each do |i|
         carousel.with_slide do
-          content_tag :div, class: "relative" do
+          content_tag :div, class: "decor:relative" do
             safe_join([
-              image_tag("https://picsum.photos/600/400?random=#{30 + i}", alt: "Product image #{i}", class: "w-full"),
-              content_tag(:div, class: "absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4") do
+              image_tag("https://picsum.photos/600/400?random=#{30 + i}", alt: "Product image #{i}", class: "decor:w-full"),
+              content_tag(:div, class: "decor:absolute decor:bottom-0 decor:left-0 decor:right-0 decor:bg-gradient-to-t decor:from-black/70 decor:to-transparent decor:p-4") do
                 safe_join([
-                  content_tag(:h3, "Product #{i}", class: "text-white text-lg font-bold"),
-                  content_tag(:p, "$#{99 + i * 50}.00", class: "text-white")
+                  content_tag(:h3, "Product #{i}", class: "decor:text-white decor:text-lg decor:font-bold"),
+                  content_tag(:p, "$#{99 + i * 50}.00", class: "decor:text-white")
                 ])
               end
             ])
@@ -107,14 +107,14 @@ class ::Decor::Daisy::CarouselPreview < ::Lookbook::Preview
         {name: "Emily Davis", role: "Designer", quote: "Beautiful interface and incredibly intuitive."}
       ].each do |testimonial|
         carousel.with_slide do
-          content_tag :div, class: "card bg-base-200" do
-            content_tag :div, class: "card-body" do
+          content_tag :div, class: "decor:d-card decor:bg-base-200" do
+            content_tag :div, class: "decor:d-card-body" do
               safe_join([
-                content_tag(:p, "\"#{testimonial[:quote]}\"", class: "text-lg italic"),
-                content_tag(:div, class: "mt-4") do
+                content_tag(:p, "\"#{testimonial[:quote]}\"", class: "decor:text-lg decor:italic"),
+                content_tag(:div, class: "decor:mt-4") do
                   safe_join([
-                    content_tag(:p, testimonial[:name], class: "font-bold"),
-                    content_tag(:p, testimonial[:role], class: "text-sm text-base-content/70")
+                    content_tag(:p, testimonial[:name], class: "decor:font-bold"),
+                    content_tag(:p, testimonial[:role], class: "decor:text-sm decor:text-base-content/70")
                   ])
                 end
               ])
@@ -137,11 +137,11 @@ class ::Decor::Daisy::CarouselPreview < ::Lookbook::Preview
         {icon: "chart-bar", title: "Analytics", desc: "Detailed insights"}
       ].each do |feature|
         carousel.with_slide do
-          content_tag :div, class: "card bg-primary text-primary-content" do
-            content_tag :div, class: "card-body items-center text-center" do
+          content_tag :div, class: "decor:d-card decor:bg-primary decor:text-primary-content" do
+            content_tag :div, class: "decor:d-card-body decor:items-center decor:text-center" do
               safe_join([
-                content_tag(:div, class: "text-4xl mb-2") { "🚀" },
-                content_tag(:h3, feature[:title], class: "card-title"),
+                content_tag(:div, class: "decor:text-4xl decor:mb-2") { "🚀" },
+                content_tag(:h3, feature[:title], class: "decor:d-card-title"),
                 content_tag(:p, feature[:desc])
               ])
             end

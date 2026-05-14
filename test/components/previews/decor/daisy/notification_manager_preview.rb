@@ -27,8 +27,8 @@ class ::Decor::Daisy::NotificationManagerPreview < ::Lookbook::Preview
   # Basic text notifications with different content
   def simple_notifications
     render ::Decor::Daisy::Card.new(title: "Simple Notifications") do |p|
-      p.p(class: "text-base-content/70 mb-4") { "Simple notifications with plain text content and default styling." }
-      p.div(class: "flex gap-3 flex-wrap") do
+      p.p(class: "decor:text-base-content/70 decor:mb-4") { "Simple notifications with plain text content and default styling." }
+      p.div(class: "decor:flex decor:gap-3 decor:flex-wrap") do
         p.render ::Decor::Daisy::Button.new(
           label: "Welcome Message",
           color: :primary,
@@ -52,10 +52,10 @@ class ::Decor::Daisy::NotificationManagerPreview < ::Lookbook::Preview
   # Different auto-dismiss timeout behaviors
   def timeout_examples
     render ::Decor::Daisy::Card.new(title: "Auto-dismiss Timing") do |p|
-      p.p(class: "text-base-content/70 mb-4") { "Test different timeout durations to see how long notifications stay visible before auto-dismissing." }
-      p.div(class: "grid grid-cols-2 md:grid-cols-4 gap-4") do
-        p.div(class: "text-center") do
-          p.p(class: "text-sm font-medium mb-2") { "Quick (3s)" }
+      p.p(class: "decor:text-base-content/70 decor:mb-4") { "Test different timeout durations to see how long notifications stay visible before auto-dismissing." }
+      p.div(class: "decor:grid decor:grid-cols-2 decor:md:grid-cols-4 decor:gap-4") do
+        p.div(class: "decor:text-center") do
+          p.p(class: "decor:text-sm decor:font-medium decor:mb-2") { "Quick (3s)" }
           p.render ::Decor::Daisy::Button.new(
             label: "3 Second Message",
             color: :secondary,
@@ -63,8 +63,8 @@ class ::Decor::Daisy::NotificationManagerPreview < ::Lookbook::Preview
             html_options: {onclick: timeout_notification_js("Quick Update", "This message disappears in 3 seconds.", 3000)}
           )
         end
-        p.div(class: "text-center") do
-          p.p(class: "text-sm font-medium mb-2") { "Standard (5s)" }
+        p.div(class: "decor:text-center") do
+          p.p(class: "decor:text-sm decor:font-medium decor:mb-2") { "Standard (5s)" }
           p.render ::Decor::Daisy::Button.new(
             label: "5 Second Message",
             color: :primary,
@@ -72,8 +72,8 @@ class ::Decor::Daisy::NotificationManagerPreview < ::Lookbook::Preview
             html_options: {onclick: timeout_notification_js("Standard Notice", "This message disappears in 5 seconds.", 5000)}
           )
         end
-        p.div(class: "text-center") do
-          p.p(class: "text-sm font-medium mb-2") { "Extended (10s)" }
+        p.div(class: "decor:text-center") do
+          p.p(class: "decor:text-sm decor:font-medium decor:mb-2") { "Extended (10s)" }
           p.render ::Decor::Daisy::Button.new(
             label: "10 Second Message",
             color: :warning,
@@ -81,8 +81,8 @@ class ::Decor::Daisy::NotificationManagerPreview < ::Lookbook::Preview
             html_options: {onclick: timeout_notification_js("Extended Notice", "This message disappears in 10 seconds.", 10000)}
           )
         end
-        p.div(class: "text-center") do
-          p.p(class: "text-sm font-medium mb-2") { "No Timeout" }
+        p.div(class: "decor:text-center") do
+          p.p(class: "decor:text-sm decor:font-medium decor:mb-2") { "No Timeout" }
           p.render ::Decor::Daisy::Button.new(
             label: "Persistent Message",
             color: :error,
@@ -98,8 +98,8 @@ class ::Decor::Daisy::NotificationManagerPreview < ::Lookbook::Preview
   # Notifications that don't auto-dismiss
   def persistent_notifications
     render ::Decor::Daisy::Card.new(title: "Persistent Notifications") do |p|
-      p.div(class: "space-y-3") do
-        p.div(class: "flex gap-3 flex-wrap") do
+      p.div(class: "decor:space-y-3") do
+        p.div(class: "decor:flex decor:gap-3 decor:flex-wrap") do
           p.render ::Decor::Daisy::Button.new(
             label: "Critical Alert",
             color: :error,
@@ -116,8 +116,8 @@ class ::Decor::Daisy::NotificationManagerPreview < ::Lookbook::Preview
             html_options: {onclick: persistent_notification_js("System Maintenance", "Scheduled maintenance will begin in 30 minutes. Please save your work.")}
           )
         end
-        p.div(class: "divider") { "Management Controls" }
-        p.div(class: "flex gap-3") do
+        p.div(class: "decor:d-divider") { "Management Controls" }
+        p.div(class: "decor:flex decor:gap-3") do
           p.render ::Decor::Daisy::Button.new(
             label: "Show Multiple Persistent",
             style: :outlined,
@@ -143,7 +143,7 @@ class ::Decor::Daisy::NotificationManagerPreview < ::Lookbook::Preview
   # Interactive controls for testing different notification types and behaviors
   def playground
     render ::Decor::Daisy::Card.new(title: "Notification Playground") do |p|
-      p.div(class: "grid grid-cols-2 md:grid-cols-4 gap-4") do
+      p.div(class: "decor:grid decor:grid-cols-2 decor:md:grid-cols-4 decor:gap-4") do
         p.render ::Decor::Daisy::Button.new(
           label: "Success",
           color: :primary,
@@ -166,7 +166,7 @@ class ::Decor::Daisy::NotificationManagerPreview < ::Lookbook::Preview
         )
       end
 
-      p.div(class: "grid grid-cols-2 md:grid-cols-4 gap-4") do
+      p.div(class: "decor:grid decor:grid-cols-2 decor:md:grid-cols-4 decor:gap-4") do
         p.render ::Decor::Daisy::Button.new(
           label: "No Timeout",
           style: :outlined,
@@ -189,7 +189,7 @@ class ::Decor::Daisy::NotificationManagerPreview < ::Lookbook::Preview
         )
       end
 
-      p.div(class: "flex gap-4 flex-wrap") do
+      p.div(class: "decor:flex decor:gap-4 decor:flex-wrap") do
         p.render ::Decor::Daisy::Button.new(
           label: "Dismiss All",
           style: :outlined,
@@ -218,8 +218,8 @@ class ::Decor::Daisy::NotificationManagerPreview < ::Lookbook::Preview
   # Styled notifications with icons
   def success_notifications
     render ::Decor::Daisy::Card.new(title: "Success Notifications") do |p|
-      p.p(class: "text-base-content/70 mb-4") { "Positive feedback messages for completed actions and successful operations." }
-      p.div(class: "grid grid-cols-1 md:grid-cols-2 gap-4") do
+      p.p(class: "decor:text-base-content/70 decor:mb-4") { "Positive feedback messages for completed actions and successful operations." }
+      p.div(class: "decor:grid decor:grid-cols-1 decor:md:grid-cols-2 decor:gap-4") do
         p.render ::Decor::Daisy::Button.new(
           label: "Profile Updated",
           color: :primary,
@@ -256,9 +256,9 @@ class ::Decor::Daisy::NotificationManagerPreview < ::Lookbook::Preview
   # Notifications with interactive buttons
   def action_buttons
     render ::Decor::Daisy::Card.new(title: "Interactive Action Buttons") do |p|
-      p.p(class: "text-base-content/70 mb-4") { "Notifications with actionable buttons that allow users to take immediate action without leaving the current page." }
-      p.div(class: "space-y-3") do
-        p.div(class: "grid grid-cols-1 md:grid-cols-2 gap-4") do
+      p.p(class: "decor:text-base-content/70 decor:mb-4") { "Notifications with actionable buttons that allow users to take immediate action without leaving the current page." }
+      p.div(class: "decor:space-y-3") do
+        p.div(class: "decor:grid decor:grid-cols-1 decor:md:grid-cols-2 decor:gap-4") do
           p.render ::Decor::Daisy::Button.new(
             label: "Undo Delete",
             color: :warning,
@@ -284,8 +284,8 @@ class ::Decor::Daisy::NotificationManagerPreview < ::Lookbook::Preview
             html_options: {onclick: action_notification_js("Payment Successful", "Your payment of $49.99 has been processed.", "View Receipt", "Download PDF")}
           )
         end
-        p.div(class: "divider") { "Single Action Examples" }
-        p.div(class: "flex gap-3 flex-wrap") do
+        p.div(class: "decor:d-divider") { "Single Action Examples" }
+        p.div(class: "decor:flex decor:gap-3 decor:flex-wrap") do
           p.render ::Decor::Daisy::Button.new(
             label: "Single Action",
             style: :outlined,

@@ -77,17 +77,17 @@ class ::Decor::Daisy::Nav::SideNavbarSubItemPreview < ::Lookbook::Preview
 
   # @label Sub Item States
   def sub_item_states
-    render ::Decor::Daisy::Element.new html_options: {class: "space-y-4"} do |el|
-      el.h4 "Normal State", class: "text-gray-400 text-xs uppercase tracking-wider font-semibold"
-      el.div class: "pl-8" do |sub|
+    render ::Decor::Daisy::Element.new html_options: {class: "decor:space-y-4"} do |el|
+      el.h4 "Normal State", class: "decor:text-gray-400 decor:text-xs decor:uppercase decor:tracking-wider decor:font-semibold"
+      el.div class: "decor:pl-8" do |sub|
         sub.render ::Decor::Daisy::Nav::SideNavbarSubItem.new(
           title: "Normal Sub Item",
           path: "/normal"
         )
       end
 
-      el.h4 "Selected State", class: "text-gray-400 text-xs uppercase tracking-wider font-semibold"
-      el.div class: "pl-8" do |sub|
+      el.h4 "Selected State", class: "decor:text-gray-400 decor:text-xs decor:uppercase decor:tracking-wider decor:font-semibold"
+      el.div class: "decor:pl-8" do |sub|
         sub.render ::Decor::Daisy::Nav::SideNavbarSubItem.new(
           title: "Selected Sub Item",
           path: "/selected",
@@ -95,8 +95,8 @@ class ::Decor::Daisy::Nav::SideNavbarSubItemPreview < ::Lookbook::Preview
         )
       end
 
-      el.h4 "With Icon", class: "text-gray-400 text-xs uppercase tracking-wider font-semibold"
-      el.div class: "pl-8" do |sub|
+      el.h4 "With Icon", class: "decor:text-gray-400 decor:text-xs decor:uppercase decor:tracking-wider decor:font-semibold"
+      el.div class: "decor:pl-8" do |sub|
         sub.render ::Decor::Daisy::Nav::SideNavbarSubItem.new(
           title: "Sub Item with Icon",
           icon: "document",
@@ -104,8 +104,8 @@ class ::Decor::Daisy::Nav::SideNavbarSubItemPreview < ::Lookbook::Preview
         )
       end
 
-      el.h4 "Selected with Icon", class: "text-gray-400 text-xs uppercase tracking-wider font-semibold"
-      el.div class: "pl-8" do |sub|
+      el.h4 "Selected with Icon", class: "decor:text-gray-400 decor:text-xs decor:uppercase decor:tracking-wider decor:font-semibold"
+      el.div class: "decor:pl-8" do |sub|
         sub.render ::Decor::Daisy::Nav::SideNavbarSubItem.new(
           title: "Selected with Icon",
           icon: "star",
@@ -153,7 +153,7 @@ class ::Decor::Daisy::Nav::SideNavbarSubItemPreview < ::Lookbook::Preview
 
   # @label Long Title Handling
   def long_title_handling
-    render ::Decor::Daisy::Element.new html_options: {class: "space-y-4"} do |el|
+    render ::Decor::Daisy::Element.new html_options: {class: "decor:space-y-4"} do |el|
       el.render ::Decor::Daisy::Nav::SideNavbarSubItem.new(
         title: "Short",
         path: "/short"

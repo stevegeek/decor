@@ -14,7 +14,7 @@ class ::Decor::Daisy::DropdownPreview < ::Lookbook::Preview
     ) do |dropdown|
       dropdown.trigger_button_content do
         # Using a div with DaisyUI classes for the button content
-        div(class: "btn btn-circle btn-ghost") do
+        div(class: "decor:d-btn decor:d-btn-circle decor:d-btn-ghost") do
           render ::Decor::Daisy::Avatar.new(src: "/images/pic.jpg", alt: "User avatar", size: :sm)
         end
       end
@@ -32,7 +32,7 @@ class ::Decor::Daisy::DropdownPreview < ::Lookbook::Preview
     render ::Decor::Daisy::Dropdown.new(color: :primary, style: :outlined) do |dropdown| # Example using modern attributes
       dropdown.trigger_button_content do
         plain "Actions"
-        render ::Decor::Daisy::Icon.new(name: "chevron-down", html_options: {class: "ml-2 -mr-1 h-4 w-4"})
+        render ::Decor::Daisy::Icon.new(name: "chevron-down", html_options: {class: "decor:ml-2 decor:-mr-1 decor:h-4 decor:w-4"})
       end
 
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Edit", href: "#", icon_name: "pencil"))
@@ -49,13 +49,13 @@ class ::Decor::Daisy::DropdownPreview < ::Lookbook::Preview
     render ::Decor::Daisy::Dropdown.new(color: :secondary) do |dropdown| # Example using modern attributes
       dropdown.trigger_button_content do
         plain "User Menu"
-        render ::Decor::Daisy::Icon.new(name: "chevron-down", html_options: {class: "ml-2 -mr-1 h-4 w-4"})
+        render ::Decor::Daisy::Icon.new(name: "chevron-down", html_options: {class: "decor:ml-2 decor:-mr-1 decor:h-4 decor:w-4"})
       end
 
       dropdown.menu_header do
-        div(class: "px-4 py-3 border-b border-base-200") do # DaisyUI classes for header
-          p(class: "text-sm font-medium") { "John Doe" }
-          p(class: "text-sm opacity-70") { "john@example.com" }
+        div(class: "decor:px-4 decor:py-3 decor:border-b decor:border-base-200") do # DaisyUI classes for header
+          p(class: "decor:text-sm decor:font-medium") { "John Doe" }
+          p(class: "decor:text-sm decor:opacity-70") { "john@example.com" }
         end
       end
 
@@ -75,10 +75,10 @@ class ::Decor::Daisy::DropdownPreview < ::Lookbook::Preview
         # Custom button can still be used, ensure it has necessary DaisyUI classes or your own styling
         button(
           type: "button",
-          class: "btn btn-accent" # Example DaisyUI classes
+          class: "decor:d-btn decor:d-btn-accent" # Example DaisyUI classes
         ) do
           plain "Custom Button"
-          render ::Decor::Daisy::Icon.new(name: "chevron-down", html_options: {class: "ml-2 -mr-1 h-4 w-4"})
+          render ::Decor::Daisy::Icon.new(name: "chevron-down", html_options: {class: "decor:ml-2 decor:-mr-1 decor:h-4 decor:w-4"})
         end
       end
 
@@ -345,16 +345,16 @@ class ::Decor::Daisy::DropdownPreview < ::Lookbook::Preview
       style: :outlined
     ) do |dropdown|
       dropdown.trigger_button_content do
-        div(class: "flex items-center gap-2") do
+        div(class: "decor:flex decor:items-center decor:gap-2") do
           render ::Decor::Daisy::Avatar.new(src: "/images/pic.jpg", alt: "User avatar", size: :sm)
-          span(class: "hidden sm:inline") { "John Doe" }
+          span(class: "decor:hidden decor:sm:inline") { "John Doe" }
         end
       end
 
       dropdown.menu_header do
-        div(class: "px-4 py-3 border-b border-base-200") do
-          p(class: "text-sm font-medium") { "John Doe" }
-          p(class: "text-sm opacity-70") { "john@example.com" }
+        div(class: "decor:px-4 decor:py-3 decor:border-b decor:border-base-200") do
+          p(class: "decor:text-sm decor:font-medium") { "John Doe" }
+          p(class: "decor:text-sm decor:opacity-70") { "john@example.com" }
         end
       end
 
@@ -375,8 +375,8 @@ class ::Decor::Daisy::DropdownPreview < ::Lookbook::Preview
       style: :filled
     ) do |dropdown|
       dropdown.trigger_button_content do
-        div(class: "flex items-center gap-2") do
-          render ::Decor::Daisy::Icon.new(name: "ellipsis-vertical", html_options: {class: "h-5 w-5"})
+        div(class: "decor:flex decor:items-center decor:gap-2") do
+          render ::Decor::Daisy::Icon.new(name: "ellipsis-vertical", html_options: {class: "decor:h-5 decor:w-5"})
           span { "Actions" }
         end
       end
@@ -443,12 +443,12 @@ class ::Decor::Daisy::DropdownPreview < ::Lookbook::Preview
       dropdown.trigger_button_content { "Card Dropdown" }
 
       dropdown.card_content do
-        div(class: "card card-compact w-64 bg-base-100 shadow") do
-          div(class: "card-body") do
-            h3(class: "card-title") { "Card Title" }
+        div(class: "decor:d-card decor:d-card-compact decor:w-64 decor:bg-base-100 decor:shadow") do
+          div(class: "decor:d-card-body") do
+            h3(class: "decor:d-card-title") { "Card Title" }
             p { "This is card content inside a dropdown. Cards can contain any content you need." }
-            div(class: "card-actions justify-end") do
-              button(class: "btn btn-primary btn-sm") { "Action" }
+            div(class: "decor:d-card-actions decor:justify-end") do
+              button(class: "decor:d-btn decor:d-btn-primary decor:d-btn-sm") { "Action" }
             end
           end
         end
@@ -465,9 +465,9 @@ class ::Decor::Daisy::DropdownPreview < ::Lookbook::Preview
       trigger: :hover
     ) do |dropdown|
       dropdown.trigger_button_content do
-        div(class: "flex items-center gap-2") do
-          div(class: "avatar") do
-            div(class: "w-8 rounded-full") do
+        div(class: "decor:flex decor:items-center decor:gap-2") do
+          div(class: "decor:d-avatar") do
+            div(class: "decor:w-8 decor:rounded-full") do
               img(src: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=32&h=32&fit=crop&crop=face", alt: "User")
             end
           end
@@ -476,26 +476,26 @@ class ::Decor::Daisy::DropdownPreview < ::Lookbook::Preview
       end
 
       dropdown.card_content do
-        div(class: "card card-compact w-80 bg-base-100 shadow-xl") do
+        div(class: "decor:d-card decor:d-card-compact decor:w-80 decor:bg-base-100 decor:shadow-xl") do
           figure do
-            img(src: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=320&h=160&fit=crop", alt: "Profile banner", class: "h-20 w-full object-cover")
+            img(src: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=320&h=160&fit=crop", alt: "Profile banner", class: "decor:h-20 decor:w-full decor:object-cover")
           end
-          div(class: "card-body") do
-            div(class: "flex items-center gap-3") do
-              div(class: "avatar") do
-                div(class: "w-12 rounded-full") do
+          div(class: "decor:d-card-body") do
+            div(class: "decor:flex decor:items-center decor:gap-3") do
+              div(class: "decor:d-avatar") do
+                div(class: "decor:w-12 decor:rounded-full") do
                   img(src: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=48&h=48&fit=crop&crop=face", alt: "User")
                 end
               end
               div do
-                h3(class: "card-title text-sm") { "Sarah Johnson" }
-                p(class: "text-sm opacity-60") { "Product Designer" }
+                h3(class: "decor:d-card-title decor:text-sm") { "Sarah Johnson" }
+                p(class: "decor:text-sm decor:opacity-60") { "Product Designer" }
               end
             end
-            p(class: "text-sm mt-2") { "Passionate about creating beautiful and functional user experiences." }
-            div(class: "card-actions justify-between mt-4") do
-              button(class: "btn btn-ghost btn-sm") { "View Profile" }
-              button(class: "btn btn-primary btn-sm") { "Message" }
+            p(class: "decor:text-sm decor:mt-2") { "Passionate about creating beautiful and functional user experiences." }
+            div(class: "decor:d-card-actions decor:justify-between decor:mt-4") do
+              button(class: "decor:d-btn decor:d-btn-ghost decor:d-btn-sm") { "View Profile" }
+              button(class: "decor:d-btn decor:d-btn-primary decor:d-btn-sm") { "Message" }
             end
           end
         end
@@ -511,47 +511,47 @@ class ::Decor::Daisy::DropdownPreview < ::Lookbook::Preview
       position: :end
     ) do |dropdown|
       dropdown.trigger_button_content do
-        div(class: "flex items-center gap-2") do
-          render ::Decor::Daisy::Icon.new(name: "bell", html_options: {class: "h-5 w-5"})
-          span(class: "badge badge-error badge-sm") { "3" }
+        div(class: "decor:flex decor:items-center decor:gap-2") do
+          render ::Decor::Daisy::Icon.new(name: "bell", html_options: {class: "decor:h-5 decor:w-5"})
+          span(class: "decor:d-badge decor:d-badge-error decor:d-badge-sm") { "3" }
         end
       end
 
       dropdown.card_content do
-        div(class: "card card-compact w-96 bg-base-100 shadow-xl") do
-          div(class: "card-body") do
-            h3(class: "card-title text-base") { "Notifications" }
+        div(class: "decor:d-card decor:d-card-compact decor:w-96 decor:bg-base-100 decor:shadow-xl") do
+          div(class: "decor:d-card-body") do
+            h3(class: "decor:d-card-title decor:text-base") { "Notifications" }
 
-            div(class: "divider my-2") {}
+            div(class: "decor:d-divider decor:my-2") {}
 
-            div(class: "space-y-3") do
+            div(class: "decor:space-y-3") do
               [
                 {title: "New message from John", time: "2 min ago", type: "message"},
                 {title: "Task deadline approaching", time: "1 hour ago", type: "warning"},
                 {title: "Project completed successfully", time: "3 hours ago", type: "success"}
               ].each do |notification|
-                div(class: "flex items-start gap-3 p-2 rounded-lg hover:bg-base-200") do
-                  div(class: "flex-shrink-0 mt-1") do
+                div(class: "decor:flex decor:items-start decor:gap-3 decor:p-2 decor:rounded-lg decor:hover:bg-base-200") do
+                  div(class: "decor:flex-shrink-0 decor:mt-1") do
                     case notification[:type]
                     when "message"
-                      render ::Decor::Daisy::Icon.new(name: "envelope", html_options: {class: "h-4 w-4 text-info"})
+                      render ::Decor::Daisy::Icon.new(name: "envelope", html_options: {class: "decor:h-4 decor:w-4 decor:text-info"})
                     when "warning"
-                      render ::Decor::Daisy::Icon.new(name: "exclamation-triangle", html_options: {class: "h-4 w-4 text-warning"})
+                      render ::Decor::Daisy::Icon.new(name: "exclamation-triangle", html_options: {class: "decor:h-4 decor:w-4 decor:text-warning"})
                     when "success"
-                      render ::Decor::Daisy::Icon.new(name: "check-circle", html_options: {class: "h-4 w-4 text-success"})
+                      render ::Decor::Daisy::Icon.new(name: "check-circle", html_options: {class: "decor:h-4 decor:w-4 decor:text-success"})
                     end
                   end
-                  div(class: "flex-1 min-w-0") do
-                    p(class: "text-sm font-medium") { notification[:title] }
-                    p(class: "text-xs opacity-60") { notification[:time] }
+                  div(class: "decor:flex-1 decor:min-w-0") do
+                    p(class: "decor:text-sm decor:font-medium") { notification[:title] }
+                    p(class: "decor:text-xs decor:opacity-60") { notification[:time] }
                   end
                 end
               end
             end
 
-            div(class: "card-actions justify-end mt-4") do
-              button(class: "btn btn-ghost btn-sm") { "Mark all read" }
-              button(class: "btn btn-primary btn-sm") { "View all" }
+            div(class: "decor:d-card-actions decor:justify-end decor:mt-4") do
+              button(class: "decor:d-btn decor:d-btn-ghost decor:d-btn-sm") { "Mark all read" }
+              button(class: "decor:d-btn decor:d-btn-primary decor:d-btn-sm") { "View all" }
             end
           end
         end
@@ -569,30 +569,30 @@ class ::Decor::Daisy::DropdownPreview < ::Lookbook::Preview
       dropdown.trigger_button_content { "Custom Content" }
 
       dropdown.custom_content do
-        div(class: "p-6 bg-base-100 rounded-box shadow w-80") do
-          h3(class: "text-lg font-semibold mb-4") { "Custom Dropdown Content" }
+        div(class: "decor:p-6 decor:bg-base-100 decor:rounded-box decor:shadow decor:w-80") do
+          h3(class: "decor:text-lg decor:font-semibold decor:mb-4") { "Custom Dropdown Content" }
 
-          div(class: "form-control") do
-            label(class: "label") do
-              span(class: "label-text") { "Quick Search" }
+          div(class: "decor:d-form-control") do
+            label(class: "decor:d-label") do
+              span(class: "decor:d-label-text") { "Quick Search" }
             end
-            input(type: "text", class: "input input-bordered w-full", placeholder: "Type to search...")
+            input(type: "text", class: "decor:d-input decor:d-input-bordered decor:w-full", placeholder: "Type to search...")
           end
 
-          div(class: "mt-4") do
-            h4(class: "font-medium mb-2") { "Recent Items" }
-            div(class: "space-y-1") do
+          div(class: "decor:mt-4") do
+            h4(class: "decor:font-medium decor:mb-2") { "Recent Items" }
+            div(class: "decor:space-y-1") do
               %w[Documents Photos Videos Music].each do |item|
-                div(class: "flex items-center justify-between p-2 rounded hover:bg-base-200") do
-                  span(class: "text-sm") { item }
-                  render ::Decor::Daisy::Icon.new(name: "chevron-right", html_options: {class: "h-4 w-4 opacity-50"})
+                div(class: "decor:flex decor:items-center decor:justify-between decor:p-2 decor:rounded decor:hover:bg-base-200") do
+                  span(class: "decor:text-sm") { item }
+                  render ::Decor::Daisy::Icon.new(name: "chevron-right", html_options: {class: "decor:h-4 decor:w-4 decor:opacity-50"})
                 end
               end
             end
           end
 
-          div(class: "mt-4 pt-4 border-t border-base-300") do
-            button(class: "btn btn-accent btn-block btn-sm") { "View All Items" }
+          div(class: "decor:mt-4 decor:pt-4 decor:border-t decor:border-base-300") do
+            button(class: "decor:d-btn decor:d-btn-accent decor:d-btn-block decor:d-btn-sm") { "View All Items" }
           end
         end
       end

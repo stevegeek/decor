@@ -79,10 +79,10 @@ class ::Decor::Daisy::Tables::DataTableCellPreview < ::Lookbook::Preview
   # @label Emphasis levels
   def emphasis_levels
     render ::Decor::Daisy::Element.new do |e|
-      e.table(class: "min-w-full border border-gray-200") do
+      e.table(class: "decor:min-w-full decor:border decor:border-gray-200") do
         e.tbody do
           [:regular, :low].each do |emphasis|
-            e.tr(class: "bg-white border-b border-gray-200") do
+            e.tr(class: "decor:bg-white decor:border-b decor:border-gray-200") do
               e.render ::Decor::Daisy::Tables::DataTableCell.new(
                 value: "#{emphasis.to_s.capitalize} emphasis",
                 emphasis: emphasis
@@ -97,10 +97,10 @@ class ::Decor::Daisy::Tables::DataTableCellPreview < ::Lookbook::Preview
   # @label Font weights
   def font_weights
     render ::Decor::Daisy::Element.new do |e|
-      e.table(class: "min-w-full border border-gray-200") do
+      e.table(class: "decor:min-w-full decor:border decor:border-gray-200") do
         e.tbody do
           [:light, :regular, :medium].each do |weight|
-            e.tr(class: "bg-white border-b border-gray-200") do
+            e.tr(class: "decor:bg-white decor:border-b decor:border-gray-200") do
               e.render ::Decor::Daisy::Tables::DataTableCell.new(
                 value: "#{weight.to_s.capitalize} weight",
                 weight: weight
@@ -119,10 +119,10 @@ class ::Decor::Daisy::Tables::DataTableCellPreview < ::Lookbook::Preview
   # @label All row heights
   def row_heights
     render ::Decor::Daisy::Element.new do |e|
-      e.table(class: "min-w-full border border-gray-200") do
+      e.table(class: "decor:min-w-full decor:border decor:border-gray-200") do
         e.tbody do
           [:comfortable, :standard, :tight].each do |height|
-            e.tr(class: "bg-white border-b border-gray-200") do
+            e.tr(class: "decor:bg-white decor:border-b decor:border-gray-200") do
               e.render ::Decor::Daisy::Tables::DataTableCell.new(
                 value: "#{height.to_s.capitalize} row height",
                 row_height: height
@@ -140,9 +140,9 @@ class ::Decor::Daisy::Tables::DataTableCellPreview < ::Lookbook::Preview
 
   def render_example(**options)
     render ::Decor::Daisy::Element.new do |e|
-      e.table(class: "min-w-full border border-gray-200") do
+      e.table(class: "decor:min-w-full decor:border decor:border-gray-200") do
         e.tbody do
-          e.tr(class: "bg-white") do
+          e.tr(class: "decor:bg-white") do
             e.render ::Decor::Daisy::Tables::DataTableCell.new(**options)
           end
         end

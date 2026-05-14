@@ -39,15 +39,15 @@ class ::Decor::Daisy::Tables::DataTableFooterPreview < ::Lookbook::Preview
   def with_slots
     render ::Decor::Daisy::Tables::DataTableFooter.new do |footer|
       footer.with_left do
-        tag.div class: "flex items-center gap-2" do
-          concat tag.span("Page 1 of 10", class: "text-gray-600")
+        tag.div class: "decor:flex decor:items-center decor:gap-2" do
+          concat tag.span("Page 1 of 10", class: "decor:text-gray-600")
         end
       end
       footer.with_right do
-        tag.div class: "flex items-center gap-2" do
-          concat link_to "Previous", "#", class: "text-blue-600 hover:underline"
-          concat tag.span " | ", class: "text-gray-400"
-          concat link_to "Next", "#", class: "text-blue-600 hover:underline"
+        tag.div class: "decor:flex decor:items-center decor:gap-2" do
+          concat link_to "Previous", "#", class: "decor:text-blue-600 decor:hover:underline"
+          concat tag.span " | ", class: "decor:text-gray-400"
+          concat link_to "Next", "#", class: "decor:text-blue-600 decor:hover:underline"
         end
       end
     end
@@ -80,10 +80,10 @@ class ::Decor::Daisy::Tables::DataTableFooterPreview < ::Lookbook::Preview
       message: "Prices include VAT"
     ) do |footer|
       footer.with_left do
-        tag.button "Export", class: "px-3 py-1 text-sm bg-gray-100 rounded hover:bg-gray-200"
+        tag.button "Export", class: "decor:px-3 decor:py-1 decor:text-sm decor:bg-gray-100 decor:rounded decor:hover:bg-gray-200"
       end
       footer.with_right do
-        tag.button "Print Invoice", class: "px-3 py-1 text-sm bg-blue-600 text-white rounded hover:bg-blue-700"
+        tag.button "Print Invoice", class: "decor:px-3 decor:py-1 decor:text-sm decor:bg-blue-600 decor:text-white decor:rounded decor:hover:bg-blue-700"
       end
     end
   end
@@ -127,16 +127,16 @@ class ::Decor::Daisy::Tables::DataTableFooterPreview < ::Lookbook::Preview
     ) do |footer|
       if show_left_slot
         footer.with_left do
-          tag.div class: "flex items-center gap-2" do
-            concat tag.button "Action 1", class: "px-2 py-1 text-sm bg-gray-100 rounded"
-            concat tag.button "Action 2", class: "px-2 py-1 text-sm bg-gray-100 rounded"
+          tag.div class: "decor:flex decor:items-center decor:gap-2" do
+            concat tag.button "Action 1", class: "decor:px-2 decor:py-1 decor:text-sm decor:bg-gray-100 decor:rounded"
+            concat tag.button "Action 2", class: "decor:px-2 decor:py-1 decor:text-sm decor:bg-gray-100 decor:rounded"
           end
         end
       end
       if show_right_slot
         footer.with_right do
-          tag.div class: "flex items-center gap-2" do
-            concat tag.span "Items per page: ", class: "text-sm text-gray-600"
+          tag.div class: "decor:flex decor:items-center decor:gap-2" do
+            concat tag.span "Items per page: ", class: "decor:text-sm decor:text-gray-600"
             concat tag.select do
               options_for_select([["10", 10], ["25", 25], ["50", 50]], 10)
             end
@@ -215,9 +215,9 @@ class ::Decor::Daisy::Tables::DataTableFooterPreview < ::Lookbook::Preview
   def left_slot_only
     render ::Decor::Daisy::Tables::DataTableFooter.new do |footer|
       footer.with_left do
-        tag.div class: "flex items-center gap-3" do
-          concat tag.button "Refresh", class: "px-3 py-1 text-sm bg-gray-100 rounded"
-          concat tag.span "Auto-refresh in 30s", class: "text-sm text-gray-500"
+        tag.div class: "decor:flex decor:items-center decor:gap-3" do
+          concat tag.button "Refresh", class: "decor:px-3 decor:py-1 decor:text-sm decor:bg-gray-100 decor:rounded"
+          concat tag.span "Auto-refresh in 30s", class: "decor:text-sm decor:text-gray-500"
         end
       end
     end
@@ -228,9 +228,9 @@ class ::Decor::Daisy::Tables::DataTableFooterPreview < ::Lookbook::Preview
   def right_slot_only
     render ::Decor::Daisy::Tables::DataTableFooter.new do |footer|
       footer.with_right do
-        tag.div class: "flex items-center gap-4" do
-          concat link_to "Download CSV", "#", class: "text-sm text-blue-600 hover:underline"
-          concat link_to "Download PDF", "#", class: "text-sm text-blue-600 hover:underline"
+        tag.div class: "decor:flex decor:items-center decor:gap-4" do
+          concat link_to "Download CSV", "#", class: "decor:text-sm decor:text-blue-600 decor:hover:underline"
+          concat link_to "Download PDF", "#", class: "decor:text-sm decor:text-blue-600 decor:hover:underline"
         end
       end
     end

@@ -47,12 +47,12 @@ class ::Decor::Daisy::CardPreview < ::Lookbook::Preview
       image_position: :top
     ) do |card|
       card.with_header do
-        card.div(class: "flex items-center justify-between p-4") do
+        card.div(class: "decor:flex decor:items-center decor:justify-between decor:p-4") do
           card.div do
-            card.h3(class: "text-lg font-semibold") { "Company Dashboard" }
-            card.p(class: "text-sm text-gray-600") { "Real-time analytics" }
+            card.h3(class: "decor:text-lg decor:font-semibold") { "Company Dashboard" }
+            card.p(class: "decor:text-sm decor:text-gray-600") { "Real-time analytics" }
           end
-          card.span(class: "badge badge-success") { "Live" }
+          card.span(class: "decor:d-badge decor:d-badge-success") { "Live" }
         end
       end
       "Monitor your business metrics with real-time data visualization and comprehensive reporting tools."
@@ -309,9 +309,9 @@ class ::Decor::Daisy::CardPreview < ::Lookbook::Preview
   def card_with_custom_header
     render ::Decor::Daisy::Card.new do |card|
       card.with_header do
-        card.div(class: "flex items-center justify-between p-4 border-b") do
-          card.h3(class: "text-lg font-semibold") { "Custom Header" }
-          card.span(class: "badge badge-primary") { "New" }
+        card.div(class: "decor:flex decor:items-center decor:justify-between decor:p-4 decor:border-b") do
+          card.h3(class: "decor:text-lg decor:font-semibold") { "Custom Header" }
+          card.span(class: "decor:d-badge decor:d-badge-primary") { "New" }
         end
       end
       "This card demonstrates a custom header with multiple elements and styling."
