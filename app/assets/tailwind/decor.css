@@ -82,6 +82,11 @@
 
 @theme {
   --text-2xs: 0.6rem;
+  --radius-card: 10px;
+}
+
+@utility rounded-card {
+  border-radius: var(--decor-radius-card);
 }
 
 @custom-variant dark (&:where(.dark, .dark *));

@@ -19,7 +19,7 @@ class Decor::Daisy::AvatarTest < ActiveSupport::TestCase
 
     assert_includes rendered, "<img"
     assert_includes rendered, 'src="https://example.com/avatar.jpg"'
-    assert_includes rendered, 'alt="Avatar image"'
+    assert_includes rendered, 'alt="AB"'
   end
 
   test "applies correct size classes" do
@@ -39,7 +39,7 @@ class Decor::Daisy::AvatarTest < ActiveSupport::TestCase
   end
 
   test "applies ring classes when ring is specified" do
-    component = Decor::Daisy::Avatar.new(initials: "AB", ring: true)
+    component = Decor::Daisy::Avatar.new(initials: "AB", border: true)
     rendered = render_component(component)
 
     # Default color is neutral so ring-neutral should be present
@@ -64,8 +64,8 @@ class Decor::Daisy::AvatarTest < ActiveSupport::TestCase
     component = Decor::Daisy::Avatar.new(initials: "AB")
     fragment = render_fragment(component)
 
-    # Find the avatar div
-    avatar_div = fragment.at_css(".avatar")
+    # Find the avatar div (class uses Tailwind prefix syntax)
+    avatar_div = fragment.at_css('[class*="d-avatar"]')
     assert_not_nil avatar_div
 
     span = fragment.at_css("span")
@@ -346,7 +346,7 @@ class Decor::Daisy::AvatarTest < ActiveSupport::TestCase
 
   test "ring color matches avatar color" do
     Decor::Concerns::ColorClasses::SEMANTIC_COLORS.each do |color|
-      component = Decor::Daisy::Avatar.new(initials: "BC", color: color, ring: true)
+      component = Decor::Daisy::Avatar.new(initials: "BC", color: color, border: true)
       rendered = render_component(component)
 
       expected_ring_class = case color
@@ -369,7 +369,7 @@ class Decor::Daisy::AvatarTest < ActiveSupport::TestCase
   end
 
   test "no ring classes when ring is false" do
-    component = Decor::Daisy::Avatar.new(initials: "NB", color: :primary, ring: false)
+    component = Decor::Daisy::Avatar.new(initials: "NB", color: :primary, border: false)
     rendered = render_component(component)
 
     refute_includes rendered, "ring-primary"
@@ -387,8 +387,8 @@ class Decor::Daisy::AvatarTest < ActiveSupport::TestCase
   end
 
   test "cache key includes avatar properties" do
-    component1 = Decor::Daisy::Avatar.new(initials: "AB", color: :primary, style: :filled, size: :lg, shape: :circle, ring: true)
-    component2 = Decor::Daisy::Avatar.new(initials: "AB", color: :primary, style: :filled, size: :lg, shape: :circle, ring: true)
+    component1 = Decor::Daisy::Avatar.new(initials: "AB", color: :primary, style: :filled, size: :lg, shape: :circle, border: true)
+    component2 = Decor::Daisy::Avatar.new(initials: "AB", color: :primary, style: :filled, size: :lg, shape: :circle, border: true)
 
     # Same props should generate same cache key
     assert_equal component1.cache_key, component2.cache_key
@@ -437,8 +437,8 @@ class Decor::Daisy::AvatarTest < ActiveSupport::TestCase
   end
 
   test "cache key differs for different ring values" do
-    component1 = Decor::Daisy::Avatar.new(initials: "AB", ring: true)
-    component2 = Decor::Daisy::Avatar.new(initials: "AB", ring: false)
+    component1 = Decor::Daisy::Avatar.new(initials: "AB", border: true)
+    component2 = Decor::Daisy::Avatar.new(initials: "AB", border: false)
 
     refute_equal component1.cache_key, component2.cache_key
   end
@@ -494,7 +494,7 @@ class Decor::Daisy::AvatarTest < ActiveSupport::TestCase
       style: :filled,
       size: :lg,
       shape: :square,
-      ring: true
+      border: true
     )
 
     cache_key = component.cache_key
@@ -515,5 +515,36 @@ class Decor::Daisy::AvatarTest < ActiveSupport::TestCase
 
     # And they should be the same since url defaults to nil
     assert_equal component1.cache_key, component2.cache_key
+  end
+
+  test "renders status dot when :status is :online" do
+    rendered = render_component(Decor::Daisy::Avatar.new(initials: "JG", status: :online))
+    assert_includes rendered, 'aria-label="online"'
+    assert_includes rendered, "decor:bg-success"
+  end
+
+  test "renders status dot when :status is :away" do
+    rendered = render_component(Decor::Daisy::Avatar.new(initials: "JG", status: :away))
+    assert_includes rendered, "decor:bg-warning"
+  end
+
+  test "renders status dot when :status is :offline" do
+    rendered = render_component(Decor::Daisy::Avatar.new(initials: "JG", status: :offline))
+    assert_includes rendered, "decor:bg-base-300"
+  end
+
+  test "omits status dot when :status is nil" do
+    rendered = render_component(Decor::Daisy::Avatar.new(initials: "JG"))
+    refute_includes rendered, 'aria-label="online"'
+  end
+
+  test "uses :alt for image alt text when provided" do
+    rendered = render_component(Decor::Daisy::Avatar.new(url: "https://example.com/x.jpg", alt: "Jane Goodall"))
+    assert_includes rendered, 'alt="Jane Goodall"'
+  end
+
+  test "falls back to :initials when :alt is missing" do
+    rendered = render_component(Decor::Daisy::Avatar.new(url: "https://example.com/x.jpg", initials: "JG"))
+    assert_includes rendered, 'alt="JG"'
   end
 end

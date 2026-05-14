@@ -5,12 +5,11 @@ module Decor
     class Avatar < ::Decor::Components::Avatar
       def view_template
         root_element do
-          # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
-          classes = "#{color_classes} #{style_classes} #{size_classes} #{shape_class} #{avatar_ring_classes}"
+          classes = "#{color_classes} #{style_classes} #{size_classes} #{shape_class} #{avatar_border_classes}"
           if @url
             div(class: "decor:d-avatar") do
               div(class: classes) do
-                image_tag @url, alt: t(".image")
+                image_tag @url, alt: (@alt.presence || @initials.presence || t(".image"))
               end
             end
           else
@@ -20,6 +19,8 @@ module Decor
               end
             end
           end
+
+          status_dot if @status
 
           yield if block_given?
         end
@@ -52,15 +53,15 @@ module Decor
 
       def text_size_class(size = @size)
         text_size = super
-        if text_size == "text-xs"
+        if text_size == "decor:text-xs"
           "decor:text-2xs"
         else
           text_size
         end
       end
 
-      def avatar_ring_classes
-        return "" unless @ring
+      def avatar_border_classes
+        return "" unless @border
         return "decor:ring-offset-base-100 decor:ring-2 decor:ring-offset-2" unless @color
 
         ring_color = case @color
@@ -76,8 +77,23 @@ module Decor
         else ""
         end
 
-        # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
         "#{ring_color} decor:ring-offset-base-100 decor:ring-2 decor:ring-offset-2"
+      end
+
+      def status_dot
+        span(
+          class: "decor:absolute decor:-bottom-px decor:-right-px decor:w-[10px] decor:h-[10px] " \
+                 "decor:rounded-full decor:border-2 decor:border-white #{status_dot_color}",
+          aria: { label: @status.to_s }
+        )
+      end
+
+      def status_dot_color
+        case @status
+        when :online then "decor:bg-success"
+        when :away then "decor:bg-warning"
+        when :offline then "decor:bg-base-300"
+        end
       end
     end
   end
