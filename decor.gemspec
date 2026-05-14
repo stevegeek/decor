@@ -30,8 +30,8 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "rails", ">= 7.2", "< 9"
   spec.add_dependency "phlex-rails", ">= 2.0"
-  spec.add_dependency "vident", "~> 2.0"
-  spec.add_dependency "vident-phlex", "~> 2.0"
+  spec.add_dependency "vident", ">= 2.0"
+  spec.add_dependency "vident-phlex", ">= 2.0"
   spec.add_dependency "literal", ">= 1.0"
   spec.add_dependency "tailwind_merge", ">= 0.5.2", "< 2"
   spec.add_dependency "inline_svg"
