@@ -9,8 +9,8 @@ module Decor
             layout = ::Decor::Daisy::Forms::FormFieldLayout.new(
               **form_field_layout_options(el),
               stimulus_classes: {
-                valid_label: @disabled ? "text-disabled" : "text-gray-900",
-                invalid_label: "text-error-dark"
+                valid_label: @disabled ? "decor:text-disabled" : "decor:text-gray-900",
+                invalid_label: "decor:text-error-dark"
               }
             )
 
@@ -31,22 +31,22 @@ module Decor
                   shape: @shape,
                   size: :lg,
                   url: file_url,
-                  classes: "decor--image-upload--image-container shrink-0"
+                  classes: "decor:decor--image-upload--image-container decor:shrink-0"
                 )
               elsif @preview_type == :image
-                div(class: "decor--image-upload--image-container") do
+                div(class: "decor:decor--image-upload--image-container") do
                   if file_url
                     img(src: file_url, class: class_list_for_stimulus_classes(:image))
                   else
-                    div(class: "bg-white relative block border-2 border-gray-200 border-dashed rounded-md py-12 text-center hover:border-gray-300") do
-                      span(class: "mt-2 block text-sm text-low-emphasis") { "No image selected..." }
+                    div(class: "decor:bg-white decor:relative decor:block decor:border-2 decor:border-gray-200 decor:border-dashed decor:rounded-md decor:py-12 decor:text-center decor:hover:border-gray-300") do
+                      span(class: "decor:mt-2 decor:block decor:text-sm decor:text-low-emphasis") { "No image selected..." }
                     end
                   end
                 end
               end
 
-              label(class: "block") do
-                span(class: "sr-only") { "Choose file to upload" }
+              label(class: "decor:block") do
+                span(class: "decor:sr-only") { "Choose file to upload" }
                 div(data: {**el.stimulus_action(:change, :file_selected)}) do
                   raw(
                     file_field(
@@ -67,16 +67,16 @@ module Decor
               end
 
               if @clear_checkbox && (file_url || @existing_file_url.present?)
-                div(class: "flex items-center") do
+                div(class: "decor:flex decor:items-center") do
                   checkbox = ::Decor::Daisy::Forms::Checkbox.new(
                     name: field_name(@object_name, :"#{@method_name}_delete"),
                     disabled: @disabled,
                     collapsing_helper_text: true,
-                    classes: "#{(@preview_layout == :inline) ? "md:pl-6" : ""} inline-block w-auto",
+                    classes: "#{(@preview_layout == :inline) ? "decor:md:pl-6" : ""} decor:inline-block decor:w-auto",
                     value: "true"
                   )
                   render checkbox
-                  label(for: "#{checkbox.id}-control", class: "whitespace-nowrap text-low-emphasis text-sm") do
+                  label(for: "#{checkbox.id}-control", class: "decor:whitespace-nowrap decor:text-low-emphasis decor:text-sm") do
                     "Select to remove current file"
                   end
                 end
@@ -85,7 +85,7 @@ module Decor
               render ::Decor::Daisy::Forms::ErrorIconSection.new(
                 error_text: error_text,
                 show_floating_message: floating_error_text?,
-                classes: "#{errors? ? "" : "hidden"} right-3"
+                classes: "#{errors? ? "" : "decor:hidden"} decor:right-3"
               )
             end
           end
@@ -94,39 +94,39 @@ module Decor
         private
 
         def input_container_classes
-          "#{(@preview_layout == :inline) ? "flex items-end space-x-6" : "space-y-2"} relative " + super
+          "#{(@preview_layout == :inline) ? "decor:flex decor:items-end decor:space-x-6" : "decor:space-y-2"} decor:relative " + super
         end
 
         def file_input_classes
-          classes = ["file-input", "w-full"]
+          classes = ["decor:file-input", "decor:w-full"]
           classes << component_size_classes(@size).join(" ")
           classes << component_color_classes(@color).join(" ")
-          classes << "file-input-error" if errors?
+          classes << "decor:file-input-error" if errors?
           classes.compact.join(" ").strip
         end
 
         def component_size_classes(size)
           case size
-          when :xs then ["file-input-xs"]
-          when :sm then ["file-input-sm"]
+          when :xs then ["decor:file-input-xs"]
+          when :sm then ["decor:file-input-sm"]
           when :md then [] # default
-          when :lg then ["file-input-lg"]
-          when :xl then ["file-input-xl"]
+          when :lg then ["decor:file-input-lg"]
+          when :xl then ["decor:file-input-xl"]
           else []
           end
         end
 
         def component_color_classes(color)
           case color
-          when :primary then ["file-input-primary"]
-          when :secondary then ["file-input-secondary"]
-          when :accent then ["file-input-accent"]
-          when :success then ["file-input-success"]
-          when :error then ["file-input-error"]
-          when :warning then ["file-input-warning"]
-          when :info then ["file-input-info"]
-          when :ghost then ["file-input-ghost"]
-          when :neutral then ["file-input-neutral"]
+          when :primary then ["decor:file-input-primary"]
+          when :secondary then ["decor:file-input-secondary"]
+          when :accent then ["decor:file-input-accent"]
+          when :success then ["decor:file-input-success"]
+          when :error then ["decor:file-input-error"]
+          when :warning then ["decor:file-input-warning"]
+          when :info then ["decor:file-input-info"]
+          when :ghost then ["decor:file-input-ghost"]
+          when :neutral then ["decor:file-input-neutral"]
           else [] # base/neutral
           end
         end
@@ -134,16 +134,19 @@ module Decor
         def preview_classes
           case @preview_type
           when :image
-            "max-h-[200px] #{image_tag_classes}"
+            # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
+            "decor:max-h-[200px] #{image_tag_classes}"
           when :avatar
-            "#{(@shape == :circle) ? "rounded-full" : "rounded-md"} #{image_tag_classes} w-full"
+            # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
+            "#{(@shape == :circle) ? "decor:rounded-full" : "decor:rounded-md"} #{image_tag_classes} decor:w-full"
           else
             ""
           end
         end
 
         def image_tag_classes
-          "h-full object-cover shrink-0 #{aspect_classes}"
+          # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
+          "decor:h-full decor:object-cover decor:shrink-0 #{aspect_classes}"
         end
       end
     end

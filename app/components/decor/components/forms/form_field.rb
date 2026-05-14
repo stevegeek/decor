@@ -81,7 +81,7 @@ module Decor
         private
 
         def root_element_classes
-          [::Decor::Components::Forms::FormField.stimulus_identifier, "w-full", disabled? && "disabled"] + grid_span_class
+          [::Decor::Components::Forms::FormField.stimulus_identifier, "decor:w-full", disabled? && "decor:disabled"] + grid_span_class
         end
 
         def input_classes
@@ -91,7 +91,7 @@ module Decor
         end
 
         def input_container_classes
-          label_top? ? "mt-1" : ""
+          label_top? ? "decor:mt-1" : ""
         end
 
         def control_actions?
@@ -136,12 +136,12 @@ module Decor
         end
 
         def resolved_valid_label_classes
-          return "text-disabled" if disabled?
-          @valid_label_classes || "text-gray-900"
+          return "decor:text-disabled" if disabled?
+          @valid_label_classes || "decor:text-gray-900"
         end
 
         def resolved_invalid_label_classes
-          @invalid_label_classes || "text-error-dark"
+          @invalid_label_classes || "decor:text-error-dark"
         end
 
         def label_with_required

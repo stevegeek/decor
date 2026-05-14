@@ -11,15 +11,16 @@ module Decor
             div(class: container_classes, data: {**@form_field_element.stimulus_target(:container)}) do
               div(class: label_section_layout_classes) do
                 if @label.present? && (label_left? || label_top?)
+                  # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
                   label(
                     for: "#{@field_id}-control",
                     data: {**stimulus_target(:label)},
-                    class: "label #{label_element_classes}"
+                    class: "decor:d-label #{label_element_classes}"
                   ) do
-                    span(class: "label-text") { @label }
+                    span(class: "decor:d-label-text") { @label }
                   end
                   if @description.present?
-                    div(class: "label-text-alt mt-1 #{label_left? ? "mb-2" : nil}") do
+                    div(class: "decor:d-label-text-alt decor:mt-1 #{label_left? ? "decor:mb-2" : nil}") do
                       @description
                     end
                   end
@@ -27,19 +28,21 @@ module Decor
               end
 
               div(class: input_section_layout_classes) do
-                div(class: input_container_classes + (label_right? ? "flex flex-row items-center" : "")) do
+                # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
+                div(class: input_container_classes + (label_right? ? "decor:flex decor:flex-row decor:items-center" : "")) do
                   raw @content.html_safe if @content.present?
                   if label_inline? || label_right?
-                    div(class: "ml-4") do
+                    div(class: "decor:ml-4") do
+                      # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
                       label(
                         for: "#{@field_id}-control",
                         data: {**@form_field_element.stimulus_target(:label)},
-                        class: "label #{label_element_classes}"
+                        class: "decor:d-label #{label_element_classes}"
                       ) do
-                        span(class: "label-text") { @label }
+                        span(class: "decor:d-label-text") { @label }
                       end
                       if @description.present?
-                        div(class: "label-text-alt mt-1") do
+                        div(class: "decor:d-label-text-alt decor:mt-1") do
                           @description
                         end
                       end
@@ -67,15 +70,15 @@ module Decor
 
         def layout_classes
           if label_left? || label_inline?
-            ["sm:pt-5", "sm:grid", "sm:grid-cols-9", "sm:gap-4", "sm:items-start"]
+            ["decor:sm:pt-5", "decor:sm:grid", "decor:sm:grid-cols-9", "decor:sm:gap-4", "decor:sm:items-start"]
           end
         end
 
         def label_section_layout_classes
           if label_left?
-            "sm:col-span-3 mt-1"
+            "decor:sm:col-span-3 decor:mt-1"
           elsif label_inline?
-            "sm:col-span-3"
+            "decor:sm:col-span-3"
           else
             ""
           end
@@ -83,7 +86,7 @@ module Decor
 
         def input_section_layout_classes
           (
-            grid_span_class + (label_left? ? ["mt-1", "sm:mt-0"] : [])
+            grid_span_class + (label_left? ? ["decor:mt-1", "decor:sm:mt-0"] : [])
           ).compact.join(" ")
         end
 
@@ -95,7 +98,7 @@ module Decor
 
         def label_element_classes
           color = class_list_for_stimulus_classes(:valid_label)
-          "#{label_left? ? "font-medium" : ""} #{color}"
+          "#{label_left? ? "decor:font-medium" : ""} #{color}"
         end
       end
     end

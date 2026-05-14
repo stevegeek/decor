@@ -21,17 +21,17 @@ module Decor
         def grid_span_class
           case @grid_span
           when :span_1
-            ["sm:col-span-2 lg:col-span-1"]
+            ["decor:sm:col-span-2 decor:lg:col-span-1"]
           when :span_2
-            ["sm:col-span-4 lg:col-span-2"]
+            ["decor:sm:col-span-4 decor:lg:col-span-2"]
           when :span_half
-            ["sm:col-span-6 lg:col-span-3"]
+            ["decor:sm:col-span-6 decor:lg:col-span-3"]
           when :span_4
-            ["sm:col-span-6 lg:col-span-4"]
+            ["decor:sm:col-span-6 decor:lg:col-span-4"]
           when :span_5
-            ["sm:col-span-6 lg:col-span-5"]
+            ["decor:sm:col-span-6 decor:lg:col-span-5"]
           when :span_full
-            ["sm:col-span-6 lg:col-span-6"]
+            ["decor:sm:col-span-6 decor:lg:col-span-6"]
           else
             []
           end

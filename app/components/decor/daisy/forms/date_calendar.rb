@@ -9,8 +9,8 @@ module Decor
             layout = ::Decor::Daisy::Forms::FormFieldLayout.new(
               **form_field_layout_options(el),
               stimulus_classes: {
-                valid_label: @disabled ? "text-disabled" : "text-gray-900",
-                invalid_label: "text-error-dark"
+                valid_label: @disabled ? "decor:text-disabled" : "decor:text-gray-900",
+                invalid_label: "decor:text-error-dark"
               }
             )
 
@@ -36,11 +36,11 @@ module Decor
               # Cally calendar component
               public_send(calendar_element_type, **calendar_attributes(el)) do
                 # Navigation icons (slots)
-                svg(slot: "previous", class: "w-4 h-4", fill: "none", stroke: "currentColor", viewBox: "0 0 24 24") do |s|
+                svg(slot: "previous", class: "decor:w-4 decor:h-4", fill: "none", stroke: "currentColor", viewBox: "0 0 24 24") do |s|
                   s.path(stroke_linecap: "round", stroke_linejoin: "round", stroke_width: "2", d: "M15 19l-7-7 7-7")
                 end
 
-                svg(slot: "next", class: "w-4 h-4", fill: "none", stroke: "currentColor", viewBox: "0 0 24 24") do |s|
+                svg(slot: "next", class: "decor:w-4 decor:h-4", fill: "none", stroke: "currentColor", viewBox: "0 0 24 24") do |s|
                   s.path(stroke_linecap: "round", stroke_linejoin: "round", stroke_width: "2", d: "M9 5l7 7-7 7")
                 end
 
@@ -52,7 +52,7 @@ module Decor
                 error_text: error_text,
                 show_floating_message: floating_error_text?,
                 html_options: {
-                  class: "#{errors? ? "" : "hidden"} right-3"
+                  class: "#{errors? ? "" : "decor:hidden"} decor:right-3"
                 }
               )
             end
@@ -83,8 +83,8 @@ module Decor
         end
 
         def calendar_classes
-          classes = ["cally", "bg-base-100", "border", "border-base-300", "shadow-lg", "rounded-box"]
-          classes << "calendar-error" if errors?
+          classes = ["decor:cally", "decor:bg-base-100", "decor:border", "decor:border-base-300", "decor:shadow-lg", "decor:rounded-box"]
+          classes << "decor:calendar-error" if errors?
           classes.join(" ")
         end
       end

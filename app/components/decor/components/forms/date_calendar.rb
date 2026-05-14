@@ -41,7 +41,7 @@ module Decor
         stimulus do
           values_from_props :calendar_type, :locale, :months, :disabled_dates, :disabled_days_of_week, :enabled_dates, :enabled_days_of_week
 
-          classes invalid_input: "invalid:border-error-dark"
+          classes invalid_input: "decor:invalid:border-error-dark"
         end
 
         private
