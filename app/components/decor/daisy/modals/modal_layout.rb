@@ -8,30 +8,32 @@ module Decor
           root_element do
             # Header slot
             if @header
-              div(class: "modal-header") do
+              div(class: "decor:d-modal-header") do
                 render @header
               end
             end
 
             # Body slot with icon/title/description support
-            div(class: "modal-body") do
+            div(class: "decor:d-modal-body") do
               if @body
                 render @body
               elsif @title || @description
                 # Icon/title/description layout
-                div(class: "sm:flex sm:items-start") do
+                div(class: "decor:sm:flex decor:sm:items-start") do
                   if show_icon?
-                    div(class: "mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full #{icon_background_classes} sm:mx-0 sm:h-10 sm:w-10") do
-                      render ::Decor::Daisy::Icon.new(name: @icon, html_options: {class: "h-6 w-6 #{icon_text_classes}"})
+                    # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
+                    div(class: "decor:mx-auto decor:flex-shrink-0 decor:flex decor:items-center decor:justify-center decor:h-12 decor:w-12 decor:rounded-full #{icon_background_classes} decor:sm:mx-0 decor:sm:h-10 decor:sm:w-10") do
+                      # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
+                      render ::Decor::Daisy::Icon.new(name: @icon, html_options: {class: "decor:h-6 decor:w-6 #{icon_text_classes}"})
                     end
                   end
-                  div(class: "#{show_icon? ? "mt-3 sm:mt-0 sm:ml-4" : ""} text-center sm:text-left") do
+                  div(class: "#{show_icon? ? "decor:mt-3 decor:sm:mt-0 decor:sm:ml-4" : ""} decor:text-center decor:sm:text-left") do
                     if @title
-                      h3(class: "text-lg leading-6 font-medium") { @title }
+                      h3(class: "decor:text-lg decor:leading-6 decor:font-medium") { @title }
                     end
                     if @description.present?
-                      div(class: "mt-2") do
-                        p(class: "text-sm opacity-70") { @description }
+                      div(class: "decor:mt-2") do
+                        p(class: "decor:text-sm decor:opacity-70") { @description }
                       end
                     end
                   end
@@ -43,7 +45,7 @@ module Decor
 
             # Footer slot
             if @footer
-              div(class: "modal-action") do
+              div(class: "decor:d-modal-action") do
                 render @footer
               end
             end
@@ -53,7 +55,7 @@ module Decor
         private
 
         def root_element_classes
-          classes = ["modal-box", "relative"]
+          classes = ["decor:d-modal-box", "decor:relative"]
           classes << size_classes
           classes << style_classes
           classes.compact.join(" ")
@@ -61,12 +63,12 @@ module Decor
 
         def component_size_classes(size)
           case size
-          when :xs then "max-w-sm"   # extra small - new
-          when :sm then "max-w-md"   # small -> sm
-          when :md then "max-w-2xl"  # medium -> md (default)
-          when :lg then "max-w-5xl"  # large -> lg
-          when :xl then "max-w-7xl"  # extra_large -> xl
-          else "max-w-2xl"
+          when :xs then "decor:max-w-sm"   # extra small - new
+          when :sm then "decor:max-w-md"   # small -> sm
+          when :md then "decor:max-w-2xl"  # medium -> md (default)
+          when :lg then "decor:max-w-5xl"  # large -> lg
+          when :xl then "decor:max-w-7xl"  # extra_large -> xl
+          else "decor:max-w-2xl"
           end
         end
 
@@ -75,21 +77,21 @@ module Decor
 
           case color
           when :primary
-            (@style == :outlined) ? "border-primary" : "bg-primary/10"
+            (@style == :outlined) ? "decor:border-primary" : "decor:bg-primary/10"
           when :secondary
-            (@style == :outlined) ? "border-secondary" : "bg-secondary/10"
+            (@style == :outlined) ? "decor:border-secondary" : "decor:bg-secondary/10"
           when :accent
-            (@style == :outlined) ? "border-accent" : "bg-accent/10"
+            (@style == :outlined) ? "decor:border-accent" : "decor:bg-accent/10"
           when :info
-            (@style == :outlined) ? "border-info" : "bg-info/10"
+            (@style == :outlined) ? "decor:border-info" : "decor:bg-info/10"
           when :success
-            (@style == :outlined) ? "border-success" : "bg-success/10"
+            (@style == :outlined) ? "decor:border-success" : "decor:bg-success/10"
           when :warning
-            (@style == :outlined) ? "border-warning" : "bg-warning/10"
+            (@style == :outlined) ? "decor:border-warning" : "decor:bg-warning/10"
           when :error
-            (@style == :outlined) ? "border-error" : "bg-error/10"
+            (@style == :outlined) ? "decor:border-error" : "decor:bg-error/10"
           when :neutral
-            (@style == :outlined) ? "border-neutral" : "bg-neutral/10"
+            (@style == :outlined) ? "decor:border-neutral" : "decor:bg-neutral/10"
           when :base
             ""
           else
@@ -100,9 +102,9 @@ module Decor
         def component_style_classes(style)
           case style
           when :outlined
-            "border-2"
+            "decor:border-2"
           when :ghost
-            "bg-transparent border-0 shadow-none"
+            "decor:bg-transparent decor:border-0 decor:shadow-none"
           when :filled
             ""  # Default filled style
           else
@@ -117,46 +119,46 @@ module Decor
         def icon_text_classes
           case @color
           when :primary
-            "text-primary"
+            "decor:text-primary"
           when :secondary
-            "text-secondary"
+            "decor:text-secondary"
           when :accent
-            "text-accent"
+            "decor:text-accent"
           when :info
-            "text-info"
+            "decor:text-info"
           when :success
-            "text-success"
+            "decor:text-success"
           when :warning
-            "text-warning"
+            "decor:text-warning"
           when :error
-            "text-error"
+            "decor:text-error"
           when :neutral
-            "text-neutral"
+            "decor:text-neutral"
           else
-            "text-base-content"
+            "decor:text-base-content"
           end
         end
 
         def icon_background_classes
           case @color
           when :primary
-            "bg-primary/20"
+            "decor:bg-primary/20"
           when :secondary
-            "bg-secondary/20"
+            "decor:bg-secondary/20"
           when :accent
-            "bg-accent/20"
+            "decor:bg-accent/20"
           when :info
-            "bg-info/20"
+            "decor:bg-info/20"
           when :success
-            "bg-success/20"
+            "decor:bg-success/20"
           when :warning
-            "bg-warning/20"
+            "decor:bg-warning/20"
           when :error
-            "bg-error/20"
+            "decor:bg-error/20"
           when :neutral
-            "bg-neutral/20"
+            "decor:bg-neutral/20"
           else
-            "bg-base-300"
+            "decor:bg-base-300"
           end
         end
       end

@@ -8,10 +8,10 @@ module Decor
           yield(self) if block_given?
           root_element do
             if @show_timestamp || (!@is_current_user && @author_name.present?)
-              div(class: "chat-header") do
+              div(class: "decor:d-chat-header") do
                 span { @author_name } unless @is_current_user
                 if @show_timestamp
-                  time(class: "text-xs opacity-50") do
+                  time(class: "decor:text-xs decor:opacity-50") do
                     format_timestamp
                   end
                 end
@@ -19,7 +19,7 @@ module Decor
             end
 
             if @show_avatar && (!@is_current_user || @author_profile_image_url.present?)
-              div(class: "chat-image") do
+              div(class: "decor:d-chat-image") do
                 render ::Decor::Daisy::Avatar.new(
                   url: @author_profile_image_url,
                   initials: @author_initials || @author_name.first.upcase,
@@ -29,6 +29,7 @@ module Decor
               end
             end
 
+            # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
             div(class: chat_bubble_classes) do
               if @message.present?
                 span { @message }
@@ -41,7 +42,7 @@ module Decor
 
             # Chat footer - can be used for delivery status, etc.
             if @footer_text.present?
-              div(class: "chat-footer opacity-50") do
+              div(class: "decor:d-chat-footer decor:opacity-50") do
                 span { @footer_text }
               end
             end
@@ -63,22 +64,25 @@ module Decor
         end
 
         def chat_bubble_classes
-          base_classes = "chat-bubble"
+          base_classes = "decor:d-chat-bubble"
 
           if @is_current_user
-            "#{base_classes} chat-bubble-primary"
+            # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
+            "#{base_classes} decor:d-chat-bubble-primary"
           else
             base_classes
           end
         end
 
         def root_element_classes
-          base_classes = "chat"
+          base_classes = "decor:d-chat"
 
           if @is_current_user
-            "#{base_classes} chat-end"
+            # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
+            "#{base_classes} decor:d-chat-end"
           else
-            "#{base_classes} chat-start"
+            # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
+            "#{base_classes} decor:d-chat-start"
           end
         end
 

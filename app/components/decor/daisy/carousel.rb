@@ -9,20 +9,20 @@ module Decor
         @content = capture(&) if block_given?
 
         root_element do |s|
-          div(class: "carousel w-full") do
+          div(class: "decor:d-carousel decor:w-full") do
             # Render items from with_items slot
             if @items.present?
               render @items
             end
 
             @slides&.each_with_index do |slide, index|
-              div(class: "carousel-item w-full", id: "slide#{index + 1}") do
+              div(class: "decor:d-carousel-item decor:w-full", id: "slide#{index + 1}") do
                 render slide
               end
             end
 
             @images&.each_with_index do |slide, idx|
-              div(class: "carousel-item w-full", id: "slide#{(@slides&.length || 0) + idx + 1}") do
+              div(class: "decor:d-carousel-item decor:w-full", id: "slide#{(@slides&.length || 0) + idx + 1}") do
                 image_tag(
                   slide[:url] || slide[:path],
                   alt: "#{slide[:alt]} image #{idx}",
@@ -34,10 +34,10 @@ module Decor
           end
 
           # Navigation controls
-          div(class: "flex justify-center w-full py-2 gap-2") do
+          div(class: "decor:flex decor:justify-center decor:w-full decor:py-2 decor:gap-2") do
             total_slides = (@slides&.length || 0) + (@images&.length || 0)
             (1..total_slides).each do |i|
-              a(href: "#slide#{i}", class: "btn btn-xs") { i.to_s }
+              a(href: "#slide#{i}", class: "decor:d-btn decor:d-btn-xs") { i.to_s }
             end
           end
 
@@ -46,14 +46,14 @@ module Decor
       end
 
       def root_element_classes
-        "relative"
+        "decor:relative"
       end
 
       def image_classes
         if @max_height.nil?
-          "w-full"
+          "decor:w-full"
         else
-          "w-auto mx-auto"
+          "decor:w-auto decor:mx-auto"
         end
       end
     end

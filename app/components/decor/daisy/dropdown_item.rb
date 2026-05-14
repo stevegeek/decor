@@ -6,7 +6,7 @@ module Decor
       def view_template
         if @separator
           root_element do
-            hr(class: "menu-divider")
+            hr(class: "decor:d-menu-divider")
           end
         else
           root_element do
@@ -17,7 +17,7 @@ module Decor
               data: @http_method ? {method: @http_method} : {}
             ) do
               if @icon_name.present?
-                render ::Decor::Daisy::Icon.new(name: @icon_name, html_options: {class: "mr-2 h-4 w-4"})
+                render ::Decor::Daisy::Icon.new(name: @icon_name, html_options: {class: "decor:mr-2 decor:h-4 decor:w-4"})
               end
               plain(@text) if @text.present?
               yield if block_given? && @text.blank?

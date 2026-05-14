@@ -20,19 +20,19 @@ module Decor
         private
 
         def render_empty_state
-          div(class: "flex flex-col items-center justify-center py-12 text-center") do
-            div(class: "text-base-content/60") do
-              h3(class: "text-lg font-medium") { @empty_state_title }
+          div(class: "decor:flex decor:flex-col decor:items-center decor:justify-center decor:py-12 decor:text-center") do
+            div(class: "decor:text-base-content/60") do
+              h3(class: "decor:text-lg decor:font-medium") { @empty_state_title }
               if @empty_state_action_block
-                p(class: "mt-2 text-sm") { @empty_state_description }
-                div(class: "mt-6", &@empty_state_action_block)
+                p(class: "decor:mt-2 decor:text-sm") { @empty_state_description }
+                div(class: "decor:mt-6", &@empty_state_action_block)
               end
             end
           end
         end
 
         def root_element_classes
-          "flex flex-col gap-2 p-4"
+          "decor:flex decor:flex-col decor:gap-2 decor:p-4"
         end
       end
     end

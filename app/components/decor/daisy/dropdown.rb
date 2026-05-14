@@ -18,6 +18,7 @@ module Decor
               role: "button",
               aria_haspopup: "true",
               aria_expanded: "false",
+              # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
               class: dropdown_button_classes
             ) do
               if @trigger_button_content.present?
@@ -33,6 +34,7 @@ module Decor
             s.tag(
               :div,
               stimulus_target: :content,
+              # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
               class: dropdown_content_classes_non_menu,
               role: "dialog",
               aria_labelledby: "#{id}-menu-button",
@@ -47,6 +49,7 @@ module Decor
               :ul,
               stimulus_target: :menu,
               tabindex: "0",
+              # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
               class: dropdown_content_classes
             ) do
               render @menu_header if @menu_header.present?
@@ -69,7 +72,7 @@ module Decor
 
       def root_element_classes
         [
-          "dropdown",
+          "decor:d-dropdown",
           position_classes,
           trigger_classes,
           force_open_classes
@@ -78,7 +81,7 @@ module Decor
 
       def dropdown_button_classes
         [
-          "btn",
+          "decor:d-btn",
           size_classes,
           color_classes,
           style_button_classes,
@@ -88,14 +91,14 @@ module Decor
 
       def dropdown_content_classes
         [
-          "dropdown-content",
-          "menu",
-          "bg-base-100",
-          "rounded-box",
-          "z-[1]",
+          "decor:d-dropdown-content",
+          "decor:d-menu",
+          "decor:bg-base-100",
+          "decor:rounded-box",
+          "decor:z-[1]",
           size_content_classes,
-          "p-2",
-          "shadow-sm",
+          "decor:p-2",
+          "decor:shadow-sm",
           color_content_classes,
           style_content_classes
         ].compact.join(" ")
@@ -104,15 +107,15 @@ module Decor
       def position_classes
         case @position
         when :right, :end
-          "dropdown-end"
+          "decor:d-dropdown-end"
         when :top
-          "dropdown-top"
+          "decor:d-dropdown-top"
         when :bottom
-          "dropdown-bottom"
+          "decor:d-dropdown-bottom"
         when :center
-          "dropdown-center"
+          "decor:d-dropdown-center"
         when :start
-          "dropdown-start"
+          "decor:d-dropdown-start"
         else
           nil # :left is default and does not add a specific class
         end
@@ -120,7 +123,7 @@ module Decor
 
       def trigger_classes
         case @trigger
-        when :hover then "dropdown-hover"
+        when :hover then "decor:d-dropdown-hover"
         when :focus then nil # default CSS focus behavior
         else nil # default click behavior
         end
@@ -128,7 +131,7 @@ module Decor
 
       def force_open_classes
         case @force_open
-        when :open then "dropdown-open"
+        when :open then "decor:d-dropdown-open"
         when :closed then nil # forces closed state
         else nil # auto behavior
         end
@@ -136,13 +139,13 @@ module Decor
 
       def dropdown_content_classes_non_menu
         [
-          "dropdown-content",
-          "bg-base-100",
-          "rounded-box",
-          "z-[1]",
+          "decor:d-dropdown-content",
+          "decor:bg-base-100",
+          "decor:rounded-box",
+          "decor:z-[1]",
           size_content_classes,
-          "p-2",
-          "shadow-sm",
+          "decor:p-2",
+          "decor:shadow-sm",
           color_content_classes,
           style_content_classes
         ].compact.join(" ")
@@ -150,31 +153,31 @@ module Decor
 
       def component_size_classes(size)
         case size
-        when :xs then "btn-xs"
-        when :sm then "btn-sm"
-        when :lg then "btn-lg"
-        when :xl then "btn-lg" # xl maps to lg for buttons
+        when :xs then "decor:d-btn-xs"
+        when :sm then "decor:d-btn-sm"
+        when :lg then "decor:d-btn-lg"
+        when :xl then "decor:d-btn-lg" # xl maps to lg for buttons
         else "" # md is default
         end
       end
 
       def component_color_classes(color)
         case color
-        when :primary then "btn-primary"
-        when :secondary then "btn-secondary"
-        when :accent then "btn-accent"
-        when :success then "btn-success"
-        when :error then "btn-error"
-        when :warning then "btn-warning"
-        when :info then "btn-info"
-        when :neutral then "btn-neutral"
+        when :primary then "decor:d-btn-primary"
+        when :secondary then "decor:d-btn-secondary"
+        when :accent then "decor:d-btn-accent"
+        when :success then "decor:d-btn-success"
+        when :error then "decor:d-btn-error"
+        when :warning then "decor:d-btn-warning"
+        when :info then "decor:d-btn-info"
+        when :neutral then "decor:d-btn-neutral"
         else "" # base is default
         end
       end
 
       def style_button_classes
         case @style
-        when :outlined then "btn-outline"
+        when :outlined then "decor:d-btn-outline"
         when :filled then nil # default filled style
         else nil # default
         end
@@ -182,32 +185,32 @@ module Decor
 
       def size_content_classes
         case @size
-        when :xs then "w-32"
-        when :sm then "w-40"
-        when :lg then "w-64"
-        when :xl then "w-80"
-        else "w-52" # md is default
+        when :xs then "decor:w-32"
+        when :sm then "decor:w-40"
+        when :lg then "decor:w-64"
+        when :xl then "decor:w-80"
+        else "decor:w-52" # md is default
         end
       end
 
       def color_content_classes
         case @color
-        when :primary then "bg-primary text-primary-content"
-        when :secondary then "bg-secondary text-secondary-content"
-        when :accent then "bg-accent text-accent-content"
-        when :success then "bg-success text-success-content"
-        when :error then "bg-error text-error-content"
-        when :warning then "bg-warning text-warning-content"
-        when :info then "bg-info text-info-content"
-        when :neutral then "bg-neutral text-neutral-content"
+        when :primary then "decor:bg-primary decor:text-primary-content"
+        when :secondary then "decor:bg-secondary decor:text-secondary-content"
+        when :accent then "decor:bg-accent decor:text-accent-content"
+        when :success then "decor:bg-success decor:text-success-content"
+        when :error then "decor:bg-error decor:text-error-content"
+        when :warning then "decor:bg-warning decor:text-warning-content"
+        when :info then "decor:bg-info decor:text-info-content"
+        when :neutral then "decor:bg-neutral decor:text-neutral-content"
         else nil # base is default
         end
       end
 
       def style_content_classes
         case @style
-        when :outlined then "border border-base-300"
-        when :filled then "bg-base-200"
+        when :outlined then "decor:border decor:border-base-300"
+        when :filled then "decor:bg-base-200"
         else nil # default
         end
       end

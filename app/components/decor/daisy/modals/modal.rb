@@ -9,20 +9,20 @@ module Decor
             # Modal content box
             div(
               id: "#{id}-content",
-              class: "modal-box",
+              class: "decor:d-modal-box",
               data: {**stimulus_target(:modal)}
             ) do
               if @initial_content.present?
                 plain(@initial_content)
               else
-                render ::Decor::Daisy::Spinner.new(html_options: {class: "mx-auto w-8 h-8"})
+                render ::Decor::Daisy::Spinner.new(html_options: {class: "decor:mx-auto decor:w-8 decor:h-8"})
               end
             end
 
             # Modal backdrop - clicking outside closes if enabled
             form(
               method: "dialog",
-              class: "modal-backdrop",
+              class: "decor:d-modal-backdrop",
               data: {
                 **stimulus_action(:click, :overlay_clicked),
                 **stimulus_target(:overlay)
@@ -45,7 +45,7 @@ module Decor
         end
 
         def root_element_classes
-          "modal"
+          "decor:d-modal"
         end
       end
     end
