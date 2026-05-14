@@ -36,7 +36,7 @@ module Decor
             type: "radio",
             name: @name,
             value: value,
-            class: "sr-only"
+            class: "decor:sr-only"
           }
           attrs[:checked] = true if @selected_choice == value
           attrs[:required] = nil if @required

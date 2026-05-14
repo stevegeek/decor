@@ -7,8 +7,9 @@ module Decor
         def view_template
           root_element do |el|
             if @helper_text.present? && @error_text.blank?
+              # CODEMOD-REVIEW: interpolated class expression — verify @disabled ternary produces prefixed class or prefix "opacity-50" manually
               div(
-                class: "validator-hint #{@disabled ? "opacity-50" : ""}",
+                class: "decor:d-validator-hint #{@disabled ? "opacity-50" : ""}",
                 data: {**el.stimulus_target(:helper_text)}
               ) do
                 @helper_text
@@ -17,7 +18,7 @@ module Decor
 
             if @error_section && @error_text.present?
               div(
-                class: "validator-hint text-error",
+                class: "decor:d-validator-hint decor:text-error",
                 data: {**el.stimulus_target(:error_text)}
               ) do
                 @error_text
@@ -29,7 +30,7 @@ module Decor
         private
 
         def root_element_classes
-          @collapsing_helper_text ? "" : "mt-1"
+          @collapsing_helper_text ? "" : "decor:mt-1"
         end
       end
     end

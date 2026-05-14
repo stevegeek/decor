@@ -7,14 +7,14 @@ module Decor
         def view_template
           root_element do
             # form body
-            div(class: "space-y-8 sm:space-y-5 divide-y divide-gray-200") do
+            div(class: "decor:space-y-8 decor:sm:space-y-5 decor:divide-y decor:divide-gray-200") do
               yield if block_given?
             end
 
             # form buttons
             if @buttons.present?
-              div(class: "pt-5") do
-                div(class: "flex justify-end space-x-3") do
+              div(class: "decor:pt-5") do
+                div(class: "decor:flex decor:justify-end decor:space-x-3") do
                   render @buttons
                 end
               end
@@ -25,7 +25,7 @@ module Decor
         private
 
         def root_element_classes
-          "space-y-8 divide-y divide-gray-200"
+          "decor:space-y-8 decor:divide-y decor:divide-gray-200"
         end
       end
     end

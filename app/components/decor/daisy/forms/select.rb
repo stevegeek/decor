@@ -43,7 +43,7 @@ module Decor
                 error_text: error_text,
                 show_floating_message: floating_error_text?,
                 html_options: {
-                  class: "right-7 #{errors? ? "" : "hidden"}"
+                  class: "decor:right-7 #{errors? ? "" : "hidden"}"
                 }
               )
             end
@@ -53,36 +53,36 @@ module Decor
         private
 
         def select_classes
-          classes = ["select", "w-full"]
+          classes = ["decor:d-select", "decor:w-full"]
           classes << component_size_classes(@size).join(" ")
           classes << component_color_classes(@color).join(" ")
           classes << component_style_classes(@style).join(" ")
-          classes << "select-error" if errors?
+          classes << "decor:d-select-error" if errors?
           classes << input_classes if input_classes.present?
           classes.compact.join(" ").strip
         end
 
         def component_size_classes(size)
           case size
-          when :xs then ["select-xs"]
-          when :sm then ["select-sm"]
+          when :xs then ["decor:d-select-xs"]
+          when :sm then ["decor:d-select-sm"]
           when :md then [] # default
-          when :lg then ["select-lg"]
-          when :xl then ["select-xl"]
+          when :lg then ["decor:d-select-lg"]
+          when :xl then ["decor:d-select-xl"]
           else []
           end
         end
 
         def component_color_classes(color)
           case color
-          when :primary then ["select-primary"]
-          when :secondary then ["select-secondary"]
-          when :accent then ["select-accent"]
-          when :success then ["select-success"]
-          when :error then ["select-error"]
-          when :warning then ["select-warning"]
-          when :info then ["select-info"]
-          when :ghost then ["select-ghost"]
+          when :primary then ["decor:d-select-primary"]
+          when :secondary then ["decor:d-select-secondary"]
+          when :accent then ["decor:d-select-accent"]
+          when :success then ["decor:d-select-success"]
+          when :error then ["decor:d-select-error"]
+          when :warning then ["decor:d-select-warning"]
+          when :info then ["decor:d-select-info"]
+          when :ghost then ["decor:d-select-ghost"]
           when :neutral then [] # neutral is default
           else [] # base/neutral
           end
@@ -91,8 +91,8 @@ module Decor
         def component_style_classes(style)
           case style
           when :filled then [] # default
-          when :outlined then ["select-bordered"]
-          when :ghost then ["select-ghost"]
+          when :outlined then ["decor:d-select-bordered"]
+          when :ghost then ["decor:d-select-ghost"]
           else []
           end
         end

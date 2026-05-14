@@ -16,7 +16,7 @@ module Decor
 
             layout.helper_text_section do
               render ::Decor::Daisy::Forms::HelperTextSection.new(
-                html_options: {class: (@label_inline || @label_position == :right) ? "ml-8" : "ml-0"},
+                html_options: {class: (@label_inline || @label_position == :right) ? "decor:ml-8" : "decor:ml-0"},
                 helper_text: @helper_text,
                 error_text: error_text,
                 disabled: @disabled,
@@ -26,7 +26,8 @@ module Decor
             end
 
             render layout do
-              label(class: "inline-flex items-center #{cursor_classes}") do
+              # CODEMOD-REVIEW: interpolated class expression — verify cursor_classes is already prefixed
+              label(class: "decor:inline-flex decor:items-center #{cursor_classes}") do
                 input(
                   type: "checkbox",
                   data_controller: form_control_controller,
@@ -42,33 +43,33 @@ module Decor
         private
 
         def toggle_classes
-          classes = ["toggle"]
+          classes = ["decor:d-toggle"]
           classes << component_size_classes(@size).join(" ")
           classes << component_color_classes(@color).join(" ")
-          classes << "toggle-error" if errors?
+          classes << "decor:d-toggle-error" if errors?
           classes.compact.join(" ").strip
         end
 
         def component_size_classes(size)
           case size
-          when :xs then ["toggle-xs"]
-          when :sm then ["toggle-sm"]
+          when :xs then ["decor:d-toggle-xs"]
+          when :sm then ["decor:d-toggle-sm"]
           when :md then [] # default
-          when :lg then ["toggle-lg"]
-          when :xl then ["toggle-lg"] # DaisyUI doesn't have xl, use lg
+          when :lg then ["decor:d-toggle-lg"]
+          when :xl then ["decor:d-toggle-lg"] # DaisyUI doesn't have xl, use lg
           else []
           end
         end
 
         def component_color_classes(color)
           case color
-          when :primary then ["toggle-primary"]
-          when :secondary then ["toggle-secondary"]
-          when :accent then ["toggle-accent"]
-          when :success then ["toggle-success"]
-          when :error then ["toggle-error"]
-          when :warning then ["toggle-warning"]
-          when :info then ["toggle-info"]
+          when :primary then ["decor:d-toggle-primary"]
+          when :secondary then ["decor:d-toggle-secondary"]
+          when :accent then ["decor:d-toggle-accent"]
+          when :success then ["decor:d-toggle-success"]
+          when :error then ["decor:d-toggle-error"]
+          when :warning then ["decor:d-toggle-warning"]
+          when :info then ["decor:d-toggle-info"]
           when :neutral then [] # neutral is default
           else [] # base/neutral
           end

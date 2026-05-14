@@ -37,7 +37,7 @@ module Decor
                 error_text: error_text,
                 show_floating_message: floating_error_text?,
                 html_options: {
-                  class: "right-3 #{errors? ? "" : "hidden"}"
+                  class: "decor:right-3 #{errors? ? "" : "hidden"}"
                 }
               )
             end
@@ -47,36 +47,36 @@ module Decor
         private
 
         def textarea_classes
-          classes = ["textarea", "w-full"]
+          classes = ["decor:textarea", "decor:w-full"]
           classes << component_size_classes(@size).join(" ")
           classes << component_color_classes(@color).join(" ")
           classes << component_style_classes(@style).join(" ")
-          classes << "textarea-error" if errors?
+          classes << "decor:textarea-error" if errors?
           classes << input_classes if input_classes.present?
           classes.compact.join(" ").strip
         end
 
         def component_size_classes(size)
           case size
-          when :xs then ["textarea-xs"]
-          when :sm then ["textarea-sm"]
+          when :xs then ["decor:textarea-xs"]
+          when :sm then ["decor:textarea-sm"]
           when :md then [] # default
-          when :lg then ["textarea-lg"]
-          when :xl then ["textarea-lg"] # DaisyUI doesn't have xl, use lg
+          when :lg then ["decor:textarea-lg"]
+          when :xl then ["decor:textarea-lg"] # DaisyUI doesn't have xl, use lg
           else []
           end
         end
 
         def component_color_classes(color)
           case color
-          when :primary then ["textarea-primary"]
-          when :secondary then ["textarea-secondary"]
-          when :accent then ["textarea-accent"]
-          when :success then ["textarea-success"]
-          when :error then ["textarea-error"]
-          when :warning then ["textarea-warning"]
-          when :info then ["textarea-info"]
-          when :ghost then ["textarea-ghost"]
+          when :primary then ["decor:textarea-primary"]
+          when :secondary then ["decor:textarea-secondary"]
+          when :accent then ["decor:textarea-accent"]
+          when :success then ["decor:textarea-success"]
+          when :error then ["decor:textarea-error"]
+          when :warning then ["decor:textarea-warning"]
+          when :info then ["decor:textarea-info"]
+          when :ghost then ["decor:textarea-ghost"]
           when :neutral then [] # neutral is default
           else [] # base/neutral
           end
@@ -85,8 +85,8 @@ module Decor
         def component_style_classes(style)
           case style
           when :filled then [] # default
-          when :outlined then ["textarea-bordered"]
-          when :ghost then ["textarea-ghost"]
+          when :outlined then ["decor:textarea-bordered"]
+          when :ghost then ["decor:textarea-ghost"]
           else []
           end
         end

@@ -30,7 +30,7 @@ module Decor
               end
 
               if @hide_after_showing.present? && @size.present? && @size > @hide_after_showing
-                div(class: "mt-3") do
+                div(class: "decor:mt-3") do
                   button(
                     class: show_more_button_classes,
                     type: "button",
@@ -48,27 +48,27 @@ module Decor
         private
 
         def checkbox_container_classes
-          classes = ["space-y-2"]
-          classes << "join join-vertical" if @style == :joined
+          classes = ["decor:space-y-2"]
+          classes << "decor:join decor:join-vertical" if @style == :joined
           classes.compact.join(" ")
         end
 
         def show_more_button_classes
-          classes = ["btn", "btn-sm"]
+          classes = ["decor:d-btn", "decor:d-btn-sm"]
           classes << show_more_color_class unless @color == :primary
-          classes << "btn-outline" unless @style == :solid
+          classes << "decor:d-btn-outline" unless @style == :solid
           classes.compact.join(" ")
         end
 
         def show_more_color_class
           case @color
-          when :secondary then "btn-secondary"
-          when :accent then "btn-accent"
-          when :neutral then "btn-neutral"
-          when :success then "btn-success"
-          when :warning then "btn-warning"
-          when :info then "btn-info"
-          when :error then "btn-error"
+          when :secondary then "decor:d-btn-secondary"
+          when :accent then "decor:d-btn-accent"
+          when :neutral then "decor:d-btn-neutral"
+          when :success then "decor:d-btn-success"
+          when :warning then "decor:d-btn-warning"
+          when :info then "decor:d-btn-info"
+          when :error then "decor:d-btn-error"
           when :base then ""
           else ""
           end

@@ -16,7 +16,7 @@ module Decor
 
             layout.helper_text_section do
               render ::Decor::Daisy::Forms::HelperTextSection.new(
-                html_options: {class: (@label_inline || @label_position == :right) ? "ml-8" : "ml-0"},
+                html_options: {class: (@label_inline || @label_position == :right) ? "decor:ml-8" : "decor:ml-0"},
                 helper_text: @helper_text,
                 error_text: error_text,
                 disabled: @disabled,
@@ -40,34 +40,34 @@ module Decor
         private
 
         def radio_classes
-          classes = ["radio"]
+          classes = ["decor:d-radio"]
           classes << component_size_classes(@size).join(" ")
           classes << component_color_classes(@color).join(" ")
-          classes << "radio-error" if errors?
+          classes << "decor:d-radio-error" if errors?
           classes.compact.join(" ").strip
         end
 
         def component_size_classes(size)
           case size
-          when :xs then ["radio-xs"]
-          when :sm then ["radio-sm"]
+          when :xs then ["decor:d-radio-xs"]
+          when :sm then ["decor:d-radio-sm"]
           when :md then [] # default
-          when :lg then ["radio-lg"]
-          when :xl then ["radio-xl"]
+          when :lg then ["decor:d-radio-lg"]
+          when :xl then ["decor:d-radio-xl"]
           else []
           end
         end
 
         def component_color_classes(color)
           case color
-          when :primary then ["radio-primary"]
-          when :secondary then ["radio-secondary"]
-          when :accent then ["radio-accent"]
-          when :success then ["radio-success"]
-          when :error then ["radio-error"]
-          when :warning then ["radio-warning"]
-          when :info then ["radio-info"]
-          when :neutral then ["radio-neutral"]
+          when :primary then ["decor:d-radio-primary"]
+          when :secondary then ["decor:d-radio-secondary"]
+          when :accent then ["decor:d-radio-accent"]
+          when :success then ["decor:d-radio-success"]
+          when :error then ["decor:d-radio-error"]
+          when :warning then ["decor:d-radio-warning"]
+          when :info then ["decor:d-radio-info"]
+          when :neutral then ["decor:d-radio-neutral"]
           else [] # base/neutral
           end
         end

@@ -30,8 +30,9 @@ module Decor
           @allow_float_input ? "[0-9-.]*" : "[0-9]*"
         }
 
+        # CODEMOD-REVIEW: interpolated class expression — verify #{super} returns already-prefixed classes
         def control_html_options_classes
-          "text-right #{super}"
+          "decor:text-right #{super}"
         end
       end
     end

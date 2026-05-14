@@ -65,6 +65,7 @@ module Decor
                 )
               end
 
+              # CODEMOD-REVIEW: interpolated class expression — verify ternary branches inside #{} are already prefixed or prefix manually
               render ::Decor::Daisy::Forms::ErrorIconSection.new(
                 error_text: error_text,
                 show_floating_message: floating_error_text?,
@@ -78,16 +79,16 @@ module Decor
 
         # Classes for the input wrapper or input itself if no label/add-on
         def input_classes
-          classes = ["input"]
-          classes << "validator" if @required || @pattern.present? || @minimum_length.present? || @maximum_length.present?
+          classes = ["decor:d-input"]
+          classes << "decor:d-validator" if @required || @pattern.present? || @minimum_length.present? || @maximum_length.present?
           classes.join(" ")
         end
 
         # daisyUI input classes (size/color/style)
         def daisyui_input_classes
           classes = []
-          classes << (@html_size ? "" : "w-full")
-          classes << ((@numerical && @type == :tel) ? "tabular-nums" : "")
+          classes << (@html_size ? "" : "decor:w-full")
+          classes << ((@numerical && @type == :tel) ? "decor:tabular-nums" : "")
           classes << component_size_classes(@size).join(" ")
           classes << component_color_classes(@color).join(" ")
           classes << component_style_classes(@style).join(" ")
@@ -96,25 +97,25 @@ module Decor
 
         def component_size_classes(size)
           case size
-          when :xs then ["input-xs"]
-          when :sm then ["input-sm"]
+          when :xs then ["decor:d-input-xs"]
+          when :sm then ["decor:d-input-sm"]
           when :md then [] # default
-          when :lg then ["input-lg"]
-          when :xl then ["input-lg"] # DaisyUI doesn't have xl, use lg
+          when :lg then ["decor:d-input-lg"]
+          when :xl then ["decor:d-input-lg"] # DaisyUI doesn't have xl, use lg
           else []
           end
         end
 
         def component_color_classes(color)
           case color
-          when :primary then ["input-primary"]
-          when :secondary then ["input-secondary"]
-          when :accent then ["input-accent"]
-          when :success then ["input-success"]
-          when :error then ["input-error"]
-          when :warning then ["input-warning"]
-          when :info then ["input-info"]
-          when :ghost then ["input-ghost"]
+          when :primary then ["decor:d-input-primary"]
+          when :secondary then ["decor:d-input-secondary"]
+          when :accent then ["decor:d-input-accent"]
+          when :success then ["decor:d-input-success"]
+          when :error then ["decor:d-input-error"]
+          when :warning then ["decor:d-input-warning"]
+          when :info then ["decor:d-input-info"]
+          when :ghost then ["decor:d-input-ghost"]
           when :neutral then [] # neutral is default
           else [] # base/neutral
           end
@@ -123,8 +124,8 @@ module Decor
         def component_style_classes(style)
           case style
           when :filled then [] # default
-          when :outlined then ["input-bordered"]
-          when :ghost then ["input-ghost"]
+          when :outlined then ["decor:d-input-bordered"]
+          when :ghost then ["decor:d-input-ghost"]
           else []
           end
         end
@@ -133,10 +134,10 @@ module Decor
           if @leading_add_on.present?
             render @leading_add_on
           elsif @leading_icon_name.present?
-            render ::Decor::Daisy::Icon.new(name: @leading_icon_name, html_options: {class: "h-[1em] opacity-50"})
+            render ::Decor::Daisy::Icon.new(name: @leading_icon_name, html_options: {class: "decor:h-[1em] decor:opacity-50"})
           elsif @leading_text_add_on.present?
             span(
-              class: "opacity-50",
+              class: "decor:opacity-50",
               data: {**el.stimulus_target(:leading_text_add_on)}
             ) do
               @leading_text_add_on
@@ -148,10 +149,10 @@ module Decor
           if @trailing_add_on.present?
             render @trailing_add_on
           elsif @trailing_icon_name.present?
-            render ::Decor::Daisy::Icon.new(name: @trailing_icon_name, html_options: {class: "h-[1em] opacity-50"})
+            render ::Decor::Daisy::Icon.new(name: @trailing_icon_name, html_options: {class: "decor:h-[1em] decor:opacity-50"})
           elsif @trailing_text_add_on.present?
             span(
-              class: "opacity-50",
+              class: "decor:opacity-50",
               data: {**el.stimulus_target(:trailing_text_add_on)}
             ) do
               @trailing_text_add_on

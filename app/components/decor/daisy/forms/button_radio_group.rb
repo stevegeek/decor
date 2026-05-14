@@ -13,7 +13,7 @@ module Decor
                 invalid_label: "text-error-dark"
               },
               html_options: {
-                class: "relative"
+                class: "decor:relative"
               }
             )
 
@@ -28,7 +28,7 @@ module Decor
             end
 
             render layout do
-              div(class: "join") do
+              div(class: "decor:join") do
                 @choices.each_with_index do |(value, label), idx|
                   input(
                     data_controller: form_control_controller,
@@ -51,7 +51,7 @@ module Decor
                 error_text: error_text,
                 show_floating_message: floating_error_text?,
                 html_options: {
-                  class: "#{errors? ? "" : "hidden"} right-3"
+                  class: "#{errors? ? "" : "hidden"} decor:right-3"
                 }
               )
             end
@@ -61,24 +61,24 @@ module Decor
         private
 
         def input_container_classes
-          "py-1 flex " + super
+          "decor:py-1 decor:flex " + super
         end
 
         def button_classes(value)
-          classes = ["join-item", "btn"]
+          classes = ["decor:join-item", "decor:d-btn"]
           classes << size_classes unless @size == :md
           classes << color_classes unless @color == :primary
           classes << style_classes unless @style == :outlined
-          classes << "btn-active" if @selected_choice == value
-          classes << "btn-disabled" if @disabled
+          classes << "decor:d-btn-active" if @selected_choice == value
+          classes << "decor:d-btn-disabled" if @disabled
           classes.compact.join(" ")
         end
 
         def component_style_classes(style)
           case style
-          when :filled then "btn-primary"
-          when :ghost then "btn-ghost"
-          when :link then "btn-link"
+          when :filled then "decor:d-btn-primary"
+          when :ghost then "decor:d-btn-ghost"
+          when :link then "decor:d-btn-link"
           when :outlined then ""  # outline is default btn style
           else ""
           end
@@ -86,23 +86,23 @@ module Decor
 
         def component_size_classes(size)
           case size
-          when :xs then "btn-xs"
-          when :sm then "btn-sm"
-          when :lg then "btn-lg"
-          when :xl then "btn-xl"
+          when :xs then "decor:d-btn-xs"
+          when :sm then "decor:d-btn-sm"
+          when :lg then "decor:d-btn-lg"
+          when :xl then "decor:d-btn-xl"
           else ""  # md is default
           end
         end
 
         def component_color_classes(color)
           case color
-          when :secondary then "btn-secondary"
-          when :accent then "btn-accent"
-          when :neutral then "btn-neutral"
-          when :success then "btn-success"
-          when :warning then "btn-warning"
-          when :info then "btn-info"
-          when :error then "btn-error"
+          when :secondary then "decor:d-btn-secondary"
+          when :accent then "decor:d-btn-accent"
+          when :neutral then "decor:d-btn-neutral"
+          when :success then "decor:d-btn-success"
+          when :warning then "decor:d-btn-warning"
+          when :info then "decor:d-btn-info"
+          when :error then "decor:d-btn-error"
           when :base then ""
           else ""  # primary is default
           end

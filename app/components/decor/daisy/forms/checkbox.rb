@@ -16,7 +16,7 @@ module Decor
 
             layout.helper_text_section do
               render ::Decor::Daisy::Forms::HelperTextSection.new(
-                html_options: {class: (label_inline? || label_right?) ? "ml-8" : "ml-0"},
+                html_options: {class: (label_inline? || label_right?) ? "decor:ml-8" : "decor:ml-0"},
                 helper_text: @helper_text,
                 error_text: error_text,
                 disabled: @disabled,
@@ -40,34 +40,34 @@ module Decor
         private
 
         def checkbox_classes
-          classes = ["checkbox"]
+          classes = ["decor:d-checkbox"]
           classes << component_size_classes(@size).join(" ")
           classes << component_color_classes(@color).join(" ")
-          classes << "checkbox-error" if errors?
+          classes << "decor:d-checkbox-error" if errors?
           classes.compact.join(" ").strip
         end
 
         def component_size_classes(size)
           case size
-          when :xs then ["checkbox-xs"]
-          when :sm then ["checkbox-sm"]
+          when :xs then ["decor:d-checkbox-xs"]
+          when :sm then ["decor:d-checkbox-sm"]
           when :md then [] # default
-          when :lg then ["checkbox-lg"]
-          when :xl then ["checkbox-xl"]
+          when :lg then ["decor:d-checkbox-lg"]
+          when :xl then ["decor:d-checkbox-xl"]
           else []
           end
         end
 
         def component_color_classes(color)
           case color
-          when :primary then ["checkbox-primary"]
-          when :secondary then ["checkbox-secondary"]
-          when :accent then ["checkbox-accent"]
-          when :success then ["checkbox-success"]
-          when :error then ["checkbox-error"]
-          when :warning then ["checkbox-warning"]
-          when :info then ["checkbox-info"]
-          when :neutral then ["checkbox-neutral"]
+          when :primary then ["decor:d-checkbox-primary"]
+          when :secondary then ["decor:d-checkbox-secondary"]
+          when :accent then ["decor:d-checkbox-accent"]
+          when :success then ["decor:d-checkbox-success"]
+          when :error then ["decor:d-checkbox-error"]
+          when :warning then ["decor:d-checkbox-warning"]
+          when :info then ["decor:d-checkbox-info"]
+          when :neutral then ["decor:d-checkbox-neutral"]
           else [] # base/neutral
           end
         end
