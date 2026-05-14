@@ -1,6 +1,9 @@
 # Changelog
 
-## 0.4.0 — Unreleased
+## 0.4.1 — Unreleased
+
+### Suite::FlowStep — next per-component migration cycle
+- Add `Decor::Suite::FlowStep` with muted palette and card-chromed child block, suited for multi-step admin import forms.
 
 ### Icon unification + Tabler migration
 - Added `Decor::Icon` (top-level) — sprite-based, single shared class. Replaces `Decor::Daisy::Icon`, `Decor::Suite::Icon`, and `Decor::Daisy::Svg`.
