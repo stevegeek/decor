@@ -3,6 +3,7 @@ avatar
 badge
 breadcrumbs
 btn
+cally
 card
 carousel
 chat
@@ -14,12 +15,21 @@ divider
 dock
 drawer
 dropdown
+fab
 fieldset
+file-input
 filter
 footer
+glass
 hero
+hover-3d
+hover-gallery
 indicator
 input
+join
+join-item
+join-horizontal
+join-vertical
 kbd
 label
 link
@@ -32,6 +42,7 @@ modal
 navbar
 progress
 prose
+radial-progress
 radio
 range
 rating
@@ -47,6 +58,8 @@ swap
 tab
 table
 tabs
+text-rotate
+textarea
 timeline
 toast
 toggle
