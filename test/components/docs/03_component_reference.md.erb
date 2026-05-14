@@ -95,7 +95,6 @@ If you find any issues or missing components, please open a PR to improve the do
 - [Decor::Daisy::CodeSnippet](#decordaisycodesnippet)
 - [Decor::Daisy::Element](#decordaisyelement)
 - [Decor::Daisy::EmptyState](#decordaisyemptystate)
-- [Decor::Daisy::FormattedEncodedId](#decordaisyformattedencodedid)
 - [Decor::Daisy::Map](#decordaisymap)
 - [Decor::Daisy::Page](#decordaisypage)
 - [Decor::Daisy::PageHeader](#decordaisypageheader)
@@ -2110,28 +2109,6 @@ render Decor::Daisy::EmptyState.new(
 - `primary_action_href` (String?) (optional)
 - `secondary_action_label` (String?) (optional)
 - `secondary_action_href` (String?) (optional)
-
-
-_(and the shared properties `size`, `color`, and `style` as described above)_
-
----
-
-### Decor::Daisy::FormattedEncodedId
-
-<span id="decordaisyformattedencodedid"></span>
-
-FormattedEncodedIdPreview A component to render an encoded id with a prefix in a consistent format.
-
-**Basic Usage:**
-```ruby
-render Decor::Daisy::FormattedEncodedId.new(encoded_id: "...") do
-  "Content goes here"
-end
-```
-
-**Key Attributes:**
-- `encoded_id` (String(&:present?)) (required)
-- `prefix` (String?) (optional)
 
 
 _(and the shared properties `size`, `color`, and `style` as described above)_
