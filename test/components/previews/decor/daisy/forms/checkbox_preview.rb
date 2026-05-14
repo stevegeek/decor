@@ -34,7 +34,7 @@ class ::Decor::Daisy::Forms::CheckboxPreview < ::Lookbook::Preview
   # Checkbox group for multiple selections
   def checkbox_group
     render_with_template(
-      template: "decor/forms/checkbox_preview/checkbox_group"
+      template: "decor/daisy/forms/checkbox_preview/checkbox_group"
     )
   end
 
@@ -110,7 +110,7 @@ class ::Decor::Daisy::Forms::CheckboxPreview < ::Lookbook::Preview
   # All available checkbox colors
   def colors
     render_with_template(
-      template: "decor/forms/checkbox_preview/colors"
+      template: "decor/daisy/forms/checkbox_preview/colors"
     )
   end
 
@@ -121,7 +121,7 @@ class ::Decor::Daisy::Forms::CheckboxPreview < ::Lookbook::Preview
   # All available checkbox sizes
   def sizes
     render_with_template(
-      template: "decor/forms/checkbox_preview/sizes"
+      template: "decor/daisy/forms/checkbox_preview/sizes"
     )
   end
 

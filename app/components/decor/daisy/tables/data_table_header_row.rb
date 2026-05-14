@@ -12,7 +12,6 @@ module Decor
                 render ::Decor::Daisy::Forms::Checkbox.new(
                   stimulus_actions: [el.stimulus_action(:change, :handle_checkbox_change)],
                   stimulus_outlet_host: el,
-                  show_label: false,
                   name: @selectable_as,
                   checked: @selected,
                   disabled: @disabled,

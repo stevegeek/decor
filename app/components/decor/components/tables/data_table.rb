@@ -25,7 +25,10 @@ module Decor
         prop :pin_cols, _Boolean, default: false
 
         stimulus do
-          outlets header_row: ::Decor::Daisy::Tables::DataTableHeaderRow.stimulus_identifier, row: ::Decor::Daisy::Tables::DataTableRow.stimulus_identifier
+          outlets({
+            ::Decor::Daisy::Tables::DataTableHeaderRow.stimulus_identifier => nil,
+            ::Decor::Daisy::Tables::DataTableRow.stimulus_identifier => nil
+          })
         end
 
         def after_component_initialize

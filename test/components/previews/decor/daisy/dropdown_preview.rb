@@ -13,10 +13,7 @@ class ::Decor::Daisy::DropdownPreview < ::Lookbook::Preview
       position: :right # Example of using modern position attribute
     ) do |dropdown|
       dropdown.trigger_button_content do
-        # Using a div with DaisyUI classes for the button content
-        div(class: "decor:d-btn decor:d-btn-circle decor:d-btn-ghost") do
-          render ::Decor::Daisy::Avatar.new(src: "/images/pic.jpg", alt: "User avatar", size: :sm)
-        end
+        render ::Decor::Daisy::Avatar.new(url: "/images/pic.jpg", size: :sm)
       end
 
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Profile", href: "#", icon_name: "user"))
@@ -31,7 +28,6 @@ class ::Decor::Daisy::DropdownPreview < ::Lookbook::Preview
   def example_item_actions
     render ::Decor::Daisy::Dropdown.new(color: :primary, style: :outlined) do |dropdown| # Example using modern attributes
       dropdown.trigger_button_content do
-        plain "Actions"
         render ::Decor::Daisy::Icon.new(name: "chevron-down", html_options: {class: "decor:ml-2 decor:-mr-1 decor:h-4 decor:w-4"})
       end
 
@@ -48,15 +44,11 @@ class ::Decor::Daisy::DropdownPreview < ::Lookbook::Preview
   def example_with_header
     render ::Decor::Daisy::Dropdown.new(color: :secondary) do |dropdown| # Example using modern attributes
       dropdown.trigger_button_content do
-        plain "User Menu"
         render ::Decor::Daisy::Icon.new(name: "chevron-down", html_options: {class: "decor:ml-2 decor:-mr-1 decor:h-4 decor:w-4"})
       end
 
       dropdown.menu_header do
-        div(class: "decor:px-4 decor:py-3 decor:border-b decor:border-base-200") do # DaisyUI classes for header
-          p(class: "decor:text-sm decor:font-medium") { "John Doe" }
-          p(class: "decor:text-sm decor:opacity-70") { "john@example.com" }
-        end
+        raw('<div class="decor:px-4 decor:py-3 decor:border-b decor:border-base-200"><p class="decor:text-sm decor:font-medium">John Doe</p><p class="decor:text-sm decor:opacity-70">john@example.com</p></div>')
       end
 
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Your Profile", href: "#", icon_name: "user"))
@@ -70,17 +62,8 @@ class ::Decor::Daisy::DropdownPreview < ::Lookbook::Preview
   # @group Examples
   # @label Custom Button
   def example_custom_button
-    render ::Decor::Daisy::Dropdown.new do |dropdown|
-      dropdown.trigger_button do
-        # Custom button can still be used, ensure it has necessary DaisyUI classes or your own styling
-        button(
-          type: "button",
-          class: "decor:d-btn decor:d-btn-accent" # Example DaisyUI classes
-        ) do
-          plain "Custom Button"
-          render ::Decor::Daisy::Icon.new(name: "chevron-down", html_options: {class: "decor:ml-2 decor:-mr-1 decor:h-4 decor:w-4"})
-        end
-      end
+    render ::Decor::Daisy::Dropdown.new(color: :accent) do |dropdown|
+      dropdown.trigger_button_content { "Custom Button" }
 
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Option 1", href: "#"))
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Option 2", href: "#"))
@@ -345,17 +328,11 @@ class ::Decor::Daisy::DropdownPreview < ::Lookbook::Preview
       style: :outlined
     ) do |dropdown|
       dropdown.trigger_button_content do
-        div(class: "decor:flex decor:items-center decor:gap-2") do
-          render ::Decor::Daisy::Avatar.new(src: "/images/pic.jpg", alt: "User avatar", size: :sm)
-          span(class: "decor:hidden decor:sm:inline") { "John Doe" }
-        end
+        render ::Decor::Daisy::Avatar.new(url: "/images/pic.jpg", size: :sm)
       end
 
       dropdown.menu_header do
-        div(class: "decor:px-4 decor:py-3 decor:border-b decor:border-base-200") do
-          p(class: "decor:text-sm decor:font-medium") { "John Doe" }
-          p(class: "decor:text-sm decor:opacity-70") { "john@example.com" }
-        end
+        raw('<div class="decor:px-4 decor:py-3 decor:border-b decor:border-base-200"><p class="decor:text-sm decor:font-medium">John Doe</p><p class="decor:text-sm decor:opacity-70">john@example.com</p></div>')
       end
 
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Profile", href: "#", icon_name: "user"))
@@ -375,10 +352,7 @@ class ::Decor::Daisy::DropdownPreview < ::Lookbook::Preview
       style: :filled
     ) do |dropdown|
       dropdown.trigger_button_content do
-        div(class: "decor:flex decor:items-center decor:gap-2") do
-          render ::Decor::Daisy::Icon.new(name: "ellipsis-vertical", html_options: {class: "decor:h-5 decor:w-5"})
-          span { "Actions" }
-        end
+        render ::Decor::Daisy::Icon.new(name: "ellipsis-vertical", html_options: {class: "decor:h-5 decor:w-5"})
       end
 
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Edit", href: "#", icon_name: "pencil"))
@@ -443,15 +417,17 @@ class ::Decor::Daisy::DropdownPreview < ::Lookbook::Preview
       dropdown.trigger_button_content { "Card Dropdown" }
 
       dropdown.card_content do
-        div(class: "decor:d-card decor:d-card-compact decor:w-64 decor:bg-base-100 decor:shadow") do
-          div(class: "decor:d-card-body") do
-            h3(class: "decor:d-card-title") { "Card Title" }
-            p { "This is card content inside a dropdown. Cards can contain any content you need." }
-            div(class: "decor:d-card-actions decor:justify-end") do
-              button(class: "decor:d-btn decor:d-btn-primary decor:d-btn-sm") { "Action" }
-            end
-          end
-        end
+        raw(<<~HTML)
+          <div class="decor:d-card decor:d-card-compact decor:w-64 decor:bg-base-100 decor:shadow">
+            <div class="decor:d-card-body">
+              <h3 class="decor:d-card-title">Card Title</h3>
+              <p>This is card content inside a dropdown. Cards can contain any content you need.</p>
+              <div class="decor:d-card-actions decor:justify-end">
+                <button class="decor:d-btn decor:d-btn-primary decor:d-btn-sm">Action</button>
+              </div>
+            </div>
+          </div>
+        HTML
       end
     end
   end
@@ -464,41 +440,28 @@ class ::Decor::Daisy::DropdownPreview < ::Lookbook::Preview
       position: :end,
       trigger: :hover
     ) do |dropdown|
-      dropdown.trigger_button_content do
-        div(class: "decor:flex decor:items-center decor:gap-2") do
-          div(class: "decor:d-avatar") do
-            div(class: "decor:w-8 decor:rounded-full") do
-              img(src: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=32&h=32&fit=crop&crop=face", alt: "User")
-            end
-          end
-          span { "Profile" }
-        end
-      end
+      dropdown.trigger_button_content { "Profile" }
 
       dropdown.card_content do
-        div(class: "decor:d-card decor:d-card-compact decor:w-80 decor:bg-base-100 decor:shadow-xl") do
-          figure do
-            img(src: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=320&h=160&fit=crop", alt: "Profile banner", class: "decor:h-20 decor:w-full decor:object-cover")
-          end
-          div(class: "decor:d-card-body") do
-            div(class: "decor:flex decor:items-center decor:gap-3") do
-              div(class: "decor:d-avatar") do
-                div(class: "decor:w-12 decor:rounded-full") do
-                  img(src: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=48&h=48&fit=crop&crop=face", alt: "User")
-                end
-              end
-              div do
-                h3(class: "decor:d-card-title decor:text-sm") { "Sarah Johnson" }
-                p(class: "decor:text-sm decor:opacity-60") { "Product Designer" }
-              end
-            end
-            p(class: "decor:text-sm decor:mt-2") { "Passionate about creating beautiful and functional user experiences." }
-            div(class: "decor:d-card-actions decor:justify-between decor:mt-4") do
-              button(class: "decor:d-btn decor:d-btn-ghost decor:d-btn-sm") { "View Profile" }
-              button(class: "decor:d-btn decor:d-btn-primary decor:d-btn-sm") { "Message" }
-            end
-          end
-        end
+        raw(<<~HTML)
+          <div class="decor:d-card decor:d-card-compact decor:w-80 decor:bg-base-100 decor:shadow-xl">
+            <figure><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=320&h=160&fit=crop" alt="Profile banner" class="decor:h-20 decor:w-full decor:object-cover"></figure>
+            <div class="decor:d-card-body">
+              <div class="decor:flex decor:items-center decor:gap-3">
+                <div class="decor:d-avatar"><div class="decor:w-12 decor:rounded-full"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=48&h=48&fit=crop&crop=face" alt="User"></div></div>
+                <div>
+                  <h3 class="decor:d-card-title decor:text-sm">Sarah Johnson</h3>
+                  <p class="decor:text-sm decor:opacity-60">Product Designer</p>
+                </div>
+              </div>
+              <p class="decor:text-sm decor:mt-2">Passionate about creating beautiful and functional user experiences.</p>
+              <div class="decor:d-card-actions decor:justify-between decor:mt-4">
+                <button class="decor:d-btn decor:d-btn-ghost decor:d-btn-sm">View Profile</button>
+                <button class="decor:d-btn decor:d-btn-primary decor:d-btn-sm">Message</button>
+              </div>
+            </div>
+          </div>
+        HTML
       end
     end
   end
@@ -511,50 +474,33 @@ class ::Decor::Daisy::DropdownPreview < ::Lookbook::Preview
       position: :end
     ) do |dropdown|
       dropdown.trigger_button_content do
-        div(class: "decor:flex decor:items-center decor:gap-2") do
-          render ::Decor::Daisy::Icon.new(name: "bell", html_options: {class: "decor:h-5 decor:w-5"})
-          span(class: "decor:d-badge decor:d-badge-error decor:d-badge-sm") { "3" }
-        end
+        render ::Decor::Daisy::Icon.new(name: "bell", html_options: {class: "decor:h-5 decor:w-5"})
       end
 
       dropdown.card_content do
-        div(class: "decor:d-card decor:d-card-compact decor:w-96 decor:bg-base-100 decor:shadow-xl") do
-          div(class: "decor:d-card-body") do
-            h3(class: "decor:d-card-title decor:text-base") { "Notifications" }
-
-            div(class: "decor:d-divider decor:my-2") {}
-
-            div(class: "decor:space-y-3") do
-              [
-                {title: "New message from John", time: "2 min ago", type: "message"},
-                {title: "Task deadline approaching", time: "1 hour ago", type: "warning"},
-                {title: "Project completed successfully", time: "3 hours ago", type: "success"}
-              ].each do |notification|
-                div(class: "decor:flex decor:items-start decor:gap-3 decor:p-2 decor:rounded-lg decor:hover:bg-base-200") do
-                  div(class: "decor:flex-shrink-0 decor:mt-1") do
-                    case notification[:type]
-                    when "message"
-                      render ::Decor::Daisy::Icon.new(name: "envelope", html_options: {class: "decor:h-4 decor:w-4 decor:text-info"})
-                    when "warning"
-                      render ::Decor::Daisy::Icon.new(name: "exclamation-triangle", html_options: {class: "decor:h-4 decor:w-4 decor:text-warning"})
-                    when "success"
-                      render ::Decor::Daisy::Icon.new(name: "check-circle", html_options: {class: "decor:h-4 decor:w-4 decor:text-success"})
-                    end
-                  end
-                  div(class: "decor:flex-1 decor:min-w-0") do
-                    p(class: "decor:text-sm decor:font-medium") { notification[:title] }
-                    p(class: "decor:text-xs decor:opacity-60") { notification[:time] }
-                  end
-                end
-              end
-            end
-
-            div(class: "decor:d-card-actions decor:justify-end decor:mt-4") do
-              button(class: "decor:d-btn decor:d-btn-ghost decor:d-btn-sm") { "Mark all read" }
-              button(class: "decor:d-btn decor:d-btn-primary decor:d-btn-sm") { "View all" }
-            end
-          end
-        end
+        raw(<<~HTML)
+          <div class="decor:d-card decor:d-card-compact decor:w-96 decor:bg-base-100 decor:shadow-xl">
+            <div class="decor:d-card-body">
+              <h3 class="decor:d-card-title decor:text-base">Notifications</h3>
+              <div class="decor:d-divider decor:my-2"></div>
+              <div class="decor:space-y-3">
+                <div class="decor:flex decor:items-start decor:gap-3 decor:p-2 decor:rounded-lg">
+                  <div class="decor:flex-1 decor:min-w-0"><p class="decor:text-sm decor:font-medium">New message from John</p><p class="decor:text-xs decor:opacity-60">2 min ago</p></div>
+                </div>
+                <div class="decor:flex decor:items-start decor:gap-3 decor:p-2 decor:rounded-lg">
+                  <div class="decor:flex-1 decor:min-w-0"><p class="decor:text-sm decor:font-medium">Task deadline approaching</p><p class="decor:text-xs decor:opacity-60">1 hour ago</p></div>
+                </div>
+                <div class="decor:flex decor:items-start decor:gap-3 decor:p-2 decor:rounded-lg">
+                  <div class="decor:flex-1 decor:min-w-0"><p class="decor:text-sm decor:font-medium">Project completed successfully</p><p class="decor:text-xs decor:opacity-60">3 hours ago</p></div>
+                </div>
+              </div>
+              <div class="decor:d-card-actions decor:justify-end decor:mt-4">
+                <button class="decor:d-btn decor:d-btn-ghost decor:d-btn-sm">Mark all read</button>
+                <button class="decor:d-btn decor:d-btn-primary decor:d-btn-sm">View all</button>
+              </div>
+            </div>
+          </div>
+        HTML
       end
     end
   end
@@ -569,32 +515,27 @@ class ::Decor::Daisy::DropdownPreview < ::Lookbook::Preview
       dropdown.trigger_button_content { "Custom Content" }
 
       dropdown.custom_content do
-        div(class: "decor:p-6 decor:bg-base-100 decor:rounded-box decor:shadow decor:w-80") do
-          h3(class: "decor:text-lg decor:font-semibold decor:mb-4") { "Custom Dropdown Content" }
-
-          div(class: "decor:form-control") do
-            label(class: "decor:d-label") do
-              span(class: "decor:d-label-text") { "Quick Search" }
-            end
-            input(type: "text", class: "decor:d-input decor:d-input-bordered decor:w-full", placeholder: "Type to search...")
-          end
-
-          div(class: "decor:mt-4") do
-            h4(class: "decor:font-medium decor:mb-2") { "Recent Items" }
-            div(class: "decor:space-y-1") do
-              %w[Documents Photos Videos Music].each do |item|
-                div(class: "decor:flex decor:items-center decor:justify-between decor:p-2 decor:rounded decor:hover:bg-base-200") do
-                  span(class: "decor:text-sm") { item }
-                  render ::Decor::Daisy::Icon.new(name: "chevron-right", html_options: {class: "decor:h-4 decor:w-4 decor:opacity-50"})
-                end
-              end
-            end
-          end
-
-          div(class: "decor:mt-4 decor:pt-4 decor:border-t decor:border-base-300") do
-            button(class: "decor:d-btn decor:d-btn-accent decor:d-btn-block decor:d-btn-sm") { "View All Items" }
-          end
-        end
+        raw(<<~HTML)
+          <div class="decor:p-6 decor:bg-base-100 decor:rounded-box decor:shadow decor:w-80">
+            <h3 class="decor:text-lg decor:font-semibold decor:mb-4">Custom Dropdown Content</h3>
+            <div class="decor:form-control">
+              <label class="decor:d-label"><span class="decor:d-label-text">Quick Search</span></label>
+              <input type="text" class="decor:d-input decor:d-input-bordered decor:w-full" placeholder="Type to search...">
+            </div>
+            <div class="decor:mt-4">
+              <h4 class="decor:font-medium decor:mb-2">Recent Items</h4>
+              <div class="decor:space-y-1">
+                <div class="decor:flex decor:items-center decor:justify-between decor:p-2 decor:rounded decor:hover:bg-base-200"><span class="decor:text-sm">Documents</span></div>
+                <div class="decor:flex decor:items-center decor:justify-between decor:p-2 decor:rounded decor:hover:bg-base-200"><span class="decor:text-sm">Photos</span></div>
+                <div class="decor:flex decor:items-center decor:justify-between decor:p-2 decor:rounded decor:hover:bg-base-200"><span class="decor:text-sm">Videos</span></div>
+                <div class="decor:flex decor:items-center decor:justify-between decor:p-2 decor:rounded decor:hover:bg-base-200"><span class="decor:text-sm">Music</span></div>
+              </div>
+            </div>
+            <div class="decor:mt-4 decor:pt-4 decor:border-t decor:border-base-300">
+              <button class="decor:d-btn decor:d-btn-accent decor:d-btn-block decor:d-btn-sm">View All Items</button>
+            </div>
+          </div>
+        HTML
       end
     end
   end
