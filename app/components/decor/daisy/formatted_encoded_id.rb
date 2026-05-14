@@ -6,15 +6,15 @@ module Decor
       def view_template(&)
         # wrap the prefix in a span so we can style it separately
         root_element do
-          span(class: "text-base-500 font-extralight mr-0.5") { prefix_combined } if prefix_combined
-          span(class: "text-primary font-medium tracking-wide") { cleaned_encoded_id }
+          span(class: "decor:text-base-500 decor:font-extralight decor:mr-0.5") { prefix_combined } if prefix_combined
+          span(class: "decor:text-primary decor:font-medium decor:tracking-wide") { cleaned_encoded_id }
         end
       end
 
       private
 
       def root_element_classes
-        "inline-flex items-center"
+        "decor:inline-flex decor:items-center"
       end
 
       def root_element_attributes

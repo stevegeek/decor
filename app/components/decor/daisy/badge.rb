@@ -13,7 +13,7 @@ module Decor
 
       def root_element_classes
         [
-          "badge",
+          "decor:d-badge",
           component_color_classes(@color),
           component_size_classes(@size),
           component_style_classes(@style),
@@ -28,7 +28,8 @@ module Decor
               ::Decor::Daisy::Icon.new(
                 name: @icon,
                 style: :solid,
-                html_options: {class: "-ml-1 mr-1.5 #{icon_size_classes}"}
+                # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
+                html_options: {class: "decor:-ml-1 decor:mr-1.5 #{icon_size_classes}"}
               )
             )
           end
@@ -38,7 +39,7 @@ module Decor
                 size: avatar_size,
                 initials: @initials,
                 url: @url,
-                html_options: {style: "left: -11px", class: "mr-1 -mt-0.5"}
+                html_options: {style: "left: -11px", class: "decor:mr-1 decor:-mt-0.5"}
               )
             )
           end
@@ -52,55 +53,55 @@ module Decor
 
       def component_size_classes(size)
         case size
-        when :xs then "badge-xs"
-        when :sm then "badge-sm"
+        when :xs then "decor:d-badge-xs"
+        when :sm then "decor:d-badge-sm"
         when :md then [] # default size, no class needed
-        when :lg then "badge-lg"
-        when :xl then "badge-xl"
+        when :lg then "decor:d-badge-lg"
+        when :xl then "decor:d-badge-xl"
         else []
         end
       end
 
       def component_color_classes(color)
         case color
-        when :base then "badge-base"
-        when :primary then "badge-primary"
-        when :secondary then "badge-secondary"
-        when :accent then "badge-accent"
-        when :success then "badge-success"
-        when :error then "badge-error"
-        when :warning then "badge-warning"
-        when :info then "badge-info"
-        when :neutral then "badge-neutral"
+        when :base then "decor:d-badge-base"
+        when :primary then "decor:d-badge-primary"
+        when :secondary then "decor:d-badge-secondary"
+        when :accent then "decor:d-badge-accent"
+        when :success then "decor:d-badge-success"
+        when :error then "decor:d-badge-error"
+        when :warning then "decor:d-badge-warning"
+        when :info then "decor:d-badge-info"
+        when :neutral then "decor:d-badge-neutral"
         else []
         end
       end
 
       def component_style_classes(style)
         case style
-        when :outlined then "badge-outline"
+        when :outlined then "decor:d-badge-outline"
         when :filled then [] # default filled, no class needed
-        when :ghost then "badge-ghost"
+        when :ghost then "decor:d-badge-ghost"
         else []
         end
       end
 
       def dashed_classes
-        @dashed ? "border-dashed" : nil
+        @dashed ? "decor:border-dashed" : nil
       end
 
       def icon_size_classes
         case @size
         when :xs
-          "h-2.5 w-2.5"
+          "decor:h-2.5 decor:w-2.5"
         when :sm
-          "h-3 w-3"
+          "decor:h-3 decor:w-3"
         when :md
-          "h-3.5 w-3.5"
+          "decor:h-3.5 decor:w-3.5"
         when :lg
-          "h-4.5 w-4.5"
+          "decor:h-4.5 decor:w-4.5"
         when :xl
-          "h-5 w-5"
+          "decor:h-5 decor:w-5"
         end
       end
 

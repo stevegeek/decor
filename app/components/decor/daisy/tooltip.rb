@@ -19,7 +19,7 @@ module Decor
       private
 
       def root_element_classes
-        classes = ["tooltip"]
+        classes = ["decor:d-tooltip"]
         classes << position_class
         classes << size_classes
         classes << color_classes
@@ -29,44 +29,44 @@ module Decor
 
       def position_class
         case @position
-        when :top, nil then "tooltip-top"
-        when :bottom then "tooltip-bottom"
-        when :left then "tooltip-left"
-        when :right then "tooltip-right"
-        else "tooltip-top"
+        when :top, nil then "decor:d-tooltip-top"
+        when :bottom then "decor:d-tooltip-bottom"
+        when :left then "decor:d-tooltip-left"
+        when :right then "decor:d-tooltip-right"
+        else "decor:d-tooltip-top"
         end
       end
 
       def component_size_classes(size)
         # DaisyUI tooltip sizes
         case size
-        when :xs then "tooltip-xs"
-        when :sm then "tooltip-sm"
+        when :xs then "decor:d-tooltip-xs"
+        when :sm then "decor:d-tooltip-sm"
         when :md then nil # default
-        when :lg then "tooltip-lg"
-        when :xl then "tooltip-xl"
+        when :lg then "decor:d-tooltip-lg"
+        when :xl then "decor:d-tooltip-xl"
         end
       end
 
       def component_color_classes(color)
         case color
         when :base then nil # default
-        when :primary then "tooltip-primary"
-        when :secondary then "tooltip-secondary"
-        when :accent then "tooltip-accent"
-        when :success then "tooltip-success"
-        when :error then "tooltip-error"
-        when :warning then "tooltip-warning"
-        when :info then "tooltip-info"
-        when :neutral then "tooltip-neutral"
+        when :primary then "decor:d-tooltip-primary"
+        when :secondary then "decor:d-tooltip-secondary"
+        when :accent then "decor:d-tooltip-accent"
+        when :success then "decor:d-tooltip-success"
+        when :error then "decor:d-tooltip-error"
+        when :warning then "decor:d-tooltip-warning"
+        when :info then "decor:d-tooltip-info"
+        when :neutral then "decor:d-tooltip-neutral"
         end
       end
 
       def component_style_classes(style)
         case style
         when :filled then nil # default
-        when :outlined then "tooltip-outline"
-        when :ghost then "tooltip-ghost"
+        when :outlined then "decor:d-tooltip-outline"
+        when :ghost then "decor:d-tooltip-ghost"
         end
       end
 
@@ -84,7 +84,7 @@ module Decor
       end
 
       def tooltip_content_classes
-        "tooltip-content"
+        "decor:d-tooltip-content"
       end
     end
   end

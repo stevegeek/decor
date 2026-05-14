@@ -29,7 +29,7 @@ module Decor
           if block_given?
             yield
           else
-            span(class: "whitespace-nowrap") { plain(@label) }
+            span(class: "decor:whitespace-nowrap") { plain(@label) }
           end
 
           # Remove button (if removable)
@@ -40,30 +40,30 @@ module Decor
       end
 
       def root_element_classes
-        classes = ["inline-flex", "items-center", "justify-center", "rounded-full", "whitespace-nowrap"]
+        classes = ["decor:inline-flex", "decor:items-center", "decor:justify-center", "decor:rounded-full", "decor:whitespace-nowrap"]
         classes << size_classes
         classes << style_classes
-        classes << "gap-2" if @icon.present? || @removable
+        classes << "decor:gap-2" if @icon.present? || @removable
         classes.compact.join(" ")
       end
 
       def component_size_classes(size)
         case size
-        when :xs then "px-2 py-0.5 text-xs"
-        when :sm then "px-2.5 py-0.5 text-sm"
-        when :md then "px-3 py-1 text-sm"
-        when :lg then "px-4 py-1.5 text-base"
-        when :xl then "px-5 py-2 text-lg"
+        when :xs then "decor:px-2 decor:py-0.5 decor:text-xs"
+        when :sm then "decor:px-2.5 decor:py-0.5 decor:text-sm"
+        when :md then "decor:px-3 decor:py-1 decor:text-sm"
+        when :lg then "decor:px-4 decor:py-1.5 decor:text-base"
+        when :xl then "decor:px-5 decor:py-2 decor:text-lg"
         end
       end
 
       def icon_classes
         case @size
-        when :xs then "w-3 h-3"
-        when :sm then "w-3 h-3"
-        when :md then "w-4 h-4"
-        when :lg then "w-5 h-5"
-        when :xl then "w-6 h-6"
+        when :xs then "decor:w-3 decor:h-3"
+        when :sm then "decor:w-3 decor:h-3"
+        when :md then "decor:w-4 decor:h-4"
+        when :lg then "decor:w-5 decor:h-5"
+        when :xl then "decor:w-6 decor:h-6"
         end
       end
 
@@ -72,7 +72,7 @@ module Decor
           class: remove_button_classes,
           type: "button"
         ) do
-          span(class: "sr-only") { "Remove tag" }
+          span(class: "decor:sr-only") { "Remove tag" }
           render ::Decor::Daisy::Icon.new(
             name: "x-mark",
             style: :outline,
@@ -84,23 +84,24 @@ module Decor
       end
 
       def remove_button_classes
-        "ml-1 btn btn-xs btn-circle btn-ghost #{remove_button_size_classes}"
+        # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
+        "decor:ml-1 decor:d-btn decor:d-btn-xs decor:d-btn-circle decor:d-btn-ghost #{remove_button_size_classes}"
       end
 
       def remove_button_size_classes
         case @size
-        when :xs then "w-3 h-3"
-        else "w-4 h-4"
+        when :xs then "decor:w-3 decor:h-3"
+        else "decor:w-4 decor:h-4"
         end
       end
 
       def remove_icon_classes
         case @size
-        when :xs then "w-2 h-2"
-        when :sm then "w-3 h-3"
-        when :md then "w-3 h-3"
-        when :lg then "w-4 h-4"
-        when :xl then "w-5 h-5"
+        when :xs then "decor:w-2 decor:h-2"
+        when :sm then "decor:w-3 decor:h-3"
+        when :md then "decor:w-3 decor:h-3"
+        when :lg then "decor:w-4 decor:h-4"
+        when :xl then "decor:w-5 decor:h-5"
         end
       end
     end

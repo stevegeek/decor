@@ -9,7 +9,7 @@ module Decor
 
       def root_element_classes
         [
-          "btn btn-link",
+          "decor:d-btn decor:d-btn-link",
           *color_classes,
           *size_classes,
           *style_classes,
@@ -22,47 +22,47 @@ module Decor
 
         case color
         when :primary
-          ["link-primary"]
+          ["decor:d-link-primary"]
         when :secondary
-          ["link-secondary"]
+          ["decor:d-link-secondary"]
         when :error
-          ["link-error"]
+          ["decor:d-link-error"]
         when :warning
-          ["link-warning"]
+          ["decor:d-link-warning"]
         when :neutral
-          ["link-neutral"]
+          ["decor:d-link-neutral"]
         when :success
-          ["link-success"]
+          ["decor:d-link-success"]
         when :info
-          ["link-info"]
+          ["decor:d-link-info"]
         when :accent
-          ["link-accent"]
+          ["decor:d-link-accent"]
         else
-          ["link-primary"]
+          ["decor:d-link-primary"]
         end
       end
 
       def component_size_classes(size)
         case size
         when :xs
-          ["text-xs"]
+          ["decor:text-xs"]
         when :sm
-          ["text-sm"]
+          ["decor:text-sm"]
         when :lg
-          ["text-lg"]
+          ["decor:text-lg"]
         when :xl
-          ["text-xl"]
+          ["decor:text-xl"]
         else
-          ["text-base"] # Default for md
+          ["decor:text-base"] # Default for md
         end
       end
 
       def modifier_classes
         classes = []
         if @disabled
-          classes << "text-gray-400"
-          classes << "cursor-not-allowed"
-          classes << "no-underline"
+          classes << "decor:text-gray-400"
+          classes << "decor:cursor-not-allowed"
+          classes << "decor:no-underline"
         end
         classes
       end

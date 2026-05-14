@@ -11,8 +11,8 @@ module Decor
           div(class: container_classes) do
             div(class: title_section_classes) do
               if @icon
-                div(class: "flex items-start space-x-2") do
-                  render ::Decor::Daisy::Icon.new(name: @icon, width: icon_size, height: icon_size, html_options: {class: "mt-1"})
+                div(class: "decor:flex decor:items-start decor:space-x-2") do
+                  render ::Decor::Daisy::Icon.new(name: @icon, width: icon_size, height: icon_size, html_options: {class: "decor:mt-1"})
                   render_title_and_description
                 end
               else
@@ -22,7 +22,7 @@ module Decor
 
             if block_given?
               div(class: actions_classes) do
-                div(class: "flex items-center space-x-3") do
+                div(class: "decor:flex decor:items-center decor:space-x-3") do
                   yield
                 end
               end
@@ -39,15 +39,15 @@ module Decor
       end
 
       def container_classes
-        "flex justify-between items-center flex-wrap sm:flex-nowrap"
+        "decor:flex decor:justify-between decor:items-center decor:flex-wrap decor:sm:flex-nowrap"
       end
 
       def title_section_classes
-        "flex-1"
+        "decor:flex-1"
       end
 
       def actions_classes
-        "flex-shrink-0"
+        "decor:flex-shrink-0"
       end
 
       def title_tag
@@ -68,36 +68,46 @@ module Decor
       end
 
       def title_classes
-        base_classes = "font-semibold text-base-content leading-tight"
+        base_classes = "decor:font-semibold decor:text-base-content decor:leading-tight"
 
         case @size
         when :xs
-          "#{base_classes} text-sm"
+          # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
+          "#{base_classes} decor:text-sm"
         when :sm
-          "#{base_classes} text-base"
+          # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
+          "#{base_classes} decor:text-base"
         when :md
-          "#{base_classes} text-lg"
+          # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
+          "#{base_classes} decor:text-lg"
         when :lg
-          "#{base_classes} text-xl"
+          # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
+          "#{base_classes} decor:text-xl"
         when :xl
-          "#{base_classes} text-2xl"
+          # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
+          "#{base_classes} decor:text-2xl"
         end
       end
 
       def description_classes
-        base_classes = "text-base-content/70 leading-relaxed"
+        base_classes = "decor:text-base-content/70 decor:leading-relaxed"
 
         case @size
         when :xs
-          "#{base_classes} text-xs mt-0.5"
+          # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
+          "#{base_classes} decor:text-xs decor:mt-0.5"
         when :sm
-          "#{base_classes} text-sm mt-1"
+          # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
+          "#{base_classes} decor:text-sm decor:mt-1"
         when :md
-          "#{base_classes} text-sm mt-1"
+          # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
+          "#{base_classes} decor:text-sm decor:mt-1"
         when :lg
-          "#{base_classes} text-base mt-1.5"
+          # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
+          "#{base_classes} decor:text-base decor:mt-1.5"
         when :xl
-          "#{base_classes} text-lg mt-2"
+          # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
+          "#{base_classes} decor:text-lg decor:mt-2"
         end
       end
 
@@ -119,11 +129,11 @@ module Decor
       def root_element_classes
         case @size
         when :xs, :sm
-          "space-y-1"
+          "decor:space-y-1"
         when :md
-          "space-y-2"
+          "decor:space-y-2"
         when :lg, :xl
-          "space-y-3"
+          "decor:space-y-3"
         end
       end
     end
