@@ -39,4 +39,21 @@ class Decor::ClassMergerTest < ActiveSupport::TestCase
   test "single token unchanged" do
     assert_equal "decor:p-4", @merger.merge("decor:p-4")
   end
+
+  test "fuzz: same stripped-token N times survives at most once with last-occurrence prefix" do
+    inputs = [
+      ["decor:p-4 p-4 decor:p-4 p-4", false],
+      ["p-4 decor:p-4 p-4 decor:p-4", true],
+      ["decor:p-2 decor:p-4 p-8 decor:p-12", true],
+    ]
+    inputs.each do |input, expect_prefix|
+      output = @merger.merge(input)
+      occurrences = output.scan(/(?:decor:)?p-\d+/)
+      assert_equal 1, occurrences.length, "expected exactly one padding token in #{output}"
+      if expect_prefix
+        assert output.split(/\s+/).any? { |t| t.start_with?("decor:") && t =~ /p-\d+\z/ },
+          "expected last-occurrence prefix retained in #{output}"
+      end
+    end
+  end
 end
