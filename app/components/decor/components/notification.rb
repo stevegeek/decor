@@ -21,7 +21,7 @@ module Decor
         prop :style, _Nilable(Symbol)
 
         def text_classes
-          primary? ? "font-medium text-primary hover:text-primary-focus" : "text-base-content hover:text-base-content/70"
+          primary? ? "decor:font-medium decor:text-primary decor:hover:text-primary-focus" : "decor:text-base-content decor:hover:text-base-content/70"
         end
 
         attr_reader :href

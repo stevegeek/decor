@@ -12,13 +12,13 @@ module Decor
         @content = capture(&) if block_given?
 
         root_element do
-          div(class: "card-body") do
+          div(class: "decor:d-card-body") do
             if @left.present? && @right.present?
-              div(class: "flex justify-between items-start") do
-                div(class: "flex-1") do
+              div(class: "decor:flex decor:justify-between decor:items-start") do
+                div(class: "decor:flex-1") do
                   render @left
                 end
-                div(class: "flex-none") do
+                div(class: "decor:flex-none") do
                   render @right
                 end
               end
@@ -26,7 +26,7 @@ module Decor
               render @left
             else
               if @title.present? || @html_title.present?
-                h2(class: "card-title") do
+                h2(class: "decor:d-card-title") do
                   if @html_title.present?
                     render @html_title
                   else
@@ -36,7 +36,7 @@ module Decor
               end
 
               if @description.present?
-                p(class: "text-base-content/70") do
+                p(class: "decor:text-base-content/70") do
                   plain(@description)
                 end
               end
@@ -54,7 +54,7 @@ module Decor
       end
 
       def root_element_classes
-        classes = ["card", "card-bordered"]
+        classes = ["decor:d-card", "decor:d-card-bordered"]
         classes << size_classes
         classes << style_classes
         classes.compact.join(" ")
@@ -62,24 +62,25 @@ module Decor
 
       def component_size_classes(size)
         case size
-        when :xs then "card-xs"
-        when :sm then "card-sm"
-        when :md then "card-md"
-        when :lg then "card-lg"
-        when :xl then "card-xl"
+        when :xs then "decor:d-card-xs"
+        when :sm then "decor:d-card-sm"
+        when :md then "decor:d-card-md"
+        when :lg then "decor:d-card-lg"
+        when :xl then "decor:d-card-xl"
         else
           ""
         end
       end
 
       def component_style_classes(style)
+        # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
         case style
         when :filled
-          "#{filled_color_classes(@color)} shadow-sm"
+          "#{filled_color_classes(@color)} decor:shadow-sm"
         when :outlined
-          "#{outline_color_classes(@color)} bg-base-100"
+          "#{outline_color_classes(@color)} decor:bg-base-100"
         when :ghost
-          "#{ghost_color_classes(@color)} shadow-none"
+          "#{ghost_color_classes(@color)} decor:shadow-none"
         else
           ""
         end

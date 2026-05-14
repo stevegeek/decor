@@ -8,7 +8,7 @@ module Decor
           vanish(&)
           root_element do |el|
             if @selectable_as.present?
-              td(class: "px-4") do
+              td(class: "decor:px-4") do
                 render ::Decor::Daisy::Forms::Checkbox.new(
                   stimulus_actions: [el.stimulus_action(:change, :handle_checkbox_change)],
                   stimulus_outlet_host: el,

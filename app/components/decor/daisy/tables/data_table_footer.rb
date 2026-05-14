@@ -7,29 +7,34 @@ module Decor
         def view_template
           root_element do
             if @left.present?
-              div(class: "px-6 flex-1 sm:max-w-md") do
+              div(class: "decor:px-6 decor:flex-1 decor:sm:max-w-md") do
+                # CODEMOD-REVIEW: latent bug — Proc instance_eval would raise; defer to per-component step-2 migration
                 instance_eval(@left)
               end
             elsif @message.present?
-              div(class: "px-6 flex-1 sm:max-w-md") do
-                p(class: "text-sm text-base-content/70 leading-relaxed") do
+              div(class: "decor:px-6 decor:flex-1 decor:sm:max-w-md") do
+                p(class: "decor:text-sm decor:text-base-content/70 decor:leading-relaxed") do
                   @message
                 end
               end
             end
 
             if @right.present?
-              div(class: "mt-6 sm:mt-0 sm:ml-6 sm:flex-shrink-0") do
+              div(class: "decor:mt-6 decor:sm:mt-0 decor:sm:ml-6 decor:sm:flex-shrink-0") do
+                # CODEMOD-REVIEW: latent bug — Proc instance_eval would raise; defer to per-component step-2 migration
                 instance_eval(@right)
               end
             elsif @summary_lines.present?
-              div(class: "mt-6 sm:mt-0 sm:ml-6 sm:flex-shrink-0 sm:w-80") do
-                div(class: "flow-root") do
-                  dl(class: "-my-3 divide-y divide-base-300 text-sm") do
+              div(class: "decor:mt-6 decor:sm:mt-0 decor:sm:ml-6 decor:sm:flex-shrink-0 decor:sm:w-80") do
+                div(class: "decor:flow-root") do
+                  dl(class: "decor:-my-3 decor:divide-y decor:divide-base-300 decor:text-sm") do
                     @summary_lines.each do |line|
-                      div(class: "grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4 #{line.start_section? ? "border-t-2 border-base-300 pt-4" : ""} #{line.final_line? ? "border-t-2 border-primary/20 pt-4 bg-base-50" : ""}") do
-                        dt(class: "font-medium text-base-content #{line.final_line? ? "text-primary" : ""}") { line.title }
-                        dd(class: "text-base-content/70 sm:col-span-2 font-semibold #{line.final_line? ? "text-primary text-base" : ""}") { line.value }
+                      # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
+                      div(class: "decor:grid decor:grid-cols-1 decor:gap-1 decor:py-3 decor:sm:grid-cols-3 decor:sm:gap-4 #{line.start_section? ? "decor:border-t-2 decor:border-base-300 decor:pt-4" : ""} #{line.final_line? ? "decor:border-t-2 decor:border-primary/20 decor:pt-4 decor:bg-base-50" : ""}") do
+                        # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
+                        dt(class: "decor:font-medium decor:text-base-content #{line.final_line? ? "decor:text-primary" : ""}") { line.title }
+                        # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
+                        dd(class: "decor:text-base-content/70 decor:sm:col-span-2 decor:font-semibold #{line.final_line? ? "decor:text-primary decor:text-base" : ""}") { line.value }
                       end
                     end
                   end
@@ -44,7 +49,7 @@ module Decor
         private
 
         def root_element_classes
-          "sm:flex sm:justify-between sm:items-start pt-6 pb-4 border-t border-base-300 bg-base-50/50"
+          "decor:sm:flex decor:sm:justify-between decor:sm:items-start decor:pt-6 decor:pb-4 decor:border-t decor:border-base-300 decor:bg-base-50/50"
         end
       end
     end

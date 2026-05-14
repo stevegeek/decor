@@ -11,7 +11,7 @@ module Decor
             if @max_width.present? || @min_width_rem.present?
               div(
                 style: "#{@max_width ? "max-width: #{@max_width}px;" : ""}#{@min_width_rem ? "min-width: #{@min_width_rem}rem;" : ""}",
-                class: "truncate"
+                class: "decor:truncate"
               ) do
                 render_cell_content(s, &block)
               end
@@ -27,11 +27,11 @@ module Decor
 
         def root_element_classes
           [
-            @numeric ? "text-right" : "text-left",
+            @numeric ? "decor:text-right" : "decor:text-left",
             row_height_classes,
             *typography_classes,
-            "relative whitespace-nowrap",
-            @path ? "cursor-pointer hover:bg-base-200" : nil
+            "decor:relative decor:whitespace-nowrap",
+            @path ? "decor:cursor-pointer decor:hover:bg-base-200" : nil
           ].compact_blank
         end
 
@@ -58,14 +58,15 @@ module Decor
         def render_cell_content(s, &)
           if @path.present?
             a(
-              class: "cell-row-link-overlay absolute inset-0 no-underline cursor-pointer",
+              # CODEMOD-REVIEW: cell-row-link-overlay is a custom/non-utility class — leave unprefixed
+              class: "cell-row-link-overlay decor:absolute decor:inset-0 decor:no-underline decor:cursor-pointer",
               tabindex: "-1",
               href: @path,
               data: {**stimulus_action(:click, :handle_link_click)}
             )
             if @content_clickable
-              div(class: "absolute inset-0") do
-                div(class: "h-full flex items-center place-content-center") do
+              div(class: "decor:absolute decor:inset-0") do
+                div(class: "decor:h-full decor:flex decor:items-center decor:place-content-center") do
                   cell_content(&)
                 end
               end
@@ -73,8 +74,8 @@ module Decor
               cell_content(&)
             end
           elsif @content_clickable
-            div(class: "absolute inset-0") do
-              div(class: "h-full flex items-center place-content-center") do
+            div(class: "decor:absolute decor:inset-0") do
+              div(class: "decor:h-full decor:flex decor:items-center decor:place-content-center") do
                 cell_content(&)
               end
             end

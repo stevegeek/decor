@@ -42,7 +42,7 @@ module Decor
 
         stimulus do
           actions [:click, :handle_row_click]
-          classes selected: "bg-base-200"
+          classes selected: "decor:bg-base-200"
           values_from_props :id
           values href: -> { @path }
         end

@@ -7,8 +7,8 @@ module Decor
         vanish(&block) if block
         root_element do |el|
           form(method: "get", action: @url) do
-            div(class: "sm:flex sm:rounded-md sm:shadow-sm") do
-              div(class: "relative flex-grow focus-within:z-10") do
+            div(class: "decor:sm:flex decor:sm:rounded-md decor:sm:shadow-sm") do
+              div(class: "decor:relative decor:flex-grow decor:focus-within:z-10") do
                 if @search.present?
                   render ::Decor::Daisy::Forms::TextField.new(
                     name: @search.name,
@@ -24,7 +24,7 @@ module Decor
                       stimulus_action(:keydown, :handle_search_input_keydown)
                     ],
                     stimulus_outlet_host: el,
-                    control_html_options: {class: @filters.present? ? "rounded-md sm:rounded-l-md sm:rounded-r-none pl-10" : "rounded-md"},
+                    control_html_options: {class: @filters.present? ? "decor:rounded-md decor:sm:rounded-l-md decor:sm:rounded-r-none decor:pl-10" : "decor:rounded-md"},
                     object: nil,
                     object_name: nil,
                     method_name: nil,
@@ -43,22 +43,23 @@ module Decor
                   dropdown.trigger_button do
                     button(
                       type: "button",
-                      class: "-ml-px relative inline-flex items-center px-4 py-2 mt-4 sm:mt-0 w-full sm:w-auto border border-gray-300 text-sm font-medium #{@search.present? ? "rounded-md sm:rounded-r-md sm:rounded-l-none" : "rounded-md"} text-gray-700 bg-white sm:bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500",
+                      # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
+                      class: "decor:-ml-px decor:relative decor:inline-flex decor:items-center decor:px-4 decor:py-2 decor:mt-4 decor:sm:mt-0 decor:w-full decor:sm:w-auto decor:border decor:border-gray-300 decor:text-sm decor:font-medium #{@search.present? ? "decor:rounded-md decor:sm:rounded-r-md decor:sm:rounded-l-none" : "decor:rounded-md"} decor:text-gray-700 decor:bg-white decor:sm:bg-gray-50 decor:hover:bg-gray-100 decor:focus:outline-none decor:focus:ring-1 decor:focus:ring-blue-500 decor:focus:border-blue-500",
                       data: {**stimulus_actions([:click, :toggle], [:"click@window", :hide_on_click_outside])}
                     ) do
                       render ::Decor::Daisy::Icon.new(
                         name: "filter",
                         style: filters_active ? :solid : :outline,
-                        html_options: {class: "h-5 w-5 text-gray-400"}
+                        html_options: {class: "decor:h-5 decor:w-5 decor:text-gray-400"}
                       )
 
-                      span(class: "ml-auto mr-2 sm:ml-2") { "Filter" }
-                      render ::Decor::Daisy::Icon.new(name: "chevron-down", style: :solid, html_options: {class: "h-5 w-5 text-gray-400"})
+                      span(class: "decor:ml-auto decor:mr-2 decor:sm:ml-2") { "Filter" }
+                      render ::Decor::Daisy::Icon.new(name: "chevron-down", style: :solid, html_options: {class: "decor:h-5 decor:w-5 decor:text-gray-400"})
                     end
                   end
 
                   dropdown.menu_content do
-                    div(class: "space-y-2 p-4") do
+                    div(class: "decor:space-y-2 decor:p-4") do
                       component_filters.each do |filter|
                         case filter.type
                         when :select
@@ -73,7 +74,7 @@ module Decor
                             disable_blank_option: false,
                             label_position: :inside,
                             collapsing_helper_text: true,
-                            classes: "pt-2 w-full",
+                            classes: "decor:pt-2 decor:w-full",
                             stimulus_outlet_host: el
                           )
                         when :checkbox
@@ -83,7 +84,7 @@ module Decor
                             checked: filter.value == "true",
                             disabled: filter.disabled,
                             collapsing_helper_text: true,
-                            classes: "pt-2 w-full",
+                            classes: "decor:pt-2 decor:w-full",
                             stimulus_outlet_host: el
                           )
                         when :date_range
@@ -97,14 +98,14 @@ module Decor
                             control_actions: [
                               stimulus_action(:focus, :handle_range_picker)
                             ],
-                            classes: "pt-2 w-full",
+                            classes: "decor:pt-2 decor:w-full",
                             stimulus_outlet_host: el
                           )
                         end
                       end
                     end
 
-                    div(class: "space-y-4 p-4 border-t border-gray-200") do
+                    div(class: "decor:space-y-4 decor:p-4 decor:border-t decor:border-gray-200") do
                       if filters_active
                         render ::Decor::Daisy::Button.new(
                           label: "Clear filters",
@@ -133,6 +134,7 @@ module Decor
             end
 
             if @filters_slot.present?
+              # CODEMOD-REVIEW: filters-slot is a custom/non-utility class — leave unprefixed
               div(class: "filters-slot") do
                 raw(@filters_slot.call.html_safe)
               end
@@ -142,15 +144,15 @@ module Decor
               a(
                 href: @download_path,
                 method: :post,
-                class: "w-[38px] h-[38px] flex-shrink-0 grid place-content-center border border-gray-300 rounded-md shadow-sm bg-white hover:bg-gray-50 focus:outline-none",
+                class: "decor:w-[38px] decor:h-[38px] decor:flex-shrink-0 decor:grid decor:place-content-center decor:border decor:border-gray-300 decor:rounded-md decor:shadow-sm decor:bg-white decor:hover:bg-gray-50 decor:focus:outline-none",
                 data: {confirm: "Do you wish to download the data currently shown in the table?", "confirm-yes": "Yes, download"}
               ) do
-                render ::Decor::Daisy::Icon.new(name: "download", html_options: {class: "h-4 w-4 text-blue-500"})
+                render ::Decor::Daisy::Icon.new(name: "download", html_options: {class: "decor:h-4 decor:w-4 decor:text-blue-500"})
               end
             end
 
             if @actions.present?
-              div(class: "mt-4 sm:mt-0", &@actions)
+              div(class: "decor:mt-4 decor:sm:mt-0", &@actions)
             end
           end
         end
@@ -159,7 +161,7 @@ module Decor
       private
 
       def root_element_classes
-        "sm:flex sm:items-center space-x-0 sm:space-x-4 mt-3 sm:mt-0 sm:ml-4"
+        "decor:sm:flex decor:sm:items-center decor:space-x-0 decor:sm:space-x-4 decor:mt-3 decor:sm:mt-0 decor:sm:ml-4"
       end
     end
   end

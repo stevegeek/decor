@@ -9,7 +9,7 @@ module Decor
 
       def root_element_classes
         [
-          "btn",
+          "decor:d-btn",
           *color_classes,
           *style_classes,
           *size_classes,
@@ -24,21 +24,21 @@ module Decor
         when :base
           [] # Base color has no specific btn- class in DaisyUI
         when :primary
-          ["btn-primary"]
+          ["decor:d-btn-primary"]
         when :secondary
-          ["btn-secondary"]
+          ["decor:d-btn-secondary"]
         when :error
-          ["btn-error"]
+          ["decor:d-btn-error"]
         when :warning
-          ["btn-warning"]
+          ["decor:d-btn-warning"]
         when :neutral
-          ["btn-neutral"]
+          ["decor:d-btn-neutral"]
         when :success
-          ["btn-success"]
+          ["decor:d-btn-success"]
         when :info
-          ["btn-info"]
+          ["decor:d-btn-info"]
         when :accent
-          ["btn-accent"]
+          ["decor:d-btn-accent"]
         else
           []
         end
@@ -46,20 +46,20 @@ module Decor
 
       def style_classes
         classes = component_style_classes(@style) || []
-        classes << "bg-base-100" if @style == :outlined
+        classes << "decor:bg-base-100" if @style == :outlined
         classes
       end
 
       def component_style_classes(style)
         case style
         when :soft
-          ["btn-soft"]
+          ["decor:d-btn-soft"]
         when :filled
           [] # Default for buttons, no special class needed
         when :outlined
-          ["btn-outline"]
+          ["decor:d-btn-outline"]
         when :ghost
-          ["btn-ghost"]
+          ["decor:d-btn-ghost"]
         else
           []
         end
@@ -68,13 +68,13 @@ module Decor
       def component_size_classes(size)
         case size
         when :xs
-          ["btn-xs"]
+          ["decor:d-btn-xs"]
         when :sm
-          ["btn-sm"]
+          ["decor:d-btn-sm"]
         when :lg
-          ["btn-lg"]
+          ["decor:d-btn-lg"]
         when :xl
-          ["btn-xl"]
+          ["decor:d-btn-xl"]
         else
           [] # medium is default, no class needed
         end
@@ -82,7 +82,7 @@ module Decor
 
       def modifier_classes
         classes = []
-        classes << "btn-block" if @full_width
+        classes << "decor:d-btn-block" if @full_width
         classes
       end
     end

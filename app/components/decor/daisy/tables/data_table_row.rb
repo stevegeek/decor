@@ -8,7 +8,7 @@ module Decor
           vanish(&)
           root_element do |el|
             if @selectable_as.present?
-              td(class: "px-4") do
+              td(class: "decor:px-4") do
                 render ::Decor::Daisy::Forms::Checkbox.new(
                   stimulus_targets: [stimulus_target(:checkbox)],
                   stimulus_actions: [stimulus_action(:change, :row_selected)],
@@ -44,42 +44,42 @@ module Decor
 
         def root_element_classes
           [
-            @expanded_content.present? ? "border-b border-white" : nil,
-            @hover_highlight && "hover:bg-base-200 transition-colors duration-150",
+            @expanded_content.present? ? "decor:border-b decor:border-white" : nil,
+            @hover_highlight && "decor:hover:bg-base-200 decor:transition-colors decor:duration-150",
             @highlight && highlight_bg,
-            @disabled && "opacity-50",
-            @hidden && "hidden"
+            @disabled && "decor:opacity-50",
+            @hidden && "decor:hidden"
           ].compact_blank
         end
 
         def highlight_bg
           case @highlight
           when :gray_low
-            "bg-gray-50"
+            "decor:bg-gray-50"
           when :gray_medium
-            "bg-gray-100"
+            "decor:bg-gray-100"
           when :gray_high
-            "bg-gray-200"
+            "decor:bg-gray-200"
           when :low
-            "bg-primary-50"
+            "decor:bg-primary-50"
           when :high
-            "bg-primary-200"
+            "decor:bg-primary-200"
           when :primary
-            "bg-primary/20"
+            "decor:bg-primary/20"
           when :secondary
-            "bg-secondary/20"
+            "decor:bg-secondary/20"
           when :accent
-            "bg-accent/20"
+            "decor:bg-accent/20"
           when :info
-            "bg-info/20"
+            "decor:bg-info/20"
           when :success
-            "bg-success/20"
+            "decor:bg-success/20"
           when :warning
-            "bg-warning/20"
+            "decor:bg-warning/20"
           when :error
-            "bg-error/20"
+            "decor:bg-error/20"
           else
-            "bg-primary-100"
+            "decor:bg-primary-100"
           end
         end
       end

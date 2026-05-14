@@ -10,7 +10,7 @@ module Decor
         root_element do
           render_step_indicator
 
-          div(class: "space-y-4 md:space-y-6") do
+          div(class: "decor:space-y-4 decor:md:space-y-6") do
             render ::Decor::Daisy::Title.new(
               title: @title,
               description: @description,
@@ -25,7 +25,7 @@ module Decor
       private
 
       def root_element_classes
-        "flex gap-3 md:gap-5 mt-5 border-b border-base-300 mb-3 pb-5"
+        "decor:flex decor:gap-3 decor:md:gap-5 decor:mt-5 decor:border-b decor:border-base-300 decor:mb-3 decor:pb-5"
       end
 
       def render_step_indicator
@@ -56,7 +56,7 @@ module Decor
       # Icon handling for custom span (when Avatar isn't used)
       def step_indicator_classes
         [
-          "flex-shrink-0 flex items-center justify-center rounded-full",
+          "decor:flex-shrink-0 decor:flex decor:items-center decor:justify-center decor:rounded-full",
           component_size_classes(@size),
           component_style_classes(@style)
         ].compact.join(" ")
@@ -64,11 +64,11 @@ module Decor
 
       def component_size_classes(size)
         case size
-        when :xs then "w-6 h-6 text-xs"
-        when :sm then "w-8 h-8 text-sm"
-        when :md then "w-8 h-8 md:w-10 md:h-10 text-sm md:text-base"
-        when :lg then "w-12 h-12 text-lg"
-        when :xl then "w-16 h-16 text-xl"
+        when :xs then "decor:w-6 decor:h-6 decor:text-xs"
+        when :sm then "decor:w-8 decor:h-8 decor:text-sm"
+        when :md then "decor:w-8 decor:h-8 decor:md:w-10 decor:md:h-10 decor:text-sm decor:md:text-base"
+        when :lg then "decor:w-12 decor:h-12 decor:text-lg"
+        when :xl then "decor:w-16 decor:h-16 decor:text-xl"
         end
       end
 
@@ -85,65 +85,65 @@ module Decor
 
       def filled_color_classes(color)
         case color
-        when :primary then "bg-primary text-primary-content border-2 border-primary"
-        when :secondary then "bg-secondary text-secondary-content border-2 border-secondary"
-        when :accent then "bg-accent text-accent-content border-2 border-accent"
-        when :success then "bg-success text-success-content border-2 border-success"
-        when :error then "bg-error text-error-content border-2 border-error"
-        when :warning then "bg-warning text-warning-content border-2 border-warning"
-        when :info then "bg-info text-info-content border-2 border-info"
-        when :neutral then "bg-neutral text-neutral-content border-2 border-neutral"
+        when :primary then "decor:bg-primary decor:text-primary-content decor:border-2 decor:border-primary"
+        when :secondary then "decor:bg-secondary decor:text-secondary-content decor:border-2 decor:border-secondary"
+        when :accent then "decor:bg-accent decor:text-accent-content decor:border-2 decor:border-accent"
+        when :success then "decor:bg-success decor:text-success-content decor:border-2 decor:border-success"
+        when :error then "decor:bg-error decor:text-error-content decor:border-2 decor:border-error"
+        when :warning then "decor:bg-warning decor:text-warning-content decor:border-2 decor:border-warning"
+        when :info then "decor:bg-info decor:text-info-content decor:border-2 decor:border-info"
+        when :neutral then "decor:bg-neutral decor:text-neutral-content decor:border-2 decor:border-neutral"
         end
       end
 
       def outline_color_classes(color)
         case color
-        when :primary then "border-2 border-primary text-primary bg-transparent"
-        when :secondary then "border-2 border-secondary text-secondary bg-transparent"
-        when :accent then "border-2 border-accent text-accent bg-transparent"
-        when :success then "border-2 border-success text-success bg-transparent"
-        when :error then "border-2 border-error text-error bg-transparent"
-        when :warning then "border-2 border-warning text-warning bg-transparent"
-        when :info then "border-2 border-info text-info bg-transparent"
-        when :neutral then "border-2 border-neutral text-neutral bg-transparent"
+        when :primary then "decor:border-2 decor:border-primary decor:text-primary decor:bg-transparent"
+        when :secondary then "decor:border-2 decor:border-secondary decor:text-secondary decor:bg-transparent"
+        when :accent then "decor:border-2 decor:border-accent decor:text-accent decor:bg-transparent"
+        when :success then "decor:border-2 decor:border-success decor:text-success decor:bg-transparent"
+        when :error then "decor:border-2 decor:border-error decor:text-error decor:bg-transparent"
+        when :warning then "decor:border-2 decor:border-warning decor:text-warning decor:bg-transparent"
+        when :info then "decor:border-2 decor:border-info decor:text-info decor:bg-transparent"
+        when :neutral then "decor:border-2 decor:border-neutral decor:text-neutral decor:bg-transparent"
         end
       end
 
       def ghost_color_classes(color)
         case color
-        when :primary then "border-2 border-transparent text-primary hover:bg-primary/10"
-        when :secondary then "border-2 border-transparent text-secondary hover:bg-secondary/10"
-        when :accent then "border-2 border-transparent text-accent hover:bg-accent/10"
-        when :success then "border-2 border-transparent text-success hover:bg-success/10"
-        when :error then "border-2 border-transparent text-error hover:bg-error/10"
-        when :warning then "border-2 border-transparent text-warning hover:bg-warning/10"
-        when :info then "border-2 border-transparent text-info hover:bg-info/10"
-        when :neutral then "border-2 border-transparent text-neutral hover:bg-neutral/10"
+        when :primary then "decor:border-2 decor:border-transparent decor:text-primary decor:hover:bg-primary/10"
+        when :secondary then "decor:border-2 decor:border-transparent decor:text-secondary decor:hover:bg-secondary/10"
+        when :accent then "decor:border-2 decor:border-transparent decor:text-accent decor:hover:bg-accent/10"
+        when :success then "decor:border-2 decor:border-transparent decor:text-success decor:hover:bg-success/10"
+        when :error then "decor:border-2 decor:border-transparent decor:text-error decor:hover:bg-error/10"
+        when :warning then "decor:border-2 decor:border-transparent decor:text-warning decor:hover:bg-warning/10"
+        when :info then "decor:border-2 decor:border-transparent decor:text-info decor:hover:bg-info/10"
+        when :neutral then "decor:border-2 decor:border-transparent decor:text-neutral decor:hover:bg-neutral/10"
         end
       end
 
       def icon_classes
         base_size = case @size
-        when :xs then "w-3 h-3"
-        when :sm then "w-4 h-4"
-        when :md then "w-4 h-4"
-        when :lg then "w-6 h-6"
-        when :xl then "w-8 h-8"
+        when :xs then "decor:w-3 decor:h-3"
+        when :sm then "decor:w-4 decor:h-4"
+        when :md then "decor:w-4 decor:h-4"
+        when :lg then "decor:w-6 decor:h-6"
+        when :xl then "decor:w-8 decor:h-8"
         end
 
         if @style == :filled
           base_size # Color will be inherited from parent
         else
           text_color = case @color
-          when :success then "text-success"
-          when :error then "text-error"
-          when :warning then "text-warning"
-          when :info then "text-info"
-          when :primary then "text-primary"
-          when :secondary then "text-secondary"
-          when :accent then "text-accent"
-          when :neutral then "text-neutral"
-          else "text-info"
+          when :success then "decor:text-success"
+          when :error then "decor:text-error"
+          when :warning then "decor:text-warning"
+          when :info then "decor:text-info"
+          when :primary then "decor:text-primary"
+          when :secondary then "decor:text-secondary"
+          when :accent then "decor:text-accent"
+          when :neutral then "decor:text-neutral"
+          else "decor:text-info"
           end
           "#{base_size} #{text_color}"
         end

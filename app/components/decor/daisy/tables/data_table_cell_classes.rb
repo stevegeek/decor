@@ -10,22 +10,22 @@ module Decor
         def typography_classes
           [
             daisyui_color_class,
-            (!@color || @color == :base) && @emphasis == :regular && "text-gray-900",
-            (!@color || @color == :base) && @emphasis == :low && "text-gray-500",
-            @weight == :light && "font-light",
-            @weight == :medium && "font-medium",
-            @weight == :regular && "font-normal"
+            (!@color || @color == :base) && @emphasis == :regular && "decor:text-gray-900",
+            (!@color || @color == :base) && @emphasis == :low && "decor:text-gray-500",
+            @weight == :light && "decor:font-light",
+            @weight == :medium && "decor:font-medium",
+            @weight == :regular && "decor:font-normal"
           ]
         end
 
         def row_height_classes
           case @row_height
           when :tight
-            "px-3 py-1 text-xs"
+            "decor:px-3 decor:py-1 decor:text-xs"
           when :comfortable
-            "px-4 py-4 text-sm"
+            "decor:px-4 decor:py-4 decor:text-sm"
           else
-            "px-3 py-2 text-sm"
+            "decor:px-3 decor:py-2 decor:text-sm"
           end
         end
 
@@ -33,14 +33,14 @@ module Decor
           return nil unless @color && @color != :base
 
           case @color
-          when :primary then "text-primary"
-          when :secondary then "text-secondary"
-          when :accent then "text-accent"
-          when :neutral then "text-neutral"
-          when :info then "text-info"
-          when :success then "text-success"
-          when :warning then "text-warning"
-          when :error then "text-error"
+          when :primary then "decor:text-primary"
+          when :secondary then "decor:text-secondary"
+          when :accent then "decor:text-accent"
+          when :neutral then "decor:text-neutral"
+          when :info then "decor:text-info"
+          when :success then "decor:text-success"
+          when :warning then "decor:text-warning"
+          when :error then "decor:text-error"
           when :base then nil
           end
         end

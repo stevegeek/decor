@@ -11,14 +11,14 @@ module Decor
       def view_template(&)
         @content = capture(&).html_safe if block_given?
         root_element do
-          span(class: "text-center") do
+          span(class: "decor:text-center") do
             render @before_label if @before_label.present?
             if @icon
               icon_options = {name: @icon, html_options: {class: icon_classes}}
               icon_options[:variant] = @icon_variant if @icon_variant
               render ::Decor::Daisy::Icon.new(**icon_options)
             end
-            span(class: @icon_only_on_mobile ? "hidden md:inline" : "") do
+            span(class: @icon_only_on_mobile ? "decor:hidden decor:md:inline" : "") do
               if @content
                 raw @content
               elsif @label.present?
@@ -35,19 +35,19 @@ module Decor
         sized =
           case normalized_size
           when :xl
-            "size-10 pr-2"
+            "decor:size-10 decor:pr-2"
           when :lg
-            "size-8 pr-2"
+            "decor:size-8 decor:pr-2"
           when :md, nil
-            "size-6 pr-1"
+            "decor:size-6 decor:pr-1"
           when :sm
-            "size-5.5 pr-1"
+            "decor:size-5.5 decor:pr-1"
           when :xs
-            "size-4.5 pr-1"
+            "decor:size-4.5 decor:pr-1"
           else
-            "size-6 pr-1"
+            "decor:size-6 decor:pr-1"
           end
-        "inline #{@icon_only_on_mobile ? "mr-0 md:mr-1" : "mr-1"} #{sized}"
+        "decor:inline #{@icon_only_on_mobile ? "decor:mr-0 decor:md:mr-1" : "decor:mr-1"} #{sized}"
       end
     end
   end

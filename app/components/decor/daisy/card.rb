@@ -32,10 +32,10 @@ module Decor
       end
 
       def root_element_classes
-        classes = ["card"]
+        classes = ["decor:d-card"]
         classes << size_classes
         classes << style_classes
-        classes << "flex-row" if image_position_horizontal?
+        classes << "decor:flex-row" if image_position_horizontal?
         classes.compact.join(" ")
       end
 
@@ -43,11 +43,12 @@ module Decor
         return "" unless image_position_horizontal?
 
         bg_class = get_background_class_for_content
+        # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
         case @image_position
         when :left
-          "flex flex-col #{bg_class} rounded-r-box flex-1"
+          "decor:flex decor:flex-col #{bg_class} decor:rounded-r-box decor:flex-1"
         when :right
-          "flex flex-col #{bg_class} rounded-l-box flex-1"
+          "decor:flex decor:flex-col #{bg_class} decor:rounded-l-box decor:flex-1"
         end
       end
 
@@ -57,20 +58,21 @@ module Decor
         when :ghost
           ""
         when :outlined
-          "bg-base-100"
+          "decor:bg-base-100"
         else
           # Filled style
+          # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
           filled_color_classes(@color)
         end
       end
 
       def render_header_and_body
-        div(class: "card-body") do
+        div(class: "decor:d-card-body") do
           if @card_header.present?
             render @card_header
           end
           if @title.present?
-            span(class: "card-title") { @title }
+            span(class: "decor:d-card-title") { @title }
           end
           raw @content.html_safe if @content.present?
         end
@@ -81,17 +83,17 @@ module Decor
       end
 
       def image_classes
-        base_classes = "bg-center bg-cover"
+        base_classes = "decor:bg-center decor:bg-cover"
 
         case @image_position
         when :top
-          "#{base_classes} rounded-t-box w-full h-60"
+          "#{base_classes} decor:rounded-t-box decor:w-full decor:h-60"
         when :bottom
-          "#{base_classes} rounded-b-box w-full h-60"
+          "#{base_classes} decor:rounded-b-box decor:w-full decor:h-60"
         when :left
-          "#{base_classes} rounded-l-box w-48"
+          "#{base_classes} decor:rounded-l-box decor:w-48"
         when :right
-          "#{base_classes} rounded-r-box w-48"
+          "#{base_classes} decor:rounded-r-box decor:w-48"
         end
       end
 
@@ -101,11 +103,11 @@ module Decor
 
       def component_size_classes(size)
         case size
-        when :xs then "card-xs"
-        when :sm then "card-sm"
-        when :md then "card-md"
-        when :lg then "card-lg"
-        when :xl then "card-xl"
+        when :xs then "decor:d-card-xs"
+        when :sm then "decor:d-card-sm"
+        when :md then "decor:d-card-md"
+        when :lg then "decor:d-card-lg"
+        when :xl then "decor:d-card-xl"
         else
           ""
         end
@@ -113,13 +115,14 @@ module Decor
 
       def component_style_classes(style)
         # Override the base implementation to add card-specific shadow classes
+        # CODEMOD-REVIEW: interpolated class expression — verify var is already prefixed
         case style
         when :filled
-          "#{filled_color_classes(@color)} shadow-sm"
+          "#{filled_color_classes(@color)} decor:shadow-sm"
         when :outlined
-          "#{outline_color_classes(@color)} bg-base-100"
+          "#{outline_color_classes(@color)} decor:bg-base-100"
         when :ghost
-          "#{ghost_color_classes(@color)} shadow-none"
+          "#{ghost_color_classes(@color)} decor:shadow-none"
         else
           ""
         end

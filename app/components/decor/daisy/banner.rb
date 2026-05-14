@@ -19,7 +19,7 @@ module Decor
           if @icon
             render ::Decor::Daisy::Icon.new(
               name: @icon,
-              html_options: {class: "h-6 w-6"}
+              html_options: {class: "decor:h-6 decor:w-6"}
             )
           end
           div(class: wrapper_classes) do
@@ -29,7 +29,7 @@ module Decor
             link_to "Learn more", @link, class: button_classes
           end
           if @call_to_action.present?
-            div(class: "flex gap-2") do
+            div(class: "decor:flex decor:gap-2") do
               render @call_to_action
             end
           end
@@ -37,47 +37,47 @@ module Decor
       end
 
       def root_element_classes
-        "mb-4 w-full flex #{alert_classes}"
+        "decor:mb-4 decor:w-full decor:flex #{alert_classes}"
       end
 
       def wrapper_classes
-        @centered ? "w-full justify-center text-center" : "flex-1"
+        @centered ? "decor:w-full decor:justify-center decor:text-center" : "decor:flex-1"
       end
 
       def alert_classes
         style = case @color
         when :success
-          "alert-success"
+          "decor:d-alert-success"
         when :error
-          "alert-error"
+          "decor:d-alert-error"
         when :warning
-          "alert-warning"
+          "decor:d-alert-warning"
         when :info
-          "alert-info"
+          "decor:d-alert-info"
         else
           # default color - no additional class needed
           nil
         end
 
-        "alert #{style}"
+        "decor:d-alert #{style}"
       end
 
       def button_classes
         style = case @color
         when :success
-          "btn-success"
+          "decor:d-btn-success"
         when :error
-          "btn-error"
+          "decor:d-btn-error"
         when :warning
-          "btn-warning"
+          "decor:d-btn-warning"
         when :info
-          "btn-info"
+          "decor:d-btn-info"
         when :primary
-          "btn-primary"
+          "decor:d-btn-primary"
         else
-          "btn-secondary"
+          "decor:d-btn-secondary"
         end
-        "btn btn-sm #{style}"
+        "decor:d-btn decor:d-btn-sm #{style}"
       end
     end
   end

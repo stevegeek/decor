@@ -8,14 +8,14 @@ module Decor
 
         def view_template
           root_element do
-            div(class: "group flex items-center") do
+            div(class: "decor:group decor:flex decor:items-center") do
               if sort_key?
                 render ::Decor::Daisy::Icon.new(
                   name: sort_icon,
-                  html_options: {class: "mr-2 h-4 w-4 #{sorted_direction? ? "opacity-100" : "opacity-25"} group-hover:opacity-100 group-hover:text-primary"}
+                  html_options: {class: "decor:mr-2 decor:h-4 decor:w-4 #{sorted_direction? ? "decor:opacity-100" : "decor:opacity-25"} decor:group-hover:opacity-100 decor:group-hover:text-primary"}
                 )
               end
-              span(class: "flex-1") { resolved_content }
+              span(class: "decor:flex-1") { resolved_content }
             end
           end
         end
@@ -26,13 +26,13 @@ module Decor
 
         def root_element_classes
           [
-            sort_key? && "cursor-pointer hover:bg-base-200",
-            numeric? ? "text-right" : "text-left",
-            sorted_direction? && "text-primary",
+            sort_key? && "decor:cursor-pointer decor:hover:bg-base-200",
+            numeric? ? "decor:text-right" : "decor:text-left",
+            sorted_direction? && "decor:text-primary",
             row_height_classes,
             *typography_classes,
             stretch_class,
-            "text-base-content font-medium whitespace-nowrap uppercase text-xs tracking-wider"
+            "decor:text-base-content decor:font-medium decor:whitespace-nowrap decor:uppercase decor:text-xs decor:tracking-wider"
           ].compact_blank
         end
 
@@ -40,15 +40,15 @@ module Decor
           return nil if @stretch_divisor.nil?
           case @stretch_divisor
           when 1
-            "w-full"
+            "decor:w-full"
           when 2
-            "w-1/2"
+            "decor:w-1/2"
           when 3
-            "w-1/3"
+            "decor:w-1/3"
           when 4
-            "w-1/4"
+            "decor:w-1/4"
           else
-            "w-1/5"
+            "decor:w-1/5"
           end
         end
 

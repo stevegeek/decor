@@ -11,14 +11,14 @@ module Decor
               if @data_table_header.present?
                 render @data_table_header
               end
-              div(class: "bg-base-200 px-3 sm:px-6 py-5") do
-                div(class: "sm:flex sm:items-center sm:justify-between") do
+              div(class: "decor:bg-base-200 decor:px-3 decor:sm:px-6 decor:py-5") do
+                div(class: "decor:sm:flex decor:sm:items-center decor:sm:justify-between") do
                   div do
-                    h3(class: "text-lg leading-6 font-medium text-base-content") do
+                    h3(class: "decor:text-lg decor:leading-6 decor:font-medium decor:text-base-content") do
                       @title
                     end
                     if @subtitle.present?
-                      p(class: "mt-1 text-sm text-base-content/70") do
+                      p(class: "decor:mt-1 decor:text-sm decor:text-base-content/70") do
                         @subtitle
                       end
                     end
@@ -30,9 +30,9 @@ module Decor
               end
             end
 
-            div(class: "flex flex-col overflow-hidden relative") do
+            div(class: "decor:flex decor:flex-col decor:overflow-hidden decor:relative") do
               div(
-                class: "overflow-x-auto",
+                class: "decor:overflow-x-auto",
                 data: {
                   **stimulus_target(:table_content_container),
                   **stimulus_action(:scroll, :content_scrolled)
@@ -40,7 +40,7 @@ module Decor
               ) do
                 table(class: table_classes) do
                   if @data_table_header_rows.any?
-                    thead(class: "bg-base-200 ltr:text-left rtl:text-right") do
+                    thead(class: "decor:bg-base-200 decor:ltr:text-left decor:rtl:text-right") do
                       @data_table_header_rows.each do |header_row_data|
                         header_row, block = header_row_data
                         render(header_row, &block)
@@ -58,9 +58,9 @@ module Decor
                   end
                 end
                 unless @data_table_rows.any?
-                  div(class: "bg-base-100 relative block my-6 mx-6 border-2 border-base-300 border-dashed rounded-md py-12 text-center hover:border-base-200") do
-                    render ::Decor::Daisy::Icon.new(name: "database", html_options: {class: "mx-auto h-6 w-6 text-base-content/40"})
-                    span(class: "mt-2 block text-sm font-medium text-base-content") { "No data..." }
+                  div(class: "decor:bg-base-100 decor:relative decor:block decor:my-6 decor:mx-6 decor:border-2 decor:border-base-300 decor:border-dashed decor:rounded-md decor:py-12 decor:text-center decor:hover:border-base-200") do
+                    render ::Decor::Daisy::Icon.new(name: "database", html_options: {class: "decor:mx-auto decor:h-6 decor:w-6 decor:text-base-content/40"})
+                    span(class: "decor:mt-2 decor:block decor:text-sm decor:font-medium decor:text-base-content") { "No data..." }
                   end
                 end
               end
@@ -80,45 +80,45 @@ module Decor
 
         def root_element_classes
           [
-            "bg-base-100 rounded-lg",
+            "decor:bg-base-100 decor:rounded-lg",
             style_classes
           ].compact_blank.join(" ")
         end
 
         def table_classes
           [
-            "table",
+            "decor:d-table",
             size_classes,
-            @zebra ? "table-zebra" : nil,
-            @pin_rows ? "table-pin-rows" : nil,
-            @pin_cols ? "table-pin-cols" : nil,
-            "min-w-full bg-base-100",
-            @compact ? "text-xs" : "text-sm",
-            (@style == :minimal) ? "divide-y divide-base-200" : "divide-y-2 divide-base-300",
-            (@style == :bordered) ? "border-collapse" : nil
+            @zebra ? "decor:d-table-zebra" : nil,
+            @pin_rows ? "decor:d-table-pin-rows" : nil,
+            @pin_cols ? "decor:d-table-pin-cols" : nil,
+            "decor:min-w-full decor:bg-base-100",
+            @compact ? "decor:text-xs" : "decor:text-sm",
+            (@style == :minimal) ? "decor:divide-y decor:divide-base-200" : "decor:divide-y-2 decor:divide-base-300",
+            (@style == :bordered) ? "decor:border-collapse" : nil
           ].compact_blank.join(" ")
         end
 
         def tbody_classes
           [
-            "divide-y divide-base-300",
-            @striped ? "*:even:bg-base-200" : nil
+            "decor:divide-y decor:divide-base-300",
+            @striped ? "decor:*:even:bg-base-200" : nil
           ].compact_blank.join(" ")
         end
 
         def component_size_classes(size)
           case size
-          when :xs then "table-xs"
-          when :sm then "table-sm"
-          when :lg then "table-lg"
-          when :xl then "table-xl"
+          when :xs then "decor:d-table-xs"
+          when :sm then "decor:d-table-sm"
+          when :lg then "decor:d-table-lg"
+          when :xl then "decor:d-table-xl"
           else ""
           end
         end
 
         def component_style_classes(style)
           case style
-          when :bordered then "border border-base-300"
+          when :bordered then "decor:border decor:border-base-300"
           when :minimal then ""
           when :default then ""
           else ""
