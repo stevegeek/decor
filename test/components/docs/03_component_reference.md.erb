@@ -26,7 +26,7 @@ If you find any issues or missing components, please open a PR to improve the do
 - [Decor::Daisy::DropdownItem](#decordaisydropdownitem)
 - [Decor::Daisy::Flash](#decordaisyflash)
 - [Decor::Daisy::FlowStep](#decordaisyflowstep)
-- [Decor::Daisy::Icon](#decordaisyicon)
+- [Decor::Icon](#decoricon)
 - [Decor::Daisy::Link](#decordaisylink)
 - [Decor::Daisy::Notification](#decordaisynotification)
 - [Decor::Daisy::NotificationManager](#decordaisynotificationmanager)
@@ -103,7 +103,7 @@ If you find any issues or missing components, please open a PR to improve the do
 - [Decor::Daisy::PanelGroup](#decordaisypanelgroup)
 - [Decor::Daisy::SearchAndFilter](#decorsearchandfilter)
 - [Decor::Daisy::SearchResultsDropdown](#decordaisysearchresultsdropdown)
-- [Decor::Daisy::Svg](#decordaisysvg)
+
 - [Decor::Daisy::SwitchingBox](#decordaisyswitchingbox)
 - [Decor::Daisy::Toggle](#decordaisytoggle)
 
@@ -505,7 +505,7 @@ _(and the shared properties `size`, `color`, and `style` as described above)_
 
 ---
 
-### Decor::Daisy::Icon
+### Decor::Icon
 
 <span id="decoricon"></span>
 
@@ -671,7 +671,7 @@ Tag A modern tag/badge component built with DaisyUI styling. Tags can display si
 
 
 
-Features - **DaisyUI Integration**: Uses DaisyUI badge classes for consistent theming - **Icon Support**: Optional leading icons using Decor::Daisy::Icon - **Removable Tags**: Optional close button (removal logic handled by parent components) - **Multiple Styles**: Filled, outlined, and ghost styles - **Semantic Colors**: Full DaisyUI color palette support - **Size Options**: 4 sizes from xs to lg
+Features - **DaisyUI Integration**: Uses DaisyUI badge classes for consistent theming - **Icon Support**: Optional leading icons using Decor::Icon - **Removable Tags**: Optional close button (removal logic handled by parent components) - **Multiple Styles**: Filled, outlined, and ghost styles - **Semantic Colors**: Full DaisyUI color palette support - **Size Options**: 4 sizes from xs to lg
 
 
 
@@ -2399,33 +2399,6 @@ render Decor::Daisy::SearchResultsDropdown.new(nav_element: "...")
 
 
 _(and the shared properties `size`, `color`, and `style` as described above)_
-
----
-
-### Decor::Daisy::Svg
-
-<span id="decordaisysvg"></span>
-
-Svg An inline svg from a file path. Supports different sizes, inline/external loading, and accessibility attributes. You can also set the html class attribute using html_options[:class] or `element_classes` etc
-
-**Basic Usage:**
-```ruby
-render Decor::Daisy::Svg.new(file_name: "...")
-```
-
-**Key Attributes:**
-- `inline` (Boolean, default: true) (optional) - Default: `true`
-- `file_name` (String) (required)
-- `title` (String?) (optional)
-- `description` (String?) (optional)
-- `width` (Integer?) (optional)
-- `height` (Integer?) (optional)
-
-
-_(and the shared properties `size`, `color`, and `style` as described above)_
-
-**Default Shared Properties Values:**
-- `size`: `:md`
 
 ---
 

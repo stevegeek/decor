@@ -28,8 +28,8 @@ class Decor::Daisy::Modals::ModalCloseButtonTest < ActiveSupport::TestCase
     component = Decor::Daisy::Modals::ModalCloseButton.new
     rendered = render_component(component)
 
-    # Should include close icon
-    assert_includes rendered, "heroicons/outline/x-mark"
+    # Should include close icon (Tabler sprite reference)
+    assert_includes rendered, "#x-mark"
   end
 
   test "supports custom button styling" do
