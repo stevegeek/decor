@@ -1,6 +1,12 @@
 # Changelog
 
-## 0.1.0 — Unreleased
+## 0.2.0 — Unreleased
+
+### Suite::Avatar — first per-component migration cycle
+- Added `Decor::Suite::Avatar` — bespoke gradient placeholder palette (`:alt1..:alt5`), hairline border, custom `rounded-card` shape, status dot. An alternative visual idiom to Daisy for hosts that need a more bespoke look.
+- Abstract base `Decor::Components::Avatar`: renamed `:ring` → `:border`; added `:alt` (accessibility) and `:status` (online/away/offline) props.
+- `Decor::Daisy::Avatar` updated to match: ring-style border still rendered for `:border: true`; new status dot using daisyUI semantic colors; image `alt` falls back through `:alt → :initials → t(".image")`.
+- Added `--radius-card: 10px` Tailwind theme token for Suite's square shape.
 
 First gem release of Decor. Previously distributed as a Rails reference app.
 
@@ -22,7 +28,7 @@ First gem release of Decor. Previously distributed as a Rails reference app.
 - `CODEMOD-REVIEW` markers (documented in `docs/codemod-review-items.md`) flag sites for follow-up during per-component step-2 migration.
 
 ### Component dropped
-- `Decor::Daisy::FormattedEncodedId` — Confinus-shaped; reimplements locally if needed.
+- `Decor::Daisy::FormattedEncodedId` — host-specific abstraction unsuitable for the gem's public API; hosts that need it can reimplement locally.
 
 ### Known limitations
 - `tailwind_merge` does not know daisyUI conflict groups; conflicting daisyUI variants in the same class string both survive (CSS cascade decides).

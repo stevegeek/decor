@@ -22,7 +22,7 @@ GIT
 PATH
   remote: .
   specs:
-    decor (0.1.0)
+    decor (0.2.0)
       inline_svg
       js_regex (~> 3.5)
       literal (>= 1.0)
