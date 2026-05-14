@@ -128,7 +128,7 @@ var code_block_controller_default = class extends Controller3 {
           }
         }
         codeElement.innerHTML = result.value;
-        codeElement.classList.add("hljs");
+        codeElement.classList.add("decor:hljs");
         codeElement.dataset.highlighted = "yes";
       } catch (error) {
         console.warn("Failed to highlight code block:", error);
@@ -316,7 +316,7 @@ var dropdown_controller_default = class extends Controller4 {
   }
   displayMenu(state) {
     if (state) {
-      this.menuTarget.classList.remove("hidden");
+      this.menuTarget.classList.remove("decor:hidden");
       this.menuTarget.classList.add(...this.enteringClasses);
       this.menuTarget.classList.add(...this.enteringFromClasses);
       setTimeout(() => {
@@ -331,7 +331,7 @@ var dropdown_controller_default = class extends Controller4 {
         this.menuTarget.classList.add(...this.leavingToClasses);
       }, 10);
       setTimeout(() => {
-        this.menuTarget.classList.add("hidden");
+        this.menuTarget.classList.add("decor:hidden");
         this.menuTarget.classList.remove(...this.enteringClasses, ...this.enteringToClasses, ...this.leavingClasses, ...this.leavingToClasses);
       }, this.leaveTimeoutValue || 75);
     }
@@ -373,10 +373,10 @@ var dropdown_controller_default = class extends Controller4 {
 
 // app/javascript/controllers/decor/daisy/flash_controller.js
 import { Controller as Controller5 } from "@hotwired/stimulus";
-var INITIAL_CLASSES = "invisible opacity-0";
-var VISIBLE_CLASSES = "transition-opacity duration-300 opacity-100 visible";
-var COLLAPSED_CLASS = "hidden";
-var TEXT_CLASS = "text-sm";
+var INITIAL_CLASSES = "decor:invisible decor:opacity-0";
+var VISIBLE_CLASSES = "decor:transition-opacity decor:duration-300 decor:opacity-100 decor:visible";
+var COLLAPSED_CLASS = "decor:hidden";
+var TEXT_CLASS = "decor:text-sm";
 var flash_controller_default = class extends Controller5 {
   static values = {
     showInitial: Boolean
@@ -460,7 +460,7 @@ var flash_controller_default = class extends Controller5 {
   }
   createHeading(content) {
     const heading = document.createElement("h2");
-    heading.classList.add("c-h7");
+    heading.classList.add("decor:c-h7");
     heading.textContent = content;
     return heading;
   }
@@ -912,17 +912,17 @@ var map_controller_default = class extends Controller8 {
   // Create safe info window content
   createInfoWindowContent(location) {
     const content = document.createElement("div");
-    content.className = "map-info-window";
+    content.className = "decor:map-info-window";
     if (location.name) {
       const title = document.createElement("h3");
       title.textContent = location.name;
-      title.className = "text-lg font-semibold mb-2";
+      title.className = "decor:text-lg decor:font-semibold decor:mb-2";
       content.appendChild(title);
     }
     if (location.description) {
       const description = document.createElement("p");
       description.textContent = location.description;
-      description.className = "text-sm text-gray-600";
+      description.className = "decor:text-sm decor:text-gray-600";
       content.appendChild(description);
     }
     return content;
@@ -934,12 +934,12 @@ var map_controller_default = class extends Controller8 {
   // Loading state management
   showLoadingState() {
     this.loadingState = true;
-    this.mapContainerTarget.classList.add("map-loading");
+    this.mapContainerTarget.classList.add("decor:map-loading");
     this.mapContainerTarget.setAttribute("aria-busy", "true");
   }
   hideLoadingState() {
     this.loadingState = false;
-    this.mapContainerTarget.classList.remove("map-loading");
+    this.mapContainerTarget.classList.remove("decor:map-loading");
     this.mapContainerTarget.removeAttribute("aria-busy");
   }
   // Enhanced error handling for modern API
@@ -958,15 +958,15 @@ var map_controller_default = class extends Controller8 {
       }
     }
     if (this.mapContainerTarget) {
-      this.mapContainerTarget.classList.add("map-error");
+      this.mapContainerTarget.classList.add("decor:map-error");
       this.mapContainerTarget.innerHTML = `
-        <div class="flex items-center justify-center h-full bg-gray-50 text-gray-600">
-          <div class="text-center p-4">
-            <svg class="mx-auto h-12 w-12 text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 48 48">
+        <div class="decor:flex decor:items-center decor:justify-center decor:h-full decor:bg-gray-50 decor:text-gray-600">
+          <div class="decor:text-center decor:p-4">
+            <svg class="decor:mx-auto decor:h-12 decor:w-12 decor:text-gray-300 decor:mb-4" fill="none" stroke="currentColor" viewBox="0 0 48 48">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
             </svg>
-            <p class="text-sm font-medium">${userMessage}</p>
-            <p class="text-xs text-gray-500 mt-2">Please check console for details</p>
+            <p class="decor:text-sm decor:font-medium">${userMessage}</p>
+            <p class="decor:text-xs decor:text-gray-500 decor:mt-2">Please check console for details</p>
           </div>
         </div>
       `;
@@ -1447,7 +1447,7 @@ var progress_controller_default = class extends Controller13 {
     if (progressBar) {
       progressBar.value = progressPercentage;
       progressBar.setAttribute("aria-label", `Progress: ${progressPercentage}% complete`);
-      progressBar.classList.add("transition-all", "duration-300");
+      progressBar.classList.add("decor:transition-all", "decor:duration-300");
     }
   }
   // Update step visual states
@@ -1456,13 +1456,13 @@ var progress_controller_default = class extends Controller13 {
     steps.forEach((step, index) => {
       const stepNumber = index + 1;
       step.classList.remove(
-        "step-primary",
-        "step-secondary",
-        "step-accent",
-        "step-success",
-        "step-error",
-        "step-warning",
-        "step-info"
+        "decor:d-step-primary",
+        "decor:d-step-secondary",
+        "decor:d-step-accent",
+        "decor:d-step-success",
+        "decor:d-step-error",
+        "decor:d-step-warning",
+        "decor:d-step-info"
       );
       if (stepNumber <= this.currentStepValue) {
         step.classList.add(`step-${this.colorValue}`);
