@@ -9,5 +9,6 @@ gem "inline_svg" # used by Decor::Svg if inline: true
 gem "vident", "~> 2.0"
 gem "vident-phlex", "~> 2.0"
 gem "js_regex", "~> 3.5"
+gem "tailwind_merge", ">= 0.5.2", "< 2"
 
 gem "lookbook"
