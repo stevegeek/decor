@@ -4,10 +4,14 @@ Phlex + Vident + daisyUI 5 component library for Rails. Distributed as a Ruby ge
 
 ## Status
 
-Pre-release. Version 0.1.0 is **not yet published to RubyGems**. Consume via:
+Pre-release. Version 0.2.0 is **not yet published to RubyGems**. Consume via:
 
 ```ruby
+# Local dev
 gem "decor", path: "../decor"
+
+# Or directly from GitHub
+gem "decor", github: "stevegeek/decor"
 ```
 
 ## Installation
@@ -24,7 +28,17 @@ const application = Application.start();
 registerDecor(application);
 ```
 
-4. Use components: `<%= render ::Decor::Daisy::Button.new(label: "Click me") %>`
+4. Use components — Decor ships two skins:
+
+```erb
+<%# Daisy skin — daisyUI semantic styling %>
+<%= render ::Decor::Daisy::Button.new(label: "Click me", color: :primary) %>
+
+<%# Suite skin — alternative visual idiom for hosts that need a different look %>
+<%= render ::Decor::Suite::Avatar.new(initials: "JG", color: :alt2) %>
+```
+
+Each component shares an abstract base (`Decor::Components::<Name>`) with a unified prop API; the two skins (`Decor::Daisy::*`, `Decor::Suite::*`) own their visual language.
 
 ## Development
 
