@@ -12,5 +12,13 @@ module Decor
       next unless app.config.respond_to?(:assets)
       app.config.assets.paths << root.join("app/assets/images")
     end
+
+    initializer "decor.lookbook" do |app|
+      next unless defined?(::Lookbook)
+      preview_dir = root.join("test/components/previews").to_s
+      page_dir = root.join("test/components/docs").to_s
+      app.config.lookbook.preview_paths = Array(app.config.lookbook.preview_paths) + [preview_dir]
+      app.config.lookbook.page_paths = Array(app.config.lookbook.page_paths) + [page_dir]
+    end
   end
 end
