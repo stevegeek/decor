@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
     "app/javascript/controllers/decor/**/*",
     "app/assets/stylesheets/decor/**/*",
     "app/assets/tailwind/decor.css",
-    "app/assets/images/{heroicons,svgs}/**/*",
+    "app/assets/images/{sprites,svgs}/**/*",
     "app/assets/builds/decor.{css,js}",
     "app/assets/builds/decor.{css,js}.map",
     "config/routes.rb",
@@ -34,6 +34,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "vident-phlex", "~> 3.0"
   spec.add_dependency "literal", ">= 1.0"
   spec.add_dependency "tailwind_merge", ">= 0.5.2", "< 2"
-  spec.add_dependency "inline_svg"
   spec.add_dependency "js_regex", "~> 3.5"
 end
