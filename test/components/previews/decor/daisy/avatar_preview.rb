@@ -38,7 +38,7 @@ class ::Decor::Daisy::AvatarPreview < ::Lookbook::Preview
       initials: "LCB",
       size: :lg,
       shape: :circle,
-      ring: true
+      border: true
     )
   end
 
@@ -59,7 +59,7 @@ class ::Decor::Daisy::AvatarPreview < ::Lookbook::Preview
       url: "https://i.pravatar.cc/300",
       size: :xl,
       shape: :circle,
-      ring: true
+      border: true
     )
   end
 
@@ -85,12 +85,12 @@ class ::Decor::Daisy::AvatarPreview < ::Lookbook::Preview
       locals: {
         avatars: [
           ::Decor::Daisy::Avatar.new(url: "https://i.pravatar.cc/300", color: :primary),
-          ::Decor::Daisy::Avatar.new(url: "https://i.pravatar.cc/300", color: :primary, ring: true),
+          ::Decor::Daisy::Avatar.new(url: "https://i.pravatar.cc/300", color: :primary, border: true),
           ::Decor::Daisy::Avatar.new(url: "https://i.pravatar.cc/300", color: :secondary),
-          ::Decor::Daisy::Avatar.new(url: "https://i.pravatar.cc/300", color: :secondary, ring: true),
+          ::Decor::Daisy::Avatar.new(url: "https://i.pravatar.cc/300", color: :secondary, border: true),
           ::Decor::Daisy::Avatar.new(url: "https://i.pravatar.cc/300", color: :error),
           ::Decor::Daisy::Avatar.new(url: "https://i.pravatar.cc/300", color: :error, style: :outlined),
-          ::Decor::Daisy::Avatar.new(url: "https://i.pravatar.cc/300", color: :error, style: :outlined, ring: true),
+          ::Decor::Daisy::Avatar.new(url: "https://i.pravatar.cc/300", color: :error, style: :outlined, border: true),
           ::Decor::Daisy::Avatar.new(url: "https://decor/404", color: :error, style: :filled)
         ]
       }
@@ -101,12 +101,12 @@ class ::Decor::Daisy::AvatarPreview < ::Lookbook::Preview
   # @param initials text
   # @param image select [~, "https://i.pravatar.cc/300", "https://cataas.com/cat"]
   # @param shape [Symbol] select [~, circle, square]
-  # @param ring toggle
+  # @param border toggle
   # @param size [Symbol] select [~, xs, sm, md, lg, xl]
   # @param color [Symbol] select [~, base, primary, secondary, accent, neutral, success, error, warning, info]
   # @param style [Symbol] select [~, filled, outlined, ghost]
-  def playground(image: nil, initials: "JG", shape: nil, size: nil, ring: true, color: nil, style: nil)
-    render ::Decor::Daisy::Avatar.new(initials: initials, url: image, shape: shape, size: size, ring: ring, color: color, style: style)
+  def playground(image: nil, initials: "JG", shape: nil, size: nil, border: true, color: nil, style: nil)
+    render ::Decor::Daisy::Avatar.new(initials: initials, url: image, shape: shape, size: size, border: border, color: color, style: style)
   end
 
   # @group Image avatars
@@ -292,30 +292,30 @@ class ::Decor::Daisy::AvatarPreview < ::Lookbook::Preview
   # @group With a ring
   # @label Circle with ring
   def ring_circle
-    render ::Decor::Daisy::Avatar.new(initials: "CB", ring: true, shape: :circle)
+    render ::Decor::Daisy::Avatar.new(initials: "CB", border: true, shape: :circle)
   end
 
   # @group With a ring
   # @label Square with ring
   def ring_square
-    render ::Decor::Daisy::Avatar.new(initials: "SB", ring: true, shape: :square)
+    render ::Decor::Daisy::Avatar.new(initials: "SB", border: true, shape: :square)
   end
 
   # @group With a ring
   # @label Large with ring
   def ring_large
-    render ::Decor::Daisy::Avatar.new(initials: "LB", ring: true, size: :lg)
+    render ::Decor::Daisy::Avatar.new(initials: "LB", border: true, size: :lg)
   end
 
   # @group With a ring
   # @label Image with ring
   def ring_image
-    render ::Decor::Daisy::Avatar.new(url: "https://i.pravatar.cc/300", ring: true)
+    render ::Decor::Daisy::Avatar.new(url: "https://i.pravatar.cc/300", border: true)
   end
 
   # @group With a ring
   # @label Initials, Outlined, with ring
   def ring_outlined_initials
-    render ::Decor::Daisy::Avatar.new(initials: "OB", ring: true, style: :outlined, size: :md)
+    render ::Decor::Daisy::Avatar.new(initials: "OB", border: true, style: :outlined, size: :md)
   end
 end
