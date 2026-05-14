@@ -20,6 +20,13 @@ module Decor
     config.autoload_lib(ignore: %w[assets tasks])
     config.autoload_paths += ["#{Rails.root}/app/lib"]
 
+    # The dummy app runs against the gem's source tree at its real location
+    # (two levels up from test/dummy/config/). Add gem-root JS source dirs to
+    # the asset path so importmap-rails can resolve the pins in config/importmap.rb.
+    gem_root = Pathname.new(File.expand_path("../../..", __dir__))
+    config.assets.paths << gem_root.join("vendor/javascript").to_s
+    config.assets.paths << gem_root.join("app/javascript").to_s
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
