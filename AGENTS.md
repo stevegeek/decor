@@ -4,6 +4,16 @@
 
 Decor is a comprehensive UI component library built with [Phlex](https://phlex.dev/), [Vident](https://github.com/stevegeek/vident) and styled with [daisyUI](https://daisyui.com/). This document provides AI agents with complete guidelines for effectively using Decor components.
 
+## Repo conventions (gem shape)
+
+- This is a Ruby gem. The gem code lives at the repo root (`lib/`, `app/`, `config/`, `decor.gemspec`).
+- The demo + Lookbook app lives under `test/dummy/`. Boot it with `cd test/dummy && bin/rails s`, or use `bin/dev` from the gem root to orchestrate watchers + server.
+- Build artifacts live at `app/assets/builds/decor.{css,js}` and are committed.
+- Pre-1.0 SemVer with the standard caveat: minor bumps may break API.
+- Don't auto-push commits; local commits OK; user runs `git push` explicitly.
+- Single CHANGELOG section until first publish; collapse all in-progress bullets into "0.1.0 — Unreleased."
+- Codemod review items (`docs/codemod-review-items.md`) flag CODEMOD-REVIEW markers from the initial prefix migration; resolve per-component during step-2 migration, not as a global pass.
+
 ## About Vident
 
 Vident is a Ruby component library that provides type-safe, interactive web components with robust Stimulus.js integration. Vident documentation can be found at: https://raw.githubusercontent.com/stevegeek/vident/refs/heads/main/llm.txt
