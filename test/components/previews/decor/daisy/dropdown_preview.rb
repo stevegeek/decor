@@ -572,7 +572,7 @@ class ::Decor::Daisy::DropdownPreview < ::Lookbook::Preview
         div(class: "decor:p-6 decor:bg-base-100 decor:rounded-box decor:shadow decor:w-80") do
           h3(class: "decor:text-lg decor:font-semibold decor:mb-4") { "Custom Dropdown Content" }
 
-          div(class: "decor:d-form-control") do
+          div(class: "decor:form-control") do
             label(class: "decor:d-label") do
               span(class: "decor:d-label-text") { "Quick Search" }
             end

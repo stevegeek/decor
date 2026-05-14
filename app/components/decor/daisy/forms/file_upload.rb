@@ -98,35 +98,35 @@ module Decor
         end
 
         def file_input_classes
-          classes = ["decor:file-input", "decor:w-full"]
+          classes = ["decor:d-file-input", "decor:w-full"]
           classes << component_size_classes(@size).join(" ")
           classes << component_color_classes(@color).join(" ")
-          classes << "decor:file-input-error" if errors?
+          classes << "decor:d-file-input-error" if errors?
           classes.compact.join(" ").strip
         end
 
         def component_size_classes(size)
           case size
-          when :xs then ["decor:file-input-xs"]
-          when :sm then ["decor:file-input-sm"]
+          when :xs then ["decor:d-file-input-xs"]
+          when :sm then ["decor:d-file-input-sm"]
           when :md then [] # default
-          when :lg then ["decor:file-input-lg"]
-          when :xl then ["decor:file-input-xl"]
+          when :lg then ["decor:d-file-input-lg"]
+          when :xl then ["decor:d-file-input-xl"]
           else []
           end
         end
 
         def component_color_classes(color)
           case color
-          when :primary then ["decor:file-input-primary"]
-          when :secondary then ["decor:file-input-secondary"]
-          when :accent then ["decor:file-input-accent"]
-          when :success then ["decor:file-input-success"]
-          when :error then ["decor:file-input-error"]
-          when :warning then ["decor:file-input-warning"]
-          when :info then ["decor:file-input-info"]
-          when :ghost then ["decor:file-input-ghost"]
-          when :neutral then ["decor:file-input-neutral"]
+          when :primary then ["decor:d-file-input-primary"]
+          when :secondary then ["decor:d-file-input-secondary"]
+          when :accent then ["decor:d-file-input-accent"]
+          when :success then ["decor:d-file-input-success"]
+          when :error then ["decor:d-file-input-error"]
+          when :warning then ["decor:d-file-input-warning"]
+          when :info then ["decor:d-file-input-info"]
+          when :ghost then ["decor:d-file-input-ghost"]
+          when :neutral then ["decor:d-file-input-neutral"]
           else [] # base/neutral
           end
         end

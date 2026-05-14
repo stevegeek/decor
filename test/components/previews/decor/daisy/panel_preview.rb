@@ -167,13 +167,13 @@ class ::Decor::Daisy::PanelPreview < ::Lookbook::Preview
     render ::Decor::Daisy::Panel.new(title: "Quick Settings", icon: "adjustments") do
       content_tag :div, class: "decor:space-y-3" do
         safe_join([
-          content_tag(:div, class: "decor:d-form-control") do
+          content_tag(:div, class: "decor:form-control") do
             safe_join([
               content_tag(:label, "Enable notifications", class: "decor:d-label"),
               content_tag(:input, nil, type: "checkbox", class: "decor:d-toggle decor:d-toggle-primary", checked: true)
             ])
           end,
-          content_tag(:div, class: "decor:d-form-control") do
+          content_tag(:div, class: "decor:form-control") do
             safe_join([
               content_tag(:label, "Auto-save drafts", class: "decor:d-label"),
               content_tag(:input, nil, type: "checkbox", class: "decor:d-toggle decor:d-toggle-primary")

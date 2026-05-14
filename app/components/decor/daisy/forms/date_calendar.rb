@@ -83,7 +83,7 @@ module Decor
         end
 
         def calendar_classes
-          classes = ["decor:cally", "decor:bg-base-100", "decor:border", "decor:border-base-300", "decor:shadow-lg", "decor:rounded-box"]
+          classes = ["decor:d-cally", "decor:bg-base-100", "decor:border", "decor:border-base-300", "decor:shadow-lg", "decor:rounded-box"]
           classes << "decor:calendar-error" if errors?
           classes.join(" ")
         end

@@ -28,7 +28,7 @@ module Decor
             end
 
             render layout do
-              div(class: "decor:join") do
+              div(class: "decor:d-join") do
                 @choices.each_with_index do |(value, label), idx|
                   input(
                     data_controller: form_control_controller,
@@ -65,7 +65,7 @@ module Decor
         end
 
         def button_classes(value)
-          classes = ["decor:join-item", "decor:d-btn"]
+          classes = ["decor:d-join-item", "decor:d-btn"]
           classes << size_classes unless @size == :md
           classes << color_classes unless @color == :primary
           classes << style_classes unless @style == :outlined

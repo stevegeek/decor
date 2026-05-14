@@ -49,7 +49,7 @@ module Decor
 
         def checkbox_container_classes
           classes = ["decor:space-y-2"]
-          classes << "decor:join decor:join-vertical" if @style == :joined
+          classes << "decor:d-join decor:d-join-vertical" if @style == :joined
           classes.compact.join(" ")
         end
 
