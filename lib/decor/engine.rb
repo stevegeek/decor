@@ -13,9 +13,11 @@ module Decor
       app.config.assets.paths << root.join("app/assets/images")
     end
 
-    initializer "decor.helpers" do
-      ActiveSupport.on_load(:action_controller_base) do
-        helper ::Decor::FlashHelper
+    initializer "decor.helpers" do |app|
+      app.config.to_prepare do
+        ActiveSupport.on_load(:action_controller_base) do
+          helper ::Decor::FlashHelper
+        end
       end
     end
 
