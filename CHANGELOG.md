@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.0 — Unreleased
+
+### Suite::Badge — per-component migration cycle
+
+- Add `Decor::Suite::Badge` — muted pill (`bg-{color}/10 text-{color}`) with optional `dot:` boolean prop for an animated halo indicator. Supports `:filled` (default, subtle) and `:outlined` styles plus icon prefix. Companion to `Decor::Daisy::Badge`.
+
 ## 0.6.0 — Unreleased
 
 ### Suite::Card + Tag + Banner — parallel per-component migration cycle
