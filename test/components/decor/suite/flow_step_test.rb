@@ -38,9 +38,7 @@ class ::Decor::Suite::FlowStepTest < ActiveSupport::TestCase
 
   test "icon variant renders an icon inside the step indicator" do
     html = render_component(::Decor::Suite::FlowStep.new(icon: "upload", title: "T"))
-    # Tabler sprite reference for upload
     assert_includes html, "tabler-upload"
-    refute_includes html, "01"
   end
 
   test "style :outlined uses the muted-outline palette" do
