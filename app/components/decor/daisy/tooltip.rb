@@ -28,7 +28,10 @@ module Decor
       end
 
       def position_class
-        case @position
+        # Daisy supports only the four cardinal sides; collapse Suite's
+        # -start/-end variants onto their base side.
+        base_side = @position.to_s.split("-").first&.to_sym
+        case base_side
         when :top, nil then "decor:d-tooltip-top"
         when :bottom then "decor:d-tooltip-bottom"
         when :left then "decor:d-tooltip-left"
