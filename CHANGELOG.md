@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.9.0 — Unreleased
+
+### Suite component batch — 10 ports in parallel
+
+Followed the porting playbook at `docs/superpowers/specs/2026-05-15-suite-port-playbook.md` (in the consumer repo) to add 10 Suite-skinned components in one parallel pass. Each port: extended the abstract base where the Suite skin needed props the Daisy version didn't carry, wrote the Suite class against Suite design tokens (numbered color shades, suite-hairline borders, rounded-suite-card/control radii, suite-* typography utilities), shipped a Lookbook preview + tests, plus a Stimulus controller where the abstract base declared one. Daisy unaffected; abstract bases extended additively.
+
+- `Decor::Suite::Box` — container with header/title/footer slots.
+- `Decor::Suite::Carousel` — Swiper-driven carousel with the full Swiper init lifecycle in a Suite Stimulus controller (Daisy's hash-anchor `d-carousel` stays as-is).
+- `Decor::Suite::Dropdown` + `Decor::Suite::DropdownItem` — native CSS anchor positioning (`position-anchor`/`anchor()`/`position-try-fallbacks`) + native Popover API for show/hide; no `@floating-ui/dom` dependency.
+- `Decor::Suite::Map` — Google Maps host with Suite chrome (hairline border, suite-card radius, gray-25 surface tint).
+- `Decor::Suite::Notification` — slotted alert with `data-notification-slot` markers prepared for a future NotificationManager clone-template flow.
+- `Decor::Suite::Pagination` — page-number nav with prev/next chevrons, active-page indicator, optional page-size selector chip row.
+- `Decor::Suite::Progress` — step indicator + linear bar, two styles via `:style :steps|:progress|:both`.
+- `Decor::Suite::Property` + `Decor::Suite::PropertyStrip` — label/value pairs and responsive auto-fit grid of pairs.
+- `Decor::Suite::SwitchingBox` — title/description + bound switch slot. Latent abstract-base bug fixed (subclass `prop` additions silently shadowed the parent `initialize`; slot wiring moved to `after_component_initialize`).
+- `Decor::Suite::Tooltip` — `@floating-ui/dom`-positioned dark bubble, 12 placements (cardinals + `-start`/`-end`), optional arrow.
+
+Plus: gem-internal `@utility shadow-suite-popover` + popover-animation rules in the theme for things Tailwind utilities can't express (dropdown menu drop-shadow + enter/leave animations).
+
 ## 0.8.0 — Unreleased
 
 ### Suite design tokens — visual-parity pass

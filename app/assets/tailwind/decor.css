@@ -289,3 +289,80 @@
     }
   }
 }
+
+/* ──────────────────────────────────────────────────────────────────────
+ * Suite skin shadow + popover utilities.
+ *
+ * Only three things live here, each for a reason Tailwind utilities cannot
+ * express:
+ *   1. Anchor positioning: position-anchor, anchor(bottom/left/right),
+ *      position-try-fallbacks.
+ *   2. Enter/leave animation: @starting-style + transition-behavior:
+ *      allow-discrete (the popover overlay/display transition).
+ *   3. prefers-reduced-motion override co-located with animation rules.
+ *
+ * All card chrome (bg, border, rounded, padding, min-w) lives on Tailwind
+ * utility classes on the Phlex component (dropdown.rb).
+ * ──────────────────────────────────────────────────────────────────── */
+
+@utility shadow-suite-popover {
+  box-shadow:
+    0 8px 24px -8px rgba(20, 24, 31, 0.12),
+    0 2px 6px -2px rgba(20, 24, 31, 0.06);
+}
+
+/* Force [hidden] descendants of the menu to disappear even with Tailwind
+   display utilities present. */
+.decor--suite--dropdown-menu [hidden] {
+  display: none !important;
+}
+
+/* Anchor-positioned popover menu */
+.decor--suite--dropdown-menu {
+  position: fixed;
+  /* Override the popover UA default inset:0 — otherwise leftover right:0/
+     bottom:0 stretch the menu from the anchored edge to the viewport edge. */
+  inset: auto;
+  position-anchor: var(--decor-suite-dropdown-anchor);
+  margin-top: 4px;
+  position-try-fallbacks: flip-block, flip-inline;
+}
+
+.decor--suite--dropdown-menu[data-position="aligned_to_left"] {
+  top: anchor(bottom);
+  left: anchor(left);
+}
+
+.decor--suite--dropdown-menu[data-position="aligned_to_right"] {
+  top: anchor(bottom);
+  right: anchor(right);
+}
+
+/* Enter / leave animation via the popover overlay transition */
+[popover].decor--suite--dropdown-menu {
+  transition:
+    opacity 100ms ease-out,
+    transform 100ms ease-out,
+    overlay 100ms allow-discrete,
+    display 100ms allow-discrete;
+  opacity: 1;
+  transform: scale(1);
+}
+
+[popover].decor--suite--dropdown-menu:not(:popover-open) {
+  opacity: 0;
+  transform: scale(0.97);
+}
+
+@starting-style {
+  [popover].decor--suite--dropdown-menu:popover-open {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [popover].decor--suite--dropdown-menu {
+    transition: none;
+  }
+}
