@@ -233,11 +233,11 @@ module Decor
           end
         else
           case @color
-          when :primary, :info then "decor:fill-suite-primary-50 decor:stroke-transparent"
-          when :success then "decor:fill-suite-success-50 decor:stroke-transparent"
-          when :warning then "decor:fill-suite-warning-50 decor:stroke-transparent"
-          when :error then "decor:fill-suite-danger-50 decor:stroke-transparent"
-          else "decor:fill-gray-100 decor:stroke-transparent"
+          when :primary, :info then "decor:fill-suite-primary-50 decor:stroke-none"
+          when :success then "decor:fill-suite-success-50 decor:stroke-none"
+          when :warning then "decor:fill-suite-warning-50 decor:stroke-none"
+          when :error then "decor:fill-suite-danger-50 decor:stroke-none"
+          else "decor:fill-gray-100 decor:stroke-none"
           end
         end
       end
