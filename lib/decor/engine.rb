@@ -10,9 +10,17 @@ module Decor
   class Engine < ::Rails::Engine
     isolate_namespace Decor
 
+    initializer "decor.zeitwerk_ignore", before: :set_autoload_paths do
+      Rails.autoloaders.main.ignore(
+        root.join("app/javascript"),
+        root.join("app/assets")
+      )
+    end
+
     initializer "decor.assets" do |app|
       next unless app.config.respond_to?(:assets)
       app.config.assets.paths << root.join("app/assets/images")
+      app.config.assets.paths << root.join("app/assets/builds")
     end
 
     initializer "decor.helpers" do |app|
@@ -25,6 +33,7 @@ module Decor
 
     initializer "decor.lookbook", before: :set_autoload_paths do |app|
       next unless defined?(::Lookbook)
+      next unless app.config.respond_to?(:lookbook) && app.config.lookbook
       preview_dir = root.join("test/components/previews").to_s
       page_dir = root.join("test/components/docs").to_s
       app.config.lookbook.preview_paths = Array(app.config.lookbook.preview_paths) + [preview_dir]
