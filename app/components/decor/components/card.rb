@@ -26,6 +26,16 @@ module Decor
       # Alias for backward compatibility
       alias_method :with_header, :card_header
 
+      def card_title(&block)
+        @card_title = block
+      end
+      alias_method :with_title, :card_title
+
+      def card_footer(&block)
+        @card_footer = block
+      end
+      alias_method :with_footer, :card_footer
+
       def image_position_horizontal?
         [:left, :right].include?(@image_position)
       end
