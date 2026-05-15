@@ -83,10 +83,141 @@
 @theme {
   --text-2xs: 0.6rem;
   --radius-card: 10px;
+
+  /* ──────────────────────────────────────────────────────────────────────
+   * SUITE skin design tokens
+   * ----------------------------------------------------------------------
+   * These tokens encode the Suite visual identity. They are NOT meant for
+   * Daisy skin or generic Decor usage — Suite components reference them
+   * via the standard `decor:` Tailwind prefix (e.g. `decor:text-suite-
+   * success-700`, `decor:rounded-suite-card`). Values are ported from the
+   * historical Confinus design system to preserve visual parity for hosts
+   * migrating from ConfinusUI::* to Decor::Suite::*.
+   * ──────────────────────────────────────────────────────────────────── */
+
+  /* Primary (blue) */
+  --color-suite-primary-50:  #eef4fb;
+  --color-suite-primary-100: #dbe8f6;
+  --color-suite-primary-200: #b8d2ec;
+  --color-suite-primary-300: #8db6df;
+  --color-suite-primary-400: #5a93cf;
+  --color-suite-primary-500: #2e74bd;
+  --color-suite-primary-600: #1f5fa6;
+  --color-suite-primary-700: #194e89;
+  --color-suite-primary-800: #143f6f;
+  --color-suite-primary-900: #0f2f54;
+
+  /* Success (green) */
+  --color-suite-success-50:  #ebfaf5;
+  --color-suite-success-100: #d2f4e4;
+  --color-suite-success-500: #11a87a;
+  --color-suite-success-600: #0d8b65;
+  --color-suite-success-700: #0a6d50;
+
+  /* Danger / Error (red) */
+  --color-suite-danger-50:  #fdecec;
+  --color-suite-danger-100: #fad6d6;
+  --color-suite-danger-500: #d94747;
+  --color-suite-danger-600: #b83838;
+  --color-suite-danger-700: #9f2c2c;
+
+  /* Warning (amber) */
+  --color-suite-warning-50:  #fef7e6;
+  --color-suite-warning-100: #fdecc4;
+  --color-suite-warning-500: #d99b00;
+  --color-suite-warning-600: #b07d00;
+  --color-suite-warning-700: #8f5a00;
+
+  /* Hairlines */
+  --color-suite-hairline:        rgba(20, 24, 31, 0.08);
+  --color-suite-hairline-strong: rgba(20, 24, 31, 0.12);
+
+  /* Body surface tints */
+  --color-suite-gray-25: #fafafa;
+
+  /* Radius */
+  --radius-suite-card:    10px;
+  --radius-suite-control: 6px;
+
+  /* Motion */
+  --duration-suite-fast: 120ms;
+  --duration-suite-base: 200ms;
 }
 
 @utility rounded-card {
   border-radius: var(--decor-radius-card);
+}
+
+/* ──────────────────────────────────────────────────────────────────────
+ * Suite skin shape/motion utilities — token aliases.
+ * ──────────────────────────────────────────────────────────────────── */
+
+@utility rounded-suite-card {
+  border-radius: var(--decor-radius-suite-card);
+}
+
+@utility rounded-suite-control {
+  border-radius: var(--decor-radius-suite-control);
+}
+
+@utility duration-suite-fast {
+  transition-duration: var(--decor-duration-suite-fast);
+}
+
+@utility duration-suite-base {
+  transition-duration: var(--decor-duration-suite-base);
+}
+
+/* ──────────────────────────────────────────────────────────────────────
+ * Suite skin typography utilities — port of Confinus's c-* scale.
+ * ──────────────────────────────────────────────────────────────────── */
+
+/* Typography utilities encode size + weight + leading + letter-spacing ONLY.
+   Color is the caller's responsibility (via `text-suite-{color}-700` etc.) —
+   keeping these utilities color-free prevents a baked-in `color:` from over-
+   riding the variant text color via CSS cascade order. */
+
+@utility suite-section-title {
+  /* Panel, card, modal, form section headings */
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 600;
+  line-height: 1.5; /* leading-6 */
+  letter-spacing: -0.005em;
+}
+
+@utility suite-subsection-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+@utility suite-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+@utility suite-body {
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+@utility suite-dense-body {
+  /* Compact admin contexts: dense table rows, button labels, panel body */
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+@utility suite-description {
+  /* Helper text, secondary info, muted content. Size only — caller sets color. */
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+@utility suite-caption {
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 @custom-variant dark (&:where(.dark, .dark *));

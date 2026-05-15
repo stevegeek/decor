@@ -1,5 +1,36 @@
 # Changelog
 
+## 0.8.0 — Unreleased
+
+### Suite design tokens — visual-parity pass
+
+A coordinated rewrite of every Suite component to restore visual parity with
+the historical ConfinusUI design system. The prior implementations leaked
+daisyUI's saturated-semantic palette into Suite (washed-out body text on
+muted backgrounds, plus shape/typography drift); this release ports
+Confinus's numbered color scale, hairline borders, custom radii, motion
+duration, and typography utilities into Decor's theme under a `suite-*`
+prefix, then rewrites every Suite component to reference them.
+
+**New theme tokens** (in `app/assets/tailwind/decor.css`):
+- Numbered color shades: `--color-suite-{primary,success,warning,danger}-{50..900}` (hex copied from Confinus design system).
+- Hairlines: `--color-suite-hairline` (8% black), `--color-suite-hairline-strong` (12% black).
+- Surface tint: `--color-suite-gray-25` (faint warm white footer/chip background).
+- Radius: `--radius-suite-card` (10px), `--radius-suite-control` (6px) + matching `rounded-suite-card`, `rounded-suite-control` utilities.
+- Motion: `--duration-suite-fast` (120ms), `--duration-suite-base` (200ms) + matching `duration-suite-fast`, `duration-suite-base` utilities.
+- Typography utilities: `suite-section-title`, `suite-subsection-title`, `suite-label`, `suite-body`, `suite-dense-body`, `suite-description`, `suite-caption` — size+weight+leading+letter-spacing only; caller sets `color:`.
+
+**Component rewrites:**
+- `Decor::Suite::Avatar`: `prop :border` default flipped to `true` (Confinus rendered a hairline by default). `tracking-tight` → `tracking-[-0.01em]`. Size pixel ladder aligned to Confinus (xs=20, sm=28, md=36, lg=48, xl=56). Border uses `border-suite-hairline`.
+- `Decor::Suite::Spinner`: complete rewrite — was empty subclass of `Decor::Daisy::Spinner` (daisyUI `d-loading-spinner`). Now a CSS border-rotate ring (`gray-200` track + `border-t-suite-{color}-500` colored top, `animate-spin`).
+- `Decor::Suite::ClickToCopy`: tokens swapped to `bg-suite-gray-25`, `border-suite-hairline-strong`, `rounded-suite-control`, `duration-suite-fast`; typography → `suite-dense-body` (chip) / `suite-description` (inline).
+- `Decor::Suite::Tag`: filled palette `bg-suite-{color}-50 + text-suite-{color}-700`; outlined `bg-white + border-suite-{color}-{100|200}`; LED dot `bg-suite-{color}-500 + shadow-suite-{color}-500/20`; `default_size :sm`; hole + nose use suite hairline.
+- `Decor::Suite::Badge`: same palette migration as Tag; `default_size :sm`; icon color one shade lighter (`text-suite-{color}-600`).
+- `Decor::Suite::Flash`: variant palettes use `suite-{color}-50/100/700`; icon-wrap uses `bg-suite-{color}-100 + text-suite-{color}-600`; title/body typography → `suite-section-title` + `suite-description`; radii → `rounded-suite-card` / `rounded-suite-control`.
+- `Decor::Suite::FlowStep`: **dropped the `Decor::Daisy::Title` delegation** that was rendering a daisyUI-shaped large heading with flex chrome. Title now inline `h4.suite-section-title` + `p.suite-description`. Step circle palettes use suite-* shades.
+- `Decor::Suite::Card`: hairlines → `border-suite-hairline`; footer tint → `bg-suite-gray-25`; radius → `rounded-suite-card`; title → `suite-dense-body`; body → `suite-description`.
+- `Decor::Suite::Banner`: variant palette → suite-* shades; body text → `suite-dense-body`; radius → `rounded-suite-card`; icon color one shade lighter; link button → suite tokens.
+
 ## 0.7.0 — Unreleased
 
 ### Suite::Badge — per-component migration cycle
