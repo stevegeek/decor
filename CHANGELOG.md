@@ -1,6 +1,14 @@
 # Changelog
 
-## 0.5.0 — Unreleased
+## 0.5.1 — Unreleased
+
+### Engine correctness
+- Fix: `Decor::FlashHelper` registration now uses `config.to_prepare` to avoid an autoload-timing race at host boot.
+- Add: `isolate_namespace Decor` to make helper distribution intentional (hosts no longer auto-include every helper in `app/helpers/decor/`).
+- Add: Zeitwerk ignore for `app/javascript/` and `app/assets/` (prevents unnecessary tree walking at boot).
+- Add: `app/assets/builds/` to asset paths so hosts can link the built CSS via `stylesheet_link_tag "decor"`.
+- Fix: Lookbook initializer now guards against `app.config.lookbook` being nil (initializer-ordering race vs. Lookbook's railtie).
+- Polish: gemspec metadata (homepage, source_code_uri, changelog_uri, bug_tracker_uri, description).
 
 ### Suite::Flash — per-component migration cycle
 - Add `Decor.default_skin` configuration accessor (default `:daisy`). Apps override to pick the visual skin used by Decor view helpers like `decor_flash`.
