@@ -1,4 +1,4 @@
-# @label Suite Flash
+# @label Flash
 class ::Decor::Suite::FlashPreview < ::Lookbook::Preview
   # @group Examples
   # @label Info

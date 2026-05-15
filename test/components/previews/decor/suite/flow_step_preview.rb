@@ -1,4 +1,4 @@
-# @label Suite FlowStep
+# @label FlowStep
 class ::Decor::Suite::FlowStepPreview < ::Lookbook::Preview
   # FlowStep (Suite)
   # ----------------
