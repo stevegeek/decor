@@ -13,6 +13,12 @@ module Decor
       app.config.assets.paths << root.join("app/assets/images")
     end
 
+    initializer "decor.helpers" do
+      ActiveSupport.on_load(:action_controller_base) do
+        helper ::Decor::FlashHelper
+      end
+    end
+
     initializer "decor.lookbook", before: :set_autoload_paths do |app|
       next unless defined?(::Lookbook)
       preview_dir = root.join("test/components/previews").to_s
