@@ -27,7 +27,6 @@ module Decor
           if @removable
             render_removable_body(&block)
           else
-            render_nose_svg
             render_standard_body(&block)
           end
         end
@@ -48,6 +47,7 @@ module Decor
           "decor:rounded-r-suite-control decor:font-medium decor:leading-[1.4] decor:whitespace-nowrap",
           tag_spacing_class,
           variant_color_classes,
+          nose_classes,
           hole_classes
         ].compact.join(" ")
       end
@@ -193,53 +193,21 @@ module Decor
 
       # ── nose + hole pseudo-elements ─────────────────────────────────────────
 
-      # Inline SVG nose. Renders a leftward-pointing triangle absolutely
-      # positioned to the left of the body. Uses `vector-effect: non-scaling-
-      # stroke` so the 1px outline holds at any tag height. The closing-Z of
-      # the path produces a vertical line at the nose's right edge — that line
-      # visually completes the body's left side (body itself has only
-      # border-y/border-r). For filled variant the stroke is hidden via
-      # `stroke-transparent`; for outlined it carries the matching `{color}-
-      # 100/-200` shade so the tag reads as a complete bordered shape.
-      def render_nose_svg
-        w = nose_width_px
-        raw safe(<<~SVG)
-          <svg xmlns="http://www.w3.org/2000/svg"
-               viewBox="0 0 #{w} 100"
-               preserveAspectRatio="none"
-               aria-hidden="true"
-               class="decor:absolute decor:top-0 decor:h-full decor:left-[-#{w}px] decor:w-[#{w}px] decor:pointer-events-none #{nose_svg_color_classes}">
-            <path d="M#{w} 0 L0 50 L#{w} 100 Z" vector-effect="non-scaling-stroke" stroke-width="1"/>
-          </svg>
-        SVG
-      end
-
-      def nose_width_px
-        case @size
-        when :xs, :sm then 11
-        when :lg, :xl then 15
-        else 13
+      # CSS `::before` clip-path nose — matches the historical ConfinusUI::Tag
+      # implementation. `bg-inherit` makes the nose pick up the body's bg color
+      # seamlessly (works perfectly for filled variant). For outlined variant
+      # the body has bg-white with a colored border on top/right/bottom; the
+      # nose inherits bg-white. CSS borders don't follow clip-path so the nose
+      # itself stays borderless on outlined — this is the canonical Confinus
+      # look and we preserve it intentionally.
+      def nose_classes
+        base = "decor:before:content-[''] decor:before:absolute decor:before:top-0 decor:before:h-full decor:before:bg-inherit decor:before:[clip-path:polygon(0_50%,100%_0,100%_100%)]"
+        size = case @size
+        when :xs, :sm then "decor:before:left-[-11px] decor:before:w-[11px]"
+        when :lg, :xl then "decor:before:left-[-15px] decor:before:w-[15px]"
+        else "decor:before:left-[-13px] decor:before:w-[13px]"
         end
-      end
-
-      def nose_svg_color_classes
-        if @style == :outlined
-          case @color
-          when :primary, :info then "decor:fill-white decor:stroke-suite-primary-200"
-          when :success then "decor:fill-white decor:stroke-suite-success-100"
-          when :warning then "decor:fill-white decor:stroke-suite-warning-100"
-          when :error then "decor:fill-white decor:stroke-suite-danger-100"
-          else "decor:fill-white decor:stroke-suite-hairline-strong"
-          end
-        else
-          case @color
-          when :primary, :info then "decor:fill-suite-primary-50 decor:stroke-none"
-          when :success then "decor:fill-suite-success-50 decor:stroke-none"
-          when :warning then "decor:fill-suite-warning-50 decor:stroke-none"
-          when :error then "decor:fill-suite-danger-50 decor:stroke-none"
-          else "decor:fill-gray-100 decor:stroke-none"
-          end
-        end
+        "#{base} #{size}"
       end
 
       def hole_classes
