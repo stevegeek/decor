@@ -1,6 +1,13 @@
 # Changelog
 
-## 0.5.1 — Unreleased
+## 0.6.0 — Unreleased
+
+### Suite::Card + Tag + Banner — parallel per-component migration cycle
+
+- Add `Decor::Suite::Card` — muted-chrome container with `with_header` / `with_title` / `with_footer` slots. Body, header, title, footer rows use `bg-base-100` + `border-black/10` hairlines; footer uses `bg-base-200/40`.
+- Extend `Decor::Components::Card` (abstract base) with `card_title` / `with_title` and `card_footer` / `with_footer` slot helpers alongside the existing `card_header`. Daisy skin unaffected; future skins or hosts can use them.
+- Add `Decor::Suite::Tag` — distinctive pill silhouette: pointed-nose left edge via `::before` clip-path, circular "hole" punch via `::after`, optional animated LED indicator dot (halo via `shadow-{color}/20`). Filled + outlined variants, 5 sizes, optional icon + removable close button.
+- Add `Decor::Suite::Banner` — muted full-width alert with optional icon, body block, `link:` ("Learn more") and `call_to_action` slot. Defaults `centered: true` (Decor abstract default is `false`).
 
 ### Engine correctness
 - Fix: `Decor::FlashHelper` registration now uses `config.to_prepare` to avoid an autoload-timing race at host boot.
