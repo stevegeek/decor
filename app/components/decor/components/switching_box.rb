@@ -3,8 +3,8 @@
 module Decor
   module Components
     # Abstract base for SwitchingBox. Extends Components::Box for its prop API
-    # and adds switch-specific props + the initializer that wires up the left
-    # title/description block and the right form+switch block.
+    # and adds switch-specific props plus an `after_component_initialize` hook
+    # that wires up the right form+switch slot when a model is bound.
     # Concrete skins (Daisy, Suite) inherit and provide `view_template` via a
     # mixin (e.g. Decor::Daisy::BoxTemplate) for their visual language.
     class SwitchingBox < ::Decor::Components::Box
@@ -26,22 +26,13 @@ module Decor
         self
       end
 
-      def initialize(**attributes)
-        super
-
-        left do
-          if @title.present?
-            h2(class: "decor:d-card-title") do
-              plain(@title)
-            end
-          end
-
-          if @description.present?
-            p(class: "decor:text-base-content/70") do
-              plain(@description)
-            end
-          end
-        end
+      # Wires the right form+switch slot after props are assigned. Using
+      # `after_component_initialize` (Vident hook) instead of overriding
+      # `def initialize`, because each subclass that adds a `prop` regenerates
+      # its own `initialize`, which would shadow a parent-defined one and
+      # silently drop the slot wiring.
+      def after_component_initialize
+        super if defined?(super)
 
         if @model.present?
           right do
