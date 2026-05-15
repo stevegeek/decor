@@ -44,10 +44,17 @@ class ::Decor::Suite::BadgeTest < ActiveSupport::TestCase
     refute_includes html, "tabler-filled-star"
   end
 
-  test "size :lg upgrades padding + text-sm" do
+  test "size :lg upgrades to larger padding + gap-1.5 (matches ConfinusUI :large)" do
     html = render_component(::Decor::Suite::Badge.new(label: "Large", size: :lg))
-    assert_includes html, "decor:text-sm"
-    assert_includes html, "decor:px-3"
+    assert_includes html, "decor:px-2.5"
+    assert_includes html, "decor:gap-1.5"
+  end
+
+  test "default :md uses small padding + gap-[5px] (matches ConfinusUI default :small)" do
+    html = render_component(::Decor::Suite::Badge.new(label: "Default"))
+    assert_includes html, "decor:px-2"
+    assert_includes html, "decor:gap-[5px]"
+    refute_includes html, "decor:gap-1.5"
   end
 
   test "outlined + success uses border-success/30" do

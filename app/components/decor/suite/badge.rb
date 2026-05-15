@@ -51,8 +51,9 @@ module Decor
 
       def root_element_classes
         [
-          "decor:inline-flex decor:items-center decor:gap-[5px] decor:rounded-full",
+          "decor:inline-flex decor:items-center decor:rounded-full",
           "decor:font-medium decor:leading-[1.4] decor:whitespace-nowrap",
+          gap_class,
           size_padding_classes,
           variant_color_classes
         ].join(" ")
@@ -60,19 +61,28 @@ module Decor
 
       # ── sizing ────────────────────────────────────────────────────────────
 
+      # Gap + paddings + icon sizes mirror the historical ConfinusUI::Badge
+      # measurements so visual parity holds when callers migrate to the Suite
+      # skin. `:md` (default) maps to ConfinusUI's `small`; `:lg`+ maps to
+      # ConfinusUI's `large`.
+      def gap_class
+        case @size
+        when :lg, :xl then "decor:gap-1.5"
+        else "decor:gap-[5px]" # xs/sm/md
+        end
+      end
+
       def size_padding_classes
         case @size
-        when :xs, :sm then "decor:px-2 decor:py-[2px] decor:text-xs"
-        when :lg, :xl then "decor:px-3 decor:py-1 decor:text-sm"
-        else "decor:px-2.5 decor:py-[3px] decor:text-xs" # :md
+        when :lg, :xl then "decor:px-2.5 decor:py-[3px] decor:text-xs"
+        else "decor:px-2 decor:py-[2px] decor:text-xs" # xs/sm/md
         end
       end
 
       def icon_size_classes
         case @size
-        when :xs, :sm then "decor:w-[10px] decor:h-[10px]"
-        when :lg, :xl then "decor:w-3.5 decor:h-3.5"
-        else "decor:w-3 decor:h-3" # :md
+        when :lg, :xl then "decor:w-3 decor:h-3"
+        else "decor:w-[10px] decor:h-[10px]" # xs/sm/md
         end
       end
 

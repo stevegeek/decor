@@ -86,7 +86,10 @@ module Decor
         when :alt3 then "decor:bg-linear-to-br decor:from-[#d94747] decor:to-[#9f2c2c]"
         when :alt4 then "decor:bg-linear-to-br decor:from-[#9b6dd4] decor:to-[#5a2e8f]"
         when :alt5 then "decor:bg-linear-to-br decor:from-[#2e74bd] decor:to-[#143f6f]"
-        else "decor:bg-linear-to-br decor:from-primary-300 decor:to-primary-700"
+        # The numeric Tailwind shades (`primary-300`/`primary-700`) don't exist
+        # under daisyUI v5's semantic-only theme. Use the alt5 blue gradient as
+        # the default — visually matches the historical ConfinusUI::Avatar look.
+        else "decor:bg-linear-to-br decor:from-[#2e74bd] decor:to-[#143f6f]"
         end
       end
 
