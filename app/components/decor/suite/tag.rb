@@ -5,13 +5,17 @@ module Decor
     # Suite Tag — pointed-nose silhouette tag with optional animated LED dot.
     #
     # Visual chrome:
-    # - Body has right-side rounding (`rounded-r-md`); the nose covers the left.
+    # - Body has right-side rounding (`rounded-r-suite-control`); the nose
+    #   covers the left.
     # - `::before` pseudo paints the triangular nose via clip-path.
     # - `::after` pseudo paints a small circular "hole" near the nose-body seam.
     # - When `@led && @icon.nil?`, a saturated colored dot leads the label.
     # - When `@icon.present?`, the icon takes precedence over the LED.
     # - When `@removable`, drops the nose+hole entirely and uses a pill+close-X.
     class Tag < ::Decor::Components::Tag
+      # Suite defaults match ConfinusUI::Tag (size :small).
+      default_size :sm
+
       # Show animated LED indicator dot (suppressed when icon is set).
       prop :led, _Boolean, default: true
 
@@ -40,7 +44,7 @@ module Decor
         [
           "decor:relative decor:inline-flex decor:items-center decor:gap-[6px]",
           size_padding_classes,
-          "decor:rounded-r-md decor:font-medium decor:leading-[1.4] decor:whitespace-nowrap",
+          "decor:rounded-r-suite-control decor:font-medium decor:leading-[1.4] decor:whitespace-nowrap",
           tag_spacing_class,
           variant_color_classes,
           nose_classes,
@@ -87,7 +91,7 @@ module Decor
 
         button(
           type: "button",
-          class: "decor:inline-flex decor:items-center decor:justify-center decor:w-[14px] decor:h-[14px] decor:rounded-md decor:cursor-pointer decor:opacity-70 decor:hover:opacity-100 decor:hover:bg-black/5",
+          class: "decor:inline-flex decor:items-center decor:justify-center decor:w-[14px] decor:h-[14px] decor:rounded-suite-control decor:cursor-pointer decor:opacity-70 decor:hover:opacity-100 decor:hover:bg-black/5 decor:duration-suite-fast",
           **@remove_options
         ) do
           render ::Decor::Icon.new(
@@ -99,14 +103,14 @@ module Decor
       end
 
       def removable_root_classes
-        "decor:inline-flex decor:items-center decor:gap-[3px] decor:px-[9px] decor:pr-[4px] decor:py-[3px] decor:rounded-md decor:text-xs decor:font-medium decor:leading-[1.4] decor:whitespace-nowrap decor:bg-primary/10 decor:border decor:border-primary/30 decor:text-primary"
+        "decor:inline-flex decor:items-center decor:gap-[3px] decor:px-[9px] decor:pr-[4px] decor:py-[3px] decor:rounded-suite-control decor:suite-description decor:font-medium decor:leading-[1.4] decor:whitespace-nowrap decor:bg-suite-primary-50 decor:border decor:border-suite-primary-200 decor:text-suite-primary-800"
       end
 
       # ── sizing ──────────────────────────────────────────────────────────────
 
       def size_padding_classes
         case @size
-        when :xs, :sm then "decor:px-[9px] decor:py-[3px] decor:text-xs"
+        when :xs, :sm then "decor:px-[9px] decor:py-[3px] decor:suite-description"
         when :lg, :xl then "decor:px-3.5 decor:py-1 decor:text-sm"
         else "decor:px-3 decor:py-1 decor:text-xs" # :md
         end
@@ -142,49 +146,46 @@ module Decor
       def variant_color_classes
         case @style
         when :outlined then outlined_color_classes
-        else filled_muted_color_classes
+        else filled_color_classes
         end
       end
 
-      def filled_muted_color_classes
+      # Filled: pale-50 bg + dark-700 text (Suite palette). `:info` aliases to
+      # primary in the Suite palette.
+      def filled_color_classes
         case @color
-        when :primary then "decor:bg-primary/10 decor:text-primary"
-        when :success then "decor:bg-success/10 decor:text-success"
-        when :warning then "decor:bg-warning/10 decor:text-warning"
-        when :error then "decor:bg-error/10 decor:text-error"
-        when :info then "decor:bg-info/10 decor:text-info"
-        when :secondary then "decor:bg-secondary/10 decor:text-secondary"
-        when :accent then "decor:bg-accent/10 decor:text-accent"
-        else "decor:bg-base-200 decor:text-base-content"
+        when :primary then "decor:bg-suite-primary-50 decor:text-suite-primary-700"
+        when :success then "decor:bg-suite-success-50 decor:text-suite-success-700"
+        when :warning then "decor:bg-suite-warning-50 decor:text-suite-warning-700"
+        when :error then "decor:bg-suite-danger-50 decor:text-suite-danger-700"
+        when :info then "decor:bg-suite-primary-50 decor:text-suite-primary-700"
+        else "decor:bg-gray-100 decor:text-gray-700"
         end
       end
 
+      # Outlined drops the left border so the nose's diagonal edges sit flush
+      # with the body — the nose itself is borderless.
       def outlined_color_classes
         case @color
-        when :primary then "decor:bg-base-100 decor:border-y decor:border-r decor:border-primary/40 decor:text-primary"
-        when :success then "decor:bg-base-100 decor:border-y decor:border-r decor:border-success/40 decor:text-success"
-        when :warning then "decor:bg-base-100 decor:border-y decor:border-r decor:border-warning/40 decor:text-warning"
-        when :error then "decor:bg-base-100 decor:border-y decor:border-r decor:border-error/40 decor:text-error"
-        when :info then "decor:bg-base-100 decor:border-y decor:border-r decor:border-info/40 decor:text-info"
-        when :secondary then "decor:bg-base-100 decor:border-y decor:border-r decor:border-secondary/40 decor:text-secondary"
-        when :accent then "decor:bg-base-100 decor:border-y decor:border-r decor:border-accent/40 decor:text-accent"
-        else "decor:bg-base-100 decor:border-y decor:border-r decor:border-black/15 decor:text-base-content"
+        when :primary then "decor:bg-white decor:border-y decor:border-r decor:border-suite-primary-200 decor:text-suite-primary-700"
+        when :success then "decor:bg-white decor:border-y decor:border-r decor:border-suite-success-100 decor:text-suite-success-700"
+        when :warning then "decor:bg-white decor:border-y decor:border-r decor:border-suite-warning-100 decor:text-suite-warning-700"
+        when :error then "decor:bg-white decor:border-y decor:border-r decor:border-suite-danger-100 decor:text-suite-danger-700"
+        when :info then "decor:bg-white decor:border-y decor:border-r decor:border-suite-primary-200 decor:text-suite-primary-700"
+        else "decor:bg-white decor:border-y decor:border-r decor:border-suite-hairline-strong decor:text-gray-700"
         end
       end
 
+      # Saturated dot + halo (shadow at low alpha) for the active "indicator"
+      # feel. Neutral/default gets a plain gray dot with no halo.
       def led_color_classes
-        # Saturated dot + halo (shadow at low alpha) for the active "indicator" feel.
-        # Halo uses `shadow-{color}/20` — the standard Tailwind alpha-from-color
-        # utility, which v4 resolves against the semantic color CSS var.
         case @color
-        when :primary then "decor:bg-primary decor:shadow-[0_0_0_2px] decor:shadow-primary/20"
-        when :success then "decor:bg-success decor:shadow-[0_0_0_2px] decor:shadow-success/20"
-        when :warning then "decor:bg-warning decor:shadow-[0_0_0_2px] decor:shadow-warning/20"
-        when :error then "decor:bg-error decor:shadow-[0_0_0_2px] decor:shadow-error/20"
-        when :info then "decor:bg-info decor:shadow-[0_0_0_2px] decor:shadow-info/20"
-        when :secondary then "decor:bg-secondary decor:shadow-[0_0_0_2px] decor:shadow-secondary/20"
-        when :accent then "decor:bg-accent decor:shadow-[0_0_0_2px] decor:shadow-accent/20"
-        else "decor:bg-base-content/40"
+        when :primary then "decor:bg-suite-primary-500 decor:shadow-[0_0_0_2px] decor:shadow-suite-primary-500/20"
+        when :success then "decor:bg-suite-success-500 decor:shadow-[0_0_0_2px] decor:shadow-suite-success-500/20"
+        when :warning then "decor:bg-suite-warning-500 decor:shadow-[0_0_0_2px] decor:shadow-suite-warning-500/20"
+        when :error then "decor:bg-suite-danger-500 decor:shadow-[0_0_0_2px] decor:shadow-suite-danger-500/20"
+        when :info then "decor:bg-suite-primary-500 decor:shadow-[0_0_0_2px] decor:shadow-suite-primary-500/20"
+        else "decor:bg-gray-400"
         end
       end
 
@@ -201,7 +202,7 @@ module Decor
       end
 
       def hole_classes
-        base = "decor:after:content-[''] decor:after:absolute decor:after:top-1/2 decor:after:-translate-y-1/2 decor:after:rounded-full decor:after:bg-base-100 decor:after:border decor:after:border-black/15"
+        base = "decor:after:content-[''] decor:after:absolute decor:after:top-1/2 decor:after:-translate-y-1/2 decor:after:rounded-full decor:after:bg-white decor:after:border decor:after:border-suite-hairline"
         size = case @size
         when :xs, :sm then "decor:after:left-[-2px] decor:after:w-[4px] decor:after:h-[4px]"
         else "decor:after:left-[-3px] decor:after:w-[5px] decor:after:h-[5px]"
