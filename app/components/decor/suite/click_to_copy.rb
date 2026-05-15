@@ -32,15 +32,15 @@ module Decor
         case @variant
         when :inline
           "decor:group decor:inline-flex decor:items-center decor:gap-1.5 " \
-            "decor:cursor-pointer decor:text-gray-600 decor:font-tabular-nums " \
-            "decor:hover:text-primary-700 decor:transition-colors " \
-            "decor:duration-150 decor:ease-out"
+            "decor:cursor-pointer decor:suite-description decor:font-tabular-nums " \
+            "decor:hover:text-suite-primary-700 decor:transition-colors " \
+            "decor:duration-suite-fast decor:ease-out"
         else
           "decor:group decor:inline-flex decor:items-center decor:gap-2 " \
-            "decor:pl-3 decor:pr-2.5 decor:py-[5px] decor:bg-gray-50 " \
-            "decor:border decor:border-black/15 decor:rounded-md " \
-            "decor:text-xs decor:text-gray-700 decor:font-mono decor:font-medium " \
-            "decor:cursor-pointer decor:transition-all decor:duration-150 decor:ease-out " \
+            "decor:pl-3 decor:pr-2.5 decor:py-[5px] decor:bg-suite-gray-25 " \
+            "decor:border decor:border-suite-hairline-strong decor:rounded-suite-control " \
+            "decor:suite-dense-body decor:font-mono decor:font-medium " \
+            "decor:cursor-pointer decor:transition-all decor:duration-suite-fast decor:ease-out " \
             "decor:hover:bg-white decor:hover:border-gray-400 decor:hover:text-gray-900"
         end
       end
@@ -49,11 +49,11 @@ module Decor
         case @variant
         when :inline
           "decor:w-3 decor:h-3 decor:opacity-50 decor:transition-opacity " \
-            "decor:duration-150 decor:ease-out decor:group-hover:opacity-100 " \
-            "decor:group-hover:text-primary-600"
+            "decor:duration-suite-fast decor:ease-out decor:group-hover:opacity-100 " \
+            "decor:group-hover:text-suite-primary-600"
         else
           "decor:w-3 decor:h-3 decor:text-gray-400 decor:transition-colors " \
-            "decor:duration-150 decor:ease-out decor:group-hover:text-primary-600"
+            "decor:duration-suite-fast decor:ease-out decor:group-hover:text-suite-primary-600"
         end
       end
     end
