@@ -194,13 +194,30 @@ module Decor
       # ── nose + hole pseudo-elements ─────────────────────────────────────────
 
       def nose_classes
-        base = "decor:before:content-[''] decor:before:absolute decor:before:top-0 decor:before:h-full decor:before:bg-inherit decor:before:[clip-path:polygon(0_50%,100%_0,100%_100%)]"
+        # For filled, the nose inherits the body's colored bg (seamless).
+        # For outlined, the body is white with a colored border — `bg-inherit`
+        # leaves the nose as an unbordered white triangle. Instead, paint the
+        # nose with the same hue as the border so the tag reads as a complete
+        # bordered shape. CSS borders don't follow clip-path so this is the
+        # cleanest non-SVG workaround.
+        bg = (@style == :outlined) ? nose_outlined_bg_class : "decor:before:bg-inherit"
+        base = "decor:before:content-[''] decor:before:absolute decor:before:top-0 decor:before:h-full #{bg} decor:before:[clip-path:polygon(0_50%,100%_0,100%_100%)]"
         size = case @size
         when :xs, :sm then "decor:before:left-[-11px] decor:before:w-[11px]"
         when :lg, :xl then "decor:before:left-[-15px] decor:before:w-[15px]"
         else "decor:before:left-[-13px] decor:before:w-[13px]"
         end
         "#{base} #{size}"
+      end
+
+      def nose_outlined_bg_class
+        case @color
+        when :primary, :info then "decor:before:bg-suite-primary-200"
+        when :success then "decor:before:bg-suite-success-100"
+        when :warning then "decor:before:bg-suite-warning-100"
+        when :error then "decor:before:bg-suite-danger-100"
+        else "decor:before:bg-suite-hairline-strong"
+        end
       end
 
       def hole_classes
