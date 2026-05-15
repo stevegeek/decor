@@ -77,7 +77,7 @@ class Decor::Suite::AvatarTest < ActiveSupport::TestCase
   test "status dot renders when :status is :online" do
     rendered = render_component(Decor::Suite::Avatar.new(initials: "JG", status: :online))
     assert_includes rendered, "aria-label=\"online\""
-    assert_includes rendered, "decor:bg-success-500"
+    assert_includes rendered, "decor:bg-suite-success-500"
   end
 
   test "status dot omitted when :status nil" do

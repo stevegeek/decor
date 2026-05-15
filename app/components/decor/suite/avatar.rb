@@ -110,8 +110,8 @@ module Decor
 
       def status_dot_color
         case @status
-        when :online then "decor:bg-success-500"
-        when :away then "decor:bg-warning-500"
+        when :online then "decor:bg-suite-success-500"
+        when :away then "decor:bg-suite-warning-500"
         when :offline then "decor:bg-gray-400"
         end
       end

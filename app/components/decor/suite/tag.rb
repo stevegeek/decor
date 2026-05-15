@@ -81,6 +81,8 @@ module Decor
             style: :solid,
             html_options: {class: "decor:shrink-0 decor:opacity-70 #{icon_size_classes}"}
           )
+        elsif @led
+          span(class: "decor:shrink-0 decor:rounded-full #{led_size_classes} #{led_color_classes}")
         end
 
         if block
