@@ -3,35 +3,45 @@
 require "test_helper"
 
 class ::Decor::Suite::BannerTest < ActiveSupport::TestCase
-  test "renders default muted info palette" do
+  test "renders default suite-primary palette" do
     html = render_component(::Decor::Suite::Banner.new) { "body" }
     assert_includes html, "body"
-    assert_includes html, "decor:bg-info/10"
-    assert_includes html, "decor:border-info/30"
+    assert_includes html, "decor:bg-suite-primary-50"
+    assert_includes html, "decor:border-suite-primary-100"
+    assert_includes html, "decor:text-suite-primary-700"
   end
 
-  test "color :success swaps muted-success palette" do
+  test "color :success swaps suite-success palette" do
     html = render_component(::Decor::Suite::Banner.new(color: :success)) { "ok" }
-    assert_includes html, "decor:bg-success/10"
-    assert_includes html, "decor:border-success/30"
-    refute_includes html, "decor:bg-info/10"
+    assert_includes html, "decor:bg-suite-success-50"
+    assert_includes html, "decor:border-suite-success-100"
+    refute_includes html, "decor:bg-suite-primary-50"
   end
 
-  test "color :error swaps muted-error palette" do
+  test "color :error swaps suite-danger palette" do
     html = render_component(::Decor::Suite::Banner.new(color: :error)) { "x" }
-    assert_includes html, "decor:bg-error/10"
-    assert_includes html, "decor:border-error/30"
+    assert_includes html, "decor:bg-suite-danger-50"
+    assert_includes html, "decor:border-suite-danger-100"
+    assert_includes html, "decor:text-suite-danger-700"
   end
 
-  test "color :neutral uses base-200 + black/15 border" do
+  test "color :warning swaps suite-warning palette" do
+    html = render_component(::Decor::Suite::Banner.new(color: :warning)) { "y" }
+    assert_includes html, "decor:bg-suite-warning-50"
+    assert_includes html, "decor:border-suite-warning-100"
+    assert_includes html, "decor:text-suite-warning-700"
+  end
+
+  test "color :neutral uses suite-gray-25 + hairline border" do
     html = render_component(::Decor::Suite::Banner.new(color: :neutral)) { "n" }
-    assert_includes html, "decor:bg-base-200"
-    assert_includes html, "decor:border-black/15"
+    assert_includes html, "decor:bg-suite-gray-25"
+    assert_includes html, "decor:border-suite-hairline"
   end
 
-  test "icon prop renders a Tabler icon when provided" do
+  test "icon prop renders a Tabler icon with suite-* icon color" do
     html = render_component(::Decor::Suite::Banner.new(icon: "info-circle")) { "b" }
     assert_includes html, "tabler-info-circle"
+    assert_includes html, "decor:text-suite-primary-600"
   end
 
   test "body block renders inside the body wrapper" do
@@ -40,10 +50,24 @@ class ::Decor::Suite::BannerTest < ActiveSupport::TestCase
     assert_includes html, "decor:flex-1"
   end
 
-  test "link renders a 'Learn more' anchor with the given href" do
+  test "body uses suite-dense-body typography token" do
+    html = render_component(::Decor::Suite::Banner.new) { "b" }
+    assert_includes html, "decor:suite-dense-body"
+  end
+
+  test "body uses rounded-suite-card radius" do
+    html = render_component(::Decor::Suite::Banner.new) { "b" }
+    assert_includes html, "decor:rounded-suite-card"
+  end
+
+  test "link renders a 'Learn more' anchor with the given href and suite tokens" do
     html = render_component(::Decor::Suite::Banner.new(link: "/x")) { "b" }
     assert_includes html, "href=\"/x\""
     assert_includes html, "Learn more"
+    assert_includes html, "decor:rounded-suite-control"
+    assert_includes html, "decor:duration-suite-fast"
+    assert_includes html, "decor:bg-white/55"
+    assert_includes html, "decor:suite-description"
   end
 
   test "call_to_action block renders inside the right-side wrapper" do

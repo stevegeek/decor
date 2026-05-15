@@ -4,8 +4,8 @@ module Decor
   module Suite
     # Suite Banner — muted card-style chrome. Optional left icon, body content
     # via the bare block, optional "Learn more" link, and optional CTA slot.
-    # Mirrors the Suite::Flash palette: bg-{color}/10 + border-{color}/30 on
-    # a hairline-bordered rounded body, with a content-max-width centered wrap.
+    # Mirrors the Suite::Flash palette: suite-* numbered shades on a hairline-
+    # bordered rounded-suite-card body with a content-max-width centered wrap.
     class Banner < ::Decor::Components::Banner
       prop :centered, _Boolean, default: true
 
@@ -52,31 +52,31 @@ module Decor
       end
 
       def body_classes
-        "decor:flex decor:items-center decor:gap-3 decor:px-5 decor:py-3 decor:rounded-md decor:border decor:text-sm #{variant_classes}"
+        "decor:flex decor:items-center decor:gap-3 decor:px-5 decor:py-3 decor:rounded-suite-card decor:border decor:suite-dense-body #{variant_classes}"
       end
 
       def variant_classes
         case @color
-        when :success then "decor:bg-success/10 decor:border-success/30 decor:text-success"
-        when :error then "decor:bg-error/10 decor:border-error/30 decor:text-error"
-        when :warning then "decor:bg-warning/10 decor:border-warning/30 decor:text-warning"
-        when :info, :primary then "decor:bg-info/10 decor:border-info/30 decor:text-info"
-        else "decor:bg-base-200 decor:border-black/15 decor:text-base-content"
+        when :success then "decor:bg-suite-success-50 decor:border-suite-success-100 decor:text-suite-success-700"
+        when :error then "decor:bg-suite-danger-50 decor:border-suite-danger-100 decor:text-suite-danger-700"
+        when :warning then "decor:bg-suite-warning-50 decor:border-suite-warning-100 decor:text-suite-warning-700"
+        when :info, :primary then "decor:bg-suite-primary-50 decor:border-suite-primary-100 decor:text-suite-primary-700"
+        else "decor:bg-suite-gray-25 decor:border-suite-hairline decor:text-gray-800"
         end
       end
 
       def icon_color_class
         case @color
-        when :success then "decor:text-success"
-        when :error then "decor:text-error"
-        when :warning then "decor:text-warning"
-        when :info, :primary then "decor:text-info"
-        else "decor:text-base-content/60"
+        when :success then "decor:text-suite-success-600"
+        when :error then "decor:text-suite-danger-600"
+        when :warning then "decor:text-suite-warning-600"
+        when :info, :primary then "decor:text-suite-primary-600"
+        else "decor:text-gray-500"
         end
       end
 
       def link_classes
-        "decor:font-semibold decor:no-underline decor:px-2.5 decor:py-1 decor:rounded-md decor:bg-base-100/55 decor:hover:bg-base-100/85 decor:transition-colors decor:duration-150 decor:text-xs"
+        "decor:font-semibold decor:no-underline decor:px-2.5 decor:py-1 decor:rounded-suite-control decor:bg-white/55 decor:hover:bg-white/85 decor:transition-colors decor:duration-suite-fast decor:suite-description"
       end
     end
   end
