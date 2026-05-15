@@ -19,19 +19,35 @@ class Decor::Suite::AvatarTest < ActiveSupport::TestCase
     assert_match(/alt="JG"/, rendered)
   end
 
-  test ":border true renders hairline border classes" do
-    rendered = render_component(Decor::Suite::Avatar.new(initials: "JG", border: true))
-    assert_includes rendered, "decor:border decor:border-black/10"
+  test "border defaults to true (hairline) — matches historical Confinus look" do
+    rendered = render_component(Decor::Suite::Avatar.new(initials: "JG"))
+    assert_includes rendered, "decor:border decor:border-suite-hairline"
   end
 
   test ":border false omits border classes" do
     rendered = render_component(Decor::Suite::Avatar.new(initials: "JG", border: false))
-    refute_includes rendered, "decor:border-black/10"
+    refute_includes rendered, "decor:border-suite-hairline"
   end
 
-  test "default color is :primary (gradient from primary-300 to primary-700)" do
+  test "default color :primary falls back to alt5 blue gradient" do
     rendered = render_component(Decor::Suite::Avatar.new(initials: "JG"))
-    assert_includes rendered, "decor:from-primary-300 decor:to-primary-700"
+    assert_includes rendered, "decor:from-[#2e74bd] decor:to-[#143f6f]"
+  end
+
+  test "initials use subtle tracking, not tracking-tight" do
+    rendered = render_component(Decor::Suite::Avatar.new(initials: "JG"))
+    assert_includes rendered, "decor:tracking-[-0.01em]"
+    refute_includes rendered, "decor:tracking-tight"
+  end
+
+  test "size :lg is 48px (w-12 h-12, matches ConfinusUI :medium)" do
+    rendered = render_component(Decor::Suite::Avatar.new(initials: "JG", size: :lg))
+    assert_includes rendered, "decor:w-12 decor:h-12"
+  end
+
+  test "size :xl is 56px (w-14 h-14, matches ConfinusUI :large/:x_large/:xx_large)" do
+    rendered = render_component(Decor::Suite::Avatar.new(initials: "JG", size: :xl))
+    assert_includes rendered, "decor:w-14 decor:h-14"
   end
 
   %i[alt1 alt2 alt3 alt4 alt5].each do |color|

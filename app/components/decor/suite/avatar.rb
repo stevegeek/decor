@@ -15,6 +15,10 @@ module Decor
 
       default_color :primary
 
+      # ConfinusUI::Avatar always rendered a hairline border. Suite preserves
+      # that default; pass `border: false` to opt out.
+      prop :border, _Boolean, default: true
+
       def view_template
         root_element do
           if @url
@@ -43,7 +47,7 @@ module Decor
         if @url
           "#{base} decor:overflow-hidden"
         else
-          "#{base} decor:text-white decor:font-semibold decor:tracking-tight " \
+          "#{base} decor:text-white decor:font-semibold decor:tracking-[-0.01em] " \
             "decor:leading-none #{text_size_class} #{gradient_classes}"
         end
       end
@@ -55,11 +59,14 @@ module Decor
         end
       end
 
+      # Pixel sizes match the historical ConfinusUI ladder:
+      #   xs=20px (tiny), sm=28px (small), md=36px (normal),
+      #   lg=48px (medium), xl=56px (large/x_large/xx_large).
       def size_classes
         case @size
         when :xs then "decor:w-5 decor:h-5"
         when :sm then "decor:w-7 decor:h-7"
-        when :lg then "decor:w-11 decor:h-11"
+        when :lg then "decor:w-12 decor:h-12"
         when :xl then "decor:w-14 decor:h-14"
         else "decor:w-9 decor:h-9"
         end
@@ -76,7 +83,7 @@ module Decor
       end
 
       def border_classes
-        @border ? "decor:border decor:border-black/10" : ""
+        @border ? "decor:border decor:border-suite-hairline" : ""
       end
 
       def gradient_classes
