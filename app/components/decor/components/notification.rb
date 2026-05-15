@@ -27,10 +27,19 @@ module Decor
         attr_reader :href
       end
 
-      prop :title, String
+      prop :title, _Nilable(String)
       prop :description, _Nilable(String)
+      prop :body, _Nilable(String)
       prop :icon, _Nilable(String)
       prop :action_buttons, _Array(ActionButton), default: -> { [] }
+
+      # Suite-shape props (toast-style chrome).
+      # `actions` is a flat hash array (Suite-friendly authoring); each hash may
+      # carry :text, :href, :style (:primary|:ghost), :event_name.
+      prop :actions, _Array(_Hash(Symbol, _Any)), default: -> { [] }
+      prop :destination, _Nilable(_Hash(Symbol, String))
+      prop :show_progress, _Boolean, default: false
+      prop :sticky, _Boolean, default: false
 
       default_color :info
 
