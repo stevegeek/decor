@@ -8,6 +8,8 @@ require "literal"
 
 module Decor
   class Engine < ::Rails::Engine
+    isolate_namespace Decor
+
     initializer "decor.assets" do |app|
       next unless app.config.respond_to?(:assets)
       app.config.assets.paths << root.join("app/assets/images")
