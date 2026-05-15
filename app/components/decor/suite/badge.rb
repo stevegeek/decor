@@ -7,17 +7,21 @@ module Decor
     #
     # Visual chrome:
     # - `inline-flex` pill with rounded-full corners; size knob drives padding +
-    #   text-size only (no shape change).
-    # - Default ("filled") visual = muted `bg-{color}/10 text-{color}` — same
-    #   pattern as Suite::Tag/Banner/Flash; reads as a low-noise indicator.
-    # - `style: :outlined` swaps to `bg-base-100 border border-{color}/30`.
+    #   gap only (no shape change). Default typography comes from
+    #   `suite-description` on the root.
+    # - Default ("filled") visual = pale-50 bg + dark-700 text from the Suite
+    #   palette.
+    # - `style: :outlined` swaps to `bg-white border` with a `suite-{color}-100`
+    #   (or `-200` for primary) border.
     # - `dot: true` prefixes the label with a saturated colored dot wrapped in
-    #   a `shadow-{color}/20` halo (Tailwind v4 alpha-from-color resolves the
-    #   semantic var). Falls back to a plain dot if the halo doesn't render.
+    #   a low-alpha halo (`shadow-suite-{color}-500/20`).
     # - `icon:` renders a Decor::Icon prefix; suppressed when `dot:` is set.
     class Badge < ::Decor::Components::Badge
       # Suite default is muted-filled; base Components::Badge defaults to :outlined.
       default_style :filled
+
+      # Suite default size matches ConfinusUI::Badge's :small.
+      default_size :sm
 
       # Show an animated halo indicator dot before the label (suppressed when
       # an icon is set).
@@ -53,6 +57,7 @@ module Decor
         [
           "decor:inline-flex decor:items-center decor:rounded-full",
           "decor:font-medium decor:leading-[1.4] decor:whitespace-nowrap",
+          "decor:suite-description",
           gap_class,
           size_padding_classes,
           variant_color_classes
@@ -63,7 +68,7 @@ module Decor
 
       # Gap + paddings + icon sizes mirror the historical ConfinusUI::Badge
       # measurements so visual parity holds when callers migrate to the Suite
-      # skin. `:md` (default) maps to ConfinusUI's `small`; `:lg`+ maps to
+      # skin. `:sm` (default) maps to ConfinusUI's `small`; `:lg`+ maps to
       # ConfinusUI's `large`.
       def gap_class
         case @size
@@ -74,8 +79,8 @@ module Decor
 
       def size_padding_classes
         case @size
-        when :lg, :xl then "decor:px-2.5 decor:py-[3px] decor:text-xs"
-        else "decor:px-2 decor:py-[2px] decor:text-xs" # xs/sm/md
+        when :lg, :xl then "decor:px-2.5 decor:py-[3px]"
+        else "decor:px-2 decor:py-[2px]" # xs/sm/md
         end
       end
 
@@ -95,53 +100,48 @@ module Decor
         end
       end
 
+      # Filled: pale-50 bg + dark-700 text from the Suite palette.
       def filled_muted_color_classes
         case @color
-        when :primary, :info then "decor:bg-info/10 decor:text-info"
-        when :success then "decor:bg-success/10 decor:text-success"
-        when :warning then "decor:bg-warning/10 decor:text-warning"
-        when :error then "decor:bg-error/10 decor:text-error"
-        when :secondary then "decor:bg-secondary/10 decor:text-secondary"
-        when :accent then "decor:bg-accent/10 decor:text-accent"
-        else "decor:bg-base-200 decor:text-base-content"
+        when :primary, :info then "decor:bg-suite-primary-50 decor:text-suite-primary-700"
+        when :success then "decor:bg-suite-success-50 decor:text-suite-success-700"
+        when :warning then "decor:bg-suite-warning-50 decor:text-suite-warning-700"
+        when :error then "decor:bg-suite-danger-50 decor:text-suite-danger-700"
+        else "decor:bg-gray-100 decor:text-gray-700"
         end
       end
 
+      # Outlined: white bg + numbered-100 border (200 for primary) + dark-700 text.
+      # Neutral falls back to the hairline-strong token + gray-700 text.
       def outlined_color_classes
         case @color
-        when :primary, :info then "decor:bg-base-100 decor:border decor:border-info/30 decor:text-info"
-        when :success then "decor:bg-base-100 decor:border decor:border-success/30 decor:text-success"
-        when :warning then "decor:bg-base-100 decor:border decor:border-warning/30 decor:text-warning"
-        when :error then "decor:bg-base-100 decor:border decor:border-error/30 decor:text-error"
-        when :secondary then "decor:bg-base-100 decor:border decor:border-secondary/30 decor:text-secondary"
-        when :accent then "decor:bg-base-100 decor:border decor:border-accent/30 decor:text-accent"
-        else "decor:bg-base-100 decor:border decor:border-black/15 decor:text-base-content"
+        when :primary, :info then "decor:bg-white decor:border decor:border-suite-primary-200 decor:text-suite-primary-700"
+        when :success then "decor:bg-white decor:border decor:border-suite-success-100 decor:text-suite-success-700"
+        when :warning then "decor:bg-white decor:border decor:border-suite-warning-100 decor:text-suite-warning-700"
+        when :error then "decor:bg-white decor:border decor:border-suite-danger-100 decor:text-suite-danger-700"
+        else "decor:bg-white decor:border decor:border-suite-hairline-strong decor:text-gray-700"
         end
       end
 
-      # Saturated dot + halo. Halo uses `shadow-{color}/20` — Tailwind v4
-      # alpha-from-color, same two-utility pattern as Suite::Tag's LED.
+      # Saturated dot + halo. Neutral/default gets a plain gray dot with no halo.
       def dot_color_classes
         case @color
-        when :primary, :info then "decor:bg-info decor:shadow-[0_0_0_2px] decor:shadow-info/20"
-        when :success then "decor:bg-success decor:shadow-[0_0_0_2px] decor:shadow-success/20"
-        when :warning then "decor:bg-warning decor:shadow-[0_0_0_2px] decor:shadow-warning/20"
-        when :error then "decor:bg-error decor:shadow-[0_0_0_2px] decor:shadow-error/20"
-        when :secondary then "decor:bg-secondary decor:shadow-[0_0_0_2px] decor:shadow-secondary/20"
-        when :accent then "decor:bg-accent decor:shadow-[0_0_0_2px] decor:shadow-accent/20"
-        else "decor:bg-base-content/40"
+        when :primary, :info then "decor:bg-suite-primary-500 decor:shadow-[0_0_0_2px] decor:shadow-suite-primary-500/20"
+        when :success then "decor:bg-suite-success-500 decor:shadow-[0_0_0_2px] decor:shadow-suite-success-500/20"
+        when :warning then "decor:bg-suite-warning-500 decor:shadow-[0_0_0_2px] decor:shadow-suite-warning-500/20"
+        when :error then "decor:bg-suite-danger-500 decor:shadow-[0_0_0_2px] decor:shadow-suite-danger-500/20"
+        else "decor:bg-gray-400"
         end
       end
 
+      # Icon: one shade lighter than body text (Confinus convention).
       def icon_color_classes
         case @color
-        when :primary, :info then "decor:text-info"
-        when :success then "decor:text-success"
-        when :warning then "decor:text-warning"
-        when :error then "decor:text-error"
-        when :secondary then "decor:text-secondary"
-        when :accent then "decor:text-accent"
-        else "decor:text-base-content"
+        when :primary, :info then "decor:text-suite-primary-600"
+        when :success then "decor:text-suite-success-600"
+        when :warning then "decor:text-suite-warning-600"
+        when :error then "decor:text-suite-danger-600"
+        else "decor:text-gray-500"
         end
       end
     end
