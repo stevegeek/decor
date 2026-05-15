@@ -48,13 +48,27 @@ class ::Decor::Suite::TagTest < ActiveSupport::TestCase
     refute_includes html, "decor:shadow-suite-warning-500/20"
   end
 
-  test "nose ::before clip-path classes present on standard variant" do
+  test "nose SVG renders on standard variant with triangle path + non-scaling stroke" do
     html = render_component(::Decor::Suite::Tag.new(label: "x"))
-    assert_includes html, "decor:before:[clip-path:polygon(0_50%,100%_0,100%_100%)]"
-    assert_includes html, "decor:before:bg-inherit"
+    assert_includes html, "<svg"
+    assert_includes html, "preserveAspectRatio=\"none\""
+    assert_includes html, "vector-effect=\"non-scaling-stroke\""
+    assert_includes html, "M11 0 L0 50 L11 100 Z"  # default :sm size = 11px wide
   end
 
-  test "removable: true renders close button with passed data-action and drops nose chrome" do
+  test "filled variant fills nose SVG with suite-{color}-50 + transparent stroke" do
+    html = render_component(::Decor::Suite::Tag.new(label: "x", color: :success))
+    assert_includes html, "decor:fill-suite-success-50"
+    assert_includes html, "decor:stroke-transparent"
+  end
+
+  test "outlined variant fills nose SVG white + colored stroke" do
+    html = render_component(::Decor::Suite::Tag.new(label: "x", color: :success, style: :outlined))
+    assert_includes html, "decor:fill-white"
+    assert_includes html, "decor:stroke-suite-success-100"
+  end
+
+  test "removable: true renders close button with passed data-action and drops nose svg" do
     html = render_component(
       ::Decor::Suite::Tag.new(
         label: "Beverages",
@@ -65,7 +79,7 @@ class ::Decor::Suite::TagTest < ActiveSupport::TestCase
     assert_includes html, "data-action"
     assert_includes html, "click->cart#remove"
     assert_includes html, "tabler-x"
-    refute_includes html, "before:[clip-path"
+    refute_includes html, "vector-effect"
   end
 
   test "removable variant uses suite primary chrome" do
