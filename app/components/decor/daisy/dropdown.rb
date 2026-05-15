@@ -3,6 +3,12 @@
 module Decor
   module Daisy
     class Dropdown < ::Decor::Components::Dropdown
+      stimulus do
+        actions [:click, :toggle], ["click@window", :hide_on_click_outside]
+        classes active: -> { @button_active_classes }
+        values active_target: -> { "##{id}-menu-button" }, enter_timeout: 100, leave_timeout: 75
+      end
+
       def view_template(&)
         @content = capture(&) if block_given?
 

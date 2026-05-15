@@ -2,16 +2,10 @@
 
 module Decor
   module Components
-    # Abstract base for Dropdown. Owns the prop API + stimulus block + slot helpers.
-    # Concrete skins (Daisy, Suite) inherit and provide `view_template`
-    # plus their visual-language overrides.
+    # Abstract base for Dropdown. Owns the prop API + slot helpers.
+    # Concrete skins (Daisy, Suite) inherit and provide `view_template`,
+    # their own `stimulus do` block, and their visual-language overrides.
     class Dropdown < ::Decor::PhlexComponent
-      stimulus do
-        actions [:click, :toggle], ["click@window", :hide_on_click_outside]
-        classes active: -> { @button_active_classes }
-        values active_target: -> { "##{id}-menu-button" }, enter_timeout: 100, leave_timeout: 75
-      end
-
       default_size :md
       default_color :base
       default_style :filled
@@ -22,6 +16,23 @@ module Decor
 
       prop :button_classes, _Array(String), default: -> { [] }
       prop :button_active_classes, _Array(String), default: -> { [] }
+      prop :menu_classes, _Array(String), default: -> { [] }
+
+      # Optional fixed-size override for the menu surface. When nil the skin
+      # picks a default (Daisy uses size-mapped widths; Suite uses w-auto).
+      prop :dropdown_size_classes, _Nilable(_Array(String))
+
+      # Lazy-load support. When `content_href` is set the menu fetches HTML on
+      # first open and swaps it in; `placeholder` is shown while the fetch is
+      # in flight.
+      prop :content_href, _Nilable(String)
+      prop :placeholder, _Nilable(String)
+
+      # CSS anchor-positioning name override (Suite skin). When set, the
+      # consumer is responsible for placing `style: "anchor-name: <value>;"`
+      # on the element that should act as the visible anchor. When unset the
+      # Suite skin auto-generates one and applies it to the internal trigger.
+      prop :anchor_name, _Nilable(String)
 
       def trigger_button(&block)
         @trigger_button = block
