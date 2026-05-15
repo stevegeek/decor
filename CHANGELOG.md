@@ -1,6 +1,11 @@
 # Changelog
 
-## 0.4.1 — Unreleased
+## 0.5.0 — Unreleased
+
+### Suite::Flash — per-component migration cycle
+- Add `Decor.default_skin` configuration accessor (default `:daisy`). Apps override to pick the visual skin used by Decor view helpers like `decor_flash`.
+- Add `Decor::FlashHelper` view helper providing `decor_flash(skin:, **opts, &block)`. Bridges the Rails request context (flash hash, controller path, action name) to the pure component. Auto-registered into ActionController via the engine, and into Phlex components via `register_output_helper`.
+- Add `Decor::Suite::Flash` — muted-card skin with avatar-style icon wrap and close-X button. Companion to `Decor::Daisy::Flash`.
 
 ### Suite::FlowStep — next per-component migration cycle
 - Add `Decor::Suite::FlowStep` with muted palette and card-chromed child block, suited for multi-step admin import forms.
