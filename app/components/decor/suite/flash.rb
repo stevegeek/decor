@@ -12,18 +12,18 @@ module Decor
         else
           root_element do
             if show_initial?
-              div(class: "decor:w-9 decor:h-9 decor:flex decor:items-center decor:justify-center decor:rounded-md decor:shrink-0 #{icon_wrap_classes}") do
+              div(class: "decor:w-9 decor:h-9 decor:flex decor:items-center decor:justify-center decor:rounded-suite-card decor:shrink-0 #{icon_wrap_classes}") do
                 render ::Decor::Icon.new(name: icon, html_options: {class: "decor:w-[18px] decor:h-[18px]"})
               end
               div(class: "decor:flex-1 decor:min-w-0") do
-                h4(class: "decor:font-semibold decor:text-sm decor:m-0 decor:mb-0.5") { title_with_defaults }
-                p(class: "decor:text-sm decor:m-0 decor:leading-6") { text_with_default }
+                h4(class: "decor:suite-section-title decor:m-0 decor:mb-[2px]") { title_with_defaults }
+                p(class: "decor:suite-description decor:m-0 decor:leading-6") { text_with_default }
               end
               child_element(
                 :button,
                 type: "button",
                 stimulus_action: [:click, :hide],
-                class: "decor:w-[22px] decor:h-[22px] decor:flex decor:items-center decor:justify-center decor:rounded-md decor:cursor-pointer decor:opacity-60 decor:hover:opacity-100 decor:hover:bg-black/5 decor:shrink-0"
+                class: "decor:w-[22px] decor:h-[22px] decor:flex decor:items-center decor:justify-center decor:rounded-suite-control decor:cursor-pointer decor:opacity-60 decor:hover:opacity-100 decor:hover:bg-black/5 decor:shrink-0"
               ) do
                 render ::Decor::Icon.new(name: "x", html_options: {class: "decor:w-3 decor:h-3"})
               end
@@ -36,7 +36,7 @@ module Decor
 
       def root_element_classes
         [
-          "decor:flex decor:items-start decor:gap-3 decor:px-4 decor:py-4 decor:border decor:rounded-md",
+          "decor:flex decor:items-start decor:gap-3 decor:px-4 decor:py-4 decor:border decor:rounded-suite-card",
           variant_classes,
           ("decor:invisible decor:opacity-0" unless show_initial?),
           ("decor:hidden" if @collapse_if_empty && !show_initial?)
@@ -49,21 +49,21 @@ module Decor
 
       def variant_classes
         case resolved_color
-        when :success then "decor:bg-success/10 decor:border-success/30 decor:text-success"
-        when :error then "decor:bg-error/10 decor:border-error/30 decor:text-error"
-        when :warning then "decor:bg-warning/10 decor:border-warning/30 decor:text-warning"
-        when :info, :primary then "decor:bg-info/10 decor:border-info/30 decor:text-info"
-        else "decor:bg-base-200 decor:border-black/15 decor:text-base-content"
+        when :success then "decor:bg-suite-success-50 decor:border-suite-success-100 decor:text-suite-success-700"
+        when :error then "decor:bg-suite-danger-50 decor:border-suite-danger-100 decor:text-suite-danger-700"
+        when :warning then "decor:bg-suite-warning-50 decor:border-suite-warning-100 decor:text-suite-warning-700"
+        when :info, :primary then "decor:bg-suite-primary-50 decor:border-suite-primary-100 decor:text-suite-primary-700"
+        else "decor:bg-gray-50 decor:border-suite-hairline decor:text-gray-800"
         end
       end
 
       def icon_wrap_classes
         case resolved_color
-        when :success then "decor:bg-success/15 decor:text-success"
-        when :error then "decor:bg-error/15 decor:text-error"
-        when :warning then "decor:bg-warning/15 decor:text-warning"
-        when :info, :primary then "decor:bg-info/15 decor:text-info"
-        else "decor:bg-base-300 decor:text-base-content"
+        when :success then "decor:bg-suite-success-100 decor:text-suite-success-600"
+        when :error then "decor:bg-suite-danger-100 decor:text-suite-danger-600"
+        when :warning then "decor:bg-suite-warning-100 decor:text-suite-warning-600"
+        when :info, :primary then "decor:bg-suite-primary-100 decor:text-suite-primary-600"
+        else "decor:bg-gray-100 decor:text-gray-600"
         end
       end
     end
