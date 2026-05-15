@@ -22,7 +22,7 @@ module Decor
               child_element(
                 :button,
                 type: "button",
-                stimulus_actions: [[:click, :hide]],
+                stimulus_action: [:click, :hide],
                 class: "decor:w-[22px] decor:h-[22px] decor:flex decor:items-center decor:justify-center decor:rounded-md decor:cursor-pointer decor:opacity-60 decor:hover:opacity-100 decor:hover:bg-black/5 decor:shrink-0"
               ) do
                 render ::Decor::Icon.new(name: "x", html_options: {class: "decor:w-3 decor:h-3"})
