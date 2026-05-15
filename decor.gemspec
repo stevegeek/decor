@@ -7,8 +7,17 @@ Gem::Specification.new do |spec|
   spec.version       = Decor::VERSION
   spec.authors       = ["Stephen Ierodiaconou"]
   spec.summary       = "Phlex + Vident + daisyUI 5 component library for Rails."
+  spec.description   = "A Phlex + Vident component library on top of Tailwind v4 and daisyUI v5, with two visual skins (Daisy and Suite)."
+  spec.homepage      = "https://github.com/stevegeek/decor"
   spec.license       = "MIT"
   spec.required_ruby_version = ">= 3.3"
+
+  spec.metadata = {
+    "homepage_uri"      => spec.homepage,
+    "source_code_uri"   => "https://github.com/stevegeek/decor",
+    "changelog_uri"     => "https://github.com/stevegeek/decor/blob/main/CHANGELOG.md",
+    "bug_tracker_uri"   => "https://github.com/stevegeek/decor/issues"
+  }
 
   spec.files = Dir[
     "lib/**/*.rb",
