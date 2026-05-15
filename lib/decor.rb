@@ -15,5 +15,13 @@ module Decor
       yield configuration if block_given?
       configuration
     end
+
+    def default_skin
+      configuration.default_skin
+    end
+
+    def default_skin=(value)
+      configuration.default_skin = value
+    end
   end
 end
