@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.10.0 — Unreleased
+
+### Suite component batch 2 — 10 more ports in parallel
+
+- `Decor::Suite::Button` (+ `loading` prop on abstract base) — Suite-tokened buttons with filled/outlined/ghost/soft styles and Suite-specific `:wide` and `:link` size aliases.
+- `Decor::Suite::ButtonLink` — button-styled anchor with same color/style/size matrix.
+- `Decor::Suite::Tabs` — segmented strip + scroll-shadow scroll affordance; ports the Confinus Stimulus controller (Daisy's tabs controller handles a different mobile-select pattern and couldn't be reused).
+- `Decor::Suite::SettingsList` (+ abstract base + Daisy skin) — collapsible row list with kicker/scope chips; Suite uses a Stimulus controller for chevron rotation + aria-expanded sync (Daisy uses native `<details>`). Confinus's `modal:` integration replaced with a plain edit-link prop (gem can't depend on Confinus' modal helpers).
+- `Decor::Suite::PropertyList` (+ abstract + Daisy) — vertical list composition over `Suite::Property` with section grouping + CTA slot.
+- `Decor::Suite::PropertyCard` (+ abstract + Daisy) — standalone composition with left-accent edge and 2/3/4-column body grid (NOT a Card + PropertyList wrapper; Confinus' PropertyCard has distinct chrome).
+- `Decor::Suite::SearchAndFilter` — search input + filter chip popover; native `@floating-ui` not needed because Suite uses native CSS anchor positioning + Popover API like Suite::Dropdown.
+- `Decor::{Components,Daisy,Suite}::LoadingBar` — linear progress bar with determinate + indeterminate slider modes. Suite preserves the ConfinusUI thin-pill look (`rounded-full` + suite-{color}-500 fill); animation via CSS keyframes (no JS).
+- `Decor::Suite::Modals::ModalCloseButton` — namespaced under `modals/` to match abstract base + Daisy; dispatches window-scoped `decor--suite--modals--modal:close` event (replaces Confinus's ancestor-DOM `dialog.close()` coupling).
+- `Decor::Suite::Modals::ModalOpenButton` (+ `title` prop on abstract) — namespaced match; dispatches `decor--suite--modals--modal:open` with snake+camel detail keys.
+
+Tests: 174 runs / 727 assertions / 0F across the 10 new Suite components.
+
 ## 0.9.0 — Unreleased
 
 ### Suite component batch — 10 ports in parallel

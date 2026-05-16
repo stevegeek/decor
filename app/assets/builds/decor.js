@@ -1716,8 +1716,210 @@ var dropdown_controller_default2 = class extends Controller17 {
   }
 };
 
-// app/javascript/controllers/decor/suite/tooltip_controller.js
+// app/javascript/controllers/decor/suite/modals/modal_close_button_controller.js
 import { Controller as Controller18 } from "@hotwired/stimulus";
+var modal_close_button_controller_default2 = class extends Controller18 {
+  static values = {
+    closeReason: String
+  };
+  handleButtonClick(event) {
+    const reason = this.closeReasonValue;
+    window.dispatchEvent(new CustomEvent("decor--suite--modals--modal:close", {
+      detail: { closeReason: reason ? reason : void 0 }
+    }));
+  }
+};
+
+// app/javascript/controllers/decor/suite/modals/modal_open_button_controller.js
+import { Controller as Controller19 } from "@hotwired/stimulus";
+var modal_open_button_controller_default2 = class extends Controller19 {
+  static values = {
+    modalId: String,
+    contentHref: String,
+    initialContent: String,
+    title: String,
+    closeOnOverlayClick: Boolean
+  };
+  handleButtonClick(event) {
+    event.preventDefault();
+    window.dispatchEvent(new CustomEvent("decor--suite--modals--modal:open", {
+      detail: {
+        id: this.modalIdValue || void 0,
+        content_href: this.contentHrefValue || void 0,
+        contentHref: this.contentHrefValue || void 0,
+        initial_content: this.initialContentValue ? markAsSafeHTML(this.initialContentValue) : void 0,
+        placeholder: this.initialContentValue ? markAsSafeHTML(this.initialContentValue) : void 0,
+        title: this.titleValue || void 0,
+        closeOnOverlayClick: this.closeOnOverlayClickValue
+      }
+    }));
+  }
+};
+
+// app/javascript/controllers/decor/suite/search_and_filter_controller.js
+import { Controller as Controller20 } from "@hotwired/stimulus";
+var search_and_filter_controller_default = class extends Controller20 {
+  static targets = [
+    "searchInput",
+    "applyButton",
+    "clearFiltersButton"
+  ];
+  toggle(event) {
+    const menu = this.dropdownMenu();
+    if (menu && typeof menu.togglePopover === "function") {
+      menu.togglePopover();
+    }
+    if (event) event.stopPropagation();
+  }
+  hide() {
+    const menu = this.dropdownMenu();
+    if (menu && typeof menu.hidePopover === "function") {
+      menu.hidePopover();
+    }
+  }
+  hideOnClickOutside() {
+    this.hide();
+  }
+  handleApply() {
+    const filters = this.collectFilterValues();
+    if (this.hasApplyButtonTarget) {
+      this.applyButtonTarget.disabled = true;
+    }
+    this.reloadWith(filters);
+  }
+  handleClearFilters() {
+    const filters = this.collectFilterValues();
+    if (this.hasClearFiltersButtonTarget) {
+      this.clearFiltersButtonTarget.disabled = true;
+    }
+    const cleared = Object.keys(filters).reduce((acc, key) => {
+      acc[key] = void 0;
+      return acc;
+    }, {});
+    this.reloadWith(cleared);
+  }
+  handleSearchInputKeydown(event) {
+    if (event.defaultPrevented) return;
+    if (event.key !== "Enter") return;
+    event.preventDefault();
+    if (this.hasSearchInputTarget) {
+      this.searchInputTarget.disabled = true;
+    }
+    this.handleApply();
+  }
+  handleRangePicker(event) {
+    const input = event.target;
+    if (!input) return;
+    const fp = typeof window !== "undefined" ? window.flatpickr : void 0;
+    if (typeof fp !== "function") return;
+    const picker = fp(input, {
+      mode: "range",
+      onClose: (selectedDates, _dateStr, instance) => {
+        if (selectedDates.length !== 2) return;
+        const value = selectedDates.map((d) => instance.formatDate(new Date(d), "Y-m-d")).join("_");
+        const name = input.name || "custom_range";
+        input.value = value;
+        input.dataset.customRangeName = name;
+      }
+    });
+    picker.open();
+  }
+  // ── private ─────────────────────────────────────────────────────────────
+  dropdownMenu() {
+    return this.element.querySelector(".decor--suite--dropdown-menu");
+  }
+  collectFilterValues() {
+    const out = {};
+    if (this.hasSearchInputTarget && this.searchInputTarget.value) {
+      out[this.searchInputTarget.name] = this.searchInputTarget.value;
+    }
+    const menu = this.dropdownMenu();
+    if (!menu) return out;
+    menu.querySelectorAll('input[type="text"], input[type="search"], input[type="date"], input[type="number"], input:not([type])').forEach((el) => {
+      if (!el.name) return;
+      if (el === this.searchInputTarget) return;
+      out[el.name] = el.value || void 0;
+    });
+    menu.querySelectorAll('input[type="checkbox"]').forEach((el) => {
+      if (!el.name) return;
+      out[el.name] = el.checked ? "true" : void 0;
+    });
+    menu.querySelectorAll("select").forEach((el) => {
+      if (!el.name) return;
+      out[el.name] = el.value || void 0;
+    });
+    return out;
+  }
+  reloadWith(filters) {
+    const merged = Object.assign({}, filters, { page: void 0 });
+    const params = new URLSearchParams(window.location.search);
+    Object.entries(merged).forEach(([name, value]) => {
+      if (value === void 0 || value === null || value === "") {
+        params.delete(name);
+      } else {
+        params.set(name, value);
+      }
+    });
+    const qs = params.toString();
+    window.location.search = qs ? `?${qs}` : "";
+  }
+};
+
+// app/javascript/controllers/decor/suite/settings_list/row_controller.js
+import { Controller as Controller21 } from "@hotwired/stimulus";
+var row_controller_default = class extends Controller21 {
+  static targets = ["chevron", "detail", "summary"];
+  static values = {
+    open: { type: Boolean, default: false }
+  };
+  toggle() {
+    this.openValue = !this.openValue;
+  }
+  openValueChanged(open) {
+    this.detailTarget.hidden = !open;
+    this.summaryTarget.setAttribute("aria-expanded", String(open));
+    this.chevronTarget.classList.toggle("decor:rotate-90", open);
+  }
+};
+
+// app/javascript/controllers/decor/suite/tabs_controller.js
+import { Controller as Controller22 } from "@hotwired/stimulus";
+var tabs_controller_default2 = class extends Controller22 {
+  static targets = ["wrapper", "scroll"];
+  connect() {
+    if (!this.hasWrapperTarget || !this.hasScrollTarget) return;
+    this.updateShadows();
+    this.resizeObserver = new ResizeObserver(() => this.updateShadows());
+    this.resizeObserver.observe(this.scrollTarget);
+    this.resizeObserver.observe(this.wrapperTarget);
+  }
+  disconnect() {
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+      this.resizeObserver = null;
+    }
+  }
+  scrolled() {
+    this.updateShadows();
+  }
+  updateShadows() {
+    if (!this.hasWrapperTarget || !this.hasScrollTarget) return;
+    const x = this.scrollTarget.scrollLeft;
+    const max = this.scrollTarget.scrollWidth - this.scrollTarget.clientWidth;
+    const epsilon = 1;
+    this.wrapperTarget.classList.toggle(
+      "inset-scroll-shadow-not-at-left",
+      x > epsilon
+    );
+    this.wrapperTarget.classList.toggle(
+      "inset-scroll-shadow-not-at-right",
+      x < max - epsilon
+    );
+  }
+};
+
+// app/javascript/controllers/decor/suite/tooltip_controller.js
+import { Controller as Controller23 } from "@hotwired/stimulus";
 import {
   computePosition,
   autoUpdate,
@@ -1726,7 +1928,7 @@ import {
   offset as offsetMiddleware,
   arrow
 } from "@floating-ui/dom";
-var tooltip_controller_default = class extends Controller18 {
+var tooltip_controller_default = class extends Controller23 {
   static targets = ["content", "arrow"];
   static values = {
     placement: { type: String, default: "top" },
@@ -1839,19 +2041,25 @@ var CONTROLLERS = {
   "decor--daisy--progress": progress_controller_default,
   "decor--daisy--tabs": tabs_controller_default,
   "decor--progress-animation": progress_animation_controller_default,
+  "decor--suite--button": button_controller_default,
   "decor--suite--carousel": carousel_controller_default,
   "decor--suite--click-to-copy": click_to_copy_controller_default,
   "decor--suite--dropdown": dropdown_controller_default2,
   "decor--suite--flash": flash_controller_default,
   "decor--suite--map": map_controller_default,
+  "decor--suite--modals--modal-close-button": modal_close_button_controller_default2,
+  "decor--suite--modals--modal-open-button": modal_open_button_controller_default2,
   "decor--suite--progress": progress_controller_default,
+  "decor--suite--search-and-filter": search_and_filter_controller_default,
+  "decor--suite--settings-list--row": row_controller_default,
+  "decor--suite--tabs": tabs_controller_default2,
   "decor--suite--tooltip": tooltip_controller_default
 };
 
 // app/javascript/decor/index.js
 function register(application) {
-  for (const [identifier, Controller19] of Object.entries(CONTROLLERS)) {
-    application.register(identifier, Controller19);
+  for (const [identifier, Controller24] of Object.entries(CONTROLLERS)) {
+    application.register(identifier, Controller24);
   }
 }
 if (typeof window !== "undefined" && window.Stimulus) {

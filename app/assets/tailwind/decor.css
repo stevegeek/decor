@@ -317,6 +317,54 @@
   display: none !important;
 }
 
+/* ──────────────────────────────────────────────────────────────────────
+ * Suite Tabs scroll-shadow fades.
+ *
+ * When the segmented strip overflows horizontally, JS toggles
+ * `inset-scroll-shadow-not-at-{left,right}` on the strip wrapper. These
+ * pseudo-elements paint a gradient fade on the appropriate edge so the
+ * overflow is discoverable. No top "cliff" line — that effect is reserved
+ * for the data table.
+ * ──────────────────────────────────────────────────────────────────── */
+
+.decor--suite--tabs__strip-wrapper {
+  &.inset-scroll-shadow-not-at-right:after,
+  &.inset-scroll-shadow-not-at-left:before {
+    content: "";
+    height: 100%;
+    width: 30px;
+    top: 0;
+    position: absolute;
+    opacity: 1;
+    z-index: 10;
+    pointer-events: none;
+    animation-name: fadeInOpacity;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-duration: 0.2s;
+  }
+
+  &.inset-scroll-shadow-not-at-right:after {
+    right: 0;
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0) 50%,
+      rgba(0, 0, 0, 0.2) 100%
+    );
+  }
+
+  &.inset-scroll-shadow-not-at-left:before {
+    left: 0;
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.2) 0%,
+      rgba(0, 0, 0, 0) 50%,
+      rgba(0, 0, 0, 0) 100%
+    );
+  }
+}
+
 /* Anchor-positioned popover menu */
 .decor--suite--dropdown-menu {
   position: fixed;
