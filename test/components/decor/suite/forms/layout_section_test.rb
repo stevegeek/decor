@@ -17,19 +17,19 @@ class ::Decor::Suite::Forms::LayoutSectionTest < ActiveSupport::TestCase
     assert_includes html, "decor:suite-section-title"
   end
 
-  test "renders description with suite-description typography" do
+  test "renders description with suite-field-help density-aware typography" do
     html = render_component(::Decor::Suite::Forms::LayoutSection.new(
       title: "Profile",
       description: "Public information"
     ))
     assert_includes html, "Public information"
-    assert_includes html, "decor:suite-description"
+    assert_includes html, "decor:suite-field-help"
   end
 
   test "omits heading row entirely when title, description and cta are absent" do
     html = render_component(::Decor::Suite::Forms::LayoutSection.new)
     refute_includes html, "decor:suite-section-title"
-    refute_includes html, "decor:suite-description"
+    refute_includes html, "decor:suite-field-help"
   end
 
   test "renders block content inside a flex-wrap grid wrapper by default" do
@@ -54,7 +54,7 @@ class ::Decor::Suite::Forms::LayoutSectionTest < ActiveSupport::TestCase
     end
     assert_includes html, "payload"
     assert_includes html, "sentinel"
-    refute_includes html, "decor:flex-wrap decor:gap-y-2.5"
+    refute_includes html, "decor:flex-wrap decor:suite-grid-gap"
   end
 
   test "with_cta renders the CTA block on the heading row" do

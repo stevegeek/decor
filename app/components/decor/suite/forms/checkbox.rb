@@ -105,7 +105,7 @@ module Decor
 
         def label_text_classes
           [
-            "decor:suite-body",
+            "decor:suite-field-label",
             disabled? ? "decor:text-disabled" : "decor:text-gray-900",
             errors? ? "decor:text-suite-danger-700" : nil
           ].compact.join(" ")
@@ -113,7 +113,7 @@ module Decor
 
         def description_classes
           [
-            "decor:suite-description decor:text-gray-500 decor:mt-1",
+            "decor:suite-field-help decor:text-gray-500",
             (label_inline? || label_right?) ? "decor:ml-[25px]" : "decor:ml-0"
           ].join(" ")
         end
@@ -126,13 +126,13 @@ module Decor
           margin = (label_inline? || label_right?) ? "decor:ml-[25px]" : "decor:ml-0"
 
           if @helper_text.present? && !errors?
-            p(class: "decor:suite-description #{disabled? ? "decor:text-disabled" : "decor:text-gray-500"} #{margin} decor:mt-1") do
+            p(class: "decor:suite-field-help #{disabled? ? "decor:text-disabled" : "decor:text-gray-500"} #{margin}") do
               plain @helper_text
             end
           end
 
           if !floating_error_text? && errors?
-            p(class: "decor:suite-description decor:text-suite-danger-700 #{margin} decor:mt-1") do
+            p(class: "decor:suite-field-help decor:text-suite-danger-700 #{margin}") do
               plain error_text
             end
           end

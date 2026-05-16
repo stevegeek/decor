@@ -82,12 +82,12 @@ class ::Decor::Suite::Forms::CheckboxTest < ActiveSupport::TestCase
     assert_includes html, "#decor-check-tick"
   end
 
-  test "renders helper text below the control with suite-description typography" do
+  test "renders helper text below the control with suite-field-help density-aware typography" do
     html = render_component(
       ::Decor::Suite::Forms::Checkbox.new(name: "n", label: "L", helper_text: "Read the fine print")
     )
     assert_includes html, "Read the fine print"
-    assert_includes html, "decor:suite-description"
+    assert_includes html, "decor:suite-field-help"
   end
 
   test "renders error text in suite-danger-700 and suppresses helper text" do

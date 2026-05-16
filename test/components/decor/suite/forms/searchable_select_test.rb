@@ -37,8 +37,8 @@ class Decor::Suite::Forms::SearchableSelectTest < ActiveSupport::TestCase
 
     assert_includes rendered, "Assigned user"
     assert_includes rendered, "Start typing to find a user"
-    assert_includes rendered, "decor:suite-label"
-    assert_includes rendered, "decor:suite-description"
+    assert_includes rendered, "decor:suite-field-label"
+    assert_includes rendered, "decor:suite-field-help"
   end
 
   test "search input target is wired and visible when no selection" do

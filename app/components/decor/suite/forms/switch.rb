@@ -36,7 +36,7 @@ module Decor
         private
 
         def container_classes
-          "decor:w-full decor:flex decor:flex-col decor:gap-1"
+          "decor:w-full decor:flex decor:flex-col decor:suite-field-gap"
         end
 
         def row_classes
@@ -179,7 +179,7 @@ module Decor
             else
               "decor:text-gray-900"
             end
-          "decor:suite-label #{color}"
+          "decor:suite-field-label #{color}"
         end
 
         def helper_or_error_text
@@ -194,7 +194,9 @@ module Decor
               "decor:text-gray-500"
             end
           gap = (label_inline? || label_right?) ? "decor:ml-[38px]" : ""
-          "decor:suite-description #{color} decor:m-0 #{gap}".strip
+          # suite-field-help owns margin-top: 2px; mx-0/mb-0 hold the other
+          # axes at zero so the caption sits tight against the row.
+          "decor:suite-field-help #{color} decor:mx-0 decor:mb-0 #{gap}".strip
         end
       end
     end

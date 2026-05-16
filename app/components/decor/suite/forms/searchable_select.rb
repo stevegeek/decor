@@ -57,12 +57,12 @@ module Decor
         def render_label_section
           label(
             for: "#{id}-control",
-            class: "decor:suite-label decor:text-gray-900 decor:block decor:mb-1"
+            class: "decor:suite-field-label decor:text-gray-900 decor:block decor:mb-1"
           ) do
             plain @label
           end
           if @description.present?
-            p(class: "decor:suite-description decor:text-gray-500 decor:mb-1.5") do
+            p(class: "decor:suite-field-help decor:text-gray-500 decor:mb-1.5") do
               plain @description
             end
           end
@@ -124,7 +124,7 @@ module Decor
           [
             "decor:w-full decor:rounded-suite-control",
             "decor:border decor:border-suite-hairline-strong decor:bg-white",
-            "decor:flex decor:items-center decor:gap-2 decor:px-3 decor:py-[6px]",
+            "decor:flex decor:items-center decor:gap-2 decor:suite-input-base",
             "decor:transition-[border-color,box-shadow] decor:duration-suite-fast decor:ease-out",
             "decor:hover:border-gray-400",
             "decor:focus-within:border-suite-primary-500",
@@ -134,9 +134,13 @@ module Decor
         end
 
         def input_classes
+          # Borderless input — shell owns padding/font-size via
+          # decor:suite-input-base. Input matches font-size so the chip
+          # and the empty-input baseline align.
           "decor:flex-1 decor:min-w-[120px] decor:border-none decor:outline-hidden " \
             "decor:focus:ring-0 decor:p-0 decor:bg-transparent " \
-            "decor:suite-body decor:text-gray-900 decor:placeholder:text-gray-400"
+            "decor:text-[length:var(--suite-input-font)] decor:leading-[1.4] " \
+            "decor:text-gray-900 decor:placeholder:text-gray-400"
         end
 
         def clear_button_classes

@@ -88,13 +88,13 @@ module Decor
           if label_left?
             "decor:flex decor:flex-col decor:sm:flex-row decor:sm:items-baseline decor:sm:gap-x-4"
           else
-            "decor:flex decor:flex-col decor:gap-1.5"
+            "decor:flex decor:flex-col decor:suite-field-gap"
           end
         end
 
         def input_section_classes
           if label_left?
-            "decor:sm:flex-1 decor:sm:min-w-0 decor:flex decor:flex-col decor:gap-1.5"
+            "decor:sm:flex-1 decor:sm:min-w-0 decor:flex decor:flex-col decor:suite-field-gap"
           else
             ""
           end
@@ -125,19 +125,18 @@ module Decor
             else
               "decor:text-gray-900"
             end
-          "decor:block decor:suite-label #{color}"
+          "decor:block decor:suite-field-label #{color}"
         end
 
         def description_classes
-          "decor:suite-description decor:text-gray-500 decor:mt-1"
+          "decor:suite-field-help decor:text-gray-500"
         end
 
         def select_classes
           [
             "decor:w-full decor:appearance-none decor:bg-white",
             "decor:cursor-pointer decor:pr-9",
-            "decor:px-3 decor:py-2",
-            "decor:suite-body",
+            "decor:suite-input-base",
             "decor:rounded-suite-control decor:border",
             border_classes,
             text_color_class,
@@ -204,7 +203,9 @@ module Decor
 
         def helper_text_classes
           color = errors? ? "decor:text-suite-danger-700" : "decor:text-gray-500"
-          "decor:suite-description #{color} decor:m-0"
+          # suite-field-help brings its own margin-top: 2px; m-0 axes hold
+          # the rest at 0.
+          "decor:suite-field-help #{color} decor:mx-0 decor:mb-0"
         end
       end
     end

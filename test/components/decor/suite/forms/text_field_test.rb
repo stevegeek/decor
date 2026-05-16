@@ -24,10 +24,10 @@ class ::Decor::Suite::Forms::TextFieldTest < ActiveSupport::TestCase
     assert_match(/value="Hello"/, html)
   end
 
-  test "renders label text with suite-label typography" do
+  test "renders label text with suite-field-label density-aware typography" do
     html = render_component(::Decor::Suite::Forms::TextField.new(name: "n", label: "First name"))
     assert_includes html, "First name"
-    assert_includes html, "decor:suite-label"
+    assert_includes html, "decor:suite-field-label"
   end
 
   test "required appends an asterisk to the label" do
@@ -101,12 +101,12 @@ class ::Decor::Suite::Forms::TextFieldTest < ActiveSupport::TestCase
     assert_includes html, "decor:text-suite-danger-700"
   end
 
-  test "helper text renders below the field with suite-description typography" do
+  test "helper text renders below the field with suite-field-help density-aware typography" do
     html = render_component(
       ::Decor::Suite::Forms::TextField.new(name: "n", label: "L", helper_text: "Must be unique")
     )
     assert_includes html, "Must be unique"
-    assert_includes html, "decor:suite-description"
+    assert_includes html, "decor:suite-field-help"
   end
 
   test "error text suppresses helper text" do

@@ -142,6 +142,40 @@
   /* Motion */
   --duration-suite-fast: 120ms;
   --duration-suite-base: 200ms;
+
+  /* Suite density tokens (compact = default). Override on body.density-relaxed
+     to bump padding/font-size/gaps for users who opt into relaxed spacing.
+     Mirrors the Confinus design-system density mechanism. */
+  --suite-input-pad-y: 5px;
+  --suite-input-pad-x: 9px;
+  --suite-input-font: 12px;
+  --suite-label-font: 11.5px;
+  --suite-help-font: 11px;
+  --suite-field-gap: 3px;
+  --suite-section-pad-y: 18px;
+  --suite-section-pad-x: 22px;
+  --suite-section-gap: 14px;
+  --suite-grid-gap-y: 10px;
+  --suite-grid-gap-x: 20px;
+  --suite-section-title-font: 13px;
+  --suite-row-min-h: 30px;
+}
+
+/* Host opt-in: <body class="density-relaxed"> bumps the density vars. */
+body.density-relaxed {
+  --suite-input-pad-y: 8px;
+  --suite-input-pad-x: 12px;
+  --suite-input-font: 13px;
+  --suite-label-font: 12.5px;
+  --suite-help-font: 11.5px;
+  --suite-field-gap: 6px;
+  --suite-section-pad-y: 28px;
+  --suite-section-pad-x: 28px;
+  --suite-section-gap: 22px;
+  --suite-grid-gap-y: 18px;
+  --suite-grid-gap-x: 24px;
+  --suite-section-title-font: 14px;
+  --suite-row-min-h: 40px;
 }
 
 @utility rounded-card {
@@ -218,6 +252,51 @@
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.04em;
+}
+
+/* ──────────────────────────────────────────────────────────────────────
+ * Suite density-aware utilities — consume the --suite-* vars above so
+ * a `body.density-relaxed` flip recomputes padding/font-size/gaps at
+ * runtime. Callers use `decor:suite-input-base`, `decor:suite-field-
+ * label`, etc.
+ * ──────────────────────────────────────────────────────────────────── */
+
+@utility suite-input-base {
+  padding: var(--suite-input-pad-y) var(--suite-input-pad-x);
+  font-size: var(--suite-input-font);
+  line-height: 1.4;
+}
+
+@utility suite-field-label {
+  font-size: var(--suite-label-font);
+  font-weight: 500;
+}
+
+@utility suite-field-help {
+  font-size: var(--suite-help-font);
+  margin-top: 2px;
+  line-height: 1.5;
+}
+
+@utility suite-field-gap {
+  gap: var(--suite-field-gap);
+}
+
+@utility suite-section-pad {
+  padding: var(--suite-section-pad-y) var(--suite-section-pad-x);
+}
+
+@utility suite-section-title-d {
+  font-size: var(--suite-section-title-font);
+}
+
+@utility suite-grid-gap {
+  row-gap: var(--suite-grid-gap-y);
+  column-gap: var(--suite-grid-gap-x);
+}
+
+@utility suite-section-gap {
+  gap: var(--suite-section-gap);
 }
 
 @custom-variant dark (&:where(.dark, .dark *));

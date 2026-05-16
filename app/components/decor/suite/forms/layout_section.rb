@@ -36,10 +36,10 @@ module Decor
               div(class: "decor:flex decor:flex-wrap decor:items-start decor:justify-between decor:gap-3 decor:mb-4") do
                 div do
                   if @title.present?
-                    h3(class: "decor:suite-section-title decor:text-gray-900 decor:m-0") { @title }
+                    h3(class: "decor:suite-section-title decor:suite-section-title-d decor:text-gray-900 decor:m-0") { @title }
                   end
                   if @description.present?
-                    p(class: "decor:suite-description decor:text-gray-500 decor:m-0 decor:mt-0.5") { @description }
+                    p(class: "decor:suite-field-help decor:text-gray-500 decor:mx-0 decor:mb-0") { @description }
                   end
                 end
                 render @cta if @cta.present?
@@ -61,14 +61,14 @@ module Decor
         end
 
         def root_element_classes
-          "decor:px-[22px] decor:py-[18px] decor:border-b decor:border-suite-hairline decor:last-of-type:border-b-0"
+          "decor:suite-section-pad decor:border-b decor:border-suite-hairline decor:last-of-type:border-b-0"
         end
 
         def fields_region_classes
           if @stacked
-            "decor:flex decor:flex-col decor:gap-3.5"
+            "decor:flex decor:flex-col decor:suite-section-gap"
           else
-            "decor:flex decor:flex-wrap decor:gap-y-2.5 decor:gap-x-5"
+            "decor:flex decor:flex-wrap decor:suite-grid-gap"
           end
         end
       end

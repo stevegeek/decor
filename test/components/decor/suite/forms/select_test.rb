@@ -73,10 +73,10 @@ class ::Decor::Suite::Forms::SelectTest < ActiveSupport::TestCase
     assert_includes html, "decor:border-suite-danger-500"
   end
 
-  test "helper_text renders below the control in suite-description typography" do
+  test "helper_text renders below the control in suite-field-help density-aware typography" do
     html = render_component(::Decor::Suite::Forms::Select.new(name: "n", label: "L", options_array: options, helper_text: "Pick one"))
     assert_includes html, "Pick one"
-    assert_includes html, "decor:suite-description"
+    assert_includes html, "decor:suite-field-help"
   end
 
   test "silent_helper_and_error_text suppresses the helper / error caption" do
@@ -189,7 +189,10 @@ class ::Decor::Suite::Forms::SelectTest < ActiveSupport::TestCase
     html = render_component(::Decor::Suite::Forms::Select.new(name: "n", label: "L", options_array: options))
     refute_includes html, "c-field-label"
     refute_includes html, "c-field-help"
-    refute_includes html, "input-base"
+    # Bare `input-base` is the Confinus class. The Suite skin prefixes
+    # its density-aware utility with `suite-` (and ships under the
+    # `decor:` Tailwind prefix), so check for word boundaries.
+    refute_match(/(?<![\w-])input-base/, html)
     refute_includes html, "border-hairline-strong\""
     refute_includes html, "rounded-control\""
   end

@@ -73,7 +73,7 @@ module Decor
           if label_left? || label_inline?
             "decor:flex decor:flex-col decor:sm:flex-row decor:sm:items-baseline decor:sm:gap-x-4"
           else
-            "decor:flex decor:flex-col decor:gap-1"
+            "decor:flex decor:flex-col decor:suite-field-gap"
           end
         end
 
@@ -103,7 +103,7 @@ module Decor
 
         def label_classes
           [
-            "decor:block decor:suite-label",
+            "decor:block decor:suite-field-label",
             label_left? ? "decor:font-semibold" : nil,
             disabled? ? "decor:text-gray-400" : "decor:text-gray-900",
             errors? ? "decor:text-suite-danger-700" : nil
@@ -116,7 +116,7 @@ module Decor
 
         def description_classes
           [
-            "decor:suite-description decor:text-gray-500 decor:mt-1",
+            "decor:suite-field-help decor:text-gray-500",
             label_left? ? "decor:mb-2" : nil
           ].compact.join(" ")
         end
@@ -252,9 +252,9 @@ module Decor
         def input_classes_str
           [
             (@html_size.nil? ? "decor:w-full" : nil),
-            "decor:block decor:relative decor:leading-[1.4] decor:outline-hidden decor:placeholder:text-gray-400",
+            "decor:block decor:relative decor:outline-hidden decor:placeholder:text-gray-400",
             "decor:transition-[border-color,box-shadow] decor:duration-suite-fast decor:ease-out",
-            "decor:suite-body",
+            "decor:suite-input-base",
             input_chrome_classes,
             input_state_classes,
             input_classes
@@ -284,12 +284,19 @@ module Decor
           ].compact.join(" ")
         end
 
-        # Inline style: per-side padding accommodates leading/trailing icons
-        # (non-boxed), which sit absolutely positioned over the input.
+        # Inline style: per-side padding override accommodates leading/
+        # trailing icons (non-boxed) which sit absolutely positioned over
+        # the input. Vertical padding is owned by suite-input-base; we
+        # only emit horizontal overrides when an icon needs the room.
         def input_inline_style
-          pad_left = (has_leading_add_on? && !add_on_boxed?) ? "2rem" : "0.75rem"
-          pad_right = (has_trailing_add_on? && !add_on_boxed?) ? "2rem" : "0.75rem"
-          "padding-top: 0.5rem; padding-bottom: 0.5rem; padding-left: #{pad_left}; padding-right: #{pad_right};"
+          parts = []
+          if has_leading_add_on? && !add_on_boxed?
+            parts << "padding-left: 2rem"
+          end
+          if has_trailing_add_on? && !add_on_boxed?
+            parts << "padding-right: 2rem"
+          end
+          parts.empty? ? nil : (parts.join("; ") + ";")
         end
 
         def error_icon_wrapper_classes
@@ -314,16 +321,18 @@ module Decor
 
         def helper_text_classes
           [
-            "decor:suite-description decor:m-0",
-            @collapsing_helper_text ? nil : "decor:mt-1",
+            "decor:suite-field-help",
+            # suite-field-help sets margin-top: 2px; collapsing variant
+            # forces it back to 0 to preserve the tight-stack behavior.
+            @collapsing_helper_text ? "decor:m-0" : "decor:mx-0 decor:mb-0",
             disabled? ? "decor:text-gray-400" : "decor:text-gray-500"
           ].compact.join(" ")
         end
 
         def error_text_classes
           [
-            "decor:suite-description decor:m-0 decor:text-suite-danger-700",
-            @collapsing_helper_text ? nil : "decor:mt-1"
+            "decor:suite-field-help decor:text-suite-danger-700",
+            @collapsing_helper_text ? "decor:m-0" : "decor:mx-0 decor:mb-0"
           ].compact.join(" ")
         end
 

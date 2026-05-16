@@ -96,12 +96,12 @@ class ::Decor::Suite::Forms::SwitchTest < ActiveSupport::TestCase
     refute_includes html, "Accept *"
   end
 
-  test "helper_text renders below the control with suite-description typography" do
+  test "helper_text renders below the control with suite-field-help density-aware typography" do
     html = render_component(::Decor::Suite::Forms::Switch.new(
       name: "x", label: "x", helper_text: "Some helper guidance."
     ))
     assert_includes html, "Some helper guidance."
-    assert_includes html, "decor:suite-description"
+    assert_includes html, "decor:suite-field-help"
     assert_includes html, "decor:text-gray-500"
   end
 
