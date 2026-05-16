@@ -73,7 +73,11 @@ module Decor
       end
 
       def has_description?(step)
-        @i18n_key.present? && I18n.exists?("#{@i18n_key}.#{step.label_key}_desc")
+        return false unless @i18n_key.present?
+        # `I18n.exists?` doesn't resolve dot-separated keys the way `I18n.t`
+        # does (returns false even for present nested keys). Use `t` with
+        # `default: nil` and check the result instead.
+        I18n.t("#{@i18n_key}.#{step.label_key}_desc", default: nil).present?
       end
 
       def step_description(step)
