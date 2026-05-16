@@ -13,7 +13,7 @@ module Decor
         prop :type, _Union(:select, :checkbox, :date_range)
         prop :name, String
         prop :label, String
-        prop :value, String
+        prop :value, _Nilable(String)
 
         prop :disabled, _Boolean, default: false
         prop :placeholder, _Nilable(String)
@@ -27,12 +27,12 @@ module Decor
       class Search < Literal::Data
         prop :name, String
         prop :label, String
-        prop :value, String
+        prop :value, _Nilable(String)
         prop :placeholder, _Nilable(String), default: "Search..."
         prop :apply, _Nilable(Proc)
       end
 
-      prop :url, String
+      prop :url, _Nilable(String)
       prop :filters, _Array(::Decor::Components::SearchAndFilter::Filter), default: -> { [] }
 
       prop :search, _Nilable(Search)
