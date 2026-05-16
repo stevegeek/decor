@@ -17,7 +17,7 @@ module Decor
           @cta = block
         end
 
-        prop :title, String
+        prop :title, _Nilable(String)
         prop :description, _Nilable(String)
 
         prop :flash, _Boolean, default: false
