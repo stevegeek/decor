@@ -558,9 +558,402 @@ var date_calendar_controller_default = class extends Controller6 {
   }
 };
 
-// app/javascript/controllers/decor/daisy/forms/switch_controller.js
+// app/javascript/controllers/decor/daisy/forms/searchable_select_controller.js
 import { Controller as Controller7 } from "@hotwired/stimulus";
-var switch_controller_default = class extends Controller7 {
+var searchable_select_controller_default = class extends Controller7 {
+  static targets = [
+    "input",
+    "dropdown",
+    "selectedDisplay",
+    "selectedLabel",
+    "hiddenInputsContainer"
+  ];
+  static values = {
+    searchUrl: { type: String, default: "" },
+    choices: { type: String, default: "[]" },
+    minChars: { type: Number, default: 2 },
+    debounceMs: { type: Number, default: 300 },
+    pageSize: { type: Number, default: 15 },
+    selectedItem: { type: String, default: "{}" },
+    allowClear: { type: Boolean, default: true },
+    autoSubmit: { type: Boolean, default: false },
+    fieldName: { type: String, default: "" }
+  };
+  initialize() {
+    this.searchTimeout = null;
+    this.selectedIds = /* @__PURE__ */ new Set();
+    this.highlightedIndex = -1;
+    this.currentPage = 0;
+    this.hasMore = false;
+    this.isLoading = false;
+    this.currentQuery = "";
+    this.browseMode = false;
+    this.suppressBrowseOnNextFocus = false;
+    this.currentSelectedId = null;
+    this.initialConnectDone = false;
+    this.resolveCounter = 0;
+  }
+  connect() {
+    try {
+      const item = JSON.parse(this.selectedItemValue);
+      if (item && item.id) {
+        this.currentSelectedId = item.id;
+        this.selectedIds.add(item.id);
+      }
+    } catch {
+    }
+    this.handleClickOutside = this.handleClickOutside.bind(this);
+    document.addEventListener("click", this.handleClickOutside);
+    this.initialConnectDone = true;
+  }
+  disconnect() {
+    document.removeEventListener("click", this.handleClickOutside);
+    if (this.searchTimeout) clearTimeout(this.searchTimeout);
+  }
+  // ── Programmatic selection via value change ──
+  selectedItemValueChanged() {
+    if (!this.initialConnectDone) return;
+    let item;
+    try {
+      item = JSON.parse(this.selectedItemValue);
+    } catch {
+      return;
+    }
+    if (!item || !item.id) return;
+    const id = item.id;
+    if (this.currentSelectedId) this.selectedIds.delete(this.currentSelectedId);
+    this.currentSelectedId = id;
+    this.selectedIds.add(id);
+    this.hiddenInputsContainerTarget.innerHTML = "";
+    const hidden = document.createElement("input");
+    hidden.type = "hidden";
+    hidden.name = this.fieldNameValue;
+    hidden.value = String(id);
+    this.hiddenInputsContainerTarget.appendChild(hidden);
+    if (item.label) {
+      this._applySelectedDisplay(String(id), item.label);
+      return;
+    }
+    const localMatch = this._parsedChoices().find(
+      (c) => String(c.id) === String(id)
+    );
+    if (localMatch) {
+      this._applySelectedDisplay(String(id), localMatch.label);
+    } else if (this.searchUrlValue) {
+      this._applySelectedDisplay(String(id), "");
+      this.selectedLabelTarget.textContent = "Loading\u2026";
+      this._resolveLabelFromSearch(String(id));
+    } else {
+      this._applySelectedDisplay(String(id), String(id));
+    }
+  }
+  // ── User interactions ──
+  handleFocus() {
+    if (this.suppressBrowseOnNextFocus) {
+      this.suppressBrowseOnNextFocus = false;
+      return;
+    }
+    this._openBrowseIfClosed();
+  }
+  handleInputClick() {
+    this._openBrowseIfClosed();
+  }
+  search() {
+    if (this.searchTimeout) clearTimeout(this.searchTimeout);
+    const query = this.inputTarget.value.trim();
+    if (query.length === 0) {
+      if (!this.dropdownTarget.classList.contains("hidden")) {
+        this.browseMode = true;
+        this.currentQuery = "";
+        this.currentPage = 0;
+        this.hasMore = false;
+        this._fetchResults("", 1, false);
+      }
+      return;
+    }
+    if (query.length < this.minCharsValue) {
+      if (!this.browseMode) this._closeDropdown();
+      return;
+    }
+    this.browseMode = false;
+    this.currentQuery = query;
+    this.currentPage = 0;
+    this.hasMore = false;
+    this.searchTimeout = setTimeout(() => {
+      this._fetchResults(query, 1, false);
+    }, this.debounceMsValue);
+  }
+  handleDropdownScroll() {
+    if (!this.hasMore || this.isLoading) return;
+    const el = this.dropdownTarget;
+    if (el.scrollHeight - el.scrollTop - el.clientHeight < 50) {
+      this._fetchResults(this.currentQuery, this.currentPage + 1, true);
+    }
+  }
+  handleKeydown(event) {
+    const items = this.dropdownTarget.querySelectorAll("[data-result-id]");
+    switch (event.key) {
+      case "Escape":
+        this._closeDropdown();
+        this.inputTarget.blur();
+        break;
+      case "ArrowDown":
+        event.preventDefault();
+        if (this.dropdownTarget.classList.contains("hidden")) {
+          this.handleFocus();
+          return;
+        }
+        this.highlightedIndex = Math.min(
+          this.highlightedIndex + 1,
+          items.length - 1
+        );
+        this._updateHighlight(items);
+        break;
+      case "ArrowUp":
+        event.preventDefault();
+        if (this.dropdownTarget.classList.contains("hidden")) return;
+        this.highlightedIndex = Math.max(this.highlightedIndex - 1, 0);
+        this._updateHighlight(items);
+        break;
+      case "Enter":
+        event.preventDefault();
+        if (this.highlightedIndex >= 0 && this.highlightedIndex < items.length) {
+          this._selectFromElement(items[this.highlightedIndex]);
+        }
+        break;
+    }
+  }
+  selectResult(event) {
+    const target = event.target.closest("[data-result-id]");
+    if (target) this._selectFromElement(target);
+  }
+  // Click on the chip — reopen the dropdown for re-selection without losing
+  // the existing value.
+  reopenForReselect() {
+    this.selectedDisplayTarget.classList.add("hidden");
+    this.inputTarget.classList.remove("hidden");
+    this.inputTarget.value = "";
+    this.inputTarget.focus();
+    this._openBrowseIfClosed();
+  }
+  clear(event) {
+    if (event) event.stopPropagation();
+    if (this.currentSelectedId) this.selectedIds.delete(this.currentSelectedId);
+    this.currentSelectedId = null;
+    this.selectedDisplayTarget.classList.add("hidden");
+    this.inputTarget.classList.remove("hidden");
+    this.inputTarget.value = "";
+    this.inputTarget.focus();
+    this.hiddenInputsContainerTarget.innerHTML = "";
+    this.dispatch("cleared", { bubbles: true });
+    if (this.autoSubmitValue) {
+      this.element.closest("form")?.requestSubmit();
+    }
+  }
+  // ── Internals ──
+  _openBrowseIfClosed() {
+    if (this.dropdownTarget.classList.contains("hidden") && this.inputTarget.value.trim() === "") {
+      this.browseMode = true;
+      this.currentQuery = "";
+      this.currentPage = 0;
+      this.hasMore = false;
+      this._fetchResults("", 1, false);
+    }
+  }
+  _selectFromElement(element) {
+    const id = this._parseResultId(element.dataset.resultId);
+    const label = element.dataset.resultLabel || "";
+    if (!id) return;
+    if (this.currentSelectedId) this.selectedIds.delete(this.currentSelectedId);
+    this.currentSelectedId = id;
+    this.selectedIds.add(id);
+    this.selectedLabelTarget.textContent = label;
+    this.selectedDisplayTarget.classList.remove("hidden");
+    this.inputTarget.classList.add("hidden");
+    this.inputTarget.value = "";
+    this.hiddenInputsContainerTarget.innerHTML = "";
+    const hidden = document.createElement("input");
+    hidden.type = "hidden";
+    hidden.name = this.fieldNameValue;
+    hidden.value = String(id);
+    this.hiddenInputsContainerTarget.appendChild(hidden);
+    this._closeDropdown();
+    let metadata = {};
+    if (element.dataset.resultMetadata) {
+      try {
+        metadata = JSON.parse(element.dataset.resultMetadata);
+      } catch {
+      }
+    }
+    this.dispatch("selected", { detail: { id, label, metadata }, bubbles: true });
+    if (this.autoSubmitValue) {
+      this.element.closest("form")?.requestSubmit();
+    }
+  }
+  _applySelectedDisplay(id, label) {
+    this.selectedLabelTarget.textContent = label;
+    this.selectedDisplayTarget.classList.remove("hidden");
+    this.inputTarget.classList.add("hidden");
+    this.inputTarget.value = "";
+    this._closeDropdown();
+    this.dispatch("selected", { detail: { id, label }, bubbles: true });
+  }
+  async _resolveLabelFromSearch(id) {
+    const requestId = ++this.resolveCounter;
+    let label = String(id);
+    try {
+      const http = createHTTPClient();
+      const params = new URLSearchParams({ resolve_id: id });
+      const response = await http.get(
+        `${this.searchUrlValue}?${params.toString()}`
+      );
+      if (requestId !== this.resolveCounter) return;
+      const results = response.data?.results;
+      if (results) {
+        const match = results.find((r) => String(r.id) === id);
+        if (match) label = match.label;
+      }
+    } catch {
+      if (requestId !== this.resolveCounter) return;
+    }
+    this.selectedLabelTarget.textContent = label;
+    this.dispatch("resolved", { detail: { id, label }, bubbles: true });
+  }
+  _parsedChoices() {
+    try {
+      return JSON.parse(this.choicesValue);
+    } catch {
+      return [];
+    }
+  }
+  _parseResultId(raw) {
+    const str = raw || "";
+    const num = Number(str);
+    return Number.isFinite(num) && str !== "" ? num : str;
+  }
+  _isLocalMode() {
+    return !this.searchUrlValue && this.choicesValue !== "[]";
+  }
+  async _fetchResults(query, page, append) {
+    if (this.isLoading) return;
+    if (this._isLocalMode()) {
+      this._fetchLocalResults(query);
+      return;
+    }
+    this.isLoading = true;
+    if (!append) this.dropdownTarget.innerHTML = "";
+    this._renderLoadingIndicator();
+    this._openDropdown();
+    try {
+      const http = createHTTPClient();
+      const params = new URLSearchParams();
+      if (query) params.set("q", query);
+      params.set("page", String(page));
+      const url = `${this.searchUrlValue}${this.searchUrlValue.includes("?") ? "&" : "?"}${params.toString()}`;
+      const response = await http.get(url);
+      const data = response.data;
+      this.currentPage = page;
+      this.hasMore = !!data.has_more;
+      this.currentQuery = query;
+      this._renderResults(data.results || [], append);
+    } catch {
+      if (!append) {
+        this.dropdownTarget.innerHTML = '<p class="p-3 text-sm text-red-600">Search failed</p>';
+        this._openDropdown();
+      }
+    } finally {
+      this.isLoading = false;
+      this._removeLoadingIndicator();
+    }
+  }
+  _fetchLocalResults(query) {
+    const q = query.toLowerCase();
+    const filtered = this._parsedChoices().filter((choice) => {
+      if (this.selectedIds.has(choice.id)) return false;
+      if (!q) return true;
+      return choice.label.toLowerCase().includes(q) || choice.sublabel && choice.sublabel.toLowerCase().includes(q);
+    });
+    this.currentPage = 1;
+    this.hasMore = false;
+    this.currentQuery = query;
+    this._renderResults(filtered, false);
+  }
+  _renderResults(results, append) {
+    const filtered = results.filter((r) => !this.selectedIds.has(r.id));
+    if (!append) {
+      this.highlightedIndex = -1;
+      if (filtered.length === 0 && !this.hasMore) {
+        this.dropdownTarget.innerHTML = '<p class="p-3 text-sm text-gray-500">No results found</p>';
+        this._openDropdown();
+        return;
+      }
+      this.dropdownTarget.innerHTML = "";
+    }
+    const html = filtered.map((r) => this._resultRowHtml(r)).join("");
+    this.dropdownTarget.insertAdjacentHTML("beforeend", html);
+    this._openDropdown();
+  }
+  _resultRowHtml(result) {
+    const metadataAttr = result.metadata ? ` data-result-metadata="${this._escapeAttr(JSON.stringify(result.metadata))}"` : "";
+    const sublabel = result.sublabel ? `<span class="text-xs text-gray-500 ml-2">${this._escapeHtml(result.sublabel)}</span>` : "";
+    const rightLabel = result.right_label ? `<span class="text-xs text-gray-400 font-mono ml-3 shrink-0">${this._escapeHtml(result.right_label)}</span>` : "";
+    return `<button type="button" class="w-full text-left px-4 py-2 hover:bg-gray-50 border-b last:border-b-0 flex justify-between items-center" data-result-id="${this._escapeAttr(String(result.id))}" data-result-label="${this._escapeAttr(result.label)}"${metadataAttr} data-action="click->${this.identifier}#selectResult"><div class="min-w-0"><span class="text-sm font-medium">${this._escapeHtml(result.label)}</span>${sublabel}</div>` + rightLabel + `</button>`;
+  }
+  _renderLoadingIndicator() {
+    this._removeLoadingIndicator();
+    const indicator = document.createElement("div");
+    indicator.dataset.loadingIndicator = "true";
+    indicator.className = "p-3 flex items-center justify-center gap-2 text-sm text-gray-400";
+    indicator.textContent = "Loading\u2026";
+    this.dropdownTarget.appendChild(indicator);
+  }
+  _removeLoadingIndicator() {
+    const indicator = this.dropdownTarget.querySelector(
+      "[data-loading-indicator]"
+    );
+    if (indicator) indicator.remove();
+  }
+  _updateHighlight(items) {
+    items.forEach((item, index) => {
+      if (index === this.highlightedIndex) {
+        item.classList.add("bg-gray-100");
+        item.scrollIntoView({ block: "nearest" });
+      } else {
+        item.classList.remove("bg-gray-100");
+      }
+    });
+  }
+  _openDropdown() {
+    this.dropdownTarget.classList.remove("hidden");
+  }
+  _closeDropdown() {
+    this.dropdownTarget.classList.add("hidden");
+    this.highlightedIndex = -1;
+    this.currentPage = 0;
+    this.hasMore = false;
+    this.browseMode = false;
+    if (this.currentSelectedId) {
+      this.selectedDisplayTarget.classList.remove("hidden");
+      this.inputTarget.classList.add("hidden");
+      this.inputTarget.value = "";
+    }
+  }
+  handleClickOutside(event) {
+    if (!this.element.contains(event.target)) this._closeDropdown();
+  }
+  _escapeHtml(str) {
+    const div = document.createElement("div");
+    div.textContent = str;
+    return div.innerHTML;
+  }
+  _escapeAttr(str) {
+    return String(str).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/'/g, "&#39;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+};
+
+// app/javascript/controllers/decor/daisy/forms/switch_controller.js
+import { Controller as Controller8 } from "@hotwired/stimulus";
+var switch_controller_default = class extends Controller8 {
   static targets = ["checkbox"];
   static values = {
     label: { type: String, default: null },
@@ -645,8 +1038,8 @@ Click OK to ${confirmLabel} or Cancel to ${cancelLabel}.`)) {
 };
 
 // app/javascript/controllers/decor/daisy/map_controller.js
-import { Controller as Controller8 } from "@hotwired/stimulus";
-var map_controller_default = class extends Controller8 {
+import { Controller as Controller9 } from "@hotwired/stimulus";
+var map_controller_default = class extends Controller9 {
   static targets = ["mapContainer"];
   static values = {
     apiKey: String,
@@ -1000,7 +1393,7 @@ var map_controller_default = class extends Controller8 {
 };
 
 // app/javascript/controllers/decor/daisy/modals/modal_controller.js
-import { Controller as Controller9 } from "@hotwired/stimulus";
+import { Controller as Controller10 } from "@hotwired/stimulus";
 var ModalEvents;
 (function(ModalEvents2) {
   ModalEvents2["Open"] = "decor--daisy--modals--modal:open";
@@ -1013,7 +1406,7 @@ var ModalEvents;
   ModalEvents2["Closing"] = "decor--daisy--modals--modal:closing";
   ModalEvents2["Closed"] = "decor--daisy--modals--modal:closed";
 })(ModalEvents || (ModalEvents = {}));
-var modal_controller_default = class extends Controller9 {
+var modal_controller_default = class extends Controller10 {
   static targets = ["overlay", "modal"];
   static values = {
     showInitial: { type: Boolean, default: false },
@@ -1218,8 +1611,8 @@ var confirm_modal_controller_default = class extends modal_controller_default {
 };
 
 // app/javascript/controllers/decor/daisy/modals/modal_close_button_controller.js
-import { Controller as Controller10 } from "@hotwired/stimulus";
-var modal_close_button_controller_default = class extends Controller10 {
+import { Controller as Controller11 } from "@hotwired/stimulus";
+var modal_close_button_controller_default = class extends Controller11 {
   static values = {
     closeReason: String
   };
@@ -1232,8 +1625,8 @@ var modal_close_button_controller_default = class extends Controller10 {
 };
 
 // app/javascript/controllers/decor/daisy/modals/modal_open_button_controller.js
-import { Controller as Controller11 } from "@hotwired/stimulus";
-var modal_open_button_controller_default = class extends Controller11 {
+import { Controller as Controller12 } from "@hotwired/stimulus";
+var modal_open_button_controller_default = class extends Controller12 {
   static values = {
     contentHref: String,
     initialContent: String,
@@ -1251,13 +1644,38 @@ var modal_open_button_controller_default = class extends Controller11 {
   }
 };
 
+// app/javascript/controllers/decor/daisy/modals/modal_trigger_controller.js
+import { Controller as Controller13 } from "@hotwired/stimulus";
+var modal_trigger_controller_default = class extends Controller13 {
+  static values = {
+    modalId: String,
+    contentHref: String,
+    initialContent: String,
+    title: String,
+    closeOnOverlayClick: Boolean
+  };
+  handleClick(event) {
+    if (event.type === "keydown" && event.key !== "Enter" && event.key !== " ") return;
+    event.preventDefault();
+    window.dispatchEvent(new CustomEvent("decor--daisy--modals--modal:open", {
+      detail: {
+        id: this.modalIdValue || void 0,
+        contentHref: this.contentHrefValue || void 0,
+        closeOnOverlayClick: this.closeOnOverlayClickValue,
+        placeholder: this.initialContentValue ? markAsSafeHTML(this.initialContentValue) : void 0,
+        title: this.titleValue || void 0
+      }
+    }));
+  }
+};
+
 // app/javascript/controllers/decor/daisy/notification_manager_controller.js
-import { Controller as Controller12 } from "@hotwired/stimulus";
+import { Controller as Controller14 } from "@hotwired/stimulus";
 var NOTIFICATION_MANAGER_CLASS_NAME = "decor--daisy--notification-manager";
 var NOTIFICATION_CLASSNAME = `${NOTIFICATION_MANAGER_CLASS_NAME}-notification`;
 var DEFAULT_DISMISS_AFTER_MS = 3e3;
 var DISMISS_ALL_STAGGER_MS = 50;
-var notification_manager_controller_default = class extends Controller12 {
+var notification_manager_controller_default = class extends Controller14 {
   static targets = ["notificationContainer"];
   static values = {
     initialNotifications: { type: Array, default: [] }
@@ -1387,8 +1805,8 @@ var notification_manager_controller_default = class extends Controller12 {
 };
 
 // app/javascript/controllers/decor/daisy/progress_controller.js
-import { Controller as Controller13 } from "@hotwired/stimulus";
-var progress_controller_default = class extends Controller13 {
+import { Controller as Controller15 } from "@hotwired/stimulus";
+var progress_controller_default = class extends Controller15 {
   static targets = ["progress", "step"];
   static values = {
     currentStep: { type: Number, default: 1 },
@@ -1489,8 +1907,8 @@ var progress_controller_default = class extends Controller13 {
 };
 
 // app/javascript/controllers/decor/daisy/tabs_controller.js
-import { Controller as Controller14 } from "@hotwired/stimulus";
-var tabs_controller_default = class extends Controller14 {
+import { Controller as Controller16 } from "@hotwired/stimulus";
+var tabs_controller_default = class extends Controller16 {
   handleSelectTabOnMobile(event) {
     const select = event.target;
     const selected = select.options[select.selectedIndex];
@@ -1502,8 +1920,8 @@ var tabs_controller_default = class extends Controller14 {
 };
 
 // app/javascript/controllers/decor/progress_animation_controller.js
-import { Controller as Controller15 } from "@hotwired/stimulus";
-var progress_animation_controller_default = class extends Controller15 {
+import { Controller as Controller17 } from "@hotwired/stimulus";
+var progress_animation_controller_default = class extends Controller17 {
   static values = {
     currentStep: { type: Number, default: 2 },
     steps: { type: Number, default: 5 },
@@ -1570,7 +1988,7 @@ var progress_animation_controller_default = class extends Controller15 {
 };
 
 // app/javascript/controllers/decor/suite/carousel_controller.js
-import { Controller as Controller16 } from "@hotwired/stimulus";
+import { Controller as Controller18 } from "@hotwired/stimulus";
 import Swiper from "swiper";
 import { Navigation, Pagination, Keyboard, A11y, Autoplay } from "swiper/modules";
 var BREAKPOINT_PX = {
@@ -1581,7 +1999,7 @@ var BREAKPOINT_PX = {
   xl: 1280,
   "2xl": 1536
 };
-var carousel_controller_default = class extends Controller16 {
+var carousel_controller_default = class extends Controller18 {
   static values = {
     slidesPerView: { type: Object, default: {} },
     spaceBetween: { type: Number, default: 16 },
@@ -1665,8 +2083,8 @@ var carousel_controller_default = class extends Controller16 {
 };
 
 // app/javascript/controllers/decor/suite/dropdown_controller.js
-import { Controller as Controller17 } from "@hotwired/stimulus";
-var dropdown_controller_default2 = class extends Controller17 {
+import { Controller as Controller19 } from "@hotwired/stimulus";
+var dropdown_controller_default2 = class extends Controller19 {
   static targets = ["menu", "button"];
   static values = {
     contentHref: { type: String, default: "" },
@@ -1716,9 +2134,125 @@ var dropdown_controller_default2 = class extends Controller17 {
   }
 };
 
+// app/javascript/controllers/decor/suite/forms/form_controller.js
+import { Controller as Controller20 } from "@hotwired/stimulus";
+var form_controller_default = class extends Controller20 {
+  static targets = ["form"];
+  connect() {
+    this.element.setAttribute("novalidate", "true");
+  }
+  disconnect() {
+    this.element.removeAttribute("novalidate");
+  }
+  handleSubmitEvent(evt) {
+    const submitter = evt.submitter;
+    if (submitter) {
+      if (!this.element.contains(submitter)) return;
+    } else {
+      const target = evt.target;
+      if (target !== this.element && !this.element.contains(target)) return;
+    }
+    if (this.performValidation()) {
+      evt.preventDefault();
+      evt.stopPropagation();
+      evt.stopImmediatePropagation();
+    }
+  }
+  handleCustomSubmitEvent(evt) {
+    evt.stopPropagation();
+    const onPrevented = evt.detail && evt.detail.onSubmissionPrevented;
+    if (this.performValidation()) {
+      if (typeof onPrevented === "function") onPrevented();
+    } else {
+      this.element.submit();
+    }
+  }
+  handleValidateFieldsEvent(evt) {
+    evt.stopPropagation();
+    const onValidated = evt.detail && evt.detail.onValidated;
+    const invalid = this.performValidation();
+    if (typeof onValidated === "function") onValidated(!invalid);
+  }
+  // Returns true if at least one field is invalid.
+  performValidation() {
+    const fields = this.fieldControllers();
+    const invalidFields = [];
+    const errorMessages = [];
+    fields.forEach((fc) => {
+      if (fc.disabled) return;
+      let result;
+      try {
+        result = fc.validate();
+      } catch (e) {
+        return;
+      }
+      if (!result || result.valid) return;
+      invalidFields.push(fc);
+      if (Array.isArray(result.errors)) {
+        result.errors.forEach((err) => errorMessages.push(err));
+      }
+    });
+    const hasInvalid = invalidFields.length > 0;
+    this.dispatch("validated", {
+      bubbles: true,
+      cancelable: false,
+      detail: { errors: errorMessages, valid: !hasInvalid }
+    });
+    if (hasInvalid && typeof invalidFields[0].focusControl === "function") {
+      invalidFields[0].focusControl();
+    }
+    return hasInvalid;
+  }
+  // Discover all form-field Stimulus controllers inside this form by walking
+  // descendants and consulting the Stimulus application for each matching
+  // controller identifier on the element. Skips anything outside this form.
+  fieldControllers() {
+    const out = [];
+    const elements = this.element.querySelectorAll("[data-controller]");
+    elements.forEach((el) => {
+      const ids = (el.getAttribute("data-controller") || "").split(/\s+/);
+      ids.forEach((id) => {
+        if (!/forms--/.test(id)) return;
+        if (id.endsWith("--form")) return;
+        const ctrl = this.application.getControllerForElementAndIdentifier(el, id);
+        if (ctrl && typeof ctrl.validate === "function") out.push(ctrl);
+      });
+    });
+    return out;
+  }
+};
+
+// app/javascript/controllers/decor/suite/forms/searchable_select_controller.js
+var searchable_select_controller_default2 = class extends searchable_select_controller_default {
+  _resultRowHtml(result) {
+    const metadataAttr = result.metadata ? ` data-result-metadata="${this._escapeAttr(JSON.stringify(result.metadata))}"` : "";
+    const sublabel = result.sublabel ? `<span class="decor:suite-description decor:text-gray-500 decor:ml-2">${this._escapeHtml(result.sublabel)}</span>` : "";
+    const rightLabel = result.right_label ? `<span class="decor:suite-description decor:text-gray-400 decor:ml-3 decor:shrink-0">${this._escapeHtml(result.right_label)}</span>` : "";
+    return `<button type="button" class="decor:w-full decor:text-left decor:px-3 decor:py-2 decor:hover:bg-suite-gray-25 decor:border-b decor:border-suite-hairline decor:last:border-b-0 decor:flex decor:justify-between decor:items-center decor:cursor-pointer" data-result-id="${this._escapeAttr(String(result.id))}" data-result-label="${this._escapeAttr(result.label)}"${metadataAttr} data-action="click->${this.identifier}#selectResult" role="option"><div class="decor:min-w-0"><span class="decor:suite-body decor:text-gray-900">${this._escapeHtml(result.label)}</span>${sublabel}</div>` + rightLabel + `</button>`;
+  }
+  _updateHighlight(items) {
+    items.forEach((item, index) => {
+      if (index === this.highlightedIndex) {
+        item.classList.add("decor:bg-suite-primary-50");
+        item.scrollIntoView({ block: "nearest" });
+      } else {
+        item.classList.remove("decor:bg-suite-primary-50");
+      }
+    });
+  }
+  _renderLoadingIndicator() {
+    this._removeLoadingIndicator();
+    const indicator = document.createElement("div");
+    indicator.dataset.loadingIndicator = "true";
+    indicator.className = "decor:p-3 decor:flex decor:items-center decor:justify-center decor:gap-2 decor:suite-description decor:text-gray-400";
+    indicator.textContent = "Loading\u2026";
+    this.dropdownTarget.appendChild(indicator);
+  }
+};
+
 // app/javascript/controllers/decor/suite/modals/modal_close_button_controller.js
-import { Controller as Controller18 } from "@hotwired/stimulus";
-var modal_close_button_controller_default2 = class extends Controller18 {
+import { Controller as Controller21 } from "@hotwired/stimulus";
+var modal_close_button_controller_default2 = class extends Controller21 {
   static values = {
     closeReason: String
   };
@@ -1730,9 +2264,208 @@ var modal_close_button_controller_default2 = class extends Controller18 {
   }
 };
 
+// app/javascript/controllers/decor/suite/modals/modal_controller.js
+import { Controller as Controller22 } from "@hotwired/stimulus";
+var LOADING_SKELETON_HTML = `
+  <div class="decor:space-y-2 decor:py-1" aria-hidden="true">
+    <div class="decor:h-3 decor:bg-gray-100 decor:rounded-sm decor:animate-pulse"></div>
+    <div class="decor:h-3 decor:bg-gray-100 decor:rounded-sm decor:animate-pulse decor:w-5/6"></div>
+    <div class="decor:h-3 decor:bg-gray-100 decor:rounded-sm decor:animate-pulse decor:w-3/4"></div>
+  </div>
+`;
+var OPENED_EVENT = "decor--suite--modals--modal:opened";
+var CLOSED_EVENT = "decor--suite--modals--modal:closed";
+var modal_controller_default2 = class extends Controller22 {
+  static targets = ["body", "overlay", "modal"];
+  static values = {
+    startOpen: { type: Boolean, default: false },
+    showInitial: { type: Boolean, default: false },
+    closeable: { type: Boolean, default: true },
+    contentHref: { type: String, default: "" },
+    closeOnOverlayClick: { type: Boolean, default: false }
+  };
+  connect() {
+    if (this.dialog.closest("form")) {
+      document.body.appendChild(this.dialog);
+    }
+    this.dialog.addEventListener("close", this.boundHandleClose);
+    this.dialog.addEventListener("cancel", this.boundHandleCancel);
+    if (this.startOpenValue || this.showInitialValue) {
+      requestAnimationFrame(() => this.open());
+    }
+  }
+  disconnect() {
+    this.dialog.removeEventListener("close", this.boundHandleClose);
+    this.dialog.removeEventListener("cancel", this.boundHandleCancel);
+  }
+  // ── Public API ────────────────────────────────────────────────────────
+  open() {
+    if (typeof this.dialog.showModal === "function") {
+      this.dialog.showModal();
+    } else {
+      this.dialog.setAttribute("open", "");
+    }
+    requestAnimationFrame(() => {
+      this.dispatchOnDialog(OPENED_EVENT);
+    });
+  }
+  close(reason) {
+    if (typeof this.dialog.close === "function") {
+      this.dialog.close(reason || "");
+    } else {
+      this.dialog.removeAttribute("open");
+      this.dispatchOnDialog(CLOSED_EVENT, { reason: reason || "" });
+    }
+  }
+  // ── Window event handlers (auto-bound by Vident's stimulus actions) ───
+  handleOpenEvent(evt) {
+    const detail = evt && evt.detail || {};
+    if (detail.id && detail.id !== this.element.id) return;
+    if (!detail.id && !this.dialog.open) return;
+    const href = detail.content_href || detail.contentHref || this.contentHrefValue || "";
+    if (detail.title) {
+      const titleEl = this.element.querySelector(".cf-modal__title");
+      if (titleEl) titleEl.textContent = detail.title;
+    }
+    const bodyEl = this.resolveBodyElement();
+    const placeholder = detail.initial_content || detail.placeholder;
+    if (placeholder && bodyEl) {
+      safelySetInnerHTML(bodyEl, placeholder);
+    } else if (href && bodyEl) {
+      this.showLoadingSkeleton(bodyEl);
+    }
+    this.resetFooterMarkers();
+    this.open();
+    if (href) {
+      this.fetchAndInjectBody(href);
+    }
+  }
+  handleCloseEvent(evt) {
+    const detail = evt && evt.detail || {};
+    if (detail.id && detail.id !== this.element.id) return;
+    const reason = detail.close_reason || detail.closeReason || detail.action || "";
+    this.close(reason);
+  }
+  // ── Native dialog event handlers ──────────────────────────────────────
+  boundHandleClose = () => {
+    const reason = this.dialog.returnValue || "";
+    this.dispatchOnDialog(CLOSED_EVENT, { reason, closeReason: reason });
+  };
+  boundHandleCancel = (evt) => {
+    if (!this.closeableValue) {
+      evt.preventDefault();
+    }
+  };
+  // ── Content loading ───────────────────────────────────────────────────
+  fetchAndInjectBody(href) {
+    const httpClient = createHTTPClient();
+    httpClient.get(href, { headers: { "Content-Type": "text/html" } }).then((response) => {
+      this.setBodyContent(markAsSafeHTML(response.data));
+    }).catch((err) => {
+      console.error("Modal: could not fetch content", href, err);
+      this.setBodyContent(
+        markAsSafeHTML("Something went wrong while loading the content. Please try again later.")
+      );
+    });
+  }
+  setBodyContent(content) {
+    this.clearLoadingState();
+    const fragment = this.parseModalFragment(content);
+    if (fragment) {
+      this.replaceModalChildren(fragment);
+      return;
+    }
+    const target = this.resolveBodyElement() || this.element;
+    safelySetInnerHTML(target, content);
+    this.applyFooterMarkers(target);
+  }
+  // ── Footer marker protocol ────────────────────────────────────────────
+  //
+  // Fragments that load into a Modal may emit <template> markers to
+  // reconfigure the footer based on server-side state only knowable
+  // after the body loads:
+  //
+  //   <template data-modal-destructive-action>…rendered button…</template>
+  //     → cloned into .cf-modal__destructive-slot (left-pinned in footer)
+  //
+  //   <template data-modal-hide-submit></template>
+  //     → footer Submit button gets display:none
+  //
+  // Markers are removed from the body after processing. The reset step on
+  // every open ensures stale footer state from a previous row never lingers.
+  resetFooterMarkers() {
+    const slot = this.element.querySelector(".cf-modal__destructive-slot");
+    if (slot) slot.replaceChildren();
+    const submit = this.element.querySelector(".cf-modal__footer button[type=submit]");
+    if (submit) submit.style.display = "";
+  }
+  applyFooterMarkers(bodyEl) {
+    const slot = this.element.querySelector(".cf-modal__destructive-slot");
+    if (slot) {
+      const destrTpl = bodyEl.querySelector("template[data-modal-destructive-action]");
+      if (destrTpl) {
+        slot.replaceChildren(destrTpl.content.cloneNode(true));
+        destrTpl.remove();
+      } else {
+        slot.replaceChildren();
+      }
+    }
+    const submit = this.element.querySelector(".cf-modal__footer button[type=submit]");
+    if (submit) {
+      const hideTpl = bodyEl.querySelector("template[data-modal-hide-submit]");
+      if (hideTpl) {
+        submit.style.display = "none";
+        hideTpl.remove();
+      } else {
+        submit.style.display = "";
+      }
+    }
+  }
+  // ── Helpers ───────────────────────────────────────────────────────────
+  resolveBodyElement() {
+    if (this.hasBodyTarget) return this.bodyTarget;
+    return this.element.querySelector(".cf-modal__body");
+  }
+  showLoadingSkeleton(bodyEl) {
+    this.element.setAttribute("aria-busy", "true");
+    this.element.classList.add("cf-modal--loading");
+    safelySetInnerHTML(bodyEl, markAsSafeHTML(LOADING_SKELETON_HTML));
+  }
+  clearLoadingState() {
+    this.element.removeAttribute("aria-busy");
+    this.element.classList.remove("cf-modal--loading");
+  }
+  parseModalFragment(content) {
+    if (!content.__safe) return null;
+    const tpl = document.createElement("template");
+    tpl.innerHTML = content.content;
+    const topLevel = Array.from(tpl.content.children);
+    if (topLevel.length !== 1) return null;
+    const root = topLevel[0];
+    if (root instanceof HTMLDialogElement && root.classList.contains("cf-modal")) {
+      return root;
+    }
+    return null;
+  }
+  replaceModalChildren(innerDialog) {
+    safelySetInnerHTML(this.element, {
+      __safe: true,
+      content: innerDialog.innerHTML
+    });
+  }
+  get dialog() {
+    return this.element;
+  }
+  dispatchOnDialog(type, detail) {
+    this.element.dispatchEvent(
+      new CustomEvent(type, { bubbles: true, cancelable: false, detail: detail || {} })
+    );
+  }
+};
+
 // app/javascript/controllers/decor/suite/modals/modal_open_button_controller.js
-import { Controller as Controller19 } from "@hotwired/stimulus";
-var modal_open_button_controller_default2 = class extends Controller19 {
+import { Controller as Controller23 } from "@hotwired/stimulus";
+var modal_open_button_controller_default2 = class extends Controller23 {
   static values = {
     modalId: String,
     contentHref: String,
@@ -1756,9 +2489,35 @@ var modal_open_button_controller_default2 = class extends Controller19 {
   }
 };
 
+// app/javascript/controllers/decor/suite/modals/modal_trigger_controller.js
+import { Controller as Controller24 } from "@hotwired/stimulus";
+var modal_trigger_controller_default2 = class extends Controller24 {
+  static values = {
+    modalId: String,
+    contentHref: String,
+    initialContent: String,
+    title: String,
+    closeOnOverlayClick: Boolean
+  };
+  handleClick(event) {
+    event.preventDefault();
+    window.dispatchEvent(new CustomEvent("decor--suite--modals--modal:open", {
+      detail: {
+        id: this.modalIdValue || void 0,
+        content_href: this.contentHrefValue || void 0,
+        contentHref: this.contentHrefValue || void 0,
+        initial_content: this.initialContentValue ? markAsSafeHTML(this.initialContentValue) : void 0,
+        placeholder: this.initialContentValue ? markAsSafeHTML(this.initialContentValue) : void 0,
+        title: this.titleValue || void 0,
+        closeOnOverlayClick: this.closeOnOverlayClickValue
+      }
+    }));
+  }
+};
+
 // app/javascript/controllers/decor/suite/search_and_filter_controller.js
-import { Controller as Controller20 } from "@hotwired/stimulus";
-var search_and_filter_controller_default = class extends Controller20 {
+import { Controller as Controller25 } from "@hotwired/stimulus";
+var search_and_filter_controller_default = class extends Controller25 {
   static targets = [
     "searchInput",
     "applyButton",
@@ -1866,8 +2625,8 @@ var search_and_filter_controller_default = class extends Controller20 {
 };
 
 // app/javascript/controllers/decor/suite/settings_list/row_controller.js
-import { Controller as Controller21 } from "@hotwired/stimulus";
-var row_controller_default = class extends Controller21 {
+import { Controller as Controller26 } from "@hotwired/stimulus";
+var row_controller_default = class extends Controller26 {
   static targets = ["chevron", "detail", "summary"];
   static values = {
     open: { type: Boolean, default: false }
@@ -1883,8 +2642,8 @@ var row_controller_default = class extends Controller21 {
 };
 
 // app/javascript/controllers/decor/suite/tabs_controller.js
-import { Controller as Controller22 } from "@hotwired/stimulus";
-var tabs_controller_default2 = class extends Controller22 {
+import { Controller as Controller27 } from "@hotwired/stimulus";
+var tabs_controller_default2 = class extends Controller27 {
   static targets = ["wrapper", "scroll"];
   connect() {
     if (!this.hasWrapperTarget || !this.hasScrollTarget) return;
@@ -1919,7 +2678,7 @@ var tabs_controller_default2 = class extends Controller22 {
 };
 
 // app/javascript/controllers/decor/suite/tooltip_controller.js
-import { Controller as Controller23 } from "@hotwired/stimulus";
+import { Controller as Controller28 } from "@hotwired/stimulus";
 import {
   computePosition,
   autoUpdate,
@@ -1928,7 +2687,7 @@ import {
   offset as offsetMiddleware,
   arrow
 } from "@floating-ui/dom";
-var tooltip_controller_default = class extends Controller23 {
+var tooltip_controller_default = class extends Controller28 {
   static targets = ["content", "arrow"];
   static values = {
     placement: { type: String, default: "top" },
@@ -2031,12 +2790,14 @@ var CONTROLLERS = {
   "decor--daisy--dropdown": dropdown_controller_default,
   "decor--daisy--flash": flash_controller_default,
   "decor--daisy--forms--date-calendar": date_calendar_controller_default,
+  "decor--daisy--forms--searchable-select": searchable_select_controller_default,
   "decor--daisy--forms--switch": switch_controller_default,
   "decor--daisy--map": map_controller_default,
   "decor--daisy--modals--confirm-modal": confirm_modal_controller_default,
   "decor--daisy--modals--modal-close-button": modal_close_button_controller_default,
   "decor--daisy--modals--modal": modal_controller_default,
   "decor--daisy--modals--modal-open-button": modal_open_button_controller_default,
+  "decor--daisy--modals--modal-trigger": modal_trigger_controller_default,
   "decor--daisy--notification-manager": notification_manager_controller_default,
   "decor--daisy--progress": progress_controller_default,
   "decor--daisy--tabs": tabs_controller_default,
@@ -2046,9 +2807,14 @@ var CONTROLLERS = {
   "decor--suite--click-to-copy": click_to_copy_controller_default,
   "decor--suite--dropdown": dropdown_controller_default2,
   "decor--suite--flash": flash_controller_default,
+  "decor--suite--forms--form": form_controller_default,
+  "decor--suite--forms--searchable-select": searchable_select_controller_default2,
+  "decor--suite--forms--switch": switch_controller_default,
   "decor--suite--map": map_controller_default,
   "decor--suite--modals--modal-close-button": modal_close_button_controller_default2,
+  "decor--suite--modals--modal": modal_controller_default2,
   "decor--suite--modals--modal-open-button": modal_open_button_controller_default2,
+  "decor--suite--modals--modal-trigger": modal_trigger_controller_default2,
   "decor--suite--progress": progress_controller_default,
   "decor--suite--search-and-filter": search_and_filter_controller_default,
   "decor--suite--settings-list--row": row_controller_default,
@@ -2058,8 +2824,8 @@ var CONTROLLERS = {
 
 // app/javascript/decor/index.js
 function register(application) {
-  for (const [identifier, Controller24] of Object.entries(CONTROLLERS)) {
-    application.register(identifier, Controller24);
+  for (const [identifier, Controller29] of Object.entries(CONTROLLERS)) {
+    application.register(identifier, Controller29);
   }
 }
 if (typeof window !== "undefined" && window.Stimulus) {

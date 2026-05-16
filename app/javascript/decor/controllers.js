@@ -5,12 +5,14 @@ import CodeBlockController from "../controllers/decor/daisy/code_block_controlle
 import DaisyDropdownController from "../controllers/decor/daisy/dropdown_controller";
 import DaisyFlashController from "../controllers/decor/daisy/flash_controller";
 import DateCalendarController from "../controllers/decor/daisy/forms/date_calendar_controller";
-import SwitchController from "../controllers/decor/daisy/forms/switch_controller";
+import DaisyFormsSearchableSelectController from "../controllers/decor/daisy/forms/searchable_select_controller";
+import DaisyFormsSwitchController from "../controllers/decor/daisy/forms/switch_controller";
 import DaisyMapController from "../controllers/decor/daisy/map_controller";
 import ConfirmModalController from "../controllers/decor/daisy/modals/confirm_modal_controller";
 import DaisyModalsModalCloseButtonController from "../controllers/decor/daisy/modals/modal_close_button_controller";
-import ModalController from "../controllers/decor/daisy/modals/modal_controller";
+import DaisyModalsModalController from "../controllers/decor/daisy/modals/modal_controller";
 import DaisyModalsModalOpenButtonController from "../controllers/decor/daisy/modals/modal_open_button_controller";
+import DaisyModalsModalTriggerController from "../controllers/decor/daisy/modals/modal_trigger_controller";
 import NotificationManagerController from "../controllers/decor/daisy/notification_manager_controller";
 import DaisyProgressController from "../controllers/decor/daisy/progress_controller";
 import DaisyTabsController from "../controllers/decor/daisy/tabs_controller";
@@ -20,9 +22,14 @@ import CarouselController from "../controllers/decor/suite/carousel_controller";
 import SuiteClickToCopyController from "../controllers/decor/suite/click_to_copy_controller";
 import SuiteDropdownController from "../controllers/decor/suite/dropdown_controller";
 import SuiteFlashController from "../controllers/decor/suite/flash_controller";
+import FormController from "../controllers/decor/suite/forms/form_controller";
+import SuiteFormsSearchableSelectController from "../controllers/decor/suite/forms/searchable_select_controller";
+import SuiteFormsSwitchController from "../controllers/decor/suite/forms/switch_controller";
 import SuiteMapController from "../controllers/decor/suite/map_controller";
 import SuiteModalsModalCloseButtonController from "../controllers/decor/suite/modals/modal_close_button_controller";
+import SuiteModalsModalController from "../controllers/decor/suite/modals/modal_controller";
 import SuiteModalsModalOpenButtonController from "../controllers/decor/suite/modals/modal_open_button_controller";
+import SuiteModalsModalTriggerController from "../controllers/decor/suite/modals/modal_trigger_controller";
 import SuiteProgressController from "../controllers/decor/suite/progress_controller";
 import SearchAndFilterController from "../controllers/decor/suite/search_and_filter_controller";
 import RowController from "../controllers/decor/suite/settings_list/row_controller";
@@ -36,12 +43,14 @@ export const CONTROLLERS = {
   "decor--daisy--dropdown": DaisyDropdownController,
   "decor--daisy--flash": DaisyFlashController,
   "decor--daisy--forms--date-calendar": DateCalendarController,
-  "decor--daisy--forms--switch": SwitchController,
+  "decor--daisy--forms--searchable-select": DaisyFormsSearchableSelectController,
+  "decor--daisy--forms--switch": DaisyFormsSwitchController,
   "decor--daisy--map": DaisyMapController,
   "decor--daisy--modals--confirm-modal": ConfirmModalController,
   "decor--daisy--modals--modal-close-button": DaisyModalsModalCloseButtonController,
-  "decor--daisy--modals--modal": ModalController,
+  "decor--daisy--modals--modal": DaisyModalsModalController,
   "decor--daisy--modals--modal-open-button": DaisyModalsModalOpenButtonController,
+  "decor--daisy--modals--modal-trigger": DaisyModalsModalTriggerController,
   "decor--daisy--notification-manager": NotificationManagerController,
   "decor--daisy--progress": DaisyProgressController,
   "decor--daisy--tabs": DaisyTabsController,
@@ -51,9 +60,14 @@ export const CONTROLLERS = {
   "decor--suite--click-to-copy": SuiteClickToCopyController,
   "decor--suite--dropdown": SuiteDropdownController,
   "decor--suite--flash": SuiteFlashController,
+  "decor--suite--forms--form": FormController,
+  "decor--suite--forms--searchable-select": SuiteFormsSearchableSelectController,
+  "decor--suite--forms--switch": SuiteFormsSwitchController,
   "decor--suite--map": SuiteMapController,
   "decor--suite--modals--modal-close-button": SuiteModalsModalCloseButtonController,
+  "decor--suite--modals--modal": SuiteModalsModalController,
   "decor--suite--modals--modal-open-button": SuiteModalsModalOpenButtonController,
+  "decor--suite--modals--modal-trigger": SuiteModalsModalTriggerController,
   "decor--suite--progress": SuiteProgressController,
   "decor--suite--search-and-filter": SearchAndFilterController,
   "decor--suite--settings-list--row": RowController,

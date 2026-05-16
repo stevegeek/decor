@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.11.0 — Unreleased
+
+### Suite component batch 3 — 10 ports (forms + modal family) in parallel
+
+User flagged Confinus's form components as the canonical implementation. This batch ports the most-used form primitives plus completes the modal family started in batch 2.
+
+- `Decor::Suite::Forms::Form` (+ `scope` prop on abstract) — preserves Confinus' Form behavior (CSRF, lock_version, dynamic outlet wiring per FormField descendant, ajax: events, custom validate event). Field controllers participate via a `validate()` / `disabled` / `focusControl()` contract.
+- `Decor::Suite::Forms::LayoutSection` (+ widen abstract title to nilable) — form-section wrapper with hero/cta slots, conditional heading row, optional flash region.
+- `Decor::Suite::Forms::TextField` — self-contained inline chrome (no Suite FormFieldLayout dependency); supports label_top/left/inline placements.
+- `Decor::Suite::Forms::Select` (+ multiple/include_blank/silent_helper props on abstract) — supports multi-select + Rails-style include_blank.
+- `Decor::Suite::Forms::Checkbox` — self-contained chrome.
+- `Decor::Suite::Forms::Switch` — toggle switch with rounded track, color variants.
+- `Decor::{Components,Daisy,Suite}::Forms::SearchableSelect` — typeahead with chip-on-select, debounced XHR, single-select (no auto-backspace), in-flow absolute dropdown (NOT native Popover — keeps input width + keyboard focus).
+- `Decor::Suite::Modals::Modal` (+ Suite props on abstract: variant/size/title/description/icon/closeable/show_close_button/start_open) — native `<dialog>` element with `closedby="any"`, content_href lazy-fetch + skeleton, footer marker template protocol.
+- `Decor::{Components,Daisy,Suite}::Modals::Form` — Modal + Form composition; submit button uses HTML5 `form=""` attribute to target the inner form; renamed `submit_theme:` → `submit_color:` for vocabulary alignment.
+- `Decor::{Components,Daisy,Suite}::Modals::ModalTrigger` — wrapper variant of ModalOpenButton (transparent span around any clickable element); same event-bus contract.
+
+Tests: 210 runs / 821 assertions / 0F across the 10 new Suite components. Full Suite directory smoke: 679 runs / 2841 assertions / 0F.
+
 ## 0.10.0 — Unreleased
 
 ### Suite component batch 2 — 10 more ports in parallel
