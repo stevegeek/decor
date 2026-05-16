@@ -26,6 +26,10 @@ module Decor
 
       prop :disabled, _Boolean, default: false
 
+      # Render the button in a loading state. Concrete skins decide how to
+      # visualise it (e.g. spinner overlay + transparent label text).
+      prop :loading, _Boolean, default: false
+
       # Whether button should span the entire width of the container or not
       prop :full_width, _Boolean, default: false
 
