@@ -1,0 +1,212 @@
+# frozen_string_literal: true
+
+module Decor
+  module Suite
+    module Forms
+      # Suite skin of the Select form field.
+      #
+      # Renders a self-contained <select> wrapped in a custom chevron-bearing
+      # control with suite-* tokens (hairline-strong border, primary-100 focus
+      # halo, gray-900 text). Replaces the native OS dropdown arrow with a 6px
+      # rotated-border chevron pinned to the right edge so the chrome stays
+      # consistent across operating systems.
+      #
+      # Supports single- and multi-select via the `multiple` prop; multi-select
+      # emits an additional hidden field so Rails always sees the array param
+      # even when nothing is selected. Helper text / error caption render
+      # inline below the control using suite typography tokens.
+      #
+      # Self-contained: emits its own label / helper-text / error chrome using
+      # suite-* tokens. Does not depend on a separate FormFieldLayout skin
+      # (Suite's form-layout primitives aren't ported yet).
+      class Select < ::Decor::Components::Forms::Select
+        include ::Phlex::Rails::Helpers::HiddenFieldTag
+
+        def view_template
+          root_element do
+            div(class: container_classes) do
+              if @label.present? && (label_top? || label_left?)
+                label_block
+              end
+
+              div(class: input_section_classes) do
+                div(class: "decor:relative decor:w-full") do
+                  if @multiple
+                    hidden_field_tag(multi_select_name, "", id: nil)
+                  end
+
+                  child_element(
+                    :select,
+                    **html_attributes,
+                    class: select_classes,
+                    data: @control_html_options[:data],
+                    stimulus_actions: @control_actions,
+                    stimulus_targets: ([:input] + @control_targets).uniq
+                  ) do
+                    if grouped?
+                      grouped_options_for_select(
+                        all_options_array,
+                        disabled: all_disabled_options,
+                        selected: resolve_selected_option
+                      )
+                    else
+                      options_for_select(
+                        all_options_array,
+                        disabled: all_disabled_options,
+                        selected: resolve_selected_option
+                      )
+                    end
+                  end
+
+                  chevron_indicator
+
+                  if !silent_helper_and_error_text? && errors?
+                    error_icon
+                  end
+                end
+
+                if !silent_helper_and_error_text? && helper_or_error_text.present?
+                  p(class: helper_text_classes) { plain helper_or_error_text }
+                end
+              end
+            end
+          end
+        end
+
+        private
+
+        def root_element_classes
+          [
+            "decor--suite--forms--select",
+            "decor:w-full",
+            disabled? ? "decor:disabled" : nil,
+            *grid_span_class
+          ].compact.join(" ")
+        end
+
+        def container_classes
+          if label_left?
+            "decor:flex decor:flex-col decor:sm:flex-row decor:sm:items-baseline decor:sm:gap-x-4"
+          else
+            "decor:flex decor:flex-col decor:gap-1.5"
+          end
+        end
+
+        def input_section_classes
+          if label_left?
+            "decor:sm:flex-1 decor:sm:min-w-0 decor:flex decor:flex-col decor:gap-1.5"
+          else
+            ""
+          end
+        end
+
+        def label_block
+          div(class: label_column_classes) do
+            label(
+              for: "#{id}-control",
+              class: label_text_classes
+            ) { plain label_with_required }
+            if @description.present?
+              p(class: description_classes) { plain @description }
+            end
+          end
+        end
+
+        def label_column_classes
+          label_left? ? "decor:sm:w-[180px] decor:sm:shrink-0" : ""
+        end
+
+        def label_text_classes
+          color =
+            if errors?
+              "decor:text-suite-danger-700"
+            elsif disabled?
+              "decor:text-gray-400"
+            else
+              "decor:text-gray-900"
+            end
+          "decor:block decor:suite-label #{color}"
+        end
+
+        def description_classes
+          "decor:suite-description decor:text-gray-500 decor:mt-1"
+        end
+
+        def select_classes
+          [
+            "decor:w-full decor:appearance-none decor:bg-white",
+            "decor:cursor-pointer decor:pr-9",
+            "decor:px-3 decor:py-2",
+            "decor:suite-body",
+            "decor:rounded-suite-control decor:border",
+            border_classes,
+            text_color_class,
+            "decor:outline-hidden",
+            "decor:transition-[border-color,box-shadow] decor:duration-suite-fast decor:ease-out",
+            disabled? ? "decor:cursor-not-allowed decor:opacity-60" : "decor:hover:border-gray-400",
+            input_classes
+          ].compact.reject { |c| c.to_s.empty? }.join(" ")
+        end
+
+        def border_classes
+          if errors?
+            "decor:border-suite-danger-500 decor:focus:border-suite-danger-500 decor:focus:shadow-[0_0_0_3px_var(--color-suite-danger-100)]"
+          else
+            "decor:border-suite-hairline-strong decor:focus:border-suite-primary-500 decor:focus:shadow-[0_0_0_3px_var(--color-suite-primary-100)]"
+          end
+        end
+
+        def text_color_class
+          if disabled?
+            "decor:text-gray-400"
+          elsif errors?
+            "decor:text-suite-danger-700"
+          else
+            "decor:text-gray-900"
+          end
+        end
+
+        def chevron_indicator
+          span(
+            class: "decor:pointer-events-none decor:absolute decor:inset-y-0 decor:right-0 decor:flex decor:items-center decor:pr-[14px]",
+            aria_hidden: "true"
+          ) do
+            span(class: chevron_glyph_classes)
+          end
+        end
+
+        def chevron_glyph_classes
+          color = errors? ? "decor:border-suite-danger-500" : "decor:border-gray-500"
+          [
+            "decor:block decor:w-[6px] decor:h-[6px]",
+            "decor:border-r-[1.5px] decor:border-b-[1.5px]",
+            color,
+            "decor:rotate-45 decor:-translate-y-[35%]"
+          ].join(" ")
+        end
+
+        def error_icon
+          span(
+            class: "decor:pointer-events-none decor:absolute decor:inset-y-0 decor:right-7 decor:flex decor:items-center",
+            aria_hidden: "true"
+          ) do
+            render ::Decor::Icon.new(
+              name: "exclamation-circle",
+              style: :solid,
+              html_options: {class: "decor:h-5 decor:w-5 decor:text-suite-danger-500"}
+            )
+          end
+        end
+
+        def helper_or_error_text
+          errors? ? error_text : @helper_text
+        end
+
+        def helper_text_classes
+          color = errors? ? "decor:text-suite-danger-700" : "decor:text-gray-500"
+          "decor:suite-description #{color} decor:m-0"
+        end
+      end
+    end
+  end
+end
