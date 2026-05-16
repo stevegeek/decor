@@ -11,6 +11,10 @@ module Decor
 
         prop :model, _Nilable(_Any), default: -> { false }
         prop :url, _Nilable(String)
+        # Optional `scope:` (passed through to Rails' form_with) for namespacing
+        # field names when the model isn't its own implicit scope (e.g. devise
+        # resource_name).
+        prop :scope, _Nilable(_Union(Symbol, String))
         prop :local, _Boolean, default: true
         prop :http_method, _Nilable(_Interface(:to_s))
         prop :form_builder_class, _Class(ActionView::Helpers::FormBuilder), default: -> { ::Decor::Forms::ActionViewFormBuilder }
@@ -41,11 +45,14 @@ module Decor
         end
 
         def form_with_helper_options
+          html = {role: "form"}
+          html[:class] = @html_options[:class] if @html_options.is_a?(Hash) && @html_options[:class].present?
+
           options = {
             url: @url,
             local: @local,
             method: @http_method,
-            html: {role: "form"},
+            html: html,
             data: {
               turbo: false,
               type: (@local != true) ? "json" : nil,
@@ -62,6 +69,7 @@ module Decor
 
           # Only include model if it's not the default false value
           options[:model] = @model unless @model == false
+          options[:scope] = @scope if @scope
 
           options
         end
