@@ -1,37 +1,3 @@
-var __defProp = Object.defineProperty;
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
-
-// app/javascript/decor/controllers.js
-var controllers_exports = {};
-__export(controllers_exports, {
-  ButtonController: () => button_controller_default,
-  CarouselController: () => carousel_controller_default,
-  CodeBlockController: () => code_block_controller_default,
-  ConfirmModalController: () => confirm_modal_controller_default,
-  DaisyClickToCopyController: () => click_to_copy_controller_default,
-  DaisyDropdownController: () => dropdown_controller_default,
-  DaisyFlashController: () => flash_controller_default,
-  DaisyMapController: () => map_controller_default,
-  DaisyProgressController: () => progress_controller_default,
-  DateCalendarController: () => date_calendar_controller_default,
-  ModalCloseButtonController: () => modal_close_button_controller_default,
-  ModalController: () => modal_controller_default,
-  ModalOpenButtonController: () => modal_open_button_controller_default,
-  NotificationManagerController: () => notification_manager_controller_default,
-  ProgressAnimationController: () => progress_animation_controller_default,
-  SuiteClickToCopyController: () => click_to_copy_controller_default,
-  SuiteDropdownController: () => dropdown_controller_default2,
-  SuiteFlashController: () => flash_controller_default,
-  SuiteMapController: () => map_controller_default,
-  SuiteProgressController: () => progress_controller_default,
-  SwitchController: () => switch_controller_default,
-  TabsController: () => tabs_controller_default,
-  TooltipController: () => tooltip_controller_default
-});
-
 // app/javascript/controllers/decor/daisy/button_controller.js
 import { Controller } from "@hotwired/stimulus";
 var button_controller_default = class extends Controller {
@@ -1847,21 +1813,44 @@ var tooltip_controller_default = class extends Controller18 {
   }
 };
 
+// app/javascript/decor/controllers.js
+var CONTROLLERS = {
+  "decor--daisy--button": button_controller_default,
+  "decor--daisy--click-to-copy": click_to_copy_controller_default,
+  "decor--daisy--code-block": code_block_controller_default,
+  "decor--daisy--dropdown": dropdown_controller_default,
+  "decor--daisy--flash": flash_controller_default,
+  "decor--daisy--forms--date-calendar": date_calendar_controller_default,
+  "decor--daisy--forms--switch": switch_controller_default,
+  "decor--daisy--map": map_controller_default,
+  "decor--daisy--modals--confirm-modal": confirm_modal_controller_default,
+  "decor--daisy--modals--modal-close-button": modal_close_button_controller_default,
+  "decor--daisy--modals--modal": modal_controller_default,
+  "decor--daisy--modals--modal-open-button": modal_open_button_controller_default,
+  "decor--daisy--notification-manager": notification_manager_controller_default,
+  "decor--daisy--progress": progress_controller_default,
+  "decor--daisy--tabs": tabs_controller_default,
+  "decor--progress-animation": progress_animation_controller_default,
+  "decor--suite--carousel": carousel_controller_default,
+  "decor--suite--click-to-copy": click_to_copy_controller_default,
+  "decor--suite--dropdown": dropdown_controller_default2,
+  "decor--suite--flash": flash_controller_default,
+  "decor--suite--map": map_controller_default,
+  "decor--suite--progress": progress_controller_default,
+  "decor--suite--tooltip": tooltip_controller_default
+};
+
 // app/javascript/decor/index.js
 function register(application) {
-  for (const [exportName, Controller19] of Object.entries(controllers_exports)) {
-    const identifier = stimulusIdentifierFor(exportName);
+  for (const [identifier, Controller19] of Object.entries(CONTROLLERS)) {
     application.register(identifier, Controller19);
   }
-}
-function stimulusIdentifierFor(exportName) {
-  return exportName.replace(/Controller$/, "").replace(/([a-z0-9])([A-Z])/g, "$1-$2").replace(/([A-Z]+)([A-Z][a-z])/g, "$1-$2").toLowerCase();
 }
 if (typeof window !== "undefined" && window.Stimulus) {
   register(window.Stimulus);
 }
 export {
-  register,
-  stimulusIdentifierFor
+  CONTROLLERS,
+  register
 };
 //# sourceMappingURL=decor.js.map
