@@ -3,7 +3,9 @@
 module Decor
   module Daisy
     class ClickToCopy < ::Decor::Components::ClickToCopy
-      private
+      # :chip — bordered pill (default); :inline — bare inline trigger with
+      # subtle copy icon. Mirrors the Suite skin's two-variant API.
+      prop :variant, _Union(:chip, :inline), default: :chip
 
       def view_template
         root_element do |el|
@@ -22,8 +24,14 @@ module Decor
         end
       end
 
+      private
+
       def root_element_classes
-        "decor:cursor-pointer"
+        if @variant == :inline
+          "decor:cursor-pointer decor:hover:underline"
+        else
+          "decor:cursor-pointer"
+        end
       end
     end
   end
