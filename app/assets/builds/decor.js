@@ -75,7 +75,6 @@ var click_to_copy_controller_default = class extends Controller2 {
 
 // app/javascript/controllers/decor/daisy/code_block_controller.js
 import { Controller as Controller3 } from "@hotwired/stimulus";
-import HighlightJS from "@highlightjs/cdn-assets/es/highlight.min.js";
 var code_block_controller_default = class extends Controller3 {
   static targets = ["code"];
   static values = {
@@ -85,13 +84,22 @@ var code_block_controller_default = class extends Controller3 {
   connect() {
     this.highlightCode();
   }
-  highlightCode() {
-    console.log("Highlighting code blocks...");
-    this.codeTargets.forEach((codeElement) => {
-      if (codeElement.dataset.highlighted === "yes") return;
-      if (!this.highlightValue) return;
+  async highlightCode() {
+    if (!this.highlightValue) return;
+    const targets = this.codeTargets.filter(
+      (el) => el.dataset.highlighted !== "yes"
+    );
+    if (targets.length === 0) return;
+    let HighlightJS;
+    try {
+      HighlightJS = (await import("@highlightjs/cdn-assets/es/highlight.min.js")).default;
+    } catch (error) {
+      console.warn("Failed to load highlight.js for code block:", error);
+      return;
+    }
+    targets.forEach((codeElement) => {
       try {
-        var result;
+        let result;
         if (this.languageValue) {
           result = HighlightJS.highlight(codeElement.textContent, { language: this.languageValue });
         } else {
