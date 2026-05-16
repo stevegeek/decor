@@ -8,22 +8,28 @@ var __export = (target, all) => {
 var controllers_exports = {};
 __export(controllers_exports, {
   ButtonController: () => button_controller_default,
+  CarouselController: () => carousel_controller_default,
   CodeBlockController: () => code_block_controller_default,
   ConfirmModalController: () => confirm_modal_controller_default,
   DaisyClickToCopyController: () => click_to_copy_controller_default,
+  DaisyDropdownController: () => dropdown_controller_default,
+  DaisyFlashController: () => flash_controller_default,
+  DaisyMapController: () => map_controller_default,
+  DaisyProgressController: () => progress_controller_default,
   DateCalendarController: () => date_calendar_controller_default,
-  DropdownController: () => dropdown_controller_default,
-  FlashController: () => flash_controller_default,
-  MapController: () => map_controller_default,
   ModalCloseButtonController: () => modal_close_button_controller_default,
   ModalController: () => modal_controller_default,
   ModalOpenButtonController: () => modal_open_button_controller_default,
   NotificationManagerController: () => notification_manager_controller_default,
   ProgressAnimationController: () => progress_animation_controller_default,
-  ProgressController: () => progress_controller_default,
   SuiteClickToCopyController: () => click_to_copy_controller_default,
+  SuiteDropdownController: () => dropdown_controller_default2,
+  SuiteFlashController: () => flash_controller_default,
+  SuiteMapController: () => map_controller_default,
+  SuiteProgressController: () => progress_controller_default,
   SwitchController: () => switch_controller_default,
-  TabsController: () => tabs_controller_default
+  TabsController: () => tabs_controller_default,
+  TooltipController: () => tooltip_controller_default
 });
 
 // app/javascript/controllers/decor/daisy/button_controller.js
@@ -1589,11 +1595,263 @@ var progress_animation_controller_default = class extends Controller15 {
   }
 };
 
+// app/javascript/controllers/decor/suite/carousel_controller.js
+import { Controller as Controller16 } from "@hotwired/stimulus";
+import Swiper from "swiper";
+import { Navigation, Pagination, Keyboard, A11y, Autoplay } from "swiper/modules";
+var BREAKPOINT_PX = {
+  base: 0,
+  sm: 640,
+  md: 768,
+  lg: 1024,
+  xl: 1280,
+  "2xl": 1536
+};
+var carousel_controller_default = class extends Controller16 {
+  static values = {
+    slidesPerView: { type: Object, default: {} },
+    spaceBetween: { type: Number, default: 16 },
+    loop: { type: Boolean, default: false },
+    showPagination: { type: Boolean, default: true },
+    showArrows: { type: Boolean, default: true },
+    autoplayDelay: { type: Number, default: 0 }
+  };
+  connect() {
+    this.element.classList.remove("decor:hidden");
+    this.element.classList.remove("hidden");
+    const config = {
+      modules: [Navigation, Pagination, Keyboard, A11y, Autoplay],
+      spaceBetween: this.spaceBetweenValue,
+      centeredSlides: true,
+      loop: this.loopValue,
+      keyboard: { enabled: true, onlyInViewport: true },
+      a11y: {
+        enabled: true,
+        prevSlideMessage: "Previous slide",
+        nextSlideMessage: "Next slide",
+        paginationBulletMessage: "Go to slide {{index}}"
+      },
+      ...this.#slidesPerViewConfig()
+    };
+    if (this.showArrowsValue) {
+      config.navigation = {
+        prevEl: this.element.querySelector(".swiper-button-prev"),
+        nextEl: this.element.querySelector(".swiper-button-next"),
+        disabledClass: "swiper-button-disabled"
+      };
+    }
+    if (this.showPaginationValue) {
+      config.pagination = {
+        el: this.element.querySelector(".swiper-pagination"),
+        clickable: true
+      };
+    }
+    if (this.autoplayDelayValue > 0) {
+      config.autoplay = {
+        delay: this.autoplayDelayValue,
+        pauseOnMouseEnter: true,
+        disableOnInteraction: false
+      };
+    }
+    this.carousel = new Swiper(this.element, config);
+  }
+  disconnect() {
+    if (this.carousel) {
+      this.carousel.destroy();
+      this.carousel = void 0;
+    }
+  }
+  // Translates the `slidesPerView` value into a Swiper-compatible config:
+  // - Number → { slidesPerView: N }
+  // - Hash { base: 1, md: 2 } → { slidesPerView: 1, breakpoints: { 768: { slidesPerView: 2 } } }
+  // - Empty/missing → sensible default
+  #slidesPerViewConfig() {
+    const val = this.slidesPerViewValue;
+    if (typeof val === "number" && val > 0) {
+      return { slidesPerView: val };
+    }
+    if (val && typeof val === "object" && !Array.isArray(val)) {
+      const entries = Object.entries(val);
+      if (entries.length === 0) {
+        return { slidesPerView: window.innerWidth > 600 ? 3 : 1.25 };
+      }
+      const base = val.base ?? val.sm ?? Object.values(val)[0];
+      const breakpoints = {};
+      for (const [key, count] of entries) {
+        if (key === "base") continue;
+        const px = BREAKPOINT_PX[key];
+        if (typeof px === "number" && px > 0) {
+          breakpoints[px] = { slidesPerView: count };
+        }
+      }
+      return { slidesPerView: base, breakpoints };
+    }
+    return { slidesPerView: window.innerWidth > 600 ? 3 : 1.25 };
+  }
+};
+
+// app/javascript/controllers/decor/suite/dropdown_controller.js
+import { Controller as Controller17 } from "@hotwired/stimulus";
+var dropdown_controller_default2 = class extends Controller17 {
+  static targets = ["menu", "button"];
+  static values = {
+    contentHref: { type: String, default: "" },
+    placeholder: { type: String, default: "" }
+  };
+  toggle() {
+    if (this.hasMenuTarget) this.menuTarget.togglePopover();
+  }
+  show() {
+    if (this.hasMenuTarget) this.menuTarget.showPopover();
+  }
+  hide() {
+    if (this.hasMenuTarget) this.menuTarget.hidePopover();
+  }
+  // ── Lazy-load: fires on every open (matches current behavior) ──
+  handleBeforeToggle(event) {
+    if (event.newState !== "open") return;
+    this.prepareContent();
+  }
+  async prepareContent() {
+    if (this.placeholderValue) {
+      this.setContent(markAsSafeHTML(this.placeholderValue));
+    }
+    if (this.contentHrefValue) {
+      try {
+        const c = await this.getContent(this.contentHrefValue);
+        this.setContent(c);
+      } catch (err) {
+        console.error("Could not fetch content for dropdown", this.contentHrefValue, err);
+        const errorMessage = "Something went wrong while loading the content for this dropdown. Please try again later.";
+        this.setContent(markAsSafeHTML(errorMessage));
+      }
+    }
+  }
+  async getContent(href) {
+    const httpClient = createHTTPClient();
+    return httpClient.get(href, { headers: { "Content-Type": "text/html" } }).then((response) => markAsSafeHTML(response.data));
+  }
+  setContent(content) {
+    replaceContentsWithChildren(this.menuTarget, this.createContent(content));
+  }
+  createContent(content) {
+    const container = document.createElement("div");
+    container.id = `${this.element.id}-content`;
+    safelySetInnerHTML(container, content);
+    return container;
+  }
+};
+
+// app/javascript/controllers/decor/suite/tooltip_controller.js
+import { Controller as Controller18 } from "@hotwired/stimulus";
+import {
+  computePosition,
+  autoUpdate,
+  flip,
+  shift,
+  offset as offsetMiddleware,
+  arrow
+} from "@floating-ui/dom";
+var tooltip_controller_default = class extends Controller18 {
+  static targets = ["content", "arrow"];
+  static values = {
+    placement: { type: String, default: "top" },
+    offset: { type: Number, default: 8 }
+  };
+  connect() {
+    this.contentTarget.style.transform = "";
+  }
+  disconnect() {
+    this.stopAutoUpdate();
+    clearTimeout(this.showTimer);
+    clearTimeout(this.hideTimer);
+  }
+  mouseOver() {
+    clearTimeout(this.hideTimer);
+    this.showTimer = setTimeout(() => this.show(), 80);
+  }
+  mouseOut() {
+    clearTimeout(this.showTimer);
+    this.hideTimer = setTimeout(() => this.hide(), 100);
+  }
+  handleClick() {
+    if (this.contentTarget.classList.contains("decor:hidden")) {
+      this.show();
+    } else {
+      this.hide();
+    }
+  }
+  show() {
+    this.contentTarget.classList.remove("decor:hidden");
+    this.startAutoUpdate();
+  }
+  hide() {
+    this.contentTarget.classList.add("decor:hidden");
+    this.stopAutoUpdate();
+  }
+  get anchor() {
+    return this.element;
+  }
+  startAutoUpdate() {
+    this.stopAutoUpdate();
+    this.cleanupAutoUpdate = autoUpdate(
+      this.anchor,
+      this.contentTarget,
+      () => this.updatePosition()
+    );
+  }
+  stopAutoUpdate() {
+    if (this.cleanupAutoUpdate) {
+      this.cleanupAutoUpdate();
+      this.cleanupAutoUpdate = void 0;
+    }
+  }
+  async updatePosition() {
+    const middleware = [
+      offsetMiddleware(this.offsetValue),
+      flip({ padding: 8 }),
+      shift({ padding: 8 })
+    ];
+    if (this.hasArrowTarget) {
+      middleware.push(arrow({ element: this.arrowTarget, padding: 4 }));
+    }
+    const { x, y, placement, middlewareData } = await computePosition(
+      this.anchor,
+      this.contentTarget,
+      {
+        placement: this.placementValue,
+        strategy: "absolute",
+        middleware
+      }
+    );
+    Object.assign(this.contentTarget.style, {
+      left: `${x}px`,
+      top: `${y}px`
+    });
+    if (this.hasArrowTarget && middlewareData.arrow) {
+      const { x: arrowX, y: arrowY } = middlewareData.arrow;
+      const staticSide = {
+        top: "bottom",
+        right: "left",
+        bottom: "top",
+        left: "right"
+      }[placement.split("-")[0]];
+      Object.assign(this.arrowTarget.style, {
+        left: arrowX != null ? `${arrowX}px` : "",
+        top: arrowY != null ? `${arrowY}px` : "",
+        right: "",
+        bottom: "",
+        [staticSide]: "-4px"
+      });
+    }
+  }
+};
+
 // app/javascript/decor/index.js
 function register(application) {
-  for (const [exportName, Controller16] of Object.entries(controllers_exports)) {
+  for (const [exportName, Controller19] of Object.entries(controllers_exports)) {
     const identifier = stimulusIdentifierFor(exportName);
-    application.register(identifier, Controller16);
+    application.register(identifier, Controller19);
   }
 }
 function stimulusIdentifierFor(exportName) {
