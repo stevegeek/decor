@@ -56,6 +56,11 @@ module Decor
         prop :less_than, _Nilable(Numeric)
 
         stimulus do
+          # `label` is consumed by the form_field JS controller to render
+          # field-specific validation messages ("Email must be present", not
+          # "This field must be present"). Without it the controller throws
+          # `should define a label attribute` on the first blur.
+          values label: -> { @label.to_s }
           classes invalid_input: "invalid:border-error-dark"
         end
 

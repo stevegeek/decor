@@ -19,6 +19,9 @@ module Decor
         prop :minimum_length, _Nilable(Integer)
 
         stimulus do
+          # See TextField for rationale — the form_field JS controller
+          # crashes on blur without a `label` value.
+          values label: -> { @label.to_s }
           classes invalid_input: "invalid:border-error-dark"
         end
 
