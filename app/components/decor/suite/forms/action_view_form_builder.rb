@@ -10,17 +10,50 @@ module Decor
       # instead of Daisy chrome.
       #
       # Methods without a Suite counterpart (file_field, rich_text_area,
-      # tag_field, button_radio_group, select_with_search, image_upload,
-      # avatar_upload, collection_check_boxes) fall through to the parent
-      # and render the Daisy component for now — the visual mismatch is
-      # accepted until those components get a Suite port.
+      # tag_field, select_with_search, image_upload, avatar_upload,
+      # collection_check_boxes) fall through to the parent and render
+      # the Daisy component for now — the visual mismatch is accepted
+      # until those components get a Suite port.
       class ActionViewFormBuilder < ::Decor::Forms::ActionViewFormBuilder
         def text_field(method, options = {}, &)
           create_tag(::Decor::Forms::TagWrappers::Suite::TextField, method, options, &)
         end
 
+        def email_field(method, options = {}, &)
+          create_tag(::Decor::Forms::TagWrappers::Suite::EmailField, method, options, &)
+        end
+
+        def password_field(method, options = {}, &)
+          create_tag(::Decor::Forms::TagWrappers::Suite::PasswordField, method, options, &)
+        end
+
+        def date_field(method, options = {}, &)
+          create_tag(::Decor::Forms::TagWrappers::Suite::DateField, method, options, &)
+        end
+
+        def hidden_field(method, options = {})
+          @emitted_hidden_id = true if method == :id
+          create_tag(::Decor::Forms::TagWrappers::Suite::HiddenField, method, options)
+        end
+
+        def text_area(method, options = {}, &)
+          create_tag(::Decor::Forms::TagWrappers::Suite::TextArea, method, options, &)
+        end
+
         def number_field(method, options = {}, &)
           create_tag(::Decor::Forms::TagWrappers::Suite::NumberField, method, options, &)
+        end
+
+        def button_radio_group(method, choices, options = {}, html_options = {}, &block)
+          @template.capture(&block) if block
+          ::Decor::Forms::TagWrappers::Suite::ButtonRadioGroup.new(
+            object_name,
+            method,
+            @template,
+            choices,
+            objectify_options(options),
+            html_options
+          ).render
         end
 
         def check_box(method, options = {}, checked_value = "true", unchecked_value = "", &block)

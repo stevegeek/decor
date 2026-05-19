@@ -1,5 +1,77 @@
 # Changelog
 
+## 0.19.0 — Unreleased
+
+### Suite component batch 8 — 15 final ports (completes the ConfinusUI surface)
+
+**This batch closes the gap between Suite and the visible ConfinusUI
+component surface.** What's left in ConfinusUI after this is utility
+plumbing only (formatted_encoded_id, svg — both already covered by
+decor equivalents).
+
+**Forms infrastructure:**
+- `Decor::Suite::Forms::FormChild` — abstract Suite skin of the form-child
+  base wrapper (no chrome of its own; subclassed by every form field).
+- `Decor::Suite::Forms::FormField` — abstract Suite skin of the form-field
+  base. Hosts the `silent_helper_and_error_text` prop that every concrete
+  Suite field currently redeclares locally; future migrations can drop
+  the per-skin duplication.
+- `Decor::Suite::Forms::LayoutContainer` — outermost form card wrapper.
+  Renders white surface + suite-hairline + rounded-suite-card + optional
+  suite-gray-25 footer strip (via `with_buttons { ... }` slot).
+
+**Six Suite TagWrappers (closes the form-builder surface):**
+- `EmailField` — delegates to Suite TextField with `type: :email`
+- `PasswordField` — Suite TextField with `type: :password`
+- `DateField` — delegates to Suite DateCalendar
+- `HiddenField` — delegates to Suite HiddenField
+- `TextArea` — delegates to Suite TextArea
+- `ButtonRadioGroup` — delegates to Suite ButtonRadioGroup
+
+`Decor::Suite::Forms::ActionViewFormBuilder` now wires all six so
+`form_component.builder.email_field` etc. render Suite chrome (previously
+fell through to Daisy).
+
+**Modal confirm helpers:**
+- `Decor::Suite::Modals::ConfirmShared` (mixin) — frozen variant maps for
+  accent-class / icon-name / icon-color tables. Sources destructive
+  header/title classes from `Suite::Modals::Modal::DESTRUCTIVE_*_CLASSES`
+  so the JS-clone path and server-rendered destructive path stay
+  byte-identical.
+- `Decor::Suite::Modals::ConfirmTemplate` — singleton `<dialog>` template
+  used by the JS confirm-modal-cloning controller. Exposes variant chrome
+  via Vident `stimulus do … classes` block; controller reads e.g.
+  `this.accentInfoClasses` instead of carrying its own duplicate maps.
+
+**Tables builder DSL:**
+- `Decor::Suite::Tables::Builder::Cell` / `Column` / `Row` — pure
+  `Literal::Struct` data carriers. Cell keeps the arity-dispatched
+  `render_content` (1..4 args with a `RowContext` 4th-arg shim).
+  Drops the pre-Literal `StructHelpers` merge/+/== shim — standard
+  Literal API suffices.
+- `Decor::Suite::Tables::DataTableBuilder` — pragmatic 260-LOC port of
+  Confinus's 737-LOC builder. Inherits the abstract base for query/sort/
+  filter/column pipeline; overrides component emission to produce
+  Suite DataTable + cells/rows. **Dropped:** `ilike_search`,
+  `::ConfinusUI::SearchAndFilter::Search`/`Filter` inline coupling,
+  Confinus's `ApplicationRelationBackedQuery` base (replaced upstream
+  with `Quo.relation_backed_query_base_class.wrap`). Bypassed
+  `Decor::Tables::Builder::Cell/Row` Literal::Structs because their
+  `component:` prop is hard-typed to Daisy classes — used local PORO
+  Structs instead (worth fixing in the base later).
+
+### Known abstract-base bug NOT fixed in this batch
+
+`Decor::Tables::Builder::Cell` and `::Row` have their `component:` prop
+hard-typed to Daisy concrete classes, so Suite emit paths can't reuse
+them. Pattern matches the earlier Chat::List#messages / ECC outlet /
+PageHeader#with_tag bugs. Future systematic fix needed.
+
+### Tests
+
+Batch 8: 142 runs / 422 assertions / 0F across the batch.
+Full Suite suite: 1444 runs / 5890 assertions / 0F.
+
 ## 0.18.0 — Unreleased
 
 ### Suite component batch 7 — 10 ConfinusUI-only ports (Suite-only, no Daisy peers)
