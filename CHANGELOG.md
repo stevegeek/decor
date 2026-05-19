@@ -1,5 +1,60 @@
 # Changelog
 
+## 0.16.0 — Unreleased
+
+### Suite component batch 6 — 10 layout / stat / utility ports
+
+Parallel-dispatched. None of these have direct ConfinusUI peers — they're
+Daisy components reskinned into Suite tokens to round out the Suite
+component set for page/dashboard layout.
+
+- `Decor::Suite::Page` — page-level wrapper; tints switched from daisyUI
+  semantic colors to the Suite palette (suite-primary-50, suite-gray-25);
+  tighter padding rhythm (py-6/10/14 vs Daisy py-8/12/16); default Flash
+  swapped to `Decor::Suite::Flash`.
+- `Decor::Suite::PageHeader` — title/subtitle/breadcrumbs/actions header;
+  `:hero` no longer gradients (down-shifts to suite-gray-25); supports the
+  full base slot API (avatar / title_content / meta / actions / secondary /
+  breadcrumbs / status / cta / badges / tags).
+- `Decor::Suite::PageSection` — sectioning block with optional separator,
+  background tint, and CTA slot; overrides `with_tag` so tags get a
+  Suite::Tag (base hardcoded Daisy::Tag).
+- `Decor::Suite::Panel` — single content panel, Card-style chrome
+  (white surface + suite-hairline + rounded-suite-card + optional header
+  with icon).
+- `Decor::Suite::PanelGroup` — group of Panels; replaces Daisy's alternating
+  bg-base-100/200 row colors with consistent suite-hairline dividers.
+- `Decor::Suite::Stat` — single stat tile (Card-style, NOT daisyUI's flat
+  d-stat slab). Adds a Suite-only `delta: :up | :down | :none` prop that
+  drives description color (suite-primary-700 / suite-danger-700).
+- `Decor::Suite::Stats` — horizontal Stat container; hairline-bounded with
+  `divide-x divide-suite-hairline` between children. Responsive: stacks
+  vertical on mobile, horizontal at `lg`.
+- `Decor::Suite::Link` — inline text link (chrome-less); restricted color
+  palette to base/primary/error/warning/success; focus halo via
+  `shadow-[0_0_0_3px_var(--color-suite-primary-100)]`.
+- `Decor::Suite::EmptyState` — dashed-border callout matching the
+  Confinus identity (suite-hairline dashed → suite-hairline-strong on hover);
+  up to two action buttons (secondary outlined → primary filled).
+- `Decor::Suite::CodeSnippet` — inline `<code>` chrome (smaller cousin
+  of CodeBlock); bg-suite-gray-25, rounded-suite-control, suite-dense-body
+  font.
+
+### Known abstract-base bug (NOT fixed in this batch)
+
+`Components::PageHeader` slot helpers `with_badge` / `with_tag` hardcode
+`Decor::Daisy::Badge.new` / `Decor::Daisy::Tag.new` — same pattern as the
+`Components::Chat::List#messages` and `Components::Forms::ExpandingCheckboxCollection`
+outlet bugs flushed out in prior batches. The Suite PageSection port works
+around this for `with_tag` by overriding the slot helper. A future batch
+should fix the bases systematically (lazy resolution of skin-specific
+classes via a per-skin slot-class table).
+
+### Tests
+
+Batch 6: 141 runs / 615 assertions / 0F.
+Full Suite suite: 1189 runs / 4882 assertions / 0F.
+
 ## 0.15.0 — Unreleased
 
 ### Suite component batch 5 — 10 ports + DateCalendar popover-scroll fix + two abstract-base bug fixes
