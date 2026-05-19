@@ -345,7 +345,13 @@ module Decor
         end
 
         def helper_text_section_classes
-          @collapsing_helper_text ? "decor:mt-1" : "decor:mt-1 decor:min-h-[1lh]"
+          # `suite-field-help` here is load-bearing — it sets font-size to
+          # 11px on the wrapper so the `min-h-[1lh]` calculation evaluates
+          # against the helper text's line height (16.5px) instead of the
+          # inherited body font (16px × 1.5 = 24px). Without it the wrapper
+          # is ~50% taller than ConfinusUI's equivalent and the form
+          # spacing looks loose.
+          @collapsing_helper_text ? "decor:suite-field-help" : "decor:suite-field-help decor:min-h-[1lh]"
         end
 
         def helper_text_classes

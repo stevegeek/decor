@@ -221,7 +221,9 @@ module Decor
         end
 
         def helper_text_section_classes
-          @collapsing_helper_text ? "decor:mt-1" : "decor:mt-1 decor:min-h-[1lh]"
+          # See TextField — suite-field-help on the wrapper makes `1lh`
+          # evaluate at 11px (16.5px high) instead of inherited body (24px).
+          @collapsing_helper_text ? "decor:suite-field-help" : "decor:suite-field-help decor:min-h-[1lh]"
         end
 
         def helper_text_classes
