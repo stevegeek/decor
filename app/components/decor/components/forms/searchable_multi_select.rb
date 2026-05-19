@@ -1,0 +1,86 @@
+# frozen_string_literal: true
+
+module Decor
+  module Components
+    module Forms
+      # Abstract base for SearchableMultiSelect — a multi-select typeahead with
+      # an inline filter input that fans out into chips (one per pick). Results
+      # come either from an XHR endpoint (`search_url`) or a local `choices`
+      # array. Picking adds a chip without closing the dropdown; backspace on
+      # an empty input removes the trailing chip.
+      #
+      # Owns the prop API + stimulus contract. Concrete skins (Daisy, Suite)
+      # inherit and provide `view_template` plus their visual-language chrome.
+      class SearchableMultiSelect < ::Decor::PhlexComponent
+        # The form field name used by every hidden input emitted for a chip.
+        prop :name, String
+
+        # XHR endpoint that returns `{ results: [{id, label, sublabel?, right_label?, metadata?}], has_more }`.
+        # Either :search_url OR :choices should be set.
+        prop :search_url, _Nilable(String)
+
+        # Local choices array — same shape as XHR results. When set the
+        # dropdown filters in-process and no XHR is issued.
+        prop :choices, _Nilable(_Array(_Any))
+
+        # Extra query string appended to every XHR request (e.g.
+        # "category_id=123&country=US"). Useful for scoping the search.
+        prop :extra_search_params, _Nilable(String)
+
+        # Optional descriptive label + helper description above the control.
+        prop :label, _Nilable(String)
+        prop :description, _Nilable(String)
+
+        prop :placeholder, String, default: "Click to browse or type to search..."
+
+        # Min chars typed before XHR fires (ignored in local-choices mode).
+        prop :min_chars, Integer, default: 2
+        prop :debounce_ms, Integer, default: 300
+        prop :page_size, Integer, default: 15
+
+        # Pre-populated chips, shape: [{ id:, label: }, ...]. Rendered server-
+        # side as chips at mount; new picks append more chips client-side.
+        prop :selected_items, _Array(_Any), default: -> { [] }
+
+        # When true the user can press Enter (or type the delimiter) to commit
+        # arbitrary text as a chip without matching a search result.
+        prop :allow_free_text, _Boolean, default: false
+
+        # The character that splits typed input into multiple free-text chips
+        # (only meaningful when `allow_free_text` is true).
+        prop :delimiter, String, default: ","
+
+        prop :disabled, _Boolean, default: false
+
+        stimulus do
+          targets :input, :dropdown, :selected_container, :hidden_inputs_container
+          actions(
+            [:input, :search],
+            [:keydown, :handle_keydown],
+            [:focus, :handle_focus],
+            [:click, :handle_input_click],
+            [:blur, :handle_blur]
+          )
+          values(
+            search_url: -> { @search_url || "" },
+            choices: -> { (@choices || []).to_json },
+            extra_search_params: -> { @extra_search_params || "" },
+            min_chars: -> { @choices.present? ? 0 : @min_chars },
+            debounce_ms: -> { @debounce_ms },
+            page_size: -> { @page_size },
+            selected_items: -> { (@selected_items || []).to_json },
+            field_name: -> { @name },
+            allow_free_text: -> { @allow_free_text },
+            delimiter: -> { @delimiter }
+          )
+        end
+
+        private
+
+        def disabled?
+          @disabled
+        end
+      end
+    end
+  end
+end
