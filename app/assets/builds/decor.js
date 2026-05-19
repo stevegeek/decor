@@ -3497,7 +3497,6 @@ import { Controller as Controller27 } from "@hotwired/stimulus";
 var form_controller_default = class extends Controller27 {
   static targets = ["form"];
   connect() {
-    this.element.setAttribute("novalidate", "true");
   }
   disconnect() {
     this.element.removeAttribute("novalidate");
@@ -3510,6 +3509,11 @@ var form_controller_default = class extends Controller27 {
       const target = evt.target;
       if (target !== this.element && !this.element.contains(target)) return;
     }
+    const fields = this.fieldControllers();
+    if (fields.length === 0) {
+      return;
+    }
+    this.element.setAttribute("novalidate", "true");
     if (this.performValidation()) {
       evt.preventDefault();
       evt.stopPropagation();

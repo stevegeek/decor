@@ -16,7 +16,11 @@ export default class extends Controller {
   static targets = ["form"];
 
   connect() {
-    this.element.setAttribute("novalidate", "true");
+    // Defer the `novalidate` decision to first submit. Setting it eagerly on
+    // connect — when no Suite field-controllers exist that implement
+    // `validate()` — silently bypasses HTML5 validation entirely. Only
+    // suppress native validation if we ACTUALLY have JS validators to run
+    // in its place; otherwise let the browser do its native job.
   }
 
   disconnect() {
@@ -34,6 +38,17 @@ export default class extends Controller {
       if (target !== this.element && !this.element.contains(target)) return;
     }
 
+    const fields = this.fieldControllers();
+    if (fields.length === 0) {
+      // No JS-side field controllers — let the browser handle native HTML5
+      // validation. Don't intercept; if we got here at all the browser is
+      // happy with the form.
+      return;
+    }
+
+    // We have JS validators — suppress native popups for this submit and
+    // run them ourselves.
+    this.element.setAttribute("novalidate", "true");
     if (this.performValidation()) {
       evt.preventDefault();
       evt.stopPropagation();
