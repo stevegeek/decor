@@ -68,7 +68,8 @@ module Decor
         prop :compact, _Boolean, default: false
 
         stimulus do
-          values has_blank_or_placeholder: -> { blank_option? || label_inside? || @placeholder.present? }
+          values has_blank_or_placeholder: -> { blank_option? || label_inside? || @placeholder.present? },
+            label: -> { @label.to_s }
         end
 
         private

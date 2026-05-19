@@ -13,6 +13,9 @@ module Decor
         prop :label_position, _Union(:left, :right, :top), default: :right
 
         stimulus do
+          # See TextField for `label` rationale — form_field JS crashes
+          # on first blur without it.
+          values label: -> { @label.to_s }
           classes invalid_input: "invalid:border-error-dark"
         end
 

@@ -204,15 +204,24 @@ module Decor
         # rationale.
 
         def render_helper_or_error_text
-          p(
-            class: [helper_text_classes, (errors? || @helper_text.blank?) ? "decor:hidden" : nil].compact.join(" "),
-            data: form_field_target_data(:helperText)
-          ) { plain @helper_text.to_s }
+          # Wrap in min-h-1lh container so the caption area reserves vertical
+          # space even when both paragraphs are hidden — avoids layout shift
+          # when the JS controller toggles error visibility on blur/submit.
+          div(class: helper_text_section_classes) do
+            p(
+              class: [helper_text_classes, (errors? || @helper_text.blank?) ? "decor:hidden" : nil].compact.join(" "),
+              data: form_field_target_data(:helperText)
+            ) { plain @helper_text.to_s }
 
-          p(
-            class: [error_text_classes, errors? ? nil : "decor:hidden"].compact.join(" "),
-            data: form_field_target_data(:errorText)
-          ) { plain errors? ? error_text : "" }
+            p(
+              class: [error_text_classes, errors? ? nil : "decor:hidden"].compact.join(" "),
+              data: form_field_target_data(:errorText)
+            ) { plain errors? ? error_text : "" }
+          end
+        end
+
+        def helper_text_section_classes
+          @collapsing_helper_text ? "decor:mt-1" : "decor:mt-1 decor:min-h-[1lh]"
         end
 
         def helper_text_classes

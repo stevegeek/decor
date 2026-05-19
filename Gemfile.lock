@@ -22,7 +22,7 @@ GIT
 PATH
   remote: .
   specs:
-    decor (0.20.0)
+    decor (0.20.1)
       js_regex (~> 3.5)
       literal (>= 1.0)
       phlex-rails (>= 2.0)
@@ -181,7 +181,7 @@ GEM
       net-imap
       net-pop
       net-smtp
-    marcel (1.1.0)
+    marcel (1.1.1)
     mini_mime (1.1.5)
     mini_portile2 (2.8.9)
     minitest (5.27.0)
@@ -348,7 +348,7 @@ GEM
     stimulus-rails (1.3.4)
       railties (>= 6.0.0)
     stringio (3.2.0)
-    tailwind_merge (1.5.0)
+    tailwind_merge (1.5.1)
       sin_lru_redux (~> 2.5)
     thor (1.5.0)
     timeout (0.6.1)
@@ -382,7 +382,7 @@ GEM
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
     yard (0.9.38)
-    zeitwerk (2.7.5)
+    zeitwerk (2.8.1)
 
 PLATFORMS
   aarch64-linux

@@ -22,6 +22,8 @@ module Decor
         redefine_styles :outlined, :filled, :ghost, :link
 
         stimulus do
+          # See TextField for `label` rationale.
+          values label: -> { @label.to_s }
           classes valid_label: -> { @disabled ? "text-disabled" : "text-gray-900" },
             invalid_label: "text-error-dark",
             valid_helper_text: -> { @disabled ? "text-disabled" : "text-gray-500" },

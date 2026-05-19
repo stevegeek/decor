@@ -13,6 +13,8 @@ module Decor
         prop :label_position, _Union(:left, :right), default: :right
 
         stimulus do
+          # See TextField for `label` rationale.
+          values label: -> { @label.to_s }
           classes invalid_input: "invalid:border-error-dark"
         end
 
