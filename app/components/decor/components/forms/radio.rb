@@ -26,7 +26,7 @@ module Decor
             value: @value
           }
           attrs[:checked] = true if @checked
-          attrs[:required] = true if @required
+          attrs[:required] = true if required_individual?
           attrs[:disabled] = true if @disabled
           attrs
         end
