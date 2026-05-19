@@ -93,14 +93,14 @@ class ::Decor::Suite::Forms::FormFieldLayoutTest < ActiveSupport::TestCase
     assert_includes html, "decor:suite-field-help"
   end
 
-  test "with_helper_text_section error_text uses suite-danger-700 color" do
+  test "with_helper_text_section error_text uses suite-danger-500 color" do
     layout = ::Decor::Suite::Forms::FormFieldLayout.new(field_id: "n", label: "Name")
     html = render_component(layout) do |l|
       l.with_helper_text_section(error_text: "Required")
       ""
     end
     assert_includes html, "Required"
-    assert_includes html, "decor:text-suite-danger-700"
+    assert_includes html, "decor:text-suite-danger-500"
   end
 
   test "grid_span :span_half emits the half-width responsive class" do

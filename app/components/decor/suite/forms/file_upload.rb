@@ -367,7 +367,7 @@ module Decor
         end
 
         def error_text_classes
-          "decor:suite-field-help decor:text-suite-danger-700"
+          "decor:suite-field-help decor:text-suite-danger-500"
         end
 
         def input_container_classes

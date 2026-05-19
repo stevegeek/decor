@@ -77,12 +77,12 @@ class ::Decor::Suite::Forms::ButtonRadioGroupTest < ActiveSupport::TestCase
     refute_includes html, "decor:duration-200"
   end
 
-  test "error_messages render below the control in suite-danger-700" do
+  test "error_messages render below the control in suite-danger-500" do
     html = render_component(
       ::Decor::Suite::Forms::ButtonRadioGroup.new(name: "n", choices: CHOICES, error_messages: ["Pick one"])
     )
     assert_includes html, "Pick one"
-    assert_includes html, "decor:text-suite-danger-700"
+    assert_includes html, "decor:text-suite-danger-500"
   end
 
   test "error state outlines the container with a suite-danger-500 ring" do

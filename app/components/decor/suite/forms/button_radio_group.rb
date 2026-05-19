@@ -121,7 +121,7 @@ module Decor
           end
 
           if !floating_error_text? && errors?
-            p(class: "decor:suite-field-help decor:text-suite-danger-700") do
+            p(class: "decor:suite-field-help decor:text-suite-danger-500") do
               plain error_text
             end
           end

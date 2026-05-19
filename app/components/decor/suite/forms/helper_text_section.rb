@@ -46,7 +46,7 @@ module Decor
 
         def error_classes
           [
-            "decor:suite-field-help decor:text-suite-danger-700",
+            "decor:suite-field-help decor:text-suite-danger-500",
             @error_text.present? ? nil : "decor:hidden",
             @collapsing_helper_text ? nil : "decor:mt-2"
           ].compact.join(" ")

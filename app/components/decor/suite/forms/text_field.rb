@@ -331,7 +331,7 @@ module Decor
 
         def error_text_classes
           [
-            "decor:suite-field-help decor:text-suite-danger-700",
+            "decor:suite-field-help decor:text-suite-danger-500",
             @collapsing_helper_text ? "decor:m-0" : "decor:mx-0 decor:mb-0"
           ].compact.join(" ")
         end

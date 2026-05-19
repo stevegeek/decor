@@ -113,7 +113,7 @@ class ::Decor::Suite::Forms::ExpandingCheckboxCollectionTest < ActiveSupport::Te
       build(helper_text: "Pick at least one", error_messages: ["Required"])
     )
     assert_includes html, "Required"
-    assert_includes html, "decor:text-suite-danger-700"
+    assert_includes html, "decor:text-suite-danger-500"
     refute_includes html, "Pick at least one"
   end
 

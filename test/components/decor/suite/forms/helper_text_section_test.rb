@@ -12,12 +12,12 @@ class ::Decor::Suite::Forms::HelperTextSectionTest < ActiveSupport::TestCase
     assert_includes html, "decor:text-gray-500"
   end
 
-  test "renders error text with suite-danger-700 when present" do
+  test "renders error text with suite-danger-500 when present" do
     html = render_component(
       ::Decor::Suite::Forms::HelperTextSection.new(error_text: "Too short")
     )
     assert_includes html, "Too short"
-    assert_includes html, "decor:text-suite-danger-700"
+    assert_includes html, "decor:text-suite-danger-500"
   end
 
   test "helper paragraph is hidden when error text is present" do

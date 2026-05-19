@@ -21,6 +21,14 @@ module Decor
         # can attach Stimulus controllers / data hooks to the table itself.
         prop :table_html_options, Hash, default: -> { {} }
 
+        # Customisable empty-state copy/icon shown when no body rows are
+        # rendered. The default "inbox" icon reads as a generic empty
+        # container to non-technical users; pass `empty_state_icon` to
+        # override (e.g. "users" for an empty user list, "shopping-cart"
+        # for an empty order list).
+        prop :empty_state_icon, String, default: "inbox"
+        prop :empty_state_title, String, default: "Nothing here yet"
+
         default_size :md
         default_color :base
         default_style :default

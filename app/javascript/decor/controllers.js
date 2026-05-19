@@ -5,6 +5,7 @@ import CodeBlockController from "../controllers/decor/daisy/code_block_controlle
 import DaisyDropdownController from "../controllers/decor/daisy/dropdown_controller";
 import DaisyFlashController from "../controllers/decor/daisy/flash_controller";
 import DaisyFormsDateCalendarController from "../controllers/decor/daisy/forms/date_calendar_controller";
+import DaisyFormsExpandingCheckboxCollectionController from "../controllers/decor/daisy/forms/expanding_checkbox_collection_controller";
 import DaisyFormsSearchableMultiSelectController from "../controllers/decor/daisy/forms/searchable_multi_select_controller";
 import DaisyFormsSearchableSelectController from "../controllers/decor/daisy/forms/searchable_select_controller";
 import DaisyFormsSwitchController from "../controllers/decor/daisy/forms/switch_controller";
@@ -25,6 +26,7 @@ import SuiteClickToCopyController from "../controllers/decor/suite/click_to_copy
 import SuiteDropdownController from "../controllers/decor/suite/dropdown_controller";
 import SuiteFlashController from "../controllers/decor/suite/flash_controller";
 import SuiteFormsDateCalendarController from "../controllers/decor/suite/forms/date_calendar_controller";
+import SuiteFormsExpandingCheckboxCollectionController from "../controllers/decor/suite/forms/expanding_checkbox_collection_controller";
 import FormController from "../controllers/decor/suite/forms/form_controller";
 import SuiteFormsSearchableMultiSelectController from "../controllers/decor/suite/forms/searchable_multi_select_controller";
 import SuiteFormsSearchableSelectController from "../controllers/decor/suite/forms/searchable_select_controller";
@@ -50,6 +52,7 @@ export const CONTROLLERS = {
   "decor--daisy--dropdown": DaisyDropdownController,
   "decor--daisy--flash": DaisyFlashController,
   "decor--daisy--forms--date-calendar": DaisyFormsDateCalendarController,
+  "decor--daisy--forms--expanding-checkbox-collection": DaisyFormsExpandingCheckboxCollectionController,
   "decor--daisy--forms--searchable-multi-select": DaisyFormsSearchableMultiSelectController,
   "decor--daisy--forms--searchable-select": DaisyFormsSearchableSelectController,
   "decor--daisy--forms--switch": DaisyFormsSwitchController,
@@ -70,6 +73,7 @@ export const CONTROLLERS = {
   "decor--suite--dropdown": SuiteDropdownController,
   "decor--suite--flash": SuiteFlashController,
   "decor--suite--forms--date-calendar": SuiteFormsDateCalendarController,
+  "decor--suite--forms--expanding-checkbox-collection": SuiteFormsExpandingCheckboxCollectionController,
   "decor--suite--forms--form": FormController,
   "decor--suite--forms--searchable-multi-select": SuiteFormsSearchableMultiSelectController,
   "decor--suite--forms--searchable-select": SuiteFormsSearchableSelectController,

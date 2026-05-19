@@ -221,7 +221,11 @@ module Decor
 
         def error_text_classes
           [
-            "decor:suite-field-help decor:text-suite-danger-700",
+            # Error MESSAGE uses suite-danger-500 (vibrant #d94747) to match
+            # Confinus's `text-error` for the helper-text caption. The label
+            # itself still uses suite-danger-700 (burgundy #9f2c2c, matching
+            # Confinus's `text-error-dark`) — same dual-shade pattern.
+            "decor:suite-field-help decor:text-suite-danger-500",
             @collapsing_helper_text ? "decor:m-0" : "decor:mx-0 decor:mb-0"
           ].compact.join(" ")
         end

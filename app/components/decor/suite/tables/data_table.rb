@@ -176,8 +176,8 @@ module Decor
 
         def render_empty_state
           div(class: "decor:bg-white decor:relative decor:block decor:my-6 decor:mx-6 decor:border-2 decor:border-suite-hairline decor:border-dashed decor:rounded-suite-card decor:py-12 decor:text-center decor:hover:border-suite-hairline-strong") do
-            render ::Decor::Icon.new(name: "database", html_options: {class: "decor:mx-auto decor:h-6 decor:w-6 decor:text-gray-400"})
-            span(class: "decor:mt-2 decor:block decor:suite-body decor:font-medium decor:text-gray-900") { "No data..." }
+            render ::Decor::Icon.new(name: @empty_state_icon, html_options: {class: "decor:mx-auto decor:h-6 decor:w-6 decor:text-gray-400"})
+            span(class: "decor:mt-2 decor:block decor:suite-body decor:font-medium decor:text-gray-900") { @empty_state_title }
           end
         end
 

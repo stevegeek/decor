@@ -3,14 +3,11 @@
 module Decor
   module Suite
     module Chat
-      # Suite skin of Chat::ListMessage — a single message row rendered as an
-      # email-preview-style list item: small avatar on the left, header
-      # (author + timestamp) and message body stacked on the right. Designed
-      # to sit inside a <ul> that provides hairline dividers between rows.
-      #
-      # Own messages (`is_current_user`) get a subtle suite-primary-50 tint
-      # and a stronger primary text color on the author name — there is no
-      # speech-bubble; bubbles belong to the Daisy skin.
+      # Suite skin of Chat::ListMessage — email-preview-style row with
+      # avatar on the left and content on the right. No per-row chrome,
+      # no bubbles, no current-user highlight — matches ConfinusUI's
+      # identity exactly. Hairline dividers between rows come from the
+      # parent <ul>'s `divide-y divide-suite-hairline`.
       class ListMessage < ::Decor::Components::Chat::ListMessage
         def view_template(&)
           yield(self) if block_given?
@@ -38,8 +35,11 @@ module Decor
             end
 
             div(class: "decor:grow decor:min-w-0") do
+              # Header: name + timestamp inline, baseline-aligned. Author
+              # uses suite-section-title to match Confinus's c-section-title
+              # weight + size on the author line.
               div(class: "decor:flex decor:items-baseline decor:flex-wrap decor:gap-x-2 decor:gap-y-0") do
-                span(class: "decor:font-semibold decor:suite-body decor:leading-tight #{author_name_color}") { @author_name }
+                span(class: "decor:font-semibold decor:suite-section-title decor:text-gray-900 decor:leading-tight") { @author_name }
                 if @show_timestamp
                   time(
                     datetime: @localised_created_at.iso8601,
@@ -73,37 +73,26 @@ module Decor
 
         private
 
-        def author_name_color
-          if @is_current_user
-            "decor:text-suite-primary-700"
-          else
-            "decor:text-gray-900"
-          end
-        end
-
+        # Format mirrors Confinus's `I18n.l(format: :date_time_concise)` —
+        # Decor doesn't ship that I18n format, so fall back to a compact
+        # locale-aware default.
         def format_timestamp
-          if older_than_24_hours?
-            @localised_created_at.strftime("%m/%d")
+          if I18n.t(:"time.formats.date_time_concise", default: nil)
+            I18n.l(@localised_created_at, format: :date_time_concise)
           else
-            @localised_created_at.strftime("%H:%M")
+            @localised_created_at.strftime("%b %-d, %H:%M")
           end
-        end
-
-        def older_than_24_hours?
-          Time.current - @localised_created_at > 24.hours
         end
 
         def root_element_attributes
           {element_tag: :li}
         end
 
+        # No per-row chrome — dividers come from the parent <ul>'s
+        # divide-y. No `is_current_user` highlight: Confinus doesn't
+        # differentiate own vs other messages in this list-style view.
         def root_element_classes
-          base = "decor--suite--chat-list-message decor:flex decor:items-start decor:gap-3 decor:py-3 decor:px-3 decor:rounded-suite-card"
-          if @is_current_user
-            "#{base} decor:bg-suite-primary-50"
-          else
-            base
-          end
+          "decor--suite--chat-list-message decor:flex decor:items-start decor:gap-3 decor:py-3"
         end
       end
     end

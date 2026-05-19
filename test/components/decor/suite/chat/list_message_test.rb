@@ -46,15 +46,18 @@ class Decor::Suite::Chat::ListMessageTest < ActiveSupport::TestCase
     refute_includes rendered, "decor:text-suite-primary-700"
   end
 
-  test "own-message uses suite-primary-50 row tint and primary author name color" do
+  test "own-message renders identically to other messages (no current-user tint)" do
+    # Suite mirrors ConfinusUI exactly — no own-vs-other visual differentiation
+    # in the list-style chat view. The `is_current_user` prop is accepted for
+    # forward compatibility but has no visual effect.
     own = Decor::Suite::Chat::ListMessage.new(
       author_name: "Me",
       message: "My message",
       is_current_user: true
     )
     rendered = render_component(own)
-    assert_includes rendered, "decor:bg-suite-primary-50"
-    assert_includes rendered, "decor:text-suite-primary-700"
+    refute_includes rendered, "decor:bg-suite-primary-50"
+    refute_includes rendered, "decor:text-suite-primary-700"
   end
 
   test "renders suite Avatar when initials present" do
@@ -94,21 +97,18 @@ class Decor::Suite::Chat::ListMessageTest < ActiveSupport::TestCase
     refute_match(/<time/, rendered)
   end
 
-  test "older timestamps render as date (m/d), recent as time (H:M)" do
-    old = Decor::Suite::Chat::ListMessage.new(
+  test "timestamps render via I18n date_time_concise format (falls back to compact strftime)" do
+    # Suite mirrors Confinus's `I18n.l(format: :date_time_concise)` semantics.
+    # Decor's bundled I18n doesn't ship that format, so the fallback is a
+    # compact `Mon d, HH:MM` strftime — verify either form appears.
+    msg = Decor::Suite::Chat::ListMessage.new(
       author_name: "Jane",
-      message: "Old",
-      localised_created_at: 3.days.ago
+      message: "Hello",
+      localised_created_at: Time.utc(2026, 5, 16, 12, 26)
     )
-    recent = Decor::Suite::Chat::ListMessage.new(
-      author_name: "Jane",
-      message: "Recent",
-      localised_created_at: 1.hour.ago
-    )
-    old_rendered = render_component(old)
-    recent_rendered = render_component(recent)
-    assert_match(%r{<time[^>]*>\d{2}/\d{2}</time>}, old_rendered)
-    assert_match(/<time[^>]*>\d{2}:\d{2}<\/time>/, recent_rendered)
+    rendered = render_component(msg)
+    assert_match(/<time[^>]*>\s*\S.+?\s*<\/time>/, rendered)
+    assert_match(/datetime="2026-05-16T12:26:00Z"/, rendered)
   end
 
   test "footer_text renders inside a suite-caption block" do

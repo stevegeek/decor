@@ -26,7 +26,7 @@ class ::Decor::Suite::Tables::DataTableTest < ActiveSupport::TestCase
 
   test "renders empty state with dashed Suite callout" do
     rendered = render_component(::Decor::Suite::Tables::DataTable.new)
-    assert_includes rendered, "No data..."
+    assert_includes rendered, "Nothing here yet"
     assert_includes rendered, "decor:border-dashed"
     assert_includes rendered, "decor:border-suite-hairline"
   end
@@ -48,7 +48,7 @@ class ::Decor::Suite::Tables::DataTableTest < ActiveSupport::TestCase
       end
     end
     assert_includes rendered, "Row content"
-    refute_includes rendered, "No data..."
+    refute_includes rendered, "Nothing here yet"
   end
 
   test "applies 13px dense body type to table" do

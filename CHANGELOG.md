@@ -1,5 +1,56 @@
 # Changelog
 
+## 0.17.0 — Unreleased
+
+### Fix: Suite form-field error message colour too dark/burgundy
+
+All eight Suite form components (TextField, TextArea, NumberField, Checkbox,
+Radio, Switch, ButtonRadioGroup, FileUpload, ExpandingCheckboxCollection)
++ the shared HelperTextSection used `decor:text-suite-danger-700`
+(`#9f2c2c` — burgundy) for the **error caption text** below the input.
+Confinus uses `text-error` (`#d94747` — vibrant red) for the caption while
+keeping the **invalid label** colour dark (`text-error-dark` = `#9f2c2c`).
+Suite now matches: caption uses `suite-danger-500`; label still uses
+`suite-danger-700`.
+
+### Fix: Suite::Chat::ListMessage visual drift from ConfinusUI
+
+The previous Suite skin invented `is_current_user` row tinting
+(suite-primary-50 background + suite-primary-700 author name) and a custom
+`mm/dd` / `HH:MM` timestamp format. ConfinusUI does neither: every message
+renders identically, and timestamps use `I18n.l(format: :date_time_concise)`.
+Suite now matches exactly — no per-row chrome, no current-user
+differentiation, and timestamps use the I18n format (with a compact strftime
+fallback when the host app doesn't define `date_time_concise`). Author name
+also now uses `suite-section-title` to match Confinus's `c-section-title`
+weight + size (was `suite-body`, visibly smaller).
+
+### Fix: Suite ExpandingCheckboxCollection "Show more..." toggle did nothing
+
+Decor never had a JS controller for ExpandingCheckboxCollection — ConfinusUI
+shipped one but it was never ported. Added a minimal Daisy JS controller
+that toggles `decor:hidden` on every descendant matching the `.hideable`
+marker class and flips the toggle button label between "Show more..." and
+"Show less...". Suite re-exports the Daisy controller via the established
+pattern. Consumer markup must mark to-be-hidden rows with the prefixed
+utility (`class="hideable decor:hidden"`) — the unprefixed `hidden` has no
+CSS effect under the Decor prefix scheme.
+
+### Add: Suite::Tables::DataTable empty-state is customisable + has neutral default
+
+The hardcoded "database" icon read as a meaningless storage-drive glyph to
+non-technical users in any empty-table context that wasn't literally a
+database. Added two abstract-base props — `empty_state_icon` (default
+`"inbox"`) and `empty_state_title` (default `"Nothing here yet"`) — so
+callers can pass appropriate copy/icon per table (e.g. `"users"` for an
+empty user list, `"shopping-cart"` for an empty order list). Daisy + Suite
+both honour the props. The Suite render_empty_state now reads from these
+props instead of hardcoding "database" / "No data...".
+
+### Tests
+
+Full Suite suite: 1189 runs / 4882 assertions / 0 failures.
+
 ## 0.16.0 — Unreleased
 
 ### Suite component batch 6 — 10 layout / stat / utility ports
