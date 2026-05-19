@@ -1,5 +1,80 @@
 # Changelog
 
+## 0.15.0 — Unreleased
+
+### Suite component batch 5 — 10 ports + DateCalendar popover-scroll fix + two abstract-base bug fixes
+
+Ported in parallel; each component carries a Suite reskin of the ConfinusUI
+identity (or, for `CodeBlock` which has no ConfinusUI peer, a Daisy reskin
+in Suite tokens).
+
+- `Decor::Suite::Forms::TextArea` — same shell as Suite::Forms::TextField with
+  resize-y, min-h-[84px], `font-mono`-free body type. Optional character
+  counter when `maximum_length` is set.
+- `Decor::Suite::Forms::HiddenField` — emits `<input type="hidden">`; no chrome.
+- `Decor::Suite::Forms::ButtonRadioGroup` — segmented control: gray-100 pill,
+  white-lifted selected segment with hairline-strong outline shadow +
+  primary-500 text. Uses `has-[input:checked]:*` for selection state.
+- `Decor::Suite::Forms::FileUpload` — three variants (`:file` dashed drop
+  zone, `:image` thumbnail + CTA, `:avatar` circle + native input). Appends
+  the existing Daisy controller via `controllers DAISY_CTRL_PATH` so DnD
+  + preview JS works without duplication.
+- `Decor::Suite::Forms::ExpandingCheckboxCollection` — Suite chrome around
+  the base's checkboxes slot, with a `Decor::Suite::Button(:ghost, :primary,
+  :sm)` toggle.
+- `Decor::Suite::Tables::DataTableFooter` — flex band with hairline top
+  border, suite-gray-25 bg, `:section` / `:final` separators.
+- `Decor::Suite::NotificationManager` — fixed-position toast container
+  (6 positions: top/bottom × left/center/right), `<template>` clones a
+  Suite::Notification skeleton.
+- `Decor::Suite::Chat::List` — message-thread container with Suite section
+  title + empty-state. Adopts the abstract base's `messages:` array prop API.
+- `Decor::Suite::Chat::ListMessage` — own-message rows tinted suite-primary-50
+  with suite-primary-700 author name; other rows neutral. Avatar falls back
+  to a user icon in a suite-gray-25 circle. Timestamp flips between H:M
+  (<24h) and m/d (older).
+- `Decor::Suite::CodeBlock` — Suite reskin (no ConfinusUI peer). Reuses the
+  Daisy JS controller verbatim by overriding `self.stimulus_identifier_path`
+  to return `"decor/daisy/code_block"`, so the existing `import "cally"`-style
+  controller binds without duplication.
+
+### Fix: Suite::Forms::DateCalendar popover stuck on viewport scroll
+
+`mode: :popover` writes inline `top`/`left` on the panel before `showPopover()`
+so the calendar sits below the trigger. But with `position: fixed`, the panel
+stays glued to the viewport while page content scrolls underneath — visually
+decoupling from the trigger. The controller now registers
+capture-phase `scroll` + `resize` listeners on window while the popover is
+open and re-runs `_positionPopover()` on each fire, then tears the listeners
+down via the popover's `toggle` event when state flips to `closed`.
+
+### Fix: Components::Forms::ButtonRadioGroup `required`/`disabled` never emitted
+
+The abstract base wrote `attrs[:required] = nil if @required` /
+`attrs[:disabled] = nil if @disabled`. Phlex drops `nil`-valued attributes
+entirely on either branch, so `required` and `disabled` radios actually
+rendered without those attributes — silently breaking form-level required
+validation on the Daisy variant for the entire life of the component.
+Changed to `attrs[:required] = true if @required` / `attrs[:disabled] = true
+if @disabled`. Same fix applied to `label_html_attributes`.
+
+### Fix: Components::Forms::ExpandingCheckboxCollection outlet hard-coded to Daisy
+
+The abstract base declared `outlets({Decor::Daisy::Forms::Checkbox.stimulus_identifier => nil})`
+on its stimulus block, so Suite consumers would emit an outlet pointing at
+the Daisy checkbox identifier — wrong skin, wrong controller. Changed to
+declare BOTH skin's checkbox identifiers as outlets; one extra
+`data-…-outlet` attribute on the root is cheap and avoids a per-skin
+override.
+
+### Tests
+
+Batch 5 components: 156 runs / 642 assertions / 0F.
+Full Suite suite: 1048 runs / 4267 assertions / 0F.
+(One pre-existing failure in `Decor::Daisy::Forms::ExpandingCheckboxCollectionTest`
+asserts unprefixed `"join join-vertical"` but Daisy emits `decor:d-join
+decor:d-join-vertical` post-codemod; unrelated to this batch.)
+
 ## 0.14.0 — Unreleased
 
 ### Add: Suite::Forms::DateCalendar gains `mode: :inline | :popover`

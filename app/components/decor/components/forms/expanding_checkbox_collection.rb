@@ -19,7 +19,16 @@ module Decor
         redefine_styles :default, :joined
 
         stimulus do
-          outlets({::Decor::Daisy::Forms::Checkbox.stimulus_identifier => nil})
+          # Declare outlets for BOTH skin's Checkbox identifiers — the
+          # collection's controller (currently only Daisy ships one) needs
+          # to discover the actual rendered child checkbox controllers, and
+          # Suite renders `decor--suite--forms--checkbox` while Daisy renders
+          # `decor--daisy--forms--checkbox`. One extra `data-...-outlet`
+          # attribute on the root is cheap and avoids a per-skin override.
+          outlets({
+            ::Decor::Daisy::Forms::Checkbox.stimulus_identifier => nil,
+            ::Decor::Suite::Forms::Checkbox.stimulus_identifier => nil
+          })
           values label: "collection", required: -> { @required }
           classes(
             valid_label: -> { @disabled ? "text-disabled" : "text-gray-900" },

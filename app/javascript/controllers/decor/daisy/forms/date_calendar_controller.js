@@ -91,24 +91,40 @@ export default class extends Controller {
     const panel = this.popoverPanelTarget
     const trigger = this.popoverTriggerTarget
 
-    // Anchor the popover below the trigger. Native popovers open into the
-    // top-layer (above everything) but UA-position to the viewport — we have
-    // to write top/left inline so the panel hugs the trigger.
-    const rect = trigger.getBoundingClientRect()
-    panel.style.position = 'fixed'
-    panel.style.top = `${rect.bottom + 4}px`
-    panel.style.left = `${rect.left}px`
-
+    this._positionPopover()
     panel.showPopover()
     trigger.setAttribute('aria-expanded', 'true')
 
-    // Sync aria-expanded back to false on dismiss (Escape / click-outside /
-    // explicit hidePopover). One-shot via the native `toggle` event.
+    // Native popovers open into the top-layer (above all other content) but
+    // UA-position relative to the viewport. We anchor the panel below the
+    // trigger via inline top/left — but with `position: fixed` the popover
+    // stays glued to the viewport while content scrolls underneath, which
+    // visually decouples it from the trigger. Re-run positioning on scroll
+    // (capture-phase so nested scrollers fire it) and on resize while the
+    // popover is open.
+    this._boundReposition = this._positionPopover.bind(this)
+    window.addEventListener('scroll', this._boundReposition, true)
+    window.addEventListener('resize', this._boundReposition)
+
+    // Sync aria-expanded back + tear listeners down on dismiss (Escape /
+    // click-outside / explicit hidePopover). One-shot via the native
+    // `toggle` event.
     panel.addEventListener('toggle', (e) => {
       if (e.newState === 'closed') {
         trigger.setAttribute('aria-expanded', 'false')
+        window.removeEventListener('scroll', this._boundReposition, true)
+        window.removeEventListener('resize', this._boundReposition)
       }
     }, { once: true })
+  }
+
+  _positionPopover() {
+    if (!this.hasPopoverPanelTarget || !this.hasPopoverTriggerTarget) return
+    const rect = this.popoverTriggerTarget.getBoundingClientRect()
+    const panel = this.popoverPanelTarget
+    panel.style.position = 'fixed'
+    panel.style.top = `${rect.bottom + 4}px`
+    panel.style.left = `${rect.left}px`
   }
 
   _closePopover() {

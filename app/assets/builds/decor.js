@@ -502,17 +502,27 @@ var date_calendar_controller_default = class extends Controller6 {
     if (!this.hasPopoverPanelTarget || !this.hasPopoverTriggerTarget) return;
     const panel = this.popoverPanelTarget;
     const trigger = this.popoverTriggerTarget;
-    const rect = trigger.getBoundingClientRect();
-    panel.style.position = "fixed";
-    panel.style.top = `${rect.bottom + 4}px`;
-    panel.style.left = `${rect.left}px`;
+    this._positionPopover();
     panel.showPopover();
     trigger.setAttribute("aria-expanded", "true");
+    this._boundReposition = this._positionPopover.bind(this);
+    window.addEventListener("scroll", this._boundReposition, true);
+    window.addEventListener("resize", this._boundReposition);
     panel.addEventListener("toggle", (e) => {
       if (e.newState === "closed") {
         trigger.setAttribute("aria-expanded", "false");
+        window.removeEventListener("scroll", this._boundReposition, true);
+        window.removeEventListener("resize", this._boundReposition);
       }
     }, { once: true });
+  }
+  _positionPopover() {
+    if (!this.hasPopoverPanelTarget || !this.hasPopoverTriggerTarget) return;
+    const rect = this.popoverTriggerTarget.getBoundingClientRect();
+    const panel = this.popoverPanelTarget;
+    panel.style.position = "fixed";
+    panel.style.top = `${rect.bottom + 4}px`;
+    panel.style.left = `${rect.left}px`;
   }
   _closePopover() {
     if (this.hasPopoverPanelTarget && this.popoverPanelTarget.matches(":popover-open")) {

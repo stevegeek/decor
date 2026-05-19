@@ -39,8 +39,12 @@ module Decor
             class: "decor:sr-only"
           }
           attrs[:checked] = true if @selected_choice == value
-          attrs[:required] = nil if @required
-          attrs[:disabled] = nil if @disabled
+          # NB: Phlex drops nil-valued attributes entirely. The previous form
+          # (`attrs[:required] = nil if @required`) emitted nothing on either
+          # branch — required radios actually rendered without `required`,
+          # silently disabling form-level required validation on this control.
+          attrs[:required] = true if @required
+          attrs[:disabled] = true if @disabled
           attrs
         end
 
@@ -48,7 +52,7 @@ module Decor
           attrs = {
             for: "#{id}-input-#{idx + 1}"
           }
-          attrs[:disabled] = nil if @disabled
+          attrs[:disabled] = true if @disabled
           attrs
         end
 
