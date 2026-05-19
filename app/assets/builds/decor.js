@@ -1,6 +1,306 @@
-// app/javascript/controllers/decor/daisy/button_controller.js
+// app/javascript/controllers/decor/daisy/ai_chat/widget_controller.js
 import { Controller } from "@hotwired/stimulus";
-var button_controller_default = class extends Controller {
+var PROCESSING_TIMEOUT_MS = 3e4;
+var BROADCAST_EVENT = "decor-ai-chat:broadcast";
+var widget_controller_default = class extends Controller {
+  static targets = [
+    "panel",
+    "messages",
+    "input",
+    "thinking",
+    "toggleButton",
+    "chatIcon",
+    "closeIcon",
+    "welcome",
+    "sendButton",
+    "errorBanner"
+  ];
+  static values = {
+    createUrl: String,
+    threadsUrl: String,
+    threadEncodedId: { type: String, default: "" },
+    open: { type: Boolean, default: false }
+  };
+  connect() {
+    this.streamingEl = null;
+    this.processing = false;
+    this.processingTimer = null;
+    this.boundBroadcastHandler = (evt) => this.handleBroadcast(evt.detail);
+    window.addEventListener(BROADCAST_EVENT, this.boundBroadcastHandler);
+  }
+  disconnect() {
+    this.clearProcessingTimeout();
+    if (this.boundBroadcastHandler) {
+      window.removeEventListener(BROADCAST_EVENT, this.boundBroadcastHandler);
+    }
+  }
+  toggle() {
+    this.openValue = !this.openValue;
+    this.updatePanel();
+  }
+  open(event) {
+    if (event) event.preventDefault();
+    if (!this.openValue) {
+      this.openValue = true;
+      this.updatePanel();
+    }
+  }
+  updatePanel() {
+    this.panelTarget.classList.toggle("decor:hidden", !this.openValue);
+    this.panelTarget.classList.toggle("decor:flex", this.openValue);
+    this.chatIconTarget.classList.toggle("decor:hidden", this.openValue);
+    this.closeIconTarget.classList.toggle("decor:hidden", !this.openValue);
+    if (this.openValue) {
+      this.inputTarget.focus();
+    }
+  }
+  newThread() {
+    this.threadEncodedIdValue = "";
+    this.clearMessages();
+    if (this.hasWelcomeTarget) {
+      this.welcomeTarget.classList.remove("decor:hidden");
+    }
+    this.inputTarget.focus();
+  }
+  async send(e) {
+    e.preventDefault();
+    const message = this.inputTarget.value.trim();
+    if (!message || this.processing) return;
+    this.processing = true;
+    this.sendButtonTarget.disabled = true;
+    this.hideError();
+    this.hideWelcome();
+    this.appendUserMessage(message);
+    this.inputTarget.value = "";
+    this.showThinking();
+    this.startProcessingTimeout();
+    try {
+      const response = await fetch(this.createUrlValue, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-Token": this.csrfToken
+        },
+        body: JSON.stringify({
+          message,
+          thread_id: this.threadEncodedIdValue || null
+        })
+      });
+      if (!response.ok) {
+        this.clearProcessingTimeout();
+        this.hideThinking();
+        try {
+          const body = await response.json();
+          this.showError(
+            body.error || "Failed to send message. Please try again."
+          );
+        } catch {
+          this.showError("Failed to send message. Please try again.");
+        }
+        this.processing = false;
+        this.sendButtonTarget.disabled = false;
+      }
+    } catch (error) {
+      this.clearProcessingTimeout();
+      console.error("[Decor AI Chat] Send failed:", error);
+      this.hideThinking();
+      this.showError("Network error. Please check your connection.");
+      this.processing = false;
+      this.sendButtonTarget.disabled = false;
+    }
+  }
+  // Broadcast handler — invoked when a `decor-ai-chat:broadcast` window
+  // event is dispatched. Expected shape: `{ai_chat: {type, ...}}`.
+  handleBroadcast(data) {
+    if (!data || !data.ai_chat) return;
+    const msg = data.ai_chat;
+    switch (msg.type) {
+      case "thinking":
+        this.showThinking();
+        break;
+      case "chunk":
+        this.appendChunk(msg.text);
+        break;
+      case "complete":
+        this.completeMessage(msg);
+        break;
+      case "error":
+        this.handleError(msg);
+        break;
+    }
+  }
+  appendUserMessage(text) {
+    const el = document.createElement("div");
+    el.className = "decor:ml-12 decor:bg-suite-primary-100 decor:text-gray-900 decor:rounded-suite-control decor:px-3 decor:py-2 decor:suite-description";
+    el.textContent = text;
+    this.messagesTarget.appendChild(el);
+    this.scrollToBottom();
+  }
+  appendChunk(text) {
+    this.resetProcessingTimeout();
+    this.hideThinking();
+    if (!this.streamingEl) {
+      this.streamingEl = document.createElement("div");
+      this.streamingEl.className = "decor:mr-12 decor:bg-suite-gray-25 decor:text-gray-900 decor:rounded-suite-control decor:px-3 decor:py-2 decor:suite-description decor:whitespace-pre-wrap";
+      this.streamingEl.textContent = "";
+      this.messagesTarget.appendChild(this.streamingEl);
+    }
+    this.streamingEl.textContent += text;
+    this.scrollToBottom();
+  }
+  completeMessage(msg) {
+    this.clearProcessingTimeout();
+    this.hideThinking();
+    if (this.streamingEl) {
+      if (msg.message && msg.message.html) {
+        this.streamingEl.innerHTML = msg.message.html;
+        this.streamingEl.classList.remove("decor:whitespace-pre-wrap");
+        this.streamingEl.classList.add("decor:prose", "decor:max-w-none");
+      } else if (msg.message && msg.message.text) {
+        this.streamingEl.textContent = msg.message.text;
+      }
+      if (msg.message && msg.message.actions && msg.message.actions.length) {
+        this.appendActions(this.streamingEl, msg.message.actions);
+      }
+      this.streamingEl = null;
+    } else if (msg.message && (msg.message.text || msg.message.html)) {
+      const el = document.createElement("div");
+      if (msg.message.html) {
+        el.className = "decor:mr-12 decor:bg-suite-gray-25 decor:text-gray-900 decor:rounded-suite-control decor:px-3 decor:py-2 decor:suite-description decor:prose decor:max-w-none";
+        el.innerHTML = msg.message.html;
+      } else {
+        el.className = "decor:mr-12 decor:bg-suite-gray-25 decor:text-gray-900 decor:rounded-suite-control decor:px-3 decor:py-2 decor:suite-description decor:whitespace-pre-wrap";
+        el.textContent = msg.message.text;
+      }
+      if (msg.message.actions && msg.message.actions.length) {
+        this.appendActions(el, msg.message.actions);
+      }
+      this.messagesTarget.appendChild(el);
+    }
+    if (msg.thread_encoded_id) {
+      this.threadEncodedIdValue = msg.thread_encoded_id;
+    }
+    if (msg.handed_off) {
+      this.showHandoffBanner();
+    }
+    this.processing = false;
+    this.sendButtonTarget.disabled = false;
+    this.scrollToBottom();
+    this.inputTarget.focus();
+  }
+  handleError(msg) {
+    this.clearProcessingTimeout();
+    this.hideThinking();
+    this.streamingEl = null;
+    this.processing = false;
+    this.sendButtonTarget.disabled = false;
+    if (msg.code === "thread_closed") {
+      this.showError(
+        "This conversation has been closed. Please start a new chat."
+      );
+      this.inputTarget.disabled = true;
+    } else if (msg.code === "message_moderated") {
+      this.showError(
+        "Your message could not be processed. Please keep messages related to ordering."
+      );
+    } else {
+      this.showError(msg.error || "Something went wrong. Please try again.");
+    }
+  }
+  appendActions(parent, actions) {
+    const container = document.createElement("div");
+    container.className = "decor:flex decor:flex-wrap decor:gap-2 decor:mt-2";
+    actions.forEach((action) => {
+      if (action.type === "navigate" && action.path && action.path.startsWith("/")) {
+        const link = document.createElement("a");
+        link.href = action.path;
+        link.textContent = action.label || "Go";
+        link.className = "decor:inline-flex decor:items-center decor:px-3 decor:py-1 decor:suite-caption decor:font-medium decor:bg-suite-primary-50 decor:text-suite-primary-700 decor:rounded-suite-control decor:border decor:border-suite-primary-100 decor:hover:bg-suite-primary-100 decor:transition-colors";
+        container.appendChild(link);
+      }
+    });
+    if (container.children.length > 0) {
+      parent.appendChild(container);
+    }
+  }
+  showThinking() {
+    this.thinkingTarget.classList.remove("decor:hidden");
+    this.scrollToBottom();
+  }
+  hideThinking() {
+    this.thinkingTarget.classList.add("decor:hidden");
+  }
+  hideWelcome() {
+    if (this.hasWelcomeTarget) {
+      this.welcomeTarget.classList.add("decor:hidden");
+    }
+  }
+  showHandoffBanner() {
+    const existing = this.messagesTarget.querySelector("[data-handoff-banner]");
+    if (existing) return;
+    const banner = document.createElement("div");
+    banner.setAttribute("data-handoff-banner", "true");
+    banner.className = "decor:text-center decor:py-2 decor:px-3 decor:suite-caption decor:text-suite-primary-600 decor:bg-suite-primary-50 decor:rounded-suite-control";
+    banner.textContent = "You're now connected with our support team. Messages will be handled by a team member.";
+    this.messagesTarget.appendChild(banner);
+    this.scrollToBottom();
+  }
+  showError(message) {
+    this.errorBannerTarget.textContent = message;
+    this.errorBannerTarget.classList.remove("decor:hidden");
+  }
+  hideError() {
+    this.errorBannerTarget.textContent = "";
+    this.errorBannerTarget.classList.add("decor:hidden");
+  }
+  clearMessages() {
+    const children = Array.from(this.messagesTarget.children);
+    children.forEach((child) => {
+      if (child !== this.welcomeTarget) {
+        child.remove();
+      }
+    });
+    this.streamingEl = null;
+    this.hideError();
+    this.inputTarget.disabled = false;
+  }
+  startProcessingTimeout() {
+    this.clearProcessingTimeout();
+    this.processingTimer = setTimeout(() => {
+      if (this.processing) {
+        this.hideThinking();
+        this.streamingEl = null;
+        this.processing = false;
+        this.sendButtonTarget.disabled = false;
+        this.showError("The response took too long. Please try again.");
+      }
+    }, PROCESSING_TIMEOUT_MS);
+  }
+  resetProcessingTimeout() {
+    if (this.processing) {
+      this.startProcessingTimeout();
+    }
+  }
+  clearProcessingTimeout() {
+    if (this.processingTimer) {
+      clearTimeout(this.processingTimer);
+      this.processingTimer = null;
+    }
+  }
+  scrollToBottom() {
+    requestAnimationFrame(() => {
+      this.messagesTarget.scrollTop = this.messagesTarget.scrollHeight;
+    });
+  }
+  get csrfToken() {
+    const meta = document.querySelector('meta[name="csrf-token"]');
+    return meta && meta.getAttribute("content") || "";
+  }
+};
+
+// app/javascript/controllers/decor/daisy/button_controller.js
+import { Controller as Controller2 } from "@hotwired/stimulus";
+var button_controller_default = class extends Controller2 {
   set disabled(disabled) {
     if (disabled) {
       this.element.setAttribute("disabled", "disabled");
@@ -11,8 +311,8 @@ var button_controller_default = class extends Controller {
 };
 
 // app/javascript/controllers/decor/daisy/click_to_copy_controller.js
-import { Controller as Controller2 } from "@hotwired/stimulus";
-var click_to_copy_controller_default = class extends Controller2 {
+import { Controller as Controller3 } from "@hotwired/stimulus";
+var click_to_copy_controller_default = class extends Controller3 {
   static targets = ["content"];
   static values = { toCopy: String };
   async copy() {
@@ -74,8 +374,8 @@ var click_to_copy_controller_default = class extends Controller2 {
 };
 
 // app/javascript/controllers/decor/daisy/code_block_controller.js
-import { Controller as Controller3 } from "@hotwired/stimulus";
-var code_block_controller_default = class extends Controller3 {
+import { Controller as Controller4 } from "@hotwired/stimulus";
+var code_block_controller_default = class extends Controller4 {
   static targets = ["code"];
   static values = {
     highlight: { type: Boolean, default: false },
@@ -119,7 +419,7 @@ var code_block_controller_default = class extends Controller3 {
 };
 
 // app/javascript/controllers/decor/daisy/dropdown_controller.js
-import { Controller as Controller4 } from "@hotwired/stimulus";
+import { Controller as Controller5 } from "@hotwired/stimulus";
 
 // app/javascript/controllers/decor/http.js
 function getCSRFToken() {
@@ -248,7 +548,7 @@ function safelySetInnerHTML(el, { __safe, content }) {
 }
 
 // app/javascript/controllers/decor/daisy/dropdown_controller.js
-var dropdown_controller_default = class extends Controller4 {
+var dropdown_controller_default = class extends Controller5 {
   constructor() {
     super(...arguments);
     this.shown = false;
@@ -353,12 +653,12 @@ var dropdown_controller_default = class extends Controller4 {
 };
 
 // app/javascript/controllers/decor/daisy/flash_controller.js
-import { Controller as Controller5 } from "@hotwired/stimulus";
+import { Controller as Controller6 } from "@hotwired/stimulus";
 var INITIAL_CLASSES = "decor:invisible decor:opacity-0";
 var VISIBLE_CLASSES = "decor:transition-opacity decor:duration-300 decor:opacity-100 decor:visible";
 var COLLAPSED_CLASS = "decor:hidden";
 var TEXT_CLASS = "decor:text-sm";
-var flash_controller_default = class extends Controller5 {
+var flash_controller_default = class extends Controller6 {
   static values = {
     showInitial: Boolean
   };
@@ -451,9 +751,9 @@ var flash_controller_default = class extends Controller5 {
 };
 
 // app/javascript/controllers/decor/daisy/forms/date_calendar_controller.js
-import { Controller as Controller6 } from "@hotwired/stimulus";
+import { Controller as Controller7 } from "@hotwired/stimulus";
 import "cally";
-var date_calendar_controller_default = class extends Controller6 {
+var date_calendar_controller_default = class extends Controller7 {
   static targets = ["calendar", "hiddenInput", "popoverTrigger", "popoverPanel"];
   static values = {
     calendarType: { type: String, default: null },
@@ -598,8 +898,8 @@ var date_calendar_controller_default = class extends Controller6 {
 };
 
 // app/javascript/controllers/decor/daisy/forms/expanding_checkbox_collection_controller.js
-import { Controller as Controller7 } from "@hotwired/stimulus";
-var expanding_checkbox_collection_controller_default = class extends Controller7 {
+import { Controller as Controller8 } from "@hotwired/stimulus";
+var expanding_checkbox_collection_controller_default = class extends Controller8 {
   static targets = ["showMoreLink"];
   initialize() {
     this.showingMore = false;
@@ -615,9 +915,294 @@ var expanding_checkbox_collection_controller_default = class extends Controller7
   }
 };
 
+// app/javascript/controllers/decor/daisy/forms/multi_image_upload_controller.js
+import { Controller as Controller9 } from "@hotwired/stimulus";
+var multi_image_upload_controller_default = class extends Controller9 {
+  static targets = [
+    "sortableContainer",
+    "thumbnail",
+    "thumbnailImage",
+    "fileInput",
+    "hiddenFieldsContainer",
+    "newFilesInput",
+    "imageCount",
+    "primaryBadge",
+    "cropModal",
+    "cropImage"
+  ];
+  static values = {
+    maxSizeInMb: Number,
+    maxImages: Number,
+    enableCrop: Boolean,
+    cropAspectW: Number,
+    cropAspectH: Number,
+    fileMimeTypes: String
+  };
+  initialize() {
+    this.sortable = null;
+    this.pendingFiles = /* @__PURE__ */ new Map();
+    this.removedSignedIds = /* @__PURE__ */ new Set();
+    this.cropper = null;
+    this.croppingThumbnail = null;
+    this.nextClientId = 0;
+  }
+  connect() {
+    this.initSortable();
+  }
+  disconnect() {
+    if (this.sortable) {
+      this.sortable.destroy();
+      this.sortable = null;
+    }
+    this.destroyCropper();
+  }
+  openFilePicker() {
+    if (this.totalImageCount >= this.maxImagesValue) {
+      alert(`Maximum of ${this.maxImagesValue} images allowed.`);
+      return;
+    }
+    this.fileInputTarget.click();
+  }
+  filesSelected(event) {
+    const input = event.target;
+    if (!input.files || input.files.length === 0) return;
+    const remaining = this.maxImagesValue - this.totalImageCount;
+    if (remaining <= 0) {
+      alert(`Maximum of ${this.maxImagesValue} images allowed.`);
+      input.value = "";
+      return;
+    }
+    const files = Array.from(input.files).slice(0, remaining);
+    const maxBytes = this.maxSizeInMbValue * 1024 * 1024;
+    for (const file of files) {
+      if (file.size > maxBytes) {
+        alert(`"${file.name}" is too large (max ${this.maxSizeInMbValue}MB).`);
+        continue;
+      }
+      this.addPendingFile(file);
+    }
+    input.value = "";
+    this.syncHiddenFields();
+    this.updateImageCount();
+    this.updatePrimaryBadge();
+  }
+  removeImage(event) {
+    const button = event.target.closest("button");
+    const thumbnail = button ? button.closest("[data-image-type]") : null;
+    if (!thumbnail) return;
+    this.removeThumbnail(thumbnail);
+  }
+  cropImage(event) {
+    if (!this.enableCropValue || !this.hasCropModalTarget) return;
+    const button = event.target.closest("button");
+    const thumbnail = button ? button.closest("[data-image-type]") : null;
+    if (!thumbnail) return;
+    const img = thumbnail.querySelector("img");
+    if (!img) return;
+    this.croppingThumbnail = thumbnail;
+    this.cropImageTarget.src = img.src;
+    this.cropModalTarget.classList.remove("decor:hidden");
+    this.cropModalTarget.classList.remove("hidden");
+    this.cropImageTarget.onload = () => {
+      this.destroyCropper();
+      const aspectRatio = this.cropAspectWValue > 0 && this.cropAspectHValue > 0 ? this.cropAspectWValue / this.cropAspectHValue : NaN;
+      const CropperCtor = window.Cropper || (typeof Cropper !== "undefined" ? Cropper : null);
+      if (!CropperCtor) return;
+      this.cropper = new CropperCtor(this.cropImageTarget, { aspectRatio });
+    };
+  }
+  applyCrop() {
+    if (!this.cropper || !this.croppingThumbnail) return;
+    const canvas = this.cropper.getCroppedCanvas();
+    if (!canvas) {
+      this.cancelCrop();
+      return;
+    }
+    const thumbnail = this.croppingThumbnail;
+    const imageType = thumbnail.dataset.imageType;
+    const clientId = thumbnail.dataset.clientId;
+    const dataUrl = canvas.toDataURL("image/png");
+    const img = thumbnail.querySelector("img");
+    if (img) img.src = dataUrl;
+    canvas.toBlob((blob) => {
+      if (!blob) {
+        this.cancelCrop();
+        return;
+      }
+      if (imageType === "existing") {
+        const signedId = thumbnail.dataset.signedId;
+        if (signedId) this.removedSignedIds.add(signedId);
+        const newClientId = this.generateClientId();
+        const file = new File([blob], `cropped-${Date.now()}.png`, { type: "image/png" });
+        this.pendingFiles.set(newClientId, file);
+        thumbnail.dataset.imageType = "pending";
+        thumbnail.dataset.clientId = newClientId;
+        delete thumbnail.dataset.signedId;
+        delete thumbnail.dataset.blobId;
+      } else if (imageType === "pending" && clientId) {
+        const file = new File([blob], `cropped-${Date.now()}.png`, { type: "image/png" });
+        this.pendingFiles.set(clientId, file);
+      }
+      this.syncHiddenFields();
+      this.cancelCrop();
+    }, "image/png");
+  }
+  cancelCrop() {
+    this.destroyCropper();
+    if (this.hasCropModalTarget) {
+      this.cropModalTarget.classList.add("decor:hidden");
+      this.cropModalTarget.classList.add("hidden");
+    }
+    this.croppingThumbnail = null;
+  }
+  // ── private ────────────────────────────────────────────────────────────
+  initSortable() {
+    const SortableCtor = window.Sortable || (typeof Sortable !== "undefined" ? Sortable : null);
+    if (!SortableCtor) return;
+    this.sortable = SortableCtor.create(this.sortableContainerTarget, {
+      animation: 150,
+      ghostClass: "opacity-50",
+      dragClass: "cursor-grabbing",
+      onEnd: () => {
+        this.syncHiddenFields();
+        this.updatePrimaryBadge();
+      }
+    });
+  }
+  addPendingFile(file) {
+    const clientId = this.generateClientId();
+    this.pendingFiles.set(clientId, file);
+    const thumb = document.createElement("div");
+    thumb.className = "decor:relative decor:group decor:border decor:border-suite-hairline-strong decor:rounded-suite-control decor:overflow-hidden decor:bg-suite-gray-25 decor:aspect-square";
+    thumb.setAttribute(`data-${this.identifier}-target`, "thumbnail");
+    thumb.dataset.imageType = "pending";
+    thumb.dataset.clientId = clientId;
+    const img = document.createElement("img");
+    img.className = "decor:w-full decor:h-full decor:object-cover";
+    img.alt = file.name;
+    thumb.appendChild(img);
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      if (e.target && e.target.result) {
+        img.src = e.target.result.toString();
+      }
+    };
+    reader.readAsDataURL(file);
+    const overlay = document.createElement("div");
+    overlay.className = "decor:absolute decor:inset-0 decor:bg-black/0 decor:group-hover:bg-black/20 decor:transition-colors decor:duration-suite-fast";
+    thumb.appendChild(overlay);
+    const actions = document.createElement("div");
+    actions.className = "decor:absolute decor:top-1 decor:right-1 decor:flex decor:gap-1 decor:opacity-0 decor:group-hover:opacity-100 decor:transition-opacity decor:duration-suite-fast";
+    if (this.enableCropValue) {
+      const cropBtn = document.createElement("button");
+      cropBtn.type = "button";
+      cropBtn.className = "decor:p-1 decor:bg-white decor:rounded-suite-control decor:shadow decor:hover:bg-suite-gray-25 decor:text-gray-700 decor:transition-colors decor:duration-suite-fast";
+      cropBtn.title = "Crop image";
+      cropBtn.dataset.action = `click->${this.identifier}#cropImage`;
+      cropBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="decor:h-4 decor:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 7V3m0 4H3m4 0l10 10m0 0v4m0-4h4M7 7l10 10"/></svg>`;
+      actions.appendChild(cropBtn);
+    }
+    const removeBtn = document.createElement("button");
+    removeBtn.type = "button";
+    removeBtn.className = "decor:p-1 decor:bg-white decor:rounded-suite-control decor:shadow decor:hover:bg-suite-danger-50 decor:text-suite-danger-500 decor:transition-colors decor:duration-suite-fast";
+    removeBtn.title = "Remove image";
+    removeBtn.dataset.action = `click->${this.identifier}#removeImage`;
+    removeBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="decor:h-4 decor:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>`;
+    actions.appendChild(removeBtn);
+    thumb.appendChild(actions);
+    this.sortableContainerTarget.appendChild(thumb);
+  }
+  removeThumbnail(thumbnail) {
+    const imageType = thumbnail.dataset.imageType;
+    if (imageType === "existing") {
+      const signedId = thumbnail.dataset.signedId;
+      if (signedId) this.removedSignedIds.add(signedId);
+    } else if (imageType === "pending") {
+      const clientId = thumbnail.dataset.clientId;
+      if (clientId) this.pendingFiles.delete(clientId);
+    }
+    thumbnail.remove();
+    this.syncHiddenFields();
+    this.updateImageCount();
+    this.updatePrimaryBadge();
+  }
+  syncHiddenFields() {
+    const container = this.hiddenFieldsContainerTarget;
+    container.innerHTML = "";
+    const objectName = this.newFilesInputTarget.name.replace(/\[new_images\]\[\]$/, "");
+    this.removedSignedIds.forEach((signedId) => {
+      const input = document.createElement("input");
+      input.type = "hidden";
+      input.name = `${objectName}[remove_image_ids][]`;
+      input.value = signedId;
+      container.appendChild(input);
+    });
+    const thumbnails = this.sortableContainerTarget.querySelectorAll("[data-image-type]");
+    const orderedPendingFiles = [];
+    thumbnails.forEach((thumb) => {
+      const imageType = thumb.dataset.imageType;
+      if (imageType === "existing") {
+        const signedId = thumb.dataset.signedId;
+        if (signedId) {
+          const orderInput = document.createElement("input");
+          orderInput.type = "hidden";
+          orderInput.name = `${objectName}[image_order][]`;
+          orderInput.value = signedId;
+          container.appendChild(orderInput);
+        }
+      } else if (imageType === "pending") {
+        const clientId = thumb.dataset.clientId;
+        if (clientId) {
+          const file = this.pendingFiles.get(clientId);
+          if (file) orderedPendingFiles.push(file);
+          const orderInput = document.createElement("input");
+          orderInput.type = "hidden";
+          orderInput.name = `${objectName}[image_order][]`;
+          orderInput.value = `new_${clientId}`;
+          container.appendChild(orderInput);
+        }
+      }
+    });
+    this.setFilesOnInput(this.newFilesInputTarget, orderedPendingFiles);
+  }
+  setFilesOnInput(input, files) {
+    const dt = new DataTransfer();
+    files.forEach((f) => dt.items.add(f));
+    input.files = dt.files;
+  }
+  updateImageCount() {
+    if (!this.hasImageCountTarget) return;
+    this.imageCountTarget.textContent = `${this.totalImageCount} / ${this.maxImagesValue} images`;
+  }
+  updatePrimaryBadge() {
+    this.sortableContainerTarget.querySelectorAll("[data-primary-badge]").forEach((badge) => badge.remove());
+    this.sortableContainerTarget.querySelectorAll(`[data-${this.identifier}-target="primaryBadge"]`).forEach((badge) => badge.remove());
+    const first = this.sortableContainerTarget.querySelector("[data-image-type]");
+    if (first) {
+      const badge = document.createElement("span");
+      badge.className = "decor:absolute decor:top-1 decor:left-1 decor:bg-suite-primary-500 decor:text-white decor:text-xs decor:px-1.5 decor:py-0.5 decor:rounded-suite-control decor:font-medium";
+      badge.textContent = "Primary";
+      badge.dataset.primaryBadge = "true";
+      first.appendChild(badge);
+    }
+  }
+  get totalImageCount() {
+    return this.sortableContainerTarget.querySelectorAll("[data-image-type]").length;
+  }
+  generateClientId() {
+    return `client_${this.nextClientId++}_${Date.now()}`;
+  }
+  destroyCropper() {
+    if (this.cropper) {
+      this.cropper.destroy();
+      this.cropper = null;
+    }
+  }
+};
+
 // app/javascript/controllers/decor/daisy/forms/searchable_select_controller.js
-import { Controller as Controller8 } from "@hotwired/stimulus";
-var searchable_select_controller_default = class extends Controller8 {
+import { Controller as Controller10 } from "@hotwired/stimulus";
+var searchable_select_controller_default = class extends Controller10 {
   static targets = [
     "input",
     "dropdown",
@@ -1202,8 +1787,8 @@ var searchable_multi_select_controller_default = class extends searchable_select
 };
 
 // app/javascript/controllers/decor/daisy/forms/switch_controller.js
-import { Controller as Controller9 } from "@hotwired/stimulus";
-var switch_controller_default = class extends Controller9 {
+import { Controller as Controller11 } from "@hotwired/stimulus";
+var switch_controller_default = class extends Controller11 {
   static targets = ["checkbox"];
   static values = {
     label: { type: String, default: null },
@@ -1288,8 +1873,8 @@ Click OK to ${confirmLabel} or Cancel to ${cancelLabel}.`)) {
 };
 
 // app/javascript/controllers/decor/daisy/map_controller.js
-import { Controller as Controller10 } from "@hotwired/stimulus";
-var map_controller_default = class extends Controller10 {
+import { Controller as Controller12 } from "@hotwired/stimulus";
+var map_controller_default = class extends Controller12 {
   static targets = ["mapContainer"];
   static values = {
     apiKey: String,
@@ -1643,8 +2228,8 @@ var map_controller_default = class extends Controller10 {
 };
 
 // app/javascript/controllers/decor/daisy/modals/confirm_controller.js
-import { Controller as Controller11 } from "@hotwired/stimulus";
-var confirm_controller_default = class extends Controller11 {
+import { Controller as Controller13 } from "@hotwired/stimulus";
+var confirm_controller_default = class extends Controller13 {
   static values = {
     confirmEvent: { type: String, default: "" },
     modalId: { type: String, default: "" }
@@ -1667,7 +2252,7 @@ var confirm_controller_default = class extends Controller11 {
 };
 
 // app/javascript/controllers/decor/daisy/modals/modal_controller.js
-import { Controller as Controller12 } from "@hotwired/stimulus";
+import { Controller as Controller14 } from "@hotwired/stimulus";
 var ModalEvents;
 (function(ModalEvents2) {
   ModalEvents2["Open"] = "decor--daisy--modals--modal:open";
@@ -1680,7 +2265,7 @@ var ModalEvents;
   ModalEvents2["Closing"] = "decor--daisy--modals--modal:closing";
   ModalEvents2["Closed"] = "decor--daisy--modals--modal:closed";
 })(ModalEvents || (ModalEvents = {}));
-var modal_controller_default = class extends Controller12 {
+var modal_controller_default = class extends Controller14 {
   static targets = ["overlay", "modal"];
   static values = {
     showInitial: { type: Boolean, default: false },
@@ -1885,8 +2470,8 @@ var confirm_modal_controller_default = class extends modal_controller_default {
 };
 
 // app/javascript/controllers/decor/daisy/modals/modal_close_button_controller.js
-import { Controller as Controller13 } from "@hotwired/stimulus";
-var modal_close_button_controller_default = class extends Controller13 {
+import { Controller as Controller15 } from "@hotwired/stimulus";
+var modal_close_button_controller_default = class extends Controller15 {
   static values = {
     closeReason: String
   };
@@ -1899,8 +2484,8 @@ var modal_close_button_controller_default = class extends Controller13 {
 };
 
 // app/javascript/controllers/decor/daisy/modals/modal_open_button_controller.js
-import { Controller as Controller14 } from "@hotwired/stimulus";
-var modal_open_button_controller_default = class extends Controller14 {
+import { Controller as Controller16 } from "@hotwired/stimulus";
+var modal_open_button_controller_default = class extends Controller16 {
   static values = {
     contentHref: String,
     initialContent: String,
@@ -1919,8 +2504,8 @@ var modal_open_button_controller_default = class extends Controller14 {
 };
 
 // app/javascript/controllers/decor/daisy/modals/modal_trigger_controller.js
-import { Controller as Controller15 } from "@hotwired/stimulus";
-var modal_trigger_controller_default = class extends Controller15 {
+import { Controller as Controller17 } from "@hotwired/stimulus";
+var modal_trigger_controller_default = class extends Controller17 {
   static values = {
     modalId: String,
     contentHref: String,
@@ -1944,12 +2529,12 @@ var modal_trigger_controller_default = class extends Controller15 {
 };
 
 // app/javascript/controllers/decor/daisy/notification_manager_controller.js
-import { Controller as Controller16 } from "@hotwired/stimulus";
+import { Controller as Controller18 } from "@hotwired/stimulus";
 var NOTIFICATION_MANAGER_CLASS_NAME = "decor--daisy--notification-manager";
 var NOTIFICATION_CLASSNAME = `${NOTIFICATION_MANAGER_CLASS_NAME}-notification`;
 var DEFAULT_DISMISS_AFTER_MS = 3e3;
 var DISMISS_ALL_STAGGER_MS = 50;
-var notification_manager_controller_default = class extends Controller16 {
+var notification_manager_controller_default = class extends Controller18 {
   static targets = ["notificationContainer"];
   static values = {
     initialNotifications: { type: Array, default: [] }
@@ -2078,9 +2663,247 @@ var notification_manager_controller_default = class extends Controller16 {
   }
 };
 
+// app/javascript/controllers/decor/daisy/polygon_editor_controller.js
+import { Controller as Controller19 } from "@hotwired/stimulus";
+var polygon_editor_controller_default = class extends Controller19 {
+  static targets = ["mapContainer", "geoJsonInput"];
+  static values = {
+    apiKey: String,
+    zoom: { type: Number, default: 10 },
+    center: { type: String, default: null },
+    initialPolygon: { type: String, default: null }
+  };
+  initialize() {
+    this.googleMap = null;
+    this.drawingManager = null;
+    this.currentPolygon = null;
+    this.attachMapScript();
+  }
+  connect() {
+    this.onMapReady(() => {
+      this.createMap();
+      this.initializeDrawingManager();
+      this.loadInitialPolygon();
+    });
+  }
+  disconnect() {
+    this.cleanup();
+  }
+  attachMapScript() {
+    if (document.getElementById("google-maps-script-tag")) {
+      return;
+    }
+    window.__decorPolygonMapInitialised = this.mapInitialised.bind(this);
+    const key = this.apiKeyValue;
+    const src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(key)}&libraries=drawing&callback=__decorPolygonMapInitialised`;
+    const script = document.createElement("script");
+    script.type = "text/javascript";
+    script.async = true;
+    script.defer = true;
+    script.id = "google-maps-script-tag";
+    script.src = src;
+    document.head.appendChild(script);
+  }
+  mapInitialised() {
+    window.__decorMapHasLoaded = true;
+    const evt = new CustomEvent("google-maps-script:ready", {
+      bubbles: true,
+      cancelable: false
+    });
+    document.dispatchEvent(evt);
+  }
+  onMapReady(callback) {
+    if (window.__decorMapHasLoaded && window.google && window.google.maps) {
+      return callback();
+    }
+    const readyListener = () => {
+      callback();
+      document.removeEventListener("google-maps-script:ready", readyListener);
+    };
+    document.addEventListener("google-maps-script:ready", readyListener);
+  }
+  createMap() {
+    this.googleMap = new google.maps.Map(this.mapContainerTarget, {
+      center: this.mapCenter,
+      zoom: this.zoomValue,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+  }
+  initializeDrawingManager() {
+    if (!this.googleMap) {
+      return;
+    }
+    this.drawingManager = new google.maps.drawing.DrawingManager({
+      drawingMode: null,
+      drawingControl: true,
+      drawingControlOptions: {
+        position: google.maps.ControlPosition.TOP_CENTER,
+        drawingModes: [google.maps.drawing.OverlayType.POLYGON]
+      },
+      polygonOptions: {
+        strokeColor: "#FF0000",
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: "#FF0000",
+        fillOpacity: 0.35,
+        editable: true,
+        draggable: false
+      }
+    });
+    this.drawingManager.setMap(this.googleMap);
+    google.maps.event.addListener(
+      this.drawingManager,
+      "overlaycomplete",
+      (event) => {
+        if (event.type === google.maps.drawing.OverlayType.POLYGON) {
+          this.handlePolygonComplete(event.overlay);
+        }
+      }
+    );
+  }
+  handlePolygonComplete(polygon) {
+    this.clearPolygon();
+    this.currentPolygon = polygon;
+    if (this.drawingManager) {
+      this.drawingManager.setDrawingMode(null);
+    }
+    polygon.setEditable(true);
+    this.updateGeoJsonField();
+    this.addPolygonEditListeners(polygon);
+  }
+  addPolygonEditListeners(polygon) {
+    const path = polygon.getPath();
+    google.maps.event.addListener(path, "set_at", () => {
+      this.updateGeoJsonField();
+    });
+    google.maps.event.addListener(path, "insert_at", () => {
+      this.updateGeoJsonField();
+    });
+    google.maps.event.addListener(path, "remove_at", () => {
+      this.updateGeoJsonField();
+    });
+  }
+  loadInitialPolygon() {
+    if (!this.initialPolygonValue || !this.googleMap) {
+      return;
+    }
+    try {
+      const polygon = this.geoJsonToPolygon(this.initialPolygonValue);
+      if (polygon) {
+        this.currentPolygon = polygon;
+        polygon.setMap(this.googleMap);
+        polygon.setEditable(true);
+        this.fitBoundsToPolygon(polygon);
+        this.addPolygonEditListeners(polygon);
+      }
+    } catch (error) {
+      console.error("Failed to load initial polygon:", error);
+    }
+  }
+  geoJsonToPolygon(geoJsonString) {
+    try {
+      const geoJson = JSON.parse(geoJsonString);
+      let coordinates;
+      if (geoJson.type === "MultiPolygon") {
+        coordinates = geoJson.coordinates[0];
+      } else if (geoJson.type === "Polygon") {
+        coordinates = geoJson.coordinates;
+      } else {
+        console.error("Unsupported GeoJSON type:", geoJson.type);
+        return null;
+      }
+      const paths = coordinates.map(
+        (ring) => ring.map((coord) => new google.maps.LatLng(coord[1], coord[0]))
+      );
+      return new google.maps.Polygon({
+        paths,
+        strokeColor: "#FF0000",
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: "#FF0000",
+        fillOpacity: 0.35,
+        editable: true,
+        draggable: false
+      });
+    } catch (error) {
+      console.error("Error parsing GeoJSON:", error);
+      return null;
+    }
+  }
+  polygonToGeoJson(polygon) {
+    const path = polygon.getPath();
+    const coordinates = [];
+    for (let i = 0; i < path.getLength(); i++) {
+      const latLng = path.getAt(i);
+      coordinates.push([latLng.lng(), latLng.lat()]);
+    }
+    if (coordinates.length > 0) {
+      const firstCoord = coordinates[0];
+      coordinates.push([firstCoord[0], firstCoord[1]]);
+    }
+    const geoJson = {
+      type: "MultiPolygon",
+      coordinates: [[coordinates]]
+    };
+    return JSON.stringify(geoJson);
+  }
+  updateGeoJsonField() {
+    if (!this.currentPolygon) {
+      this.geoJsonInputTarget.value = "";
+      return;
+    }
+    this.geoJsonInputTarget.value = this.polygonToGeoJson(this.currentPolygon);
+  }
+  fitBoundsToPolygon(polygon) {
+    if (!this.googleMap) {
+      return;
+    }
+    const bounds = new google.maps.LatLngBounds();
+    const path = polygon.getPath();
+    for (let i = 0; i < path.getLength(); i++) {
+      bounds.extend(path.getAt(i));
+    }
+    this.googleMap.fitBounds(bounds);
+  }
+  clearPolygon() {
+    if (this.currentPolygon) {
+      this.currentPolygon.setMap(null);
+      this.currentPolygon = null;
+      this.updateGeoJsonField();
+    }
+    if (this.drawingManager) {
+      this.drawingManager.setDrawingMode(
+        google.maps.drawing.OverlayType.POLYGON
+      );
+    }
+  }
+  get mapCenter() {
+    if (this.centerValue) {
+      try {
+        const center = JSON.parse(this.centerValue);
+        return { lat: center.lat, lng: center.lng };
+      } catch (error) {
+        console.error("Error parsing center value:", error);
+      }
+    }
+    return { lat: 33.6265064, lng: -84.5319427 };
+  }
+  cleanup() {
+    if (this.currentPolygon) {
+      this.currentPolygon.setMap(null);
+      this.currentPolygon = null;
+    }
+    if (this.drawingManager) {
+      this.drawingManager.setMap(null);
+      this.drawingManager = null;
+    }
+    this.googleMap = null;
+  }
+};
+
 // app/javascript/controllers/decor/daisy/progress_controller.js
-import { Controller as Controller17 } from "@hotwired/stimulus";
-var progress_controller_default = class extends Controller17 {
+import { Controller as Controller20 } from "@hotwired/stimulus";
+var progress_controller_default = class extends Controller20 {
   static targets = ["progress", "step"];
   static values = {
     currentStep: { type: Number, default: 1 },
@@ -2180,9 +3003,270 @@ var progress_controller_default = class extends Controller17 {
   }
 };
 
+// app/javascript/controllers/decor/daisy/tables/bulk_actions_bar_controller.js
+import { Controller as Controller21 } from "@hotwired/stimulus";
+var bulk_actions_bar_controller_default = class extends Controller21 {
+  static targets = [
+    "selectionCount",
+    "selectedIdsContainer",
+    "dropdownForm"
+  ];
+  static values = {
+    selectedIdsFieldName: { type: String, default: "selected_ids" }
+  };
+  initialize() {
+    this.dataTableController = null;
+    this.tableId = null;
+    this.offPageSelectionCount = 0;
+  }
+  setDataTableController(controller) {
+    this.dataTableController = controller;
+    this.checkForExistingSelections();
+  }
+  setTableId(id) {
+    this.tableId = id;
+    this.checkForExistingSelections();
+  }
+  checkForExistingSelections() {
+    if (this.tableId && this.dataTableController) {
+      const selectedIds = this.dataTableController.getSelectedRowIds();
+      if (selectedIds.length > 0) {
+        this.handleSelectionChange(selectedIds);
+      }
+    }
+  }
+  handleSelectionChange(selectedIds) {
+    const count = selectedIds.length;
+    if (this.tableId && this.dataTableController) {
+      const visibleCount = this.dataTableController.getVisibleSelectedRowIds().length;
+      this.offPageSelectionCount = count - visibleCount;
+    }
+    let countText = `${count} ${count === 1 ? "item" : "items"} selected`;
+    if (this.offPageSelectionCount > 0) {
+      countText += ` (${this.offPageSelectionCount} from other pages)`;
+    }
+    this.selectionCountTarget.textContent = countText;
+    this.element.style.display = count > 0 ? "" : "none";
+    this.updateSelectedIdsInputs(selectedIds);
+  }
+  updateSelectedIdsInputs(selectedIds) {
+    this.selectedIdsContainerTargets.forEach((container) => {
+      const fieldName = container.dataset.fieldName || this.selectedIdsFieldNameValue;
+      container.innerHTML = "";
+      selectedIds.forEach((id) => {
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = `${fieldName}[]`;
+        input.value = id;
+        container.appendChild(input);
+      });
+    });
+  }
+  clearSelection() {
+    if (this.dataTableController) {
+      this.dataTableController.clearSelection();
+    }
+  }
+  async handleBulkAction(event) {
+    event.preventDefault();
+    const button = event.currentTarget;
+    const form = button.closest("form");
+    if (!form || !this.dataTableController) {
+      return;
+    }
+    if (button.dataset.modal === "true") {
+      this.openBulkActionModal(form);
+      return;
+    }
+    await this.confirmAndSubmitForm(form, button.dataset.bulkConfirm);
+  }
+  async handleDropdownAction(event) {
+    event.preventDefault();
+    const menuItem = event.currentTarget;
+    const actionName = menuItem.dataset.actionName;
+    if (!this.dataTableController || !actionName) {
+      return;
+    }
+    const form = this.findFormByActionName(actionName);
+    if (!form) {
+      return;
+    }
+    if (menuItem.dataset.modal === "true") {
+      this.openBulkActionModal(form);
+      return;
+    }
+    await this.confirmAndSubmitForm(form, menuItem.dataset.bulkConfirm);
+  }
+  findFormByActionName(actionName) {
+    return this.dropdownFormTargets.find((f) => {
+      const field = f.querySelector('input[name="action_name"]');
+      return field && field.value === actionName;
+    });
+  }
+  openBulkActionModal(form) {
+    const selectedIds = this.dataTableController.getSelectedRowIds();
+    const url = new URL(form.action, window.location.origin);
+    selectedIds.forEach((id) => url.searchParams.append("selected_ids[]", id));
+    const modalId = `${this.element.id}-bulk-modal`;
+    const detail = { id: modalId, contentHref: url.toString() };
+    const handled = window.dispatchEvent(
+      new CustomEvent("decor:bulk-actions:show-modal", {
+        detail,
+        cancelable: true
+      })
+    );
+    if (handled) {
+      const dialog = document.getElementById(modalId);
+      if (dialog && typeof dialog.showModal === "function") {
+        dialog.showModal();
+      }
+    }
+  }
+  async confirmAndSubmitForm(form, confirmMessage) {
+    if (confirmMessage && this.dataTableController) {
+      const count = this.dataTableController.getSelectionCount();
+      const message = this.interpolateCount(confirmMessage, count);
+      const confirmed = await this.showConfirmModal(message);
+      if (!confirmed) {
+        return;
+      }
+    }
+    form.requestSubmit();
+  }
+  interpolateCount(message, count) {
+    return message.replace(/\{count\}/g, count.toString()).replace(/\{\{count\}\}/g, count.toString());
+  }
+  // Confirm dialog hook — apps wire a real modal helper by listening for
+  // the dispatched event and calling `event.detail.resolve(true|false)`.
+  // The default falls back to `window.confirm()`.
+  showConfirmModal(message) {
+    return new Promise((resolve) => {
+      const event = new CustomEvent("decor:bulk-actions:show-confirm", {
+        detail: {
+          message,
+          title: "Are you sure?",
+          resolve
+        },
+        cancelable: true
+      });
+      const notCancelled = window.dispatchEvent(event);
+      if (notCancelled) {
+        resolve(window.confirm(message));
+      }
+    });
+  }
+};
+
+// app/javascript/controllers/decor/daisy/tables/tag_filter_bar_controller.js
+import { Controller as Controller22 } from "@hotwired/stimulus";
+var tag_filter_bar_controller_default = class extends Controller22 {
+  static targets = [
+    "chip",
+    "applyButton",
+    "modeToggle",
+    "overflowButton",
+    "tagsContainer"
+  ];
+  static values = {
+    selectedIds: String,
+    tagMode: String,
+    paramName: String,
+    modeParamName: String
+  };
+  connect() {
+    const parsed = JSON.parse(this.selectedIdsValue || "[]");
+    this.currentSelectedIds = new Set(parsed);
+    this.initialSelectedIds = new Set(parsed);
+    this.currentMode = this.tagModeValue || "or";
+    this.initialMode = this.currentMode;
+  }
+  toggleTag(event) {
+    const button = event.currentTarget;
+    const tagId = button.dataset.tagId;
+    if (this.currentSelectedIds.has(tagId)) {
+      this.currentSelectedIds.delete(tagId);
+    } else {
+      this.currentSelectedIds.add(tagId);
+    }
+    this.updateChipAppearance(button, this.currentSelectedIds.has(tagId));
+    this.updateApplyButton();
+  }
+  setMode(event) {
+    const button = event.currentTarget;
+    this.currentMode = button.dataset.mode;
+    const buttons = this.modeToggleTarget.querySelectorAll("button");
+    buttons.forEach((btn) => {
+      const isActive = btn.dataset.mode === this.currentMode;
+      btn.className = `decor:px-2.5 decor:py-1 decor:leading-none ${isActive ? "decor:bg-gray-800 decor:text-white" : "decor:bg-white decor:text-gray-600 decor:hover:bg-gray-50"}`;
+    });
+    this.updateApplyButton();
+  }
+  apply() {
+    const url = new URL(window.location.href);
+    url.searchParams.delete(this.paramNameValue);
+    url.searchParams.delete(this.modeParamNameValue);
+    if (this.currentSelectedIds.size > 0) {
+      url.searchParams.set(
+        this.paramNameValue,
+        Array.from(this.currentSelectedIds).join(",")
+      );
+      url.searchParams.set(this.modeParamNameValue, this.currentMode);
+    }
+    window.location.href = url.toString();
+  }
+  clearAll() {
+    this.currentSelectedIds.clear();
+    this.chipTargets.forEach((chip) => {
+      this.updateChipAppearance(chip, false);
+    });
+    const url = new URL(window.location.href);
+    url.searchParams.delete(this.paramNameValue);
+    url.searchParams.delete(this.modeParamNameValue);
+    window.location.href = url.toString();
+  }
+  showAll() {
+    if (this.hasOverflowButtonTarget) {
+      this.overflowButtonTarget.classList.add("decor:hidden");
+    }
+    const url = new URL(window.location.href);
+    url.searchParams.set("show_all_tags", "true");
+    window.location.href = url.toString();
+  }
+  updateChipAppearance(button, selected) {
+    const selectedClasses = (button.dataset.selectedClasses || "").split(" ").filter(Boolean);
+    const unselectedClasses = (button.dataset.unselectedClasses || "").split(" ").filter(Boolean);
+    if (selected) {
+      unselectedClasses.forEach((cls) => button.classList.remove(cls));
+      selectedClasses.forEach((cls) => button.classList.add(cls));
+    } else {
+      selectedClasses.forEach((cls) => button.classList.remove(cls));
+      unselectedClasses.forEach((cls) => button.classList.add(cls));
+    }
+  }
+  updateApplyButton() {
+    const selectionChanged = !this.setsEqual(
+      this.currentSelectedIds,
+      this.initialSelectedIds
+    );
+    const modeChanged = this.currentMode !== this.initialMode;
+    if (selectionChanged || modeChanged) {
+      this.applyButtonTarget.classList.remove("decor:hidden");
+    } else {
+      this.applyButtonTarget.classList.add("decor:hidden");
+    }
+  }
+  setsEqual(a, b) {
+    if (a.size !== b.size) return false;
+    for (const item of a) {
+      if (!b.has(item)) return false;
+    }
+    return true;
+  }
+};
+
 // app/javascript/controllers/decor/daisy/tabs_controller.js
-import { Controller as Controller18 } from "@hotwired/stimulus";
-var tabs_controller_default = class extends Controller18 {
+import { Controller as Controller23 } from "@hotwired/stimulus";
+var tabs_controller_default = class extends Controller23 {
   handleSelectTabOnMobile(event) {
     const select = event.target;
     const selected = select.options[select.selectedIndex];
@@ -2194,8 +3278,8 @@ var tabs_controller_default = class extends Controller18 {
 };
 
 // app/javascript/controllers/decor/progress_animation_controller.js
-import { Controller as Controller19 } from "@hotwired/stimulus";
-var progress_animation_controller_default = class extends Controller19 {
+import { Controller as Controller24 } from "@hotwired/stimulus";
+var progress_animation_controller_default = class extends Controller24 {
   static values = {
     currentStep: { type: Number, default: 2 },
     steps: { type: Number, default: 5 },
@@ -2262,7 +3346,7 @@ var progress_animation_controller_default = class extends Controller19 {
 };
 
 // app/javascript/controllers/decor/suite/carousel_controller.js
-import { Controller as Controller20 } from "@hotwired/stimulus";
+import { Controller as Controller25 } from "@hotwired/stimulus";
 import Swiper from "swiper";
 import { Navigation, Pagination, Keyboard, A11y, Autoplay } from "swiper/modules";
 var BREAKPOINT_PX = {
@@ -2273,7 +3357,7 @@ var BREAKPOINT_PX = {
   xl: 1280,
   "2xl": 1536
 };
-var carousel_controller_default = class extends Controller20 {
+var carousel_controller_default = class extends Controller25 {
   static values = {
     slidesPerView: { type: Object, default: {} },
     spaceBetween: { type: Number, default: 16 },
@@ -2357,8 +3441,8 @@ var carousel_controller_default = class extends Controller20 {
 };
 
 // app/javascript/controllers/decor/suite/dropdown_controller.js
-import { Controller as Controller21 } from "@hotwired/stimulus";
-var dropdown_controller_default2 = class extends Controller21 {
+import { Controller as Controller26 } from "@hotwired/stimulus";
+var dropdown_controller_default2 = class extends Controller26 {
   static targets = ["menu", "button"];
   static values = {
     contentHref: { type: String, default: "" },
@@ -2409,8 +3493,8 @@ var dropdown_controller_default2 = class extends Controller21 {
 };
 
 // app/javascript/controllers/decor/suite/forms/form_controller.js
-import { Controller as Controller22 } from "@hotwired/stimulus";
-var form_controller_default = class extends Controller22 {
+import { Controller as Controller27 } from "@hotwired/stimulus";
+var form_controller_default = class extends Controller27 {
   static targets = ["form"];
   connect() {
     this.element.setAttribute("novalidate", "true");
@@ -2560,8 +3644,8 @@ var searchable_select_controller_default2 = class extends searchable_select_cont
 };
 
 // app/javascript/controllers/decor/suite/modals/confirm_controller.js
-import { Controller as Controller23 } from "@hotwired/stimulus";
-var confirm_controller_default2 = class extends Controller23 {
+import { Controller as Controller28 } from "@hotwired/stimulus";
+var confirm_controller_default2 = class extends Controller28 {
   static values = {
     confirmEvent: { type: String, default: "" },
     modalId: { type: String, default: "" }
@@ -2585,8 +3669,8 @@ var confirm_controller_default2 = class extends Controller23 {
 };
 
 // app/javascript/controllers/decor/suite/modals/modal_close_button_controller.js
-import { Controller as Controller24 } from "@hotwired/stimulus";
-var modal_close_button_controller_default2 = class extends Controller24 {
+import { Controller as Controller29 } from "@hotwired/stimulus";
+var modal_close_button_controller_default2 = class extends Controller29 {
   static values = {
     closeReason: String
   };
@@ -2599,7 +3683,7 @@ var modal_close_button_controller_default2 = class extends Controller24 {
 };
 
 // app/javascript/controllers/decor/suite/modals/modal_controller.js
-import { Controller as Controller25 } from "@hotwired/stimulus";
+import { Controller as Controller30 } from "@hotwired/stimulus";
 var LOADING_SKELETON_HTML = `
   <div class="decor:space-y-2 decor:py-1" aria-hidden="true">
     <div class="decor:h-3 decor:bg-gray-100 decor:rounded-sm decor:animate-pulse"></div>
@@ -2609,7 +3693,7 @@ var LOADING_SKELETON_HTML = `
 `;
 var OPENED_EVENT = "decor--suite--modals--modal:opened";
 var CLOSED_EVENT = "decor--suite--modals--modal:closed";
-var modal_controller_default2 = class extends Controller25 {
+var modal_controller_default2 = class extends Controller30 {
   static targets = ["body", "overlay", "modal"];
   static values = {
     startOpen: { type: Boolean, default: false },
@@ -2798,8 +3882,8 @@ var modal_controller_default2 = class extends Controller25 {
 };
 
 // app/javascript/controllers/decor/suite/modals/modal_open_button_controller.js
-import { Controller as Controller26 } from "@hotwired/stimulus";
-var modal_open_button_controller_default2 = class extends Controller26 {
+import { Controller as Controller31 } from "@hotwired/stimulus";
+var modal_open_button_controller_default2 = class extends Controller31 {
   static values = {
     modalId: String,
     contentHref: String,
@@ -2824,8 +3908,8 @@ var modal_open_button_controller_default2 = class extends Controller26 {
 };
 
 // app/javascript/controllers/decor/suite/modals/modal_trigger_controller.js
-import { Controller as Controller27 } from "@hotwired/stimulus";
-var modal_trigger_controller_default2 = class extends Controller27 {
+import { Controller as Controller32 } from "@hotwired/stimulus";
+var modal_trigger_controller_default2 = class extends Controller32 {
   static values = {
     modalId: String,
     contentHref: String,
@@ -2850,8 +3934,8 @@ var modal_trigger_controller_default2 = class extends Controller27 {
 };
 
 // app/javascript/controllers/decor/suite/search_and_filter_controller.js
-import { Controller as Controller28 } from "@hotwired/stimulus";
-var search_and_filter_controller_default = class extends Controller28 {
+import { Controller as Controller33 } from "@hotwired/stimulus";
+var search_and_filter_controller_default = class extends Controller33 {
   static targets = [
     "searchInput",
     "applyButton",
@@ -2959,8 +4043,8 @@ var search_and_filter_controller_default = class extends Controller28 {
 };
 
 // app/javascript/controllers/decor/suite/settings_list/row_controller.js
-import { Controller as Controller29 } from "@hotwired/stimulus";
-var row_controller_default = class extends Controller29 {
+import { Controller as Controller34 } from "@hotwired/stimulus";
+var row_controller_default = class extends Controller34 {
   static targets = ["chevron", "detail", "summary"];
   static values = {
     open: { type: Boolean, default: false }
@@ -2976,8 +4060,8 @@ var row_controller_default = class extends Controller29 {
 };
 
 // app/javascript/controllers/decor/suite/tables/data_table_cell_controller.js
-import { Controller as Controller30 } from "@hotwired/stimulus";
-var data_table_cell_controller_default = class extends Controller30 {
+import { Controller as Controller35 } from "@hotwired/stimulus";
+var data_table_cell_controller_default = class extends Controller35 {
   static values = {
     noPathNavigation: { type: Boolean, default: false }
   };
@@ -2990,7 +4074,7 @@ var data_table_cell_controller_default = class extends Controller30 {
 };
 
 // app/javascript/controllers/decor/suite/tables/data_table_controller.js
-import { Controller as Controller31 } from "@hotwired/stimulus";
+import { Controller as Controller36 } from "@hotwired/stimulus";
 
 // app/javascript/services/selection_persistence_service.js
 var SelectionPersistenceService = class {
@@ -3194,7 +4278,7 @@ if (typeof window !== "undefined") {
 var selection_persistence_service_default = SelectionPersistenceService;
 
 // app/javascript/controllers/decor/suite/tables/data_table_controller.js
-var data_table_controller_default = class extends Controller31 {
+var data_table_controller_default = class extends Controller36 {
   static outlets = [
     "decor--suite--tables--data-table-header-row",
     "decor--suite--tables--data-table-row",
@@ -3489,8 +4573,8 @@ var data_table_controller_default = class extends Controller31 {
 };
 
 // app/javascript/controllers/decor/suite/tabs_controller.js
-import { Controller as Controller32 } from "@hotwired/stimulus";
-var tabs_controller_default2 = class extends Controller32 {
+import { Controller as Controller37 } from "@hotwired/stimulus";
+var tabs_controller_default2 = class extends Controller37 {
   static targets = ["wrapper", "scroll"];
   connect() {
     if (!this.hasWrapperTarget || !this.hasScrollTarget) return;
@@ -3525,7 +4609,7 @@ var tabs_controller_default2 = class extends Controller32 {
 };
 
 // app/javascript/controllers/decor/suite/tooltip_controller.js
-import { Controller as Controller33 } from "@hotwired/stimulus";
+import { Controller as Controller38 } from "@hotwired/stimulus";
 import {
   computePosition,
   autoUpdate,
@@ -3534,7 +4618,7 @@ import {
   offset as offsetMiddleware,
   arrow
 } from "@floating-ui/dom";
-var tooltip_controller_default = class extends Controller33 {
+var tooltip_controller_default = class extends Controller38 {
   static targets = ["content", "arrow"];
   static values = {
     placement: { type: String, default: "top" },
@@ -3631,6 +4715,7 @@ var tooltip_controller_default = class extends Controller33 {
 
 // app/javascript/decor/controllers.js
 var CONTROLLERS = {
+  "decor--daisy--ai-chat--widget": widget_controller_default,
   "decor--daisy--button": button_controller_default,
   "decor--daisy--click-to-copy": click_to_copy_controller_default,
   "decor--daisy--code-block": code_block_controller_default,
@@ -3638,6 +4723,7 @@ var CONTROLLERS = {
   "decor--daisy--flash": flash_controller_default,
   "decor--daisy--forms--date-calendar": date_calendar_controller_default,
   "decor--daisy--forms--expanding-checkbox-collection": expanding_checkbox_collection_controller_default,
+  "decor--daisy--forms--multi-image-upload": multi_image_upload_controller_default,
   "decor--daisy--forms--searchable-multi-select": searchable_multi_select_controller_default,
   "decor--daisy--forms--searchable-select": searchable_select_controller_default,
   "decor--daisy--forms--switch": switch_controller_default,
@@ -3649,9 +4735,13 @@ var CONTROLLERS = {
   "decor--daisy--modals--modal-open-button": modal_open_button_controller_default,
   "decor--daisy--modals--modal-trigger": modal_trigger_controller_default,
   "decor--daisy--notification-manager": notification_manager_controller_default,
+  "decor--daisy--polygon-editor": polygon_editor_controller_default,
   "decor--daisy--progress": progress_controller_default,
+  "decor--daisy--tables--bulk-actions-bar": bulk_actions_bar_controller_default,
+  "decor--daisy--tables--tag-filter-bar": tag_filter_bar_controller_default,
   "decor--daisy--tabs": tabs_controller_default,
   "decor--progress-animation": progress_animation_controller_default,
+  "decor--suite--ai-chat--widget": widget_controller_default,
   "decor--suite--button": button_controller_default,
   "decor--suite--carousel": carousel_controller_default,
   "decor--suite--click-to-copy": click_to_copy_controller_default,
@@ -3660,6 +4750,7 @@ var CONTROLLERS = {
   "decor--suite--forms--date-calendar": date_calendar_controller_default,
   "decor--suite--forms--expanding-checkbox-collection": expanding_checkbox_collection_controller_default,
   "decor--suite--forms--form": form_controller_default,
+  "decor--suite--forms--multi-image-upload": multi_image_upload_controller_default,
   "decor--suite--forms--searchable-multi-select": searchable_multi_select_controller_default2,
   "decor--suite--forms--searchable-select": searchable_select_controller_default2,
   "decor--suite--forms--switch": switch_controller_default,
@@ -3669,19 +4760,22 @@ var CONTROLLERS = {
   "decor--suite--modals--modal": modal_controller_default2,
   "decor--suite--modals--modal-open-button": modal_open_button_controller_default2,
   "decor--suite--modals--modal-trigger": modal_trigger_controller_default2,
+  "decor--suite--polygon-editor": polygon_editor_controller_default,
   "decor--suite--progress": progress_controller_default,
   "decor--suite--search-and-filter": search_and_filter_controller_default,
   "decor--suite--settings-list--row": row_controller_default,
+  "decor--suite--tables--bulk-actions-bar": bulk_actions_bar_controller_default,
   "decor--suite--tables--data-table-cell": data_table_cell_controller_default,
   "decor--suite--tables--data-table": data_table_controller_default,
+  "decor--suite--tables--tag-filter-bar": tag_filter_bar_controller_default,
   "decor--suite--tabs": tabs_controller_default2,
   "decor--suite--tooltip": tooltip_controller_default
 };
 
 // app/javascript/decor/index.js
 function register(application) {
-  for (const [identifier, Controller34] of Object.entries(CONTROLLERS)) {
-    application.register(identifier, Controller34);
+  for (const [identifier, Controller39] of Object.entries(CONTROLLERS)) {
+    application.register(identifier, Controller39);
   }
 }
 if (typeof window !== "undefined" && window.Stimulus) {

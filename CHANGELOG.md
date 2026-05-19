@@ -1,5 +1,61 @@
 # Changelog
 
+## 0.18.0 — Unreleased
+
+### Suite component batch 7 — 10 ConfinusUI-only ports (Suite-only, no Daisy peers)
+
+Every component in this batch existed ONLY in ConfinusUI — no abstract base
+and no Daisy implementation in decor previously. Each is ported directly to
+Suite (Suite skin inherits `Decor::PhlexComponent` rather than a shared base),
+with the visual identity mirroring Confinus exactly using Suite tokens.
+Co-located JS controllers (where applicable) port the `.ts` to `.js` at
+`decor/daisy/<path>` and re-export from `decor/suite/<path>` (so future Daisy
+ports can reuse the JS without duplication).
+
+- `Decor::Suite::Tables::BulkActionsBar` (+ JS) — selection-count bar with
+  bulk action buttons + dropdown. Five careful adaptations to keep decor
+  independent of Confinus internals: `display:none` toggling (not
+  `decor:hidden`) to bypass TailwindMerge's `flex`-stripping; plain `<form>`
+  with manual `_method` tunnel (not the Suite Form's full FormBuilder
+  outlet surface); inline anchor dropdown items (Suite::DropdownItem doesn't
+  expose `stimulus_actions:`); modal-helper indirection via window events
+  (`decor:bulk-actions:show-modal`, `decor:bulk-actions:show-confirm`) so
+  consumers wire their own modal stack; `bulk_actions` typed as
+  `_Array(_Any)` to avoid coupling to Confinus's `DataTableBuilder::BulkAction`.
+- `Decor::Suite::Tables::FilterBar` + `FilterBarChip` — chip-row band above
+  a data table; FilterBarChip uses `Phlex::Rails::Helpers::Request` directly
+  (avoids the `helpers.request` phlex-rails deprecation warning).
+- `Decor::Suite::Tables::TagFilterBar` (+ JS) — tag-style filter bar with
+  multi-select chips, mode toggle, "show all" overflow. Inlines a
+  `CHIP_COLOR_CLASSES` palette (9 colors + gray fallback) to drop the
+  Confinus-internal `EntityTags::Values::Colors` dependency.
+- `Decor::Suite::SettingsList::Row` — expandable settings row component
+  extracted from the parent SettingsList's inlined render path; preserves
+  the existing Suite row Stimulus controller contract.
+- `Decor::Suite::SettingsList::Group` — `Literal::Data` carrier (matches
+  ConfinusUI which is also pure data).
+- `Decor::Suite::SettingsList::ScopeInfo` — `Literal::Data` carrier
+  (rendering already lives in `Suite::SettingsList#render_scope_chip`).
+- `Decor::Suite::Forms::MultiImageUpload` (+ JS) — multi-file image upload
+  with thumbnails, drag-sort, crop modal. Bails gracefully when `Sortable` /
+  `Cropper` globals are absent (consumers must include those libs).
+- `Decor::Suite::AiChat::Widget` (+ JS) — floating chat widget. Replaces
+  Confinus's `NotificationsSubscription` ActionCable dependency with a
+  window-event contract (`decor-ai-chat:broadcast`) so any cable/SSE adapter
+  can forward broadcasts.
+- `Decor::Suite::Pagination::PagesToDisplay` — pure helper class (no UI),
+  inherits the abstract base; computes the `1 … 4 5 [6] 7 8 … 50`-style page
+  link list including ellipsis-dropdown sub-pages.
+- `Decor::Suite::PolygonEditor` (+ JS) — Google Maps drawing tool for
+  geo-fence polygons. Drops Confinus's `BaseController` /
+  `lib/app_configuration` / `lib/util/add_script_tag` deps in favour of a
+  `window.__decorMapHasLoaded` sentinel + inlined script-tag creation.
+
+### Tests
+
+Batch 7: 150 runs / 582 assertions / 0F across the batch.
+Full Suite suite: 1339 runs / 5552 assertions / 0F.
+
 ## 0.17.0 — Unreleased
 
 ### Fix: Suite form-field error message colour too dark/burgundy
