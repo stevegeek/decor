@@ -102,12 +102,16 @@ class ::Decor::Suite::Forms::TextAreaTest < ActiveSupport::TestCase
     assert_includes html, "decor:suite-field-help"
   end
 
-  test "error text suppresses helper text" do
+  test "error text suppresses helper text visually (helper paragraph stays hidden in DOM)" do
     html = render_component(
       ::Decor::Suite::Forms::TextArea.new(name: "n", label: "L", helper_text: "Help", error_messages: ["Bad"])
     )
     assert_includes html, "Bad"
-    refute_includes html, "Help"
+    # Helper paragraph kept (with `decor:hidden`) so the JS FormField
+    # controller has a stable target to swap content into once validation
+    # passes.
+    assert_match(/data-decor--suite--forms--text-area-target="helperText"/, html)
+    assert_match(/class="[^"]*decor:hidden[^"]*"\s+data-decor--suite--forms--text-area-target="helperText"/, html)
   end
 
   test "minimum_length and maximum_length pass through to attributes" do

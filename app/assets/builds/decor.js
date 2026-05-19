@@ -750,10 +750,704 @@ var flash_controller_default = class extends Controller6 {
   }
 };
 
-// app/javascript/controllers/decor/daisy/forms/date_calendar_controller.js
+// app/javascript/controllers/decor/base.js
 import { Controller as Controller7 } from "@hotwired/stimulus";
+var initializeReceipt = {};
+var BaseController = class _BaseController extends Controller7 {
+  static setIdentifier(id) {
+    this.identifier = id;
+  }
+  initialize() {
+    const receipt = this.onInitialize();
+    if (receipt !== initializeReceipt) {
+      throw new Error(
+        `onInitialize was implemented in ${this.identifier} without a call to super.onInitialize.`
+      );
+    }
+  }
+  onInitialize() {
+    return initializeReceipt;
+  }
+  findParentElementByTagName(el, tagName) {
+    const lower = tagName.toLowerCase();
+    let cur = el;
+    while (cur && cur.parentElement) {
+      cur = cur.parentElement;
+      if (cur.tagName && cur.tagName.toLowerCase() === lower) {
+        return cur;
+      }
+    }
+    return null;
+  }
+  get disabled() {
+    return this.element.hasAttribute("disabled");
+  }
+  set disabled(disabled) {
+    if (disabled) {
+      this.element.setAttribute("disabled", "disabled");
+    } else {
+      this.element.removeAttribute("disabled");
+    }
+  }
+  findController(element, identifier) {
+    const controller = this.application.getControllerForElementAndIdentifier(
+      element,
+      identifier
+    );
+    return controller instanceof _BaseController ? controller : null;
+  }
+  toggleTargetElementClasses(target, state, classesOff, classesOn) {
+    if (state) {
+      this.setTargetElementClasses(target, classesOff, classesOn);
+    } else {
+      this.setTargetElementClasses(target, classesOn, classesOff);
+    }
+  }
+  setTargetElementClasses(target, classesToRemove, classesToAdd) {
+    classesToRemove.forEach((c) => target.classList.remove(c));
+    classesToAdd.forEach((c) => target.classList.add(c));
+  }
+  // Emit a Stimulus dispatch with an explicit prefix taken from another
+  // controller class's static `identifier`. Used by sibling controllers to
+  // publish events under a stable, well-known namespace.
+  emitEvent(target, ControllerClass, eventName, detail = void 0, bubbles = true, cancelable = false) {
+    this.dispatch(eventName, {
+      target,
+      detail,
+      prefix: ControllerClass.identifier,
+      bubbles,
+      cancelable
+    });
+  }
+};
+
+// app/javascript/lib/util/form_validation_messages.js
+var RAILS_I18N_MESSAGE_REGEX = /%{([\s\S]+?)}/g;
+var DEFAULTS = {
+  invalid: "is invalid",
+  blank: "can't be blank",
+  does_not_match: "doesn't match",
+  generic_server_error: "Sorry, an error occurred.",
+  form_invalid_preamble: "Please review the following:"
+};
+function localeMessage(key) {
+  const fromConsumer = typeof window !== "undefined" && window.decorI18n ? window.decorI18n[key] : null;
+  return fromConsumer || DEFAULTS[key] || key;
+}
+function generateFormValidationMessage(message, variables = {}) {
+  return message.replace(
+    RAILS_I18N_MESSAGE_REGEX,
+    (_m, key) => variables[key] || ""
+  );
+}
+
+// app/javascript/lib/util/form_validators.js
+var PATTERNS = {
+  color: /^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$/,
+  date: /(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))/,
+  email: /^([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22))*\x40([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d))*(\.\w{2,})+$/,
+  month: /^(?:(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])))$/,
+  number: /^(?:[-+]?[0-9]*[.,]?[0-9]+)$/,
+  time: /^(?:(0[0-9]|1[0-9]|2[0-3])(:[0-5][0-9]))$/,
+  url: /^(?:(?:https?|HTTPS?|ftp|FTP):\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-zA-Z¡-￿0-9]-*)*[a-zA-Z¡-￿0-9]+)(?:\.(?:[a-zA-Z¡-￿0-9]-*)*[a-zA-Z¡-￿0-9]+)*(?:\.(?:[a-zA-Z¡-￿]{2,}))\.?)(?::\d{2,5})?(?:[/?#]\S*)?$/
+};
+function missingValue(attrs) {
+  return attrs.required && !attrs.value.length;
+}
+function missingCheckboxValue(attrs) {
+  return attrs.required && !attrs.checked;
+}
+function missingRadioValue(attrs) {
+  return attrs.some((attr) => attr.required) && attrs.every((attr) => !attr.checked);
+}
+function patternMismatch(attrs) {
+  const { pattern, type, value } = attrs;
+  if (!value) {
+    return false;
+  }
+  const chosenPattern = pattern ? new RegExp("^(?:" + pattern + ")$") : PATTERNS[type];
+  if (!chosenPattern) {
+    return false;
+  }
+  return !value.match(chosenPattern);
+}
+function outOfRange(attrs) {
+  const { max, min, gt, lt, value } = attrs;
+  if (!value) {
+    return false;
+  }
+  if ((gt !== null || lt !== null || min !== null || max !== null) && !value.match(PATTERNS["number"])) {
+    return "invalid";
+  }
+  const num = parseFloat(value);
+  if (gt !== null && num <= parseFloat(gt)) {
+    return "under";
+  }
+  if (lt !== null && num >= parseFloat(lt)) {
+    return "over";
+  }
+  if (gt === null && min !== null && num < parseFloat(min)) {
+    return "under";
+  }
+  if (lt === null && max !== null && num > parseFloat(max)) {
+    return "over";
+  }
+  return false;
+}
+function wrongLength(attrs) {
+  const { max, min, value } = attrs;
+  if (!value) {
+    return false;
+  }
+  const { length } = value;
+  if (max !== null && length > parseFloat(max)) {
+    return "over";
+  }
+  if (min !== null && length < parseFloat(min)) {
+    return "under";
+  }
+  return false;
+}
+function equalTo(attrs) {
+  const { value, equalToId } = attrs;
+  if (!equalToId || !value) {
+    return false;
+  }
+  let targetElement = document.getElementById(equalToId);
+  if (!targetElement) {
+    return false;
+  }
+  if (!(targetElement instanceof HTMLInputElement) && !(targetElement instanceof HTMLTextAreaElement)) {
+    targetElement = targetElement.querySelector("input, textarea");
+    if (!targetElement) {
+      return false;
+    }
+  }
+  return value !== targetElement.value;
+}
+function typeMismatch(attrs) {
+  const { type, value } = attrs;
+  if (!value) {
+    return false;
+  }
+  switch (type) {
+    case "number": {
+      const parsed = parseFloat(value);
+      return Number.isNaN(parsed);
+    }
+    case "boolean": {
+      const normalised = value.toLowerCase().trim();
+      return normalised !== "true" && normalised !== "false";
+    }
+    default:
+      return false;
+  }
+}
+
+// app/javascript/controllers/decor/daisy/forms/form_field.js
+var NO_ERRORS = {
+  missingValue: false,
+  equalTo: false,
+  outOfRange: false,
+  patternMismatch: false,
+  typeMismatch: false,
+  wrongLength: false
+};
+var FormFieldController = class extends BaseController {
+  static targets = [
+    "input",
+    "container",
+    "label",
+    "helperText",
+    "errorText",
+    "errorIcon",
+    "errorIconText"
+  ];
+  static values = {
+    label: String,
+    validationMessageRequired: { type: String, default: "" },
+    validationMessageLengthOver: { type: String, default: "" },
+    validationMessageLengthUnder: { type: String, default: "" },
+    validationMessageRangeOver: { type: String, default: "" },
+    validationMessageRangeUnder: { type: String, default: "" },
+    validationMessagePatternMismatch: { type: String, default: "" },
+    validationMessageTypeMismatch: { type: String, default: "" },
+    validationMessageEqualto: { type: String, default: "" },
+    validateGt: { type: String, default: "" },
+    validateLt: { type: String, default: "" },
+    validateType: { type: String, default: "" },
+    validateEqualTo: { type: String, default: "" }
+  };
+  static classes = [
+    "valid",
+    "invalid",
+    "validInput",
+    "invalidInput",
+    "validContainer",
+    "invalidContainer",
+    "validLabel",
+    "invalidLabel"
+  ];
+  // Override in subclasses if the field uses a different invalid class name.
+  get invalidClassName() {
+    return "invalid";
+  }
+  connect() {
+    super.connect();
+    this.listening = false;
+    this.touched = false;
+    if (this.isInsideForm()) {
+      this.autoValidation = true;
+    }
+  }
+  disconnect() {
+    this.autoValidation = false;
+    super.disconnect();
+  }
+  set autoValidation(shouldAutoValidate) {
+    if (shouldAutoValidate) {
+      this.setupEventListeners();
+    } else {
+      this.teardownEventListeners();
+    }
+  }
+  handleControlValidatedEvent(evt) {
+    const { target, detail: { errors, valid } } = evt;
+    this.handleValidationResponse(target, valid, errors);
+  }
+  get valid() {
+    return this.validate().valid;
+  }
+  // The orchestrator entry-point. Returns `{ valid, errors }` where errors is
+  // an array of `{ code, message }`. Side-effects: sets custom validity on the
+  // input, flips chrome classes, writes error text into the errorText target,
+  // toggles the error icon, marks the field as touched, and dispatches a
+  // `validated` event for higher controllers to observe.
+  validate() {
+    const errors = this.validationErrors;
+    const valid = Object.values(errors).every((e) => e === false);
+    if (!valid && this.hasInputTarget) {
+      this.inputTarget.setCustomValidity("invalid");
+    } else if (this.hasInputTarget) {
+      this.inputTarget.setCustomValidity("");
+    }
+    this.touched = true;
+    this.emitValidationEvent({ errors, valid });
+    const parsedErrors = this.handleValidationResponse(
+      this.inputTarget,
+      valid,
+      errors
+    );
+    return { errors: parsedErrors, valid };
+  }
+  focusControl() {
+    if (this.hasInputTarget) {
+      this.inputTarget.focus();
+    }
+  }
+  get name() {
+    return this.inputTarget.name;
+  }
+  get value() {
+    return this.inputTarget.value;
+  }
+  set value(val) {
+    this.inputTarget.value = val;
+  }
+  get disabled() {
+    return this.hasInputTarget && this.inputTarget.hasAttribute("disabled");
+  }
+  set disabled(value) {
+    if (!this.hasInputTarget) return;
+    if (value) {
+      this.inputTarget.setAttribute("disabled", "disabled");
+    } else {
+      this.inputTarget.removeAttribute("disabled");
+    }
+    this.toggleTargetElementClasses(this.element, value, [], ["disabled"]);
+  }
+  get required() {
+    return this.hasInputTarget && this.inputTarget.hasAttribute("required");
+  }
+  set required(value) {
+    if (!this.hasInputTarget) return;
+    if (value) {
+      this.inputTarget.setAttribute("required", "required");
+    } else {
+      this.inputTarget.removeAttribute("required");
+    }
+  }
+  // Flips chrome classes for root/container/input/label, toggles helper/error
+  // visibility and the error icon. Called by `handleValidationResponse`.
+  set valid(isValid) {
+    this.toggleTargetElementClasses(
+      this.element,
+      isValid,
+      this.invalidClasses,
+      this.validClasses
+    );
+    if (this.hasContainerTarget) {
+      this.toggleTargetElementClasses(
+        this.containerTarget,
+        isValid,
+        this.invalidContainerClasses,
+        this.validContainerClasses
+      );
+    }
+    if (this.hasInputTarget) {
+      this.toggleTargetElementClasses(
+        this.inputTarget,
+        isValid,
+        this.invalidInputClasses,
+        this.validInputClasses
+      );
+    }
+    this.updateLabelClasses(isValid);
+    this.toggleHelperErrorVisibility(isValid);
+    this.toggleErrorIcon(!isValid);
+  }
+  // Looks up a custom message by stimulus value key; falls back to the
+  // default locale message keyed by `defaultMessageKey`. Variables are
+  // interpolated Rails-style (`%{var}`).
+  generateErrorMessage(customMessageKey, defaultMessageKey, values = {}) {
+    let rawMessage;
+    switch (customMessageKey) {
+      case "validationMessageRequired":
+        rawMessage = this.validationMessageRequiredValue;
+        break;
+      case "validationMessageLengthOver":
+        rawMessage = this.validationMessageLengthOverValue;
+        break;
+      case "validationMessageLengthUnder":
+        rawMessage = this.validationMessageLengthUnderValue;
+        break;
+      case "validationMessageRangeOver":
+        rawMessage = this.validationMessageRangeOverValue;
+        break;
+      case "validationMessageRangeUnder":
+        rawMessage = this.validationMessageRangeUnderValue;
+        break;
+      case "validationMessagePatternMismatch":
+        rawMessage = this.validationMessagePatternMismatchValue;
+        break;
+      case "validationMessageTypeMismatch":
+        rawMessage = this.validationMessageTypeMismatchValue;
+        break;
+      case "validationMessageEqualto":
+        rawMessage = this.validationMessageEqualtoValue;
+        break;
+      default:
+        rawMessage = null;
+    }
+    return generateFormValidationMessage(
+      rawMessage || this.generateDefaultMessage(defaultMessageKey),
+      values
+    );
+  }
+  get validationErrors() {
+    if (this.disabled) {
+      return { ...NO_ERRORS };
+    }
+    return {
+      missingValue: this.missingValueError,
+      equalTo: this.equalToError,
+      outOfRange: this.outOfRangeError,
+      patternMismatch: this.patternMismatchError,
+      typeMismatch: this.typeMismatchError,
+      wrongLength: this.wrongLengthError
+    };
+  }
+  emitValidationEvent({ errors, valid }) {
+    this.dispatch("validated", {
+      bubbles: true,
+      cancelable: false,
+      detail: { errors, valid }
+    });
+  }
+  setupEventListeners() {
+    if (this.listening || !this.hasInputTarget) return;
+    this._boundHandleInput = this.handleInputEvent.bind(this);
+    this._boundHandleFocus = this.handleFocusEvent.bind(this);
+    this._boundHandleBlur = this.handleBlurEvent.bind(this);
+    this._boundHandleEqualToTargetInput = this.handleEqualToTargetInput.bind(this);
+    this.inputTarget.addEventListener("input", this._boundHandleInput);
+    this.inputTarget.addEventListener("focus", this._boundHandleFocus);
+    this.inputTarget.addEventListener("blur", this._boundHandleBlur);
+    const equalToTarget = this.equalToTargetElement;
+    if (equalToTarget) {
+      equalToTarget.addEventListener("input", this._boundHandleEqualToTargetInput);
+    }
+    this.listening = true;
+  }
+  teardownEventListeners() {
+    if (!this.listening || !this.hasInputTarget) return;
+    this.inputTarget.removeEventListener("input", this._boundHandleInput);
+    this.inputTarget.removeEventListener("focus", this._boundHandleFocus);
+    this.inputTarget.removeEventListener("blur", this._boundHandleBlur);
+    const equalToTarget = this.equalToTargetElement;
+    if (equalToTarget) {
+      equalToTarget.removeEventListener("input", this._boundHandleEqualToTargetInput);
+    }
+    this.listening = false;
+  }
+  handleInputEvent() {
+    if (this.touched) this.validate();
+  }
+  handleFocusEvent() {
+    if (this.inputTarget.value) this.touched = true;
+  }
+  handleBlurEvent() {
+    this.validate();
+  }
+  handleEqualToTargetInput() {
+    if (this.touched) this.validate();
+  }
+  get equalToTargetElement() {
+    const id = this.validateEqualToValue || this.inputTarget.getAttribute("data-form-control-validate-equal-to-value");
+    if (!id) return null;
+    let el = document.getElementById(id);
+    if (!el) return null;
+    if (!(el instanceof HTMLInputElement)) {
+      el = el.querySelector("input");
+    }
+    return el;
+  }
+  get missingValueError() {
+    const el = this.inputTarget;
+    switch (el.type) {
+      case "radio": {
+        const inputGroup = Array.from(document.getElementsByTagName("input"));
+        const radioGroup = inputGroup.filter(
+          (input) => input.getAttribute("name") === el.getAttribute("name")
+        );
+        const radioAttributes = radioGroup.map(this.mapCheckableAttributes);
+        return missingRadioValue(radioAttributes);
+      }
+      case "checkbox": {
+        const checkboxAttributes = this.mapCheckableAttributes(el);
+        return missingCheckboxValue(checkboxAttributes);
+      }
+      default:
+        return missingValue({
+          required: el.hasAttribute("required"),
+          value: el.value
+        });
+    }
+  }
+  get outOfRangeError() {
+    const el = this.inputTarget;
+    return outOfRange({
+      gt: this.validateGtValue || null,
+      lt: this.validateLtValue || null,
+      max: el.getAttribute("max"),
+      min: el.getAttribute("min"),
+      value: el.value
+    });
+  }
+  get patternMismatchError() {
+    const el = this.inputTarget;
+    return patternMismatch({
+      pattern: el.getAttribute("pattern"),
+      type: el.type,
+      value: el.value
+    });
+  }
+  get wrongLengthError() {
+    const el = this.inputTarget;
+    return wrongLength({
+      max: el.getAttribute("maxlength"),
+      min: el.getAttribute("minlength"),
+      value: el.value
+    });
+  }
+  get equalToError() {
+    const el = this.inputTarget;
+    return equalTo({
+      value: el.value,
+      equalToId: this.validateEqualToValue || el.getAttribute("data-form-control-validate-equal-to-value")
+    });
+  }
+  get typeMismatchError() {
+    const el = this.inputTarget;
+    return typeMismatch({
+      type: this.validateTypeValue || null,
+      value: el.value
+    });
+  }
+  mapCheckableAttributes(field) {
+    return {
+      checked: field.checked,
+      required: field.hasAttribute("required")
+    };
+  }
+  // Match against the Suite Form orchestrator's controller id. Daisy doesn't
+  // ship its own Form controller — Suite is the only one with the validate
+  // wiring, and field controllers under either skin route through it.
+  isInsideForm() {
+    return this.element.closest(
+      'form[data-controller*="decor--suite--forms--form"]'
+    ) !== null;
+  }
+  handleValidationResponse(fieldControlTarget, isValid, errors) {
+    this.valid = isValid;
+    const parsedErrors = this.parseErrorMessages(errors);
+    const errorMessage = parsedErrors.length > 0 ? parsedErrors[0].message : null;
+    this.setErrorText(errorMessage);
+    this.toggleHelperErrorVisibility(errorMessage === null);
+    this.toggleErrorIcon(errorMessage !== null);
+    this.emitFormFieldValidatedEvent(fieldControlTarget, isValid, parsedErrors);
+    return parsedErrors;
+  }
+  parseErrorMessages(errors) {
+    const out = [];
+    if (errors.missingValue) {
+      out.push({
+        code: "missingValue",
+        message: this.generateErrorMessage("validationMessageRequired", "blank")
+      });
+    }
+    if (errors.wrongLength === "over") {
+      out.push({
+        code: "lengthOver",
+        message: this.generateErrorMessage("validationMessageLengthOver", "invalid")
+      });
+    }
+    if (errors.wrongLength === "under") {
+      out.push({
+        code: "lengthUnder",
+        message: this.generateErrorMessage("validationMessageLengthUnder", "invalid")
+      });
+    }
+    if (errors.outOfRange === "over") {
+      out.push({
+        code: "rangeOver",
+        message: this.generateErrorMessage("validationMessageRangeOver", "invalid")
+      });
+    }
+    if (errors.outOfRange === "under") {
+      out.push({
+        code: "rangeUnder",
+        message: this.generateErrorMessage("validationMessageRangeUnder", "invalid")
+      });
+    }
+    if (errors.patternMismatch) {
+      out.push({
+        code: "patternMismatch",
+        message: this.generateErrorMessage("validationMessagePatternMismatch", "invalid")
+      });
+    }
+    if (errors.typeMismatch) {
+      out.push({
+        code: "typeMismatch",
+        message: this.generateErrorMessage("validationMessageTypeMismatch", "invalid")
+      });
+    }
+    if (errors.equalTo) {
+      out.push({
+        code: "equalTo",
+        message: this.generateErrorMessage("validationMessageEqualto", "does_not_match")
+      });
+    }
+    return out;
+  }
+  generateDefaultMessage(key) {
+    return `${this.label} ${localeMessage(key)}`;
+  }
+  get label() {
+    const label = this.labelValue;
+    if (!label) {
+      throw new Error(`${this.identifier} should define a label attribute`);
+    }
+    return label;
+  }
+  emitFormFieldValidatedEvent(target, valid, errors) {
+    this.dispatch("validated", {
+      target,
+      bubbles: true,
+      cancelable: false,
+      detail: { errors, valid }
+    });
+  }
+  updateLabelClasses(isValid) {
+    if (this.hasLabelTarget) {
+      this.toggleTargetElementClasses(
+        this.labelTarget,
+        isValid,
+        this.invalidLabelClasses,
+        this.validLabelClasses
+      );
+    }
+  }
+  // Writes the leading error message into the errorText / errorIconText
+  // targets. Called from `handleValidationResponse` only.
+  setErrorText(errorMessage) {
+    if (this.hasErrorTextTarget && errorMessage) {
+      this.errorTextTarget.textContent = errorMessage;
+    }
+    if (this.hasErrorIconTextTarget && errorMessage) {
+      this.errorIconTextTarget.textContent = errorMessage;
+    }
+  }
+  // Helper text and error text are mutually exclusive. Helper text only
+  // surfaces if it has content — empty helper paragraphs stay hidden so we
+  // don't reserve vertical space for nothing.
+  toggleHelperErrorVisibility(showHelper) {
+    if (this.hasHelperTextTarget) {
+      const hasContent = this.helperTextTarget.textContent && this.helperTextTarget.textContent.trim() !== "";
+      this.toggleTargetElementClasses(
+        this.helperTextTarget,
+        showHelper && !!hasContent,
+        ["decor:hidden", "hidden"],
+        []
+      );
+    }
+    if (this.hasErrorTextTarget) {
+      this.toggleTargetElementClasses(
+        this.errorTextTarget,
+        showHelper,
+        [],
+        ["decor:hidden", "hidden"]
+      );
+    }
+  }
+  toggleErrorIcon(show) {
+    if (this.hasErrorIconTarget) {
+      this.toggleTargetElementClasses(
+        this.errorIconTarget,
+        show,
+        ["decor:hidden", "hidden"],
+        []
+      );
+    }
+  }
+};
+
+// app/javascript/controllers/decor/daisy/forms/button_radio_group_controller.js
+var ButtonRadioGroupController = class extends FormFieldController {
+  static targets = FormFieldController.targets;
+};
+
+// app/javascript/controllers/decor/daisy/forms/checkbox_controller.js
+var CheckboxController = class extends FormFieldController {
+  set checked(state) {
+    this.inputTarget.checked = state;
+    this.inputTarget.indeterminate = false;
+  }
+  get checked() {
+    return this.inputTarget.checked;
+  }
+  set indeterminate(state) {
+    this.inputTarget.indeterminate = state;
+  }
+  get indeterminate() {
+    return this.inputTarget.indeterminate;
+  }
+};
+
+// app/javascript/controllers/decor/daisy/forms/date_calendar_controller.js
+import { Controller as Controller8 } from "@hotwired/stimulus";
 import "cally";
-var date_calendar_controller_default = class extends Controller7 {
+var date_calendar_controller_default = class extends Controller8 {
   static targets = ["calendar", "hiddenInput", "popoverTrigger", "popoverPanel"];
   static values = {
     calendarType: { type: String, default: null },
@@ -898,8 +1592,8 @@ var date_calendar_controller_default = class extends Controller7 {
 };
 
 // app/javascript/controllers/decor/daisy/forms/expanding_checkbox_collection_controller.js
-import { Controller as Controller8 } from "@hotwired/stimulus";
-var expanding_checkbox_collection_controller_default = class extends Controller8 {
+import { Controller as Controller9 } from "@hotwired/stimulus";
+var expanding_checkbox_collection_controller_default = class extends Controller9 {
   static targets = ["showMoreLink"];
   initialize() {
     this.showingMore = false;
@@ -915,9 +1609,171 @@ var expanding_checkbox_collection_controller_default = class extends Controller8
   }
 };
 
+// app/javascript/controllers/decor/daisy/forms/file_upload_controller.js
+var FileUploadController = class extends FormFieldController {
+  static classes = [...FormFieldController.classes, "image"];
+  static targets = [
+    ...FormFieldController.targets,
+    "thumbnailWrapper",
+    "thumbnailImage",
+    "deleteField",
+    "dropZone",
+    "fileList"
+  ];
+  static values = {
+    ...FormFieldController.values,
+    maxSizeInMb: Number
+  };
+  // ── drop-zone drag-and-drop ────────────────────────────────────────────
+  onDragOver(event) {
+    event.preventDefault();
+    if (this.hasDropZoneTarget) {
+      this.dropZoneTarget.classList.add(
+        "border-primary-500",
+        "bg-primary-50",
+        "border-primary-500!"
+      );
+      this.dropZoneTarget.classList.remove(
+        "border-hairline-strong",
+        "bg-gray-25"
+      );
+    }
+  }
+  onDragLeave(_event) {
+    if (this.hasDropZoneTarget) {
+      this.dropZoneTarget.classList.remove(
+        "border-primary-500",
+        "bg-primary-50",
+        "border-primary-500!"
+      );
+      this.dropZoneTarget.classList.add(
+        "border-hairline-strong",
+        "bg-gray-25"
+      );
+    }
+  }
+  onDrop(event) {
+    event.preventDefault();
+    this.onDragLeave(event);
+    const input = this.element.querySelector('input[type="file"]');
+    if (!input || !event.dataTransfer) return;
+    try {
+      input.files = event.dataTransfer.files;
+    } catch {
+      return;
+    }
+    input.dispatchEvent(new Event("change", { bubbles: true }));
+  }
+  openFilePicker() {
+    const input = this.element.querySelector('input[type="file"]');
+    if (input) input.click();
+  }
+  removeImage() {
+    if (this.hasDeleteFieldTarget) {
+      this.deleteFieldTarget.value = "true";
+    }
+    const input = this.element.querySelector('input[type="file"]');
+    if (input) input.value = "";
+    if (this.hasThumbnailWrapperTarget) {
+      this.thumbnailWrapperTarget.outerHTML = `
+        <div class="border rounded-lg bg-gray-50 w-32 h-32 flex flex-col items-center justify-center text-gray-400"
+             data-${this.identifier}-target="thumbnailWrapper">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z" />
+          </svg>
+          <span class="text-xs">No image</span>
+        </div>`;
+    }
+  }
+  // ── file selection / preview rendering ─────────────────────────────────
+  fileSelected(event) {
+    const input = event.target;
+    if (!input.files || !input.files[0]) return;
+    if (input.files[0].size / 1024 / 1024 > this.maxSize) {
+      alert("Sorry that file is too large");
+      input.value = "";
+      return;
+    }
+    if (this.hasDeleteFieldTarget) {
+      this.deleteFieldTarget.value = "false";
+    }
+    if (this.hasThumbnailWrapperTarget) {
+      this._renderImagePreview(input);
+    } else if (this.hasFileListTarget) {
+      this._renderFileList(input.files);
+    } else {
+      this._renderLegacyAvatar(input);
+    }
+  }
+  _renderImagePreview(input) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      if (!e.target || !e.target.result) return;
+      this.thumbnailWrapperTarget.outerHTML = `
+        <div class="relative group border rounded-lg overflow-hidden bg-gray-50 w-32 h-32"
+             data-${this.identifier}-target="thumbnailWrapper">
+          <img src="${e.target.result.toString()}"
+               class="w-full h-full object-cover"
+               data-${this.identifier}-target="thumbnailImage" />
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors"></div>
+          <div class="absolute top-1 right-1 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+            <button type="button"
+                    class="p-1 bg-white rounded-sm shadow-sm hover:bg-red-100 text-red-600"
+                    data-action="${this.identifier}#removeImage"
+                    title="Remove image">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>`;
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+  _renderFileList(files) {
+    const items = [];
+    for (let i = 0; i < files.length; i++) {
+      const f = files[i];
+      const kb = Math.round(f.size / 1024);
+      const size = kb >= 1024 ? `${(kb / 1024).toFixed(1)} MB` : `${kb} KB`;
+      items.push(
+        `<div class="flex items-center gap-2 text-[12px] text-gray-700 bg-gray-50 border border-hairline rounded-[6px] px-3 py-1.5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-gray-400 shrink-0"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg><span class="truncate font-medium">${escapeText(f.name)}</span><span class="text-gray-400 shrink-0">${size}</span></div>`
+      );
+    }
+    this.fileListTarget.innerHTML = items.join("");
+  }
+  // Legacy avatar variant — replaces the image inside a known container
+  // class. Predates the thumbnailWrapper target wiring and is kept for
+  // back-compat with existing renders.
+  _renderLegacyAvatar(input) {
+    const container = this.element.getElementsByClassName(
+      "decor--image-upload--image-container"
+    )[0];
+    if (!container) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const image = document.createElement("img");
+      if (this.hasImageClass) {
+        image.classList.add(...this.imageClasses);
+      }
+      if (e.target && e.target.result) {
+        image.src = e.target.result.toString();
+        container.replaceChild(image, container.children[0]);
+      }
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+  get maxSize() {
+    return this.maxSizeInMbValue;
+  }
+};
+function escapeText(s) {
+  return String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+}
+
 // app/javascript/controllers/decor/daisy/forms/multi_image_upload_controller.js
-import { Controller as Controller9 } from "@hotwired/stimulus";
-var multi_image_upload_controller_default = class extends Controller9 {
+import { Controller as Controller10 } from "@hotwired/stimulus";
+var multi_image_upload_controller_default = class extends Controller10 {
   static targets = [
     "sortableContainer",
     "thumbnail",
@@ -1200,9 +2056,22 @@ var multi_image_upload_controller_default = class extends Controller9 {
   }
 };
 
+// app/javascript/controllers/decor/daisy/forms/text_field_controller.js
+var TextFieldController = class extends FormFieldController {
+  static targets = ["leadingTextAddOn", "trailingTextAddOn"];
+};
+
+// app/javascript/controllers/decor/daisy/forms/number_field_controller.js
+var NumberFieldController = class extends TextFieldController {
+};
+
+// app/javascript/controllers/decor/daisy/forms/radio_controller.js
+var RadioController = class extends FormFieldController {
+};
+
 // app/javascript/controllers/decor/daisy/forms/searchable_select_controller.js
-import { Controller as Controller10 } from "@hotwired/stimulus";
-var searchable_select_controller_default = class extends Controller10 {
+import { Controller as Controller11 } from "@hotwired/stimulus";
+var searchable_select_controller_default = class extends Controller11 {
   static targets = [
     "input",
     "dropdown",
@@ -1786,9 +2655,68 @@ var searchable_multi_select_controller_default = class extends searchable_select
   }
 };
 
+// app/javascript/controllers/decor/daisy/forms/select_controller.js
+var SelectController = class _SelectController extends FormFieldController {
+  static values = {
+    ...FormFieldController.values,
+    name: { type: String, default: "" },
+    hasBlankOrPlaceholder: Boolean
+  };
+  connect() {
+    super.connect();
+    this._boundHandleChange = this.handleChangeEvent.bind(this);
+    this.inputTarget.addEventListener("change", this._boundHandleChange);
+    this.styleOption();
+  }
+  disconnect() {
+    this.inputTarget.removeEventListener("change", this._boundHandleChange);
+    super.disconnect();
+  }
+  styleOption() {
+    let blankSelected = false;
+    for (const option of this.inputTarget.children) {
+      const isBlank = this.hasBlankOrPlaceholderValue && option.value === "";
+      if (isBlank && this.value === option.value) {
+        blankSelected = true;
+      }
+    }
+    this.toggleTargetElementClasses(
+      this.inputTarget,
+      blankSelected,
+      [],
+      ["text-disabled"]
+    );
+  }
+  get optionsHTML() {
+    return this.inputTarget.innerHTML;
+  }
+  // Replace the <option> list. `optionsHTML` is treated as trusted markup —
+  // callers must escape user-provided strings themselves before passing
+  // them in. There's no DOM sanitiser in scope here.
+  set options(optionsHTML) {
+    this.inputTarget.innerHTML = optionsHTML;
+  }
+  empty(message) {
+    this.options = `<option value="" selected>${escapeText2(message)}</option>`;
+  }
+  handleChangeEvent(evt) {
+    const name = this.nameValue;
+    const target = evt.target;
+    this.styleOption();
+    this.emitEvent(this.element, _SelectController, "change", {
+      name,
+      index: target.selectedIndex,
+      value: target.value
+    });
+  }
+};
+function escapeText2(s) {
+  return String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+}
+
 // app/javascript/controllers/decor/daisy/forms/switch_controller.js
-import { Controller as Controller11 } from "@hotwired/stimulus";
-var switch_controller_default = class extends Controller11 {
+import { Controller as Controller12 } from "@hotwired/stimulus";
+var switch_controller_default = class extends Controller12 {
   static targets = ["checkbox"];
   static values = {
     label: { type: String, default: null },
@@ -1872,9 +2800,13 @@ Click OK to ${confirmLabel} or Cancel to ${cancelLabel}.`)) {
   }
 };
 
+// app/javascript/controllers/decor/daisy/forms/text_area_controller.js
+var TextAreaController = class extends FormFieldController {
+};
+
 // app/javascript/controllers/decor/daisy/map_controller.js
-import { Controller as Controller12 } from "@hotwired/stimulus";
-var map_controller_default = class extends Controller12 {
+import { Controller as Controller13 } from "@hotwired/stimulus";
+var map_controller_default = class extends Controller13 {
   static targets = ["mapContainer"];
   static values = {
     apiKey: String,
@@ -2228,8 +3160,8 @@ var map_controller_default = class extends Controller12 {
 };
 
 // app/javascript/controllers/decor/daisy/modals/confirm_controller.js
-import { Controller as Controller13 } from "@hotwired/stimulus";
-var confirm_controller_default = class extends Controller13 {
+import { Controller as Controller14 } from "@hotwired/stimulus";
+var confirm_controller_default = class extends Controller14 {
   static values = {
     confirmEvent: { type: String, default: "" },
     modalId: { type: String, default: "" }
@@ -2252,7 +3184,7 @@ var confirm_controller_default = class extends Controller13 {
 };
 
 // app/javascript/controllers/decor/daisy/modals/modal_controller.js
-import { Controller as Controller14 } from "@hotwired/stimulus";
+import { Controller as Controller15 } from "@hotwired/stimulus";
 var ModalEvents;
 (function(ModalEvents2) {
   ModalEvents2["Open"] = "decor--daisy--modals--modal:open";
@@ -2265,7 +3197,7 @@ var ModalEvents;
   ModalEvents2["Closing"] = "decor--daisy--modals--modal:closing";
   ModalEvents2["Closed"] = "decor--daisy--modals--modal:closed";
 })(ModalEvents || (ModalEvents = {}));
-var modal_controller_default = class extends Controller14 {
+var modal_controller_default = class extends Controller15 {
   static targets = ["overlay", "modal"];
   static values = {
     showInitial: { type: Boolean, default: false },
@@ -2470,8 +3402,8 @@ var confirm_modal_controller_default = class extends modal_controller_default {
 };
 
 // app/javascript/controllers/decor/daisy/modals/modal_close_button_controller.js
-import { Controller as Controller15 } from "@hotwired/stimulus";
-var modal_close_button_controller_default = class extends Controller15 {
+import { Controller as Controller16 } from "@hotwired/stimulus";
+var modal_close_button_controller_default = class extends Controller16 {
   static values = {
     closeReason: String
   };
@@ -2484,8 +3416,8 @@ var modal_close_button_controller_default = class extends Controller15 {
 };
 
 // app/javascript/controllers/decor/daisy/modals/modal_open_button_controller.js
-import { Controller as Controller16 } from "@hotwired/stimulus";
-var modal_open_button_controller_default = class extends Controller16 {
+import { Controller as Controller17 } from "@hotwired/stimulus";
+var modal_open_button_controller_default = class extends Controller17 {
   static values = {
     contentHref: String,
     initialContent: String,
@@ -2504,8 +3436,8 @@ var modal_open_button_controller_default = class extends Controller16 {
 };
 
 // app/javascript/controllers/decor/daisy/modals/modal_trigger_controller.js
-import { Controller as Controller17 } from "@hotwired/stimulus";
-var modal_trigger_controller_default = class extends Controller17 {
+import { Controller as Controller18 } from "@hotwired/stimulus";
+var modal_trigger_controller_default = class extends Controller18 {
   static values = {
     modalId: String,
     contentHref: String,
@@ -2529,12 +3461,12 @@ var modal_trigger_controller_default = class extends Controller17 {
 };
 
 // app/javascript/controllers/decor/daisy/notification_manager_controller.js
-import { Controller as Controller18 } from "@hotwired/stimulus";
+import { Controller as Controller19 } from "@hotwired/stimulus";
 var NOTIFICATION_MANAGER_CLASS_NAME = "decor--daisy--notification-manager";
 var NOTIFICATION_CLASSNAME = `${NOTIFICATION_MANAGER_CLASS_NAME}-notification`;
 var DEFAULT_DISMISS_AFTER_MS = 3e3;
 var DISMISS_ALL_STAGGER_MS = 50;
-var notification_manager_controller_default = class extends Controller18 {
+var notification_manager_controller_default = class extends Controller19 {
   static targets = ["notificationContainer"];
   static values = {
     initialNotifications: { type: Array, default: [] }
@@ -2664,8 +3596,8 @@ var notification_manager_controller_default = class extends Controller18 {
 };
 
 // app/javascript/controllers/decor/daisy/polygon_editor_controller.js
-import { Controller as Controller19 } from "@hotwired/stimulus";
-var polygon_editor_controller_default = class extends Controller19 {
+import { Controller as Controller20 } from "@hotwired/stimulus";
+var polygon_editor_controller_default = class extends Controller20 {
   static targets = ["mapContainer", "geoJsonInput"];
   static values = {
     apiKey: String,
@@ -2902,8 +3834,8 @@ var polygon_editor_controller_default = class extends Controller19 {
 };
 
 // app/javascript/controllers/decor/daisy/progress_controller.js
-import { Controller as Controller20 } from "@hotwired/stimulus";
-var progress_controller_default = class extends Controller20 {
+import { Controller as Controller21 } from "@hotwired/stimulus";
+var progress_controller_default = class extends Controller21 {
   static targets = ["progress", "step"];
   static values = {
     currentStep: { type: Number, default: 1 },
@@ -3004,8 +3936,8 @@ var progress_controller_default = class extends Controller20 {
 };
 
 // app/javascript/controllers/decor/daisy/tables/bulk_actions_bar_controller.js
-import { Controller as Controller21 } from "@hotwired/stimulus";
-var bulk_actions_bar_controller_default = class extends Controller21 {
+import { Controller as Controller22 } from "@hotwired/stimulus";
+var bulk_actions_bar_controller_default = class extends Controller22 {
   static targets = [
     "selectionCount",
     "selectedIdsContainer",
@@ -3158,8 +4090,8 @@ var bulk_actions_bar_controller_default = class extends Controller21 {
 };
 
 // app/javascript/controllers/decor/daisy/tables/tag_filter_bar_controller.js
-import { Controller as Controller22 } from "@hotwired/stimulus";
-var tag_filter_bar_controller_default = class extends Controller22 {
+import { Controller as Controller23 } from "@hotwired/stimulus";
+var tag_filter_bar_controller_default = class extends Controller23 {
   static targets = [
     "chip",
     "applyButton",
@@ -3265,8 +4197,8 @@ var tag_filter_bar_controller_default = class extends Controller22 {
 };
 
 // app/javascript/controllers/decor/daisy/tabs_controller.js
-import { Controller as Controller23 } from "@hotwired/stimulus";
-var tabs_controller_default = class extends Controller23 {
+import { Controller as Controller24 } from "@hotwired/stimulus";
+var tabs_controller_default = class extends Controller24 {
   handleSelectTabOnMobile(event) {
     const select = event.target;
     const selected = select.options[select.selectedIndex];
@@ -3278,8 +4210,8 @@ var tabs_controller_default = class extends Controller23 {
 };
 
 // app/javascript/controllers/decor/progress_animation_controller.js
-import { Controller as Controller24 } from "@hotwired/stimulus";
-var progress_animation_controller_default = class extends Controller24 {
+import { Controller as Controller25 } from "@hotwired/stimulus";
+var progress_animation_controller_default = class extends Controller25 {
   static values = {
     currentStep: { type: Number, default: 2 },
     steps: { type: Number, default: 5 },
@@ -3346,7 +4278,7 @@ var progress_animation_controller_default = class extends Controller24 {
 };
 
 // app/javascript/controllers/decor/suite/carousel_controller.js
-import { Controller as Controller25 } from "@hotwired/stimulus";
+import { Controller as Controller26 } from "@hotwired/stimulus";
 import Swiper from "swiper";
 import { Navigation, Pagination, Keyboard, A11y, Autoplay } from "swiper/modules";
 var BREAKPOINT_PX = {
@@ -3357,7 +4289,7 @@ var BREAKPOINT_PX = {
   xl: 1280,
   "2xl": 1536
 };
-var carousel_controller_default = class extends Controller25 {
+var carousel_controller_default = class extends Controller26 {
   static values = {
     slidesPerView: { type: Object, default: {} },
     spaceBetween: { type: Number, default: 16 },
@@ -3441,8 +4373,8 @@ var carousel_controller_default = class extends Controller25 {
 };
 
 // app/javascript/controllers/decor/suite/dropdown_controller.js
-import { Controller as Controller26 } from "@hotwired/stimulus";
-var dropdown_controller_default2 = class extends Controller26 {
+import { Controller as Controller27 } from "@hotwired/stimulus";
+var dropdown_controller_default2 = class extends Controller27 {
   static targets = ["menu", "button"];
   static values = {
     contentHref: { type: String, default: "" },
@@ -3493,10 +4425,11 @@ var dropdown_controller_default2 = class extends Controller26 {
 };
 
 // app/javascript/controllers/decor/suite/forms/form_controller.js
-import { Controller as Controller27 } from "@hotwired/stimulus";
-var form_controller_default = class extends Controller27 {
+import { Controller as Controller28 } from "@hotwired/stimulus";
+var form_controller_default = class extends Controller28 {
   static targets = ["form"];
   connect() {
+    this.element.setAttribute("novalidate", "true");
   }
   disconnect() {
     this.element.removeAttribute("novalidate");
@@ -3509,11 +4442,6 @@ var form_controller_default = class extends Controller27 {
       const target = evt.target;
       if (target !== this.element && !this.element.contains(target)) return;
     }
-    const fields = this.fieldControllers();
-    if (fields.length === 0) {
-      return;
-    }
-    this.element.setAttribute("novalidate", "true");
     if (this.performValidation()) {
       evt.preventDefault();
       evt.stopPropagation();
@@ -3648,8 +4576,8 @@ var searchable_select_controller_default2 = class extends searchable_select_cont
 };
 
 // app/javascript/controllers/decor/suite/modals/confirm_controller.js
-import { Controller as Controller28 } from "@hotwired/stimulus";
-var confirm_controller_default2 = class extends Controller28 {
+import { Controller as Controller29 } from "@hotwired/stimulus";
+var confirm_controller_default2 = class extends Controller29 {
   static values = {
     confirmEvent: { type: String, default: "" },
     modalId: { type: String, default: "" }
@@ -3673,8 +4601,8 @@ var confirm_controller_default2 = class extends Controller28 {
 };
 
 // app/javascript/controllers/decor/suite/modals/modal_close_button_controller.js
-import { Controller as Controller29 } from "@hotwired/stimulus";
-var modal_close_button_controller_default2 = class extends Controller29 {
+import { Controller as Controller30 } from "@hotwired/stimulus";
+var modal_close_button_controller_default2 = class extends Controller30 {
   static values = {
     closeReason: String
   };
@@ -3687,7 +4615,7 @@ var modal_close_button_controller_default2 = class extends Controller29 {
 };
 
 // app/javascript/controllers/decor/suite/modals/modal_controller.js
-import { Controller as Controller30 } from "@hotwired/stimulus";
+import { Controller as Controller31 } from "@hotwired/stimulus";
 var LOADING_SKELETON_HTML = `
   <div class="decor:space-y-2 decor:py-1" aria-hidden="true">
     <div class="decor:h-3 decor:bg-gray-100 decor:rounded-sm decor:animate-pulse"></div>
@@ -3697,7 +4625,7 @@ var LOADING_SKELETON_HTML = `
 `;
 var OPENED_EVENT = "decor--suite--modals--modal:opened";
 var CLOSED_EVENT = "decor--suite--modals--modal:closed";
-var modal_controller_default2 = class extends Controller30 {
+var modal_controller_default2 = class extends Controller31 {
   static targets = ["body", "overlay", "modal"];
   static values = {
     startOpen: { type: Boolean, default: false },
@@ -3886,8 +4814,8 @@ var modal_controller_default2 = class extends Controller30 {
 };
 
 // app/javascript/controllers/decor/suite/modals/modal_open_button_controller.js
-import { Controller as Controller31 } from "@hotwired/stimulus";
-var modal_open_button_controller_default2 = class extends Controller31 {
+import { Controller as Controller32 } from "@hotwired/stimulus";
+var modal_open_button_controller_default2 = class extends Controller32 {
   static values = {
     modalId: String,
     contentHref: String,
@@ -3912,8 +4840,8 @@ var modal_open_button_controller_default2 = class extends Controller31 {
 };
 
 // app/javascript/controllers/decor/suite/modals/modal_trigger_controller.js
-import { Controller as Controller32 } from "@hotwired/stimulus";
-var modal_trigger_controller_default2 = class extends Controller32 {
+import { Controller as Controller33 } from "@hotwired/stimulus";
+var modal_trigger_controller_default2 = class extends Controller33 {
   static values = {
     modalId: String,
     contentHref: String,
@@ -3938,8 +4866,8 @@ var modal_trigger_controller_default2 = class extends Controller32 {
 };
 
 // app/javascript/controllers/decor/suite/search_and_filter_controller.js
-import { Controller as Controller33 } from "@hotwired/stimulus";
-var search_and_filter_controller_default = class extends Controller33 {
+import { Controller as Controller34 } from "@hotwired/stimulus";
+var search_and_filter_controller_default = class extends Controller34 {
   static targets = [
     "searchInput",
     "applyButton",
@@ -4047,8 +4975,8 @@ var search_and_filter_controller_default = class extends Controller33 {
 };
 
 // app/javascript/controllers/decor/suite/settings_list/row_controller.js
-import { Controller as Controller34 } from "@hotwired/stimulus";
-var row_controller_default = class extends Controller34 {
+import { Controller as Controller35 } from "@hotwired/stimulus";
+var row_controller_default = class extends Controller35 {
   static targets = ["chevron", "detail", "summary"];
   static values = {
     open: { type: Boolean, default: false }
@@ -4064,8 +4992,8 @@ var row_controller_default = class extends Controller34 {
 };
 
 // app/javascript/controllers/decor/suite/tables/data_table_cell_controller.js
-import { Controller as Controller35 } from "@hotwired/stimulus";
-var data_table_cell_controller_default = class extends Controller35 {
+import { Controller as Controller36 } from "@hotwired/stimulus";
+var data_table_cell_controller_default = class extends Controller36 {
   static values = {
     noPathNavigation: { type: Boolean, default: false }
   };
@@ -4078,7 +5006,7 @@ var data_table_cell_controller_default = class extends Controller35 {
 };
 
 // app/javascript/controllers/decor/suite/tables/data_table_controller.js
-import { Controller as Controller36 } from "@hotwired/stimulus";
+import { Controller as Controller37 } from "@hotwired/stimulus";
 
 // app/javascript/services/selection_persistence_service.js
 var SelectionPersistenceService = class {
@@ -4282,7 +5210,7 @@ if (typeof window !== "undefined") {
 var selection_persistence_service_default = SelectionPersistenceService;
 
 // app/javascript/controllers/decor/suite/tables/data_table_controller.js
-var data_table_controller_default = class extends Controller36 {
+var data_table_controller_default = class extends Controller37 {
   static outlets = [
     "decor--suite--tables--data-table-header-row",
     "decor--suite--tables--data-table-row",
@@ -4577,8 +5505,8 @@ var data_table_controller_default = class extends Controller36 {
 };
 
 // app/javascript/controllers/decor/suite/tabs_controller.js
-import { Controller as Controller37 } from "@hotwired/stimulus";
-var tabs_controller_default2 = class extends Controller37 {
+import { Controller as Controller38 } from "@hotwired/stimulus";
+var tabs_controller_default2 = class extends Controller38 {
   static targets = ["wrapper", "scroll"];
   connect() {
     if (!this.hasWrapperTarget || !this.hasScrollTarget) return;
@@ -4613,7 +5541,7 @@ var tabs_controller_default2 = class extends Controller37 {
 };
 
 // app/javascript/controllers/decor/suite/tooltip_controller.js
-import { Controller as Controller38 } from "@hotwired/stimulus";
+import { Controller as Controller39 } from "@hotwired/stimulus";
 import {
   computePosition,
   autoUpdate,
@@ -4622,7 +5550,7 @@ import {
   offset as offsetMiddleware,
   arrow
 } from "@floating-ui/dom";
-var tooltip_controller_default = class extends Controller38 {
+var tooltip_controller_default = class extends Controller39 {
   static targets = ["content", "arrow"];
   static values = {
     placement: { type: String, default: "top" },
@@ -4725,12 +5653,20 @@ var CONTROLLERS = {
   "decor--daisy--code-block": code_block_controller_default,
   "decor--daisy--dropdown": dropdown_controller_default,
   "decor--daisy--flash": flash_controller_default,
+  "decor--daisy--forms--button-radio-group": ButtonRadioGroupController,
+  "decor--daisy--forms--checkbox": CheckboxController,
   "decor--daisy--forms--date-calendar": date_calendar_controller_default,
   "decor--daisy--forms--expanding-checkbox-collection": expanding_checkbox_collection_controller_default,
+  "decor--daisy--forms--file-upload": FileUploadController,
   "decor--daisy--forms--multi-image-upload": multi_image_upload_controller_default,
+  "decor--daisy--forms--number-field": NumberFieldController,
+  "decor--daisy--forms--radio": RadioController,
   "decor--daisy--forms--searchable-multi-select": searchable_multi_select_controller_default,
   "decor--daisy--forms--searchable-select": searchable_select_controller_default,
+  "decor--daisy--forms--select": SelectController,
   "decor--daisy--forms--switch": switch_controller_default,
+  "decor--daisy--forms--text-area": TextAreaController,
+  "decor--daisy--forms--text-field": TextFieldController,
   "decor--daisy--map": map_controller_default,
   "decor--daisy--modals--confirm": confirm_controller_default,
   "decor--daisy--modals--confirm-modal": confirm_modal_controller_default,
@@ -4751,13 +5687,21 @@ var CONTROLLERS = {
   "decor--suite--click-to-copy": click_to_copy_controller_default,
   "decor--suite--dropdown": dropdown_controller_default2,
   "decor--suite--flash": flash_controller_default,
+  "decor--suite--forms--button-radio-group": ButtonRadioGroupController,
+  "decor--suite--forms--checkbox": CheckboxController,
   "decor--suite--forms--date-calendar": date_calendar_controller_default,
   "decor--suite--forms--expanding-checkbox-collection": expanding_checkbox_collection_controller_default,
+  "decor--suite--forms--file-upload": FileUploadController,
   "decor--suite--forms--form": form_controller_default,
   "decor--suite--forms--multi-image-upload": multi_image_upload_controller_default,
+  "decor--suite--forms--number-field": NumberFieldController,
+  "decor--suite--forms--radio": RadioController,
   "decor--suite--forms--searchable-multi-select": searchable_multi_select_controller_default2,
   "decor--suite--forms--searchable-select": searchable_select_controller_default2,
+  "decor--suite--forms--select": SelectController,
   "decor--suite--forms--switch": switch_controller_default,
+  "decor--suite--forms--text-area": TextAreaController,
+  "decor--suite--forms--text-field": TextFieldController,
   "decor--suite--map": map_controller_default,
   "decor--suite--modals--confirm": confirm_controller_default2,
   "decor--suite--modals--modal-close-button": modal_close_button_controller_default2,
@@ -4778,8 +5722,8 @@ var CONTROLLERS = {
 
 // app/javascript/decor/index.js
 function register(application) {
-  for (const [identifier, Controller39] of Object.entries(CONTROLLERS)) {
-    application.register(identifier, Controller39);
+  for (const [identifier, Controller40] of Object.entries(CONTROLLERS)) {
+    application.register(identifier, Controller40);
   }
 }
 if (typeof window !== "undefined" && window.Stimulus) {

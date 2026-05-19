@@ -14,7 +14,7 @@ module Decor
 
         def view_template
           root_element do |el|
-            div(class: outer_layout_classes) do
+            div(class: outer_layout_classes, data: form_field_target_data(:container)) do
               if @label.present? && (label_top? || label_left?)
                 div(class: label_section_classes) do
                   render_label
@@ -200,15 +200,19 @@ module Decor
         end
 
         # ── helper / error caption below the field ──────────────────────────
+        # See TextField#render_helper_or_error_text for the dual-paragraph
+        # rationale.
 
         def render_helper_or_error_text
-          if @helper_text.present? && !errors?
-            p(class: helper_text_classes) { plain @helper_text }
-          end
+          p(
+            class: [helper_text_classes, (errors? || @helper_text.blank?) ? "decor:hidden" : nil].compact.join(" "),
+            data: form_field_target_data(:helperText)
+          ) { plain @helper_text.to_s }
 
-          if errors?
-            p(class: error_text_classes) { plain error_text }
-          end
+          p(
+            class: [error_text_classes, errors? ? nil : "decor:hidden"].compact.join(" "),
+            data: form_field_target_data(:errorText)
+          ) { plain errors? ? error_text : "" }
         end
 
         def helper_text_classes

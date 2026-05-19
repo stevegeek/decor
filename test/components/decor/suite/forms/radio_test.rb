@@ -100,7 +100,10 @@ class ::Decor::Suite::Forms::RadioTest < ActiveSupport::TestCase
     )
     assert_includes html, "Bad"
     assert_includes html, "decor:text-suite-danger-700"
-    refute_includes html, "Helper"
+    # Helper paragraph stays in DOM (hidden) so the JS FormField controller
+    # has a stable swap target once validation passes.
+    assert_match(/data-decor--suite--forms--radio-target="helperText"/, html)
+    assert_match(/class="[^"]*decor:hidden[^"]*"\s+data-decor--suite--forms--radio-target="helperText"/, html)
   end
 
   test "floating_error_text suppresses inline error rendering" do

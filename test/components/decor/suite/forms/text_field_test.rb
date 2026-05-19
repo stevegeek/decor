@@ -109,12 +109,16 @@ class ::Decor::Suite::Forms::TextFieldTest < ActiveSupport::TestCase
     assert_includes html, "decor:suite-field-help"
   end
 
-  test "error text suppresses helper text" do
+  test "error text suppresses helper text visually (helper paragraph is hidden for JS validation pipeline)" do
     html = render_component(
       ::Decor::Suite::Forms::TextField.new(name: "n", label: "L", helper_text: "Help", error_messages: ["Bad"])
     )
     assert_includes html, "Bad"
-    refute_includes html, "Help"
+    # Helper paragraph is kept in the DOM (with `decor:hidden`) so the JS
+    # FormField controller has a stable target to swap back in once
+    # validation passes. The "Help" text travels with it.
+    assert_match(/data-decor--suite--forms--text-field-target="helperText"/, html)
+    assert_match(/class="[^"]*decor:hidden[^"]*"\s+data-decor--suite--forms--text-field-target="helperText"/, html)
   end
 
   test "leading icon renders absolutely positioned with Decor::Icon" do

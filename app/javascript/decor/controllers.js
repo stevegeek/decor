@@ -5,12 +5,20 @@ import DaisyClickToCopyController from "../controllers/decor/daisy/click_to_copy
 import CodeBlockController from "../controllers/decor/daisy/code_block_controller";
 import DaisyDropdownController from "../controllers/decor/daisy/dropdown_controller";
 import DaisyFlashController from "../controllers/decor/daisy/flash_controller";
+import DaisyFormsButtonRadioGroupController from "../controllers/decor/daisy/forms/button_radio_group_controller";
+import DaisyFormsCheckboxController from "../controllers/decor/daisy/forms/checkbox_controller";
 import DaisyFormsDateCalendarController from "../controllers/decor/daisy/forms/date_calendar_controller";
 import DaisyFormsExpandingCheckboxCollectionController from "../controllers/decor/daisy/forms/expanding_checkbox_collection_controller";
+import DaisyFormsFileUploadController from "../controllers/decor/daisy/forms/file_upload_controller";
 import DaisyFormsMultiImageUploadController from "../controllers/decor/daisy/forms/multi_image_upload_controller";
+import DaisyFormsNumberFieldController from "../controllers/decor/daisy/forms/number_field_controller";
+import DaisyFormsRadioController from "../controllers/decor/daisy/forms/radio_controller";
 import DaisyFormsSearchableMultiSelectController from "../controllers/decor/daisy/forms/searchable_multi_select_controller";
 import DaisyFormsSearchableSelectController from "../controllers/decor/daisy/forms/searchable_select_controller";
+import DaisyFormsSelectController from "../controllers/decor/daisy/forms/select_controller";
 import DaisyFormsSwitchController from "../controllers/decor/daisy/forms/switch_controller";
+import DaisyFormsTextAreaController from "../controllers/decor/daisy/forms/text_area_controller";
+import DaisyFormsTextFieldController from "../controllers/decor/daisy/forms/text_field_controller";
 import DaisyMapController from "../controllers/decor/daisy/map_controller";
 import DaisyModalsConfirmController from "../controllers/decor/daisy/modals/confirm_controller";
 import ConfirmModalController from "../controllers/decor/daisy/modals/confirm_modal_controller";
@@ -31,13 +39,21 @@ import CarouselController from "../controllers/decor/suite/carousel_controller";
 import SuiteClickToCopyController from "../controllers/decor/suite/click_to_copy_controller";
 import SuiteDropdownController from "../controllers/decor/suite/dropdown_controller";
 import SuiteFlashController from "../controllers/decor/suite/flash_controller";
+import SuiteFormsButtonRadioGroupController from "../controllers/decor/suite/forms/button_radio_group_controller";
+import SuiteFormsCheckboxController from "../controllers/decor/suite/forms/checkbox_controller";
 import SuiteFormsDateCalendarController from "../controllers/decor/suite/forms/date_calendar_controller";
 import SuiteFormsExpandingCheckboxCollectionController from "../controllers/decor/suite/forms/expanding_checkbox_collection_controller";
+import SuiteFormsFileUploadController from "../controllers/decor/suite/forms/file_upload_controller";
 import FormController from "../controllers/decor/suite/forms/form_controller";
 import SuiteFormsMultiImageUploadController from "../controllers/decor/suite/forms/multi_image_upload_controller";
+import SuiteFormsNumberFieldController from "../controllers/decor/suite/forms/number_field_controller";
+import SuiteFormsRadioController from "../controllers/decor/suite/forms/radio_controller";
 import SuiteFormsSearchableMultiSelectController from "../controllers/decor/suite/forms/searchable_multi_select_controller";
 import SuiteFormsSearchableSelectController from "../controllers/decor/suite/forms/searchable_select_controller";
+import SuiteFormsSelectController from "../controllers/decor/suite/forms/select_controller";
 import SuiteFormsSwitchController from "../controllers/decor/suite/forms/switch_controller";
+import SuiteFormsTextAreaController from "../controllers/decor/suite/forms/text_area_controller";
+import SuiteFormsTextFieldController from "../controllers/decor/suite/forms/text_field_controller";
 import SuiteMapController from "../controllers/decor/suite/map_controller";
 import SuiteModalsConfirmController from "../controllers/decor/suite/modals/confirm_controller";
 import SuiteModalsModalCloseButtonController from "../controllers/decor/suite/modals/modal_close_button_controller";
@@ -62,12 +78,20 @@ export const CONTROLLERS = {
   "decor--daisy--code-block": CodeBlockController,
   "decor--daisy--dropdown": DaisyDropdownController,
   "decor--daisy--flash": DaisyFlashController,
+  "decor--daisy--forms--button-radio-group": DaisyFormsButtonRadioGroupController,
+  "decor--daisy--forms--checkbox": DaisyFormsCheckboxController,
   "decor--daisy--forms--date-calendar": DaisyFormsDateCalendarController,
   "decor--daisy--forms--expanding-checkbox-collection": DaisyFormsExpandingCheckboxCollectionController,
+  "decor--daisy--forms--file-upload": DaisyFormsFileUploadController,
   "decor--daisy--forms--multi-image-upload": DaisyFormsMultiImageUploadController,
+  "decor--daisy--forms--number-field": DaisyFormsNumberFieldController,
+  "decor--daisy--forms--radio": DaisyFormsRadioController,
   "decor--daisy--forms--searchable-multi-select": DaisyFormsSearchableMultiSelectController,
   "decor--daisy--forms--searchable-select": DaisyFormsSearchableSelectController,
+  "decor--daisy--forms--select": DaisyFormsSelectController,
   "decor--daisy--forms--switch": DaisyFormsSwitchController,
+  "decor--daisy--forms--text-area": DaisyFormsTextAreaController,
+  "decor--daisy--forms--text-field": DaisyFormsTextFieldController,
   "decor--daisy--map": DaisyMapController,
   "decor--daisy--modals--confirm": DaisyModalsConfirmController,
   "decor--daisy--modals--confirm-modal": ConfirmModalController,
@@ -88,13 +112,21 @@ export const CONTROLLERS = {
   "decor--suite--click-to-copy": SuiteClickToCopyController,
   "decor--suite--dropdown": SuiteDropdownController,
   "decor--suite--flash": SuiteFlashController,
+  "decor--suite--forms--button-radio-group": SuiteFormsButtonRadioGroupController,
+  "decor--suite--forms--checkbox": SuiteFormsCheckboxController,
   "decor--suite--forms--date-calendar": SuiteFormsDateCalendarController,
   "decor--suite--forms--expanding-checkbox-collection": SuiteFormsExpandingCheckboxCollectionController,
+  "decor--suite--forms--file-upload": SuiteFormsFileUploadController,
   "decor--suite--forms--form": FormController,
   "decor--suite--forms--multi-image-upload": SuiteFormsMultiImageUploadController,
+  "decor--suite--forms--number-field": SuiteFormsNumberFieldController,
+  "decor--suite--forms--radio": SuiteFormsRadioController,
   "decor--suite--forms--searchable-multi-select": SuiteFormsSearchableMultiSelectController,
   "decor--suite--forms--searchable-select": SuiteFormsSearchableSelectController,
+  "decor--suite--forms--select": SuiteFormsSelectController,
   "decor--suite--forms--switch": SuiteFormsSwitchController,
+  "decor--suite--forms--text-area": SuiteFormsTextAreaController,
+  "decor--suite--forms--text-field": SuiteFormsTextFieldController,
   "decor--suite--map": SuiteMapController,
   "decor--suite--modals--confirm": SuiteModalsConfirmController,
   "decor--suite--modals--modal-close-button": SuiteModalsModalCloseButtonController,

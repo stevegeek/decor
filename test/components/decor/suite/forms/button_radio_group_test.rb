@@ -92,14 +92,17 @@ class ::Decor::Suite::Forms::ButtonRadioGroupTest < ActiveSupport::TestCase
     assert_includes html, "decor:ring-suite-danger-500"
   end
 
-  test "errors suppress helper text" do
+  test "errors visually suppress helper text (paragraph stays hidden in DOM)" do
     html = render_component(
       ::Decor::Suite::Forms::ButtonRadioGroup.new(
         name: "n", choices: CHOICES, helper_text: "Helper", error_messages: ["Bad"]
       )
     )
     assert_includes html, "Bad"
-    refute_includes html, "Helper"
+    # Helper paragraph stays in DOM (hidden) so the JS FormField controller
+    # has a stable swap target once validation passes.
+    assert_match(/data-decor--suite--forms--button-radio-group-target="helperText"/, html)
+    assert_match(/class="[^"]*decor:hidden[^"]*"\s+data-decor--suite--forms--button-radio-group-target="helperText"/, html)
   end
 
   test "floating_error_text suppresses inline error rendering" do

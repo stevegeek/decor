@@ -26,7 +26,7 @@ module Decor
           capture(self, &block) if block_given?
 
           root_element do |el|
-            div(class: outer_layout_classes) do
+            div(class: outer_layout_classes, data: form_field_target_data(:container)) do
               # Label (top / left)
               if @label.present? && (label_top? || label_left?)
                 div(class: label_section_classes) do
@@ -99,6 +99,15 @@ module Decor
             class: label_classes,
             data: form_field_target_data(:label)
           ) { plain label_with_required }
+        end
+
+        # `data-{id}-target` payload for the FormField JS controller. The
+        # `stimulus_target` helper on the root element returns a hash whose
+        # keys are the controller-scoped data-target attribute names; we
+        # promote them onto sibling elements so the same controller can
+        # find them at validate() time.
+        def form_field_target_data(target_name)
+          stimulus_target(target_name).to_h
         end
 
         def label_classes
@@ -308,15 +317,23 @@ module Decor
         end
 
         # ── helper / error caption below the field ──────────────────────────
+        #
+        # Both paragraphs are always rendered so the FormField JS controller
+        # has its `helperText` / `errorText` targets in scope — the JS swaps
+        # `decor:hidden` on/off based on validation state. Initial visibility
+        # mirrors the server-rendered state so non-JS pageloads still show
+        # the right caption.
 
         def render_helper_or_error_text
-          if @helper_text.present? && !errors?
-            p(class: helper_text_classes) { plain @helper_text }
-          end
+          p(
+            class: [helper_text_classes, (errors? || @helper_text.blank?) ? "decor:hidden" : nil].compact.join(" "),
+            data: form_field_target_data(:helperText)
+          ) { plain @helper_text.to_s }
 
-          if errors?
-            p(class: error_text_classes) { plain error_text }
-          end
+          p(
+            class: [error_text_classes, errors? ? nil : "decor:hidden"].compact.join(" "),
+            data: form_field_target_data(:errorText)
+          ) { plain errors? ? error_text : "" }
         end
 
         def helper_text_classes
@@ -344,10 +361,6 @@ module Decor
 
         def add_on_boxed?
           @add_on_style == :boxed
-        end
-
-        def form_field_target_data(target_name)
-          stimulus_target(target_name).to_h
         end
       end
     end

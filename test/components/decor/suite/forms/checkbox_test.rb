@@ -90,7 +90,7 @@ class ::Decor::Suite::Forms::CheckboxTest < ActiveSupport::TestCase
     assert_includes html, "decor:suite-field-help"
   end
 
-  test "renders error text in suite-danger-700 and suppresses helper text" do
+  test "renders error text in suite-danger-700 and visually suppresses helper text" do
     html = render_component(
       ::Decor::Suite::Forms::Checkbox.new(
         name: "n", label: "L",
@@ -99,7 +99,10 @@ class ::Decor::Suite::Forms::CheckboxTest < ActiveSupport::TestCase
     )
     assert_includes html, "Bad"
     assert_includes html, "decor:text-suite-danger-700"
-    refute_includes html, "Helper"
+    # Helper paragraph stays in DOM (hidden) so the JS FormField controller
+    # has a stable swap target once validation passes.
+    assert_match(/data-decor--suite--forms--checkbox-target="helperText"/, html)
+    assert_match(/class="[^"]*decor:hidden[^"]*"\s+data-decor--suite--forms--checkbox-target="helperText"/, html)
   end
 
   test "floating_error_text suppresses inline error rendering" do

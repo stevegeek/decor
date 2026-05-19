@@ -24,7 +24,7 @@ module Decor
               render_label
             end
 
-            div(class: segmented_container_classes) do
+            div(class: segmented_container_classes, data: form_field_target_data(:container)) do
               @choices.each_with_index do |(value, choice_label), idx|
                 div(class: segment_classes) do
                   child_element(
@@ -43,7 +43,7 @@ module Decor
               end
             end
 
-            render_helper_or_error_text unless silent_helper_and_error_text?
+            render_helper_or_error_text
           end
         end
 
@@ -63,8 +63,13 @@ module Decor
         def render_label
           label(
             for: "#{id}-input-1",
-            class: label_classes
+            class: label_classes,
+            data: form_field_target_data(:label)
           ) { plain label_with_required }
+        end
+
+        def form_field_target_data(target_name)
+          stimulus_target(target_name).to_h
         end
 
         def label_classes
@@ -112,23 +117,21 @@ module Decor
         end
 
         # ── helper / error caption ─────────────────────────────────────────
+        # Dual paragraph always rendered for the FormField JS controller's
+        # `helperText` / `errorText` targets; visibility is JS-toggled.
 
         def render_helper_or_error_text
-          if @helper_text.present? && !errors?
-            p(class: "decor:suite-field-help #{disabled? ? "decor:text-gray-400" : "decor:text-gray-500"}") do
-              plain @helper_text
-            end
-          end
+          helper_color = disabled? ? "decor:text-gray-400" : "decor:text-gray-500"
 
-          if !floating_error_text? && errors?
-            p(class: "decor:suite-field-help decor:text-suite-danger-500") do
-              plain error_text
-            end
-          end
-        end
+          p(
+            class: ["decor:suite-field-help #{helper_color}", (errors? || @helper_text.blank?) ? "decor:hidden" : nil].compact.join(" "),
+            data: form_field_target_data(:helperText)
+          ) { plain @helper_text.to_s }
 
-        def silent_helper_and_error_text?
-          @helper_text.blank? && !errors?
+          p(
+            class: ["decor:suite-field-help decor:text-suite-danger-500", (errors? && !floating_error_text?) ? nil : "decor:hidden"].compact.join(" "),
+            data: form_field_target_data(:errorText)
+          ) { plain((errors? && !floating_error_text?) ? error_text : "") }
         end
 
         def show_label?

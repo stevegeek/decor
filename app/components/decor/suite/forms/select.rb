@@ -24,7 +24,7 @@ module Decor
 
         def view_template
           root_element do
-            div(class: container_classes) do
+            div(class: container_classes, data: form_field_target_data(:container)) do
               if @label.present? && (label_top? || label_left?)
                 label_block
               end
@@ -60,14 +60,12 @@ module Decor
 
                   chevron_indicator
 
-                  if !silent_helper_and_error_text? && errors?
+                  if !silent_helper_and_error_text?
                     error_icon
                   end
                 end
 
-                if !silent_helper_and_error_text? && helper_or_error_text.present?
-                  p(class: helper_text_classes) { plain helper_or_error_text }
-                end
+                render_helper_or_error_text unless silent_helper_and_error_text?
               end
             end
           end
@@ -104,12 +102,17 @@ module Decor
           div(class: label_column_classes) do
             label(
               for: "#{id}-control",
-              class: label_text_classes
+              class: label_text_classes,
+              data: form_field_target_data(:label)
             ) { plain label_with_required }
             if @description.present?
               p(class: description_classes) { plain @description }
             end
           end
+        end
+
+        def form_field_target_data(target_name)
+          stimulus_target(target_name).to_h
         end
 
         def label_column_classes
@@ -184,10 +187,13 @@ module Decor
           ].join(" ")
         end
 
+        # Always rendered so the JS controller has its `errorIcon` target.
+        # `decor:hidden` toggles based on initial server-rendered error state.
         def error_icon
           span(
-            class: "decor:pointer-events-none decor:absolute decor:inset-y-0 decor:right-7 decor:flex decor:items-center",
-            aria_hidden: "true"
+            class: ["decor:pointer-events-none decor:absolute decor:inset-y-0 decor:right-7 decor:flex decor:items-center", errors? ? nil : "decor:hidden"].compact.join(" "),
+            aria_hidden: "true",
+            data: form_field_target_data(:errorIcon)
           ) do
             render ::Decor::Icon.new(
               name: "exclamation-circle",
@@ -197,14 +203,22 @@ module Decor
           end
         end
 
-        def helper_or_error_text
-          errors? ? error_text : @helper_text
+        # Dual paragraph — helperText for the JS controller to swap content
+        # into, errorText for the controller to write validation errors.
+        def render_helper_or_error_text
+          p(
+            class: [helper_text_classes(false), (errors? || @helper_text.blank?) ? "decor:hidden" : nil].compact.join(" "),
+            data: form_field_target_data(:helperText)
+          ) { plain @helper_text.to_s }
+
+          p(
+            class: [helper_text_classes(true), errors? ? nil : "decor:hidden"].compact.join(" "),
+            data: form_field_target_data(:errorText)
+          ) { plain errors? ? error_text : "" }
         end
 
-        def helper_text_classes
-          color = errors? ? "decor:text-suite-danger-700" : "decor:text-gray-500"
-          # suite-field-help brings its own margin-top: 2px; m-0 axes hold
-          # the rest at 0.
+        def helper_text_classes(error)
+          color = error ? "decor:text-suite-danger-700" : "decor:text-gray-500"
           "decor:suite-field-help #{color} decor:mx-0 decor:mb-0"
         end
       end

@@ -21,9 +21,9 @@ module Decor
 
         def view_template
           root_element do |el|
-            render_helper_and_error_section unless silent_helper_and_error_text?
+            render_helper_and_error_section
 
-            label(class: label_wrapper_classes) do
+            label(class: label_wrapper_classes, data: form_field_target_data(:label)) do
               # Overlaid input — opacity 0.01 + absolute + peer keeps the
               # native control hit-target large for Selenium while letting
               # peer-* selectors style the visual box.
@@ -118,28 +118,27 @@ module Decor
           ].join(" ")
         end
 
-        # Renders helper text and/or error text below the control, mirroring
-        # the Confinus checkbox's helper/error layout but using Suite tokens
-        # so we don't depend on a Suite FormFieldLayout/HelperTextSection that
-        # hasn't been ported yet.
+        # Both paragraphs always rendered (hidden when empty) so the JS
+        # FormField controller has stable `helperText` / `errorText` targets
+        # to swap content into during validate(). Mirrors the dual-paragraph
+        # pattern in Decor::Suite::Forms::TextField.
         def render_helper_and_error_section
           margin = (label_inline? || label_right?) ? "decor:ml-[25px]" : "decor:ml-0"
+          helper_color = disabled? ? "decor:text-disabled" : "decor:text-gray-500"
 
-          if @helper_text.present? && !errors?
-            p(class: "decor:suite-field-help #{disabled? ? "decor:text-disabled" : "decor:text-gray-500"} #{margin}") do
-              plain @helper_text
-            end
-          end
+          p(
+            class: ["decor:suite-field-help #{helper_color} #{margin}", (errors? || @helper_text.blank?) ? "decor:hidden" : nil].compact.join(" "),
+            data: form_field_target_data(:helperText)
+          ) { plain @helper_text.to_s }
 
-          if !floating_error_text? && errors?
-            p(class: "decor:suite-field-help decor:text-suite-danger-500 #{margin}") do
-              plain error_text
-            end
-          end
+          p(
+            class: ["decor:suite-field-help decor:text-suite-danger-500 #{margin}", (errors? && !floating_error_text?) ? nil : "decor:hidden"].compact.join(" "),
+            data: form_field_target_data(:errorText)
+          ) { plain((errors? && !floating_error_text?) ? error_text : "") }
         end
 
-        def silent_helper_and_error_text?
-          @helper_text.blank? && !errors?
+        def form_field_target_data(target_name)
+          stimulus_target(target_name).to_h
         end
       end
     end
