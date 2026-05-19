@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.12.0 — Unreleased
+
+### Suite component batch 4 — 10 ports (forms foundation + modal sub-types + tables)
+
+- `Decor::Suite::Forms::FormFieldLayout` (+ companion `HelperTextSection` + `ErrorIconSection`) — foundation for label/input/helper/error layout; 5 label_position variants (top/left/inline/right/inside). Existing Suite form fields can refactor to use this as a follow-up.
+- `Decor::Suite::Forms::Radio` (+ abstract `required_individual?` fix) — 16px white-ring → primary-500 filled when checked; suite-primary-100 focus halo.
+- `Decor::Suite::Forms::NumberField` — inherits Suite::Forms::TextField; adds `text-right tabular-nums` for numeric-column alignment.
+- `Decor::Suite::Forms::DateCalendar` (cally-based) — uses Decor's cally peerDep (not flatpickr). NB: Confinus call sites passing flatpickr-style props will need migration.
+- `Decor::{Components,Daisy,Suite}::Forms::SearchableMultiSelect` — multi-select sibling of SearchableSelect with chip-removal UX (X button + backspace-on-empty pops last chip).
+- `Decor::{Components,Daisy,Suite}::Modals::Confirm` — composition over Modal + ModalCloseButton + Button. Destructive variant tints header AND switches confirm button to `:error`.
+- `Decor::{Components,Daisy,Suite}::Modals::Alert` — single-button alert dialog with severity-tinted chrome.
+- `Decor::{Components,Daisy,Suite}::Modals::Information` — read-only info dialog with dismiss action.
+- `Decor::Suite::Tables::DataTable` (+ selection-persistence props on abstract) — preserves Confinus's builder DSL slot API + 13px body + hairline divider + suite-gray-25 thead.
+- `Decor::Suite::Tables::DataTableCell` (+ `compact` + `align` props on abstract) — link-overlay, alignment, density behaviors preserved from ConfinusUI.
+
+Tests: 213 runs / 784 assertions / 0F across the 10 new Suite components. Full Suite directory smoke: 892 runs / 3625 assertions / 0F.
+
 ## 0.11.0 — Unreleased
 
 ### Suite component batch 3 — 10 ports (forms + modal family) in parallel

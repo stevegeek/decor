@@ -951,6 +951,199 @@ var searchable_select_controller_default = class extends Controller7 {
   }
 };
 
+// app/javascript/controllers/decor/daisy/forms/searchable_multi_select_controller.js
+var searchable_multi_select_controller_default = class extends searchable_select_controller_default {
+  static targets = [
+    "input",
+    "dropdown",
+    "selectedContainer",
+    "hiddenInputsContainer"
+  ];
+  static values = {
+    searchUrl: { type: String, default: "" },
+    choices: { type: String, default: "[]" },
+    extraSearchParams: { type: String, default: "" },
+    minChars: { type: Number, default: 2 },
+    debounceMs: { type: Number, default: 300 },
+    pageSize: { type: Number, default: 15 },
+    selectedItems: { type: String, default: "[]" },
+    fieldName: { type: String, default: "" },
+    allowFreeText: { type: Boolean, default: false },
+    delimiter: { type: String, default: "," }
+  };
+  connect() {
+    try {
+      const items = JSON.parse(this.selectedItemsValue);
+      if (Array.isArray(items)) {
+        items.forEach((item) => {
+          if (item && item.id != null) this.selectedIds.add(item.id);
+        });
+      }
+    } catch {
+    }
+    this.handleClickOutside = this.handleClickOutside.bind(this);
+    document.addEventListener("click", this.handleClickOutside);
+    this.initialConnectDone = true;
+  }
+  // No single-selected-display chip in multi-select — every pick is a chip
+  // in the selectedContainer. Drop the parent's programmatic-single-select
+  // hook entirely.
+  selectedItemValueChanged() {
+  }
+  handleBlur() {
+    if (!this.allowFreeTextValue) return;
+    setTimeout(() => {
+      if (!this.element.contains(document.activeElement)) {
+        this._addFreeTextFromInput();
+      }
+    }, 150);
+  }
+  search() {
+    if (this.searchTimeout) clearTimeout(this.searchTimeout);
+    if (this.allowFreeTextValue) {
+      const raw = this.inputTarget.value;
+      if (raw.includes(this.delimiterValue)) {
+        const parts = raw.split(this.delimiterValue);
+        parts.slice(0, -1).forEach((part) => {
+          const trimmed = part.trim();
+          if (trimmed) this._addFreeTextTag(trimmed);
+        });
+        this.inputTarget.value = parts[parts.length - 1];
+        return;
+      }
+    }
+    super.search();
+  }
+  handleKeydown(event) {
+    if (event.key === "Backspace" && this.inputTarget.value === "") {
+      this._removeLastItem();
+      return;
+    }
+    if (event.key === "Enter" && this.allowFreeTextValue) {
+      const items = this.dropdownTarget.querySelectorAll("[data-result-id]");
+      const hasHighlight = this.highlightedIndex >= 0 && this.highlightedIndex < items.length;
+      if (!hasHighlight) {
+        event.preventDefault();
+        this._addFreeTextFromInput();
+        return;
+      }
+    }
+    super.handleKeydown(event);
+  }
+  selectResult(event) {
+    const target = event.target.closest("[data-result-id]");
+    if (target) this._selectFromElement(target);
+  }
+  removeItem(event) {
+    const button = event.target.closest("[data-item-id]");
+    if (!button) return;
+    const itemId = this._parseResultId(button.dataset.itemId);
+    if (itemId === "") return;
+    const escapedId = CSS.escape(String(itemId));
+    const pill = this.selectedContainerTarget.querySelector(
+      `[data-item-id="${escapedId}"]`
+    );
+    if (pill) pill.remove();
+    const hiddenInput = this.hiddenInputsContainerTarget.querySelector(
+      `input[value="${escapedId}"]`
+    );
+    if (hiddenInput) hiddenInput.remove();
+    this.selectedIds.delete(itemId);
+    this.inputTarget.focus();
+    this.dispatch("removed", { detail: { id: itemId }, bubbles: true });
+  }
+  // ── Internals ──
+  _selectFromElement(element) {
+    const id = this._parseResultId(element.dataset.resultId);
+    const label = element.dataset.resultLabel || "";
+    if (!id || this.selectedIds.has(id)) return;
+    this.selectedIds.add(id);
+    this._addPill(id, label);
+    this._addHiddenInput(id);
+    this.inputTarget.value = "";
+    this.suppressBrowseOnNextFocus = true;
+    if (this.browseMode) {
+      element.remove();
+      const remaining = this.dropdownTarget.querySelectorAll("[data-result-id]");
+      if (remaining.length === 0 && !this.hasMore) {
+        this.dropdownTarget.innerHTML = '<p class="p-3 text-sm text-gray-500">No more items</p>';
+      }
+      this.highlightedIndex = -1;
+    } else {
+      this._closeDropdown();
+    }
+    this.inputTarget.focus();
+    let metadata = {};
+    if (element.dataset.resultMetadata) {
+      try {
+        metadata = JSON.parse(element.dataset.resultMetadata);
+      } catch {
+      }
+    }
+    this.dispatch("selected", {
+      detail: { id, label, metadata },
+      bubbles: true
+    });
+  }
+  _addFreeTextFromInput() {
+    const text = this.inputTarget.value.trim();
+    if (!text) return;
+    this._addFreeTextTag(text);
+    this.inputTarget.value = "";
+    this._closeDropdown();
+  }
+  _addFreeTextTag(text) {
+    const id = this._parseResultId(text);
+    if (this.selectedIds.has(id)) return;
+    this.selectedIds.add(id);
+    this._addPill(id, text);
+    this._addHiddenInput(id);
+  }
+  _removeLastItem() {
+    const pills = this.selectedContainerTarget.querySelectorAll("[data-item-id]");
+    if (pills.length === 0) return;
+    const lastPill = pills[pills.length - 1];
+    const itemId = this._parseResultId(lastPill.dataset.itemId);
+    if (itemId === "") return;
+    lastPill.remove();
+    const escapedId = CSS.escape(String(itemId));
+    const hiddenInput = this.hiddenInputsContainerTarget.querySelector(
+      `input[value="${escapedId}"]`
+    );
+    if (hiddenInput) hiddenInput.remove();
+    this.selectedIds.delete(itemId);
+    this.dispatch("removed", { detail: { id: itemId }, bubbles: true });
+  }
+  _addPill(id, label) {
+    const pill = document.createElement("span");
+    pill.className = "decor:inline-flex decor:items-center decor:gap-1 decor:rounded-full decor:bg-primary/10 decor:text-primary decor:px-2 decor:py-px decor:text-xs decor:font-medium";
+    pill.dataset.itemId = String(id);
+    pill.innerHTML = `<span>${this._escapeHtml(label)}</span><button type="button" class="decor:text-primary decor:hover:opacity-70 decor:leading-none" data-action="click->${this.identifier}#removeItem" data-item-id="${this._escapeAttr(String(id))}"><svg xmlns="http://www.w3.org/2000/svg" class="decor:h-3 decor:w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg></button>`;
+    this.selectedContainerTarget.appendChild(pill);
+  }
+  _addHiddenInput(id) {
+    const hidden = document.createElement("input");
+    hidden.type = "hidden";
+    hidden.name = this.fieldNameValue;
+    hidden.value = String(id);
+    this.hiddenInputsContainerTarget.appendChild(hidden);
+  }
+  // Toggle both prefixed and unprefixed so the dropdown actually opens/closes
+  // (parent uses bare "hidden", markup uses "decor:hidden").
+  _openDropdown() {
+    this.dropdownTarget.classList.remove("decor:hidden");
+    this.dropdownTarget.classList.remove("hidden");
+  }
+  _closeDropdown() {
+    this.dropdownTarget.classList.add("decor:hidden");
+    this.dropdownTarget.classList.add("hidden");
+    this.highlightedIndex = -1;
+    this.currentPage = 0;
+    this.hasMore = false;
+    this.browseMode = false;
+  }
+};
+
 // app/javascript/controllers/decor/daisy/forms/switch_controller.js
 import { Controller as Controller8 } from "@hotwired/stimulus";
 var switch_controller_default = class extends Controller8 {
@@ -1392,8 +1585,32 @@ var map_controller_default = class extends Controller9 {
   }
 };
 
-// app/javascript/controllers/decor/daisy/modals/modal_controller.js
+// app/javascript/controllers/decor/daisy/modals/confirm_controller.js
 import { Controller as Controller10 } from "@hotwired/stimulus";
+var confirm_controller_default = class extends Controller10 {
+  static values = {
+    confirmEvent: { type: String, default: "" },
+    modalId: { type: String, default: "" }
+  };
+  confirm(event) {
+    event.preventDefault();
+    if (this.confirmEventValue) {
+      window.dispatchEvent(
+        new CustomEvent(this.confirmEventValue, {
+          bubbles: false,
+          cancelable: false
+        })
+      );
+    }
+    const dialog = this.element.closest("dialog");
+    if (dialog && typeof dialog.close === "function") {
+      dialog.close();
+    }
+  }
+};
+
+// app/javascript/controllers/decor/daisy/modals/modal_controller.js
+import { Controller as Controller11 } from "@hotwired/stimulus";
 var ModalEvents;
 (function(ModalEvents2) {
   ModalEvents2["Open"] = "decor--daisy--modals--modal:open";
@@ -1406,7 +1623,7 @@ var ModalEvents;
   ModalEvents2["Closing"] = "decor--daisy--modals--modal:closing";
   ModalEvents2["Closed"] = "decor--daisy--modals--modal:closed";
 })(ModalEvents || (ModalEvents = {}));
-var modal_controller_default = class extends Controller10 {
+var modal_controller_default = class extends Controller11 {
   static targets = ["overlay", "modal"];
   static values = {
     showInitial: { type: Boolean, default: false },
@@ -1611,8 +1828,8 @@ var confirm_modal_controller_default = class extends modal_controller_default {
 };
 
 // app/javascript/controllers/decor/daisy/modals/modal_close_button_controller.js
-import { Controller as Controller11 } from "@hotwired/stimulus";
-var modal_close_button_controller_default = class extends Controller11 {
+import { Controller as Controller12 } from "@hotwired/stimulus";
+var modal_close_button_controller_default = class extends Controller12 {
   static values = {
     closeReason: String
   };
@@ -1625,8 +1842,8 @@ var modal_close_button_controller_default = class extends Controller11 {
 };
 
 // app/javascript/controllers/decor/daisy/modals/modal_open_button_controller.js
-import { Controller as Controller12 } from "@hotwired/stimulus";
-var modal_open_button_controller_default = class extends Controller12 {
+import { Controller as Controller13 } from "@hotwired/stimulus";
+var modal_open_button_controller_default = class extends Controller13 {
   static values = {
     contentHref: String,
     initialContent: String,
@@ -1645,8 +1862,8 @@ var modal_open_button_controller_default = class extends Controller12 {
 };
 
 // app/javascript/controllers/decor/daisy/modals/modal_trigger_controller.js
-import { Controller as Controller13 } from "@hotwired/stimulus";
-var modal_trigger_controller_default = class extends Controller13 {
+import { Controller as Controller14 } from "@hotwired/stimulus";
+var modal_trigger_controller_default = class extends Controller14 {
   static values = {
     modalId: String,
     contentHref: String,
@@ -1670,12 +1887,12 @@ var modal_trigger_controller_default = class extends Controller13 {
 };
 
 // app/javascript/controllers/decor/daisy/notification_manager_controller.js
-import { Controller as Controller14 } from "@hotwired/stimulus";
+import { Controller as Controller15 } from "@hotwired/stimulus";
 var NOTIFICATION_MANAGER_CLASS_NAME = "decor--daisy--notification-manager";
 var NOTIFICATION_CLASSNAME = `${NOTIFICATION_MANAGER_CLASS_NAME}-notification`;
 var DEFAULT_DISMISS_AFTER_MS = 3e3;
 var DISMISS_ALL_STAGGER_MS = 50;
-var notification_manager_controller_default = class extends Controller14 {
+var notification_manager_controller_default = class extends Controller15 {
   static targets = ["notificationContainer"];
   static values = {
     initialNotifications: { type: Array, default: [] }
@@ -1805,8 +2022,8 @@ var notification_manager_controller_default = class extends Controller14 {
 };
 
 // app/javascript/controllers/decor/daisy/progress_controller.js
-import { Controller as Controller15 } from "@hotwired/stimulus";
-var progress_controller_default = class extends Controller15 {
+import { Controller as Controller16 } from "@hotwired/stimulus";
+var progress_controller_default = class extends Controller16 {
   static targets = ["progress", "step"];
   static values = {
     currentStep: { type: Number, default: 1 },
@@ -1907,8 +2124,8 @@ var progress_controller_default = class extends Controller15 {
 };
 
 // app/javascript/controllers/decor/daisy/tabs_controller.js
-import { Controller as Controller16 } from "@hotwired/stimulus";
-var tabs_controller_default = class extends Controller16 {
+import { Controller as Controller17 } from "@hotwired/stimulus";
+var tabs_controller_default = class extends Controller17 {
   handleSelectTabOnMobile(event) {
     const select = event.target;
     const selected = select.options[select.selectedIndex];
@@ -1920,8 +2137,8 @@ var tabs_controller_default = class extends Controller16 {
 };
 
 // app/javascript/controllers/decor/progress_animation_controller.js
-import { Controller as Controller17 } from "@hotwired/stimulus";
-var progress_animation_controller_default = class extends Controller17 {
+import { Controller as Controller18 } from "@hotwired/stimulus";
+var progress_animation_controller_default = class extends Controller18 {
   static values = {
     currentStep: { type: Number, default: 2 },
     steps: { type: Number, default: 5 },
@@ -1988,7 +2205,7 @@ var progress_animation_controller_default = class extends Controller17 {
 };
 
 // app/javascript/controllers/decor/suite/carousel_controller.js
-import { Controller as Controller18 } from "@hotwired/stimulus";
+import { Controller as Controller19 } from "@hotwired/stimulus";
 import Swiper from "swiper";
 import { Navigation, Pagination, Keyboard, A11y, Autoplay } from "swiper/modules";
 var BREAKPOINT_PX = {
@@ -1999,7 +2216,7 @@ var BREAKPOINT_PX = {
   xl: 1280,
   "2xl": 1536
 };
-var carousel_controller_default = class extends Controller18 {
+var carousel_controller_default = class extends Controller19 {
   static values = {
     slidesPerView: { type: Object, default: {} },
     spaceBetween: { type: Number, default: 16 },
@@ -2083,8 +2300,8 @@ var carousel_controller_default = class extends Controller18 {
 };
 
 // app/javascript/controllers/decor/suite/dropdown_controller.js
-import { Controller as Controller19 } from "@hotwired/stimulus";
-var dropdown_controller_default2 = class extends Controller19 {
+import { Controller as Controller20 } from "@hotwired/stimulus";
+var dropdown_controller_default2 = class extends Controller20 {
   static targets = ["menu", "button"];
   static values = {
     contentHref: { type: String, default: "" },
@@ -2135,8 +2352,8 @@ var dropdown_controller_default2 = class extends Controller19 {
 };
 
 // app/javascript/controllers/decor/suite/forms/form_controller.js
-import { Controller as Controller20 } from "@hotwired/stimulus";
-var form_controller_default = class extends Controller20 {
+import { Controller as Controller21 } from "@hotwired/stimulus";
+var form_controller_default = class extends Controller21 {
   static targets = ["form"];
   connect() {
     this.element.setAttribute("novalidate", "true");
@@ -2222,6 +2439,41 @@ var form_controller_default = class extends Controller20 {
   }
 };
 
+// app/javascript/controllers/decor/suite/forms/searchable_multi_select_controller.js
+var searchable_multi_select_controller_default2 = class extends searchable_multi_select_controller_default {
+  _resultRowHtml(result) {
+    const metadataAttr = result.metadata ? ` data-result-metadata="${this._escapeAttr(JSON.stringify(result.metadata))}"` : "";
+    const sublabel = result.sublabel ? `<span class="decor:suite-description decor:text-gray-500 decor:ml-2">${this._escapeHtml(result.sublabel)}</span>` : "";
+    const rightLabel = result.right_label ? `<span class="decor:suite-description decor:text-gray-400 decor:ml-3 decor:shrink-0">${this._escapeHtml(result.right_label)}</span>` : "";
+    return `<button type="button" class="decor:w-full decor:text-left decor:px-3 decor:py-2 decor:hover:bg-suite-gray-25 decor:border-b decor:border-suite-hairline decor:last:border-b-0 decor:flex decor:justify-between decor:items-center decor:cursor-pointer" data-result-id="${this._escapeAttr(String(result.id))}" data-result-label="${this._escapeAttr(result.label)}"${metadataAttr} data-action="click->${this.identifier}#selectResult" role="option"><div class="decor:min-w-0"><span class="decor:suite-body decor:text-gray-900">${this._escapeHtml(result.label)}</span>${sublabel}</div>` + rightLabel + `</button>`;
+  }
+  _updateHighlight(items) {
+    items.forEach((item, index) => {
+      if (index === this.highlightedIndex) {
+        item.classList.add("decor:bg-suite-primary-50");
+        item.scrollIntoView({ block: "nearest" });
+      } else {
+        item.classList.remove("decor:bg-suite-primary-50");
+      }
+    });
+  }
+  _renderLoadingIndicator() {
+    this._removeLoadingIndicator();
+    const indicator = document.createElement("div");
+    indicator.dataset.loadingIndicator = "true";
+    indicator.className = "decor:p-3 decor:flex decor:items-center decor:justify-center decor:gap-2 decor:suite-description decor:text-gray-400";
+    indicator.textContent = "Loading\u2026";
+    this.dropdownTarget.appendChild(indicator);
+  }
+  _addPill(id, label) {
+    const pill = document.createElement("span");
+    pill.className = "decor:inline-flex decor:items-center decor:gap-1 decor:rounded-full decor:bg-suite-primary-50 decor:px-2 decor:py-px decor:suite-description decor:font-medium";
+    pill.dataset.itemId = String(id);
+    pill.innerHTML = `<span class="decor:suite-body decor:text-suite-primary-700">${this._escapeHtml(label)}</span><button type="button" class="decor:text-suite-primary-600 decor:hover:text-suite-primary-700 decor:leading-none decor:transition-colors decor:duration-suite-fast" data-action="click->${this.identifier}#removeItem" data-item-id="${this._escapeAttr(String(id))}"><svg xmlns="http://www.w3.org/2000/svg" class="decor:h-3 decor:w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg></button>`;
+    this.selectedContainerTarget.appendChild(pill);
+  }
+};
+
 // app/javascript/controllers/decor/suite/forms/searchable_select_controller.js
 var searchable_select_controller_default2 = class extends searchable_select_controller_default {
   _resultRowHtml(result) {
@@ -2250,9 +2502,34 @@ var searchable_select_controller_default2 = class extends searchable_select_cont
   }
 };
 
+// app/javascript/controllers/decor/suite/modals/confirm_controller.js
+import { Controller as Controller22 } from "@hotwired/stimulus";
+var confirm_controller_default2 = class extends Controller22 {
+  static values = {
+    confirmEvent: { type: String, default: "" },
+    modalId: { type: String, default: "" }
+  };
+  confirm(event) {
+    event.preventDefault();
+    if (this.confirmEventValue) {
+      window.dispatchEvent(
+        new CustomEvent(this.confirmEventValue, {
+          bubbles: false,
+          cancelable: false
+        })
+      );
+    }
+    window.dispatchEvent(
+      new CustomEvent("decor--suite--modals--modal:close", {
+        detail: { id: this.modalIdValue || void 0 }
+      })
+    );
+  }
+};
+
 // app/javascript/controllers/decor/suite/modals/modal_close_button_controller.js
-import { Controller as Controller21 } from "@hotwired/stimulus";
-var modal_close_button_controller_default2 = class extends Controller21 {
+import { Controller as Controller23 } from "@hotwired/stimulus";
+var modal_close_button_controller_default2 = class extends Controller23 {
   static values = {
     closeReason: String
   };
@@ -2265,7 +2542,7 @@ var modal_close_button_controller_default2 = class extends Controller21 {
 };
 
 // app/javascript/controllers/decor/suite/modals/modal_controller.js
-import { Controller as Controller22 } from "@hotwired/stimulus";
+import { Controller as Controller24 } from "@hotwired/stimulus";
 var LOADING_SKELETON_HTML = `
   <div class="decor:space-y-2 decor:py-1" aria-hidden="true">
     <div class="decor:h-3 decor:bg-gray-100 decor:rounded-sm decor:animate-pulse"></div>
@@ -2275,7 +2552,7 @@ var LOADING_SKELETON_HTML = `
 `;
 var OPENED_EVENT = "decor--suite--modals--modal:opened";
 var CLOSED_EVENT = "decor--suite--modals--modal:closed";
-var modal_controller_default2 = class extends Controller22 {
+var modal_controller_default2 = class extends Controller24 {
   static targets = ["body", "overlay", "modal"];
   static values = {
     startOpen: { type: Boolean, default: false },
@@ -2464,8 +2741,8 @@ var modal_controller_default2 = class extends Controller22 {
 };
 
 // app/javascript/controllers/decor/suite/modals/modal_open_button_controller.js
-import { Controller as Controller23 } from "@hotwired/stimulus";
-var modal_open_button_controller_default2 = class extends Controller23 {
+import { Controller as Controller25 } from "@hotwired/stimulus";
+var modal_open_button_controller_default2 = class extends Controller25 {
   static values = {
     modalId: String,
     contentHref: String,
@@ -2490,8 +2767,8 @@ var modal_open_button_controller_default2 = class extends Controller23 {
 };
 
 // app/javascript/controllers/decor/suite/modals/modal_trigger_controller.js
-import { Controller as Controller24 } from "@hotwired/stimulus";
-var modal_trigger_controller_default2 = class extends Controller24 {
+import { Controller as Controller26 } from "@hotwired/stimulus";
+var modal_trigger_controller_default2 = class extends Controller26 {
   static values = {
     modalId: String,
     contentHref: String,
@@ -2516,8 +2793,8 @@ var modal_trigger_controller_default2 = class extends Controller24 {
 };
 
 // app/javascript/controllers/decor/suite/search_and_filter_controller.js
-import { Controller as Controller25 } from "@hotwired/stimulus";
-var search_and_filter_controller_default = class extends Controller25 {
+import { Controller as Controller27 } from "@hotwired/stimulus";
+var search_and_filter_controller_default = class extends Controller27 {
   static targets = [
     "searchInput",
     "applyButton",
@@ -2625,8 +2902,8 @@ var search_and_filter_controller_default = class extends Controller25 {
 };
 
 // app/javascript/controllers/decor/suite/settings_list/row_controller.js
-import { Controller as Controller26 } from "@hotwired/stimulus";
-var row_controller_default = class extends Controller26 {
+import { Controller as Controller28 } from "@hotwired/stimulus";
+var row_controller_default = class extends Controller28 {
   static targets = ["chevron", "detail", "summary"];
   static values = {
     open: { type: Boolean, default: false }
@@ -2641,9 +2918,522 @@ var row_controller_default = class extends Controller26 {
   }
 };
 
+// app/javascript/controllers/decor/suite/tables/data_table_cell_controller.js
+import { Controller as Controller29 } from "@hotwired/stimulus";
+var data_table_cell_controller_default = class extends Controller29 {
+  static values = {
+    noPathNavigation: { type: Boolean, default: false }
+  };
+  handleCellClickToStopPropagation(e) {
+    e.stopPropagation();
+  }
+  handleLinkClick(e) {
+    e.stopPropagation();
+  }
+};
+
+// app/javascript/controllers/decor/suite/tables/data_table_controller.js
+import { Controller as Controller30 } from "@hotwired/stimulus";
+
+// app/javascript/services/selection_persistence_service.js
+var SelectionPersistenceService = class {
+  static CONFIG = {
+    STORAGE_PREFIX: "dataTable",
+    STORAGE_SEPARATOR: ":",
+    TTL_HOURS: 24,
+    MAX_SELECTION_SIZE: 1e3
+  };
+  static quotaExceededCallback = null;
+  static getStorageKey(tableId) {
+    return `${this.CONFIG.STORAGE_PREFIX}${this.CONFIG.STORAGE_SEPARATOR}${tableId}${this.CONFIG.STORAGE_SEPARATOR}selections`;
+  }
+  static getMetadataKey(tableId) {
+    return `${this.CONFIG.STORAGE_PREFIX}${this.CONFIG.STORAGE_SEPARATOR}${tableId}${this.CONFIG.STORAGE_SEPARATOR}metadata`;
+  }
+  static saveSelections(tableId, selectedIds) {
+    if (!tableId) return false;
+    if (!this.validateSelections(selectedIds)) {
+      console.warn(
+        `Invalid selections for table ${tableId}: Too many selections or invalid IDs`
+      );
+      return false;
+    }
+    try {
+      const key = this.getStorageKey(tableId);
+      const metadataKey = this.getMetadataKey(tableId);
+      if (selectedIds.length === 0) {
+        localStorage.removeItem(key);
+        localStorage.removeItem(metadataKey);
+      } else {
+        const metadata = { timestamp: Date.now(), count: selectedIds.length };
+        localStorage.setItem(key, JSON.stringify(selectedIds));
+        localStorage.setItem(metadataKey, JSON.stringify(metadata));
+      }
+      return true;
+    } catch (error) {
+      this.handleStorageError(tableId, error);
+      return false;
+    }
+  }
+  static loadSelections(tableId) {
+    if (!tableId) return [];
+    try {
+      const key = this.getStorageKey(tableId);
+      const metadataKey = this.getMetadataKey(tableId);
+      const selectionsJson = localStorage.getItem(key);
+      const metadataJson = localStorage.getItem(metadataKey);
+      if (!selectionsJson) return [];
+      if (metadataJson) {
+        const metadata = JSON.parse(metadataJson);
+        const ageInHours = (Date.now() - metadata.timestamp) / (1e3 * 60 * 60);
+        if (ageInHours > this.CONFIG.TTL_HOURS) {
+          this.clearSelections(tableId);
+          return [];
+        }
+      }
+      return JSON.parse(selectionsJson);
+    } catch (error) {
+      console.warn(`Failed to load selections for table ${tableId}:`, error);
+      return [];
+    }
+  }
+  static clearSelections(tableId) {
+    if (!tableId) return;
+    try {
+      localStorage.removeItem(this.getStorageKey(tableId));
+      localStorage.removeItem(this.getMetadataKey(tableId));
+    } catch (error) {
+      console.warn(`Failed to clear selections for table ${tableId}:`, error);
+    }
+  }
+  static getPersistedCount(tableId) {
+    if (!tableId) return 0;
+    try {
+      const metadataJson = localStorage.getItem(this.getMetadataKey(tableId));
+      if (metadataJson) {
+        const metadata = JSON.parse(metadataJson);
+        return metadata.count || 0;
+      }
+      return this.loadSelections(tableId).length;
+    } catch (error) {
+      console.warn(
+        `Failed to get persisted count for table ${tableId}:`,
+        error
+      );
+      return 0;
+    }
+  }
+  static addSelection(tableId, itemId) {
+    if (!tableId || !itemId) return;
+    try {
+      const selectionSet = new Set(this.loadSelections(tableId));
+      if (!selectionSet.has(itemId)) {
+        selectionSet.add(itemId);
+        this.saveSelections(tableId, Array.from(selectionSet));
+      }
+    } catch (error) {
+      console.warn(`Failed to add selection for table ${tableId}:`, error);
+    }
+  }
+  static removeSelection(tableId, itemId) {
+    if (!tableId || !itemId) return;
+    try {
+      const selectionSet = new Set(this.loadSelections(tableId));
+      if (selectionSet.has(itemId)) {
+        selectionSet.delete(itemId);
+        this.saveSelections(tableId, Array.from(selectionSet));
+      }
+    } catch (error) {
+      console.warn(`Failed to remove selection for table ${tableId}:`, error);
+    }
+  }
+  static isSelected(tableId, itemId) {
+    if (!tableId || !itemId) return false;
+    return this.loadSelections(tableId).includes(itemId);
+  }
+  static validateSelections(selectedIds) {
+    if (selectedIds.length > this.CONFIG.MAX_SELECTION_SIZE) return false;
+    return selectedIds.every((id) => {
+      if (typeof id !== "string" || id.length === 0 || id.length > 200) return false;
+      const xssPatterns = [
+        /<script/i,
+        /<iframe/i,
+        /javascript:/i,
+        /on[a-z]{1,20}\s{0,10}=/i,
+        /<\s*\w+/
+      ];
+      if (xssPatterns.some((pattern) => pattern.test(id))) {
+        console.warn("Potential XSS attempt detected in selection ID:", id);
+        return false;
+      }
+      if (/[\0\x00-\x1F\x7F\n\r]/.test(id)) return false;
+      if (!/^[a-zA-Z0-9_\-\.]+$/.test(id)) {
+        console.warn(
+          "Invalid ID format (must be alphanumeric with -_. only):",
+          id
+        );
+        return false;
+      }
+      return true;
+    });
+  }
+  static handleStorageError(tableId, error) {
+    const errorMessage = (error.message || "").toLowerCase();
+    const isQuotaError = errorMessage.includes("quota") || errorMessage.includes("exceeded") || error.name === "QuotaExceededError";
+    if (isQuotaError) {
+      console.error(`localStorage quota exceeded for table ${tableId}`);
+      this.cleanupExpiredSelections();
+      if (this.quotaExceededCallback) {
+        this.quotaExceededCallback(tableId, error);
+      }
+    } else {
+      console.warn(`Failed to save selections for table ${tableId}:`, error);
+    }
+  }
+  static onQuotaExceeded(callback) {
+    this.quotaExceededCallback = callback;
+  }
+  static cleanupExpiredSelections() {
+    try {
+      const keys = Object.keys(localStorage);
+      const prefix = this.CONFIG.STORAGE_PREFIX + this.CONFIG.STORAGE_SEPARATOR;
+      keys.forEach((key) => {
+        if (key.startsWith(prefix) && key.endsWith(":metadata")) {
+          try {
+            const metadata = JSON.parse(localStorage.getItem(key) || "{}");
+            const ageInHours = (Date.now() - (metadata.timestamp || 0)) / (1e3 * 60 * 60);
+            if (ageInHours > this.CONFIG.TTL_HOURS) {
+              localStorage.removeItem(key);
+              localStorage.removeItem(key.replace(":metadata", ":selections"));
+            }
+          } catch (e) {
+            localStorage.removeItem(key);
+          }
+        }
+      });
+    } catch (error) {
+      console.warn("Failed to cleanup expired selections:", error);
+    }
+  }
+  static addStorageListener(tableId, callback) {
+    const key = this.getStorageKey(tableId);
+    const handler = (event) => {
+      if (event.key === key && event.newValue !== event.oldValue) {
+        try {
+          const selectedIds = event.newValue ? JSON.parse(event.newValue) : [];
+          callback(selectedIds);
+        } catch (error) {
+          console.warn("Failed to parse storage event:", error);
+        }
+      }
+    };
+    window.addEventListener("storage", handler);
+    return () => window.removeEventListener("storage", handler);
+  }
+};
+if (typeof window !== "undefined") {
+  SelectionPersistenceService.cleanupExpiredSelections();
+}
+var selection_persistence_service_default = SelectionPersistenceService;
+
+// app/javascript/controllers/decor/suite/tables/data_table_controller.js
+var data_table_controller_default = class extends Controller30 {
+  static outlets = [
+    "decor--suite--tables--data-table-header-row",
+    "decor--suite--tables--data-table-row",
+    "decor--suite--tables--bulk-actions-bar"
+  ];
+  static targets = ["tableContentContainer", "tableBody"];
+  static values = {
+    tableId: { type: String, default: "" },
+    persistSelections: { type: Boolean, default: false }
+  };
+  static SELECTION_CHANGE_DEBOUNCE_MS = 150;
+  static MAX_APPLY_SELECTIONS_RETRIES = 3;
+  get headerRowController() {
+    return this.decorSuiteTablesDataTableHeaderRowOutlet;
+  }
+  get hasHeaderRowController() {
+    return this.hasDecorSuiteTablesDataTableHeaderRowOutlet;
+  }
+  get rowControllers() {
+    return this.decorSuiteTablesDataTableRowOutlets;
+  }
+  get bulkActionsBarController() {
+    return this.decorSuiteTablesBulkActionsBarOutlet;
+  }
+  get hasBulkActionsBarController() {
+    return this.hasDecorSuiteTablesBulkActionsBarOutlet;
+  }
+  initialize() {
+    this.selectionChangeListeners = /* @__PURE__ */ new Set();
+    this.storageListenerCleanup = null;
+    this.persistedSelections = /* @__PURE__ */ new Set();
+    this.rowSelectionChangeHandler = null;
+    this.applySelectionsRetryCount = 0;
+    this.selectionChangeDebounceTimer = null;
+    this.resizeObserver = null;
+    this.contentScrolled();
+  }
+  connect() {
+    if (this.persistSelectionsValue && this.tableIdValue) {
+      selection_persistence_service_default.onQuotaExceeded(
+        this.handleQuotaExceeded.bind(this)
+      );
+      this.loadPersistedSelections();
+      this.storageListenerCleanup = selection_persistence_service_default.addStorageListener(
+        this.tableIdValue,
+        this.handleStorageChange.bind(this)
+      );
+    }
+    if (this.hasHeaderRowController && typeof this.headerRowController.onCheckboxChange === "function") {
+      this.headerRowController.onCheckboxChange(this.toggleRows.bind(this));
+    }
+    if (this.hasBulkActionsBarController) {
+      if (typeof this.bulkActionsBarController.setDataTableController === "function") {
+        this.bulkActionsBarController.setDataTableController(this);
+      }
+      if (this.persistSelectionsValue && this.tableIdValue && typeof this.bulkActionsBarController.setTableId === "function") {
+        this.bulkActionsBarController.setTableId(this.tableIdValue);
+      }
+    }
+    this.rowSelectionChangeHandler = this.handleRowSelectionChange.bind(this);
+    this.element.addEventListener(
+      "data-table-row-selection-changed",
+      this.rowSelectionChangeHandler
+    );
+    if (this.hasTableContentContainerTarget) {
+      this.resizeObserver = new ResizeObserver(() => this.contentScrolled());
+      this.resizeObserver.observe(this.tableContentContainerTarget);
+    }
+  }
+  disconnect() {
+    this.selectionChangeListeners.clear();
+    if (this.rowSelectionChangeHandler) {
+      this.element.removeEventListener(
+        "data-table-row-selection-changed",
+        this.rowSelectionChangeHandler
+      );
+      this.rowSelectionChangeHandler = null;
+    }
+    if (this.storageListenerCleanup) {
+      this.storageListenerCleanup();
+      this.storageListenerCleanup = null;
+    }
+    if (this.selectionChangeDebounceTimer !== null) {
+      clearTimeout(this.selectionChangeDebounceTimer);
+      this.selectionChangeDebounceTimer = null;
+    }
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+      this.resizeObserver = null;
+    }
+  }
+  loadPersistedSelections() {
+    if (!this.persistSelectionsValue || !this.tableIdValue) return;
+    const persistedIds = selection_persistence_service_default.loadSelections(
+      this.tableIdValue
+    );
+    this.persistedSelections = new Set(persistedIds);
+    this.applyPersistedSelections();
+  }
+  applyPersistedSelections() {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        if (this.rowControllers.length === 0) {
+          this.applySelectionsRetryCount++;
+          if (this.applySelectionsRetryCount < this.constructor.MAX_APPLY_SELECTIONS_RETRIES) {
+            requestAnimationFrame(() => this.applyPersistedSelections());
+          } else {
+            console.warn(
+              `Failed to apply persisted selections after ${this.constructor.MAX_APPLY_SELECTIONS_RETRIES} retries. Row controllers may not be initialized.`
+            );
+          }
+          return;
+        }
+        this.applySelectionsRetryCount = 0;
+        this.rowControllers.forEach((controller) => {
+          const rowId = controller.checkboxValue;
+          if (rowId && this.persistedSelections.has(rowId)) {
+            controller.checked = true;
+          }
+        });
+        this.updateHeaderCheckboxState();
+        if (this.persistedSelections.size > 0) {
+          this.notifySelectionChange();
+        }
+      });
+    });
+  }
+  handleStorageChange(selectedIds) {
+    this.persistedSelections = new Set(selectedIds);
+    this.rowControllers.forEach((controller) => {
+      const rowId = controller.checkboxValue;
+      if (rowId) {
+        const shouldBeChecked = this.persistedSelections.has(rowId);
+        if (controller.checked !== shouldBeChecked) {
+          controller.checked = shouldBeChecked;
+        }
+      }
+    });
+    this.updateHeaderCheckboxState();
+    this.notifySelectionChange();
+  }
+  handleQuotaExceeded(tableId, error) {
+    if (tableId !== this.tableIdValue) return;
+    console.error(
+      `Storage quota exceeded for table ${tableId}. Clearing old selections.`,
+      error
+    );
+    this.element.dispatchEvent(
+      new CustomEvent("data-table-storage-quota-exceeded", {
+        bubbles: true,
+        detail: {
+          tableId,
+          message: "Selection storage limit reached. Some selections may not be saved.",
+          error
+        }
+      })
+    );
+    const visibleSelections = this.getVisibleSelectedRowIds();
+    this.persistedSelections = new Set(visibleSelections);
+    selection_persistence_service_default.saveSelections(tableId, visibleSelections);
+  }
+  handleRowSelectionChange(event) {
+    const detail = event.detail;
+    if (this.persistSelectionsValue && this.tableIdValue) {
+      if (detail && detail.checkboxValue) {
+        if (detail.checked) {
+          this.persistedSelections.add(detail.checkboxValue);
+        } else {
+          this.persistedSelections.delete(detail.checkboxValue);
+        }
+      }
+    }
+    this.updateHeaderCheckboxState();
+    this.notifySelectionChange();
+  }
+  updateHeaderCheckboxState() {
+    if (!this.hasHeaderRowController) return;
+    const allVisibleChecked = this.rowControllers.every((c) => c.checked);
+    const someChecked = this.rowControllers.some((c) => c.checked);
+    const hasPersistedSelections = this.persistedSelections.size > 0;
+    if (allVisibleChecked && this.rowControllers.length > 0) {
+      this.headerRowController.checked = true;
+      this.headerRowController.indeterminate = false;
+    } else if (someChecked || hasPersistedSelections) {
+      this.headerRowController.checked = false;
+      this.headerRowController.indeterminate = true;
+    } else {
+      this.headerRowController.checked = false;
+      this.headerRowController.indeterminate = false;
+    }
+  }
+  toggleRows(checked) {
+    this.rowControllers.forEach((controller) => {
+      controller.checked = checked;
+    });
+    if (this.persistSelectionsValue && this.tableIdValue) {
+      if (checked) {
+        this.rowControllers.forEach((controller) => {
+          const rowId = controller.checkboxValue;
+          if (rowId) this.persistedSelections.add(rowId);
+        });
+      } else {
+        this.rowControllers.forEach((controller) => {
+          const rowId = controller.checkboxValue;
+          if (rowId) this.persistedSelections.delete(rowId);
+        });
+      }
+    }
+    this.notifySelectionChange();
+  }
+  getSelectedRowIds() {
+    if (this.persistSelectionsValue && this.tableIdValue) {
+      return Array.from(this.persistedSelections);
+    }
+    return this.rowControllers.filter((controller) => controller.checked).map((controller) => controller.checkboxValue);
+  }
+  getVisibleSelectedRowIds() {
+    return this.rowControllers.filter((controller) => controller.checked).map((controller) => controller.checkboxValue);
+  }
+  getSelectedRows() {
+    return this.rowControllers.filter((controller) => controller.checked);
+  }
+  getSelectionCount() {
+    if (this.persistSelectionsValue && this.tableIdValue) {
+      return this.persistedSelections.size;
+    }
+    return this.rowControllers.filter((controller) => controller.checked).length;
+  }
+  hasSelection() {
+    return this.getSelectionCount() > 0;
+  }
+  clearSelection() {
+    this.rowControllers.forEach((controller) => {
+      controller.checked = false;
+    });
+    if (this.hasHeaderRowController) {
+      this.headerRowController.checked = false;
+    }
+    if (this.persistSelectionsValue && this.tableIdValue) {
+      this.persistedSelections.clear();
+      selection_persistence_service_default.clearSelections(this.tableIdValue);
+    }
+    this.notifySelectionChange();
+  }
+  onSelectionChange(callback) {
+    this.selectionChangeListeners.add(callback);
+    return () => this.selectionChangeListeners.delete(callback);
+  }
+  notifySelectionChange() {
+    if (this.selectionChangeDebounceTimer !== null) {
+      clearTimeout(this.selectionChangeDebounceTimer);
+    }
+    this.selectionChangeDebounceTimer = window.setTimeout(() => {
+      this.selectionChangeDebounceTimer = null;
+      const selectedIds = this.getSelectedRowIds();
+      if (this.persistSelectionsValue && this.tableIdValue) {
+        selection_persistence_service_default.saveSelections(
+          this.tableIdValue,
+          selectedIds
+        );
+      }
+      this.selectionChangeListeners.forEach((listener) => listener(selectedIds));
+      if (this.hasBulkActionsBarController && typeof this.bulkActionsBarController.handleSelectionChange === "function") {
+        this.bulkActionsBarController.handleSelectionChange(selectedIds);
+      }
+    }, this.constructor.SELECTION_CHANGE_DEBOUNCE_MS);
+  }
+  appendRow(row) {
+    if (this.hasTableBodyTarget) {
+      this.tableBodyTarget.appendChild(row);
+      this.contentScrolled();
+    }
+  }
+  contentScrolled() {
+    if (!this.hasTableContentContainerTarget) return;
+    const scrollContainer = this.tableContentContainerTarget;
+    const shadowTarget = scrollContainer.parentElement;
+    if (!shadowTarget) return;
+    const x = scrollContainer.scrollLeft;
+    const divWidth = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+    if (x === 0) {
+      shadowTarget.classList.remove("inset-scroll-shadow-not-at-left");
+    } else {
+      shadowTarget.classList.add("inset-scroll-shadow-not-at-left");
+    }
+    if (x < divWidth) {
+      shadowTarget.classList.add("inset-scroll-shadow-not-at-right");
+    } else {
+      shadowTarget.classList.remove("inset-scroll-shadow-not-at-right");
+    }
+  }
+};
+
 // app/javascript/controllers/decor/suite/tabs_controller.js
-import { Controller as Controller27 } from "@hotwired/stimulus";
-var tabs_controller_default2 = class extends Controller27 {
+import { Controller as Controller31 } from "@hotwired/stimulus";
+var tabs_controller_default2 = class extends Controller31 {
   static targets = ["wrapper", "scroll"];
   connect() {
     if (!this.hasWrapperTarget || !this.hasScrollTarget) return;
@@ -2678,7 +3468,7 @@ var tabs_controller_default2 = class extends Controller27 {
 };
 
 // app/javascript/controllers/decor/suite/tooltip_controller.js
-import { Controller as Controller28 } from "@hotwired/stimulus";
+import { Controller as Controller32 } from "@hotwired/stimulus";
 import {
   computePosition,
   autoUpdate,
@@ -2687,7 +3477,7 @@ import {
   offset as offsetMiddleware,
   arrow
 } from "@floating-ui/dom";
-var tooltip_controller_default = class extends Controller28 {
+var tooltip_controller_default = class extends Controller32 {
   static targets = ["content", "arrow"];
   static values = {
     placement: { type: String, default: "top" },
@@ -2790,9 +3580,11 @@ var CONTROLLERS = {
   "decor--daisy--dropdown": dropdown_controller_default,
   "decor--daisy--flash": flash_controller_default,
   "decor--daisy--forms--date-calendar": date_calendar_controller_default,
+  "decor--daisy--forms--searchable-multi-select": searchable_multi_select_controller_default,
   "decor--daisy--forms--searchable-select": searchable_select_controller_default,
   "decor--daisy--forms--switch": switch_controller_default,
   "decor--daisy--map": map_controller_default,
+  "decor--daisy--modals--confirm": confirm_controller_default,
   "decor--daisy--modals--confirm-modal": confirm_modal_controller_default,
   "decor--daisy--modals--modal-close-button": modal_close_button_controller_default,
   "decor--daisy--modals--modal": modal_controller_default,
@@ -2807,10 +3599,13 @@ var CONTROLLERS = {
   "decor--suite--click-to-copy": click_to_copy_controller_default,
   "decor--suite--dropdown": dropdown_controller_default2,
   "decor--suite--flash": flash_controller_default,
+  "decor--suite--forms--date-calendar": date_calendar_controller_default,
   "decor--suite--forms--form": form_controller_default,
+  "decor--suite--forms--searchable-multi-select": searchable_multi_select_controller_default2,
   "decor--suite--forms--searchable-select": searchable_select_controller_default2,
   "decor--suite--forms--switch": switch_controller_default,
   "decor--suite--map": map_controller_default,
+  "decor--suite--modals--confirm": confirm_controller_default2,
   "decor--suite--modals--modal-close-button": modal_close_button_controller_default2,
   "decor--suite--modals--modal": modal_controller_default2,
   "decor--suite--modals--modal-open-button": modal_open_button_controller_default2,
@@ -2818,14 +3613,16 @@ var CONTROLLERS = {
   "decor--suite--progress": progress_controller_default,
   "decor--suite--search-and-filter": search_and_filter_controller_default,
   "decor--suite--settings-list--row": row_controller_default,
+  "decor--suite--tables--data-table-cell": data_table_cell_controller_default,
+  "decor--suite--tables--data-table": data_table_controller_default,
   "decor--suite--tabs": tabs_controller_default2,
   "decor--suite--tooltip": tooltip_controller_default
 };
 
 // app/javascript/decor/index.js
 function register(application) {
-  for (const [identifier, Controller29] of Object.entries(CONTROLLERS)) {
-    application.register(identifier, Controller29);
+  for (const [identifier, Controller33] of Object.entries(CONTROLLERS)) {
+    application.register(identifier, Controller33);
   }
 }
 if (typeof window !== "undefined" && window.Stimulus) {
