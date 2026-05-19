@@ -35,14 +35,22 @@ module Decor
       class MultiImageUpload < ::Decor::Components::Forms::FormField
         include ::Phlex::Rails::Helpers::FieldName
 
-        # The Daisy controller identifier — the JS for sortable / crop /
-        # file-picker is registered under this name. The Suite component
-        # instance's `stimulus_identifier` is the Suite path, so we keep this
-        # constant to wire data attributes against the controller that
-        # actually owns the behaviour.
+        # Bind to the existing Daisy multi_image_upload Stimulus controller
+        # (no Suite JS). Overriding stimulus_identifier_path makes Vident
+        # emit `data-controller="decor--daisy--forms--multi-image-upload"`
+        # plus all `…-target` / `…-value` data attrs under that identifier
+        # — without this override, Vident emitted them under the Suite
+        # path while the JS controller is registered under the Daisy path,
+        # so `this.maxImagesValue` always resolved to 0 (the Stimulus-
+        # Number-type default for a missing attribute) and the controller
+        # alerted "Maximum of 0 images allowed".
+        def self.stimulus_identifier_path
+          "decor/daisy/forms/multi_image_upload"
+        end
+
+        # Resolved at render time — used by inline action / target wiring.
         DAISY_CTRL = "decor--daisy--forms--multi-image-upload"
-        DAISY_CTRL_PATH = "decor/daisy/forms/multi_image_upload"
-        private_constant :DAISY_CTRL, :DAISY_CTRL_PATH
+        private_constant :DAISY_CTRL
 
         prop :existing_images, _Any, default: -> { [] }
         prop :max_size_in_mb, Integer, default: 5
@@ -53,7 +61,6 @@ module Decor
         prop :crop_aspect_h, _Nilable(Integer)
 
         stimulus do
-          controllers DAISY_CTRL_PATH
           values_from_props :max_size_in_mb, :max_images, :file_mime_types
           values enable_crop: -> { @enable_crop },
             crop_aspect_w: -> { @crop_aspect_w || 0 },
