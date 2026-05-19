@@ -37,6 +37,10 @@ module Decor
         prop :weight, _Union(:light, :regular, :medium), default: :regular
         # Row height
         prop :row_height, _Union(:comfortable, :standard, :tight), default: :standard
+        # Compact horizontal padding
+        prop :compact, _Boolean, default: false
+        # Content alignment (overrides numeric-based alignment when set)
+        prop :align, _Nilable(_Union(:left, :center, :right))
 
         # Use unified color system (in addition to existing emphasis system)
         default_color :base  # No color by default
