@@ -31,8 +31,8 @@ module Decor
           }
           attrs[:rows] = @rows if @rows
           attrs[:cols] = @cols if @cols
-          attrs[:disabled] = nil if @disabled
-          attrs[:required] = nil if @required
+          attrs[:disabled] = true if @disabled
+          attrs[:required] = true if @required
           attrs[:minlength] = @minimum_length if @minimum_length
           attrs[:maxlength] = @maximum_length if @maximum_length
           attrs[:pattern] = resolved_pattern if @pattern

@@ -68,8 +68,8 @@ module Decor
             name: @name,
             value: @value
           }
-          attrs[:required] = nil if @required
-          attrs[:disabled] = nil if @disabled
+          attrs[:required] = true if @required
+          attrs[:disabled] = true if @disabled
           attrs[:size] = @html_size if @html_size
           attrs[:minlength] = @minimum_length if @minimum_length
           attrs[:maxlength] = @maximum_length if @maximum_length

@@ -25,7 +25,7 @@ module Decor
             value: @value,
             id: id
           }
-          attrs[:disabled] = nil if @disabled
+          attrs[:disabled] = true if @disabled
           attrs
         end
       end
