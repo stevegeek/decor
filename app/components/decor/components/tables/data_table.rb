@@ -12,6 +12,15 @@ module Decor
         prop :title, _Nilable(String)
         prop :subtitle, _Nilable(String)
 
+        # Persistent selection across pagination — Stimulus controller stores
+        # selected row identifiers in localStorage keyed by `table_identifier`.
+        prop :table_identifier, _Nilable(String)
+        prop :enable_selection_persistence, _Boolean, default: false
+
+        # Extra HTML attributes applied to the inner <table> element so callers
+        # can attach Stimulus controllers / data hooks to the table itself.
+        prop :table_html_options, Hash, default: -> { {} }
+
         default_size :md
         default_color :base
         default_style :default
@@ -29,6 +38,9 @@ module Decor
             ::Decor::Daisy::Tables::DataTableHeaderRow.stimulus_identifier => nil,
             ::Decor::Daisy::Tables::DataTableRow.stimulus_identifier => nil
           })
+
+          values table_id: -> { @table_identifier },
+            persist_selections: -> { @enable_selection_persistence }
         end
 
         def after_component_initialize
