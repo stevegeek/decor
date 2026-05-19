@@ -5,8 +5,19 @@ import { Controller } from "@hotwired/stimulus"
 import "cally"
 
 // Connects to data-controller="decor--daisy--forms--date-calendar"
+//
+// Targets:
+//   calendar       - the cally <calendar-date>/<calendar-month>/etc element
+//   hiddenInput    - the form value carrier (always present)
+//   popoverTrigger - read-only text input that opens the popover (popover mode only)
+//   popoverPanel   - the [popover] div containing the calendar (popover mode only)
+//
+// In popover mode the controller anchors the popover panel below the trigger
+// via inline top/left written before showPopover(), copies the formatted
+// value into the trigger input on change, and dismisses the popover via
+// hidePopover() so the user can immediately see what they picked.
 export default class extends Controller {
-  static targets = ["calendar", "hiddenInput"]
+  static targets = ["calendar", "hiddenInput", "popoverTrigger", "popoverPanel"]
   static values = {
     calendarType: { type: String, default: null },
     locale: { type: String, default: null },
@@ -54,13 +65,55 @@ export default class extends Controller {
 
     // Update the hidden input with the selected value(s)
     this.hiddenInputTarget.value = value || ''
-    
+
     // Dispatch a custom change event for form integration
     this.hiddenInputTarget.dispatchEvent(new Event('change', { bubbles: true }))
-    
+
+    // Popover mode: mirror the picked value into the trigger input and
+    // dismiss the popover. Skipped for :range / :multi where the user may
+    // still be making more picks — dismiss only on the second range click
+    // (rangeend) for ranges, never for multi.
+    if (this.hasPopoverTriggerTarget) {
+      this.popoverTriggerTarget.value = value || ''
+      if (this.calendarTypeValue !== 'range' && this.calendarTypeValue !== 'multi') {
+        this._closePopover()
+      }
+    }
+
     // Call any additional change handlers
     if (this.onChangeCallback) {
       this.onChangeCallback(value)
+    }
+  }
+
+  openPopover() {
+    if (!this.hasPopoverPanelTarget || !this.hasPopoverTriggerTarget) return
+    const panel = this.popoverPanelTarget
+    const trigger = this.popoverTriggerTarget
+
+    // Anchor the popover below the trigger. Native popovers open into the
+    // top-layer (above everything) but UA-position to the viewport — we have
+    // to write top/left inline so the panel hugs the trigger.
+    const rect = trigger.getBoundingClientRect()
+    panel.style.position = 'fixed'
+    panel.style.top = `${rect.bottom + 4}px`
+    panel.style.left = `${rect.left}px`
+
+    panel.showPopover()
+    trigger.setAttribute('aria-expanded', 'true')
+
+    // Sync aria-expanded back to false on dismiss (Escape / click-outside /
+    // explicit hidePopover). One-shot via the native `toggle` event.
+    panel.addEventListener('toggle', (e) => {
+      if (e.newState === 'closed') {
+        trigger.setAttribute('aria-expanded', 'false')
+      }
+    }, { once: true })
+  }
+
+  _closePopover() {
+    if (this.hasPopoverPanelTarget && this.popoverPanelTarget.matches(':popover-open')) {
+      this.popoverPanelTarget.hidePopover()
     }
   }
 
@@ -72,6 +125,8 @@ export default class extends Controller {
   handleRangeEnd(event) {
     // Handle range selection completion
     console.debug('Range selection completed:', event.detail)
+    // Popover mode: range now has both endpoints — dismiss the popover.
+    if (this.hasPopoverPanelTarget) this._closePopover()
   }
 
   handleFocusDay(event) {

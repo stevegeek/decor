@@ -1,5 +1,49 @@
 # Changelog
 
+## 0.14.0 — Unreleased
+
+### Add: Suite::Forms::DateCalendar gains `mode: :inline | :popover`
+
+`:inline` (default) keeps the always-expanded calendar (batch-4 behaviour).
+`:popover` renders a read-only Suite TextField trigger plus a native
+`<div popover="auto">` panel containing the cally calendar — matches
+ConfinusUI's flatpickr UX for narrow filter/table contexts where the
+inline calendar takes too much vertical room. The controller anchors
+the panel below the trigger via inline top/left written before
+`showPopover()`, copies the picked value into the trigger input, and
+dismisses on pick (single/month) or on `rangeend` (range) — multi-select
+keeps the panel open so the user can keep picking.
+
+### Add: Suite-skinned Tables::DataTableHeaderRow / DataTableHeaderCell / DataTableRow
+
+The Suite DataTable was falling back to Daisy's row + header chrome,
+producing daisyUI's `text-base-content` / `text-xs tracking-wider`
+column headers (mismatched against Confinus's expected
+`suite-caption uppercase tracking-[0.04em] text-gray-500`) and no per-row
+border separator. Ported all three with Suite tokens:
+
+- `Decor::Suite::Tables::DataTableHeaderCell` — suite-caption typography,
+  hairline bottom border, unicode-arrow sort indicator (fades in on hover
+  for sortable columns, opacity-70 when sorted).
+- `Decor::Suite::Tables::DataTableHeaderRow` — uses Suite header cell by
+  default, Suite Checkbox for selection.
+- `Decor::Suite::Tables::DataTableRow` — Suite Checkbox for selection,
+  suite-gray-25 hover, suite-primary-50/100 highlight rows. The per-cell
+  `border-b border-suite-hairline` provides row separation; the table now
+  carries `[&_tbody_tr:last-child_td]:border-b-0` to avoid double-border
+  against the card edge (replaces the misguided `divide-y` on tbody from
+  the previous version, which would have stacked with the per-cell
+  borders).
+
+Suite DataTable's `with_data_table_header_row` / `with_data_table_row`
+already routed through `suite_const_or_daisy(:X)`, so these new
+components are picked up automatically.
+
+### Tests
+
+DateCalendar + DataTable + Suite tables tests: 83 runs / 277 assertions / 0F.
+Full Suite suite: 892 runs / 3625 assertions / 0F.
+
 ## 0.13.0 — Unreleased
 
 ### Fix: SearchableSelect / SearchableMultiSelect dropdown never opened

@@ -454,7 +454,7 @@ var flash_controller_default = class extends Controller5 {
 import { Controller as Controller6 } from "@hotwired/stimulus";
 import "cally";
 var date_calendar_controller_default = class extends Controller6 {
-  static targets = ["calendar", "hiddenInput"];
+  static targets = ["calendar", "hiddenInput", "popoverTrigger", "popoverPanel"];
   static values = {
     calendarType: { type: String, default: null },
     locale: { type: String, default: null },
@@ -488,8 +488,35 @@ var date_calendar_controller_default = class extends Controller6 {
     const value = calendar.value;
     this.hiddenInputTarget.value = value || "";
     this.hiddenInputTarget.dispatchEvent(new Event("change", { bubbles: true }));
+    if (this.hasPopoverTriggerTarget) {
+      this.popoverTriggerTarget.value = value || "";
+      if (this.calendarTypeValue !== "range" && this.calendarTypeValue !== "multi") {
+        this._closePopover();
+      }
+    }
     if (this.onChangeCallback) {
       this.onChangeCallback(value);
+    }
+  }
+  openPopover() {
+    if (!this.hasPopoverPanelTarget || !this.hasPopoverTriggerTarget) return;
+    const panel = this.popoverPanelTarget;
+    const trigger = this.popoverTriggerTarget;
+    const rect = trigger.getBoundingClientRect();
+    panel.style.position = "fixed";
+    panel.style.top = `${rect.bottom + 4}px`;
+    panel.style.left = `${rect.left}px`;
+    panel.showPopover();
+    trigger.setAttribute("aria-expanded", "true");
+    panel.addEventListener("toggle", (e) => {
+      if (e.newState === "closed") {
+        trigger.setAttribute("aria-expanded", "false");
+      }
+    }, { once: true });
+  }
+  _closePopover() {
+    if (this.hasPopoverPanelTarget && this.popoverPanelTarget.matches(":popover-open")) {
+      this.popoverPanelTarget.hidePopover();
     }
   }
   handleRangeStart(event) {
@@ -497,6 +524,7 @@ var date_calendar_controller_default = class extends Controller6 {
   }
   handleRangeEnd(event) {
     console.debug("Range selection completed:", event.detail);
+    if (this.hasPopoverPanelTarget) this._closePopover();
   }
   handleFocusDay(event) {
     console.debug("Focus day changed:", event.detail);

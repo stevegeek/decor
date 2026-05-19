@@ -163,10 +163,7 @@ module Decor
                     end
                   end
                 end
-                tbody(
-                  class: "decor:divide-y decor:divide-suite-hairline",
-                  data: {**stimulus_target(:table_body)}
-                ) do
+                tbody(data: {**stimulus_target(:table_body)}) do
                   @data_table_rows.each do |row, block|
                     render(row, &block)
                   end
@@ -239,8 +236,11 @@ module Decor
         def table_classes
           # 13px dense body, hairline divider rows, full width. Suite tables do
           # NOT use daisyUI `.table` chrome — too tall, wrong color palette.
+          # Last-row cells drop their bottom border so the table doesn't
+          # double-border against the card edge.
           [
             "decor:w-full decor:border-collapse decor:text-[13px]",
+            "decor:[&_tbody_tr:last-child_td]:border-b-0",
             @zebra ? "decor:[&_tbody_tr:nth-child(even)]:bg-suite-gray-25" : nil,
             @pin_rows ? "decor:[&_thead]:sticky decor:[&_thead]:top-0 decor:[&_thead]:z-10" : nil
           ].compact.join(" ")

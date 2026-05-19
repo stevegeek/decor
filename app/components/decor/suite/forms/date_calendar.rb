@@ -18,6 +18,18 @@ module Decor
       class DateCalendar < ::Decor::Components::Forms::DateCalendar
         prop :silent_helper_and_error_text, _Boolean, default: false
 
+        # :inline  — calendar always expanded (default; matches batch-4 ship)
+        # :popover — text-field trigger + native [popover] panel containing
+        #            the cally calendar. Click input → popover opens, anchored
+        #            below; picking a date copies the formatted value into
+        #            the input and dismisses the popover. Matches ConfinusUI
+        #            flatpickr's compact UX for narrow filter/table contexts.
+        prop :mode, _Union(:inline, :popover), default: :inline
+
+        # Placeholder shown in the trigger input when no value is selected
+        # (popover mode only).
+        prop :placeholder, _Nilable(String), default: "Select a date…"
+
         def view_template
           root_element do |el|
             div(class: container_classes) do
@@ -33,8 +45,12 @@ module Decor
                   data: {**el.stimulus_target(:hidden_input)}
                 )
 
-                div(class: calendar_wrapper_classes) do
-                  render_calendar(el)
+                if popover_mode?
+                  render_popover_trigger_and_panel(el)
+                else
+                  div(class: calendar_wrapper_classes) do
+                    render_calendar(el)
+                  end
                 end
 
                 if !silent_helper_and_error_text? && helper_or_error_text.present?
@@ -106,6 +122,85 @@ module Decor
 
         def description_classes
           "decor:suite-field-help decor:text-gray-500"
+        end
+
+        def popover_mode?
+          @mode == :popover
+        end
+
+        # ── popover-mode trigger + panel ────────────────────────────────────
+
+        def render_popover_trigger_and_panel(el)
+          popover_id = "#{id}-popover"
+
+          # Wrapping div is the anchor block for the absolute-positioned panel.
+          div(class: "decor:relative") do
+            render_popover_trigger_input(el, popover_id)
+            render_popover_panel(el, popover_id)
+          end
+        end
+
+        def render_popover_trigger_input(el, popover_id)
+          # Read-only display input. The hidden input above carries the form
+          # value; this one is just chrome that mirrors what the user picked.
+          # Inherits Suite TextField visuals via `decor:suite-input-base`.
+          input(
+            type: "text",
+            id: "#{id}-control",
+            readonly: true,
+            value: display_value_for_popover,
+            placeholder: @placeholder,
+            class: popover_trigger_classes,
+            aria_haspopup: "dialog",
+            aria_expanded: "false",
+            data: {
+              **el.stimulus_target(:popover_trigger),
+              **el.stimulus_action(:click, :open_popover)
+            }
+          )
+        end
+
+        def render_popover_panel(el, popover_id)
+          # Native [popover] — browser handles top-layer + light dismiss
+          # (click-outside + Escape).  `position: absolute` so it inherits
+          # the wrapping div's anchor point and floats below the trigger.
+          div(
+            id: popover_id,
+            popover: "auto",
+            class: popover_panel_classes,
+            data: {**el.stimulus_target(:popover_panel)}
+          ) do
+            render_calendar(el)
+          end
+        end
+
+        def popover_trigger_classes
+          [
+            "decor:w-full decor:rounded-suite-control",
+            "decor:border decor:border-suite-hairline-strong decor:bg-white",
+            "decor:suite-input-base decor:cursor-pointer",
+            "decor:transition-[border-color,box-shadow] decor:duration-suite-fast decor:ease-out",
+            "decor:hover:border-gray-400",
+            "decor:focus:border-suite-primary-500 decor:outline-hidden",
+            "decor:focus:shadow-[0_0_0_3px_var(--color-suite-primary-100)]",
+            errors? ? "decor:border-suite-danger-500" : nil,
+            disabled? ? "decor:opacity-60 decor:cursor-not-allowed decor:bg-gray-50" : nil
+          ].compact.join(" ")
+        end
+
+        # The popover defaults to UA-positioned-at-viewport-center. The
+        # controller measures the trigger and writes top/left inline before
+        # showPopover() so it sits anchored below the input. `m-0` clears
+        # the UA margin that would otherwise re-center it.
+        def popover_panel_classes
+          "decor:m-0 decor:p-0 decor:bg-transparent decor:border-0"
+        end
+
+        def display_value_for_popover
+          return "" unless @value
+          # Reuse the cally-format helper for now; consumers can override
+          # this to render localised dates by subclassing.
+          formatted_value
         end
 
         # ── calendar chrome ─────────────────────────────────────────────────
