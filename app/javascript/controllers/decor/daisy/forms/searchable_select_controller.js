@@ -135,7 +135,7 @@ export default class extends Controller {
     const query = this.inputTarget.value.trim();
 
     if (query.length === 0) {
-      if (!this.dropdownTarget.classList.contains("hidden")) {
+      if (!this.dropdownTarget.classList.contains("decor:hidden")) {
         this.browseMode = true;
         this.currentQuery = "";
         this.currentPage = 0;
@@ -176,7 +176,7 @@ export default class extends Controller {
         break;
       case "ArrowDown":
         event.preventDefault();
-        if (this.dropdownTarget.classList.contains("hidden")) {
+        if (this.dropdownTarget.classList.contains("decor:hidden")) {
           this.handleFocus();
           return;
         }
@@ -188,7 +188,7 @@ export default class extends Controller {
         break;
       case "ArrowUp":
         event.preventDefault();
-        if (this.dropdownTarget.classList.contains("hidden")) return;
+        if (this.dropdownTarget.classList.contains("decor:hidden")) return;
         this.highlightedIndex = Math.max(this.highlightedIndex - 1, 0);
         this._updateHighlight(items);
         break;
@@ -213,8 +213,8 @@ export default class extends Controller {
   // Click on the chip — reopen the dropdown for re-selection without losing
   // the existing value.
   reopenForReselect() {
-    this.selectedDisplayTarget.classList.add("hidden");
-    this.inputTarget.classList.remove("hidden");
+    this.selectedDisplayTarget.classList.add("decor:hidden");
+    this.inputTarget.classList.remove("decor:hidden");
     this.inputTarget.value = "";
     this.inputTarget.focus();
     this._openBrowseIfClosed();
@@ -225,8 +225,8 @@ export default class extends Controller {
     if (this.currentSelectedId) this.selectedIds.delete(this.currentSelectedId);
     this.currentSelectedId = null;
 
-    this.selectedDisplayTarget.classList.add("hidden");
-    this.inputTarget.classList.remove("hidden");
+    this.selectedDisplayTarget.classList.add("decor:hidden");
+    this.inputTarget.classList.remove("decor:hidden");
     this.inputTarget.value = "";
     this.inputTarget.focus();
 
@@ -242,7 +242,7 @@ export default class extends Controller {
 
   _openBrowseIfClosed() {
     if (
-      this.dropdownTarget.classList.contains("hidden") &&
+      this.dropdownTarget.classList.contains("decor:hidden") &&
       this.inputTarget.value.trim() === ""
     ) {
       this.browseMode = true;
@@ -263,8 +263,8 @@ export default class extends Controller {
     this.selectedIds.add(id);
 
     this.selectedLabelTarget.textContent = label;
-    this.selectedDisplayTarget.classList.remove("hidden");
-    this.inputTarget.classList.add("hidden");
+    this.selectedDisplayTarget.classList.remove("decor:hidden");
+    this.inputTarget.classList.add("decor:hidden");
     this.inputTarget.value = "";
 
     this.hiddenInputsContainerTarget.innerHTML = "";
@@ -293,8 +293,8 @@ export default class extends Controller {
 
   _applySelectedDisplay(id, label) {
     this.selectedLabelTarget.textContent = label;
-    this.selectedDisplayTarget.classList.remove("hidden");
-    this.inputTarget.classList.add("hidden");
+    this.selectedDisplayTarget.classList.remove("decor:hidden");
+    this.inputTarget.classList.add("decor:hidden");
     this.inputTarget.value = "";
     this._closeDropdown();
     this.dispatch("selected", { detail: { id, label }, bubbles: true });
@@ -464,18 +464,18 @@ export default class extends Controller {
   }
 
   _openDropdown() {
-    this.dropdownTarget.classList.remove("hidden");
+    this.dropdownTarget.classList.remove("decor:hidden");
   }
 
   _closeDropdown() {
-    this.dropdownTarget.classList.add("hidden");
+    this.dropdownTarget.classList.add("decor:hidden");
     this.highlightedIndex = -1;
     this.currentPage = 0;
     this.hasMore = false;
     this.browseMode = false;
     if (this.currentSelectedId) {
-      this.selectedDisplayTarget.classList.remove("hidden");
-      this.inputTarget.classList.add("hidden");
+      this.selectedDisplayTarget.classList.remove("decor:hidden");
+      this.inputTarget.classList.add("decor:hidden");
       this.inputTarget.value = "";
     }
   }

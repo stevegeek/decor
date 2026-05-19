@@ -662,7 +662,7 @@ var searchable_select_controller_default = class extends Controller7 {
     if (this.searchTimeout) clearTimeout(this.searchTimeout);
     const query = this.inputTarget.value.trim();
     if (query.length === 0) {
-      if (!this.dropdownTarget.classList.contains("hidden")) {
+      if (!this.dropdownTarget.classList.contains("decor:hidden")) {
         this.browseMode = true;
         this.currentQuery = "";
         this.currentPage = 0;
@@ -699,7 +699,7 @@ var searchable_select_controller_default = class extends Controller7 {
         break;
       case "ArrowDown":
         event.preventDefault();
-        if (this.dropdownTarget.classList.contains("hidden")) {
+        if (this.dropdownTarget.classList.contains("decor:hidden")) {
           this.handleFocus();
           return;
         }
@@ -711,7 +711,7 @@ var searchable_select_controller_default = class extends Controller7 {
         break;
       case "ArrowUp":
         event.preventDefault();
-        if (this.dropdownTarget.classList.contains("hidden")) return;
+        if (this.dropdownTarget.classList.contains("decor:hidden")) return;
         this.highlightedIndex = Math.max(this.highlightedIndex - 1, 0);
         this._updateHighlight(items);
         break;
@@ -730,8 +730,8 @@ var searchable_select_controller_default = class extends Controller7 {
   // Click on the chip — reopen the dropdown for re-selection without losing
   // the existing value.
   reopenForReselect() {
-    this.selectedDisplayTarget.classList.add("hidden");
-    this.inputTarget.classList.remove("hidden");
+    this.selectedDisplayTarget.classList.add("decor:hidden");
+    this.inputTarget.classList.remove("decor:hidden");
     this.inputTarget.value = "";
     this.inputTarget.focus();
     this._openBrowseIfClosed();
@@ -740,8 +740,8 @@ var searchable_select_controller_default = class extends Controller7 {
     if (event) event.stopPropagation();
     if (this.currentSelectedId) this.selectedIds.delete(this.currentSelectedId);
     this.currentSelectedId = null;
-    this.selectedDisplayTarget.classList.add("hidden");
-    this.inputTarget.classList.remove("hidden");
+    this.selectedDisplayTarget.classList.add("decor:hidden");
+    this.inputTarget.classList.remove("decor:hidden");
     this.inputTarget.value = "";
     this.inputTarget.focus();
     this.hiddenInputsContainerTarget.innerHTML = "";
@@ -752,7 +752,7 @@ var searchable_select_controller_default = class extends Controller7 {
   }
   // ── Internals ──
   _openBrowseIfClosed() {
-    if (this.dropdownTarget.classList.contains("hidden") && this.inputTarget.value.trim() === "") {
+    if (this.dropdownTarget.classList.contains("decor:hidden") && this.inputTarget.value.trim() === "") {
       this.browseMode = true;
       this.currentQuery = "";
       this.currentPage = 0;
@@ -768,8 +768,8 @@ var searchable_select_controller_default = class extends Controller7 {
     this.currentSelectedId = id;
     this.selectedIds.add(id);
     this.selectedLabelTarget.textContent = label;
-    this.selectedDisplayTarget.classList.remove("hidden");
-    this.inputTarget.classList.add("hidden");
+    this.selectedDisplayTarget.classList.remove("decor:hidden");
+    this.inputTarget.classList.add("decor:hidden");
     this.inputTarget.value = "";
     this.hiddenInputsContainerTarget.innerHTML = "";
     const hidden = document.createElement("input");
@@ -792,8 +792,8 @@ var searchable_select_controller_default = class extends Controller7 {
   }
   _applySelectedDisplay(id, label) {
     this.selectedLabelTarget.textContent = label;
-    this.selectedDisplayTarget.classList.remove("hidden");
-    this.inputTarget.classList.add("hidden");
+    this.selectedDisplayTarget.classList.remove("decor:hidden");
+    this.inputTarget.classList.add("decor:hidden");
     this.inputTarget.value = "";
     this._closeDropdown();
     this.dispatch("selected", { detail: { id, label }, bubbles: true });
@@ -924,17 +924,17 @@ var searchable_select_controller_default = class extends Controller7 {
     });
   }
   _openDropdown() {
-    this.dropdownTarget.classList.remove("hidden");
+    this.dropdownTarget.classList.remove("decor:hidden");
   }
   _closeDropdown() {
-    this.dropdownTarget.classList.add("hidden");
+    this.dropdownTarget.classList.add("decor:hidden");
     this.highlightedIndex = -1;
     this.currentPage = 0;
     this.hasMore = false;
     this.browseMode = false;
     if (this.currentSelectedId) {
-      this.selectedDisplayTarget.classList.remove("hidden");
-      this.inputTarget.classList.add("hidden");
+      this.selectedDisplayTarget.classList.remove("decor:hidden");
+      this.inputTarget.classList.add("decor:hidden");
       this.inputTarget.value = "";
     }
   }

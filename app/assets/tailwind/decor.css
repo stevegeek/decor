@@ -143,9 +143,15 @@
   --duration-suite-fast: 120ms;
   --duration-suite-base: 200ms;
 
-  /* Suite density tokens (compact = default). Override on body.density-relaxed
-     to bump padding/font-size/gaps for users who opt into relaxed spacing.
-     Mirrors the Confinus design-system density mechanism. */
+}
+
+/* Suite density tokens (compact = default). Defined OUTSIDE @theme so the
+   var names remain unprefixed and resolve from the @utility suite-input-base
+   etc. blocks below, which also use the unprefixed names. (Vars inside @theme
+   get auto-prefixed with --decor-, which would break the lookup chain.)
+   Override on body.density-relaxed to bump for users who opt into relaxed
+   spacing. Mirrors the Confinus design-system density mechanism. */
+:root {
   --suite-input-pad-y: 5px;
   --suite-input-pad-x: 9px;
   --suite-input-font: 12px;
