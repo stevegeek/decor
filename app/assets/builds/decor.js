@@ -452,6 +452,7 @@ var flash_controller_default = class extends Controller5 {
 
 // app/javascript/controllers/decor/daisy/forms/date_calendar_controller.js
 import { Controller as Controller6 } from "@hotwired/stimulus";
+import "cally";
 var date_calendar_controller_default = class extends Controller6 {
   static targets = ["calendar", "hiddenInput"];
   static values = {

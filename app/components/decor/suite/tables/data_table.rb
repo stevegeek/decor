@@ -163,7 +163,10 @@ module Decor
                     end
                   end
                 end
-                tbody(data: {**stimulus_target(:table_body)}) do
+                tbody(
+                  class: "decor:divide-y decor:divide-suite-hairline",
+                  data: {**stimulus_target(:table_body)}
+                ) do
                   @data_table_rows.each do |row, block|
                     render(row, &block)
                   end

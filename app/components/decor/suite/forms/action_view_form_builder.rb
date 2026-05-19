@@ -1,0 +1,133 @@
+# frozen_string_literal: true
+
+module Decor
+  module Suite
+    module Forms
+      # Suite-skinned FormBuilder. Inherits from the Daisy-defaulted
+      # `Decor::Forms::ActionViewFormBuilder` and overrides each helper that
+      # has a Suite counterpart so callers driving the builder from ERB
+      # (`form_component.builder.text_field :name`) get Suite chrome
+      # instead of Daisy chrome.
+      #
+      # Methods without a Suite counterpart (file_field, rich_text_area,
+      # tag_field, button_radio_group, select_with_search, image_upload,
+      # avatar_upload, collection_check_boxes) fall through to the parent
+      # and render the Daisy component for now — the visual mismatch is
+      # accepted until those components get a Suite port.
+      class ActionViewFormBuilder < ::Decor::Forms::ActionViewFormBuilder
+        def text_field(method, options = {}, &)
+          create_tag(::Decor::Forms::TagWrappers::Suite::TextField, method, options, &)
+        end
+
+        def number_field(method, options = {}, &)
+          create_tag(::Decor::Forms::TagWrappers::Suite::NumberField, method, options, &)
+        end
+
+        def check_box(method, options = {}, checked_value = "true", unchecked_value = "", &block)
+          @template.tag.div do
+            create_tag_with_values(
+              ::Decor::Forms::TagWrappers::Suite::CheckBox,
+              method,
+              options,
+              checked_value,
+              unchecked_value,
+              &block
+            )
+          end
+        end
+
+        def switch(method, options = {}, checked_value = "true", unchecked_value = "false", &)
+          create_tag_with_values(
+            ::Decor::Forms::TagWrappers::Suite::Switch,
+            method,
+            options,
+            checked_value,
+            unchecked_value,
+            &
+          )
+        end
+
+        def radio_button(method, selected_value, **options, &)
+          create_tag_with_value(::Decor::Forms::TagWrappers::Suite::RadioButton, method, options, selected_value, &)
+        end
+
+        def select(method, choices, options = {}, html_options = {}, &block)
+          @template.capture(&block) if block
+          ::Decor::Forms::TagWrappers::Suite::Select.new(
+            object_name,
+            method,
+            @template,
+            choices,
+            objectify_options(options),
+            html_options
+          ).render
+        end
+
+        def collection_select(
+          method,
+          collection,
+          value_method,
+          text_method,
+          options = {},
+          html_options = {}
+        )
+          choices = collection.map { |el| [el.send(text_method), el.send(value_method)] }
+          ::Decor::Forms::TagWrappers::Suite::Select.new(
+            object_name,
+            method,
+            @template,
+            choices,
+            objectify_options(options),
+            html_options
+          ).render
+        end
+
+        def grouped_collection_select(
+          method,
+          collection,
+          group_method,
+          group_label_method,
+          option_key_method,
+          option_value_method,
+          options = {},
+          html_options = {}
+        )
+          choices = send(:group_choices, collection, group_method, group_label_method, option_key_method, option_value_method)
+          ::Decor::Forms::TagWrappers::Suite::Select.new(
+            object_name,
+            method,
+            @template,
+            choices,
+            objectify_options(options),
+            html_options
+          ).render
+        end
+
+        def button(value = nil, options = {}, &)
+          options[:label] = value if value
+          @template.render(::Decor::Suite::Button.new({view_context: @template}.merge(options)), &)
+        end
+
+        def button_link_to(value, path, options = {}, &block)
+          options, path, value = path, value, nil if block
+          options ||= {}
+          path = url_for(path) if path.is_a? Hash
+          options[:label] = value if value && !block
+          @template.render(::Decor::Suite::ButtonLink.new(href: path, http_method: options[:method], **options), &block)
+        end
+
+        def submit(label = nil, options = {}, &)
+          options = {style: :filled, color: :base}.merge(options)
+          html_options = options.fetch(:html_options, {})
+          options[:html_options] = {type: :submit, name: "commit", value: label || submit_default_value}.merge(html_options)
+          options[:id] ||= field_id_generator(options, "submit")
+          @template.render(::Decor::Suite::Button.new(label: label || "Submit", **options), &)
+        end
+
+        def submit_primary(label = nil, options = {}, &)
+          submit(label, options.merge(color: :primary), &)
+        end
+      end
+    end
+  end
+end

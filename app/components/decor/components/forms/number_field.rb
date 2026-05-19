@@ -13,7 +13,11 @@ module Decor
         # `value` attribute is actually a string
         prop :type, Symbol, default: :number
         prop :numerical, _Boolean, default: true
-        prop :allow_float_input, _Boolean, default: false
+        prop :allow_float_input, _Boolean, default: false, reader: :public
+
+        def allow_float_input?
+          @allow_float_input
+        end
 
         # When dealing with mobile keyboards, we can bring up a numbers-only soft keyboard on iOS
         # by setting a pattern of (exactly) [0-9]*
@@ -23,17 +27,14 @@ module Decor
         # which is set inside the template view.
         # https://www.filamentgroup.com/lab/type-number.html
         # May want to consider the following in the future: https://github.com/filamentgroup/formcore#numeric-input
-        prop :pattern, String, default: -> {
-          # TODO: support for locales which use a comma as a decimal point
-          # Also, this will only work if the allow_float_input is set before this is called, ie
-          # does this enforce an order of props when initializing?
-          @allow_float_input ? "[0-9-.]*" : "[0-9]*"
-        }
+        # Stored as a Proc so the pattern resolves at render time via resolved_pattern — Literal
+        # otherwise evaluates default lambdas in prop-declaration order at init time, which races
+        # with @allow_float_input being assigned.
+        # TODO: support for locales which use a comma as a decimal point
+        prop :pattern, _Nilable(_Any), default: -> {
+          ->(instance) { instance.allow_float_input? ? "[0-9-.]*" : "[0-9]*" }
+        }, reader: :public
 
-        # CODEMOD-REVIEW: interpolated class expression — verify #{super} returns already-prefixed classes
-        def control_html_options_classes
-          "decor:text-right #{super}"
-        end
       end
     end
   end

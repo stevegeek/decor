@@ -50,13 +50,14 @@ module Decor
         prop :disabled, _Boolean, default: false
 
         stimulus do
-          targets :input, :dropdown, :selected_display, :selected_label, :hidden_inputs_container
-          actions(
-            [:input, :search],
-            [:keydown, :handle_keydown],
-            [:focus, :handle_focus],
-            [:click, :handle_input_click]
-          )
+          # NB: do NOT list `targets ...` or `actions ...` here — those
+          # Vident DSL forms emit `data-{identifier}-target="..."` and
+          # `data-action="..."` on the controller ROOT, and Stimulus's
+          # `[data-...-target~="input"]` matcher then resolves `inputTarget`
+          # to the wrapper <div>, breaking every controller method that
+          # touches `inputTarget.value`. The actual `<input>` /
+          # `<dropdown>` / etc. children declare their own targets and
+          # actions inline via `child_element(stimulus_target:, stimulus_actions:)`.
           values(
             search_url: -> { @search_url || "" },
             choices: -> { (@choices || []).to_json },

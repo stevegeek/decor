@@ -28,6 +28,13 @@ module Decor
         prop :on_error, _Nilable(_Interface(:to_s))
         prop :on_complete, _Nilable(_Interface(:to_s))
 
+        # Default the Suite Form to the Suite-skinned FormBuilder so leaf
+        # calls like `form_component.builder.text_field :name` render Suite
+        # components, not Daisy.
+        prop :form_builder_class,
+          _Class(ActionView::Helpers::FormBuilder),
+          default: -> { ::Decor::Suite::Forms::ActionViewFormBuilder }
+
         stimulus do
           targets :form
         end

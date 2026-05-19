@@ -1,5 +1,50 @@
 # Changelog
 
+## 0.13.0 — Unreleased
+
+### Fix: SearchableSelect / SearchableMultiSelect dropdown never opened
+
+The shared abstract base classes (`Decor::Components::Forms::SearchableSelect`
+and `SearchableMultiSelect`) declared `targets :input, :dropdown, …` /
+`actions …` inside their `stimulus do` blocks. Vident's `targets` and `actions`
+DSL emit on the **controller root**, so the wrapper `<div>` ended up carrying
+`data-…-target="input dropdown …"` — Stimulus's `[data-…-target~="input"]`
+matcher then resolved `inputTarget` to that wrapper and every controller method
+touching `inputTarget.value` (`_openBrowseIfClosed`, `search`, etc.) threw
+`TypeError: Cannot read properties of undefined (reading 'trim')`. Removed the
+spurious DSL entries — the per-element children already wire their own targets
+and actions inline via `child_element(stimulus_target:, stimulus_actions:)`.
+
+### Fix: DateCalendar rendered as inert custom elements
+
+The `decor--daisy--forms--date-calendar` controller (which the Suite controller
+inherits from) had no import of the `cally` package, so `<calendar-date>`,
+`<calendar-range>`, `<calendar-multi>` and `<calendar-month>` were never
+registered as custom elements. Added a side-effect `import "cally"` at the top
+of the Daisy controller — the gem already declared `cally >= 0.7` as a peer
+dependency.
+
+### Fix: Suite DataTable rendered without row separators
+
+The Suite DataTable's tbody had no inter-row divider class. Added
+`decor:divide-y decor:divide-suite-hairline` to the tbody so body rows match
+the historical hairline-separated identity.
+
+### Add: Suite-skinned FormBuilder so `form_component.builder.x` renders Suite
+
+`Decor::Forms::ActionViewFormBuilder` hard-codes `Decor::Daisy::Forms::*` in
+every tag-wrapper, so leaf ERB calls like `form_component.builder.text_field`
+inside a `Decor::Suite::Forms::Form` block were rendering Daisy chrome.
+Introduced `Decor::Suite::Forms::ActionViewFormBuilder` (+ Suite TagWrapper
+subclasses for TextField / NumberField / Select / Checkbox / Switch /
+RadioButton) and switched the Suite Form's `form_builder_class` default to it.
+Helpers without a Suite counterpart (file_field, rich_text_area, tag_field,
+button_radio_group, select_with_search, image_upload, avatar_upload,
+collection_check_boxes) still fall through to the Daisy parent.
+
+Tests: 137 runs / 549 assertions / 0F across all touched form/table tests.
+Full Suite suite: 892 runs / 3625 assertions / 0F.
+
 ## 0.12.0 — Unreleased
 
 ### Suite component batch 4 — 10 ports (forms foundation + modal sub-types + tables)

@@ -1,4 +1,8 @@
 import { Controller } from "@hotwired/stimulus"
+// Side-effect import: registers <calendar-date>, <calendar-range>,
+// <calendar-multi>, and <calendar-month> custom elements. Without this
+// the cally tags render as inert unknown elements with no UI.
+import "cally"
 
 // Connects to data-controller="decor--daisy--forms--date-calendar"
 export default class extends Controller {

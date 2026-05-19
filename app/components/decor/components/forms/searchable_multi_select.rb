@@ -53,14 +53,9 @@ module Decor
         prop :disabled, _Boolean, default: false
 
         stimulus do
-          targets :input, :dropdown, :selected_container, :hidden_inputs_container
-          actions(
-            [:input, :search],
-            [:keydown, :handle_keydown],
-            [:focus, :handle_focus],
-            [:click, :handle_input_click],
-            [:blur, :handle_blur]
-          )
+          # See sibling SearchableSelect base for the rationale: `targets`
+          # and `actions` listed here would emit on the controller root and
+          # break Stimulus target resolution. Children declare their own.
           values(
             search_url: -> { @search_url || "" },
             choices: -> { (@choices || []).to_json },
