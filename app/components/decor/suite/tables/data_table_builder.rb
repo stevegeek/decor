@@ -61,13 +61,27 @@ module Decor
         # (`new(attrs_hash, params, helpers, &block)`) and the kwargs form
         # used by Decor tests (`new(params:, helpers:, **attrs, &block)`).
         # The positional shape is detected by a leading Hash positional arg.
+        #
+        # Block capture: Literal::Properties#initialize doesn't forward the
+        # block to lifecycle hooks (`after_component_initialize` sees
+        # `block_given? == false` even when the caller passed one). Stash the
+        # block on the instance so after_component_initialize can yield it
+        # back via `@_dsl_block.call(self)`.
         def self.new(*args, **kwargs, &block)
-          if args.length == 3 && args.first.is_a?(Hash) && args[1].is_a?(::ActionController::Parameters)
+          instance = if args.length == 3 && args.first.is_a?(Hash) && args[1].is_a?(::ActionController::Parameters)
             attrs_hash, params, helpers = args
-            super(params: params, helpers: helpers, **attrs_hash.symbolize_keys, **kwargs, &block)
+            super(params: params, helpers: helpers, **attrs_hash.symbolize_keys, **kwargs)
           else
-            super(*args, **kwargs, &block)
+            super(*args, **kwargs)
           end
+          if block
+            block.call(instance)
+            # Columns / bulk actions / configure_slot calls registered by the
+            # block need to influence setup_data_table — re-run it now that
+            # the block has filled in the DSL state.
+            instance.send(:setup_data_table)
+          end
+          instance
         end
 
         # Yield the builder to the DSL block before `setup_data_table`
@@ -82,9 +96,12 @@ module Decor
           @slots = {}
           @bulk_actions = []
           @row_nested_form_builders = nil
-          Rails.logger.info { "[DEBUG] after_component_initialize block_given?=#{block_given?} self=#{self.class}" }
-          yield self if block_given?
-          Rails.logger.info { "[DEBUG] after_component_initialize columns_hash.size=#{columns_hash.size}" }
+          # The DSL block from `self.new(..., &block)` is invoked AFTER this
+          # hook from the `self.new` override above — Literal::Properties
+          # doesn't forward the block to lifecycle hooks. setup_data_table
+          # runs here so kwargs-only callers still get the initial setup;
+          # block-based callers get a second setup_data_table call from
+          # self.new after the block has registered columns.
           setup_data_table
         end
 
@@ -247,17 +264,15 @@ module Decor
           header_row = data_table_component.with_data_table_header_row(selectable_as: @rows_selectable_as_name&.to_s)
           header_cell_attributes.each { |attrs| header_row.with_data_table_header_cell(**attrs) }
 
-          prepare_table_rows.each_with_index do |row, ri|
+          prepare_table_rows.each do |row|
             data_row = data_table_component.with_data_table_row(row.component)
-            Rails.logger.info { "[DEBUG] builder loop row[#{ri}] class=#{row.class} row.cells.size=#{row.cells.size} data_row.class=#{data_row.class} data_row.eql_row=#{data_row.equal?(row.component)} dr_oid=#{data_row.object_id} rc_oid=#{row.component.object_id}" }
 
             if row.expanded_content_renderer
               expanded = row.expanded_content_renderer.call
               data_row.with_expanded_content { expanded } unless expanded.nil?
             end
 
-            row.cells.each_with_index do |cell, ci|
-              Rails.logger.info { "[DEBUG] pushing cell[#{ri},#{ci}] to data_row oid=#{data_row.object_id}" }
+            row.cells.each do |cell|
               data_row.with_data_table_cell(cell.component)
             end
           end

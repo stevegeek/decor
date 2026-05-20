@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 module Decor
-  VERSION = "0.21.7"
+  VERSION = "0.21.8"
 end
