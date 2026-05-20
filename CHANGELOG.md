@@ -1,5 +1,35 @@
 # Changelog
 
+## 0.20.10
+
+### Suite::SettingsList — `modal:` prop for shared-modal Edit flow
+
+- New optional `modal:` prop accepts a `Suite::Modals::Modal` or
+  `Suite::Modals::Form` instance. When set + a row has `edit_path:`, the
+  Edit affordance becomes a `Suite::Modals::ModalOpenButton` (Suite small
+  outlined button, `color: :base`) that lazy-loads the row's `edit_path`
+  into the shared modal via `content_href:` — the per-row shared-modal
+  pattern used by ConfinusUI's settings pages.
+- When the supplied modal responds to `form_id` (i.e. `Suite::Modals::Form`),
+  `?form_id=<modal.form_id>` is appended to the fetched URL so the loaded
+  fragment's `<form id="...">` can be associated with the modal's footer
+  Submit button.
+- When `modal:` is nil, behaviour is unchanged: bare anchor link to
+  `edit_path`. No validation is enforced — callers are free to omit the
+  modal for read-only contexts that still want the link.
+
+## 0.20.9
+
+### Suite::Pagination — ellipsis-as-dropdown + dropdown page-size selector
+
+- Ellipsis tokens now render as a `Suite::Dropdown` with one menu item per
+  hidden page in the gap (label "Page N", href to that page). Lets users
+  jump directly to any hidden page instead of having to step through.
+- Per-page selector swapped from inline chip-row to a compact
+  `Suite::Dropdown`: a single trigger button showing the current size +
+  chevron, opening a menu of the standard sizes. Matches the legacy
+  ConfinusUI UX so existing callers get visual parity on migration.
+
 ## 0.19.0 — Unreleased
 
 ### Suite component batch 8 — 15 final ports (completes the ConfinusUI surface)

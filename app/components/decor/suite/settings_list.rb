@@ -18,6 +18,13 @@ module Decor
       ROW_CTRL = "decor--suite--settings-list--row"
       private_constant :ROW_CTRL
 
+      # Optional Suite modal instance (Suite::Modals::Modal or Suite::Modals::Form).
+      # When supplied + a row has `edit_path:`, the row's Edit affordance becomes
+      # a Suite::Modals::ModalOpenButton that fetches the row's edit_path into
+      # the shared modal via `content_href:`. If nil, falls back to a bare
+      # anchor link to the edit_path.
+      prop :modal, _Nilable(_Any), default: nil, reader: :public
+
       def view_template
         root_element(class: "decor:max-w-2xl decor:mx-auto") do
           div(class: card_classes) do
@@ -169,13 +176,34 @@ module Decor
           if row.description
             p(class: "decor:suite-description decor:text-gray-500 decor:max-w-prose decor:pb-2 decor:m-0") { row.description }
           end
-          if row.edit_path
-            a(
-              href: row.edit_path,
-              class: edit_link_classes
-            ) { @edit_label }
-          end
+          render_edit_affordance(row) if row.edit_path
         end
+      end
+
+      def render_edit_affordance(row)
+        if @modal
+          render ::Decor::Suite::Modals::ModalOpenButton.new(
+            modal_id: @modal.id,
+            content_href: edit_content_href_for(row),
+            label: @edit_label,
+            color: :base,
+            style: :outlined,
+            size: :sm
+          )
+        else
+          a(
+            href: row.edit_path,
+            class: edit_link_classes
+          ) { @edit_label }
+        end
+      end
+
+      # When the modal is a Suite::Modals::Form, append its form_id so the
+      # fetched fragment can wire its <form> to the footer Submit button.
+      def edit_content_href_for(row)
+        return row.edit_path unless @modal&.respond_to?(:form_id)
+        separator = row.edit_path.include?("?") ? "&" : "?"
+        "#{row.edit_path}#{separator}form_id=#{@modal.form_id}"
       end
 
       def edit_link_classes

@@ -177,4 +177,37 @@ class ::Decor::Suite::SettingsListTest < ActiveSupport::TestCase
     assert_includes html, "Custom"
     assert_includes html, "decor:bg-suite-primary-50"
   end
+
+  test "rows with edit_path render a ModalOpenButton when modal: is supplied" do
+    modal = ::Decor::Suite::Modals::Form.new(title: "Edit", id: "edit-modal")
+    html = render_component(::Decor::Suite::SettingsList.new(
+      modal: modal,
+      rows: [Row.new(title: "Editable", value: "x", active: true, edit_path: "/edit/1")]
+    ))
+    assert_includes html, "decor--suite--modals--modal-open-button"
+    assert_includes html, "modal-open-button-modal-id-value=\"edit-modal\""
+    assert_includes html, "/edit/1"
+    # The bare anchor fallback should NOT be used when a modal is present.
+    refute_includes html, "href=\"/edit/1\""
+  end
+
+  test "Edit ModalOpenButton's content_href appends form_id when modal responds to form_id" do
+    modal = ::Decor::Suite::Modals::Form.new(title: "Edit")
+    html = render_component(::Decor::Suite::SettingsList.new(
+      modal: modal,
+      rows: [Row.new(title: "Editable", value: "x", active: true, edit_path: "/edit/1")]
+    ))
+    assert_includes html, "/edit/1?form_id=#{modal.form_id}"
+  end
+
+  test "Edit ModalOpenButton preserves existing query params when appending form_id" do
+    modal = ::Decor::Suite::Modals::Form.new(title: "Edit")
+    html = render_component(::Decor::Suite::SettingsList.new(
+      modal: modal,
+      rows: [Row.new(title: "Editable", value: "x", active: true, edit_path: "/edit/1?context=global")]
+    ))
+    # Phlex escapes & to &amp; in HTML attribute output.
+    assert_includes html, "/edit/1?context=global"
+    assert_includes html, "form_id=#{modal.form_id}"
+  end
 end
