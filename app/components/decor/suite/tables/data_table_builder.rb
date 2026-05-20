@@ -82,7 +82,9 @@ module Decor
           @slots = {}
           @bulk_actions = []
           @row_nested_form_builders = nil
+          Rails.logger.info { "[DEBUG] after_component_initialize block_given?=#{block_given?} self=#{self.class}" }
           yield self if block_given?
+          Rails.logger.info { "[DEBUG] after_component_initialize columns_hash.size=#{columns_hash.size}" }
           setup_data_table
         end
 
