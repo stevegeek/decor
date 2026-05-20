@@ -47,6 +47,12 @@ module Decor
         def form_with_helper_options
           html = {role: "form"}
           html[:class] = @html_options[:class] if @html_options.is_a?(Hash) && @html_options[:class].present?
+          # Propagate the component's `id:` to the rendered <form> tag's id.
+          # Used by Modal::Form's shared-modal pattern, where the modal's
+          # footer Submit button targets the form via the HTML5
+          # form="<id>" attribute — without this the button cannot find
+          # the form and Save silently does nothing.
+          html[:id] = @id if @id
 
           options = {
             url: @url,
