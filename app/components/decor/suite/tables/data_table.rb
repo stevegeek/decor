@@ -234,7 +234,7 @@ module Decor
 
         # Suite `with_pagination(**attrs)` mirrors Confinus (attrs, not block).
         # Keep the parent's block-style as a fallback so existing callers work.
-        def with_pagination(*args, **attrs, &block)
+        public def with_pagination(*args, **attrs, &block)
           if block
             super(&block)
           else
