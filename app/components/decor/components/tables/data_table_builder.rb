@@ -27,7 +27,11 @@ module Decor
         prop :paginated, _Boolean, default: true, reader: :private
         prop :header_height, _Nilable(_Union(:comfortable, :standard, :tight)), default: :standard, reader: :private
         prop :row_height, _Nilable(_Union(:comfortable, :standard, :tight)), default: :standard, reader: :private
-        prop :rows_selectable_as_name, _Nilable(Symbol), reader: :private
+        # Accept Symbol OR String — ConfinusUI's version was untyped so 7+
+        # Confinus call sites pass `rows_selectable_as_name: "selected_ids"`
+        # (a String) and would otherwise fail type validation. Internal use
+        # always calls `.to_s` on this value so either is fine.
+        prop :rows_selectable_as_name, _Nilable(_Union(Symbol, String)), reader: :private
 
         prop :download_path, _Nilable(String), reader: :private
 
