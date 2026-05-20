@@ -28,6 +28,11 @@ module Decor
         # so callers can pass it without surfacing a Literal::Data error.
         prop :dark, _Boolean, default: false
 
+        # Suppress the helper/error caption pair. `Decor::Suite::Tables::DataTableRow`
+        # passes this when emitting the row-selection checkbox so the table
+        # row doesn't gain a caption strip per row. Mirrors TextField/TextArea.
+        prop :silent_helper_and_error_text, _Boolean, default: false
+
         def view_template
           root_element do |el|
             render_helper_and_error_section
