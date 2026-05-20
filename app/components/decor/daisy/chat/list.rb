@@ -19,6 +19,10 @@ module Decor
 
         private
 
+        def message_class
+          ::Decor::Daisy::Chat::ListMessage
+        end
+
         def render_empty_state
           div(class: "decor:flex decor:flex-col decor:items-center decor:justify-center decor:py-12 decor:text-center") do
             div(class: "decor:text-base-content/60") do

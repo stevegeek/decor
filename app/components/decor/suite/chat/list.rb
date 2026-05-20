@@ -24,6 +24,10 @@ module Decor
 
         private
 
+        def message_class
+          ::Decor::Suite::Chat::ListMessage
+        end
+
         def render_empty_state
           div(class: "decor:py-6 decor:px-0") do
             h3(class: "decor:suite-section-title decor:m-0") { @empty_state_title }
