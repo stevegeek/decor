@@ -12,6 +12,11 @@ module Decor
       # initial_content, content_href, close_on_overlay_click, title, type) and
       # renders inline with Suite button chrome — no Daisy template delegation.
       class ModalOpenButton < ::Decor::Components::Modals::ModalOpenButton
+        # Mirror Suite::Button — adds :wide and :link sizes on top of the
+        # standard ladder so legacy ConfinusUI callers that opened modals from
+        # inline-link triggers keep working without a remap step.
+        redefine_sizes :xs, :sm, :md, :lg, :xl, :wide, :link
+
         default_size :sm
         default_color :base
         default_style :filled
@@ -68,9 +73,9 @@ module Decor
             case normalize_size(@size)
             when :xl then "decor:size-5"
             when :lg then "decor:size-4.5"
-            when :md then "decor:size-4"
+            when :md, :wide then "decor:size-4"
             when :sm then "decor:size-3.5"
-            when :xs then "decor:size-3"
+            when :xs, :link then "decor:size-3"
             else "decor:size-3.5"
             end
           "decor:inline-block decor:shrink-0 #{sized}"
@@ -88,6 +93,10 @@ module Decor
             ["decor:px-[11px] decor:py-[5px] decor:text-xs decor:leading-[1.2] decor:rounded-suite-control"]
           when :xs
             ["decor:px-[9px] decor:py-1 decor:text-[11px] decor:leading-[1.2] decor:rounded-suite-control"]
+          when :wide
+            ["decor:px-16 decor:py-[7px] decor:text-[13px] decor:leading-[1.2] decor:rounded-suite-control"]
+          when :link
+            ["decor:px-0 decor:py-0 decor:text-[13px] decor:underline decor:rounded-none"]
           else
             ["decor:px-[11px] decor:py-[5px] decor:text-xs decor:leading-[1.2] decor:rounded-suite-control"]
           end

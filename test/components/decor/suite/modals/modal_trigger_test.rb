@@ -83,4 +83,80 @@ class Decor::Suite::Modals::ModalTriggerTest < ActiveSupport::TestCase
     assert ::Decor::Suite::Modals::ModalTrigger.new(modal_id: "m1") \
       .is_a?(::Decor::Components::Modals::ModalTrigger)
   end
+
+  # ── bundled mode — trigger button + sibling modal in one render ───────────
+
+  test "bundled mode renders both a button trigger and a dialog when modal_title is set" do
+    html = render_component(Decor::Suite::Modals::ModalTrigger.new(
+      label: "Open",
+      modal_title: "My Modal"
+    ))
+    assert_includes html, "<button"
+    assert_includes html, "<dialog"
+    assert_includes html, "My Modal"
+  end
+
+  test "bundled mode wires the button's modal_id stimulus value to the sibling dialog id" do
+    html = render_component(Decor::Suite::Modals::ModalTrigger.new(
+      label: "Open",
+      modal_title: "Wired"
+    ))
+    # The dialog id is auto-generated and shared with the button's modal-id
+    # stimulus value. Match the dialog's own id (not the title sub-id).
+    dialog_id = html.scan(/id="(decor--suite--modals--modal-[a-f0-9]+)"/).flatten.first
+    assert dialog_id, "dialog must have an id: #{html}"
+    assert_includes html, %(data-decor--suite--modals--modal-open-button-modal-id-value="#{dialog_id}")
+  end
+
+  test "bundled mode renders the body block inside the dialog" do
+    html = render_component(Decor::Suite::Modals::ModalTrigger.new(
+      label: "Open",
+      modal_title: "Details"
+    )) do
+      "<p>Bundled body</p>".html_safe
+    end
+    assert_includes html, "<dialog"
+    assert_includes html, "Bundled body"
+  end
+
+  test "bundled mode forwards color/style/size/icon to the trigger button" do
+    html = render_component(Decor::Suite::Modals::ModalTrigger.new(
+      label: "Delete",
+      color: :error,
+      style: :outlined,
+      modal_title: "Confirm"
+    ))
+    assert_includes html, "<button"
+    assert_includes html, "Delete"
+    # outlined error button uses danger border/text classes
+    assert_includes html, "decor:border-suite-danger-100"
+  end
+
+  test "bundled mode also fires when only modal_content_href is set (lazy modal)" do
+    html = render_component(Decor::Suite::Modals::ModalTrigger.new(
+      label: "View",
+      modal_content_href: "/rows/1"
+    ))
+    assert_includes html, "<button"
+    assert_includes html, "<dialog"
+  end
+
+  test "bundled mode forwards size: :link to the trigger button" do
+    html = render_component(Decor::Suite::Modals::ModalTrigger.new(
+      icon: "shopping-cart",
+      size: :link,
+      modal_title: "Sign in"
+    ))
+    assert_includes html, "decor:underline"
+  end
+
+  test "bundled mode forwards button_classes to the trigger button" do
+    html = render_component(Decor::Suite::Modals::ModalTrigger.new(
+      label: "Add",
+      button_classes: "ml-6 hidden md:block",
+      modal_title: "Modal"
+    ))
+    assert_includes html, "ml-6"
+    assert_includes html, "hidden"
+  end
 end

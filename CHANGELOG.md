@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.21.1
+
+### Suite::Modals::ModalTrigger — bundled trigger-plus-modal mode
+
+Adds a bundled rendering mode so a single call renders both the trigger
+button and the sibling Modal with automatic id-wiring. The existing
+transparent-wrapper mode (block content + `modal_id:`) is preserved.
+
+- New props: `label:`, `color:`, `style:`, `icon:`, `icon_variant:`,
+  `full_width:`, `disabled:`, `button_classes:` (forwarded to the inner
+  `Suite::Modals::ModalOpenButton`), plus `modal_title:`,
+  `modal_description:`, `modal_variant:`, `modal_size:`,
+  `modal_closeable:`, `modal_content_href:`, `modal_initial_content:`,
+  `modal_icon:` (forwarded to the inner `Suite::Modals::Modal`).
+- Mode detection: a content block with NO modal-side props and NO
+  trigger button vocab → transparent mode (unchanged); otherwise →
+  bundled mode (block becomes the modal body).
+- `Suite::Modals::ModalTrigger` and `Suite::Modals::ModalOpenButton`
+  both gain `:wide` and `:link` sizes via `redefine_sizes` so legacy
+  inline-link-style triggers (`size: :link`) work without remap.
+
 ## 0.21.0
 
 ### Suite::Tables::DataTableBuilder — ConfinusUI parity backfill
