@@ -18,7 +18,7 @@
   `edit_path`. No validation is enforced — callers are free to omit the
   modal for read-only contexts that still want the link.
 
-## 0.20.9
+## 0.20.11
 
 ### Suite::Pagination — ellipsis-as-dropdown + dropdown page-size selector
 

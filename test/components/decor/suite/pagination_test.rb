@@ -162,7 +162,7 @@ class ::Decor::Suite::PaginationTest < ActiveSupport::TestCase
     refute_includes html, "Per page:"
   end
 
-  test "page-size selector renders chip links when enabled" do
+  test "page-size selector renders a dropdown with size options when enabled" do
     component = ::Decor::Suite::Pagination.new(
       current_page: 1,
       page_size: 10,
@@ -173,12 +173,29 @@ class ::Decor::Suite::PaginationTest < ActiveSupport::TestCase
     html = render_component(component)
 
     assert_includes html, "Per page:"
-    # Each standard page size renders as an anchor (chip) — verify the labels
-    # appear inside link tags
-    assert_includes html, ">10<"
-    assert_includes html, ">20<"
-    # Active size carries the suite-primary palette and aria-current
-    assert_includes html, 'aria-current="true"'
+    # Trigger button + chevron icon
+    assert_includes html, "tabler-chevron-down"
+    # Each standard page size renders as a menu item link with page_size param
+    assert_includes html, "page_size=10"
+    assert_includes html, "page_size=20"
+    assert_includes html, "page_size=50"
+  end
+
+  test "ellipsis renders as a dropdown of hidden pages" do
+    component = ::Decor::Suite::Pagination.new(
+      current_page: 50,
+      page_size: 10,
+      path: "/items",
+      collection: collection_for(total: 1000, page: 50, page_size: 10)
+    )
+    html = render_component(component)
+
+    # Ellipsis trigger label still appears
+    assert_includes html, "…"
+    # Hidden pages within the gap render as menu items
+    assert_includes html, "Page 4"
+    # And they link to the corresponding page
+    assert_includes html, "page=4"
   end
 
   test "uses turbo-action=replace on navigation links" do
