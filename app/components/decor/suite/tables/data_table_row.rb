@@ -37,6 +37,7 @@ module Decor
                   stimulus_actions: [stimulus_action(:change, :row_selected)],
                   show_label: false,
                   name: @selectable_as,
+                  value: @selectable_value,
                   checked: @selected,
                   disabled: @disabled,
                   silent_helper_and_error_text: true,

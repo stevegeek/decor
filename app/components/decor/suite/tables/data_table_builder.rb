@@ -8,31 +8,20 @@ module Decor
       # a `Decor::Suite::Tables::DataTable` instance with the Suite slot
       # semantics:
       #
-      #   - `with_search_and_filter(**attrs, &block)` (kwargs, not a block)
+      #   - `with_search_and_filter(**attrs, &block)` (kwargs + block)
       #   - `with_pagination(**attrs)`
       #   - `with_bulk_actions_bar(bulk_actions:, selected_ids_field_name:)`
       #   - header cells / body cells are pre-built and pre-rendered; the
       #     Suite DataTable does NOT use the Daisy `block.arity` dance.
       #
-      # # Dropped from the Confinus reference (737 LOC → ~150 LOC here)
-      # The following responsibilities are intentionally NOT ported. They
-      # depended on Confinus-internal classes that are not part of the Decor
-      # gem surface; callers who need them should subclass and add hooks.
-      #
-      #   - `ilike_search` (depends on ::ConfinusUI::SearchAndFilter::Search)
-      #   - `Search` / `Filter` Literal::Struct classes (Confinus-only —
-      #     `mem_search` / `mem_filters` is duck-typed; return any object
-      #     responding to `#name`, `#apply`, and `#value` from your overrides)
-      #   - `ApplicationRelationBackedQuery` / `ApplicationCollectionBackedQuery`
-      #     wrapping (replaced with `Quo.relation_backed_query_base_class.wrap`
-      #     in the parent's pipeline — same behaviour, no app dependency)
-      #   - `page_relevance_scores` virtual attr & search-relevance highlight
-      #     (inherited from parent; setter not exposed in DSL — assign via
-      #     subclass override of `setup_data_table` if needed)
-      #
-      # Anything else from the Confinus DataTableBuilder API surface (column
-      # DSL, bulk actions, custom slot configuration, CTA blocks, nested
-      # form builders, sort/filter/search overrides) is preserved.
+      # # ConfinusUI compatibility
+      # - Constructor accepts both kwargs (`new(params:, helpers:, **attrs)`)
+      #   and the Confinus positional shape (`new(attrs_hash, params, helpers)`).
+      # - DSL block runs during `.new` (parity with ConfinusUI), so callers
+      #   can inspect `bulk_actions`, `columns_hash`, etc. on the returned
+      #   builder before render.
+      # - `ilike_search` helper rebuilt on the Decor::Components-namespaced
+      #   `Search` value object.
       class DataTableBuilder < ::Decor::Components::Tables::DataTableBuilder
         # Bulk-action descriptor for the bulk-actions bar.
         #
@@ -67,25 +56,59 @@ module Decor
         prop :header_weight, _Nilable(_Union(:light, :regular, :medium, :bold)), reader: :private
         prop :table_identifier, _Nilable(String), reader: :private
         prop :enable_selection_persistence, _Boolean, default: true, reader: :private
-        prop :classes, _Union(String, _Array(String)), default: -> { [] }, reader: :private
+
+        # Constructor shim: accept both the ConfinusUI positional shape
+        # (`new(attrs_hash, params, helpers, &block)`) and the kwargs form
+        # used by Decor tests (`new(params:, helpers:, **attrs, &block)`).
+        # The positional shape is detected by a leading Hash positional arg.
+        def self.new(*args, **kwargs, &block)
+          if args.length == 3 && args.first.is_a?(Hash) && args[1].is_a?(::ActionController::Parameters)
+            attrs_hash, params, helpers = args
+            super(params: params, helpers: helpers, **attrs_hash.symbolize_keys, **kwargs, &block)
+          else
+            super(*args, **kwargs, &block)
+          end
+        end
+
+        # Yield the builder to the DSL block before `setup_data_table`
+        # runs so subclass hooks can see columns/bulk-actions registered in
+        # the block. Block runs during `.new` (Confinus parity), not at
+        # render time — callers can read `bulk_actions` / `columns_hash`
+        # before rendering.
+        def after_component_initialize
+          @params = @params.permit(keys_for_permit)
+          merge_pagination_params
+          merge_sort_and_filter_params
+          @slots = {}
+          @bulk_actions = []
+          @row_nested_form_builders = nil
+          yield self if block_given?
+          setup_data_table
+        end
 
         def view_template(&)
+          # The DSL block was already consumed in `after_component_initialize`;
+          # `vanish` discards any duplicate block passed at render time so the
+          # column DSL isn't applied twice.
           vanish(&)
-          render component do
-            setup_component_slots(component)
-          end
+          render component
         end
 
         # Returns the Suite DataTable component instance (memoised).
         def component
           return @component if defined?(@component)
           @component = ::Decor::Suite::Tables::DataTable.new(
-            title: title,
-            subtitle: subtitle,
+            title: @title,
+            subtitle: @subtitle,
+            description: @description,
+            enabled_grid: @enabled_grid,
             table_identifier: resolved_table_identifier,
             enable_selection_persistence: should_persist_selections?,
-            table_html_options: html_options
+            table_html_options: @html_options,
+            classes: @classes
           )
+          setup_component_slots(@component)
+          @component
         end
 
         # DSL: register a custom slot that will be forwarded to the underlying
@@ -112,7 +135,55 @@ module Decor
           @rows_selectable_as_name.present? && bulk_actions.any?
         end
 
+        # Override `class:` → `classes:` so callers can spell column CSS the
+        # ERB way (Confinus parity). Literal reserves `class` as a keyword.
+        def column(name, options = {}, &row_cell_block)
+          if options.key?(:class)
+            options = options.dup
+            options[:classes] = options.delete(:class)
+          end
+          super
+        end
+
+        # Build an ILIKE search across one or more columns on a model/scope.
+        # Handles sanitize_sql_like automatically.
+        #
+        #   ilike_search(name: "search", label: "Search...", model: ::Bid, columns: [:name, :encoded_id])
+        #   ilike_search(name: "search", label: "Search...", scope: my_custom_scope, columns: [:email, :name])
+        #
+        def ilike_search(name:, label:, columns:, model: nil, scope: nil)
+          search_scope = scope || model
+          raise ArgumentError, "ilike_search requires either model: or scope:" unless search_scope
+
+          arel_attrs = columns.map { |col| arel_attribute(col, search_scope) }
+
+          ::Decor::Components::SearchAndFilter::Search.new(
+            name: name,
+            label: label,
+            apply: ->(query, param) do
+              like = sanitize_like(param)
+              conditions = arel_attrs.reduce(nil) do |chain, attr|
+                clause = search_scope.where(attr.matches(like))
+                chain ? chain.or(clause) : clause
+              end
+              query + conditions
+            end
+          )
+        end
+
         private
+
+        def sanitize_like(param)
+          "%#{ActiveRecord::Base.sanitize_sql_like(param)}%"
+        end
+
+        def arel_attribute(col, scope)
+          if col.is_a?(Arel::Attributes::Attribute)
+            col
+          else
+            scope.arel_table[col]
+          end
+        end
 
         # Generate a stable identifier from the subclass name when one is
         # not provided explicitly. Falls back to the selectable group name.
@@ -128,19 +199,40 @@ module Decor
           end
         end
 
-        # Wire the builder DSL outputs onto the Suite DataTable. Diverges
-        # from the parent (Daisy) implementation in three places:
-        #
-        #   1. search_and_filter is passed as kwargs+block, not just a block
-        #   2. header cells are added to the header row via `with_header_cell`
-        #      (parent uses a block that yields the header row)
-        #   3. body cells carry their rendered content as `value:` — no
-        #      `exec_row_render_method` dispatch is needed at render time
+        # Hook: return the value to use when this row is selected (e.g.
+        # `encoded_id`). Default tries `encoded_id` on either the raw or
+        # transformed row. Subclasses override to supply alternate values.
+        def selectable_value_for_row(row_data, transformed_data, _index, _item_index)
+          if row_data.respond_to?(:encoded_id)
+            row_data.encoded_id
+          elsif transformed_data.respond_to?(:encoded_id)
+            transformed_data.encoded_id
+          elsif row_data.respond_to?(:[]) && row_data[:encoded_id].present?
+            row_data[:encoded_id]
+          elsif transformed_data.respond_to?(:[]) && transformed_data[:encoded_id].present?
+            transformed_data[:encoded_id]
+          end
+        end
+
         # Parent returns `filters: nil` when no filters defined, but the
         # SearchAndFilter component types `filters:` as a non-nil Array.
         # Drop nils so its type-check passes.
         def resolved_search_and_filter_options
           super.compact
+        end
+
+        # Forward header_emphasis / header_weight onto every emitted header
+        # cell so subclasses can dial down header chrome (`header_emphasis:
+        # :low` for summary tables).
+        def header_cell_attributes
+          base = super
+          base.map do |attrs|
+            attrs.merge(
+              emphasis: attrs[:emphasis] || @header_emphasis,
+              weight: attrs[:weight] || @header_weight,
+              row_height: @header_height
+            ).compact
+          end
         end
 
         def setup_component_slots(data_table_component)
@@ -185,6 +277,10 @@ module Decor
         # Override the abstract base's row/cell construction so we build
         # Suite-skinned cells (with pre-rendered `value:`) and Suite rows.
         # The parent hardcodes the Daisy variants.
+        #
+        # Per-row form-builder cache: `fields_for` advances the parent's
+        # `nested_child_index` counter on each yield, so we materialise one
+        # builder per row up-front and hand the right one to each row.
         def data_to_rows_and_cells(data:, current_page:, page_size:)
           data.map.with_index do |row_data, index|
             item_index = index + ((current_page - 1) * page_size)
@@ -193,6 +289,7 @@ module Decor
             row_attrs = row_attributes(row_data, transformed_data, index, item_index) || {}
             cell_attrs = cell_attributes(row_data, transformed_data, index, item_index) || {}
             apply_relevance_highlight(row_attrs, index) if page_relevance_scores.present?
+            builder_for_row = row_nested_form_builders[index]
 
             cells = visible_columns.map do |column|
               suite_cell_for(
@@ -204,7 +301,8 @@ module Decor
                 path: column.navigates_to_path? ? path_data : nil,
                 content_clickable: column.content_clickable?,
                 stop_propagation: column.navigates_to_path? ? column.stop_propagation? : true,
-                cell_attrs: cell_attrs
+                cell_attrs: cell_attrs,
+                form_builder: builder_for_row
               )
             end
 
@@ -215,10 +313,27 @@ module Decor
               path: path_data,
               highlight: row_highlight(row_data, transformed_data, index, item_index),
               selectable_as: @rows_selectable_as_name ? "#{@rows_selectable_as_name}_#{item_index}" : nil,
-              # ^ stringified for DataTableRow's String-typed `selectable_as`.
+              selectable_value: @rows_selectable_as_name ? selectable_value_for_row(row_data, transformed_data, index, item_index) : nil,
+              form_builder: builder_for_row,
               row_attrs: row_attrs
             )
           end
+        end
+
+        # Cache one nested-form builder per row. Multi-row nested forms
+        # require distinct builders because `fields_for` advances its
+        # `nested_child_index` counter on each yield; reusing the same
+        # builder across rows produces colliding `name` attributes.
+        def row_nested_form_builders
+          return @row_nested_form_builders if @row_nested_form_builders
+          @row_nested_form_builders =
+            if @row_nested_form.blank? || @row_nested_form_attribute_name.blank?
+              []
+            else
+              builders = []
+              @row_nested_form.fields_for(@row_nested_form_attribute_name) { |builder| builders << builder }
+              builders
+            end
         end
 
         # Lightweight PORO wrappers — the `Decor::Tables::Builder::{Cell,Row}`
@@ -228,8 +343,10 @@ module Decor
         BuilderCell = Struct.new(:component, keyword_init: true)
         BuilderRow = Struct.new(:cells, :item_index, :expanded_content_renderer, :component, keyword_init: true)
 
-        def suite_cell_for(column:, data:, untransformed:, item_index:, row_height:, path:, content_clickable:, stop_propagation:, cell_attrs:)
-          rendered = ::Decor::Tables::Builder::Cell.rendered_content(column, data, item_index, untransformed)
+        def suite_cell_for(column:, data:, untransformed:, item_index:, row_height:, path:, content_clickable:, stop_propagation:, cell_attrs:, form_builder: nil)
+          rendered = ::Decor::Suite::Tables::Builder::Cell.render_content(
+            column, data, item_index, untransformed, @helpers, form_builder: form_builder
+          )
           component_props = {
             numeric: column.numeric,
             colspan: column.colspan,
@@ -247,11 +364,13 @@ module Decor
           BuilderCell.new(component: ::Decor::Suite::Tables::DataTableCell.new(**component_props))
         end
 
-        def suite_row_for(cells:, item_index:, expanded_content_renderer:, path:, highlight:, selectable_as:, row_attrs:)
+        def suite_row_for(cells:, item_index:, expanded_content_renderer:, path:, highlight:, selectable_as:, selectable_value:, form_builder:, row_attrs:)
           row_props = {
             path: path,
             highlight: highlight,
             selectable_as: selectable_as,
+            selectable_value: selectable_value,
+            form_builder: form_builder,
             **row_attrs
           }.compact
           BuilderRow.new(

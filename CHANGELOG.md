@@ -1,5 +1,44 @@
 # Changelog
 
+## 0.21.0
+
+### Suite::Tables::DataTableBuilder — ConfinusUI parity backfill
+
+Brings the Suite builder onto feature parity with the historical
+ConfinusUI builder so consumers can migrate by renaming the parent class
+only. No behaviour changes for existing callers.
+
+- **Positional constructor shim.** `DataTableBuilder.new(attrs_hash,
+  params, helpers, &block)` is now accepted alongside the kwargs form
+  (`new(params:, helpers:, **attrs, &block)`). The block runs during
+  `.new` (Confinus parity), not at render time — callers can read
+  `bulk_actions` / `columns_hash` before rendering.
+- **`description:` prop** rendered below the title in the header band.
+- **`enabled_grid:` prop** toggles vertical hairlines between body /
+  header cells for spreadsheet-style readback.
+- **`header_emphasis:` / `header_weight:` props** forwarded onto every
+  emitted header cell so subclasses can dial down header chrome.
+- **`selectable_value_for_row` hook** wired into the row pipeline —
+  override to supply the checkbox `value` attribute (defaults to
+  `encoded_id`). The Suite row's selection checkbox now carries this
+  value (new `selectable_value:` prop on `DataTableRow`).
+- **`max_page_size` hook** on `Decor::Concerns::SanitisedPaginationParams`
+  now filters `standard_page_sizes`; override to cap the available page
+  sizes in the selector + size clamp.
+- **`ilike_search(name:, label:, columns:, model:|scope:)`** helper
+  builds a sanitised `LIKE`-OR query across one or more Arel columns and
+  returns a `Decor::Components::SearchAndFilter::Search` value object.
+- **Per-row nested-form builder cache.** `row_nested_form` +
+  `row_nested_form_attribute_name` now build one `fields_for` builder
+  per row, fixing multi-row nested forms (the prior implementation
+  reused the same builder for every row, producing colliding `name`
+  attributes).
+- **`column(name, class: "...")`** sugar — `class:` is translated to
+  `classes:` so callers can spell column CSS the ERB way.
+- **`DataTable(classes:)`** threading — already inherited from Vident,
+  documented in `data_table.rb`; the builder forwards its own `classes:`
+  through to the inner DataTable card root.
+
 ## 0.20.10
 
 ### Suite::SettingsList — `modal:` prop for shared-modal Edit flow

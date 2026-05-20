@@ -49,18 +49,31 @@ module Decor
           def self.render_content(column, data, item_index, untransformed, helpers, form_builder: nil)
             return nil unless column.cell_block
 
+            # ERB callers need `helpers.capture { ... }` to harvest the
+            # ActionView output buffer. Pure-Ruby callers (Phlex blocks,
+            # tests) just return a string from the block, so we skip the
+            # capture machinery when the helper context doesn't respond to
+            # `capture`.
+            invoke = lambda do |block, *args|
+              if helpers.respond_to?(:capture)
+                helpers.capture { block.call(*args) }
+              else
+                block.call(*args)
+              end
+            end
+
             case column.cell_block.arity
             when -2, -1, 1
-              helpers.capture { column.cell_block.call(data) }
+              invoke.call(column.cell_block, data)
             when 2
-              helpers.capture { column.cell_block.call(data, item_index) }
+              invoke.call(column.cell_block, data, item_index)
             when 3
-              helpers.capture { column.cell_block.call(data, item_index, untransformed) }
+              invoke.call(column.cell_block, data, item_index, untransformed)
             when 4, -5
               row_context = RowContext.new(form_builder)
-              helpers.capture { column.cell_block.call(data, item_index, untransformed, row_context) }
+              invoke.call(column.cell_block, data, item_index, untransformed, row_context)
             else
-              helpers.capture { column.cell_block.call }
+              invoke.call(column.cell_block)
             end
           end
 

@@ -19,6 +19,17 @@ module Decor
       #   - `with_bulk_actions_bar(**attrs, &block)` — bottom action bar
       #   - `with_data_table_footer(**attrs)` — bottom footer band
       class DataTable < ::Decor::Components::Tables::DataTable
+        # Description rendered below the title in the header band.
+        prop :description, _Nilable(String)
+        # Toggles vertical gridlines between body cells (Suite parity with the
+        # ConfinusUI `enabled_grid` option).
+        prop :enabled_grid, _Boolean, default: false
+
+        # NOTE: `classes:` and `html_options:` are inherited from Vident's
+        # `Declarable` capability and forwarded to the root element by default.
+        # The `table_html_options` prop is separate — it lands on the inner
+        # `<table>` element, not the card root.
+
         # Suite skin uses its own Stimulus outlet identifiers (string-keyed so
         # the parallel Suite row/cell/bulk-actions skins don't need to exist
         # at load time).
@@ -123,6 +134,9 @@ module Decor
                 h3(class: "decor:suite-section-title decor:text-gray-900") { plain @title.to_s }
                 if @subtitle.present?
                   p(class: "decor:suite-description decor:text-gray-500 decor:mt-[2px]") { plain @subtitle.to_s }
+                end
+                if @description.present?
+                  p(class: "decor:suite-description decor:text-gray-500 decor:mt-[2px]") { plain @description.to_s }
                 end
               end
               if @search_and_filter_attrs
@@ -237,10 +251,12 @@ module Decor
           # 13px dense body, hairline divider rows, full width. Suite tables do
           # NOT use daisyUI `.table` chrome — too tall, wrong color palette.
           # Last-row cells drop their bottom border so the table doesn't
-          # double-border against the card edge.
+          # double-border against the card edge. `enabled_grid` adds vertical
+          # hairlines between every body cell for spreadsheet-style readback.
           [
             "decor:w-full decor:border-collapse decor:text-[13px]",
             "decor:[&_tbody_tr:last-child_td]:border-b-0",
+            @enabled_grid ? "decor:[&_tbody_td]:border-r decor:[&_tbody_td]:border-suite-hairline decor:[&_tbody_td:last-child]:border-r-0 decor:[&_thead_th]:border-r decor:[&_thead_th]:border-suite-hairline decor:[&_thead_th:last-child]:border-r-0" : nil,
             @zebra ? "decor:[&_tbody_tr:nth-child(even)]:bg-suite-gray-25" : nil,
             @pin_rows ? "decor:[&_thead]:sticky decor:[&_thead]:top-0 decor:[&_thead]:z-10" : nil
           ].compact.join(" ")

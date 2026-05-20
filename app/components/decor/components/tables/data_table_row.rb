@@ -28,6 +28,8 @@ module Decor
 
         # If row has a select box next to it
         prop :selectable_as, _Nilable(String)
+        # The value posted by the selection checkbox (e.g. record encoded_id)
+        prop :selectable_value, _Nilable(String)
         # Whether the row should get an indicator on the left side
         prop :selected, _Boolean, default: false
 

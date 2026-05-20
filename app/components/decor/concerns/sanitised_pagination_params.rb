@@ -34,8 +34,16 @@ module Decor
         @page_size || default_page_size
       end
 
+      # Override `max_page_size` in subclasses to cap the available page sizes.
+      # `standard_page_sizes` filters its results to <= max_page_size so the
+      # rendered selector and the size clamp stay in sync.
       def standard_page_sizes
-        @custom_page_sizes.presence || [5, 10, 20, 50, 100, 200]
+        sizes = @custom_page_sizes.presence || [5, 10, 20, 50, 100, 200]
+        sizes.select { |size| size <= max_page_size }
+      end
+
+      def max_page_size
+        200
       end
 
       def default_page_size
