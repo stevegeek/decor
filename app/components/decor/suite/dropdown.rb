@@ -41,6 +41,25 @@ module Decor
         }
       end
 
+      # Kwarg shim: callers that pass item props directly get a Suite DropdownItem
+      # instantiated for them. The block form (parent behaviour) is unchanged.
+      def with_menu_item(**attrs, &block)
+        if attrs.any?
+          item = ::Decor::Suite::DropdownItem.new(**attrs)
+          @menu_items ||= []
+          @menu_items << (block ? [item, block] : item)
+          item
+        else
+          super(&block)
+        end
+      end
+
+      # Backward-compat aliases for the legacy ConfinusUI slot names.
+      def with_button(&block) = trigger_button(&block)
+      def with_button_content(&block) = trigger_button_content(&block)
+      def with_menu_header(&block) = menu_header(&block)
+      def with_menu_content(&block) = menu_content(&block)
+
       def resolved_anchor_name
         @anchor_name || "--decor-suite-dropdown-anchor-#{id}"
       end
@@ -82,7 +101,14 @@ module Decor
             render @menu_header if @menu_header.present?
 
             if @menu_items&.any?
-              @menu_items.each { |item| render item }
+              @menu_items.each do |item|
+                if item.is_a?(Array)
+                  component, block = item
+                  block ? render(component, &block) : render(component)
+                else
+                  render item
+                end
+              end
             end
 
             render @menu_content if @menu_content.present?

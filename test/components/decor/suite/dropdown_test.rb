@@ -75,6 +75,30 @@ class Decor::Suite::DropdownTest < ActiveSupport::TestCase
     assert_includes rendered, "Item two"
   end
 
+  test "with_menu_item accepts kwargs and builds a Suite DropdownItem" do
+    rendered = render_component(Decor::Suite::Dropdown.new) do |d|
+      d.trigger_button_content { "x" }
+      d.with_menu_item(text: "Kwarg item", href: "/k")
+    end
+
+    assert_includes rendered, "Kwarg item"
+    assert_includes rendered, "href=\"/k\""
+  end
+
+  test "with_button / with_button_content / with_menu_header / with_menu_content aliases" do
+    rendered = render_component(Decor::Suite::Dropdown.new) do |d|
+      d.with_button_content { "ALIAS-TRIGGER" }
+      d.with_menu_header { "ALIAS-HEADER" }
+      d.with_menu_content { "ALIAS-FOOTER" }
+      d.with_menu_item(text: "ALIAS-ITEM")
+    end
+
+    assert_includes rendered, "ALIAS-TRIGGER"
+    assert_includes rendered, "ALIAS-HEADER"
+    assert_includes rendered, "ALIAS-FOOTER"
+    assert_includes rendered, "ALIAS-ITEM"
+  end
+
   test "renders menu header and content blocks" do
     rendered = render_component(Decor::Suite::Dropdown.new) do |d|
       d.trigger_button_content { "x" }
