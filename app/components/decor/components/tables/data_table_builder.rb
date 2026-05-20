@@ -316,7 +316,10 @@ module Decor
         end
 
         def filter_param_keys
-          (Array.wrap(mem_filters) + [mem_search]).compact.pluck(:name)
+          # `.pluck(:name)` calls `[:name]` on each element — works on Hash /
+          # Literal::Struct but blows up on Literal::Data (no `[]` method).
+          # Filters + Search are now Literal::Data, so call the reader instead.
+          (Array.wrap(mem_filters) + [mem_search]).compact.map(&:name)
         end
 
         def resolved_pagination_options
