@@ -354,7 +354,10 @@ module Decor
 
         def filter_set_current_param_value(filter)
           if params[filter.name].present?
-            filter.class.new(**filter.attributes.merge(value: params[filter.name]))
+            # `.to_h` works for both Literal::Data (current Filter type) and
+            # Literal::Struct (legacy). `.attributes` was Literal::Struct-only
+            # and crashed once Filter became Literal::Data.
+            filter.class.new(**filter.to_h.merge(value: params[filter.name]))
           else
             filter
           end
