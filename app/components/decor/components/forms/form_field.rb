@@ -90,6 +90,14 @@ module Decor
           end
         end
 
+        # Joins a class list into a single string, filtering nil/false values.
+        # Used to merge caller-supplied `control_html_options: {class: …}` into
+        # the field's resolved CSS. Without this, every caller that passes a
+        # custom control class crashes with NoMethodError on the field render.
+        def produce_style_classes(class_names)
+          Array.wrap(class_names).compact.reject { |c| c == false }.join(" ")
+        end
+
         def input_container_classes
           label_top? ? "decor:mt-1" : ""
         end
