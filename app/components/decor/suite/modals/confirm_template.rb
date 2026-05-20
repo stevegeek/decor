@@ -77,7 +77,13 @@ module Decor
         end
 
         def root_element_classes
-          "cf-modal cf-modal--confirm decor:flex decor:flex-col decor:relative decor:bg-white decor:rounded-suite-card decor:shadow-2xl decor:p-0 decor:overflow-hidden decor:w-[420px] decor:max-w-[calc(100vw-32px)] decor:max-h-[calc(100vh-32px)] decor:m-auto"
+          # `decor:open:flex` not `decor:flex` — the template lives inside a
+          # `<template>` tag in source, but spawnConfirmDialog clones it and
+          # appends to <body> before calling showModal(). If `display: flex`
+          # is set unconditionally, the cloned dialog would render visible
+          # without `showModal()`. Scoping to the open state mirrors the
+          # browser's default `dialog:not([open]) { display: none }`.
+          "cf-modal cf-modal--confirm decor:open:flex decor:flex-col decor:relative decor:bg-white decor:rounded-suite-card decor:shadow-2xl decor:p-0 decor:overflow-hidden decor:w-[420px] decor:max-w-[calc(100vw-32px)] decor:max-h-[calc(100vh-32px)] decor:m-auto"
         end
 
         def render_accent_bar

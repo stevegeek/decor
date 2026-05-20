@@ -90,7 +90,13 @@ module Decor
         def root_element_classes
           [
             "cf-modal",
-            "decor:flex decor:flex-col decor:bg-white decor:rounded-suite-card decor:shadow-2xl decor:p-0 decor:overflow-hidden",
+            # `decor:flex` only when the <dialog> is actually open. Browsers
+            # ship `dialog:not([open]) { display: none }` in the UA stylesheet,
+            # but an unconditional `display: flex` from Tailwind overrides
+            # that — leaving every modal visible on page load even though no
+            # one called `showModal()`. The `open:` variant scopes the flex
+            # layout to the open state only.
+            "decor:open:flex decor:flex-col decor:bg-white decor:rounded-suite-card decor:shadow-2xl decor:p-0 decor:overflow-hidden",
             size_width_class,
             "decor:max-w-[calc(100vw-32px)]",
             "decor:max-h-[calc(100vh-32px)]",
