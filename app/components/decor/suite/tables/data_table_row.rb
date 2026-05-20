@@ -13,6 +13,7 @@ module Decor
         def with_data_table_cell(component = nil, **attributes, &block)
           cell = component || ::Decor::Suite::Tables::DataTableCell.new(**attributes)
           @data_table_cells << [cell, block]
+          Rails.logger.info { "[DEBUG] DataTableRow#with_data_table_cell pushed; size=#{@data_table_cells.size} object_id=#{object_id}" }
           cell
         end
 
@@ -45,6 +46,7 @@ module Decor
                 )
               }
             end
+            Rails.logger.info { "[DEBUG] DataTableRow#view_template @data_table_cells.size=#{@data_table_cells.size} object_id=#{object_id}" }
             @data_table_cells.each do |cell, block|
               if block
                 render(cell, &block)

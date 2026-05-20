@@ -22,7 +22,7 @@ GIT
 PATH
   remote: .
   specs:
-    decor (0.21.5)
+    decor (0.21.7)
       js_regex (~> 3.5)
       literal (>= 1.0)
       phlex-rails (>= 2.0)
@@ -181,7 +181,7 @@ GEM
       net-imap
       net-pop
       net-smtp
-    marcel (1.2.0)
+    marcel (1.2.1)
     mini_mime (1.1.5)
     mini_portile2 (2.8.9)
     minitest (5.27.0)
