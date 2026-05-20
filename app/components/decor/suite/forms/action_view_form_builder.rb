@@ -137,6 +137,7 @@ module Decor
         end
 
         def button(value = nil, options = {}, &)
+          options = normalize_legacy_button_kwargs(options)
           options[:label] = value if value
           @template.render(::Decor::Suite::Button.new({view_context: @template}.merge(options)), &)
         end
@@ -144,12 +145,14 @@ module Decor
         def button_link_to(value, path, options = {}, &block)
           options, path, value = path, value, nil if block
           options ||= {}
+          options = normalize_legacy_button_kwargs(options)
           path = url_for(path) if path.is_a? Hash
           options[:label] = value if value && !block
           @template.render(::Decor::Suite::ButtonLink.new(href: path, http_method: options[:method], **options), &block)
         end
 
         def submit(label = nil, options = {}, &)
+          options = normalize_legacy_button_kwargs(options)
           options = {style: :filled, color: :base}.merge(options)
           html_options = options.fetch(:html_options, {})
           options[:html_options] = {type: :submit, name: "commit", value: label || submit_default_value}.merge(html_options)
@@ -160,6 +163,54 @@ module Decor
         def submit_primary(label = nil, options = {}, &)
           submit(label, options.merge(color: :primary), &)
         end
+
+        private
+
+        # Translate the legacy ConfinusUI button vocabulary
+        # (`theme:`/`variant:`/`icon_style:` with `:contained/:text/:secondary/
+        # :danger/:small/:micro/:large/:medium` values) into the Suite
+        # vocabulary (`color:`/`style:`/`icon_variant:` with
+        # `:filled/:ghost/:base/:error/:sm/:xs/:lg/:md`). Lets the hundreds
+        # of `f.button`/`f.submit`/`f.button_link_to` callers that pre-date
+        # the migration keep working without touching every call site.
+        # Drop this method when all callers are confirmed migrated.
+        def normalize_legacy_button_kwargs(opts)
+          return opts unless opts.is_a?(Hash)
+          opts = opts.dup
+          if opts.key?(:theme)
+            opts[:color] ||= LEGACY_THEME_TO_COLOR.fetch(opts.delete(:theme)) { opts.delete(:theme) }
+          end
+          if opts.key?(:variant)
+            opts[:style] ||= LEGACY_VARIANT_TO_STYLE.fetch(opts.delete(:variant)) { opts.delete(:variant) }
+          end
+          if opts.key?(:icon_style)
+            opts[:icon_variant] ||= opts.delete(:icon_style)
+          end
+          if opts.key?(:size)
+            opts[:size] = LEGACY_SIZE_REMAP.fetch(opts[:size], opts[:size])
+          end
+          opts
+        end
+
+        LEGACY_THEME_TO_COLOR = {
+          secondary: :base,
+          danger: :error
+        }.freeze
+        private_constant :LEGACY_THEME_TO_COLOR
+
+        LEGACY_VARIANT_TO_STYLE = {
+          contained: :filled,
+          text: :ghost
+        }.freeze
+        private_constant :LEGACY_VARIANT_TO_STYLE
+
+        LEGACY_SIZE_REMAP = {
+          small: :sm,
+          micro: :xs,
+          large: :lg,
+          medium: :md
+        }.freeze
+        private_constant :LEGACY_SIZE_REMAP
       end
     end
   end
