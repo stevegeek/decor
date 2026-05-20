@@ -245,15 +245,17 @@ module Decor
           header_row = data_table_component.with_data_table_header_row(selectable_as: @rows_selectable_as_name&.to_s)
           header_cell_attributes.each { |attrs| header_row.with_data_table_header_cell(**attrs) }
 
-          prepare_table_rows.each do |row|
+          prepare_table_rows.each_with_index do |row, ri|
             data_row = data_table_component.with_data_table_row(row.component)
+            Rails.logger.info { "[DEBUG] builder loop row[#{ri}] class=#{row.class} row.cells.size=#{row.cells.size} data_row.class=#{data_row.class} data_row.eql_row=#{data_row.equal?(row.component)} dr_oid=#{data_row.object_id} rc_oid=#{row.component.object_id}" }
 
             if row.expanded_content_renderer
               expanded = row.expanded_content_renderer.call
               data_row.with_expanded_content { expanded } unless expanded.nil?
             end
 
-            row.cells.each do |cell|
+            row.cells.each_with_index do |cell, ci|
+              Rails.logger.info { "[DEBUG] pushing cell[#{ri},#{ci}] to data_row oid=#{data_row.object_id}" }
               data_row.with_data_table_cell(cell.component)
             end
           end
