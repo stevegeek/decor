@@ -18,6 +18,10 @@ module Decor
       default_color :base
       default_style :filled
 
+      # Match Suite::Button's size knobs so ButtonLink can be used as a chrome-less
+      # underlined inline link (`size: :link`) or a wide form CTA (`size: :wide`).
+      redefine_sizes :xs, :sm, :md, :lg, :xl, :wide, :link
+
       def view_template(&)
         @content = capture(&).html_safe if block_given?
         root_element do
@@ -25,7 +29,7 @@ module Decor
             render @before_label if @before_label.present?
             if @icon
               icon_options = {name: @icon, html_options: {class: icon_classes}}
-              icon_options[:variant] = @icon_variant if @icon_variant
+              icon_options[:style] = @icon_variant if @icon_variant
               render ::Decor::Icon.new(**icon_options)
             end
             span(class: @icon_only_on_mobile ? "decor:hidden decor:md:inline" : "") do
@@ -81,6 +85,10 @@ module Decor
           ["decor:px-[11px] decor:py-[5px] decor:text-xs decor:leading-[1.2] decor:rounded-suite-control"]
         when :xs
           ["decor:px-[9px] decor:py-1 decor:text-[11px] decor:leading-[1.2] decor:rounded-suite-control"]
+        when :wide
+          ["decor:px-16 decor:py-[7px] decor:text-[13px] decor:leading-[1.2] decor:rounded-suite-control"]
+        when :link
+          ["decor:px-0 decor:py-0 decor:text-[13px] decor:underline decor:rounded-none"]
         else
           ["decor:px-[11px] decor:py-[5px] decor:text-xs decor:leading-[1.2] decor:rounded-suite-control"]
         end
