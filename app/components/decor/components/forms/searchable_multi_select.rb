@@ -52,6 +52,11 @@ module Decor
 
         prop :disabled, _Boolean, default: false
 
+        # Helper / error caption — rendered below the control by skins that
+        # support a FormField-style caption row.
+        prop :helper_text, _Nilable(String)
+        prop :error_messages, _Nilable(Array)
+
         stimulus do
           # See sibling SearchableSelect base for the rationale: `targets`
           # and `actions` listed here would emit on the controller root and
@@ -74,6 +79,14 @@ module Decor
 
         def disabled?
           @disabled
+        end
+
+        def error_text
+          @error_messages.present? ? @error_messages.join(", ") : ""
+        end
+
+        def errors?
+          error_text.present?
         end
       end
     end

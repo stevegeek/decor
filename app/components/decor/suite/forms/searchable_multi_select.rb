@@ -51,6 +51,8 @@ module Decor
                 input(type: "hidden", name: @name, value: item[:id])
               end
             end
+
+            render_helper_or_error_text
           end
         end
 
@@ -159,6 +161,23 @@ module Decor
               <path d="M18 6L6 18M6 6l12 12"/>
             </svg>
           SVG
+        end
+
+        # Dual paragraph — both rendered (hidden when empty) so the
+        # FormField JS controller has stable `helperText` / `errorText`
+        # targets to swap content into. Mirrors TextField's pattern.
+        def render_helper_or_error_text
+          div(class: "decor:suite-field-help decor:min-h-[1lh]") do
+            p(
+              class: ["decor:suite-field-help decor:text-gray-500 decor:mx-0 decor:mb-0", (errors? || @helper_text.blank?) ? "decor:hidden" : nil].compact.join(" "),
+              data: stimulus_target(:helperText).to_h
+            ) { plain @helper_text.to_s }
+
+            p(
+              class: ["decor:suite-field-help decor:text-suite-danger-500 decor:mx-0 decor:mb-0", errors? ? nil : "decor:hidden"].compact.join(" "),
+              data: stimulus_target(:errorText).to_h
+            ) { plain errors? ? error_text : "" }
+          end
         end
       end
     end

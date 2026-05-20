@@ -49,6 +49,11 @@ module Decor
 
         prop :disabled, _Boolean, default: false
 
+        # Helper / error caption — rendered below the control by skins that
+        # support a FormField-style caption row.
+        prop :helper_text, _Nilable(String)
+        prop :error_messages, _Nilable(Array)
+
         stimulus do
           # NB: do NOT list `targets ...` or `actions ...` here — those
           # Vident DSL forms emit `data-{identifier}-target="..."` and
@@ -79,6 +84,14 @@ module Decor
 
         def selected?
           @selected_item.present?
+        end
+
+        def error_text
+          @error_messages.present? ? @error_messages.join(", ") : ""
+        end
+
+        def errors?
+          error_text.present?
         end
       end
     end

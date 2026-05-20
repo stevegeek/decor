@@ -30,38 +30,50 @@ module Decor
               end
 
               div(class: input_section_classes) do
-                div(class: "decor:relative decor:w-full") do
-                  if @multiple
-                    hidden_field_tag(multi_select_name, "", id: nil)
-                  end
+                # Row wraps the select + the right/inline label so they sit
+                # on the same baseline. For top/left/inside the row is just
+                # the select.
+                div(class: control_row_classes) do
+                  div(class: "decor:relative decor:w-full") do
+                    if @multiple
+                      hidden_field_tag(multi_select_name, "", id: nil)
+                    end
 
-                  child_element(
-                    :select,
-                    **html_attributes,
-                    class: select_classes,
-                    data: @control_html_options[:data],
-                    stimulus_actions: @control_actions,
-                    stimulus_targets: ([:input] + @control_targets).uniq
-                  ) do
-                    if grouped?
-                      grouped_options_for_select(
-                        all_options_array,
-                        disabled: all_disabled_options,
-                        selected: resolve_selected_option
-                      )
-                    else
-                      options_for_select(
-                        all_options_array,
-                        disabled: all_disabled_options,
-                        selected: resolve_selected_option
-                      )
+                    child_element(
+                      :select,
+                      **html_attributes,
+                      class: select_classes,
+                      data: @control_html_options[:data],
+                      stimulus_actions: @control_actions,
+                      stimulus_targets: ([:input] + @control_targets).uniq
+                    ) do
+                      if grouped?
+                        grouped_options_for_select(
+                          all_options_array,
+                          disabled: all_disabled_options,
+                          selected: resolve_selected_option
+                        )
+                      else
+                        options_for_select(
+                          all_options_array,
+                          disabled: all_disabled_options,
+                          selected: resolve_selected_option
+                        )
+                      end
+                    end
+
+                    chevron_indicator
+
+                    if !silent_helper_and_error_text?
+                      error_icon
                     end
                   end
 
-                  chevron_indicator
-
-                  if !silent_helper_and_error_text?
-                    error_icon
+                  # Label sits to the right of the control on the same row.
+                  # `:inside` is handled by all_options_array prepending the
+                  # label as a placeholder <option> — nothing to render here.
+                  if @label.present? && (label_right? || label_inline?)
+                    div(class: "decor:ml-4 decor:shrink-0") { label_block }
                   end
                 end
 
@@ -93,6 +105,14 @@ module Decor
         def input_section_classes
           if label_left?
             "decor:sm:flex-1 decor:sm:min-w-0 decor:flex decor:flex-col decor:suite-field-gap"
+          else
+            ""
+          end
+        end
+
+        def control_row_classes
+          if label_right? || label_inline?
+            "decor:flex decor:items-baseline"
           else
             ""
           end

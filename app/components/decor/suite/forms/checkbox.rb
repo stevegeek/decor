@@ -19,6 +19,15 @@ module Decor
         # Default label position for a checkbox is to the right of the box.
         prop :label_position, _Union(:left, :right, :top), default: :right
 
+        # When false, suppress the label render even if a `label:` is set —
+        # used by table-row cells that supply the label out-of-band.
+        prop :show_label, _Boolean, default: true
+
+        # Accepted for prop-API parity with ConfinusUI::Forms::Checkbox;
+        # Suite has no dark-mode skin yet so this is a no-op visually. Stored
+        # so callers can pass it without surfacing a Literal::Data error.
+        prop :dark, _Boolean, default: false
+
         def view_template
           root_element do |el|
             render_helper_and_error_section
@@ -46,12 +55,12 @@ module Decor
                 )
               end
 
-              if @label.present?
+              if @label.present? && @show_label
                 span(class: label_text_classes) { plain label_with_required }
               end
             end
 
-            if @label.present? && @description.present?
+            if @label.present? && @show_label && @description.present?
               p(class: description_classes) { plain @description }
             end
           end

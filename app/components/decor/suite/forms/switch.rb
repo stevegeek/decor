@@ -12,16 +12,20 @@ module Decor
       # Wraps the inputs in a label so clicking the label/track flips the
       # control. Renders an optional helper / error caption below.
       class Switch < ::Decor::Components::Forms::Switch
+        # When false, suppress the label render even if a `label:` is set —
+        # used by table-row cells that supply the label out-of-band.
+        prop :show_label, _Boolean, default: true
+
         def view_template
           root_element do |el|
             div(class: container_classes) do
-              if (label_top? || label_left?) && @label.present?
+              if (label_top? || label_left?) && @label.present? && @show_label
                 label_block
               end
 
               div(class: row_classes) do
                 control_block(el)
-                if (label_right? || label_inline?) && @label.present?
+                if (label_right? || label_inline?) && @label.present? && @show_label
                   label_block
                 end
               end

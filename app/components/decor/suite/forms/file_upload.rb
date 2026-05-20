@@ -45,6 +45,15 @@ module Decor
           controllers DAISY_CTRL_PATH
         end
 
+        # Backward-compat alias for `preview_type:`. Confinus callers + the
+        # builder shim still pass `variant: :file/:image/:avatar`; both
+        # names accepted, `preview_type` is canonical.
+        prop :variant, _Nilable(_Union(:file, :image, :avatar))
+
+        def after_component_initialize
+          @preview_type = @variant if @variant
+        end
+
         def view_template
           root_element do
             render_label_section if @label.present?
