@@ -190,6 +190,38 @@ module Decor
           @template.render(::Decor::Suite::Forms::SearchableMultiSelect.new(**options))
         end
 
+        # File-upload helpers. `variant:` is the legacy ConfinusUI kwarg name;
+        # Suite uses `preview_type:` internally (the shim added in 0.20.5
+        # accepts either). Field name + object/method wiring follows the same
+        # pattern as the Daisy file_field helper.
+        def file_field(method, options = {})
+          options = options.dup
+          options[:name] ||= "#{object_name}[#{method}]"
+          options[:object] ||= @object
+          options[:object_name] ||= object_name
+          options[:method_name] ||= method
+          @template.render(::Decor::Suite::Forms::FileUpload.new(**options))
+        end
+
+        def avatar_upload(method, options = {})
+          file_field(method, options.merge(variant: :avatar))
+        end
+
+        def image_upload(method, options = {})
+          file_field(method, options.merge(variant: :image))
+        end
+
+        # MultiImageUpload — wires the existing object's collection so the
+        # gallery renders any previously-uploaded images on first render.
+        def multi_image_upload(method, options = {})
+          options = options.dup
+          options[:name] ||= "#{object_name}[#{method}][]"
+          options[:object] ||= @object
+          options[:object_name] ||= object_name
+          options[:method_name] ||= method
+          @template.render(::Decor::Suite::Forms::MultiImageUpload.new(**options))
+        end
+
         private
 
         # Resolve `selected_item:` for the searchable_select(s):
