@@ -164,7 +164,36 @@ module Decor
           submit(label, options.merge(color: :primary), &)
         end
 
+        # `f.searchable_select(:foo, choices: …, search_url: …, label: …)` —
+        # renders a Suite SearchableSelect bound to the form field. Mirrors
+        # the ConfinusUI builder method of the same name so callers don't
+        # need rewriting.
+        def searchable_select(method, options = {})
+          options = options.dup
+          options[:name] ||= "#{object_name}[#{method}]"
+          options[:selected_item] ||= extract_selected_item(method, options.delete(:selected_item))
+          @template.render(::Decor::Suite::Forms::SearchableSelect.new(**options))
+        end
+
+        # `f.searchable_multi_select(:foo, choices: …, selected_items: […])` —
+        # multi-select variant.
+        def searchable_multi_select(method, options = {})
+          options = options.dup
+          options[:name] ||= "#{object_name}[#{method}][]"
+          @template.render(::Decor::Suite::Forms::SearchableMultiSelect.new(**options))
+        end
+
         private
+
+        # When the caller passes `selected_item:` explicitly use it; otherwise
+        # derive from the bound object's current value so the field shows the
+        # right label on re-render after a validation failure.
+        def extract_selected_item(method, explicit)
+          return explicit if explicit
+          return nil unless @object.respond_to?(method)
+          value = @object.public_send(method)
+          value.present? ? {id: value} : nil
+        end
 
         # Translate the legacy ConfinusUI button vocabulary
         # (`theme:`/`variant:`/`icon_style:` with `:contained/:text/:secondary/
