@@ -306,7 +306,7 @@ module Decor
 
       def button(value = nil, options = {}, &)
         options[:label] = value if value
-        @template.render(::Decor::Daisy::Button.new({view_context: @template}.merge(options)), &)
+        @template.render(::Decor::Daisy::Button.new(**options), &)
       end
 
       def button_link_to(value, path, options = {}, &block)

@@ -233,6 +233,15 @@ class Decor::Forms::ActionViewFormBuilderTest < ActiveSupport::TestCase
     assert_includes html, "type=\"submit\""
   end
 
+  # Regression: `button` used to pass a positional hash to
+  # `Decor::Daisy::Button.new(...)`. Literal-generated initializers only accept
+  # keyword arguments, so the call raised "wrong number of arguments (given 1,
+  # expected 0)". Must splat options.
+  test "button forwards options to Decor::Daisy::Button as kwargs" do
+    html = @builder.button "Save", size: :lg, classes: "edit-btn"
+    assert_includes html, "edit-btn"
+  end
+
   private
 
   def stub_const(const_name, value)

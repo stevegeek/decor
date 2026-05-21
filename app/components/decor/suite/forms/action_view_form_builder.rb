@@ -139,7 +139,7 @@ module Decor
         def button(value = nil, options = {}, &)
           options = normalize_legacy_button_kwargs(options)
           options[:label] = value if value
-          @template.render(::Decor::Suite::Button.new({view_context: @template}.merge(options)), &)
+          @template.render(::Decor::Suite::Button.new(**options), &)
         end
 
         def button_link_to(value, path, options = {}, &block)
