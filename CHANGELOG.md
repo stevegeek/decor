@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.21.12
+
+### Suite identifiers — add DataTableRow
+
+Adds `DecorSuiteTablesDataTableRowIdentifier`. The Suite DataTableRow
+Ruby component renders elements with this identifier in their
+`data-controller` attribute (Vident class-name derivation) even though
+no Stimulus controller class is registered under the name, so outlet
+selectors targeting rows need the string.
+
 ## 0.21.11
 
 ### Stimulus identifier constants — JS single source of truth

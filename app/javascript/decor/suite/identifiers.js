@@ -58,4 +58,9 @@ export const DecorSuiteSettingsListRowIdentifier = "decor--suite--settings-list-
 export const DecorSuiteTablesBulkActionsBarIdentifier = "decor--suite--tables--bulk-actions-bar";
 export const DecorSuiteTablesDataTableCellIdentifier = "decor--suite--tables--data-table-cell";
 export const DecorSuiteTablesDataTableIdentifier = "decor--suite--tables--data-table";
+// DataTableRow has no Stimulus controller class but the Ruby
+// ::Decor::Suite::Tables::DataTableRow component renders elements with this
+// identifier in their `data-controller` attribute (via Vident's class-name
+// derivation), so outlet selectors targeting rows need the string.
+export const DecorSuiteTablesDataTableRowIdentifier = "decor--suite--tables--data-table-row";
 export const DecorSuiteTablesTagFilterBarIdentifier = "decor--suite--tables--tag-filter-bar";
