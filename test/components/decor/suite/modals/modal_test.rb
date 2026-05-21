@@ -139,9 +139,15 @@ class ::Decor::Suite::Modals::ModalTest < ActiveSupport::TestCase
     assert_includes html, "cf-modal__body"
   end
 
-  test "renders initial_content when no block given" do
-    html = render_component(::Decor::Suite::Modals::Modal.new(id: "m1", title: "T", initial_content: "<p>baked</p>"))
+  test "renders initial_content as raw HTML when caller marks it safe" do
+    html = render_component(::Decor::Suite::Modals::Modal.new(id: "m1", title: "T", initial_content: "<p>baked</p>".html_safe))
     assert_includes html, "<p>baked</p>"
+  end
+
+  test "escapes initial_content when caller passes a plain String" do
+    html = render_component(::Decor::Suite::Modals::Modal.new(id: "m1", title: "T", initial_content: "<script>alert(1)</script>"))
+    refute_includes html, "<script>alert(1)</script>"
+    assert_includes html, "&lt;script&gt;"
   end
 
   test "content_href reserves min-height in the body" do

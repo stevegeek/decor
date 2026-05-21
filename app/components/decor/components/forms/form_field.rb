@@ -169,11 +169,6 @@ module Decor
           (@validation_messages || {}).transform_keys { |key| "validation_message_#{key}" }
         end
 
-        # Additional control data attrs
-        def render_control_data_attrs
-          control_data_attributes&.map { |key, value| "#{key.to_s.dasherize}=\"#{value}\"" }&.join(" ")
-        end
-
         def control_data_attributes
           @control_html_options[:data] if @control_html_options&.key?(:data)
         end

@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus";
+import { markAsSafeHTML, safelySetInnerHTML } from "controllers/decor";
 
 // Controller for the Decor::Suite::Modals::ConfirmTemplate singleton dialog.
 //
@@ -56,7 +57,7 @@ export default class extends Controller {
     }
     if (this.hasMessageTarget) {
       if (options.messageHTML != null) {
-        this.messageTarget.innerHTML = options.messageHTML.toString();
+        safelySetInnerHTML(this.messageTarget, markAsSafeHTML(options.messageHTML.toString()));
       } else if (options.message != null) {
         this.messageTarget.textContent = options.message;
       }

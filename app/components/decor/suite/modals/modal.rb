@@ -150,8 +150,13 @@ module Decor
 
         def render_body
           div(id: "#{id}-body", class: body_classes) do
-            if body_content.present?
-              raw safe(body_content)
+            content = body_content
+            next unless content.present?
+
+            if content.respond_to?(:html_safe?) && content.html_safe?
+              raw safe(content.to_s)
+            else
+              plain content.to_s
             end
           end
         end

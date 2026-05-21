@@ -153,4 +153,67 @@ class Decor::ActsAsLinkTest < ActiveSupport::TestCase
     refute_includes rendered, "href="
     assert_includes rendered, "<a"
   end
+
+  # ── URL scheme XSS hardening ──────────────────────────────────────────────
+  # Phlex 2.4 already strips `javascript:` URLs from REF attributes
+  # (href/src/action/...). ActsAsLink extends that protection to `data:` and
+  # `vbscript:` schemes, which Phlex passes through but can still deliver
+  # XSS in some contexts (data:text/html in iframes; vbscript: in legacy IE).
+
+  test "strips javascript: scheme from href (covered by Phlex)" do
+    component = TestLinkComponent.new(label: "Evil", href: "javascript:alert(1)")
+    rendered = render_component(component)
+    refute_includes rendered, "javascript:"
+    refute_includes rendered, "alert(1)"
+  end
+
+  test "strips data: scheme from href" do
+    component = TestLinkComponent.new(label: "Evil", href: "data:text/html,<script>alert(1)</script>")
+    rendered = render_component(component)
+    refute_includes rendered, "data:text/html"
+  end
+
+  test "strips data: scheme with leading whitespace and casing variations" do
+    %W[\tdata:text/html,foo \ndata:text/html,foo " DATA:text/html,foo Data:text/html,foo].each do |evil|
+      component = TestLinkComponent.new(label: "Evil", href: evil)
+      rendered = render_component(component)
+      assert_not rendered.downcase.include?("data:text"),
+        "Expected data: scheme to be stripped from href=#{evil.inspect}, got: #{rendered}"
+    end
+  end
+
+  test "strips data: scheme with HTML-entity encoded colon" do
+    component = TestLinkComponent.new(label: "Evil", href: "data&#58;text/html,foo")
+    rendered = render_component(component)
+    refute_includes rendered.downcase, "data:text"
+    refute_includes rendered, "data&#58;text"
+  end
+
+  test "strips vbscript: scheme from href" do
+    component = TestLinkComponent.new(label: "Evil", href: "vbscript:msgbox(1)")
+    rendered = render_component(component)
+    refute_includes rendered, "vbscript:"
+  end
+
+  test "allows http and https hrefs" do
+    component = TestLinkComponent.new(label: "OK", href: "https://example.com/path?q=1")
+    rendered = render_component(component)
+    assert_includes rendered, 'href="https://example.com/path?q=1"'
+  end
+
+  test "allows mailto: and tel: schemes" do
+    %w[mailto:test@example.com tel:+1234567890 sms:+1234567890].each do |href|
+      component = TestLinkComponent.new(label: "OK", href: href)
+      rendered = render_component(component)
+      assert_includes rendered, %(href="#{href}")
+    end
+  end
+
+  test "allows relative and fragment hrefs" do
+    %w[/foo /foo/bar ?x=1 #section foo/bar].each do |href|
+      component = TestLinkComponent.new(label: "OK", href: href)
+      rendered = render_component(component)
+      assert_includes rendered, %(href="#{href}"), "Expected relative href #{href} to be preserved"
+    end
+  end
 end

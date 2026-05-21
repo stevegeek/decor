@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus";
+import { markAsSafeHTML, safelySetInnerHTML } from "controllers/decor";
 
 // Floating AI-chat widget controller.
 //
@@ -186,7 +187,7 @@ export default class extends Controller {
 
     if (this.streamingEl) {
       if (msg.message && msg.message.html) {
-        this.streamingEl.innerHTML = msg.message.html;
+        safelySetInnerHTML(this.streamingEl, markAsSafeHTML(msg.message.html));
         this.streamingEl.classList.remove("decor:whitespace-pre-wrap");
         this.streamingEl.classList.add("decor:prose", "decor:max-w-none");
       } else if (msg.message && msg.message.text) {
@@ -201,7 +202,7 @@ export default class extends Controller {
       if (msg.message.html) {
         el.className =
           "decor:mr-12 decor:bg-suite-gray-25 decor:text-gray-900 decor:rounded-suite-control decor:px-3 decor:py-2 decor:suite-description decor:prose decor:max-w-none";
-        el.innerHTML = msg.message.html;
+        safelySetInnerHTML(el, markAsSafeHTML(msg.message.html));
       } else {
         el.className =
           "decor:mr-12 decor:bg-suite-gray-25 decor:text-gray-900 decor:rounded-suite-control decor:px-3 decor:py-2 decor:suite-description decor:whitespace-pre-wrap";

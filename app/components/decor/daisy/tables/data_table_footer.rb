@@ -8,8 +8,7 @@ module Decor
           root_element do
             if @left.present?
               div(class: "decor:px-6 decor:flex-1 decor:sm:max-w-md") do
-                # CODEMOD-REVIEW: latent bug — Proc instance_eval would raise; defer to per-component step-2 migration
-                instance_eval(@left)
+                instance_eval(&@left)
               end
             elsif @message.present?
               div(class: "decor:px-6 decor:flex-1 decor:sm:max-w-md") do
@@ -21,8 +20,7 @@ module Decor
 
             if @right.present?
               div(class: "decor:mt-6 decor:sm:mt-0 decor:sm:ml-6 decor:sm:flex-shrink-0") do
-                # CODEMOD-REVIEW: latent bug — Proc instance_eval would raise; defer to per-component step-2 migration
-                instance_eval(@right)
+                instance_eval(&@right)
               end
             elsif @summary_lines.present?
               div(class: "decor:mt-6 decor:sm:mt-0 decor:sm:ml-6 decor:sm:flex-shrink-0 decor:sm:w-80") do

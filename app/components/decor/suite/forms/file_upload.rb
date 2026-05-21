@@ -122,16 +122,16 @@ module Decor
           label(class: "decor:block") do
             span(class: "decor:sr-only") { plain "Choose file to upload" }
             div(data: file_selected_action_data) do
-              raw safe(
-                file_field(
-                  @object_name, @method_name,
-                  accept: @file_mime_types,
-                  required: @required,
-                  disabled: @disabled,
-                  name: @name,
-                  data: file_input_data,
-                  class: avatar_file_input_classes
-                )
+              # `file_field` is a phlex-rails registered output helper —
+              # it emits to the buffer itself, no `raw safe(...)` wrap needed.
+              file_field(
+                @object_name, @method_name,
+                accept: @file_mime_types,
+                required: @required,
+                disabled: @disabled,
+                name: @name,
+                data: file_input_data,
+                class: avatar_file_input_classes
               )
             end
           end
@@ -193,16 +193,14 @@ module Decor
 
           # Hidden native file input — drives the Stimulus preview wiring.
           div(data: file_selected_action_data) do
-            raw safe(
-              file_field(
-                @object_name, @method_name,
-                accept: @file_mime_types,
-                required: @required,
-                disabled: @disabled,
-                name: @name,
-                data: file_input_data,
-                class: "decor:hidden"
-              )
+            file_field(
+              @object_name, @method_name,
+              accept: @file_mime_types,
+              required: @required,
+              disabled: @disabled,
+              name: @name,
+              data: file_input_data,
+              class: "decor:hidden"
             )
           end
 
@@ -291,16 +289,14 @@ module Decor
               p(class: "decor:suite-field-help decor:text-gray-500 decor:m-0") { plain @description }
 
               div(data: file_selected_action_data) do
-                raw safe(
-                  file_field(
-                    @object_name, @method_name,
-                    accept: @file_mime_types,
-                    required: @required,
-                    disabled: @disabled,
-                    name: @name,
-                    data: file_input_data,
-                    class: "decor:sr-only"
-                  )
+                file_field(
+                  @object_name, @method_name,
+                  accept: @file_mime_types,
+                  required: @required,
+                  disabled: @disabled,
+                  name: @name,
+                  data: file_input_data,
+                  class: "decor:sr-only"
                 )
               end
             end
@@ -419,10 +415,6 @@ module Decor
 
         def image_tag_classes
           "decor:h-full decor:object-cover decor:shrink-0 #{aspect_classes}"
-        end
-
-        def safe(str)
-          str.respond_to?(:html_safe) ? str.html_safe : str.to_s.html_safe
         end
       end
     end

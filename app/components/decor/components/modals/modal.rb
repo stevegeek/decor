@@ -16,6 +16,9 @@ module Decor
         SIZE_OPTIONS = %i[default wide extra_wide huge narrow].freeze
 
         # ── shared props ────────────────────────────────────────────────────
+        # `initial_content` is rendered raw HTML only when html_safe? — plain
+        # Strings are escaped to prevent XSS via controller params being piped
+        # straight into a modal body.
         prop :initial_content, _Nilable(String)
         prop :content_href, _Nilable(String)
         prop :start_shown, _Boolean, default: false

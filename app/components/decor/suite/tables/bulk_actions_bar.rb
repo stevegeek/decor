@@ -85,6 +85,7 @@ module Decor
             method: action_form_http_method(action),
             class: "decor:inline-block"
           ) do
+            render_csrf_token_field unless action.http_method == :get
             input(type: "hidden", name: "_method", value: action.http_method.to_s) if rails_method_field?(action)
             div(
               data: {
@@ -152,6 +153,7 @@ module Decor
                 class: "decor:hidden",
                 data: {**stimulus_target(:dropdown_form)}
               ) do
+                render_csrf_token_field unless action.http_method == :get
                 input(type: "hidden", name: "_method", value: action.http_method.to_s) if rails_method_field?(action)
                 input(type: "hidden", name: "action_name", value: action.name.to_s)
                 div(
@@ -175,6 +177,17 @@ module Decor
 
         def rails_method_field?(action)
           action.http_method && action.http_method != :get && action.http_method != :post
+        end
+
+        # Mirrors what Rails' `form_with` emits — Confinus's original
+        # bulk-actions implementation wrapped these forms in `form_with`,
+        # so the token was injected automatically. The Phlex-rendered form
+        # tag here bypasses that, so we inject the token manually.
+        def render_csrf_token_field
+          token = helpers.respond_to?(:form_authenticity_token) ? helpers.form_authenticity_token : nil
+          return if token.blank?
+          param = helpers.respond_to?(:request_forgery_protection_token) ? helpers.request_forgery_protection_token : "authenticity_token"
+          input(type: "hidden", name: param.to_s, value: token, autocomplete: "off")
         end
 
         def button_color(action)
