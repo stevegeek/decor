@@ -57,7 +57,9 @@ module Decor
 
         def chip_href
           uri = URI.parse(request.fullpath)
-          query = uri.query ? CGI.parse(uri.query) : {}
+          # CGI.parse was removed from Ruby's stdlib; use URI.decode_www_form
+          # and group repeated keys into arrays for the same shape.
+          query = uri.query ? URI.decode_www_form(uri.query).each_with_object({}) { |(k, v), h| (h[k] ||= []) << v } : {}
           # Remove pagination when changing filters
           query.delete("page")
           if value.present?
