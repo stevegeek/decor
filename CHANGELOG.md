@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.21.11
+
+### Stimulus identifier constants — JS single source of truth
+
+Adds named-constant exports for every `decor--<skin>--*` Stimulus
+controller identifier so consumer TypeScript / JavaScript no longer
+needs to hardcode the string literals.
+
+- New `app/javascript/decor/suite/identifiers.js` exports
+  `DecorSuite*Identifier` for every controller under
+  `app/javascript/controllers/decor/suite/**/*.js`.
+- New `app/javascript/decor/daisy/identifiers.js` exports the parallel
+  `DecorDaisy*Identifier` set.
+- New `app/javascript/decor/identifiers.js` re-exports both for
+  one-line consumer imports.
+
+Ruby callers already have `Class.stimulus_identifier` for the same
+purpose; this brings the JS side to parity.
+
 ## 0.21.1
 
 ### Suite::Modals::ModalTrigger — bundled trigger-plus-modal mode
