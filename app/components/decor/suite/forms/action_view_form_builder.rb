@@ -168,10 +168,17 @@ module Decor
         # renders a Suite SearchableSelect bound to the form field. Mirrors
         # the ConfinusUI builder method of the same name so callers don't
         # need rewriting.
+        #
+        # Optional `label_resolver:` (Proc) lets the caller compute the
+        # displayed label for the current value at render time — useful for
+        # search-URL-backed selects where `choices:` isn't supplied and the
+        # only thing the builder knows is an encoded_id. Resolver receives
+        # the current value and must return `{id:, label:}` or `nil`.
         def searchable_select(method, options = {})
           options = options.dup
           options[:name] ||= "#{object_name}[#{method}]"
-          options[:selected_item] ||= extract_selected_item(method, options.delete(:selected_item))
+          resolver = options.delete(:label_resolver)
+          options[:selected_item] ||= resolve_selected_item(method, options.delete(:selected_item), resolver)
           @template.render(::Decor::Suite::Forms::SearchableSelect.new(**options))
         end
 
@@ -185,14 +192,24 @@ module Decor
 
         private
 
-        # When the caller passes `selected_item:` explicitly use it; otherwise
-        # derive from the bound object's current value so the field shows the
-        # right label on re-render after a validation failure.
-        def extract_selected_item(method, explicit)
+        # Resolve `selected_item:` for the searchable_select(s):
+        #   1. caller-supplied `selected_item:` always wins
+        #   2. caller-supplied `label_resolver:` runs against current value
+        #   3. fall back to a bare `{id: current_value}` (no label)
+        # The bare-id fallback is enough for choices-backed selects (the
+        # component looks up label in its `choices` array client-side); for
+        # URL-backed selects without a resolver, the label will render blank
+        # until the user opens the dropdown.
+        def resolve_selected_item(method, explicit, resolver = nil)
           return explicit if explicit
           return nil unless @object.respond_to?(method)
           value = @object.public_send(method)
-          value.present? ? {id: value} : nil
+          return nil if value.blank?
+          if resolver
+            resolved = resolver.call(value)
+            return resolved if resolved
+          end
+          {id: value}
         end
 
         # Translate the legacy ConfinusUI button vocabulary
