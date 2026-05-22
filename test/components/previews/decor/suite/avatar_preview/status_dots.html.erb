@@ -1,0 +1,5 @@
+<div class="flex items-center gap-4 p-4">
+  <% %i[online away offline].each do |status| %>
+    <%= render ::Decor::Suite::Avatar.new(initials: "JG", status: status, size: :lg) %>
+  <% end %>
+</div>

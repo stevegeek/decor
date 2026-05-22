@@ -105,7 +105,6 @@ Navigation-focused components for building application layouts, sidebars, header
 - **Element**: Generic Stimulus wrapper
 - **SearchAndFilter**: Search and filter controls
 - **Chat components**: Chat message displays (List/ListMessage)
-- **FormattedEncodedId**: Display formatted IDs
 - **SwitchingBox**: State-switching containers
 
 ## Getting Started
@@ -114,17 +113,17 @@ Navigation-focused components for building application layouts, sidebars, header
 
 ```ruby
 # Simple button
-render Decor::Button.new(label: "Click Me", color: :primary)
+render Decor::Daisy::Button.new(label: "Click Me", color: :primary)
 
 # Form field
-render Decor::Forms::TextField.new(
+render Decor::Daisy::Forms::TextField.new(
   name: "email",
   label: "Email Address",
   required: true
 )
 
 # Navigation
-render Decor::Nav::SideNavbar.new do |navbar|
+render Decor::Daisy::Nav::SideNavbar.new do |navbar|
   navbar.with_section(title: "Main") do |section|
     section.with_item(title: "Dashboard", path: "/dashboard")
   end

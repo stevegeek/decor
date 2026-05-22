@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(dirname "$0")/.."
+
+# Regenerate controllers index first
+bin/stimulus-imports
+
+ROOT="$(pwd)"
+
+node_modules/.bin/esbuild \
+  app/javascript/decor/index.js \
+  --bundle \
+  --format=esm \
+  --sourcemap \
+  --target=es2022 \
+  --outfile=app/assets/builds/decor.js \
+  --external:@hotwired/stimulus \
+  --external:@hotwired/turbo \
+  --external:@floating-ui/dom \
+  --external:swiper \
+  --external:cally \
+  --external:tailwind-merge \
+  --external:@highlightjs/cdn-assets \
+  "--alias:controllers/decor/daisy/modals/modal_controller=${ROOT}/app/javascript/controllers/decor/daisy/modals/modal_controller.js" \
+  "--alias:controllers/decor/http=${ROOT}/app/javascript/controllers/decor/http.js" \
+  "--alias:controllers/decor=${ROOT}/app/javascript/controllers/decor.js"

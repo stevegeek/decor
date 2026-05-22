@@ -4,22 +4,18 @@ module Decor
   module Tables
     module Builder
       class Cell < ::Literal::Struct
-        # Properties unique to the builder
         prop :column, ::Decor::Tables::Builder::Column
         prop :data, _Nilable(_Any)
         prop :untransformed, _Nilable(_Any)
         prop :item_index, _Nilable(Integer)
 
-        # Component instance
-        prop :component, ::Decor::Tables::DataTableCell
+        prop :component, ::Decor::Daisy::Tables::DataTableCell
 
         def render_block
           column.cell_block
         end
 
-        # Initialize with component instance
         def self.new_with_component(column:, data:, untransformed:, item_index:, **cell_props)
-          # Merge column properties with cell-specific overrides
           component_props = {
             numeric: column.numeric,
             colspan: column.colspan,
@@ -31,7 +27,7 @@ module Decor
             **cell_props
           }.compact
 
-          component_instance = ::Decor::Tables::DataTableCell.new(**component_props)
+          component_instance = ::Decor::Daisy::Tables::DataTableCell.new(**component_props)
 
           new(
             column: column,

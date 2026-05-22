@@ -7,10 +7,9 @@ module Decor
         include TagWrapper
 
         def tag(_type, options)
-          @template_object.render ::Decor::Forms::TextField.new(**component_options(options))
+          @template_object.render ::Decor::Daisy::Forms::TextField.new(**component_options(options))
         end
 
-        # tag is called by `render` which is invoked by ActionView. It maps maxlength to size.
         def component_options(options)
           fix_size_option(options)
           merge_options({}, options, TagWrappers::TextField::TEXT_FIELD_ATTRS, {type: :password})

@@ -1,5 +1,6 @@
 ENV["RAILS_ENV"] ||= "test"
-require_relative "../config/environment"
+$LOAD_PATH.unshift File.expand_path(__dir__)
+require_relative "dummy/config/environment"
 require "rails/test_help"
 
 # Load test support files

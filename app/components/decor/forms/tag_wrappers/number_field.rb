@@ -6,10 +6,10 @@ module Decor
       class NumberField < ActionView::Helpers::Tags::TextField
         include TagWrapper
 
-        NUMBER_FIELD_ATTRS = ::Decor::Forms::NumberField.prop_names.map(&:to_s).freeze
+        NUMBER_FIELD_ATTRS = ::Decor::Daisy::Forms::NumberField.prop_names.map(&:to_s).freeze
 
         def tag(_type, options)
-          @template_object.render ::Decor::Forms::NumberField.new(**component_options(options))
+          @template_object.render ::Decor::Daisy::Forms::NumberField.new(**component_options(options))
         end
 
         private

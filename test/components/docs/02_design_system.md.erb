@@ -35,19 +35,19 @@ Decor uses daisyUI's semantic color palette that automatically adapts to light a
 
 ```ruby
 # Success notification
-render Decor::Notification.new(
+render Decor::Daisy::Notification.new(
   title: "Success!",
   color: :success
 )
 
 # Primary button
-render Decor::Button.new(
+render Decor::Daisy::Button.new(
   label: "Submit",
   color: :primary
 )
 
 # Error badge
-render Decor::Badge.new(
+render Decor::Daisy::Badge.new(
   label: "Error",
   color: :error
 )
@@ -126,10 +126,10 @@ Components are designed mobile-first with progressive enhancement. Many componen
 
 ```ruby
 # Tabs component automatically shows mobile select when > 3 tabs
-render Decor::Tabs.new(links: many_links)
+render Decor::Daisy::Tabs.new(links: many_links)
 
 # Progress component adapts sizing on mobile
-render Decor::Progress.new(size: :md) # Responsive sizing
+render Decor::Daisy::Progress.new(size: :md) # Responsive sizing
 ```
 
 ## Accessibility

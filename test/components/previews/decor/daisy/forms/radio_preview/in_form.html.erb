@@ -1,0 +1,16 @@
+<%= render ::Decor::Daisy::Forms::Form.new(model: model, url: "#", local: true) do |form_component| %>
+  <%= render ::Decor::Daisy::Forms::LayoutContainer.new do |container| %>
+    <%= render ::Decor::Daisy::Forms::LayoutSection.new(title: "Radio", stacked: stacked_form) do %>
+      <%= form_component.builder.radio_button :chosen,
+                         "true",
+                         label: "One",
+                         description: "Description for one" %>
+      <%= form_component.builder.radio_button :chosen,
+                         "true",
+                         label: "Two" %>
+    <% end %>
+    <% container.with_buttons do %>
+      <%= form_component.builder.submit %>
+    <% end %>
+  <% end %>
+<% end %>

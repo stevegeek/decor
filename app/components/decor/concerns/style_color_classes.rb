@@ -20,37 +20,36 @@ module Decor
         end
       end
 
-      # Helper methods for common color patterns
       def filled_color_classes(color = @color)
         return nil unless valid_color?(color)
 
         case color
-        when :base then "bg-base-100 text-base-content"
-        when :primary then "bg-primary text-primary-content"
-        when :secondary then "bg-secondary text-secondary-content"
-        when :accent then "bg-accent text-accent-content"
-        when :success then "bg-success text-success-content"
-        when :error then "bg-error text-error-content"
-        when :warning then "bg-warning text-warning-content"
-        when :info then "bg-info text-info-content"
-        when :neutral then "bg-neutral text-neutral-content"
+        when :base then "decor:bg-base-100 decor:text-base-content"
+        when :primary then "decor:bg-primary decor:text-primary-content"
+        when :secondary then "decor:bg-secondary decor:text-secondary-content"
+        when :accent then "decor:bg-accent decor:text-accent-content"
+        when :success then "decor:bg-success decor:text-success-content"
+        when :error then "decor:bg-error decor:text-error-content"
+        when :warning then "decor:bg-warning decor:text-warning-content"
+        when :info then "decor:bg-info decor:text-info-content"
+        when :neutral then "decor:bg-neutral decor:text-neutral-content"
         end
       end
 
       def outline_color_classes(color = @color)
         return nil unless valid_color?(color)
 
-        classes = "border-2 box-border"
+        classes = "decor:border-2 decor:box-border"
         colors = case color
-        when :base then "border-base-300 text-base-content"
-        when :primary then "border-primary text-primary"
-        when :secondary then "border-secondary text-secondary"
-        when :accent then "border-accent text-accent"
-        when :success then "border-success text-success"
-        when :error then "border-error text-error"
-        when :warning then "border-warning text-warning"
-        when :info then "border-info text-info"
-        when :neutral then "border-neutral text-neutral"
+        when :base then "decor:border-base-300 decor:text-base-content"
+        when :primary then "decor:border-primary decor:text-primary"
+        when :secondary then "decor:border-secondary decor:text-secondary"
+        when :accent then "decor:border-accent decor:text-accent"
+        when :success then "decor:border-success decor:text-success"
+        when :error then "decor:border-error decor:text-error"
+        when :warning then "decor:border-warning decor:text-warning"
+        when :info then "decor:border-info decor:text-info"
+        when :neutral then "decor:border-neutral decor:text-neutral"
         end
         "#{classes} #{colors}"
       end
@@ -59,15 +58,15 @@ module Decor
         return nil unless valid_color?(color)
 
         case color
-        when :base then "text-base-content hover:bg-base-200"
-        when :primary then "text-primary hover:bg-primary/10"
-        when :secondary then "text-secondary hover:bg-secondary/10"
-        when :accent then "text-accent hover:bg-accent/10"
-        when :success then "text-success hover:bg-success/10"
-        when :error then "text-error hover:bg-error/10"
-        when :warning then "text-warning hover:bg-warning/10"
-        when :info then "text-info hover:bg-info/10"
-        when :neutral then "text-neutral hover:bg-neutral/10"
+        when :base then "decor:text-base-content decor:hover:bg-base-200"
+        when :primary then "decor:text-primary decor:hover:bg-primary/10"
+        when :secondary then "decor:text-secondary decor:hover:bg-secondary/10"
+        when :accent then "decor:text-accent decor:hover:bg-accent/10"
+        when :success then "decor:text-success decor:hover:bg-success/10"
+        when :error then "decor:text-error decor:hover:bg-error/10"
+        when :warning then "decor:text-warning decor:hover:bg-warning/10"
+        when :info then "decor:text-info decor:hover:bg-info/10"
+        when :neutral then "decor:text-neutral decor:hover:bg-neutral/10"
         end
       end
     end

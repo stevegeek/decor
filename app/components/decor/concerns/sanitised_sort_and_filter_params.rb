@@ -31,7 +31,6 @@ module Decor
         end
       end
 
-      # Can be overridden
       def default_sort_direction
         :asc
       end

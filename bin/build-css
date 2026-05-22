@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(dirname "$0")/.."
+exec node_modules/.bin/tailwindcss \
+  -i app/assets/tailwind/decor.css \
+  -o app/assets/builds/decor.css \
+  --minify

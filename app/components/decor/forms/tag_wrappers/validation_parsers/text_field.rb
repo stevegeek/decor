@@ -2,8 +2,6 @@
 
 module Decor
   module Forms
-    # Maps a set of validation properties from the intermediate format from the ValidationMapper to attributes
-    # that can be assigned on the TextField component
     module TagWrappers
       module ValidationParsers
         class TextField < Base

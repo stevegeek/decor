@@ -7,7 +7,7 @@ module Decor
         include TagWrapper
 
         def tag(_type, options)
-          @template_object.render ::Decor::Forms::TextField.new(**component_options(options))
+          @template_object.render ::Decor::Daisy::Forms::TextField.new(**component_options(options))
         end
 
         def component_options(options)

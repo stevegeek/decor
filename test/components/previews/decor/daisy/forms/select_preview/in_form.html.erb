@@ -1,0 +1,20 @@
+<%= render ::Decor::Daisy::Forms::Form.new(model: model, url: "#", local: true) do |form_component| %>
+  <%= render ::Decor::Daisy::Forms::LayoutContainer.new do |container| %>
+    <%= render ::Decor::Daisy::Forms::LayoutSection.new(title: "Select", stacked: stacked_form) do %>
+      <%= form_component.builder.select :country,
+                   options[:options_array],
+                   {
+                     disabled_options: options[:disabled_options],
+                     label: label,
+                     description: description,
+                     show_label: show_label,
+                     required: required,
+                     helper_text: helper_text,
+                     selected_option: options[:selected_option]
+                   } %>
+    <% end %>
+    <% container.with_buttons do %>
+      <%= form_component.builder.submit "Submit" %>
+    <% end %>
+  <% end %>
+<% end %>

@@ -29,8 +29,6 @@ module Decor
         end
       end
 
-      # Below are all the form helper methods that are custom or overridden
-
       def collection_radio_buttons(
         method,
         collection,
@@ -89,7 +87,7 @@ module Decor
           end
         head, *tail = elements
         boxes = tail.inject(head) { |e, m| m.concat(e) }
-        component = ::Decor::Forms::ExpandingCheckboxCollection.new(
+        component = ::Decor::Daisy::Forms::ExpandingCheckboxCollection.new(
           **options.merge(name: "checkbox-collection-#{method}", size: collection.size)
         )
         component.instance_variable_set(:@checkboxes, boxes)
@@ -112,7 +110,7 @@ module Decor
       def avatar_upload(method, options = {})
         # If image upload used in forms, then form must be mutlipart: true
         self.multipart = true
-        @template.render ::Decor::Forms::FileUpload.new(
+        @template.render ::Decor::Daisy::Forms::FileUpload.new(
           preview_type: :avatar,
           max_size_in_mb: 1,
           aspect_w: 1,
@@ -130,7 +128,7 @@ module Decor
       def image_upload(method, options = {})
         # If image upload used in forms, then form must be mutlipart: true
         self.multipart = true
-        @template.render ::Decor::Forms::FileUpload.new(
+        @template.render ::Decor::Daisy::Forms::FileUpload.new(
           preview_type: :image,
           name: field_name(object_name, method),
           object: @object,
@@ -142,7 +140,7 @@ module Decor
 
       def file_field(method, options = {})
         self.multipart = true
-        @template.render ::Decor::Forms::FileUpload.new(
+        @template.render ::Decor::Daisy::Forms::FileUpload.new(
           name: field_name(object_name, method),
           object: @object,
           object_name: object_name,
@@ -156,7 +154,7 @@ module Decor
         options[:include_blank] ||=
           "Please search for and select #{options[:multiple] ? "some options" : "an option"}..."
         @template.render(
-          ::Decor::Forms::FormFieldLayout.new(
+          ::Decor::Daisy::Forms::FormFieldLayout.new(
             field_id: field_id_generator(options, "form_field_select_with_search"),
             **options
           )
@@ -238,7 +236,7 @@ module Decor
         options[:html_options][:class] ||= ""
         options[:html_options][:class] += " pb-6"
         @template.render(
-          ::Decor::Forms::FormFieldLayout.new(
+          ::Decor::Daisy::Forms::FormFieldLayout.new(
             field_id: field_id_generator(options, "form_field_tags"),
             **options
           )
@@ -268,7 +266,7 @@ module Decor
         options[:html_options][:class] ||= ""
         options[:html_options][:class] += " w-full col-span-6"
         @template.render(
-          ::Decor::Forms::FormFieldLayout.new(
+          ::Decor::Daisy::Forms::FormFieldLayout.new(
             field_id: field_id_generator(options, "form_field_rich_text_area"),
             **options
           )
@@ -306,7 +304,7 @@ module Decor
 
       def button(value = nil, options = {}, &)
         options[:label] = value if value
-        @template.render(::Decor::Button.new({view_context: @template}.merge(options)), &)
+        @template.render(::Decor::Daisy::Button.new(**options), &)
       end
 
       def button_link_to(value, path, options = {}, &block)
@@ -315,7 +313,7 @@ module Decor
 
         path = url_for(path) if path.is_a? Hash
         options[:label] = value if value && !block
-        @template.render(::Decor::ButtonLink.new(href: path, http_method: options[:method], **options), &block)
+        @template.render(::Decor::Daisy::ButtonLink.new(href: path, http_method: options[:method], **options), &block)
       end
 
       def button_radio_group(method, choices, options = {}, html_options = {}, &block)
@@ -339,7 +337,7 @@ module Decor
         html_options = options.fetch(:html_options, {})
         options[:html_options] = {type: :submit, name: "commit", value: label || submit_default_value}.merge(html_options)
         options[:id] ||= field_id_generator(options, "submit")
-        @template.render(::Decor::Button.new(label: label || "Submit", **options), &)
+        @template.render(::Decor::Daisy::Button.new(label: label || "Submit", **options), &)
       end
 
       private
@@ -363,14 +361,12 @@ module Decor
       def create_tag(klass, method, options, &block)
         @template.capture(&block) if block
 
-        # Here the `render` method is the one on ActionView::Helpers::Tags::TextField and so on
         klass.new(object_name, method, @template, objectify_options(options)).render
       end
 
       def create_tag_with_value(klass, method, options, tag_value, &block)
         @template.capture(&block) if block
 
-        # Here the `render` method is the one on ActionView::Helpers::Tags::TextField and so on
         klass.new(object_name, method, @template, tag_value, objectify_options(options)).render
       end
 

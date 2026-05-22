@@ -1,0 +1,46 @@
+# frozen_string_literal: true
+
+module Decor
+  module Components
+    module Forms
+      class Switch < ::Decor::Components::Forms::FormField
+        include ::Decor::Forms::Concerns::CheckableFormField
+
+        prop :label_position, _Union(:top, :left, :right, :inline, :inside), default: :right
+
+        prop :submit_on_change, _Boolean, default: false
+        prop :confirm_on_submit, _Nilable(_String(&:present?))
+        prop :confirm_on_submit_yes, _Nilable(_String(&:present?)), default: "Yes, continue"
+        prop :confirm_on_submit_no, _Nilable(_String(&:present?)), default: "Cancel"
+
+        stimulus do
+          actions [:change, :handle_change]
+          values_from_props :label,
+            :submit_on_change
+          values confirm_on_submit: -> { @confirm_on_submit.present? ? @confirm_on_submit : nil },
+            confirm_on_submit_yes: -> { @confirm_on_submit.present? ? @confirm_on_submit_yes : nil },
+            confirm_on_submit_no: -> { @confirm_on_submit.present? ? @confirm_on_submit_no : nil }
+        end
+
+        private
+
+        def html_attributes
+          attrs = {
+            role: "switch",
+            id: "#{id}-control",
+            name: @name,
+            value: @value
+          }
+          attrs[:checked] = true if @checked
+          attrs[:required] = true if required_individual?
+          attrs[:disabled] = true if @disabled
+          attrs
+        end
+
+        def confirm_on_submit?
+          @confirm_on_submit.present?
+        end
+      end
+    end
+  end
+end

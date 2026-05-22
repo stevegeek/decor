@@ -1,0 +1,5 @@
+<div class="flex items-end gap-4 p-4">
+  <% %i[xs sm md lg xl].each do |size| %>
+    <%= render ::Decor::Suite::Avatar.new(initials: "JG", size: size) %>
+  <% end %>
+</div>

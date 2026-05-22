@@ -6,10 +6,10 @@ module Decor
       class TextArea < ActionView::Helpers::Tags::TextArea
         include TagWrapper
 
-        TEXT_FIELD_ATTRS = ::Decor::Forms::TextArea.prop_names.map(&:to_s).freeze
+        TEXT_FIELD_ATTRS = ::Decor::Daisy::Forms::TextArea.prop_names.map(&:to_s).freeze
 
         def content_tag(_type, value, options)
-          @template_object.render ::Decor::Forms::TextArea.new(**component_options(options))
+          @template_object.render ::Decor::Daisy::Forms::TextArea.new(**component_options(options))
         end
 
         def component_options(options)

@@ -13,10 +13,8 @@ module Decor
           config.default_style = style
         end
 
-        # DSL method to redefine styles for a component
         def redefine_styles(*new_styles)
           config.styles = new_styles
-          # Redefine the style prop with the new styles
           prop :style, _Nilable(_Union(*new_styles)), default: -> { config.default_style }
         end
       end
@@ -28,21 +26,18 @@ module Decor
         end
       end
 
-      # Main method that handles common style logic and delegates to component-specific implementation
       def style_classes(style = @style)
         return nil unless style
 
         return nil unless valid_style?(style)
 
-        # Delegate to component-specific implementation
         component_style_classes(style)
       end
 
-      # Components should override this method to provide their specific style classes
+      # Override to provide component-specific style classes.
       def component_style_classes(style)
       end
 
-      # Check if style is valid
       def valid_style?(style)
         self.class.styles.include?(style)
       end

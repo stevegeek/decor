@@ -2,8 +2,7 @@
 
 module Decor
   module Forms
-    # Maps ActiveModel or ActiveRecord validations from the given model/AM instance to an intermediate representation which
-    # will then be used to map to View Component attributes. Note currently only a few validations are mapped
+    # Note: only a subset of ActiveModel/ActiveRecord validations are mapped.
     module TagWrappers
       class ValidationMapping
         MAPPINGS =

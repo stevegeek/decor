@@ -9,15 +9,11 @@ module Decor
         include Phlex::Rails::Helpers::Request
         include Phlex::Rails::Helpers::URLFor
 
-        # The name of the query params used for the pagination options
         prop :page_parameter_name, Symbol, default: :page
         prop :page_size_parameter_name, Symbol, default: :page_size
 
-        # Current page number
         prop :current_page, _Nilable(Integer)
-        # You can optionally pass the paging size
         prop :page_size, _Nilable(Integer)
-        # An array of page sizes that are normal options
         prop :custom_page_sizes, _Nilable(_Array(Integer))
       end
 
@@ -34,8 +30,16 @@ module Decor
         @page_size || default_page_size
       end
 
+      # Override `max_page_size` in subclasses to cap the available page sizes.
+      # `standard_page_sizes` filters its results to <= max_page_size so the
+      # rendered selector and the size clamp stay in sync.
       def standard_page_sizes
-        @custom_page_sizes.presence || [5, 10, 20, 50, 100, 200]
+        sizes = @custom_page_sizes.presence || [5, 10, 20, 50, 100, 200]
+        sizes.select { |size| size <= max_page_size }
+      end
+
+      def max_page_size
+        200
       end
 
       def default_page_size

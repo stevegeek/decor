@@ -6,8 +6,6 @@ class Decor::Forms::ActionViewFormBuilderTest < ActiveSupport::TestCase
     @fake_class = Class.new(ActionView::Base).with_empty_template_cache
     stub_const "FormBuilderTestFakeView", @fake_class
 
-    # https://stackoverflow.com/questions/19628063/testing-a-rails-formbuilder-extension
-    # https://stackoverflow.com/questions/5791211/how-do-i-extract-rails-view-helpers-into-a-gem
     @form = ExampleForm.factory_one
     @view = FormBuilderTestFakeView.new(
       ActionView::LookupContext.new(""),
@@ -24,17 +22,14 @@ class Decor::Forms::ActionViewFormBuilderTest < ActiveSupport::TestCase
   TestCountry = Struct.new(:country, :cities)
 
   test "collection_radio_buttons performs valid calls to TagWrappers::RadioButton" do
-    # Create test objects with proper methods
     us_option = Struct.new(:text, :value).new("United States", "US")
     ca_option = Struct.new(:text, :value).new("Canada", "CA")
     collection = [us_option, ca_option]
 
-    # Mock instance that will be returned
     mock_radio_button = Minitest::Mock.new
     mock_radio_button.expect :render, "radio_button_"
     mock_radio_button.expect :render, "radio_button_"
 
-    # Stub the constructor to return our mock instance
     result = nil
     Decor::Forms::TagWrappers::RadioButton.stub :new, mock_radio_button do
       result = @builder.collection_radio_buttons :a_radio_option, collection, :value, :text, label: "Radio Collection"
@@ -208,6 +203,11 @@ class Decor::Forms::ActionViewFormBuilderTest < ActiveSupport::TestCase
     assert_match(/<input.*type="text"/m, html)
   end
 
+  test "text_field passes through user-supplied type (e.g. :search)" do
+    html = @builder.text_field :a_string, type: :search
+    assert_match(/<input.*type="search"/m, html)
+  end
+
   test "text_area generates html" do
     html = @builder.text_area :a_long_string
     assert_match(/<textarea.*name="form\[a_long_string\]"/m, html)
@@ -233,6 +233,11 @@ class Decor::Forms::ActionViewFormBuilderTest < ActiveSupport::TestCase
     assert_includes html, "type=\"submit\""
   end
 
+  test "button forwards options to Decor::Daisy::Button as kwargs" do
+    html = @builder.button "Save", size: :lg, classes: "edit-btn"
+    assert_includes html, "edit-btn"
+  end
+
   private
 
   def stub_const(const_name, value)
@@ -242,6 +247,5 @@ class Decor::Forms::ActionViewFormBuilderTest < ActiveSupport::TestCase
     end
     Object.const_set(const_name, value)
 
-    # This will be cleaned up in teardown if needed
   end
 end

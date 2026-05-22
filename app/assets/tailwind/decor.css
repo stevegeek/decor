@@ -1,0 +1,499 @@
+@import "tailwindcss" prefix(decor);
+@plugin "daisyui" {
+  prefix: "d-";
+}
+
+@source "../../components/decor";
+@source "../../helpers/decor";
+@source "../stylesheets/decor";
+@source "../../javascript/controllers/decor";
+@source "../../../test/components/previews";
+
+/* Optional for custom themes – Docs: https://daisyui.com/docs/themes/#how-to-add-a-new-custom-theme */
+@plugin "daisyui/theme" {
+  name: "decor-dark";
+  default: false;
+  prefersdark: true;
+  color-scheme: "dark";
+  --color-base-100: oklch(44% 0.043 257.281);
+  --color-base-200: oklch(27% 0.041 260.031);
+  --color-base-300: oklch(20% 0.042 265.755);
+  --color-base-content: oklch(96% 0.003 264.542);
+  --color-primary: oklch(41.703% 0.099 251.473);
+  --color-primary-content: oklch(88.34% 0.019 251.473);
+  --color-secondary: oklch(64.092% 0.027 229.389);
+  --color-secondary-content: oklch(12.818% 0.005 229.389);
+  --color-accent: oklch(67.271% 0.167 35.791);
+  --color-accent-content: oklch(13.454% 0.033 35.791);
+  --color-neutral: oklch(27.441% 0.013 253.041);
+  --color-neutral-content: oklch(85.488% 0.002 253.041);
+  --color-info: oklch(62.616% 0.143 240.033);
+  --color-info-content: oklch(12.523% 0.028 240.033);
+  --color-success: oklch(70.226% 0.094 156.596);
+  --color-success-content: oklch(14.045% 0.018 156.596);
+  --color-warning: oklch(77.482% 0.115 81.519);
+  --color-warning-content: oklch(15.496% 0.023 81.519);
+  --color-error: oklch(63% 0.237 25.331);
+  --color-error-content: oklch(93% 0.032 17.717);
+  --radius-selector: 0.25rem;
+  --radius-field: 0.25rem;
+  --radius-box: 0.25rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+@plugin "daisyui/theme" {
+  name: "decor-light";
+  default: true;
+  prefersdark: false;
+  color-scheme: "light";
+  --color-base-100: oklch(97.788% 0.004 56.375);
+  --color-base-200: oklch(93.982% 0.007 61.449);
+  --color-base-300: oklch(91.586% 0.006 53.44);
+  --color-base-content: oklch(23.574% 0.066 313.189);
+  --color-primary: oklch(70% 0.165 254.624);
+  --color-primary-content: oklch(28% 0.091 267.935);
+  --color-secondary: oklch(89% 0.061 343.231);
+  --color-secondary-content: oklch(45% 0.187 3.815);
+  --color-accent: oklch(90% 0.076 70.697);
+  --color-accent-content: oklch(47% 0.157 37.304);
+  --color-neutral: oklch(27% 0.006 286.033);
+  --color-neutral-content: oklch(92% 0.004 286.32);
+  --color-info: oklch(68% 0.169 237.323);
+  --color-info-content: oklch(29% 0.066 243.157);
+  --color-success: oklch(69% 0.17 162.48);
+  --color-success-content: oklch(26% 0.051 172.552);
+  --color-warning: oklch(79% 0.184 86.047);
+  --color-warning-content: oklch(28% 0.066 53.813);
+  --color-error: oklch(64% 0.246 16.439);
+  --color-error-content: oklch(27% 0.105 12.094);
+  --radius-selector: 0.25rem;
+  --radius-field: 0.25rem;
+  --radius-box: 0.25rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+@theme {
+  --text-2xs: 0.6rem;
+  --radius-card: 10px;
+
+  /* ──────────────────────────────────────────────────────────────────────
+   * SUITE skin design tokens
+   * ----------------------------------------------------------------------
+   * These tokens encode the Suite visual identity. They are NOT meant for
+   * Daisy skin or generic Decor usage — Suite components reference them
+   * via the standard `decor:` Tailwind prefix (e.g. `decor:text-suite-
+   * success-700`, `decor:rounded-suite-card`).
+   * ──────────────────────────────────────────────────────────────────── */
+
+  /* Primary (blue) */
+  --color-suite-primary-50:  #eef4fb;
+  --color-suite-primary-100: #dbe8f6;
+  --color-suite-primary-200: #b8d2ec;
+  --color-suite-primary-300: #8db6df;
+  --color-suite-primary-400: #5a93cf;
+  --color-suite-primary-500: #2e74bd;
+  --color-suite-primary-600: #1f5fa6;
+  --color-suite-primary-700: #194e89;
+  --color-suite-primary-800: #143f6f;
+  --color-suite-primary-900: #0f2f54;
+
+  /* Success (green) */
+  --color-suite-success-50:  #ebfaf5;
+  --color-suite-success-100: #d2f4e4;
+  --color-suite-success-500: #11a87a;
+  --color-suite-success-600: #0d8b65;
+  --color-suite-success-700: #0a6d50;
+
+  /* Danger / Error (red) */
+  --color-suite-danger-50:  #fdecec;
+  --color-suite-danger-100: #fad6d6;
+  --color-suite-danger-500: #d94747;
+  --color-suite-danger-600: #b83838;
+  --color-suite-danger-700: #9f2c2c;
+
+  /* Warning (amber) */
+  --color-suite-warning-50:  #fef7e6;
+  --color-suite-warning-100: #fdecc4;
+  --color-suite-warning-500: #d99b00;
+  --color-suite-warning-600: #b07d00;
+  --color-suite-warning-700: #8f5a00;
+
+  /* Hairlines */
+  --color-suite-hairline:        rgba(20, 24, 31, 0.08);
+  --color-suite-hairline-strong: rgba(20, 24, 31, 0.12);
+
+  /* Body surface tints */
+  --color-suite-gray-25: #fafafa;
+
+  /* Radius */
+  --radius-suite-card:    10px;
+  --radius-suite-control: 6px;
+
+  /* Motion */
+  --duration-suite-fast: 120ms;
+  --duration-suite-base: 200ms;
+
+}
+
+/* Suite density tokens (compact = default). Defined OUTSIDE @theme so the
+   var names remain unprefixed and resolve from the @utility suite-input-base
+   etc. blocks below, which also use the unprefixed names. (Vars inside @theme
+   get auto-prefixed with --decor-, which would break the lookup chain.)
+   Override on body.density-relaxed to bump for users who opt into relaxed
+   spacing. */
+:root {
+  --suite-input-pad-y: 5px;
+  --suite-input-pad-x: 9px;
+  --suite-input-font: 12px;
+  --suite-label-font: 11.5px;
+  --suite-help-font: 11px;
+  --suite-field-gap: 3px;
+  --suite-section-pad-y: 18px;
+  --suite-section-pad-x: 22px;
+  --suite-section-gap: 14px;
+  --suite-grid-gap-y: 10px;
+  --suite-grid-gap-x: 20px;
+  --suite-section-title-font: 13px;
+  --suite-row-min-h: 30px;
+}
+
+/* Host opt-in: <body class="density-relaxed"> bumps the density vars. */
+body.density-relaxed {
+  --suite-input-pad-y: 8px;
+  --suite-input-pad-x: 12px;
+  --suite-input-font: 13px;
+  --suite-label-font: 12.5px;
+  --suite-help-font: 11.5px;
+  --suite-field-gap: 6px;
+  --suite-section-pad-y: 28px;
+  --suite-section-pad-x: 28px;
+  --suite-section-gap: 22px;
+  --suite-grid-gap-y: 18px;
+  --suite-grid-gap-x: 24px;
+  --suite-section-title-font: 14px;
+  --suite-row-min-h: 40px;
+}
+
+@utility rounded-card {
+  border-radius: var(--decor-radius-card);
+}
+
+/* ──────────────────────────────────────────────────────────────────────
+ * Suite skin shape/motion utilities — token aliases.
+ * ──────────────────────────────────────────────────────────────────── */
+
+@utility rounded-suite-card {
+  border-radius: var(--decor-radius-suite-card);
+}
+
+@utility rounded-suite-control {
+  border-radius: var(--decor-radius-suite-control);
+}
+
+@utility duration-suite-fast {
+  transition-duration: var(--decor-duration-suite-fast);
+}
+
+@utility duration-suite-base {
+  transition-duration: var(--decor-duration-suite-base);
+}
+
+/* ──────────────────────────────────────────────────────────────────────
+ * Suite skin typography utilities.
+ * ──────────────────────────────────────────────────────────────────── */
+
+/* Typography utilities encode size + weight + leading + letter-spacing ONLY.
+   Color is the caller's responsibility (via `text-suite-{color}-700` etc.) —
+   keeping these utilities color-free prevents a baked-in `color:` from over-
+   riding the variant text color via CSS cascade order. */
+
+@utility suite-section-title {
+  /* Panel, card, modal, form section headings */
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 600;
+  line-height: 1.5; /* leading-6 */
+  letter-spacing: -0.005em;
+}
+
+@utility suite-subsection-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+@utility suite-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+@utility suite-body {
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+@utility suite-dense-body {
+  /* Compact admin contexts: dense table rows, button labels, panel body */
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+@utility suite-description {
+  /* Helper text, secondary info, muted content. Size only — caller sets color. */
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+@utility suite-caption {
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* ──────────────────────────────────────────────────────────────────────
+ * Suite density-aware utilities — consume the --suite-* vars above so
+ * a `body.density-relaxed` flip recomputes padding/font-size/gaps at
+ * runtime. Callers use `decor:suite-input-base`, `decor:suite-field-
+ * label`, etc.
+ * ──────────────────────────────────────────────────────────────────── */
+
+@utility suite-input-base {
+  padding: var(--suite-input-pad-y) var(--suite-input-pad-x);
+  font-size: var(--suite-input-font);
+  line-height: 1.4;
+}
+
+@utility suite-field-label {
+  font-size: var(--suite-label-font);
+  font-weight: 500;
+}
+
+@utility suite-field-help {
+  font-size: var(--suite-help-font);
+  margin-top: 2px;
+  line-height: 1.5;
+}
+
+@utility suite-field-gap {
+  gap: var(--suite-field-gap);
+}
+
+@utility suite-section-pad {
+  padding: var(--suite-section-pad-y) var(--suite-section-pad-x);
+}
+
+@utility suite-section-title-d {
+  font-size: var(--suite-section-title-font);
+}
+
+@utility suite-grid-gap {
+  row-gap: var(--suite-grid-gap-y);
+  column-gap: var(--suite-grid-gap-x);
+}
+
+@utility suite-section-gap {
+  gap: var(--suite-section-gap);
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+.decor--tables--data-table-cell {
+  td > a:not(.cell-row-link-overlay) {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+@keyframes fadeInOpacity {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.decor--tables--data-table {
+  .inset-scroll-shadow {
+    &-not-at-right:after,
+    &-not-at-left:before {
+      content: "";
+      height: 100%;
+      width: 30px;
+      top: 0;
+      position: absolute;
+      opacity: 1;
+      animation-name: fadeInOpacity;
+      animation-iteration-count: 1;
+      animation-timing-function: ease-in;
+      animation-duration: 0.2s;
+    }
+
+    &-not-at-right:after {
+      right: 0;
+      border-top: 1px solid;
+      border-image: linear-gradient(
+              to right,
+              rgba(50, 50, 50, 0),
+              rgba(50, 50, 50, 0.2)
+      )
+      1;
+      background: linear-gradient(
+              to right,
+              rgba(0, 0, 0, 0) 0%,
+              rgba(0, 0, 0, 0) 50%,
+              rgba(0, 0, 0, 0.2) 100%
+      );
+    }
+
+    &-not-at-left:before {
+      left: 0;
+      border-top: 1px solid;
+      border-image: linear-gradient(
+              to right,
+              rgba(50, 50, 50, 0.2),
+              rgba(50, 50, 50, 0)
+      )
+      1;
+      background: linear-gradient(
+              to right,
+              rgba(0, 0, 0, 0.2) 0%,
+              rgba(0, 0, 0, 0) 50%,
+              rgba(0, 0, 0, 0) 100%
+      );
+    }
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────────────
+ * Suite skin shadow + popover utilities.
+ *
+ * Only three things live here, each for a reason Tailwind utilities cannot
+ * express:
+ *   1. Anchor positioning: position-anchor, anchor(bottom/left/right),
+ *      position-try-fallbacks.
+ *   2. Enter/leave animation: @starting-style + transition-behavior:
+ *      allow-discrete (the popover overlay/display transition).
+ *   3. prefers-reduced-motion override co-located with animation rules.
+ *
+ * All card chrome (bg, border, rounded, padding, min-w) lives on Tailwind
+ * utility classes on the Phlex component (dropdown.rb).
+ * ──────────────────────────────────────────────────────────────────── */
+
+@utility shadow-suite-popover {
+  box-shadow:
+    0 8px 24px -8px rgba(20, 24, 31, 0.12),
+    0 2px 6px -2px rgba(20, 24, 31, 0.06);
+}
+
+/* Force [hidden] descendants of the menu to disappear even with Tailwind
+   display utilities present. */
+.decor--suite--dropdown-menu [hidden] {
+  display: none !important;
+}
+
+/* ──────────────────────────────────────────────────────────────────────
+ * Suite Tabs scroll-shadow fades.
+ *
+ * When the segmented strip overflows horizontally, JS toggles
+ * `inset-scroll-shadow-not-at-{left,right}` on the strip wrapper. These
+ * pseudo-elements paint a gradient fade on the appropriate edge so the
+ * overflow is discoverable. No top "cliff" line — that effect is reserved
+ * for the data table.
+ * ──────────────────────────────────────────────────────────────────── */
+
+.decor--suite--tabs__strip-wrapper {
+  &.inset-scroll-shadow-not-at-right:after,
+  &.inset-scroll-shadow-not-at-left:before {
+    content: "";
+    height: 100%;
+    width: 30px;
+    top: 0;
+    position: absolute;
+    opacity: 1;
+    z-index: 10;
+    pointer-events: none;
+    animation-name: fadeInOpacity;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-duration: 0.2s;
+  }
+
+  &.inset-scroll-shadow-not-at-right:after {
+    right: 0;
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0) 50%,
+      rgba(0, 0, 0, 0.2) 100%
+    );
+  }
+
+  &.inset-scroll-shadow-not-at-left:before {
+    left: 0;
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.2) 0%,
+      rgba(0, 0, 0, 0) 50%,
+      rgba(0, 0, 0, 0) 100%
+    );
+  }
+}
+
+/* Anchor-positioned popover menu */
+.decor--suite--dropdown-menu {
+  position: fixed;
+  /* Override the popover UA default inset:0 — otherwise leftover right:0/
+     bottom:0 stretch the menu from the anchored edge to the viewport edge. */
+  inset: auto;
+  position-anchor: var(--decor-suite-dropdown-anchor);
+  margin-top: 4px;
+  position-try-fallbacks: flip-block, flip-inline;
+}
+
+.decor--suite--dropdown-menu[data-position="aligned_to_left"] {
+  top: anchor(bottom);
+  left: anchor(left);
+}
+
+.decor--suite--dropdown-menu[data-position="aligned_to_right"] {
+  top: anchor(bottom);
+  right: anchor(right);
+}
+
+/* Enter / leave animation via the popover overlay transition */
+[popover].decor--suite--dropdown-menu {
+  transition:
+    opacity 100ms ease-out,
+    transform 100ms ease-out,
+    overlay 100ms allow-discrete,
+    display 100ms allow-discrete;
+  opacity: 1;
+  transform: scale(1);
+}
+
+[popover].decor--suite--dropdown-menu:not(:popover-open) {
+  opacity: 0;
+  transform: scale(0.97);
+}
+
+@starting-style {
+  [popover].decor--suite--dropdown-menu:popover-open {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [popover].decor--suite--dropdown-menu {
+    transition: none;
+  }
+}

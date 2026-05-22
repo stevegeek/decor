@@ -1,0 +1,45 @@
+<div class="p-8">
+  <!-- Open button -->
+  <%= render ::Decor::Daisy::Modals::ModalOpenButton.new(
+    modal_id: "complete-modal",
+    label: "Launch Complete Modal Example",
+    color: :primary,
+    size: :medium
+  ) %>
+  
+  <!-- Modal -->
+  <%= render ::Decor::Daisy::Modals::Modal.new(
+    id: "complete-modal"
+  ) do %>
+    <%= render ::Decor::Daisy::Modals::ModalLayout.new(
+      icon: "info-circle",
+      title: "Complete Modal Example",
+      description: "This demonstrates a full modal implementation with open/close buttons and structured layout.",
+      color: :info,
+      size: :md
+    ) do %>
+      <div class="py-4">
+        <p class="text-sm opacity-75 mb-4">
+          This modal showcases all the key components working together:
+        </p>
+        <ul class="list-disc list-inside space-y-2 text-sm opacity-75">
+          <li>ModalOpenButton to trigger the modal</li>
+          <li>Modal container for the overlay and positioning</li>
+          <li>ModalLayout for structured content presentation</li>
+          <li>ModalCloseButton for dismissing the modal</li>
+        </ul>
+      </div>
+      
+      <div class="flex gap-3 justify-end mt-6">
+        <%= render ::Decor::Daisy::Modals::ModalCloseButton.new(
+          label: "Cancel",
+          style: :ghost
+        ) %>
+        <%= render ::Decor::Daisy::Button.new(
+          label: "Got it!",
+          color: :info
+        ) %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

@@ -27,17 +27,13 @@ module Decor
           config.default_size = size
         end
 
-        # DSL method to redefine sizes for a component
         def redefine_sizes(*new_sizes)
           config.sizes = new_sizes
-          # Redefine the size prop with the new sizes and current aliases
           prop :size, _Nilable(_Union(*(size_aliases.keys + new_sizes))), default: -> { config.default_size }
         end
 
-        # DSL method to redefine size aliases for a component
         def redefine_size_aliases(new_aliases)
           config.size_aliases = new_aliases
-          # Redefine the size prop with the current sizes and new aliases
           prop :size, _Nilable(_Union(*(new_aliases.keys + sizes))), default: -> { config.default_size }
         end
       end
@@ -49,36 +45,30 @@ module Decor
         end
       end
 
-      # Main method that handles common size logic and delegates to component-specific implementation
       def size_classes(size = @size)
         return nil unless size
 
         normalized_size = normalize_size(size)
         return nil unless valid_size?(normalized_size)
 
-        # Delegate to component-specific implementation
         component_size_classes(normalized_size)
       end
 
-      # Components should override this method to provide their specific size classes
+      # Override to provide component-specific size classes.
       def component_size_classes(size)
       end
 
-      # Default size - components can override
       def default_size
       end
 
-      # Normalize size aliases to standard sizes
       def normalize_size(size)
         self.class.size_aliases[size] || size
       end
 
-      # Check if size is valid
       def valid_size?(size)
         self.class.sizes.include?(size)
       end
 
-      # Helper methods for common size-related calculations
       def icon_size_pixels(size = @size)
         normalized_size = normalize_size(size)
 
@@ -91,7 +81,6 @@ module Decor
         end
       end
 
-      # Helper methods for common size-related CSS classes
       def text_size_class(size = @size)
         return nil unless size
 
@@ -100,17 +89,17 @@ module Decor
 
         case normalized_size
         when :xs
-          "text-xs"
+          "decor:text-xs"
         when :sm
-          "text-sm"
+          "decor:text-sm"
         when :md
-          "text-base"
+          "decor:text-base"
         when :lg
-          "text-xl"
+          "decor:text-xl"
         when :xl
-          "text-2xl"
+          "decor:text-2xl"
         else
-          "text-base"
+          "decor:text-base"
         end
       end
     end

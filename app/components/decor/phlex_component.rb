@@ -19,5 +19,13 @@ module Decor
     include Decor::Concerns::SizeClasses
     include Decor::Concerns::ColorClasses
     include Decor::Concerns::StyleClasses
+
+    register_output_helper :decor_flash
+
+    private
+
+    def tailwind_merger
+      ::Decor.configuration.class_merger
+    end
   end
 end

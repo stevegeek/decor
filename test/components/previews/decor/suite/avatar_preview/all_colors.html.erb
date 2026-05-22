@@ -1,0 +1,5 @@
+<div class="flex flex-wrap items-center gap-4 p-4">
+  <% %i[primary alt1 alt2 alt3 alt4 alt5].each do |color| %>
+    <%= render ::Decor::Suite::Avatar.new(initials: color.to_s.upcase[0..1], color: color, size: :lg) %>
+  <% end %>
+</div>

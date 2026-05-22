@@ -1,0 +1,125 @@
+require "test_helper"
+
+class Decor::Daisy::Modals::ModalCloseButtonTest < ActiveSupport::TestCase
+  test "renders successfully as Button component" do
+    component = Decor::Daisy::Modals::ModalCloseButton.new
+    rendered = render_component(component)
+
+    assert_includes rendered, "btn"
+    assert_includes rendered, "decor--daisy--modals--modal-close-button"
+  end
+
+  test "inherits from Button component" do
+    component = Decor::Daisy::Modals::ModalCloseButton.new
+
+    assert component.is_a?(Decor::Components::Button)
+  end
+
+  test "renders with modal-closing data attributes" do
+    component = Decor::Daisy::Modals::ModalCloseButton.new
+    rendered = render_component(component)
+
+    assert_includes rendered, 'data-action="click->decor--daisy--modals--modal-close-button#handleButtonClick"'
+  end
+
+  test "renders with close icon by default" do
+    component = Decor::Daisy::Modals::ModalCloseButton.new
+    rendered = render_component(component)
+
+    assert_includes rendered, "#x-mark"
+  end
+
+  test "supports custom button styling" do
+    component = Decor::Daisy::Modals::ModalCloseButton.new(
+      style: :outlined,
+      size: :sm
+    )
+    rendered = render_component(component)
+
+    assert_includes rendered, "btn-outline"
+    assert_includes rendered, "btn-sm"
+  end
+
+  test "renders as button element" do
+    component = Decor::Daisy::Modals::ModalCloseButton.new
+    fragment = render_fragment(component)
+
+    button = fragment.at_css("button")
+    assert_not_nil button
+    assert_includes button["class"], "btn"
+    form = fragment.at_css("form")
+    assert_includes form["class"], "decor--daisy--modals--modal-close-button"
+  end
+
+  test "supports custom content" do
+    component = Decor::Daisy::Modals::ModalCloseButton.new
+    rendered = render_component(component) do
+      "Close"
+    end
+
+    assert_includes rendered, "Close"
+  end
+
+  test "renders with Stimulus controller data" do
+    component = Decor::Daisy::Modals::ModalCloseButton.new
+    fragment = render_fragment(component)
+
+    button = fragment.at_css("button")
+    assert_not_nil button
+
+    data_action = button["data-action"]
+    assert_not_nil data_action
+    assert_includes data_action, "decor--daisy--modals--modal-close-button#handleButtonClick"
+  end
+
+  test "supports disabled state" do
+    component = Decor::Daisy::Modals::ModalCloseButton.new(disabled: true)
+    rendered = render_component(component)
+
+    assert_includes rendered, "disabled"
+  end
+
+  test "applies default button styling" do
+    component = Decor::Daisy::Modals::ModalCloseButton.new
+    rendered = render_component(component)
+
+    assert_includes rendered, "btn"
+    assert_includes rendered, "decor--daisy--modals--modal-close-button"
+  end
+
+  test "supports custom CSS classes" do
+    component = Decor::Daisy::Modals::ModalCloseButton.new(html_options: {class: "custom-close-btn"})
+    rendered = render_component(component)
+
+    assert_includes rendered, "custom-close-btn"
+    assert_includes rendered, "btn"
+  end
+
+  test "component passes through Button attributes" do
+    component = Decor::Daisy::Modals::ModalCloseButton.new(
+      html_options: {form: "my-form"}
+    )
+    rendered = render_component(component)
+
+    assert_includes rendered, 'type="submit"'
+    assert_includes rendered, 'form="my-form"'
+  end
+
+  test "renders close icon with proper classes" do
+    component = Decor::Daisy::Modals::ModalCloseButton.new
+    fragment = render_fragment(component)
+
+    svg = fragment.at_css("svg")
+    assert_not_nil svg
+  end
+
+  test "handles click action for modal closing" do
+    component = Decor::Daisy::Modals::ModalCloseButton.new
+    fragment = render_fragment(component)
+
+    button = fragment.at_css("button")
+    data_action = button["data-action"]
+
+    assert_includes data_action, "click->decor--daisy--modals--modal-close-button#handleButtonClick"
+  end
+end

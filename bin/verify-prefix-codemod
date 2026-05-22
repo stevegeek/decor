@@ -1,0 +1,47 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+#
+# Asymmetric verifier: lists every class: / classes: keyword whose string value
+# contains a Tailwind/daisyUI token without `decor:` prefix.
+# Catches under-prefixing only (not over-prefixing).
+
+require "pathname"
+
+ROOT = Pathname.new(File.expand_path("..", __dir__))
+TARGETS = [
+  ROOT.join("app/components/decor"),
+  ROOT.join("app/helpers/decor"),
+  ROOT.join("test/components/previews"),
+]
+
+UTIL_RE = /\A(?:(?:hover|focus|active|disabled|first|last|md|lg|sm|xl|2xl|dark|peer|group|ltr|rtl):)*(?:p-\d+|m-\d+|mx-\d+|my-\d+|mt-\d+|mb-\d+|ml-\d+|mr-\d+|w-[a-z0-9\/.-]+|h-[a-z0-9\/.-]+|text-[a-z0-9-]+|bg-[a-z0-9\/.-]+|border(-[a-z0-9-]*)?|rounded(-[a-z0-9-]*)?|flex|grid|block|inline|hidden|absolute|relative|fixed|sticky|gap-\d+|space-[xy]-\d+|items-[a-z]+|justify-[a-z]+|font-[a-z]+|opacity-\d+|cursor-[a-z]+|overflow-[a-z]+|transition|duration-\d+|ease-[a-z]+|shadow|shadow-[a-z]+|leading-[a-z0-9]+|tracking-[a-z]+|whitespace-[a-z]+|truncate|select-[a-z]+|pointer-events-[a-z]+)\z/
+
+problems = []
+
+TARGETS.each do |target|
+  next unless target.exist?
+  target.glob("**/*.rb").each do |file|
+    content = file.read
+    content.scan(/\b(?:class|classes):\s*"([^"]*)"/).flatten.each do |str|
+      next if str.empty?
+      str.split(/\s+/).each do |token|
+        next if token.empty?
+        next if token.start_with?("decor:")
+        next if token.start_with?('#{')
+        if token =~ UTIL_RE
+          problems << [file.relative_path_from(ROOT), token]
+        end
+      end
+    end
+  end
+end
+
+if problems.empty?
+  puts "OK — no un-prefixed Tailwind tokens found."
+  exit 0
+else
+  puts "FOUND #{problems.length} un-prefixed tokens:"
+  problems.first(80).each { |f, t| puts "  #{f}: #{t}" }
+  puts "(and more...)" if problems.length > 80
+  exit 1
+end

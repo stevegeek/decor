@@ -6,10 +6,10 @@ module Decor
       class HiddenField < ActionView::Helpers::Tags::TextField
         include TagWrapper
 
-        FIELD_ATTRS = ::Decor::Forms::HiddenField.prop_names.map(&:to_s).freeze
+        FIELD_ATTRS = ::Decor::Daisy::Forms::HiddenField.prop_names.map(&:to_s).freeze
 
         def tag(_type, options)
-          @template_object.render ::Decor::Forms::HiddenField.new(**component_options(options))
+          @template_object.render ::Decor::Daisy::Forms::HiddenField.new(**component_options(options))
         end
 
         def component_options(options)
