@@ -16,7 +16,7 @@ group :development, :test do
   gem "solid_queue"
   gem "solid_cable"
   gem "quo", github: "stevegeek/quo", branch: "main"
-  gem "encoded_id-rails", "1.0.0.rc6", github: "stevegeek/encoded_id", branch: "main"
+  gem "encoded_id-rails", "1.1.0", github: "stevegeek/encoded_id", branch: "main"
 
   # Pin to 5.x — railties 8.1.x's line_filtering monkey-patch is not 6.0-compatible.
   gem "minitest", "~> 5.25"
