@@ -208,6 +208,16 @@ class Decor::Forms::ActionViewFormBuilderTest < ActiveSupport::TestCase
     assert_match(/<input.*type="text"/m, html)
   end
 
+  # Regression: the text_field wrapper used to force `{type: :text}` as an
+  # override in `merge_options`, which silently dropped caller-passed
+  # `type: :search` (and `:tel`, `:url`, etc.). The component's
+  # `prop :type, default: :text` already supplies the default; the wrapper
+  # must let user options through.
+  test "text_field passes through user-supplied type (e.g. :search)" do
+    html = @builder.text_field :a_string, type: :search
+    assert_match(/<input.*type="search"/m, html)
+  end
+
   test "text_area generates html" do
     html = @builder.text_area :a_long_string
     assert_match(/<textarea.*name="form\[a_long_string\]"/m, html)

@@ -34,17 +34,26 @@ module Decor
       def after_component_initialize
         super if defined?(super)
 
-        if @model.present?
-          right do
-            render(::Decor::Daisy::Forms::Form.new(model: @model, url: @url, local: true, http_method: @http_method)) do |form_component|
-              render(::Decor::Daisy::Forms::Switch.new(
-                disabled: false,
-                name: "#{@model.class.name.underscore}[#{@property_name}]",
-                checked: @model.public_send(@property_name),
-                submit_on_change: true,
-                **@switch_options
-              ))
-            end
+        return unless @model.present?
+
+        switch_kwargs = {
+          disabled: false,
+          name: "#{@model.class.name.underscore}[#{@property_name}]",
+          submit_on_change: true,
+          **@switch_options
+        }
+        # Only read `checked` from the model when the caller hasn't supplied one
+        # explicitly. Eager-evaluating `model.public_send(property_name)` would
+        # otherwise force the bound model to expose a reader matching
+        # `property_name`, even when the toggle UI represents a derived
+        # predicate or a soft-delete/undelete flow.
+        unless switch_kwargs.key?(:checked)
+          switch_kwargs[:checked] = @model.public_send(@property_name)
+        end
+
+        right do
+          render(::Decor::Daisy::Forms::Form.new(model: @model, url: @url, local: true, http_method: @http_method)) do |form_component|
+            render(::Decor::Daisy::Forms::Switch.new(**switch_kwargs))
           end
         end
       end

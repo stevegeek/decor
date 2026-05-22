@@ -17,7 +17,14 @@ module Decor
 
         def component_options(options)
           fix_size_option(options)
-          merge_options({value: value}, options, TEXT_FIELD_ATTRS, {type: :text})
+          # ActionView's text_field tag helper hands `type` through as a String
+          # ("text"), but the component prop is `_Union(Symbol, …)` — coerce.
+          options["type"] = options["type"].to_sym if options["type"].is_a?(String)
+          # NB: do not pass `{type: :text}` as an override — the component's
+          # `prop :type, default: :text` already supplies the default, and
+          # forcing it here would prevent callers from passing `type: :search`
+          # or any other valid input type.
+          merge_options({value: value}, options, TEXT_FIELD_ATTRS, {})
         end
 
         def validation_attrs
