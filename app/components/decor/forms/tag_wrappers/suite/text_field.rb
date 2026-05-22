@@ -19,12 +19,7 @@ module Decor
 
           def component_options(options)
             fix_size_option(options)
-            # ActionView's text_field tag helper hands `type` through as a
-            # String ("text"); coerce so the component's Symbol prop accepts it.
             options["type"] = options["type"].to_sym if options["type"].is_a?(String)
-            # See sibling TagWrappers::TextField — don't force `type: :text`;
-            # leave it to the component's `prop :type, default: :text` so
-            # callers can pass `type: :search` etc.
             merge_options({value: value}, options, TEXT_FIELD_ATTRS, {})
           end
         end

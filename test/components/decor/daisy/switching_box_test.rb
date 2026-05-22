@@ -159,11 +159,6 @@ class Decor::Daisy::SwitchingBoxTest < ActiveSupport::TestCase
     assert_includes rendered, "bg-base-100"
   end
 
-  # Regression: when `switch_options[:checked]` is supplied explicitly, the
-  # component must NOT call `model.public_send(property_name)` to compute a
-  # default. Callers wiring up a derived predicate (or a soft-delete/undelete
-  # toggle endpoint) often pair a property_name with a model that doesn't
-  # expose a matching reader; eager evaluation here would raise NoMethodError.
   test "skips model.public_send(property_name) when switch_options[:checked] is set" do
     component = Decor::Daisy::SwitchingBox.new(
       model: @mock_model,

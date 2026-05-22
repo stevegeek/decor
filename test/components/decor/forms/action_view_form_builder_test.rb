@@ -208,11 +208,6 @@ class Decor::Forms::ActionViewFormBuilderTest < ActiveSupport::TestCase
     assert_match(/<input.*type="text"/m, html)
   end
 
-  # Regression: the text_field wrapper used to force `{type: :text}` as an
-  # override in `merge_options`, which silently dropped caller-passed
-  # `type: :search` (and `:tel`, `:url`, etc.). The component's
-  # `prop :type, default: :text` already supplies the default; the wrapper
-  # must let user options through.
   test "text_field passes through user-supplied type (e.g. :search)" do
     html = @builder.text_field :a_string, type: :search
     assert_match(/<input.*type="search"/m, html)
@@ -243,10 +238,6 @@ class Decor::Forms::ActionViewFormBuilderTest < ActiveSupport::TestCase
     assert_includes html, "type=\"submit\""
   end
 
-  # Regression: `button` used to pass a positional hash to
-  # `Decor::Daisy::Button.new(...)`. Literal-generated initializers only accept
-  # keyword arguments, so the call raised "wrong number of arguments (given 1,
-  # expected 0)". Must splat options.
   test "button forwards options to Decor::Daisy::Button as kwargs" do
     html = @builder.button "Save", size: :lg, classes: "edit-btn"
     assert_includes html, "edit-btn"

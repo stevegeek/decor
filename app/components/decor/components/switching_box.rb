@@ -42,14 +42,7 @@ module Decor
           submit_on_change: true,
           **@switch_options
         }
-        # Only read `checked` from the model when the caller hasn't supplied one
-        # explicitly. Eager-evaluating `model.public_send(property_name)` would
-        # otherwise force the bound model to expose a reader matching
-        # `property_name`, even when the toggle UI represents a derived
-        # predicate or a soft-delete/undelete flow.
-        unless switch_kwargs.key?(:checked)
-          switch_kwargs[:checked] = @model.public_send(@property_name)
-        end
+        switch_kwargs[:checked] = @model.public_send(@property_name) unless switch_kwargs.key?(:checked)
 
         right do
           render(::Decor::Daisy::Forms::Form.new(model: @model, url: @url, local: true, http_method: @http_method)) do |form_component|
