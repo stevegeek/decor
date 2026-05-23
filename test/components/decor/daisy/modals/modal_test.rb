@@ -95,4 +95,36 @@ class Decor::Daisy::Modals::ModalTest < ActiveSupport::TestCase
     assert_includes rendered, "decor--daisy--spinner"
     assert_includes rendered, "empty-modal"
   end
+
+  test "renders body content from a block inside the body container" do
+    component = Decor::Daisy::Modals::Modal.new(id: "block-modal")
+    fragment = render_fragment(component) { "the-body-content".html_safe }
+
+    body = fragment.at_css("div[data-decor--daisy--modals--modal-target='modal']")
+    assert_not_nil body
+    assert_includes body.inner_html, "the-body-content"
+  end
+
+  test "renders initial_content as raw HTML when caller marks it safe" do
+    component = Decor::Daisy::Modals::Modal.new(id: "safe-content-modal", initial_content: "<p>baked</p>".html_safe)
+    rendered = render_component(component)
+
+    assert_includes rendered, "<p>baked</p>"
+  end
+
+  test "escapes initial_content when caller passes a plain String" do
+    component = Decor::Daisy::Modals::Modal.new(id: "unsafe-content-modal", initial_content: "<script>alert(1)</script>")
+    rendered = render_component(component)
+
+    refute_includes rendered, "<script>alert(1)</script>"
+    assert_includes rendered, "&lt;script&gt;"
+  end
+
+  test "block body wins over initial_content when both are provided" do
+    component = Decor::Daisy::Modals::Modal.new(id: "precedence-modal", initial_content: "fallback-text")
+    rendered = render_component(component) { "block-wins".html_safe }
+
+    assert_includes rendered, "block-wins"
+    refute_includes rendered, "fallback-text"
+  end
 end

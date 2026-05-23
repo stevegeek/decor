@@ -4,7 +4,9 @@ module Decor
   module Daisy
     module Modals
       class Modal < ::Decor::Components::Modals::Modal
-        def view_template
+        def view_template(&body_block)
+          @body_block = capture(&body_block) if block_given?
+
           root_element do
             # Modal content box
             div(
@@ -12,8 +14,13 @@ module Decor
               class: "decor:d-modal-box",
               data: {**stimulus_target(:modal)}
             ) do
-              if @initial_content.present?
-                plain(@initial_content)
+              content = body_content
+              if content.present?
+                if content.respond_to?(:html_safe?) && content.html_safe?
+                  raw safe(content.to_s)
+                else
+                  plain content.to_s
+                end
               else
                 render ::Decor::Daisy::Spinner.new(html_options: {class: "decor:mx-auto decor:w-8 decor:h-8"})
               end
@@ -46,6 +53,10 @@ module Decor
 
         def root_element_classes
           "decor:d-modal"
+        end
+
+        def body_content
+          @body_block.presence || @initial_content
         end
       end
     end

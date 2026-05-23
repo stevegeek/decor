@@ -37,15 +37,21 @@ module Decor
 
         # Block capture: Literal::Properties#initialize doesn't forward the
         # block to lifecycle hooks (`after_component_initialize` sees
-        # `block_given? == false` even when the caller passed one). Stash the
-        # block on the instance so after_component_initialize can yield it
-        # back via `@_dsl_block.call(self)`.
+        # `block_given? == false` even when the caller passed one). Run the
+        # DSL block explicitly here after construction.
+        #
+        # `super(..., &nil)` is load-bearing: Ruby's `super(*a, **k)` (and
+        # plain `super`) implicitly forwards the current method's block.
+        # Phlex would then stash it on `@_content_block` and re-execute it at
+        # render time, applying the column / bulk_action DSL twice — the
+        # second pass duplicates columns and trips `Literal::Struct#attributes`
+        # (no such method).
         def self.new(*args, **kwargs, &block)
           instance = if args.length == 3 && args.first.is_a?(Hash) && args[1].is_a?(::ActionController::Parameters)
             attrs_hash, params, helpers = args
-            super(params: params, helpers: helpers, **attrs_hash.symbolize_keys, **kwargs)
+            super(params: params, helpers: helpers, **attrs_hash.symbolize_keys, **kwargs, &nil)
           else
-            super(*args, **kwargs)
+            super(*args, **kwargs, &nil)
           end
           if block
             block.call(instance)
@@ -70,11 +76,7 @@ module Decor
           setup_data_table
         end
 
-        def view_template(&)
-          # The DSL block was already consumed in `after_component_initialize`;
-          # `vanish` discards any duplicate block passed at render time so the
-          # column DSL isn't applied twice.
-          vanish(&)
+        def view_template
           render component
         end
 

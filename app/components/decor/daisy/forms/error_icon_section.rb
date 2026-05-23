@@ -9,7 +9,7 @@ module Decor
             if @show_floating_message
               render ::Decor::Daisy::Tooltip.new(position: @tip_position, offset_percent_x: @tip_offset_percent, offset_percent_y: @tip_offset_percent) do |tip|
                 tip.with_tip_content do
-                  p(class: "decor:text-error decor:text-sm", **el.as_target(:error_text)) do
+                  p(class: "decor:text-error decor:text-sm", data: {**el.stimulus_target(:error_text)}) do
                     @error_text
                   end
                 end

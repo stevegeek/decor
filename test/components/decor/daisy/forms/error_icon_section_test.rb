@@ -40,4 +40,13 @@ class ::Decor::Daisy::Forms::ErrorIconSectionTest < ActiveSupport::TestCase
     assert_includes html, "decor:h-5"
     assert_includes html, "decor:w-5"
   end
+
+  test "show_floating_message renders tooltip with error_text stimulus target" do
+    # The Daisy tooltip embeds the floating <p> inside its `data-tip` HTML
+    # attribute, so the target attribute is HTML-escaped in the outer markup.
+    html = render_component(
+      ::Decor::Daisy::Forms::ErrorIconSection.new(error_text: "Boom", show_floating_message: true)
+    )
+    assert_includes html, "decor--daisy--forms--error-icon-section-target=&quot;errorText&quot;"
+  end
 end

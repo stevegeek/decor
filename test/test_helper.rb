@@ -3,8 +3,9 @@ $LOAD_PATH.unshift File.expand_path(__dir__)
 require_relative "dummy/config/environment"
 require "rails/test_help"
 
-# Load test support files
-Dir[Rails.root.join("test", "support", "**", "*.rb")].each { |f| require f }
+# Load test support files (test/support/ at the gem root — Rails.root
+# points at test/dummy/ so we resolve against __dir__ instead).
+Dir[File.join(__dir__, "support", "**", "*.rb")].each { |f| require f }
 
 module ActiveSupport
   class TestCase

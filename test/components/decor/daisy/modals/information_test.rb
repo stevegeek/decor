@@ -50,6 +50,15 @@ class ::Decor::Daisy::Modals::InformationTest < ActiveSupport::TestCase
     end
   end
 
+  test "renders body block content inside the dialog body container" do
+    info = ::Decor::Daisy::Modals::Information.new(title: "Terms")
+    fragment = render_fragment(info) { "<p>info-body-marker</p>".html_safe }
+
+    body = fragment.at_css("div[data-decor--daisy--modals--modal-target='modal']")
+    assert_not_nil body
+    assert_includes body.inner_html, "info-body-marker"
+  end
+
   test "start_open flows through to the inner Modal as show_initial" do
     html = render_component(::Decor::Daisy::Modals::Information.new(title: "Terms", start_open: true))
     assert_includes html, 'data-decor--daisy--modals--modal-show-initial-value="true"'

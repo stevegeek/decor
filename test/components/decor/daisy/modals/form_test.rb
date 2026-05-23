@@ -91,4 +91,13 @@ class ::Decor::Daisy::Modals::FormTest < ActiveSupport::TestCase
       end
     end
   end
+
+  test "renders body block content inside the dialog body container" do
+    form = ::Decor::Daisy::Modals::Form.new(title: "Edit")
+    fragment = render_fragment(form) { "form-body-marker".html_safe }
+
+    body = fragment.at_css("div[data-decor--daisy--modals--modal-target='modal']")
+    assert_not_nil body
+    assert_includes body.inner_html, "form-body-marker"
+  end
 end

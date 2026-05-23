@@ -28,11 +28,11 @@ module Decor
           [
             sort_key? && "decor:cursor-pointer decor:hover:bg-base-200",
             numeric? ? "decor:text-right" : "decor:text-left",
-            sorted_direction? && "decor:text-primary",
             row_height_classes,
             *typography_classes,
             stretch_class,
-            "decor:text-base-content decor:font-medium decor:whitespace-nowrap decor:uppercase decor:text-xs decor:tracking-wider"
+            "decor:font-medium decor:whitespace-nowrap decor:uppercase decor:text-xs decor:tracking-wider",
+            sorted_direction? ? "decor:text-primary" : "decor:text-base-content"
           ].compact_blank
         end
 
@@ -65,12 +65,11 @@ module Decor
         def root_element_attributes
           attrs = {
             element_tag: :th,
-            role: "columnheader",
-            scope: "col"
+            html_options: {role: "columnheader", scope: "col"}
           }
 
           if @colspan&.positive?
-            attrs[:colspan] = @colspan
+            attrs[:html_options][:colspan] = @colspan
           end
 
           attrs

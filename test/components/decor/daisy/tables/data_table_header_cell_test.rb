@@ -87,4 +87,26 @@ class Decor::Daisy::Tables::DataTableHeaderCellTest < ActiveSupport::TestCase
     html = render_component(::Decor::Daisy::Tables::DataTableHeaderCell.new(title: "x"))
     assert_includes html, "decor--daisy--tables--data-table-header-cell"
   end
+
+  test "renders <th> with role=columnheader and scope=col" do
+    html = render_component(::Decor::Daisy::Tables::DataTableHeaderCell.new(title: "Name"))
+    assert_includes html, 'role="columnheader"'
+    assert_includes html, 'scope="col"'
+  end
+
+  test "colspan attribute is emitted on the <th> when positive" do
+    html = render_component(::Decor::Daisy::Tables::DataTableHeaderCell.new(title: "x", colspan: 3))
+    assert_includes html, 'colspan="3"'
+  end
+
+  test "zero/negative colspan is dropped" do
+    html = render_component(::Decor::Daisy::Tables::DataTableHeaderCell.new(title: "x", colspan: 0))
+    refute_includes html, "colspan="
+  end
+
+  test "sorted column renders text-primary (and not text-base-content)" do
+    html = render_component(::Decor::Daisy::Tables::DataTableHeaderCell.new(title: "Name", sort_key: :name, sorted_direction: :asc))
+    assert_includes html, "decor:text-primary"
+    refute_includes html, "decor:text-base-content"
+  end
 end

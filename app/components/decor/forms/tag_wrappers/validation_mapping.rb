@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "js_regex"
+
 module Decor
   module Forms
     # Note: only a subset of ActiveModel/ActiveRecord validations are mapped.
