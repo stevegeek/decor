@@ -108,8 +108,8 @@ class Decor::Daisy::Nav::SecondaryNavbarTest < ActiveSupport::TestCase
     end
     rendered = render_component(component)
 
-    assert_includes rendered, "flex-1 flex items-center"
-    assert_includes rendered, "ml-auto flex items-center"
+    assert_includes rendered, "decor:flex-1 decor:flex decor:items-center"
+    assert_includes rendered, "decor:ml-auto decor:flex decor:items-center"
   end
 
   test "component inherits from PhlexComponent" do
@@ -122,7 +122,7 @@ class Decor::Daisy::Nav::SecondaryNavbarTest < ActiveSupport::TestCase
     component = Decor::Daisy::Nav::SecondaryNavbar.new
     fragment = render_fragment(component)
 
-    navbar = fragment.at_css(".navbar")
+    navbar = fragment.at_css('[class~="decor:d-navbar"]')
     assert_not_nil navbar
     assert_includes navbar["class"], "decor--daisy--nav--secondary-navbar"
   end
@@ -140,7 +140,7 @@ class Decor::Daisy::Nav::SecondaryNavbarTest < ActiveSupport::TestCase
 
     header = fragment.at_css("header")
     assert_not_nil header
-    assert_includes header["class"], "navbar"
+    assert_includes header["class"], "decor:d-navbar"
   end
 
   test "renders without content when no blocks provided" do
@@ -149,7 +149,7 @@ class Decor::Daisy::Nav::SecondaryNavbarTest < ActiveSupport::TestCase
 
     assert_includes rendered, "navbar"
     assert_includes rendered, "decor--daisy--nav--secondary-navbar"
-    assert_includes rendered, "flex-1 flex items-center"
+    assert_includes rendered, "decor:flex-1 decor:flex decor:items-center"
   end
 
   test "supports method chaining" do

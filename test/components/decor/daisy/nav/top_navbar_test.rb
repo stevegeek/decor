@@ -62,7 +62,7 @@ class Decor::Daisy::Nav::TopNavbarTest < ActiveSupport::TestCase
     component = Decor::Daisy::Nav::TopNavbar.new
     fragment = render_fragment(component)
 
-    navbar = fragment.at_css(".navbar")
+    navbar = fragment.at_css('[class~="decor:d-navbar"]')
     assert_not_nil navbar
     assert_includes navbar["class"], "decor--daisy--nav--top-navbar"
   end

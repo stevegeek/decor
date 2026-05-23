@@ -83,10 +83,10 @@ class Decor::Daisy::PaginationTest < ActiveSupport::TestCase
     pagination_div = fragment.at_css(".decor--daisy--pagination")
     assert_not_nil pagination_div
 
-    join_div = fragment.at_css(".join")
+    join_div = fragment.at_css('[class~="decor:d-join"]')
     assert_not_nil join_div
 
-    page_links = fragment.css("a.join-item")
+    page_links = fragment.css('a[class~="decor:d-join-item"]')
     assert page_links.length > 0
   end
 end

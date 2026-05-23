@@ -11,7 +11,7 @@ class Decor::Daisy::TitleTest < ActiveSupport::TestCase
     title_element = rendered.css("h3").first
     assert title_element
     assert_equal "Basic Title", title_element.text
-    assert_includes title_element["class"], "text-lg"
+    assert_includes title_element["class"], "decor:text-lg"
   end
 
   def test_renders_title_with_description
@@ -29,7 +29,7 @@ class Decor::Daisy::TitleTest < ActiveSupport::TestCase
     description_element = rendered.css("p").first
     assert description_element
     assert_equal "This is a subtitle", description_element.text
-    assert_includes description_element["class"], "text-base-content/70"
+    assert_includes description_element["class"], "decor:text-base-content/70"
   end
 
   def test_renders_title_with_icon
@@ -40,7 +40,7 @@ class Decor::Daisy::TitleTest < ActiveSupport::TestCase
 
     rendered = render_fragment(component)
 
-    icon_container = rendered.css(".flex.items-start.space-x-2").first
+    icon_container = rendered.css('[class~="decor:flex"][class~="decor:items-start"][class~="decor:space-x-2"]').first
     assert icon_container
 
     title_element = rendered.css("h3").first
@@ -57,7 +57,7 @@ class Decor::Daisy::TitleTest < ActiveSupport::TestCase
     assert title_element
     assert_equal "Title with Actions", title_element.text
 
-    actions_area = rendered.css(".flex-shrink-0").first
+    actions_area = rendered.css('[class~="decor:flex-shrink-0"]').first
     assert actions_area
     assert_includes rendered.text, "Action Button"
   end
@@ -69,7 +69,7 @@ class Decor::Daisy::TitleTest < ActiveSupport::TestCase
 
     title_element = rendered.css("h5").first
     assert title_element
-    assert_includes title_element["class"], "text-sm"
+    assert_includes title_element["class"], "decor:text-sm"
   end
 
   def test_size_sm_uses_h4_and_base_text
@@ -79,7 +79,7 @@ class Decor::Daisy::TitleTest < ActiveSupport::TestCase
 
     title_element = rendered.css("h4").first
     assert title_element
-    assert_includes title_element["class"], "text-base"
+    assert_includes title_element["class"], "decor:text-base"
   end
 
   def test_size_md_uses_h3_and_lg_text
@@ -89,7 +89,7 @@ class Decor::Daisy::TitleTest < ActiveSupport::TestCase
 
     title_element = rendered.css("h3").first
     assert title_element
-    assert_includes title_element["class"], "text-lg"
+    assert_includes title_element["class"], "decor:text-lg"
   end
 
   def test_size_lg_uses_h2_and_xl_text
@@ -99,7 +99,7 @@ class Decor::Daisy::TitleTest < ActiveSupport::TestCase
 
     title_element = rendered.css("h2").first
     assert title_element
-    assert_includes title_element["class"], "text-xl"
+    assert_includes title_element["class"], "decor:text-xl"
   end
 
   def test_size_xl_uses_h1_and_2xl_text
@@ -109,7 +109,7 @@ class Decor::Daisy::TitleTest < ActiveSupport::TestCase
 
     title_element = rendered.css("h1").first
     assert title_element
-    assert_includes title_element["class"], "text-2xl"
+    assert_includes title_element["class"], "decor:text-2xl"
   end
 
   def test_description_size_scales_with_title_size
@@ -120,10 +120,10 @@ class Decor::Daisy::TitleTest < ActiveSupport::TestCase
     lg_rendered = render_fragment(lg_component)
 
     xs_desc = xs_rendered.css("p").first
-    assert_includes xs_desc["class"], "text-xs"
+    assert_includes xs_desc["class"], "decor:text-xs"
 
     lg_desc = lg_rendered.css("p").first
-    assert_includes lg_desc["class"], "text-base"
+    assert_includes lg_desc["class"], "decor:text-base"
   end
 
   def test_complete_title_with_all_features
@@ -138,7 +138,7 @@ class Decor::Daisy::TitleTest < ActiveSupport::TestCase
 
     assert rendered.css("h2").any? # Title with lg size
     assert rendered.css("p").any? # Description
-    assert rendered.css(".flex.items-start.space-x-2").any? # Icon container with top alignment
+    assert rendered.css('[class~="decor:flex"][class~="decor:items-start"][class~="decor:space-x-2"]').any? # Icon container with top alignment
     assert_includes rendered.text, "CTA Button" # Action block
   end
 
@@ -149,7 +149,7 @@ class Decor::Daisy::TitleTest < ActiveSupport::TestCase
 
     assert rendered.css("h3").any?
     assert_empty rendered.css("p") # No description
-    assert_empty rendered.css(".flex-shrink-0") # No actions area
+    assert_empty rendered.css('[class~="decor:flex-shrink-0"]') # No actions area
   end
 
   def test_title_styling_classes
@@ -160,9 +160,9 @@ class Decor::Daisy::TitleTest < ActiveSupport::TestCase
     title_element = rendered.css("h3").first
     classes = title_element["class"]
 
-    assert_includes classes, "font-semibold"
-    assert_includes classes, "text-base-content"
-    assert_includes classes, "leading-tight"
+    assert_includes classes, "decor:font-semibold"
+    assert_includes classes, "decor:text-base-content"
+    assert_includes classes, "decor:leading-tight"
   end
 
   def test_container_layout_classes
@@ -170,9 +170,9 @@ class Decor::Daisy::TitleTest < ActiveSupport::TestCase
 
     rendered = render_fragment(component) { "Action" }
 
-    container = rendered.css(".flex.justify-between.items-center").first
+    container = rendered.css('[class~="decor:flex"][class~="decor:justify-between"][class~="decor:items-center"]').first
     assert container
-    assert_includes container["class"], "flex-wrap"
-    assert_includes container["class"], "sm:flex-nowrap"
+    assert_includes container["class"], "decor:flex-wrap"
+    assert_includes container["class"], "decor:sm:flex-nowrap"
   end
 end

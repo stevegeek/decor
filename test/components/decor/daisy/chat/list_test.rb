@@ -19,7 +19,7 @@ class Decor::Daisy::Chat::ListTest < ActiveSupport::TestCase
     component = Decor::Daisy::Chat::List.new(messages: @mock_messages)
     rendered = render_component(component)
 
-    assert_includes rendered, "flex flex-col gap-2 p-4"
+    assert_includes rendered, "decor:flex decor:flex-col decor:gap-2 decor:p-4"
   end
 
   test "renders message content from collection" do
@@ -34,15 +34,15 @@ class Decor::Daisy::Chat::ListTest < ActiveSupport::TestCase
     component = Decor::Daisy::Chat::List.new(messages: @mock_messages)
     rendered = render_component(component)
 
-    assert_includes rendered, "flex flex-col gap-2 p-4"
+    assert_includes rendered, "decor:flex decor:flex-col decor:gap-2 decor:p-4"
   end
 
   test "renders each message as chat components" do
     component = Decor::Daisy::Chat::List.new(messages: @mock_messages)
     rendered = render_component(component)
 
-    assert_includes rendered, "chat chat-start"
-    assert_includes rendered, "chat-bubble"
+    assert_includes rendered, "decor:d-chat decor:d-chat-start"
+    assert_includes rendered, "decor:d-chat-bubble"
   end
 
   test "component inherits from PhlexComponent" do
@@ -56,7 +56,7 @@ class Decor::Daisy::Chat::ListTest < ActiveSupport::TestCase
     rendered = render_component(component)
 
     assert_includes rendered, "No messages yet"
-    assert_includes rendered, "flex flex-col gap-2 p-4"
+    assert_includes rendered, "decor:flex decor:flex-col decor:gap-2 decor:p-4"
   end
 
   test "renders empty state when no messages" do
@@ -73,14 +73,14 @@ class Decor::Daisy::Chat::ListTest < ActiveSupport::TestCase
 
     container = fragment.at_css("div")
     assert_not_nil container
-    assert_includes container["class"], "flex flex-col gap-2 p-4"
+    assert_includes container["class"], "decor:flex decor:flex-col decor:gap-2 decor:p-4"
   end
 
   test "handles empty messages array gracefully" do
     component = Decor::Daisy::Chat::List.new(messages: [])
     rendered = render_component(component)
 
-    assert_includes rendered, "flex flex-col gap-2 p-4"
+    assert_includes rendered, "decor:flex decor:flex-col decor:gap-2 decor:p-4"
     assert_includes rendered, "No messages yet"
   end
 
@@ -91,8 +91,8 @@ class Decor::Daisy::Chat::ListTest < ActiveSupport::TestCase
     assert_includes rendered, "Hello there!"
     assert_includes rendered, "How are you?"
 
-    assert_includes rendered, "chat-bubble"
-    assert_includes rendered, "chat-start"
+    assert_includes rendered, "decor:d-chat-bubble"
+    assert_includes rendered, "decor:d-chat-start"
   end
 
   test "supports empty state with action button" do

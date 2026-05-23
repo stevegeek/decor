@@ -6,8 +6,8 @@ class Decor::Daisy::BannerTest < ActiveSupport::TestCase
     rendered = render_component(component) { "Test banner content" }
 
     assert_includes rendered, "Test banner content"
-    assert_includes rendered, "mb-4"
-    assert_includes rendered, "alert" # daisyUI alert class
+    assert_includes rendered, "decor:mb-4"
+    assert_includes rendered, "decor:d-alert" # daisyUI alert class
     assert_includes rendered, 'role="alert"'
   end
 
@@ -15,14 +15,14 @@ class Decor::Daisy::BannerTest < ActiveSupport::TestCase
     component = Decor::Daisy::Banner.new(color: :success)
     rendered = render_component(component) { "Success message" }
 
-    assert_includes rendered, "alert-success"
+    assert_includes rendered, "decor:d-alert-success"
   end
 
   test "renders with daisyUI alert structure" do
     component = Decor::Daisy::Banner.new(color: :info)
     rendered = render_component(component) { "Info message" }
 
-    assert_includes rendered, "alert alert-info"
+    assert_includes rendered, "decor:d-alert decor:d-alert-info"
     assert_includes rendered, 'role="alert"'
   end
 
@@ -30,15 +30,15 @@ class Decor::Daisy::BannerTest < ActiveSupport::TestCase
     component = Decor::Daisy::Banner.new
     rendered = render_component(component) { "Left aligned banner" }
 
-    assert_includes rendered, "flex-1"
-    refute_includes rendered, "justify-center text-center"
+    assert_includes rendered, "decor:flex-1"
+    refute_includes rendered, "decor:justify-center decor:text-center"
   end
 
   test "applies centered layout when specified" do
     component = Decor::Daisy::Banner.new(centered: true)
     rendered = render_component(component) { "Centered banner" }
 
-    assert_includes rendered, "justify-center text-center"
+    assert_includes rendered, "decor:justify-center decor:text-center"
   end
 
   test "renders with icon" do
@@ -46,7 +46,7 @@ class Decor::Daisy::BannerTest < ActiveSupport::TestCase
     rendered = render_component(component) { "Banner with icon" }
 
     assert_includes rendered, "star"
-    assert_includes rendered, "h-6 w-6"
+    assert_includes rendered, "decor:h-6 decor:w-6"
   end
 
   test "renders with link" do
@@ -55,21 +55,21 @@ class Decor::Daisy::BannerTest < ActiveSupport::TestCase
 
     assert_includes rendered, "Learn more"
     assert_includes rendered, 'href="/learn-more"'
-    assert_includes rendered, "btn btn-sm btn-primary"
+    assert_includes rendered, "decor:d-btn decor:d-btn-sm decor:d-btn-primary"
   end
 
   test "renders different error styles" do
     component = Decor::Daisy::Banner.new(color: :error)
     rendered = render_component(component) { "Error message" }
 
-    assert_includes rendered, "alert-error"
+    assert_includes rendered, "decor:d-alert-error"
   end
 
   test "renders different warning styles" do
     component = Decor::Daisy::Banner.new(color: :warning)
     rendered = render_component(component) { "Warning message" }
 
-    assert_includes rendered, "alert-warning"
+    assert_includes rendered, "decor:d-alert-warning"
   end
 
   test "uses nokogiri for parsing" do
@@ -78,10 +78,10 @@ class Decor::Daisy::BannerTest < ActiveSupport::TestCase
 
     banner_div = fragment.at_css(".decor--daisy--banner")
     assert_not_nil banner_div
-    assert_includes banner_div["class"], "mb-4"
+    assert_includes banner_div["class"], "decor:mb-4"
 
     alert_div = fragment.at_css('div[role="alert"]')
     assert_not_nil alert_div
-    assert_includes alert_div["class"], "alert alert-info"
+    assert_includes alert_div["class"], "decor:d-alert decor:d-alert-info"
   end
 end

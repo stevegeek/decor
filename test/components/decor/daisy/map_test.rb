@@ -62,18 +62,18 @@ class Decor::Daisy::MapTest < ActiveSupport::TestCase
     )
     rendered = render_component(component)
 
-    assert_includes rendered, "h-96"
-    assert_includes rendered, "w-full"
+    assert_includes rendered, "decor:h-96"
+    assert_includes rendered, "decor:w-full"
   end
 
   test "supports different sizes" do
     sizes = {
-      xs: "h-48",
-      sm: "h-64",
-      md: "h-96",
-      lg: "h-[28rem]",
-      xl: "h-[32rem]",
-      full: "h-full"
+      xs: "decor:h-48",
+      sm: "decor:h-64",
+      md: "decor:h-96",
+      lg: "decor:h-[28rem]",
+      xl: "decor:h-[32rem]",
+      full: "decor:h-full"
     }
 
     sizes.each do |size, expected_class|
@@ -101,7 +101,7 @@ class Decor::Daisy::MapTest < ActiveSupport::TestCase
       )
       rendered = render_component(component)
 
-      expected_class = "border-#{color}"
+      expected_class = "decor:border-#{color}"
       assert_includes rendered, expected_class, "Color #{color} should include #{expected_class}"
     end
   end
@@ -115,9 +115,9 @@ class Decor::Daisy::MapTest < ActiveSupport::TestCase
     )
     rendered = render_component(component)
 
-    assert_includes rendered, "pointer-events-none"
-    assert_includes rendered, "cursor-not-allowed"
-    assert_includes rendered, "opacity-50"
+    assert_includes rendered, "decor:pointer-events-none"
+    assert_includes rendered, "decor:cursor-not-allowed"
+    assert_includes rendered, "decor:opacity-50"
   end
 
   test "uses consistent background styling" do
@@ -128,7 +128,7 @@ class Decor::Daisy::MapTest < ActiveSupport::TestCase
     )
     rendered = render_component(component)
 
-    assert_includes rendered, "bg-gray-50"
+    assert_includes rendered, "decor:bg-gray-50"
     refute_includes rendered, "data-decor--daisy--map-loading-value"
   end
 
@@ -204,7 +204,7 @@ class Decor::Daisy::MapTest < ActiveSupport::TestCase
       full_width: true
     )
     rendered_full = render_component(component_full)
-    assert_includes rendered_full, "w-full"
+    assert_includes rendered_full, "decor:w-full"
 
     component_fixed = Decor::Daisy::Map.new(
       center: @default_center,
@@ -213,7 +213,7 @@ class Decor::Daisy::MapTest < ActiveSupport::TestCase
       full_width: false
     )
     rendered_fixed = render_component(component_fixed)
-    assert_includes rendered_fixed, "w-96"
+    assert_includes rendered_fixed, "decor:w-96"
   end
 
   test "component inherits from PhlexComponent" do
@@ -272,7 +272,7 @@ class Decor::Daisy::MapTest < ActiveSupport::TestCase
     div = fragment.at_css("div")
     assert_not_nil div
     assert_includes div["class"], "decor--daisy--map"
-    assert_includes div["class"], "h-96 w-full"
+    assert_includes div["class"], "decor:h-96 decor:w-full"
   end
 
   test "supports additional CSS classes" do

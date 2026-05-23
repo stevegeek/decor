@@ -5,7 +5,7 @@ class Decor::Daisy::PageHeaderTest < ActiveSupport::TestCase
     component = Decor::Daisy::PageHeader.new(title: "Test Page")
     rendered = render_component(component)
 
-    assert_includes rendered, "page-header"
+    assert_includes rendered, "decor:page-header"
     assert_includes rendered, "Test Page"
   end
 
@@ -26,38 +26,38 @@ class Decor::Daisy::PageHeaderTest < ActiveSupport::TestCase
     component = Decor::Daisy::PageHeader.new(title: "Test", layout: :default)
     rendered = render_component(component)
 
-    assert_includes rendered, "flex flex-col lg:flex-row"
-    assert_includes rendered, "lg:items-center lg:justify-between"
+    assert_includes rendered, "decor:flex decor:flex-col decor:lg:flex-row"
+    assert_includes rendered, "decor:lg:items-center decor:lg:justify-between"
   end
 
   test "supports centered layout" do
     component = Decor::Daisy::PageHeader.new(title: "Test", layout: :centered)
     rendered = render_component(component)
 
-    assert_includes rendered, "text-center"
-    assert_includes rendered, "max-w-4xl mx-auto"
+    assert_includes rendered, "decor:text-center"
+    assert_includes rendered, "decor:max-w-4xl decor:mx-auto"
   end
 
   test "supports minimal layout" do
     component = Decor::Daisy::PageHeader.new(title: "Test", layout: :minimal)
     rendered = render_component(component)
 
-    assert_includes rendered, "flex items-center justify-between"
+    assert_includes rendered, "decor:flex decor:items-center decor:justify-between"
   end
 
   test "supports hero layout" do
     component = Decor::Daisy::PageHeader.new(title: "Test", layout: :hero)
     rendered = render_component(component)
 
-    assert_includes rendered, "hero"
-    assert_includes rendered, "hero-content"
+    assert_includes rendered, "decor:d-hero"
+    assert_includes rendered, "decor:d-hero-content"
   end
 
   test "supports compact layout" do
     component = Decor::Daisy::PageHeader.new(title: "Test", layout: :compact)
     rendered = render_component(component)
 
-    assert_includes rendered, "flex items-center justify-between py-2"
+    assert_includes rendered, "decor:flex decor:items-center decor:justify-between decor:py-2"
   end
 
   test "supports different sizes" do
@@ -67,8 +67,8 @@ class Decor::Daisy::PageHeaderTest < ActiveSupport::TestCase
     small_rendered = render_component(small_component)
     large_rendered = render_component(large_component)
 
-    assert_includes small_rendered, "text-xl"
-    assert_includes large_rendered, "text-2xl"
+    assert_includes small_rendered, "decor:text-xl"
+    assert_includes large_rendered, "decor:text-2xl"
   end
 
   test "supports different backgrounds" do
@@ -80,9 +80,9 @@ class Decor::Daisy::PageHeaderTest < ActiveSupport::TestCase
     gradient_rendered = render_component(gradient_component)
     transparent_rendered = render_component(transparent_component)
 
-    assert_includes hero_rendered, "bg-base-200"
-    assert_includes gradient_rendered, "bg-gradient-to-r from-primary to-secondary"
-    refute_includes transparent_rendered, "bg-"
+    assert_includes hero_rendered, "decor:bg-base-200"
+    assert_includes gradient_rendered, "decor:bg-gradient-to-r decor:from-primary decor:to-secondary"
+    refute_includes transparent_rendered, "decor:bg-"
   end
 
   test "supports border configuration" do
@@ -92,8 +92,8 @@ class Decor::Daisy::PageHeaderTest < ActiveSupport::TestCase
     with_rendered = render_component(with_border)
     without_rendered = render_component(without_border)
 
-    assert_includes with_rendered, "border-b border-base-300"
-    refute_includes without_rendered, "border-b"
+    assert_includes with_rendered, "decor:border-b decor:border-base-300"
+    refute_includes without_rendered, "decor:border-b"
   end
 
   test "supports different padding levels" do
@@ -103,8 +103,8 @@ class Decor::Daisy::PageHeaderTest < ActiveSupport::TestCase
     small_rendered = render_component(small_padding)
     large_rendered = render_component(large_padding)
 
-    assert_includes small_rendered, "p-4"
-    assert_includes large_rendered, "p-8 lg:p-12"
+    assert_includes small_rendered, "decor:p-4"
+    assert_includes large_rendered, "decor:p-8 decor:lg:p-12"
   end
 
   test "supports avatar content area" do
@@ -115,7 +115,7 @@ class Decor::Daisy::PageHeaderTest < ActiveSupport::TestCase
     rendered = render_component(component)
 
     assert_includes rendered, "Avatar Content"
-    assert_includes rendered, "flex-shrink-0"
+    assert_includes rendered, "decor:flex-shrink-0"
   end
 
   test "supports title content area override" do
@@ -196,7 +196,7 @@ class Decor::Daisy::PageHeaderTest < ActiveSupport::TestCase
     component = Decor::Daisy::PageHeader.new
     rendered = render_component(component)
 
-    assert_includes rendered, "page-header"
+    assert_includes rendered, "decor:page-header"
   end
 
   test "renders compact layout with minimal content" do
@@ -208,8 +208,8 @@ class Decor::Daisy::PageHeaderTest < ActiveSupport::TestCase
     rendered = render_component(component)
 
     assert_includes rendered, "Compact Title"
-    assert_includes rendered, "font-semibold"
-    assert_includes rendered, "text-lg"
+    assert_includes rendered, "decor:font-semibold"
+    assert_includes rendered, "decor:text-lg"
     refute_includes rendered, "This should not show in compact mode"
   end
 
@@ -223,17 +223,17 @@ class Decor::Daisy::PageHeaderTest < ActiveSupport::TestCase
     component = Decor::Daisy::PageHeader.new(title: "Test")
     rendered = render_component(component)
 
-    assert_includes rendered, "page-header"
-    assert_includes rendered, "bg-base-100"
-    assert_includes rendered, "text-base-content"
+    assert_includes rendered, "decor:page-header"
+    assert_includes rendered, "decor:bg-base-100"
+    assert_includes rendered, "decor:text-base-content"
   end
 
   test "responsive behavior in default layout" do
     component = Decor::Daisy::PageHeader.new(title: "Test", layout: :default)
     rendered = render_component(component)
 
-    assert_includes rendered, "flex-col lg:flex-row"
-    assert_includes rendered, "sm:flex-row"
+    assert_includes rendered, "decor:flex-col decor:lg:flex-row"
+    assert_includes rendered, "decor:sm:flex-row"
   end
 
   test "validates layout choices" do

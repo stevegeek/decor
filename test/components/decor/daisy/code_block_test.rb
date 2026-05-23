@@ -37,7 +37,7 @@ class Decor::Daisy::CodeBlockTest < ActiveSupport::TestCase
 
     rendered = render_fragment(component) { "// code here" }
 
-    header = rendered.css(".border-b").first
+    header = rendered.css('[class~="decor:border-b"]').first
     assert header
 
     assert_includes rendered.text, "app.js"
@@ -80,13 +80,13 @@ class Decor::Daisy::CodeBlockTest < ActiveSupport::TestCase
       "line 1\nline 2\nline 3"
     end
 
-    line_numbers = rendered.css(".select-none").first
+    line_numbers = rendered.css('[class~="decor:select-none"]').first
     assert line_numbers
     assert_includes line_numbers.text, "1"
     assert_includes line_numbers.text, "2"
     assert_includes line_numbers.text, "3"
 
-    flex_container = rendered.css(".flex").first
+    flex_container = rendered.css('[class~="decor:flex"]').first
     assert flex_container
   end
 

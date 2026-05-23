@@ -91,6 +91,6 @@ class Decor::Daisy::Nav::SideNavbarTest < ActiveSupport::TestCase
     )
     rendered = render_component(component)
 
-    assert_includes rendered, '<nav class="flex-1 px-5"></nav>'
+    assert_includes rendered, '<nav class="decor:flex-1 decor:px-5"></nav>'
   end
 end

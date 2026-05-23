@@ -14,7 +14,7 @@ class Decor::Daisy::Forms::TextFieldTest < ActiveSupport::TestCase
       assert_includes rendered, 'type="text"'
       assert_includes rendered, 'value="Wow!"'
       assert_includes rendered, 'name="my_text"'
-      assert_includes rendered, 'class="input w-full'
+      assert_includes rendered, 'class="decor:d-input decor:w-full'
     end
   end
 
@@ -72,7 +72,7 @@ class Decor::Daisy::Forms::TextFieldTest < ActiveSupport::TestCase
     )
     fragment = render_fragment(component)
 
-    label = fragment.at_css("label.input")
+    label = fragment.at_css(%(label[class~="decor:d-input"]))
     assert_not_nil label
 
     input = label.at_css("input")
@@ -88,7 +88,7 @@ class Decor::Daisy::Forms::TextFieldTest < ActiveSupport::TestCase
     )
     fragment = render_fragment(component)
 
-    label = fragment.at_css("label.input")
+    label = fragment.at_css(%(label[class~="decor:d-input"]))
     assert_not_nil label
 
     input = label.at_css("input")
@@ -106,7 +106,7 @@ class Decor::Daisy::Forms::TextFieldTest < ActiveSupport::TestCase
     )
     fragment = render_fragment(component)
 
-    label = fragment.at_css("label.input.validator")
+    label = fragment.at_css('label[class~="decor:d-input"][class~="decor:d-validator"]')
     assert_not_nil label
   end
 
@@ -118,7 +118,7 @@ class Decor::Daisy::Forms::TextFieldTest < ActiveSupport::TestCase
     )
     rendered = render_component(component)
 
-    assert_includes rendered, "validator-hint"
+    assert_includes rendered, "decor:d-validator-hint"
     assert_includes rendered, "This is helper text"
   end
 
@@ -130,7 +130,7 @@ class Decor::Daisy::Forms::TextFieldTest < ActiveSupport::TestCase
     )
     fragment = render_fragment(component)
 
-    label = fragment.at_css("label.input")
+    label = fragment.at_css(%(label[class~="decor:d-input"]))
     assert_not_nil label
 
     span = label.at_css("span")
@@ -146,7 +146,7 @@ class Decor::Daisy::Forms::TextFieldTest < ActiveSupport::TestCase
     )
     fragment = render_fragment(component)
 
-    label = fragment.at_css("label.input")
+    label = fragment.at_css(%(label[class~="decor:d-input"]))
     assert_not_nil label
 
     span = label.at_css("span")
@@ -164,7 +164,7 @@ class Decor::Daisy::Forms::TextFieldTest < ActiveSupport::TestCase
 
     fragment = render_fragment(component)
 
-    label = fragment.at_css("label.input")
+    label = fragment.at_css(%(label[class~="decor:d-input"]))
     assert_not_nil label
     assert_includes label.text, "Custom Content"
   end

@@ -62,7 +62,7 @@ class Decor::Daisy::Forms::ExpandingCheckboxCollectionTest < ActiveSupport::Test
     component.instance_variable_set(:@checkboxes, @checkbox_content)
     rendered = render_component(component)
 
-    assert_includes rendered, "join join-vertical"
+    assert_includes rendered, "decor:d-join decor:d-join-vertical"
   end
 
   test "component inherits from FormField" do

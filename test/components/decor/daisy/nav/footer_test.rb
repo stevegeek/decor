@@ -65,7 +65,7 @@ class Decor::Daisy::Nav::FooterTest < ActiveSupport::TestCase
 
     assert_includes rendered, "https://twitter.com/test"
     assert_includes rendered, "https://github.com/test"
-    assert_includes rendered, "btn btn-ghost btn-circle"
+    assert_includes rendered, "decor:d-btn decor:d-btn-ghost decor:d-btn-circle"
   end
 
   test "supports logo content slot" do

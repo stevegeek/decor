@@ -9,7 +9,7 @@ class Decor::Daisy::StatTest < ActiveSupport::TestCase
     )
     rendered = render_component(component)
 
-    assert_includes rendered, "stat"
+    assert_includes rendered, "decor:d-stat"
     assert_includes rendered, "Test Title"
     assert_includes rendered, "123"
     assert_includes rendered, "Test description"
@@ -19,7 +19,7 @@ class Decor::Daisy::StatTest < ActiveSupport::TestCase
     component = Decor::Daisy::Stat.new(value: "42")
     rendered = render_component(component)
 
-    assert_includes rendered, "stat"
+    assert_includes rendered, "decor:d-stat"
     assert_includes rendered, "42"
   end
 
@@ -27,7 +27,7 @@ class Decor::Daisy::StatTest < ActiveSupport::TestCase
     component = Decor::Daisy::Stat.new
     rendered = render_component(component)
 
-    assert_includes rendered, "stat"
+    assert_includes rendered, "decor:d-stat"
     assert rendered # Should not raise error
   end
 
@@ -37,9 +37,9 @@ class Decor::Daisy::StatTest < ActiveSupport::TestCase
       rendered = render_component(component)
 
       if color == :neutral
-        refute_includes rendered, "text-neutral"
+        refute_includes rendered, "decor:text-neutral"
       else
-        assert_includes rendered, "text-#{color}"
+        assert_includes rendered, "decor:text-#{color}"
       end
     end
   end
@@ -48,29 +48,29 @@ class Decor::Daisy::StatTest < ActiveSupport::TestCase
     component = Decor::Daisy::Stat.new(value: "Test")
     rendered = render_component(component)
 
-    refute_includes rendered, "text-neutral"
-    assert_includes rendered, "stat-value"
+    refute_includes rendered, "decor:text-neutral"
+    assert_includes rendered, "decor:d-stat-value"
   end
 
   test "applies centered class when centered is true" do
     component = Decor::Daisy::Stat.new(value: "Test", centered: true)
     rendered = render_component(component)
 
-    assert_includes rendered, "place-items-center"
+    assert_includes rendered, "decor:place-items-center"
   end
 
   test "does not apply centered class by default" do
     component = Decor::Daisy::Stat.new(value: "Test")
     rendered = render_component(component)
 
-    refute_includes rendered, "place-items-center"
+    refute_includes rendered, "decor:place-items-center"
   end
 
   test "renders title in stat-title div" do
     component = Decor::Daisy::Stat.new(title: "My Stat Title")
     rendered = render_component(component)
 
-    assert_includes rendered, "stat-title"
+    assert_includes rendered, "decor:d-stat-title"
     assert_includes rendered, "My Stat Title"
   end
 
@@ -78,14 +78,14 @@ class Decor::Daisy::StatTest < ActiveSupport::TestCase
     component = Decor::Daisy::Stat.new(value: "123")
     rendered = render_component(component)
 
-    refute_includes rendered, "stat-title"
+    refute_includes rendered, "decor:d-stat-title"
   end
 
   test "renders value in stat-value div" do
     component = Decor::Daisy::Stat.new(value: "42,000")
     rendered = render_component(component)
 
-    assert_includes rendered, "stat-value"
+    assert_includes rendered, "decor:d-stat-value"
     assert_includes rendered, "42,000"
   end
 
@@ -93,15 +93,15 @@ class Decor::Daisy::StatTest < ActiveSupport::TestCase
     component = Decor::Daisy::Stat.new(value: "123", color: :primary)
     rendered = render_component(component)
 
-    assert_includes rendered, "stat-value"
-    assert_includes rendered, "text-primary"
+    assert_includes rendered, "decor:d-stat-value"
+    assert_includes rendered, "decor:text-primary"
   end
 
   test "renders description in stat-desc div" do
     component = Decor::Daisy::Stat.new(description: "Up 20% from last month")
     rendered = render_component(component)
 
-    assert_includes rendered, "stat-desc"
+    assert_includes rendered, "decor:d-stat-desc"
     assert_includes rendered, "Up 20% from last month"
   end
 
@@ -109,47 +109,47 @@ class Decor::Daisy::StatTest < ActiveSupport::TestCase
     component = Decor::Daisy::Stat.new(value: "123")
     rendered = render_component(component)
 
-    refute_includes rendered, "stat-desc"
+    refute_includes rendered, "decor:d-stat-desc"
   end
 
   test "renders icon in figure when icon provided" do
     component = Decor::Daisy::Stat.new(icon: "star", value: "123")
     rendered = render_component(component)
 
-    assert_includes rendered, "stat-figure"
+    assert_includes rendered, "decor:d-stat-figure"
     assert_includes rendered, "star"
-    assert_includes rendered, "h-8 w-8"
+    assert_includes rendered, "decor:h-8 decor:w-8"
   end
 
   test "does not render figure when no icon provided" do
     component = Decor::Daisy::Stat.new(value: "123")
     rendered = render_component(component)
 
-    refute_includes rendered, "stat-figure"
+    refute_includes rendered, "decor:d-stat-figure"
   end
 
   test "applies icon color class to figure" do
     component = Decor::Daisy::Stat.new(icon: "star", icon_color: :primary, value: "123")
     rendered = render_component(component)
 
-    assert_includes rendered, "stat-figure"
-    assert_includes rendered, "text-primary"
+    assert_includes rendered, "decor:d-stat-figure"
+    assert_includes rendered, "decor:text-primary"
   end
 
   test "applies stat color to figure when no icon_color specified" do
     component = Decor::Daisy::Stat.new(icon: "star", color: :success, value: "123")
     rendered = render_component(component)
 
-    assert_includes rendered, "stat-figure"
-    assert_includes rendered, "text-success"
+    assert_includes rendered, "decor:d-stat-figure"
+    assert_includes rendered, "decor:text-success"
   end
 
   test "does not apply color class to figure when stat color is neutral" do
     component = Decor::Daisy::Stat.new(icon: "star", color: :neutral, value: "123")
     rendered = render_component(component)
 
-    assert_includes rendered, "stat-figure"
-    refute_includes rendered, "text-neutral"
+    assert_includes rendered, "decor:d-stat-figure"
+    refute_includes rendered, "decor:text-neutral"
   end
 
   test "renders block content in value area" do
@@ -176,7 +176,7 @@ class Decor::Daisy::StatTest < ActiveSupport::TestCase
     end
 
     rendered = render_component(component)
-    assert_includes rendered, "stat-figure"
+    assert_includes rendered, "decor:d-stat-figure"
     assert_includes rendered, "custom-figure"
     assert_includes rendered, "Figure Content"
   end
@@ -197,7 +197,7 @@ class Decor::Daisy::StatTest < ActiveSupport::TestCase
     end
 
     rendered = render_component(component)
-    assert_includes rendered, "stat-actions"
+    assert_includes rendered, "decor:d-stat-actions"
     assert_includes rendered, "btn"
     assert_includes rendered, "Action Button"
   end
@@ -224,17 +224,17 @@ class Decor::Daisy::StatTest < ActiveSupport::TestCase
 
     rendered = render_component(component)
 
-    assert_includes rendered, "stat"
-    assert_includes rendered, "place-items-center"
-    assert_includes rendered, "stat-title"
+    assert_includes rendered, "decor:d-stat"
+    assert_includes rendered, "decor:place-items-center"
+    assert_includes rendered, "decor:d-stat-title"
     assert_includes rendered, "Total Sales"
-    assert_includes rendered, "stat-value"
-    assert_includes rendered, "text-success"
+    assert_includes rendered, "decor:d-stat-value"
+    assert_includes rendered, "decor:text-success"
     assert_includes rendered, "$45,231"
-    assert_includes rendered, "stat-desc"
+    assert_includes rendered, "decor:d-stat-desc"
     assert_includes rendered, "+20% from last month"
-    assert_includes rendered, "stat-figure"
-    assert_includes rendered, "text-primary"
+    assert_includes rendered, "decor:d-stat-figure"
+    assert_includes rendered, "decor:text-primary"
     assert_includes rendered, "currency-dollar"
   end
 
@@ -242,14 +242,14 @@ class Decor::Daisy::StatTest < ActiveSupport::TestCase
     component = Decor::Daisy::Stat.new(value: "Test", color: :primary)
     fragment = render_fragment(component)
 
-    stat_div = fragment.at_css(".stat")
+    stat_div = fragment.at_css('[class~="decor:d-stat"]')
     assert_not_nil stat_div
-    assert_includes stat_div["class"], "stat"
+    assert_includes stat_div["class"], "decor:d-stat"
 
-    value_div = fragment.at_css(".stat-value")
+    value_div = fragment.at_css('[class~="decor:d-stat-value"]')
     assert_not_nil value_div
     assert_includes value_div.text, "Test"
-    assert_includes value_div["class"], "text-primary"
+    assert_includes value_div["class"], "decor:text-primary"
   end
 
   test "handles complex nested structure with nokogiri" do
@@ -261,21 +261,21 @@ class Decor::Daisy::StatTest < ActiveSupport::TestCase
     )
     fragment = render_fragment(component)
 
-    stat_div = fragment.at_css(".stat")
+    stat_div = fragment.at_css('[class~="decor:d-stat"]')
     assert_not_nil stat_div
 
-    figure_div = fragment.at_css(".stat-figure")
+    figure_div = fragment.at_css('[class~="decor:d-stat-figure"]')
     assert_not_nil figure_div
 
-    title_div = fragment.at_css(".stat-title")
+    title_div = fragment.at_css('[class~="decor:d-stat-title"]')
     assert_not_nil title_div
     assert_includes title_div.text, "Complex Stat"
 
-    value_div = fragment.at_css(".stat-value")
+    value_div = fragment.at_css('[class~="decor:d-stat-value"]')
     assert_not_nil value_div
     assert_includes value_div.text, "123"
 
-    desc_div = fragment.at_css(".stat-desc")
+    desc_div = fragment.at_css('[class~="decor:d-stat-desc"]')
     assert_not_nil desc_div
     assert_includes desc_div.text, "Test desc"
   end
@@ -288,7 +288,7 @@ class Decor::Daisy::StatTest < ActiveSupport::TestCase
     )
     rendered = render_component(component)
 
-    assert_includes rendered, "stat"
+    assert_includes rendered, "decor:d-stat"
     assert rendered # Should not raise error
   end
 
@@ -300,7 +300,7 @@ class Decor::Daisy::StatTest < ActiveSupport::TestCase
     )
     rendered = render_component(component)
 
-    assert_includes rendered, "stat"
+    assert_includes rendered, "decor:d-stat"
     assert rendered # Should not raise error
   end
 
@@ -329,10 +329,10 @@ class Decor::Daisy::StatTest < ActiveSupport::TestCase
     )
     rendered = render_component(component)
 
-    title_pos = rendered.index("stat-title")
-    value_pos = rendered.index("stat-value")
-    desc_pos = rendered.index("stat-desc")
-    figure_pos = rendered.index("stat-figure")
+    title_pos = rendered.index("decor:d-stat-title")
+    value_pos = rendered.index("decor:d-stat-value")
+    desc_pos = rendered.index("decor:d-stat-desc")
+    figure_pos = rendered.index("decor:d-stat-figure")
 
     assert figure_pos < title_pos
     assert title_pos < value_pos

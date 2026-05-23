@@ -26,7 +26,7 @@ class Decor::Daisy::Modals::ModalCloseButtonTest < ActiveSupport::TestCase
     component = Decor::Daisy::Modals::ModalCloseButton.new
     rendered = render_component(component)
 
-    assert_includes rendered, "#x-mark"
+    assert_includes rendered, "tabler-x-mark"
   end
 
   test "supports custom button styling" do

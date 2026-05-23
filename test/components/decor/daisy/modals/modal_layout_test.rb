@@ -57,10 +57,10 @@ class Decor::Daisy::Modals::ModalLayoutTest < ActiveSupport::TestCase
     component = Decor::Daisy::Modals::ModalLayout.new
     fragment = render_fragment(component)
 
-    modal_box = fragment.at_css(".modal-box")
+    modal_box = fragment.at_css('[class~="decor:d-modal-box"]')
     assert_not_nil modal_box
     assert_includes modal_box["class"], "decor--daisy--modals--modal-layout"
-    assert_includes modal_box["class"], "relative"
+    assert_includes modal_box["class"], "decor:relative"
   end
 
   test "component inherits from PhlexComponent" do

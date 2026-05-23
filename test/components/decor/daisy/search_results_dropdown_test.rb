@@ -9,16 +9,16 @@ class Decor::Daisy::SearchResultsDropdownTest < ActiveSupport::TestCase
     component = Decor::Daisy::SearchResultsDropdown.new(nav_element: @nav_element)
     rendered = render_component(component)
 
-    assert_includes rendered, "hidden absolute top-full"
-    assert_includes rendered, "h-[375px]"
-    assert_includes rendered, "border-l border-r border-b border-gray-200"
+    assert_includes rendered, "decor:hidden decor:absolute decor:top-full"
+    assert_includes rendered, "decor:h-[375px]"
+    assert_includes rendered, "decor:border-l decor:border-r decor:border-b decor:border-gray-200"
   end
 
   test "includes shadow element" do
     component = Decor::Daisy::SearchResultsDropdown.new(nav_element: @nav_element)
     rendered = render_component(component)
 
-    assert_includes rendered, "absolute inset-0 top-1/2 bg-white shadow-xl"
+    assert_includes rendered, "decor:absolute decor:inset-0 decor:top-1/2 decor:bg-white decor:shadow-xl"
     assert_includes rendered, 'aria-hidden="true"'
   end
 
@@ -26,7 +26,7 @@ class Decor::Daisy::SearchResultsDropdownTest < ActiveSupport::TestCase
     component = Decor::Daisy::SearchResultsDropdown.new(nav_element: @nav_element)
     rendered = render_component(component)
 
-    assert_includes rendered, "flex items-center h-full"
+    assert_includes rendered, "decor:flex decor:items-center decor:h-full"
     assert_includes rendered, 'data-decor--daisy--nav--top-navbar-target="searchSpinner"'
   end
 
@@ -34,7 +34,7 @@ class Decor::Daisy::SearchResultsDropdownTest < ActiveSupport::TestCase
     component = Decor::Daisy::SearchResultsDropdown.new(nav_element: @nav_element)
     rendered = render_component(component)
 
-    assert_includes rendered, "hidden max-w-7xl mx-auto px-8 h-full overflow-y-scroll lg:overflow-auto"
+    assert_includes rendered, "decor:hidden decor:max-w-7xl decor:mx-auto decor:px-8 decor:h-full decor:overflow-y-scroll decor:lg:overflow-auto"
     assert_includes rendered, 'data-decor--daisy--nav--top-navbar-target="searchDropdownContent"'
   end
 
@@ -42,17 +42,17 @@ class Decor::Daisy::SearchResultsDropdownTest < ActiveSupport::TestCase
     component = Decor::Daisy::SearchResultsDropdown.new(nav_element: @nav_element)
     rendered = render_component(component)
 
-    assert_includes rendered, "loading"
-    assert_includes rendered, "loading-spinner"
-    assert_includes rendered, "mx-auto"
+    assert_includes rendered, "decor:d-loading"
+    assert_includes rendered, "decor:d-loading-spinner"
+    assert_includes rendered, "decor:mx-auto"
   end
 
   test "applies correct CSS classes" do
     component = Decor::Daisy::SearchResultsDropdown.new(nav_element: @nav_element)
     rendered = render_component(component)
 
-    assert_includes rendered, "text-sm text-gray-500"
-    assert_includes rendered, "relative bg-white h-full overflow-hidden"
+    assert_includes rendered, "decor:text-sm decor:text-gray-500"
+    assert_includes rendered, "decor:relative decor:bg-white decor:h-full decor:overflow-hidden"
   end
 
   test "nav element targets are properly assigned" do
@@ -67,20 +67,20 @@ class Decor::Daisy::SearchResultsDropdownTest < ActiveSupport::TestCase
     component = Decor::Daisy::SearchResultsDropdown.new(nav_element: @nav_element)
     fragment = render_fragment(component)
 
-    dropdown = fragment.at_css(".hidden.absolute.top-full")
+    dropdown = fragment.at_css('[class~="decor:hidden"][class~="decor:absolute"][class~="decor:top-full"]')
     assert_not_nil dropdown
-    assert_includes dropdown["class"], "h-[375px]"
+    assert_includes dropdown["class"], "decor:h-[375px]"
 
-    shadow = fragment.at_css('.absolute.inset-0.top-1\\/2')
+    shadow = fragment.at_css('[class~="decor:absolute"][class~="decor:inset-0"][class~="decor:top-1/2"]')
     assert_not_nil shadow
     assert_equal "true", shadow["aria-hidden"]
 
     spinner_container = fragment.at_css('[data-decor--daisy--nav--top-navbar-target="searchSpinner"]')
     assert_not_nil spinner_container
-    assert_includes spinner_container["class"], "flex items-center h-full"
+    assert_includes spinner_container["class"], "decor:flex decor:items-center decor:h-full"
 
     content_area = fragment.at_css('[data-decor--daisy--nav--top-navbar-target="searchDropdownContent"]')
     assert_not_nil content_area
-    assert_includes content_area["class"], "hidden"
+    assert_includes content_area["class"], "decor:hidden"
   end
 end

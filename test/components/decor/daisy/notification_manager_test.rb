@@ -6,16 +6,16 @@ class Decor::Daisy::NotificationManagerTest < ActiveSupport::TestCase
     rendered = render_component(component)
 
     assert_includes rendered, "decor--daisy--notification-manager"
-    assert_includes rendered, "toast"
+    assert_includes rendered, "decor:d-toast"
   end
 
   test "renders with daisyUI toast classes" do
     component = Decor::Daisy::NotificationManager.new
     rendered = render_component(component)
 
-    assert_includes rendered, "toast"
-    assert_includes rendered, "toast-top"
-    assert_includes rendered, "toast-end"
+    assert_includes rendered, "decor:d-toast"
+    assert_includes rendered, "decor:d-toast-top"
+    assert_includes rendered, "decor:d-toast-end"
   end
 
   test "renders with Stimulus controller" do
@@ -29,17 +29,17 @@ class Decor::Daisy::NotificationManagerTest < ActiveSupport::TestCase
     component = Decor::Daisy::NotificationManager.new
     fragment = render_fragment(component)
 
-    toast_div = fragment.at_css(".toast")
+    toast_div = fragment.at_css('[class~="decor:d-toast"]')
     assert_not_nil toast_div
-    assert_includes toast_div["class"], "toast-top"
-    assert_includes toast_div["class"], "toast-end"
+    assert_includes toast_div["class"], "decor:d-toast-top"
+    assert_includes toast_div["class"], "decor:d-toast-end"
   end
 
   test "renders with z-index for layering" do
     component = Decor::Daisy::NotificationManager.new
     rendered = render_component(component)
 
-    assert_includes rendered, "z-50"
+    assert_includes rendered, "decor:z-50"
   end
 
   test "provides Stimulus event handlers for notification control" do
@@ -61,7 +61,7 @@ class Decor::Daisy::NotificationManagerTest < ActiveSupport::TestCase
     component = Decor::Daisy::NotificationManager.new
     rendered = render_component(component)
 
-    assert_includes rendered, "toast"
+    assert_includes rendered, "decor:d-toast"
     assert_includes rendered, "decor--daisy--notification-manager"
   end
 
@@ -69,7 +69,7 @@ class Decor::Daisy::NotificationManagerTest < ActiveSupport::TestCase
     component = Decor::Daisy::NotificationManager.new
     rendered = render_component(component)
 
-    assert_includes rendered, "fixed"
+    assert_includes rendered, "decor:fixed"
   end
 
   test "includes Stimulus target for notification container" do
@@ -83,7 +83,7 @@ class Decor::Daisy::NotificationManagerTest < ActiveSupport::TestCase
     component = Decor::Daisy::NotificationManager.new
     fragment = render_fragment(component)
 
-    toast_div = fragment.at_css(".toast")
+    toast_div = fragment.at_css('[class~="decor:d-toast"]')
     assert_not_nil toast_div
 
     controller_attr = toast_div["data-controller"]
@@ -96,8 +96,8 @@ class Decor::Daisy::NotificationManagerTest < ActiveSupport::TestCase
     rendered = render_component(component)
 
     assert_includes rendered, "decor--daisy--notification-manager"
-    assert_includes rendered, "toast toast-top toast-end"
-    assert_includes rendered, "fixed z-50"
+    assert_includes rendered, "decor:d-toast decor:d-toast-top decor:d-toast-end"
+    assert_includes rendered, "decor:fixed decor:z-50"
   end
 
   test "renders as div element with toast classes" do
@@ -106,7 +106,7 @@ class Decor::Daisy::NotificationManagerTest < ActiveSupport::TestCase
 
     div = fragment.at_css("div")
     assert_not_nil div
-    assert_includes div["class"], "toast"
+    assert_includes div["class"], "decor:d-toast"
     assert_includes div["class"], "decor--daisy--notification-manager"
   end
 end

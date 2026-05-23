@@ -4,66 +4,89 @@ require "test_helper"
 
 module Decor
   module Daisy
-    class FlowStepTest < ViewComponent::TestCase
+    class FlowStepTest < ActiveSupport::TestCase
       def test_renders_with_title_and_description
-        render_inline(Decor::Daisy::FlowStep.new(title: "Step Title", description: "Step description", step: 1))
+        fragment = render_fragment(Decor::Daisy::FlowStep.new(title: "Step Title", description: "Step description", step: 1))
 
-        assert_selector "h4", text: "Step Title"
-        assert_selector "p", text: "Step description"
+        h4 = fragment.at_css("h4")
+        refute_nil h4, "expected an h4 to be present"
+        assert_equal "Step Title", h4.text.strip
+
+        p = fragment.at_css("p")
+        refute_nil p, "expected a p to be present"
+        assert_equal "Step description", p.text.strip
       end
 
       def test_renders_with_step_number
-        render_inline(Decor::Daisy::FlowStep.new(title: "Step Title", step: 3))
+        fragment = render_fragment(Decor::Daisy::FlowStep.new(title: "Step Title", step: 3))
 
-        assert_selector "span", text: "03"
-        assert_selector "h4", text: "Step Title"
+        spans = fragment.css("span").map { |s| s.text.strip }
+        assert_includes spans, "03"
+
+        h4 = fragment.at_css("h4")
+        refute_nil h4
+        assert_equal "Step Title", h4.text.strip
       end
 
       def test_renders_with_icon_instead_of_step_number
-        render_inline(Decor::Daisy::FlowStep.new(title: "Step Title", icon: "check"))
+        fragment = render_fragment(Decor::Daisy::FlowStep.new(title: "Step Title", icon: "check"))
 
-        assert_selector "h4", text: "Step Title"
+        h4 = fragment.at_css("h4")
+        refute_nil h4
+        assert_equal "Step Title", h4.text.strip
       end
 
       def test_renders_without_description
-        render_inline(Decor::Daisy::FlowStep.new(title: "Step Title", step: 1))
+        fragment = render_fragment(Decor::Daisy::FlowStep.new(title: "Step Title", step: 1))
 
-        assert_selector "h4", text: "Step Title"
-        assert_no_selector "p"
+        h4 = fragment.at_css("h4")
+        refute_nil h4
+        assert_equal "Step Title", h4.text.strip
+        assert_nil fragment.at_css("p"), "expected no p element when description omitted"
       end
 
       def test_renders_with_content_block
-        render_inline(Decor::Daisy::FlowStep.new(title: "Step Title", step: 1)) do
+        html = render_component(Decor::Daisy::FlowStep.new(title: "Step Title", step: 1)) do
           "Custom step content"
         end
 
-        assert_selector "h4", text: "Step Title"
-        assert_text "Custom step content"
+        assert_includes html, "Step Title"
+        assert_includes html, "Custom step content"
       end
 
       def test_default_color_is_info
-        render_inline(Decor::Daisy::FlowStep.new(title: "Test", step: 1))
+        fragment = render_fragment(Decor::Daisy::FlowStep.new(title: "Test", step: 1))
 
-        assert_selector "span.bg-info.text-info-content"
+        span = fragment.at_css("span[class~='decor:bg-info'][class~='decor:text-info-content']")
+        refute_nil span, "expected step indicator span with bg-info + text-info-content"
       end
 
       def test_uses_daisyui_base_content_colors
-        render_inline(Decor::Daisy::FlowStep.new(title: "Test Title", description: "Test description", step: 1))
+        fragment = render_fragment(Decor::Daisy::FlowStep.new(title: "Test Title", description: "Test description", step: 1))
 
-        assert_selector "h4.text-base-content"
-        assert_selector "p.text-base-content\\/70"
+        h4 = fragment.at_css("h4[class~='decor:text-base-content']")
+        refute_nil h4, "expected h4 with decor:text-base-content"
+
+        p = fragment.at_css("p[class~='decor:text-base-content/70']")
+        refute_nil p, "expected p with decor:text-base-content/70"
       end
 
       def test_step_indicator_has_correct_classes
-        render_inline(Decor::Daisy::FlowStep.new(title: "Test", step: 1))
+        fragment = render_fragment(Decor::Daisy::FlowStep.new(title: "Test", step: 1))
 
-        assert_selector "span.flex-shrink-0.flex.items-center.justify-center.rounded-full"
+        span = fragment.at_css(
+          "span[class~='decor:flex-shrink-0'][class~='decor:flex'][class~='decor:items-center'][class~='decor:justify-center'][class~='decor:rounded-full']"
+        )
+        refute_nil span, "expected step indicator span with layout classes"
       end
 
       def test_main_container_has_correct_layout_classes
-        render_inline(Decor::Daisy::FlowStep.new(title: "Test", step: 1))
+        fragment = render_fragment(Decor::Daisy::FlowStep.new(title: "Test", step: 1))
 
-        assert_selector ".flex.gap-3.md\\:gap-5.mt-5.border-b.border-base-300.mb-3.pb-5"
+        root = fragment.at_css(
+          "[class~='decor:flex'][class~='decor:gap-3'][class~='decor:md:gap-5'][class~='decor:mt-5'][class~='decor:border-b'][class~='decor:border-base-300'][class~='decor:mb-3'][class~='decor:pb-5']"
+        )
+        refute_nil root, "expected root container with layout classes"
       end
 
       def test_inherits_from_phlex_component
@@ -72,53 +95,69 @@ module Decor
       end
 
       def test_modern_color_attribute
-        render_inline(Decor::Daisy::FlowStep.new(title: "Test", step: 1, color: :primary))
+        fragment = render_fragment(Decor::Daisy::FlowStep.new(title: "Test", step: 1, color: :primary))
 
-        assert_selector "span.bg-primary.text-primary-content"
+        span = fragment.at_css("span[class~='decor:bg-primary'][class~='decor:text-primary-content']")
+        refute_nil span, "expected step indicator span with bg-primary + text-primary-content"
       end
 
       def test_modern_size_variants
         sizes_and_expected = {
-          xs: "w-6 h-6",
-          sm: "w-8 h-8",
-          md: "w-8 h-8",
-          lg: "w-12 h-12",
-          xl: "w-16 h-16"
+          xs: "decor:w-6 decor:h-6",
+          sm: "decor:w-8 decor:h-8",
+          md: "decor:w-8 decor:h-8",
+          lg: "decor:w-12 decor:h-12",
+          xl: "decor:w-16 decor:h-16"
         }
 
         sizes_and_expected.each do |size, expected_classes|
-          render_inline(Decor::Daisy::FlowStep.new(title: "Test", step: 1, size: size))
+          fragment = render_fragment(Decor::Daisy::FlowStep.new(title: "Test", step: 1, size: size))
 
           expected_classes.split.each do |css_class|
-            assert_selector "span.#{css_class}"
+            span = fragment.at_css("span[class~='#{css_class}']")
+            refute_nil span, "expected span with #{css_class} for size #{size}"
           end
         end
       end
 
       def test_modern_filled_variant
-        render_inline(Decor::Daisy::FlowStep.new(title: "Test", step: 1, color: :primary, style: :filled))
+        fragment = render_fragment(Decor::Daisy::FlowStep.new(title: "Test", step: 1, color: :primary, style: :filled))
 
-        assert_selector "span.bg-primary.text-primary-content"
+        span = fragment.at_css("span[class~='decor:bg-primary'][class~='decor:text-primary-content']")
+        refute_nil span, "expected filled variant to have bg-primary + text-primary-content"
       end
 
       def test_modern_outlined_variant
-        render_inline(Decor::Daisy::FlowStep.new(title: "Test", step: 1, color: :primary, style: :outlined))
+        fragment = render_fragment(Decor::Daisy::FlowStep.new(title: "Test", step: 1, color: :primary, style: :outlined))
 
-        assert_selector "span.text-primary.border-2.border-primary"
+        span = fragment.at_css(
+          "span[class~='decor:text-primary'][class~='decor:border-2'][class~='decor:border-primary']"
+        )
+        refute_nil span, "expected outlined variant to have text-primary + border-2 + border-primary"
       end
 
       def test_modern_ghost_variant
-        render_inline(Decor::Daisy::FlowStep.new(title: "Test", step: 1, color: :primary, style: :ghost))
+        fragment = render_fragment(Decor::Daisy::FlowStep.new(title: "Test", step: 1, color: :primary, style: :ghost))
 
-        assert_selector "span.text-primary.border-2.border-transparent"
+        span = fragment.at_css(
+          "span[class~='decor:text-primary'][class~='decor:border-2'][class~='decor:border-transparent']"
+        )
+        refute_nil span, "expected ghost variant to have text-primary + border-2 + border-transparent"
       end
 
       def test_uses_title_component_for_content
-        render_inline(Decor::Daisy::FlowStep.new(title: "Test Title", description: "Test description", step: 1))
+        fragment = render_fragment(Decor::Daisy::FlowStep.new(title: "Test Title", description: "Test description", step: 1))
 
-        assert_selector ".decor--daisy--title"
-        assert_selector "h4.font-semibold.text-base-content", text: "Test Title"
-        assert_selector "p.text-base-content\\/70", text: "Test description"
+        title_root = fragment.at_css(".decor--daisy--title")
+        refute_nil title_root, "expected the daisy title wrapper to be rendered"
+
+        h4 = fragment.at_css("h4[class~='decor:font-semibold'][class~='decor:text-base-content']")
+        refute_nil h4, "expected h4 with font-semibold + text-base-content"
+        assert_equal "Test Title", h4.text.strip
+
+        p = fragment.at_css("p[class~='decor:text-base-content/70']")
+        refute_nil p, "expected p with text-base-content/70"
+        assert_equal "Test description", p.text.strip
       end
     end
   end

@@ -133,7 +133,7 @@ class Decor::Daisy::Forms::CheckboxTest < ActiveSupport::TestCase
     assert_not_nil checkbox
     assert_equal "test", checkbox["name"]
 
-    label_span = fragment.at_css(".label-text")
+    label_span = fragment.at_css('[class~="decor:d-label-text"]')
     assert_not_nil label_span
   end
 end

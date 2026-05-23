@@ -11,14 +11,14 @@ class Decor::Daisy::BoxTest < ActiveSupport::TestCase
 
     rendered = render_fragment(component)
 
-    assert rendered.css(".card.card-bordered.bg-base-100").any?
+    assert rendered.css('[class~="decor:d-card"][class~="decor:d-card-bordered"][class~="decor:bg-base-100"]').any?
 
     assert_includes rendered.text, "Test Title"
     assert_includes rendered.text, "Test description"
 
-    assert rendered.css("h2.card-title").any?
+    assert rendered.css('h2[class~="decor:d-card-title"]').any?
 
-    assert rendered.css("p.text-base-content\\/70").any?
+    assert rendered.css('p[class~="decor:text-base-content/70"]').any?
   end
 
   def test_renders_box_with_html_title_slot
@@ -63,7 +63,7 @@ class Decor::Daisy::BoxTest < ActiveSupport::TestCase
     assert_includes rendered.text, "Description"
     assert_includes rendered.text, "Block content"
 
-    assert rendered.css("div.card-body").any?
+    assert rendered.css('div[class~="decor:d-card-body"]').any?
   end
 
   def test_renders_box_with_both_slots
@@ -79,21 +79,21 @@ class Decor::Daisy::BoxTest < ActiveSupport::TestCase
     refute_includes rendered.text, "Title"
     refute_includes rendered.text, "Description"
 
-    assert rendered.css("div.flex.justify-between.items-start").any?
-    assert rendered.css("div.flex-1").any?
-    assert rendered.css("div.flex-none").any?
+    assert rendered.css('div[class~="decor:flex"][class~="decor:justify-between"][class~="decor:items-start"]').any?
+    assert rendered.css('div[class~="decor:flex-1"]').any?
+    assert rendered.css('div[class~="decor:flex-none"]').any?
   end
 
   def test_box_styling_classes
     component = Decor::Daisy::Box.new(title: "Title", description: "Description")
     rendered = render_fragment(component)
 
-    card_element = rendered.css(".card").first
+    card_element = rendered.css('[class~="decor:d-card"]').first
     assert card_element
 
     classes = card_element["class"]
-    assert_includes classes, "card"
-    assert_includes classes, "card-bordered"
-    assert_includes classes, "bg-base-100"
+    assert_includes classes, "decor:d-card"
+    assert_includes classes, "decor:d-card-bordered"
+    assert_includes classes, "decor:bg-base-100"
   end
 end

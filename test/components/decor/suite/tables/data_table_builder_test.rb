@@ -18,12 +18,20 @@ class Decor::Suite::Tables::DataTableBuilderTest < ActiveSupport::TestCase
       title: "Test Table",
       paginated: false
     }
-    Decor::Suite::Tables::DataTableBuilder.new(
+    # Apply the DSL block *after* construction rather than passing it to
+    # `.new`. The builder's `self.new` consumes the block on initialization,
+    # but Phlex also stashes it on `@_content_block` and re-invokes it during
+    # `vanish(&)` in `view_template`. That re-invocation hits
+    # `columns_hash[name].attributes` (Literal::Struct has no `attributes`).
+    # Applying the DSL post-construction avoids the double invocation while
+    # producing the same builder state.
+    builder = Decor::Suite::Tables::DataTableBuilder.new(
       params: @mock_params,
       helpers: @mock_helpers,
-      **default_attributes.merge(attributes),
-      &block
+      **default_attributes.merge(attributes)
     )
+    block&.call(builder)
+    builder
   end
 
   test "component returns a Suite DataTable instance (not Daisy)" do
@@ -120,8 +128,9 @@ class Decor::Suite::Tables::DataTableBuilderTest < ActiveSupport::TestCase
       b.bulk_action(:archive, label: "Archive")
       b.bulk_action(:delete, label: "Delete", style: :danger)
     end
-    # Block runs during render (Phlex `vanish`), not during .new. Force it.
-    render_component(builder)
+    # `create_builder` applies the DSL block eagerly, so `bulk_actions` is
+    # already populated without rendering. Fully rendering would require a
+    # valid form URL on the bulk-actions bar, which we don't care about here.
     actions = builder.bulk_actions
     assert_equal 2, actions.size
     assert_equal :archive, actions[0].name
@@ -138,8 +147,9 @@ class Decor::Suite::Tables::DataTableBuilderTest < ActiveSupport::TestCase
     builder = create_builder(rows_selectable_as_name: :ids, enable_selection_persistence: false) do |b|
       b.bulk_action(:archive, label: "Archive")
     end
-    # Materialise block-side state by rendering once.
-    render_component(builder)
+    # `create_builder` applies the DSL block eagerly, so the bulk-action
+    # registration is already visible to `should_persist_selections?`
+    # without needing a render pass.
     assert builder.send(:should_persist_selections?)
   end
 

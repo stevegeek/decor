@@ -36,7 +36,7 @@ class Decor::Daisy::Modals::ConfirmModalTest < ActiveSupport::TestCase
 
     modal_content = fragment.at_css("div[data-decor--daisy--modals--confirm-modal-target='modal']")
     assert_not_nil modal_content
-    assert_includes modal_content["class"], "relative inline-block align-bottom bg-white rounded-lg"
+    assert_includes modal_content["class"], "decor:relative decor:inline-block decor:align-bottom decor:bg-white decor:rounded-lg"
   end
 
   test "renders with confirmation buttons" do
@@ -69,7 +69,7 @@ class Decor::Daisy::Modals::ConfirmModalTest < ActiveSupport::TestCase
     rendered = render_component(component)
 
     assert_includes rendered, "decor--daisy--modals--confirm-modal"
-    assert_includes rendered, "fixed hidden z-10 inset-0 overflow-y-auto"
+    assert_includes rendered, "decor:fixed decor:hidden decor:z-10 decor:inset-0 decor:overflow-y-auto"
   end
 
   test "supports modal backdrop" do
@@ -78,7 +78,7 @@ class Decor::Daisy::Modals::ConfirmModalTest < ActiveSupport::TestCase
 
     backdrop = fragment.at_css("div[data-decor--daisy--modals--confirm-modal-target='overlay']")
     assert_not_nil backdrop
-    assert_includes backdrop["class"], "fixed hidden inset-0 bg-gray-700"
+    assert_includes backdrop["class"], "decor:fixed decor:hidden decor:inset-0 decor:bg-gray-700"
   end
 
   test "handles various ID formats" do
@@ -97,8 +97,8 @@ class Decor::Daisy::Modals::ConfirmModalTest < ActiveSupport::TestCase
     component = Decor::Daisy::Modals::ConfirmModal.new(id: "button-confirm")
     rendered = render_component(component)
 
-    assert_includes rendered, "btn btn-primary"
-    assert_includes rendered, "btn btn-secondary"
+    assert_includes rendered, "decor:d-btn decor:d-btn-primary"
+    assert_includes rendered, "decor:d-btn decor:d-btn-secondary"
     assert_includes rendered, "Continue"
     assert_includes rendered, "Cancel"
   end

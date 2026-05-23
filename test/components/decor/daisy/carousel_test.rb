@@ -5,7 +5,7 @@ class Decor::Daisy::CarouselTest < ActiveSupport::TestCase
     component = Decor::Daisy::Carousel.new
     rendered = render_component(component)
 
-    assert_includes rendered, "carousel"
+    assert_includes rendered, "decor:d-carousel"
     assert_includes rendered, "decor--daisy--carousel"
   end
 
@@ -13,8 +13,8 @@ class Decor::Daisy::CarouselTest < ActiveSupport::TestCase
     component = Decor::Daisy::Carousel.new
     rendered = render_component(component)
 
-    assert_includes rendered, "carousel"
-    assert_includes rendered, "w-full"
+    assert_includes rendered, "decor:d-carousel"
+    assert_includes rendered, "decor:w-full"
   end
 
   test "supports items slot" do
@@ -31,7 +31,7 @@ class Decor::Daisy::CarouselTest < ActiveSupport::TestCase
     component = Decor::Daisy::Carousel.new
     rendered = render_component(component)
 
-    assert_includes rendered, "carousel"
+    assert_includes rendered, "decor:d-carousel"
   end
 
   test "supports multiple carousel items" do
@@ -52,7 +52,7 @@ class Decor::Daisy::CarouselTest < ActiveSupport::TestCase
     rendered = render_component(component)
 
     assert_includes rendered, "decor--daisy--carousel"
-    assert_includes rendered, "carousel w-full"
+    assert_includes rendered, "decor:d-carousel decor:w-full"
   end
 
   test "component inherits from PhlexComponent" do
@@ -65,15 +65,15 @@ class Decor::Daisy::CarouselTest < ActiveSupport::TestCase
     component = Decor::Daisy::Carousel.new
     rendered = render_component(component)
 
-    assert_includes rendered, "carousel w-full"
-    assert_includes rendered, "relative"
+    assert_includes rendered, "decor:d-carousel decor:w-full"
+    assert_includes rendered, "decor:relative"
   end
 
   test "renders without items when none provided" do
     component = Decor::Daisy::Carousel.new
     rendered = render_component(component)
 
-    assert_includes rendered, "carousel"
+    assert_includes rendered, "decor:d-carousel"
     assert_includes rendered, "decor--daisy--carousel"
   end
 
@@ -97,7 +97,7 @@ class Decor::Daisy::CarouselTest < ActiveSupport::TestCase
 
     div = fragment.at_css("div")
     assert_not_nil div
-    assert_includes div["class"], "carousel"
+    assert_includes div["class"], "decor--daisy--carousel"
   end
 
   test "supports custom CSS classes" do
@@ -105,15 +105,15 @@ class Decor::Daisy::CarouselTest < ActiveSupport::TestCase
     rendered = render_component(component)
 
     assert_includes rendered, "custom-carousel"
-    assert_includes rendered, "carousel"
+    assert_includes rendered, "decor:d-carousel"
   end
 
   test "renders with responsive design classes" do
     component = Decor::Daisy::Carousel.new
     rendered = render_component(component)
 
-    assert_includes rendered, "carousel w-full"
-    assert_includes rendered, "relative"
+    assert_includes rendered, "decor:d-carousel decor:w-full"
+    assert_includes rendered, "decor:relative"
   end
 
   test "supports carousel items with different content types" do

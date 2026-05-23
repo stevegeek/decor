@@ -1,5 +1,4 @@
 require "test_helper"
-require "ostruct"
 
 class Decor::Daisy::SearchAndFilterTest < ActiveSupport::TestCase
   def setup

@@ -8,12 +8,12 @@ class Decor::Daisy::PanelTest < ActiveSupport::TestCase
 
     rendered = render_fragment(component) { "Panel content" }
 
-    assert rendered.css(".space-y-2").any?
+    assert rendered.css('[class~="decor:space-y-2"]').any?
 
     title_element = rendered.css("h4").first
     assert title_element
     assert_equal "Panel Title", title_element.text
-    assert_includes title_element["class"], "text-base"
+    assert_includes title_element["class"], "decor:text-base"
 
     assert_includes rendered.text, "Panel content"
   end
@@ -23,7 +23,7 @@ class Decor::Daisy::PanelTest < ActiveSupport::TestCase
 
     rendered = render_fragment(component) { "Panel content" }
 
-    assert rendered.css(".flex.items-start.space-x-2").any?
+    assert rendered.css('[class~="decor:flex"][class~="decor:items-start"][class~="decor:space-x-2"]').any?
 
     title_element = rendered.css("h4").first
     assert title_element
@@ -41,7 +41,7 @@ class Decor::Daisy::PanelTest < ActiveSupport::TestCase
     assert title_element
     assert_equal "Panel Title", title_element.text
 
-    assert rendered.css(".space-y-2").any?
+    assert rendered.css('[class~="decor:space-y-2"]').any?
   end
 
   def test_panel_with_icon_has_correct_structure
@@ -49,7 +49,7 @@ class Decor::Daisy::PanelTest < ActiveSupport::TestCase
 
     rendered = render_fragment(component) { "Test content" }
 
-    icon_container = rendered.css(".flex.items-start.space-x-2").first
+    icon_container = rendered.css('[class~="decor:flex"][class~="decor:items-start"][class~="decor:space-x-2"]').first
     assert icon_container
 
     assert_includes rendered.text, "Test content"
@@ -76,13 +76,13 @@ class Decor::Daisy::PanelTest < ActiveSupport::TestCase
     component = Decor::Daisy::Panel.new(title: "Test Panel")
     rendered = render_fragment(component) { "Content" }
 
-    panel_element = rendered.css(".space-y-2").first
+    panel_element = rendered.css('[class~="decor:space-y-2"]').first
     assert panel_element
 
     classes = panel_element["class"]
-    assert_includes classes, "space-y-2"
+    assert_includes classes, "decor:space-y-2"
 
-    content_div = rendered.css(".mt-1\\.5.text-sm").first
+    content_div = rendered.css('[class~="decor:mt-1.5"][class~="decor:text-sm"]').first
     assert content_div
   end
 end

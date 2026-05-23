@@ -5,8 +5,8 @@ class Decor::Daisy::PageSectionTest < ActiveSupport::TestCase
     component = Decor::Daisy::PageSection.new
     rendered = render_component(component)
 
-    assert_includes rendered, "pb-6"
-    assert_includes rendered, "space-y-4"
+    assert_includes rendered, "decor:pb-6"
+    assert_includes rendered, "decor:space-y-4"
   end
 
   test "renders with title" do
@@ -15,7 +15,7 @@ class Decor::Daisy::PageSectionTest < ActiveSupport::TestCase
 
     assert_includes rendered, "Test Title"
     assert_includes rendered, "<h3"
-    assert_includes rendered, "text-base-content"
+    assert_includes rendered, "decor:text-base-content"
   end
 
   test "renders with description" do
@@ -23,7 +23,7 @@ class Decor::Daisy::PageSectionTest < ActiveSupport::TestCase
     rendered = render_component(component)
 
     assert_includes rendered, "Test description"
-    assert_includes rendered, "text-base-content/70"
+    assert_includes rendered, "decor:text-base-content/70"
   end
 
   test "renders with both title and description" do
@@ -35,7 +35,7 @@ class Decor::Daisy::PageSectionTest < ActiveSupport::TestCase
 
     assert_includes rendered, "Section Title"
     assert_includes rendered, "Section description"
-    assert_includes rendered, "mt-2" # Margin top when title is present
+    assert_includes rendered, "decor:mt-2" # Margin top when title is present
   end
 
   test "renders separator when enabled" do
@@ -45,15 +45,15 @@ class Decor::Daisy::PageSectionTest < ActiveSupport::TestCase
     )
     rendered = render_component(component)
 
-    assert_includes rendered, "border-b"
-    assert_includes rendered, "border-base-300"
+    assert_includes rendered, "decor:border-b"
+    assert_includes rendered, "decor:border-base-300"
   end
 
   test "does not render separator by default" do
     component = Decor::Daisy::PageSection.new(title: "No Separator")
     rendered = render_component(component)
 
-    refute_includes rendered, "border-b"
+    refute_includes rendered, "decor:border-b"
   end
 
   test "applies correct size classes for title" do
@@ -63,15 +63,15 @@ class Decor::Daisy::PageSectionTest < ActiveSupport::TestCase
 
       case size
       when :xs
-        assert_includes rendered, "text-sm leading-5"
+        assert_includes rendered, "decor:text-sm decor:leading-5"
       when :sm
-        assert_includes rendered, "text-base leading-5"
+        assert_includes rendered, "decor:text-base decor:leading-5"
       when :md
-        assert_includes rendered, "text-lg leading-6"
+        assert_includes rendered, "decor:text-lg decor:leading-6"
       when :lg
-        assert_includes rendered, "text-xl leading-7"
+        assert_includes rendered, "decor:text-xl decor:leading-7"
       when :xl
-        assert_includes rendered, "text-2xl leading-8"
+        assert_includes rendered, "decor:text-2xl decor:leading-8"
       end
     end
   end
@@ -83,15 +83,15 @@ class Decor::Daisy::PageSectionTest < ActiveSupport::TestCase
 
       case size
       when :xs
-        assert_includes rendered, "text-xs"
+        assert_includes rendered, "decor:text-xs"
       when :sm
-        assert_includes rendered, "text-sm"
+        assert_includes rendered, "decor:text-sm"
       when :md
-        assert_includes rendered, "text-sm"
+        assert_includes rendered, "decor:text-sm"
       when :lg
-        assert_includes rendered, "text-base"
+        assert_includes rendered, "decor:text-base"
       when :xl
-        assert_includes rendered, "text-lg"
+        assert_includes rendered, "decor:text-lg"
       end
     end
   end
@@ -100,14 +100,14 @@ class Decor::Daisy::PageSectionTest < ActiveSupport::TestCase
     component = Decor::Daisy::PageSection.new(size: :lg)
     rendered = render_component(component) { "Content" }
 
-    assert_includes rendered, "space-y-8"
+    assert_includes rendered, "decor:space-y-8"
   end
 
   test "medium size is default" do
     component = Decor::Daisy::PageSection.new(title: "Default Size")
     rendered = render_component(component)
 
-    assert_includes rendered, "text-lg leading-6"
+    assert_includes rendered, "decor:text-lg decor:leading-6"
   end
 
   test "applies correct background classes" do
@@ -115,9 +115,9 @@ class Decor::Daisy::PageSectionTest < ActiveSupport::TestCase
       component = Decor::Daisy::PageSection.new(background: background)
       rendered = render_component(component)
 
-      assert_includes rendered, "bg-#{background}/10"
-      assert_includes rendered, "p-6"
-      assert_includes rendered, "rounded-lg"
+      assert_includes rendered, "decor:bg-#{background}/10"
+      assert_includes rendered, "decor:p-6"
+      assert_includes rendered, "decor:rounded-lg"
     end
   end
 
@@ -125,25 +125,25 @@ class Decor::Daisy::PageSectionTest < ActiveSupport::TestCase
     component = Decor::Daisy::PageSection.new(background: :default)
     rendered = render_component(component)
 
-    refute_includes rendered, "bg-primary/10"
-    refute_includes rendered, "bg-secondary/10"
-    refute_includes rendered, "bg-neutral/10"
+    refute_includes rendered, "decor:bg-primary/10"
+    refute_includes rendered, "decor:bg-secondary/10"
+    refute_includes rendered, "decor:bg-neutral/10"
   end
 
   test "background defaults to default" do
     component = Decor::Daisy::PageSection.new
     rendered = render_component(component)
 
-    refute_includes rendered, "bg-primary/10"
+    refute_includes rendered, "decor:bg-primary/10"
   end
 
   test "applies correct padding classes" do
     {
       none: nil,
-      sm: "pb-4",
-      md: "pb-6",
-      lg: "pb-8",
-      xl: "pb-10"
+      sm: "decor:pb-4",
+      md: "decor:pb-6",
+      lg: "decor:pb-8",
+      xl: "decor:pb-10"
     }.each do |padding, expected_class|
       component = Decor::Daisy::PageSection.new(padding: padding)
       rendered = render_component(component)
@@ -151,10 +151,10 @@ class Decor::Daisy::PageSectionTest < ActiveSupport::TestCase
       if expected_class
         assert_includes rendered, expected_class
       else
-        refute_includes rendered, "pb-4"
-        refute_includes rendered, "pb-6"
-        refute_includes rendered, "pb-8"
-        refute_includes rendered, "pb-10"
+        refute_includes rendered, "decor:pb-4"
+        refute_includes rendered, "decor:pb-6"
+        refute_includes rendered, "decor:pb-8"
+        refute_includes rendered, "decor:pb-10"
       end
     end
   end
@@ -163,7 +163,7 @@ class Decor::Daisy::PageSectionTest < ActiveSupport::TestCase
     component = Decor::Daisy::PageSection.new
     rendered = render_component(component)
 
-    assert_includes rendered, "pb-6"
+    assert_includes rendered, "decor:pb-6"
   end
 
   test "renders hero slot when provided" do
@@ -187,9 +187,9 @@ class Decor::Daisy::PageSectionTest < ActiveSupport::TestCase
     component.with_cta { "CTA" }
     rendered = render_component(component)
 
-    assert_includes rendered, "pr-4"
-    assert_includes rendered, "pb-4"
-    assert_includes rendered, "sm:pb-0"
+    assert_includes rendered, "decor:pr-4"
+    assert_includes rendered, "decor:pb-4"
+    assert_includes rendered, "decor:sm:pb-0"
   end
 
   test "renders without hero slot by default" do
@@ -205,7 +205,7 @@ class Decor::Daisy::PageSectionTest < ActiveSupport::TestCase
     rendered = render_component(component)
 
     assert_includes rendered, "Test Tag"
-    assert_includes rendered, "bg-success"
+    assert_includes rendered, "decor:bg-success"
   end
 
   test "renders multiple tags" do
@@ -216,8 +216,8 @@ class Decor::Daisy::PageSectionTest < ActiveSupport::TestCase
 
     assert_includes rendered, "Tag 1"
     assert_includes rendered, "Tag 2"
-    assert_includes rendered, "bg-primary"
-    assert_includes rendered, "bg-secondary"
+    assert_includes rendered, "decor:bg-primary"
+    assert_includes rendered, "decor:bg-secondary"
   end
 
   test "renders block content" do
@@ -257,12 +257,12 @@ class Decor::Daisy::PageSectionTest < ActiveSupport::TestCase
     assert_includes rendered, "Action button"
     assert_includes rendered, "Main content"
 
-    assert_includes rendered, "border-b"
-    assert_includes rendered, "border-base-300"
-    assert_includes rendered, "text-xl" # lg size title
-    assert_includes rendered, "bg-primary/10"
-    assert_includes rendered, "p-6" # Background applies p-6 instead of padding attribute
-    assert_includes rendered, "space-y-8" # lg content spacing
+    assert_includes rendered, "decor:border-b"
+    assert_includes rendered, "decor:border-base-300"
+    assert_includes rendered, "decor:text-xl" # lg size title
+    assert_includes rendered, "decor:bg-primary/10"
+    assert_includes rendered, "decor:p-6" # Background applies p-6 instead of padding attribute
+    assert_includes rendered, "decor:space-y-8" # lg content spacing
   end
 
   test "has correct default values" do
@@ -282,13 +282,13 @@ class Decor::Daisy::PageSectionTest < ActiveSupport::TestCase
     )
     rendered = render_component(component)
 
-    assert_includes rendered, "text-base-content"
-    assert_includes rendered, "text-base-content/70"
-    assert_includes rendered, "border-base-300"
+    assert_includes rendered, "decor:text-base-content"
+    assert_includes rendered, "decor:text-base-content/70"
+    assert_includes rendered, "decor:border-base-300"
 
-    refute_includes rendered, "text-gray-900"
-    refute_includes rendered, "text-gray-500"
-    refute_includes rendered, "border-gray-200"
+    refute_includes rendered, "decor:text-gray-900"
+    refute_includes rendered, "decor:text-gray-500"
+    refute_includes rendered, "decor:border-gray-200"
   end
 
   test "handles empty attributes gracefully" do
@@ -299,7 +299,7 @@ class Decor::Daisy::PageSectionTest < ActiveSupport::TestCase
     rendered = render_component(component)
 
     assert rendered # Should not raise error
-    assert_includes rendered, "pb-6" # Basic structure maintained
+    assert_includes rendered, "decor:pb-6" # Basic structure maintained
   end
 
   test "handles only title without description" do
@@ -308,7 +308,7 @@ class Decor::Daisy::PageSectionTest < ActiveSupport::TestCase
 
     assert_includes rendered, "Only Title"
     assert_includes rendered, "<h3"
-    refute_includes rendered, "mt-2" # No margin top without title
+    refute_includes rendered, "decor:mt-2" # No margin top without title
   end
 
   test "handles only description without title" do
@@ -317,7 +317,7 @@ class Decor::Daisy::PageSectionTest < ActiveSupport::TestCase
 
     assert_includes rendered, "Only description"
     refute_includes rendered, "<h3"
-    refute_includes rendered, "mt-2" # No margin top without title
+    refute_includes rendered, "decor:mt-2" # No margin top without title
   end
 
   test "applies header padding when separator and content present" do
@@ -328,7 +328,7 @@ class Decor::Daisy::PageSectionTest < ActiveSupport::TestCase
     )
     rendered = render_component(component)
 
-    assert_includes rendered, "pb-6" # lg header padding
+    assert_includes rendered, "decor:pb-6" # lg header padding
   end
 
   test "does not apply header padding without separator" do
@@ -338,7 +338,7 @@ class Decor::Daisy::PageSectionTest < ActiveSupport::TestCase
     )
     rendered = render_component(component)
 
-    refute_includes rendered, "pb-5"
+    refute_includes rendered, "decor:pb-5"
   end
 
   test "uses nokogiri for complex DOM assertions" do
@@ -352,18 +352,18 @@ class Decor::Daisy::PageSectionTest < ActiveSupport::TestCase
 
     main_div = fragment.at_css("div")
     assert_not_nil main_div
-    assert_includes main_div["class"], "p-6"
-    assert_includes main_div["class"], "bg-primary/10"
+    assert_includes main_div["class"], "decor:p-6"
+    assert_includes main_div["class"], "decor:bg-primary/10"
 
     title_h3 = fragment.at_css("h3")
     assert_not_nil title_h3
     assert_equal "Parse Test", title_h3.text.strip
-    assert_includes title_h3["class"], "text-base-content"
+    assert_includes title_h3["class"], "decor:text-base-content"
 
     desc_p = fragment.at_css("p")
     assert_not_nil desc_p
     assert_includes desc_p.text, "DOM structure test"
-    assert_includes desc_p["class"], "text-base-content/70"
+    assert_includes desc_p["class"], "decor:text-base-content/70"
   end
 
   test "maintains backward compatibility with existing usage" do
@@ -376,7 +376,7 @@ class Decor::Daisy::PageSectionTest < ActiveSupport::TestCase
 
     assert_includes rendered, "Legacy Usage"
     assert_includes rendered, "Should still work"
-    assert_includes rendered, "border-b"
+    assert_includes rendered, "decor:border-b"
     assert rendered
   end
 end

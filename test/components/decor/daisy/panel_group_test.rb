@@ -8,12 +8,12 @@ class Decor::Daisy::PanelGroupTest < ActiveSupport::TestCase
 
     rendered = render_fragment(component) { "Details content" }
 
-    assert rendered.css(".card").any?
+    assert rendered.css('[class~="decor:d-card"]').any?
 
     title_element = rendered.css("h3").first
     assert title_element
     assert_equal "Basic Details Box", title_element.text
-    assert_includes title_element["class"], "text-lg"
+    assert_includes title_element["class"], "decor:text-lg"
 
     assert_includes rendered.text, "Details content"
   end
@@ -33,7 +33,7 @@ class Decor::Daisy::PanelGroupTest < ActiveSupport::TestCase
     description_element = rendered.css("p").first
     assert description_element
     assert_equal "This is a helpful description", description_element.text
-    assert_includes description_element["class"], "text-base-content/70"
+    assert_includes description_element["class"], "decor:text-base-content/70"
 
     assert_includes rendered.text, "Main content"
   end
@@ -84,7 +84,7 @@ class Decor::Daisy::PanelGroupTest < ActiveSupport::TestCase
     assert_includes rendered.text, "Content 2"
     assert_includes rendered.text, "Content 3"
 
-    assert rendered.css(".flex").any?
+    assert rendered.css('[class~="decor:flex"]').any?
   end
 
   def test_details_box_with_complete_configuration
@@ -113,11 +113,11 @@ class Decor::Daisy::PanelGroupTest < ActiveSupport::TestCase
 
     rendered = render_fragment(component)
 
-    assert rendered.css(".card").any?
+    assert rendered.css('[class~="decor:d-card"]').any?
 
-    assert rendered.css(".space-y-4").any?
+    assert rendered.css('[class~="decor:space-y-4"]').any?
 
-    assert rendered.css(".card-body").any? # Card should have card-body
+    assert rendered.css('[class~="decor:d-card-body"]').any? # Card should have card-body
   end
 
   def test_details_box_section_alternating_backgrounds
@@ -137,17 +137,17 @@ class Decor::Daisy::PanelGroupTest < ActiveSupport::TestCase
       end
     end
 
-    section_divs = rendered.css(".px-4.py-5")
+    section_divs = rendered.css('[class~="decor:px-4"][class~="decor:py-5"]')
     assert section_divs.length >= 3
 
     first_section = section_divs[0]
-    assert_includes first_section["class"], "bg-base-200/50"
+    assert_includes first_section["class"], "decor:bg-base-200/50"
 
     second_section = section_divs[1]
-    assert_includes second_section["class"], "bg-base-100"
+    assert_includes second_section["class"], "decor:bg-base-100"
 
     third_section = section_divs[2]
-    assert_includes third_section["class"], "bg-base-200/50"
+    assert_includes third_section["class"], "decor:bg-base-200/50"
   end
 
   def test_details_box_flex_layout
@@ -160,9 +160,9 @@ class Decor::Daisy::PanelGroupTest < ActiveSupport::TestCase
       end
     end
 
-    assert rendered.css(".flex").any?
-    assert rendered.css(".flex-wrap").any?
-    assert rendered.css(".gap-4").any?
+    assert rendered.css('[class~="decor:flex"]').any?
+    assert rendered.css('[class~="decor:flex-wrap"]').any?
+    assert rendered.css('[class~="decor:gap-4"]').any?
   end
 
   def test_details_box_without_panels
@@ -178,7 +178,7 @@ class Decor::Daisy::PanelGroupTest < ActiveSupport::TestCase
 
     assert_includes rendered.text, "Main content only"
 
-    assert_empty rendered.css(".px-4.py-5")
+    assert_empty rendered.css('[class~="decor:px-4"][class~="decor:py-5"]')
   end
 
   def test_details_box_panel_with_callable_content
@@ -222,30 +222,30 @@ class Decor::Daisy::PanelGroupTest < ActiveSupport::TestCase
     component = Decor::Daisy::PanelGroup.new(title: "Large Panel Group", size: :lg)
     rendered = render_fragment(component)
 
-    assert rendered.css(".card-lg").any?
+    assert rendered.css('[class~="decor:d-card-lg"]').any?
   end
 
   def test_color_attribute
     component = Decor::Daisy::PanelGroup.new(title: "Primary Panel Group", color: :primary)
     rendered = render_fragment(component)
 
-    assert rendered.css(".bg-primary").any?
+    assert rendered.css('[class~="decor:bg-primary"]').any?
   end
 
   def test_style_attribute
     component = Decor::Daisy::PanelGroup.new(title: "Ghost Panel Group", style: :ghost)
     rendered = render_fragment(component)
 
-    assert rendered.css(".shadow-none").any?
+    assert rendered.css('[class~="decor:shadow-none"]').any?
   end
 
   def test_default_attributes
     component = Decor::Daisy::PanelGroup.new(title: "Default Panel Group")
     rendered = render_fragment(component)
 
-    assert rendered.css(".card-md").any?
-    assert rendered.css(".bg-base-100").any?
-    assert rendered.css(".shadow-sm").any?
+    assert rendered.css('[class~="decor:d-card-md"]').any?
+    assert rendered.css('[class~="decor:bg-base-100"]').any?
+    assert rendered.css('[class~="decor:shadow-sm"]').any?
   end
 
   def test_attribute_validation

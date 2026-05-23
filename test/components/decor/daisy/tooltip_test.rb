@@ -7,8 +7,8 @@ class Decor::Daisy::TooltipTest < ActiveSupport::TestCase
     component = Decor::Daisy::Tooltip.new(tip_text: "Help text", position: :top)
     rendered = render_fragment(component) { "Hover me" }
 
-    assert rendered.css(".tooltip.tooltip-top").any?
-    assert_equal "Help text", rendered.at_css(".tooltip")["data-tip"]
+    assert rendered.css('[class~="decor:d-tooltip"][class~="decor:d-tooltip-top"]').any?
+    assert_equal "Help text", rendered.at_css('[class~="decor:d-tooltip"]')["data-tip"]
     assert_includes rendered.text, "Hover me"
   end
 
@@ -18,7 +18,7 @@ class Decor::Daisy::TooltipTest < ActiveSupport::TestCase
     positions.each do |position|
       component = Decor::Daisy::Tooltip.new(tip_text: "Help text", position: position)
       rendered = render_fragment(component) { "Content" }
-      assert rendered.css(".tooltip.tooltip-#{position}").any?
+      assert rendered.css(%([class~="decor:d-tooltip"][class~="decor:d-tooltip-#{position}"])).any?
     end
   end
 
@@ -29,14 +29,14 @@ class Decor::Daisy::TooltipTest < ActiveSupport::TestCase
       "Main content"
     end
     assert_includes rendered.text, "Main content"
-    assert_equal "Custom tip content", rendered.at_css(".tooltip")["data-tip"]
+    assert_equal "Custom tip content", rendered.at_css('[class~="decor:d-tooltip"]')["data-tip"]
   end
 
   def test_default_position_is_top
     component = Decor::Daisy::Tooltip.new(tip_text: "Help text")
     rendered = render_fragment(component) { "Content" }
 
-    assert rendered.css(".tooltip.tooltip-top").any?
+    assert rendered.css('[class~="decor:d-tooltip"][class~="decor:d-tooltip-top"]').any?
   end
 
   def test_custom_offset_calculations
@@ -49,38 +49,38 @@ class Decor::Daisy::TooltipTest < ActiveSupport::TestCase
   def test_renders_with_base_component_classes
     component = Decor::Daisy::Tooltip.new(tip_text: "Help", classes: "custom-class")
     rendered = render_fragment(component) { "Content" }
-    assert rendered.css(".tooltip.custom-class").any?
+    assert rendered.css('[class~="decor:d-tooltip"][class~="custom-class"]').any?
   end
 
   def test_size_attribute
     component = Decor::Daisy::Tooltip.new(tip_text: "Large tooltip", size: :lg)
     rendered = render_fragment(component) { "Content" }
 
-    assert rendered.css(".tooltip-lg").any?
+    assert rendered.css('[class~="decor:d-tooltip-lg"]').any?
   end
 
   def test_color_attribute
     component = Decor::Daisy::Tooltip.new(tip_text: "Primary tooltip", color: :primary)
     rendered = render_fragment(component) { "Content" }
 
-    assert rendered.css(".tooltip-primary").any?
+    assert rendered.css('[class~="decor:d-tooltip-primary"]').any?
   end
 
   def test_style_attribute
     component = Decor::Daisy::Tooltip.new(tip_text: "Outlined tooltip", style: :outlined)
     rendered = render_fragment(component) { "Content" }
 
-    assert rendered.css(".tooltip-outline").any?
+    assert rendered.css('[class~="decor:d-tooltip-outline"]').any?
   end
 
   def test_default_attributes
     component = Decor::Daisy::Tooltip.new(tip_text: "Default tooltip")
     rendered = render_fragment(component) { "Content" }
 
-    assert rendered.css(".tooltip").any?
-    refute rendered.css(".tooltip-md").any? # md is default, no class needed
-    refute rendered.css(".tooltip-base").any? # base is default, no class needed
-    refute rendered.css(".tooltip-filled").any? # filled is default, no class needed
+    assert rendered.css('[class~="decor:d-tooltip"]').any?
+    refute rendered.css('[class~="decor:d-tooltip-md"]').any? # md is default, no class needed
+    refute rendered.css('[class~="decor:d-tooltip-base"]').any? # base is default, no class needed
+    refute rendered.css('[class~="decor:d-tooltip-filled"]').any? # filled is default, no class needed
   end
 
   def test_attribute_validation

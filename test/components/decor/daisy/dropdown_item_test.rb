@@ -29,7 +29,7 @@ class Decor::Daisy::DropdownItemTest < ActiveSupport::TestCase
     rendered = render_component(component)
 
     assert_includes rendered, "settings"
-    assert_includes rendered, "mr-2 h-4 w-4"
+    assert_includes rendered, "decor:mr-2 decor:h-4 decor:w-4"
   end
 
   test "renders as separator" do

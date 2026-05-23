@@ -13,14 +13,14 @@ class Decor::Daisy::Chat::ListMessageTest < ActiveSupport::TestCase
   test "renders successfully with message data" do
     rendered = render_component(@message_component)
 
-    assert_includes rendered, "chat chat-start"
+    assert_includes rendered, "decor:d-chat decor:d-chat-start"
     assert_includes rendered, "Hello, how are you today?"
   end
 
   test "renders with daisyUI chat bubble" do
     rendered = render_component(@message_component)
 
-    assert_includes rendered, "chat-bubble"
+    assert_includes rendered, "decor:d-chat-bubble"
   end
 
   test "renders message content" do
@@ -43,25 +43,25 @@ class Decor::Daisy::Chat::ListMessageTest < ActiveSupport::TestCase
     )
     rendered = render_component(current_user_message)
 
-    assert_includes rendered, "chat-end"
-    assert_includes rendered, "chat-bubble-primary"
+    assert_includes rendered, "decor:d-chat-end"
+    assert_includes rendered, "decor:d-chat-bubble-primary"
   end
 
   test "supports other user message styling" do
     rendered = render_component(@message_component)
 
-    assert_includes rendered, "chat-start"
-    refute_includes rendered, "chat-bubble-primary"
+    assert_includes rendered, "decor:d-chat-start"
+    refute_includes rendered, "decor:d-chat-bubble-primary"
   end
 
   test "renders with correct HTML structure" do
     fragment = render_fragment(@message_component)
 
-    chat_div = fragment.at_css(".chat")
+    chat_div = fragment.at_css('[class~="decor:d-chat"]')
     assert_not_nil chat_div
-    assert_includes chat_div["class"], "chat-start"
+    assert_includes chat_div["class"], "decor:d-chat-start"
 
-    bubble = fragment.at_css(".chat-bubble")
+    bubble = fragment.at_css('[class~="decor:d-chat-bubble"]')
     assert_not_nil bubble
   end
 
@@ -78,8 +78,8 @@ class Decor::Daisy::Chat::ListMessageTest < ActiveSupport::TestCase
     )
     rendered = render_component(message_with_avatar)
 
-    assert_includes rendered, "chat-image"
-    assert_includes rendered, "avatar"
+    assert_includes rendered, "decor:d-chat-image"
+    assert_includes rendered, "decor:d-avatar"
   end
 
   test "supports timestamp display" do
@@ -105,7 +105,7 @@ class Decor::Daisy::Chat::ListMessageTest < ActiveSupport::TestCase
     rendered = render_component(message_with_footer)
 
     assert_includes rendered, "Delivered"
-    assert_includes rendered, "chat-footer"
+    assert_includes rendered, "decor:d-chat-footer"
   end
 
   test "handles old timestamps correctly" do
@@ -115,15 +115,16 @@ class Decor::Daisy::Chat::ListMessageTest < ActiveSupport::TestCase
       localised_created_at: 2.days.ago,
       is_current_user: false
     )
-    rendered = render_component(old_message)
+    fragment = render_fragment(old_message)
 
-    refute_includes rendered, ":"
+    time_text = fragment.at_css("time")&.text.to_s
+    refute_includes time_text, ":"
   end
 
   test "renders message bubble with content" do
     fragment = render_fragment(@message_component)
 
-    bubble = fragment.at_css(".chat-bubble")
+    bubble = fragment.at_css('[class~="decor:d-chat-bubble"]')
     assert_not_nil bubble
     assert_includes bubble.text, "Hello, how are you today?"
   end

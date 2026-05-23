@@ -4,31 +4,35 @@ require "test_helper"
 
 module Decor
   module Daisy
-    class FlashTest < ViewComponent::TestCase
+    class FlashTest < ActiveSupport::TestCase
       def test_renders_flash_with_title_and_text
-        render_inline(Decor::Daisy::Flash.new(title: "Flash Title", text: "Flash message", color: :success))
+        rendered = render_fragment(Decor::Daisy::Flash.new(title: "Flash Title", text: "Flash message", color: :success))
 
-        assert_selector ".alert.alert-success"
-        assert_selector "h3", text: "Flash Title"
-        assert_selector "p", text: "Flash message"
+        assert rendered.css('[class~="decor:d-alert"][class~="decor:d-alert-success"]').any?
+        h3 = rendered.css("h3").first
+        assert h3
+        assert_equal "Flash Title", h3.text
+        p = rendered.css("p").first
+        assert p
+        assert_equal "Flash message", p.text
       end
 
       def test_renders_different_variants
         variants = {
-          success: "alert-success",
-          error: "alert-error",
-          warning: "alert-warning",
-          info: "alert-info"
+          success: "decor:d-alert-success",
+          error: "decor:d-alert-error",
+          warning: "decor:d-alert-warning",
+          info: "decor:d-alert-info"
         }
 
         variants.each do |variant, expected_class|
-          render_inline(Decor::Daisy::Flash.new(
+          rendered = render_fragment(Decor::Daisy::Flash.new(
             text: "Test message",
             color: variant,
             controller_path: "test",
             action_name: "show"
           ))
-          assert_selector ".alert.#{expected_class}"
+          assert rendered.css(%([class~="decor:d-alert"][class~="#{expected_class}"])).any?, "Expected #{expected_class} for #{variant}"
         end
       end
 
@@ -66,30 +70,32 @@ module Decor
       end
 
       def test_uses_custom_title_when_provided
-        render_inline(Decor::Daisy::Flash.new(title: "Custom Title", text: "Message", color: :success))
+        rendered = render_fragment(Decor::Daisy::Flash.new(title: "Custom Title", text: "Message", color: :success))
 
-        assert_selector "h3", text: "Custom Title"
+        h3 = rendered.css("h3").first
+        assert h3
+        assert_equal "Custom Title", h3.text
       end
 
       def test_hides_when_collapse_if_empty_and_no_content
         component = Decor::Daisy::Flash.new(collapse_if_empty: true)
-        render_inline(component)
+        render_fragment(component)
 
         assert_match(/hidden/, component.send(:root_element_classes))
       end
 
       def test_shows_when_collapse_if_empty_false_and_no_content
-        render_inline(Decor::Daisy::Flash.new(collapse_if_empty: false))
+        rendered = render_fragment(Decor::Daisy::Flash.new(collapse_if_empty: false))
 
-        assert_no_selector ".hidden"
+        assert_empty rendered.css('[class~="decor:hidden"]')
       end
 
       def test_renders_with_content_block_when_no_initial_flash
-        render_inline(Decor::Daisy::Flash.new) do
+        rendered = render_fragment(Decor::Daisy::Flash.new) do
           "Custom content block"
         end
 
-        assert_text "Custom content block"
+        assert_includes rendered.text, "Custom content block"
       end
 
       def test_default_variant_is_info
@@ -98,19 +104,19 @@ module Decor
           controller_path: "test",
           action_name: "show"
         )
-        render_inline(component)
+        rendered = render_fragment(component)
 
-        assert_selector ".alert.alert-info"
+        assert rendered.css('[class~="decor:d-alert"][class~="decor:d-alert-info"]').any?
       end
 
       def test_invisible_opacity_classes_applied
-        render_inline(Decor::Daisy::Flash.new(
+        rendered = render_fragment(Decor::Daisy::Flash.new(
           text: "Test",
           controller_path: "test",
           action_name: "show"
         ))
 
-        assert_selector ".invisible.opacity-0"
+        assert rendered.css('[class~="decor:invisible"][class~="decor:opacity-0"]').any?
       end
 
       def test_preserves_backward_compatibility_with_original_attributes

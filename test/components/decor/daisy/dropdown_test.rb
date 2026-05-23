@@ -38,7 +38,7 @@ class Decor::Daisy::DropdownTest < ActiveSupport::TestCase
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Item 1"))
     end
 
-    assert_includes rendered, "dropdown-end"
+    assert_includes rendered, "decor:d-dropdown-end"
   end
 
   test "applies menu classes" do
@@ -46,8 +46,8 @@ class Decor::Daisy::DropdownTest < ActiveSupport::TestCase
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Item 1"))
     end
 
-    assert_includes rendered, "bg-primary"
-    assert_includes rendered, "text-primary-content"
+    assert_includes rendered, "decor:bg-primary"
+    assert_includes rendered, "decor:text-primary-content"
   end
 
   test "renders menu header" do
@@ -102,7 +102,7 @@ class Decor::Daisy::DropdownTest < ActiveSupport::TestCase
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Item 1"))
     end
 
-    assert_includes rendered, "btn-lg"
+    assert_includes rendered, "decor:d-btn-lg"
   end
 
   test "applies modern color classes" do
@@ -111,7 +111,7 @@ class Decor::Daisy::DropdownTest < ActiveSupport::TestCase
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Item 1"))
     end
 
-    assert_includes rendered, "btn-primary"
+    assert_includes rendered, "decor:d-btn-primary"
   end
 
   test "applies modern style classes" do
@@ -120,7 +120,7 @@ class Decor::Daisy::DropdownTest < ActiveSupport::TestCase
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Item 1"))
     end
 
-    assert_includes rendered, "btn-outline"
+    assert_includes rendered, "decor:d-btn-outline"
   end
 
   test "applies modern position classes" do
@@ -129,7 +129,7 @@ class Decor::Daisy::DropdownTest < ActiveSupport::TestCase
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Item 1"))
     end
 
-    assert_includes rendered, "dropdown-end"
+    assert_includes rendered, "decor:d-dropdown-end"
   end
 
   test "applies DaisyUI dropdown structure" do
@@ -138,13 +138,13 @@ class Decor::Daisy::DropdownTest < ActiveSupport::TestCase
       dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Test Item"))
     end
 
-    dropdown_container = fragment.at_css(".dropdown")
+    dropdown_container = fragment.at_css('[class~="decor:d-dropdown"]')
     assert_not_nil dropdown_container
 
-    dropdown_content = fragment.at_css(".dropdown-content")
+    dropdown_content = fragment.at_css('[class~="decor:d-dropdown-content"]')
     assert_not_nil dropdown_content
 
-    menu = fragment.at_css(".menu")
+    menu = fragment.at_css('[class~="decor:d-menu"]')
     assert_not_nil menu
   end
 
@@ -158,7 +158,7 @@ class Decor::Daisy::DropdownTest < ActiveSupport::TestCase
     end
 
     assert_includes rendered, "custom-button"
-    assert_includes rendered, "dropdown-end"
+    assert_includes rendered, "decor:d-dropdown-end"
   end
 
   test "combines color and button_classes correctly" do
@@ -171,6 +171,6 @@ class Decor::Daisy::DropdownTest < ActiveSupport::TestCase
     end
 
     assert_includes rendered, "custom-button"
-    assert_includes rendered, "btn-primary"
+    assert_includes rendered, "decor:d-btn-primary"
   end
 end

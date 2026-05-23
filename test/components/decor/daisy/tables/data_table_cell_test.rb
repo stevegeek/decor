@@ -163,7 +163,7 @@ class Decor::Daisy::Tables::DataTableCellTest < ActiveSupport::TestCase
     component = Decor::Daisy::Tables::DataTableCell.new(row_height: :tight)
     rendered = render_component(component)
 
-    assert_includes rendered, "px-3 py-1 text-xs"
+    assert_includes rendered, "decor:px-3 decor:py-1 decor:text-xs"
   end
 
   test "supports value attribute" do
@@ -185,15 +185,15 @@ class Decor::Daisy::Tables::DataTableCellTest < ActiveSupport::TestCase
     component = Decor::Daisy::Tables::DataTableCell.new(content_clickable: true)
     rendered = render_component(component)
 
-    assert_includes rendered, "absolute inset-0"
+    assert_includes rendered, "decor:absolute decor:inset-0"
   end
 
   test "supports path navigation" do
     component = Decor::Daisy::Tables::DataTableCell.new(path: "/test/path")
     rendered = render_component(component)
 
-    assert_includes rendered, "cursor-pointer"
-    assert_includes rendered, "hover:bg-base-200"
+    assert_includes rendered, "decor:cursor-pointer"
+    assert_includes rendered, "decor:hover:bg-base-200"
   end
 
   test "maintains backward compatibility" do
@@ -204,7 +204,7 @@ class Decor::Daisy::Tables::DataTableCellTest < ActiveSupport::TestCase
     )
     rendered = render_component(component)
 
-    assert_includes rendered, "font-light"
-    assert_includes rendered, "px-4 py-4 text-sm"
+    assert_includes rendered, "decor:font-light"
+    assert_includes rendered, "decor:px-4 decor:py-4 decor:text-sm"
   end
 end

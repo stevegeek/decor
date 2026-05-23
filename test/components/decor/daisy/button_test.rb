@@ -60,7 +60,7 @@ class Decor::Daisy::ButtonTest < ActiveSupport::TestCase
     component = Decor::Daisy::Button.new(label: "Centered")
     fragment = render_fragment(component)
 
-    span = fragment.at_css("span.text-center")
+    span = fragment.at_css('span[class~="decor:text-center"]')
     assert_not_nil span
     assert_includes span.text, "Centered"
   end

@@ -50,7 +50,7 @@ class Decor::Daisy::Nav::CompactFooterTest < ActiveSupport::TestCase
 
     assert_includes rendered, "https://twitter.com/test"
     assert_includes rendered, "https://github.com/test"
-    assert_includes rendered, "btn btn-ghost btn-circle btn-sm"
+    assert_includes rendered, "decor:d-btn decor:d-btn-ghost decor:d-btn-circle decor:d-btn-sm"
   end
 
   test "renders footer links with Literal::Data" do

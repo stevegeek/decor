@@ -5,14 +5,14 @@ class Decor::Daisy::TabsTest < ActiveSupport::TestCase
     component = Decor::Daisy::Tabs.new
     rendered = render_fragment(component)
 
-    assert rendered.css(".tabs").any?
+    assert rendered.css("[class~='decor:d-tabs']").any?
   end
 
   test "renders with daisyUI tabs classes by default" do
     component = Decor::Daisy::Tabs.new
     rendered = render_fragment(component)
 
-    assert rendered.css(".tabs.tabs-border").any?
+    assert rendered.css("[class~='decor:d-tabs'][class~='decor:d-tabs-border']").any?
   end
 
   test "renders with legacy links API" do
@@ -23,9 +23,9 @@ class Decor::Daisy::TabsTest < ActiveSupport::TestCase
     component = Decor::Daisy::Tabs.new(links: links)
     rendered = render_fragment(component)
 
-    assert rendered.css(".tabs").any?
-    assert rendered.css(".tab").any?
-    assert rendered.css(".tab-active").any?
+    assert rendered.css("[class~='decor:d-tabs']").any?
+    assert rendered.css("[class~='decor:d-tab']").any?
+    assert rendered.css("[class~='decor:d-tab-active']").any?
   end
 
   test "supports tab_buttons slot" do
@@ -64,9 +64,9 @@ class Decor::Daisy::TabsTest < ActiveSupport::TestCase
     outer_div = fragment.at_css(".decor--daisy--tabs")
     assert_not_nil outer_div
 
-    nav = fragment.at_css("nav.tabs")
+    nav = fragment.at_css("nav[class~='decor:d-tabs']")
     assert_not_nil nav
-    assert_includes nav["class"], "tabs-border"
+    assert_includes nav["class"], "decor:d-tabs-border"
   end
 
   test "component inherits from PhlexComponent" do
@@ -228,7 +228,8 @@ class Decor::Daisy::TabsTest < ActiveSupport::TestCase
     component = Decor::Daisy::Tabs.new(links: links)
     fragment = render_fragment(component)
 
-    tab_link = fragment.at_css("a.tab")
+    tab_link = fragment.at_css("a[class~='decor:d-tab']")
+    refute_nil tab_link, "expected tab anchor to be present"
     assert_equal "Profile", tab_link["aria-label"]
   end
 
@@ -270,7 +271,8 @@ class Decor::Daisy::TabsTest < ActiveSupport::TestCase
     component = Decor::Daisy::Tabs.new(links: links)
     fragment = render_fragment(component)
 
-    active_tab = fragment.at_css("a.tab-active")
+    active_tab = fragment.at_css("a[class~='decor:d-tab-active']")
+    refute_nil active_tab, "expected an active tab anchor"
     assert_equal "true", active_tab["aria-selected"]
     assert_equal "0", active_tab["tabindex"]
   end
@@ -280,7 +282,8 @@ class Decor::Daisy::TabsTest < ActiveSupport::TestCase
     component = Decor::Daisy::Tabs.new(links: links)
     fragment = render_fragment(component)
 
-    inactive_tab = fragment.at_css("a.tab")
+    inactive_tab = fragment.at_css("a[class~='decor:d-tab']")
+    refute_nil inactive_tab, "expected an inactive tab anchor"
     assert_equal "false", inactive_tab["aria-selected"]
     assert_equal "-1", inactive_tab["tabindex"]
   end
@@ -290,7 +293,8 @@ class Decor::Daisy::TabsTest < ActiveSupport::TestCase
     component = Decor::Daisy::Tabs.new(links: links)
     fragment = render_fragment(component)
 
-    disabled_tab = fragment.at_css(".tab-disabled")
+    disabled_tab = fragment.at_css("[class~='decor:d-tab-disabled']")
+    refute_nil disabled_tab, "expected a disabled tab element"
     assert_equal "true", disabled_tab["aria-disabled"]
   end
 
@@ -299,12 +303,12 @@ class Decor::Daisy::TabsTest < ActiveSupport::TestCase
     component = Decor::Daisy::Tabs.new(links: links)
     fragment = render_fragment(component)
 
-    mobile_nav = fragment.at_css("nav.sm\\:hidden")
+    mobile_nav = fragment.at_css("nav[class~='decor:sm:hidden']")
     assert_not_nil mobile_nav
 
     select = fragment.at_css("select")
     assert_not_nil select
-    assert_includes select["class"], "select-bordered"
+    assert_includes select["class"], "decor:d-select-bordered"
   end
 
   test "does not show select dropdown for few tabs" do
@@ -312,7 +316,7 @@ class Decor::Daisy::TabsTest < ActiveSupport::TestCase
     component = Decor::Daisy::Tabs.new(links: links)
     fragment = render_fragment(component)
 
-    mobile_nav = fragment.at_css("nav.sm\\:hidden")
+    mobile_nav = fragment.at_css("nav[class~='decor:sm:hidden']")
     assert_nil mobile_nav
   end
 
