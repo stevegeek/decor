@@ -1,0 +1,4 @@
+# Hatchbox / similar deploy targets that treat test/dummy/ as the app
+# root run `bundle install` here. Defer to the gem-root Gemfile so the
+# dummy stays in sync with the rest of the repo (gemspec, dev deps).
+eval_gemfile File.expand_path("../../Gemfile", __dir__)
