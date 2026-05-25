@@ -8,22 +8,6 @@ module Decor
 
         register_value_helper :rails_blob_path
 
-        # Bind to the existing Daisy multi_image_upload Stimulus controller
-        # (no Suite JS). Overriding stimulus_identifier_path makes Vident
-        # emit `data-controller="decor--daisy--forms--multi-image-upload"`
-        # plus all `…-target` / `…-value` data attrs under that identifier
-        # — without this override, Vident emitted them under the Suite
-        # path while the JS controller is registered under the Daisy path,
-        # so `this.maxImagesValue` always resolved to 0 (the Stimulus-
-        # Number-type default for a missing attribute) and the controller
-        # alerted "Maximum of 0 images allowed".
-        def self.stimulus_identifier_path
-          "decor/daisy/forms/multi_image_upload"
-        end
-
-        DAISY_CTRL = "decor--daisy--forms--multi-image-upload"
-        private_constant :DAISY_CTRL
-
         prop :existing_images, _Any, default: -> { [] }
         prop :max_size_in_mb, Integer, default: 5
         prop :file_mime_types, String, default: "image/png,image/gif,image/jpeg,image/webp"
@@ -139,7 +123,7 @@ module Decor
                 type: "button",
                 class: crop_button_classes,
                 title: "Crop image",
-                data: {action: "click->#{DAISY_CTRL}#cropImage"}
+                data: stimulus_action(:click, :crop_image).to_h
               ) do
                 render ::Decor::Icon.new(name: "scissors", html_options: {class: "decor:h-4 decor:w-4"})
               end
@@ -148,7 +132,7 @@ module Decor
               type: "button",
               class: remove_button_classes,
               title: "Remove image",
-              data: {action: "click->#{DAISY_CTRL}#removeImage"}
+              data: stimulus_action(:click, :remove_image).to_h
             ) do
               render ::Decor::Icon.new(name: "x", html_options: {class: "decor:h-4 decor:w-4"})
             end
@@ -182,7 +166,7 @@ module Decor
               disabled: @disabled,
               html_options: {
                 type: :button,
-                data: {action: "click->#{DAISY_CTRL}#openFilePicker"}
+                data: stimulus_action(:click, :open_file_picker).to_h
               }
             )
             span(
@@ -203,8 +187,8 @@ module Decor
             accept: @file_mime_types,
             class: "decor:hidden",
             data: {
-              "#{DAISY_CTRL}-target": "fileInput",
-              action: "change->#{DAISY_CTRL}#filesSelected"
+              **stimulus_target(:file_input).to_h,
+              **stimulus_action(:change, :files_selected).to_h
             }
           )
 
@@ -244,7 +228,7 @@ module Decor
             button(
               type: "button",
               class: "decor:text-gray-400 decor:hover:text-gray-600 decor:transition-colors decor:duration-suite-fast",
-              data: {action: "click->#{DAISY_CTRL}#cancelCrop"}
+              data: stimulus_action(:click, :cancel_crop).to_h
             ) do
               render ::Decor::Icon.new(name: "x", html_options: {class: "decor:h-6 decor:w-6"})
             end
@@ -270,7 +254,7 @@ module Decor
               color: :base,
               html_options: {
                 type: :button,
-                data: {action: "click->#{DAISY_CTRL}#cancelCrop"}
+                data: stimulus_action(:click, :cancel_crop).to_h
               }
             )
             render ::Decor::Suite::Button.new(
@@ -279,7 +263,7 @@ module Decor
               color: :primary,
               html_options: {
                 type: :button,
-                data: {action: "click->#{DAISY_CTRL}#applyCrop"}
+                data: stimulus_action(:click, :apply_crop).to_h
               }
             )
           end
@@ -337,7 +321,7 @@ module Decor
         end
 
         def target_data(target_name)
-          {"#{DAISY_CTRL}-target": target_name.to_s}
+          stimulus_target(target_name).to_h
         end
       end
     end

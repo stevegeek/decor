@@ -4,16 +4,6 @@ module Decor
   module Suite
     module Forms
       class FileUpload < ::Decor::Components::Forms::FileUpload
-        # The Daisy controller identifier — the JS for drag/drop, file
-        # validation and preview is registered under this name.
-        DAISY_CTRL = "decor--daisy--forms--file-upload"
-        DAISY_CTRL_PATH = "decor/daisy/forms/file_upload"
-        private_constant :DAISY_CTRL, :DAISY_CTRL_PATH
-
-        stimulus do
-          controllers DAISY_CTRL_PATH
-        end
-
         prop :variant, _Nilable(_Union(:file, :image, :avatar))
 
         def after_component_initialize
@@ -187,7 +177,7 @@ module Decor
                     type: "button",
                     class: image_remove_button_classes,
                     title: "Remove image",
-                    data: {action: "click->#{DAISY_CTRL}#removeImage"}
+                    data: stimulus_action(:click, :remove_image).to_h
                   ) do
                     render ::Decor::Icon.new(name: "x", html_options: {class: "decor:h-3.5 decor:w-3.5"})
                   end
@@ -268,9 +258,13 @@ module Decor
 
         def file_drop_zone_data
           {
-            "#{DAISY_CTRL}-target": "dropZone",
-            action: "dragover->#{DAISY_CTRL}#onDragOver dragleave->#{DAISY_CTRL}#onDragLeave drop->#{DAISY_CTRL}#onDrop",
-            "#{DAISY_CTRL}-drag-over-class": "decor:border-suite-primary-500 decor:bg-suite-primary-50"
+            **stimulus_target(:drop_zone).to_h,
+            action: [
+              stimulus_action(:dragover, :on_drag_over),
+              stimulus_action(:dragleave, :on_drag_leave),
+              stimulus_action(:drop, :on_drop)
+            ].map(&:to_s).join(" "),
+            **stimulus_class(:drag_over, "decor:border-suite-primary-500 decor:bg-suite-primary-50").to_h
           }
         end
 
@@ -330,20 +324,20 @@ module Decor
         def file_input_data
           {
             controller: form_control_controller,
-            "#{DAISY_CTRL}-target": "input"
+            **stimulus_target(:input).to_h
           }
         end
 
         def file_selected_action_data
-          {action: "change->#{DAISY_CTRL}#fileSelected"}
+          stimulus_action(:change, :file_selected).to_h
         end
 
         def stimulus_action_data(action_name)
-          {action: "click->#{DAISY_CTRL}##{action_name.to_s.camelize(:lower)}"}
+          stimulus_action(:click, action_name).to_h
         end
 
         def target_data(target_name)
-          {"#{DAISY_CTRL}-target": target_name.to_s}
+          stimulus_target(target_name).to_h
         end
 
         # Referenced by the inherited `stimulus do` block (classes image: -> { preview_classes }).
