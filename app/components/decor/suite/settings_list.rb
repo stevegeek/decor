@@ -3,9 +3,6 @@
 module Decor
   module Suite
     class SettingsList < ::Decor::Components::SettingsList
-      ROW_CTRL = "decor--suite--settings-list--row"
-      private_constant :ROW_CTRL
-
       # Optional Suite modal instance (Suite::Modals::Modal or Suite::Modals::Form).
       # When supplied + a row has `edit_path:`, the row's Edit affordance becomes
       # a Suite::Modals::ModalOpenButton that fetches the row's edit_path into
@@ -63,8 +60,8 @@ module Decor
           child_element(
             :div,
             class: "decor:border-t decor:border-suite-hairline decor:first:border-t-0",
-            stimulus_controllers: [ROW_CTRL],
-            stimulus_values: [[ROW_CTRL, :open, false]]
+            stimulus_controllers: [Row],
+            stimulus_values: [[Row, :open, false]]
           ) do
             render_summary(row, detail_id, expandable: true)
             render_detail_panel(row, detail_id)
@@ -82,8 +79,8 @@ module Decor
             :button,
             type: "button",
             class: summary_classes(expandable: true),
-            stimulus_action: [:click, ROW_CTRL, :toggle],
-            stimulus_target: [ROW_CTRL, :summary],
+            stimulus_action: [:click, Row, :toggle],
+            stimulus_target: [Row, :summary],
             "aria-expanded": "false",
             "aria-controls": detail_id
           ) do
@@ -107,7 +104,7 @@ module Decor
             :span,
             class: "decor:w-2 decor:text-gray-500 decor:transition-transform decor:duration-suite-fast",
             "aria-hidden": "true",
-            stimulus_target: [ROW_CTRL, :chevron]
+            stimulus_target: [Row, :chevron]
           ) { "▶" }
         else
           span(class: "decor:w-2", "aria-hidden": "true")
@@ -159,7 +156,7 @@ module Decor
           id: detail_id,
           class: "decor:bg-suite-gray-25 decor:border-t decor:border-suite-hairline decor:px-4 decor:pl-8 decor:pb-3.5 decor:pt-3",
           hidden: true,
-          stimulus_target: [ROW_CTRL, :detail]
+          stimulus_target: [Row, :detail]
         ) do
           if row.description
             p(class: "decor:suite-description decor:text-gray-500 decor:max-w-prose decor:pb-2 decor:m-0") { row.description }
