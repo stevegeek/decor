@@ -11,8 +11,11 @@ module Decor
             end,
             length: ->(v) do
               {}.tap do |props|
-                props[:minimum_length] = v[:minimum] unless v[:minimum].nil?
-                props[:maximum_length] = v[:maximum] unless v[:maximum].nil?
+                # Bounds are resolved to concrete values by ValidationMapping; a
+                # non-Integer here (e.g. Float::INFINITY, or an unresolvable
+                # Proc/Symbol) simply has no HTML length-attribute equivalent.
+                props[:minimum_length] = v[:minimum] if v[:minimum].is_a?(Integer)
+                props[:maximum_length] = v[:maximum] if v[:maximum].is_a?(Integer)
               end
             end,
             numericality_number_field: {

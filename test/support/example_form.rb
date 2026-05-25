@@ -36,12 +36,16 @@ class ExampleForm < TypedForm
   prop :some_string_from_list_maybe, String, default: "one"
   prop :a_boolean_choice, _Boolean, default: false
   prop :a_us_phone, String, default: ""
+  prop :a_proc_bounded_string, String, default: ""
 
   validates :a_string, presence: true, length: {minimum: 5, maximum: 15}
   validates :an_email, presence: true, format: {with: URI::MailTo::EMAIL_REGEXP}
   validates :a_number, presence: true, numericality: {greater_than: 0}
   validates :a_us_phone, format: {with: /\A\d{3}-\d{3}-\d{4}\z/, message: "must be in format XXX-XXX-XXXX"}
   validates :some_string_from_list_maybe, presence: true
+  # Mirrors how Devise 5 declares password length: proc-valued bounds resolved
+  # against the record/class at validation time.
+  validates :a_proc_bounded_string, length: {minimum: -> { 3 }, maximum: proc { 20 }}
 
   def self.model_name
     ActiveModel::Name.new(self, nil, "ExampleForm")

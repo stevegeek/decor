@@ -12,6 +12,13 @@ class Decor::Forms::TagWrappers::ValidationMappingTest < ActiveSupport::TestCase
     assert_equal({minimum: 5, maximum: 15}, mapped_validations[:length].first)
   end
 
+  test "resolves proc-valued length bounds to integers (e.g. Devise 5 password length)" do
+    attribute = :a_proc_bounded_string
+    mapped_validations = Decor::Forms::TagWrappers::ValidationMapping.call(@object, attribute)
+
+    assert_equal({minimum: 3, maximum: 20}, mapped_validations[:length].first)
+  end
+
   test "does not map validation with conditional" do
     attribute = :a_long_string
     mapped_validations = Decor::Forms::TagWrappers::ValidationMapping.call(@object, attribute)
