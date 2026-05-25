@@ -27,7 +27,7 @@ import DaisyModalsModalCloseButtonController from "../controllers/decor/daisy/mo
 import DaisyModalsModalController from "../controllers/decor/daisy/modals/modal_controller";
 import DaisyModalsModalOpenButtonController from "../controllers/decor/daisy/modals/modal_open_button_controller";
 import DaisyModalsModalTriggerController from "../controllers/decor/daisy/modals/modal_trigger_controller";
-import NotificationManagerController from "../controllers/decor/daisy/notification_manager_controller";
+import DaisyNotificationManagerController from "../controllers/decor/daisy/notification_manager_controller";
 import DaisyPolygonEditorController from "../controllers/decor/daisy/polygon_editor_controller";
 import DaisyProgressController from "../controllers/decor/daisy/progress_controller";
 import DaisyTablesBulkActionsBarController from "../controllers/decor/daisy/tables/bulk_actions_bar_controller";
@@ -62,6 +62,7 @@ import SuiteModalsModalCloseButtonController from "../controllers/decor/suite/mo
 import SuiteModalsModalController from "../controllers/decor/suite/modals/modal_controller";
 import SuiteModalsModalOpenButtonController from "../controllers/decor/suite/modals/modal_open_button_controller";
 import SuiteModalsModalTriggerController from "../controllers/decor/suite/modals/modal_trigger_controller";
+import SuiteNotificationManagerController from "../controllers/decor/suite/notification_manager_controller";
 import SuitePolygonEditorController from "../controllers/decor/suite/polygon_editor_controller";
 import SuiteProgressController from "../controllers/decor/suite/progress_controller";
 import SearchAndFilterController from "../controllers/decor/suite/search_and_filter_controller";
@@ -102,7 +103,7 @@ export const CONTROLLERS = {
   "decor--daisy--modals--modal": DaisyModalsModalController,
   "decor--daisy--modals--modal-open-button": DaisyModalsModalOpenButtonController,
   "decor--daisy--modals--modal-trigger": DaisyModalsModalTriggerController,
-  "decor--daisy--notification-manager": NotificationManagerController,
+  "decor--daisy--notification-manager": DaisyNotificationManagerController,
   "decor--daisy--polygon-editor": DaisyPolygonEditorController,
   "decor--daisy--progress": DaisyProgressController,
   "decor--daisy--tables--bulk-actions-bar": DaisyTablesBulkActionsBarController,
@@ -137,6 +138,7 @@ export const CONTROLLERS = {
   "decor--suite--modals--modal": SuiteModalsModalController,
   "decor--suite--modals--modal-open-button": SuiteModalsModalOpenButtonController,
   "decor--suite--modals--modal-trigger": SuiteModalsModalTriggerController,
+  "decor--suite--notification-manager": SuiteNotificationManagerController,
   "decor--suite--polygon-editor": SuitePolygonEditorController,
   "decor--suite--progress": SuiteProgressController,
   "decor--suite--search-and-filter": SearchAndFilterController,

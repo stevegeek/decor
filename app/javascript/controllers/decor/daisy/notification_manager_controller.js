@@ -2,7 +2,6 @@ import { Controller } from "@hotwired/stimulus";
 import { markAsSafeHTML, safelySetInnerHTML, createHTTPClient } from "controllers/decor";
 
 export const NOTIFICATION_MANAGER_CLASS_NAME = "decor--daisy--notification-manager";
-const NOTIFICATION_CLASSNAME = `${NOTIFICATION_MANAGER_CLASS_NAME}-notification`;
 const DEFAULT_DISMISS_AFTER_MS = 3000;
 const DISMISS_ALL_STAGGER_MS = 50;
 
@@ -11,6 +10,11 @@ export default class extends Controller {
     static values = {
         initialNotifications: { type: Array, default: [] },
     };
+
+    // Subclasses override to emit a different CSS class on each notification node.
+    get notificationClassName() {
+        return `${NOTIFICATION_MANAGER_CLASS_NAME}-notification`;
+    }
 
     connect() {
         this.currentNotificationId = 0;
@@ -58,7 +62,7 @@ export default class extends Controller {
     }
 
     handleDismissAllEvent() {
-        const notifications = Array.from(this.notificationContainerTarget.getElementsByClassName(NOTIFICATION_CLASSNAME));
+        const notifications = Array.from(this.notificationContainerTarget.getElementsByClassName(this.notificationClassName));
         
         notifications.reverse().forEach((notification, idx) => {
             const notificationData = this.activeNotifications.get(notification.id);
@@ -75,13 +79,13 @@ export default class extends Controller {
     }
 
     nextNotificationId() {
-        return `${NOTIFICATION_CLASSNAME}-${++this.currentNotificationId}`;
+        return `${this.notificationClassName}-${++this.currentNotificationId}`;
     }
 
     async createNotification(options, contentHref) {
         const notification = document.createElement("div");
         notification.id = this.nextNotificationId();
-        notification.className = NOTIFICATION_CLASSNAME;
+        notification.className = this.notificationClassName;
         
         if (contentHref) {
             const remoteContent = await this.getRemoteContent(`${contentHref}?notification_id=${notification.id}`);
@@ -145,7 +149,7 @@ export default class extends Controller {
         try {
             const notification = document.createElement("div");
             notification.id = this.nextNotificationId();
-            notification.className = NOTIFICATION_CLASSNAME;
+            notification.className = this.notificationClassName;
             notification.textContent = "Something went wrong while loading the notification. Please try again later.";
             
             this.notificationContainerTarget.prepend(notification);

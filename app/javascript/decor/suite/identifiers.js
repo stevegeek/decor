@@ -20,6 +20,7 @@ export const DecorSuiteClickToCopyIdentifier = "decor--suite--click-to-copy";
 export const DecorSuiteDropdownIdentifier = "decor--suite--dropdown";
 export const DecorSuiteFlashIdentifier = "decor--suite--flash";
 export const DecorSuiteMapIdentifier = "decor--suite--map";
+export const DecorSuiteNotificationManagerIdentifier = "decor--suite--notification-manager";
 export const DecorSuitePolygonEditorIdentifier = "decor--suite--polygon-editor";
 export const DecorSuiteProgressIdentifier = "decor--suite--progress";
 export const DecorSuiteSearchAndFilterIdentifier = "decor--suite--search-and-filter";

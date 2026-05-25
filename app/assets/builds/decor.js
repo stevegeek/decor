@@ -3610,7 +3610,6 @@ var modal_trigger_controller_default = class extends Controller19 {
 // app/javascript/controllers/decor/daisy/notification_manager_controller.js
 import { Controller as Controller20 } from "@hotwired/stimulus";
 var NOTIFICATION_MANAGER_CLASS_NAME = "decor--daisy--notification-manager";
-var NOTIFICATION_CLASSNAME = `${NOTIFICATION_MANAGER_CLASS_NAME}-notification`;
 var DEFAULT_DISMISS_AFTER_MS = 3e3;
 var DISMISS_ALL_STAGGER_MS = 50;
 var notification_manager_controller_default = class extends Controller20 {
@@ -3618,6 +3617,10 @@ var notification_manager_controller_default = class extends Controller20 {
   static values = {
     initialNotifications: { type: Array, default: [] }
   };
+  // Subclasses override to emit a different CSS class on each notification node.
+  get notificationClassName() {
+    return `${NOTIFICATION_MANAGER_CLASS_NAME}-notification`;
+  }
   connect() {
     this.currentNotificationId = 0;
     this.activeNotifications = /* @__PURE__ */ new Map();
@@ -3649,7 +3652,7 @@ var notification_manager_controller_default = class extends Controller20 {
     }
   }
   handleDismissAllEvent() {
-    const notifications = Array.from(this.notificationContainerTarget.getElementsByClassName(NOTIFICATION_CLASSNAME));
+    const notifications = Array.from(this.notificationContainerTarget.getElementsByClassName(this.notificationClassName));
     notifications.reverse().forEach((notification, idx) => {
       const notificationData = this.activeNotifications.get(notification.id);
       if (notificationData?.timerId) {
@@ -3663,12 +3666,12 @@ var notification_manager_controller_default = class extends Controller20 {
     this.dismissNotification(id);
   }
   nextNotificationId() {
-    return `${NOTIFICATION_CLASSNAME}-${++this.currentNotificationId}`;
+    return `${this.notificationClassName}-${++this.currentNotificationId}`;
   }
   async createNotification(options, contentHref) {
     const notification = document.createElement("div");
     notification.id = this.nextNotificationId();
-    notification.className = NOTIFICATION_CLASSNAME;
+    notification.className = this.notificationClassName;
     if (contentHref) {
       const remoteContent = await this.getRemoteContent(`${contentHref}?notification_id=${notification.id}`);
       safelySetInnerHTML(notification, remoteContent);
@@ -3719,7 +3722,7 @@ var notification_manager_controller_default = class extends Controller20 {
     try {
       const notification = document.createElement("div");
       notification.id = this.nextNotificationId();
-      notification.className = NOTIFICATION_CLASSNAME;
+      notification.className = this.notificationClassName;
       notification.textContent = "Something went wrong while loading the notification. Please try again later.";
       this.notificationContainerTarget.prepend(notification);
       const dismissHandler = () => {
@@ -4571,6 +4574,10 @@ var dropdown_controller_default2 = class extends Controller28 {
   }
 };
 
+// app/javascript/controllers/decor/suite/forms/file_upload_controller.js
+var SuiteFormsFileUploadController = class extends FileUploadController {
+};
+
 // app/javascript/controllers/decor/suite/forms/form_controller.js
 import { Controller as Controller29 } from "@hotwired/stimulus";
 var form_controller_default = class extends Controller29 {
@@ -4657,6 +4664,10 @@ var form_controller_default = class extends Controller29 {
     });
     return out;
   }
+};
+
+// app/javascript/controllers/decor/suite/forms/multi_image_upload_controller.js
+var SuiteFormsMultiImageUploadController = class extends multi_image_upload_controller_default {
 };
 
 // app/javascript/controllers/decor/suite/forms/searchable_multi_select_controller.js
@@ -5009,6 +5020,13 @@ var modal_trigger_controller_default2 = class extends Controller34 {
         closeOnOverlayClick: this.closeOnOverlayClickValue
       }
     }));
+  }
+};
+
+// app/javascript/controllers/decor/suite/notification_manager_controller.js
+var SuiteNotificationManagerController = class extends notification_manager_controller_default {
+  get notificationClassName() {
+    return "decor--suite--notification";
   }
 };
 
@@ -5839,9 +5857,9 @@ var CONTROLLERS = {
   "decor--suite--forms--checkbox": CheckboxController,
   "decor--suite--forms--date-calendar": date_calendar_controller_default,
   "decor--suite--forms--expanding-checkbox-collection": expanding_checkbox_collection_controller_default,
-  "decor--suite--forms--file-upload": FileUploadController,
+  "decor--suite--forms--file-upload": SuiteFormsFileUploadController,
   "decor--suite--forms--form": form_controller_default,
-  "decor--suite--forms--multi-image-upload": multi_image_upload_controller_default,
+  "decor--suite--forms--multi-image-upload": SuiteFormsMultiImageUploadController,
   "decor--suite--forms--number-field": NumberFieldController,
   "decor--suite--forms--radio": RadioController,
   "decor--suite--forms--searchable-multi-select": searchable_multi_select_controller_default2,
@@ -5857,6 +5875,7 @@ var CONTROLLERS = {
   "decor--suite--modals--modal": modal_controller_default2,
   "decor--suite--modals--modal-open-button": modal_open_button_controller_default2,
   "decor--suite--modals--modal-trigger": modal_trigger_controller_default2,
+  "decor--suite--notification-manager": SuiteNotificationManagerController,
   "decor--suite--polygon-editor": polygon_editor_controller_default,
   "decor--suite--progress": progress_controller_default,
   "decor--suite--search-and-filter": search_and_filter_controller_default,
