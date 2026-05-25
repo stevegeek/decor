@@ -137,22 +137,36 @@ module Decor
           end
         end
 
-        # min-height reserves vertical space so the dialog doesn't visibly
-        # resize when the async-loaded body lands.
+        # The body is the dialog's scroll region: the <dialog> is a capped-height
+        # flex column (max-h + overflow-hidden), so the body must `overflow-y-auto`
+        # and be allowed to shrink, absorbing overflow and scrolling internally —
+        # keeping the pinned header/footer (and the footer's action buttons)
+        # on-screen. A flex item already defaults to `flex: 0 1 auto` (content
+        # basis, shrink: 1) which is exactly what we want here; grow stays 0 so a
+        # short body doesn't stretch the dialog to full height. `min-h-0` is what
+        # actually lets a flex item shrink below its content height — without it
+        # the body refuses to shrink and the footer is clipped off the bottom of
+        # the viewport.
+        #
+        # For the content_href case we keep a `min-h-[120px]` reservation instead
+        # (so the dialog doesn't visibly resize when the async body lands) — it's
+        # small enough that the body still shrinks-to-scroll for tall content, and
+        # it must replace `min-h-0` rather than sit beside it (two min-height
+        # utilities on one element resolve by stylesheet source order).
         def body_classes
-          base = "cf-modal__body decor:px-5 decor:pt-3 decor:pb-4 decor:suite-description decor:text-gray-500 decor:leading-[1.55]"
-          @content_href.present? ? "#{base} decor:min-h-[120px]" : base
+          base = "cf-modal__body decor:overflow-y-auto decor:px-5 decor:pt-3 decor:pb-4 decor:suite-description decor:text-gray-500 decor:leading-[1.55]"
+          @content_href.present? ? "#{base} decor:min-h-[120px]" : "#{base} decor:min-h-0"
         end
 
         def render_footer
           return unless @footer_block.present?
-          div(class: "cf-modal__footer decor:flex decor:justify-end decor:gap-1.5 decor:px-5 decor:py-3 decor:bg-suite-gray-25 decor:border-t decor:border-suite-hairline") do
+          div(class: "cf-modal__footer decor:shrink-0 decor:flex decor:justify-end decor:gap-1.5 decor:px-5 decor:py-3 decor:bg-suite-gray-25 decor:border-t decor:border-suite-hairline") do
             render @footer_block
           end
         end
 
         def header_classes
-          base = "cf-modal__header decor:flex decor:items-center decor:gap-2.5 decor:px-5 decor:pt-3.5"
+          base = "cf-modal__header decor:shrink-0 decor:flex decor:items-center decor:gap-2.5 decor:px-5 decor:pt-3.5"
           if @variant == :destructive
             "#{base} cf-modal__header--destructive decor:pb-3.5 #{DESTRUCTIVE_HEADER_CLASSES}"
           else

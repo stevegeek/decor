@@ -58,6 +58,11 @@ protocol), `ModalOpenButton`, `ModalCloseButton`, `ModalTrigger`,
 `Form`, `Confirm`, `Alert`, `Information`. JS-cloned `ConfirmTemplate`
 for the global `showConfirmModal(...)` helper, with stimulus-classes
 sharing variant chrome between server-rendered and JS-spawned paths.
+The Suite `Modal` is a capped-height flex column (`max-h` of the
+viewport) whose body is the internal scroll region (`overflow-y-auto`
++ `min-h-0`), with `shrink-0` header/footer — so content taller than
+the viewport scrolls inside the body and the footer action buttons
+stay reachable instead of being clipped.
 
 Layout — `Page`, `PageHeader`, `PageSection`, `Panel`, `PanelGroup`,
 `Box`, `Card`, `Stat`, `Stats`, `Property`, `PropertyStrip`,

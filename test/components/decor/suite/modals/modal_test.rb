@@ -197,6 +197,39 @@ class ::Decor::Suite::Modals::ModalTest < ActiveSupport::TestCase
     assert_includes html, 'id="m1-body"'
   end
 
+  # Tall-content overflow: the <dialog> is a capped-height flex column
+  # (max-h + overflow-hidden). For content taller than the viewport the
+  # middle (body) must be the scroll region and the header/footer must be
+  # pinned, otherwise the footer (action buttons) is clipped off-screen and
+  # nothing scrolls. See https://github — capped-height flex modal pattern.
+  test "body is the internal scroll region (min-h-0 + overflow-y-auto)" do
+    html = render_component(::Decor::Suite::Modals::Modal.new(id: "m1", title: "T")) { "body" }
+    body_tag = html[/<div[^>]*id="m1-body"[^>]*>/]
+    assert body_tag, "expected a body div with id m1-body"
+    assert_includes body_tag, "decor:min-h-0"
+    assert_includes body_tag, "decor:overflow-y-auto"
+  end
+
+  test "content_href body keeps overflow scrolling but reserves min-height instead of min-h-0" do
+    html = render_component(::Decor::Suite::Modals::Modal.new(id: "m1", title: "T", content_href: "/x"))
+    body_tag = html[/<div[^>]*id="m1-body"[^>]*>/]
+    assert_includes body_tag, "decor:overflow-y-auto"
+    assert_includes body_tag, "decor:min-h-[120px]"
+    refute_includes body_tag, "decor:min-h-0"
+  end
+
+  test "header is pinned with shrink-0 so it never collapses under a scrolling body" do
+    html = render_component(::Decor::Suite::Modals::Modal.new(id: "m1", title: "T"))
+    assert_match(/class="cf-modal__header[^"]*decor:shrink-0/, html)
+  end
+
+  test "footer is pinned with shrink-0 so action buttons stay reachable" do
+    modal = ::Decor::Suite::Modals::Modal.new(id: "m1", title: "T")
+    modal.with_footer { "<button>OK</button>".html_safe }
+    html = render_component(modal) { "body" }
+    assert_match(/class="cf-modal__footer[^"]*decor:shrink-0/, html)
+  end
+
   test "inherits from the Components::Modals::Modal abstract base" do
     assert ::Decor::Suite::Modals::Modal.new(id: "m1").is_a?(::Decor::Components::Modals::Modal)
   end
