@@ -168,5 +168,4 @@ class ::Decor::Suite::Forms::SelectTest < ActiveSupport::TestCase
     ))
     assert_includes html, "decor:sm:w-[180px]"
   end
-
 end

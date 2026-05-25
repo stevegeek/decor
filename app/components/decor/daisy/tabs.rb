@@ -74,7 +74,7 @@ module Decor
           a(
             href: link.href,
             role: "tab",
-            class: "decor:d-tab #{link.active? ? "decor:d-tab-active" : ""}",
+            class: "decor:d-tab #{"decor:d-tab-active" if link.active?}",
             **tab_link_attributes(link)
           ) do
             render_tab_content(link)
@@ -110,7 +110,7 @@ module Decor
       end
 
       def tabs_container_classes
-        "decor:d-tabs #{select_on_mobile? ? "decor:hidden decor:sm:block" : ""} #{style_classes} #{size_classes} #{color_classes}".strip
+        "decor:d-tabs #{"decor:hidden decor:sm:block" if select_on_mobile?} #{style_classes} #{size_classes} #{color_classes}".strip
       end
 
       def component_style_classes(style)

@@ -6,6 +6,8 @@ module Decor
       class MultiImageUpload < ::Decor::Components::Forms::FormField
         include ::Phlex::Rails::Helpers::FieldName
 
+        register_value_helper :rails_blob_path
+
         # Bind to the existing Daisy multi_image_upload Stimulus controller
         # (no Suite JS). Overriding stimulus_identifier_path makes Vident
         # emit `data-controller="decor--daisy--forms--multi-image-upload"`
@@ -107,9 +109,9 @@ module Decor
             class: thumbnail_wrapper_classes,
             data: {
               **target_data(:thumbnail),
-              :"image-type" => "existing",
-              :"signed-id" => img[:signed_id],
-              :"blob-id" => img[:blob_id]
+              "image-type": "existing",
+              "signed-id": img[:signed_id],
+              "blob-id": img[:blob_id]
             }
           ) do
             img(
@@ -201,8 +203,8 @@ module Decor
             accept: @file_mime_types,
             class: "decor:hidden",
             data: {
-              :"#{DAISY_CTRL}-target" => "fileInput",
-              :action => "change->#{DAISY_CTRL}#filesSelected"
+              "#{DAISY_CTRL}-target": "fileInput",
+              action: "change->#{DAISY_CTRL}#filesSelected"
             }
           )
 
@@ -317,7 +319,7 @@ module Decor
               {
                 signed_id: image.signed_id,
                 blob_id: image.blob_id.to_s,
-                url: helpers.rails_blob_path(image, only_path: true),
+                url: rails_blob_path(image, only_path: true),
                 filename: image.filename.to_s
               }
             end
@@ -335,7 +337,7 @@ module Decor
         end
 
         def target_data(target_name)
-          {:"#{DAISY_CTRL}-target" => target_name.to_s}
+          {"#{DAISY_CTRL}-target": target_name.to_s}
         end
       end
     end

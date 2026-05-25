@@ -125,7 +125,7 @@ module Decor
         end
 
         def crumb_text_classes(current: false)
-          "#{current ? "decor:font-medium" : ""} decor:text-base-content/60 decor:hover:text-base-content decor:transition-colors decor:text-sm"
+          "#{"decor:font-medium" if current} decor:text-base-content/60 decor:hover:text-base-content decor:transition-colors decor:text-sm"
         end
       end
     end

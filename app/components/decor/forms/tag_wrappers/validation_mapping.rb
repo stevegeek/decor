@@ -54,7 +54,7 @@ module Decor
             if mapper && !has_conditionals
               mapper[:method].call(acc, options)
             elsif ::Rails.env.development?
-              Rails.logger.warn "Ignored validation '#{klass}' on #{object.class.name}.'#{method_name}'#{has_conditionals ? " as has conditional logic" : ""} (caller: #{name})"
+              Rails.logger.warn "Ignored validation '#{klass}' on #{object.class.name}.'#{method_name}'#{" as has conditional logic" if has_conditionals} (caller: #{name})"
             end
           end
         end

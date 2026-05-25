@@ -58,7 +58,7 @@ class ::Decor::Suite::Forms::FormFieldLayoutTest < ActiveSupport::TestCase
     html = render_component(
       ::Decor::Suite::Forms::FormFieldLayout.new(field_id: "n", label: "Name", label_position: :inside)
     )
-    refute_includes html, '<label'
+    refute_includes html, "<label"
   end
 
   test "description renders below the label using suite-field-help" do

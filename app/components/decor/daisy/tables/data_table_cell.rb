@@ -10,7 +10,7 @@ module Decor
           root_element do |s|
             if @max_width.present? || @min_width_rem.present?
               div(
-                style: "#{@max_width ? "max-width: #{@max_width}px;" : ""}#{@min_width_rem ? "min-width: #{@min_width_rem}rem;" : ""}",
+                style: "#{"max-width: #{@max_width}px;" if @max_width}#{"min-width: #{@min_width_rem}rem;" if @min_width_rem}",
                 class: "decor:truncate"
               ) do
                 render_cell_content(s, &block)

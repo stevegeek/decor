@@ -19,7 +19,7 @@ module Decor
                     span(class: "decor:d-label-text") { @label }
                   end
                   if @description.present?
-                    div(class: "decor:d-label-text-alt decor:mt-1 #{label_left? ? "decor:mb-2" : nil}") do
+                    div(class: "decor:d-label-text-alt decor:mt-1 #{"decor:mb-2" if label_left?}") do
                       @description
                     end
                   end
@@ -95,7 +95,7 @@ module Decor
 
         def label_element_classes
           color = class_list_for_stimulus_classes(:valid_label)
-          "#{label_left? ? "decor:font-medium" : ""} #{color}"
+          "#{"decor:font-medium" if label_left?} #{color}"
         end
       end
     end

@@ -74,12 +74,12 @@ module Decor
 
         def highlight_bg
           case @highlight
-          when :gray_low    then "decor:bg-gray-50"
+          when :gray_low then "decor:bg-gray-50"
           when :gray_medium then "decor:bg-gray-100"
-          when :gray_high   then "decor:bg-gray-200"
-          when :low         then "decor:bg-suite-primary-50"
-          when :high        then "decor:bg-suite-primary-100"
-          else                   "decor:bg-suite-primary-50"
+          when :gray_high then "decor:bg-gray-200"
+          when :low then "decor:bg-suite-primary-50"
+          when :high then "decor:bg-suite-primary-100"
+          else "decor:bg-suite-primary-50"
           end
         end
       end

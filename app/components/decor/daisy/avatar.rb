@@ -9,7 +9,7 @@ module Decor
           if @url
             div(class: "decor:d-avatar") do
               div(class: classes) do
-                image_tag @url, alt: (@alt.presence || @initials.presence || t(".image"))
+                image_tag @url, alt: @alt.presence || @initials.presence || t(".image")
               end
             end
           else
@@ -84,7 +84,7 @@ module Decor
         span(
           class: "decor:absolute decor:-bottom-px decor:-right-px decor:w-[10px] decor:h-[10px] " \
                  "decor:rounded-full decor:border-2 decor:border-white #{status_dot_color}",
-          aria: { label: @status.to_s }
+          aria: {label: @status.to_s}
         )
       end
 

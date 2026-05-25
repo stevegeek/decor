@@ -24,7 +24,7 @@ module Decor
         private
 
         def root_element_classes
-          "decor:absolute decor:inset-y-1 decor:flex decor:items-center #{@show_floating_message ? "" : "decor:no-pointer-events"}"
+          "decor:absolute decor:inset-y-1 decor:flex decor:items-center #{"decor:no-pointer-events" unless @show_floating_message}"
         end
       end
     end

@@ -80,5 +80,4 @@ class Decor::Suite::ButtonLinkTest < ActiveSupport::TestCase
     assert_includes html, "decor:text-[13px]"
     assert_includes html, "decor:rounded-suite-control"
   end
-
 end

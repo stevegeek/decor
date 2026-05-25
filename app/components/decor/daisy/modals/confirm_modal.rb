@@ -5,6 +5,7 @@ module Decor
     module Modals
       class ConfirmModal < ::Decor::Components::Modals::ConfirmModal
         include Decor::Concerns::StyleColorClasses
+
         MODAL_TYPES = [:info, :warning, :error, :success].freeze
 
         def view_template

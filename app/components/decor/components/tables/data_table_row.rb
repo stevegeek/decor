@@ -5,6 +5,7 @@ module Decor
     module Tables
       class DataTableRow < ::Decor::PhlexComponent
         include ::Decor::Concerns::StyleColorClasses
+
         attr_reader :expanded_content
 
         prop :hover_highlight, _Nilable(_Boolean)

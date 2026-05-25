@@ -9,18 +9,16 @@ class ::Decor::Suite::Tables::BulkActionsBarTest < ActiveSupport::TestCase
     keyword_init: true
   ) do
     def initialize(**attrs)
-      super(**{
-        icon: nil,
-        icon_variant: :outline,
-        style: :primary,
-        confirm: nil,
-        disabled: false,
-        visible: nil,
-        url: nil,
-        http_method: :post,
-        inline: false,
-        modal: false
-      }.merge(attrs))
+      super(icon: nil,
+            icon_variant: :outline,
+            style: :primary,
+            confirm: nil,
+            disabled: false,
+            visible: nil,
+            url: nil,
+            http_method: :post,
+            inline: false,
+            modal: false, **attrs)
     end
   end
 

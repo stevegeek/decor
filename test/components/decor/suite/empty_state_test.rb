@@ -136,7 +136,7 @@ class ::Decor::Suite::EmptyStateTest < ActiveSupport::TestCase
     frag.css("[class]").each do |node|
       classes = node["class"].to_s.split(/\s+/).reject(&:empty?)
       offenders = classes.reject do |c|
-        c.start_with?("decor:") || c.start_with?("decor--")
+        c.start_with?("decor:", "decor--")
       end
       assert_empty offenders,
         "Expected every utility class to carry the decor: prefix on <#{node.name}>, " \

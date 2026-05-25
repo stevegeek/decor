@@ -60,7 +60,7 @@ module Decor
         return slide[:url] if slide[:url].present?
         path = slide[:path].to_s
         return path if path.start_with?("http://", "https://", "/")
-        helpers.image_path(path)
+        image_path(path)
       end
 
       def root_element_attributes

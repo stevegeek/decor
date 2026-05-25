@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-
   before_action do
     Vident::StableId.set_current_sequence_generator(seed: request.fullpath)
   end

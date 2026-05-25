@@ -43,7 +43,7 @@ module Decor
                 error_text: error_text,
                 show_floating_message: floating_error_text?,
                 html_options: {
-                  class: "decor:right-7 #{errors? ? "" : "hidden"}"
+                  class: "decor:right-7 #{"hidden" unless errors?}"
                 }
               )
             end

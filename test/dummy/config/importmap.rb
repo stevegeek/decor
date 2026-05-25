@@ -13,7 +13,7 @@ pin "controllers/decor/http"
 
 # Scan gem-root controller tree (one level above test/dummy)
 pin_all_from File.expand_path("../../../app/javascript/controllers/decor", __dir__),
-             under: "controllers/decor"
+  under: "controllers/decor"
 pin_all_from "app/javascript/controllers", under: "controllers"
 pin "cally" # @0.8.0
 # https://github.com/rails/importmap-rails/issues/270

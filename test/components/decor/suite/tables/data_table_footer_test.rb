@@ -116,5 +116,4 @@ class ::Decor::Suite::Tables::DataTableFooterTest < ActiveSupport::TestCase
     refute_match(/class="[^"]*(?<![\w:])border-t(?![\w-])[^"]*"/, html)
     refute_match(/class="[^"]*(?<![\w:])bg-suite-gray-25(?![\w-])[^"]*"/, html)
   end
-
 end

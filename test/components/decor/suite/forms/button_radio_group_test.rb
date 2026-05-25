@@ -13,7 +13,7 @@ class ::Decor::Suite::Forms::ButtonRadioGroupTest < ActiveSupport::TestCase
   test "renders one radio input per choice with the shared name" do
     html = render_component(::Decor::Suite::Forms::ButtonRadioGroup.new(name: "plan", choices: CHOICES))
     assert_equal 3, html.scan(/<input[^>]*type="radio"/).length
-    assert_equal 3, html.scan(/name="plan"/).length
+    assert_equal 3, html.scan('name="plan"').length
   end
 
   test "renders each choice label" do
@@ -136,5 +136,4 @@ class ::Decor::Suite::Forms::ButtonRadioGroupTest < ActiveSupport::TestCase
     )
     refute_includes html, ">Plan<"
   end
-
 end

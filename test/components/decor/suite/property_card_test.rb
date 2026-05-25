@@ -148,5 +148,4 @@ class ::Decor::Suite::PropertyCardTest < ActiveSupport::TestCase
     assert a < b, "alpha precedes beta"
     assert b < g, "beta precedes gamma"
   end
-
 end

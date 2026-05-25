@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "set"
-
 module Decor
   # Sprite-based icon component. Renders <svg><use href="sprite.svg#id"></svg>
   # against Decor's bundled Tabler sprite (default) or Decor's small custom-glyph
@@ -76,14 +74,14 @@ module Decor
 
     def sprite_path_with_id
       if @sprite == :decor
-        return "#{helpers.asset_path("sprites/decor.svg")}#decor-#{@name}"
+        return "#{asset_path("sprites/decor.svg")}#decor-#{@name}"
       end
 
       resolved = resolved_style
       if resolved == :solid || resolved == :small_solid
-        "#{helpers.asset_path("sprites/tabler-filled.svg")}#tabler-filled-#{@name}"
+        "#{asset_path("sprites/tabler-filled.svg")}#tabler-filled-#{@name}"
       else
-        "#{helpers.asset_path("sprites/tabler-outline.svg")}#tabler-#{@name}"
+        "#{asset_path("sprites/tabler-outline.svg")}#tabler-#{@name}"
       end
     end
   end

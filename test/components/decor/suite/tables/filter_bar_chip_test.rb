@@ -75,5 +75,4 @@ class ::Decor::Suite::Tables::FilterBarChipTest < ActiveSupport::TestCase
     html = render_component(::Decor::Suite::Tables::FilterBarChip.new(label: "All", value: nil, param_name: :by_state))
     refute_match(/by_state/, html)
   end
-
 end

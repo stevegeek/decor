@@ -73,7 +73,7 @@ class Decor::Suite::Modals::ModalTriggerTest < ActiveSupport::TestCase
   end
 
   test "inherits from the Modals::ModalTrigger abstract base" do
-    assert ::Decor::Suite::Modals::ModalTrigger.new(modal_id: "m1") \
+    assert ::Decor::Suite::Modals::ModalTrigger.new(modal_id: "m1")
       .is_a?(::Decor::Components::Modals::ModalTrigger)
   end
 

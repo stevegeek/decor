@@ -95,12 +95,12 @@ module Decor
                   ) do
                     render ::Decor::Icon.new(
                       name: "menu-2",
-                      html_options: {class: "decor:h-6 decor:w-6 #{@collapsed ? "decor:hidden" : nil}"},
+                      html_options: {class: "decor:h-6 decor:w-6 #{"decor:hidden" if @collapsed}"},
                       stimulus_targets: [el.stimulus_target(:desktop_collapse_icon)]
                     )
                     render ::Decor::Icon.new(
                       name: "chevron-right",
-                      html_options: {class: "decor:h-6 decor:w-6 #{@collapsed ? "" : "decor:hidden"}"},
+                      html_options: {class: "decor:h-6 decor:w-6 #{"decor:hidden" unless @collapsed}"},
                       stimulus_targets: [el.stimulus_target(:desktop_expand_icon)]
                     )
                   end

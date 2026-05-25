@@ -1,7 +1,6 @@
 require "test_helper"
 
 class Decor::Daisy::SwitchingBoxTest < ActiveSupport::TestCase
-
   def setup
     @mock_model = TestModel.new(id: 1, active: true)
     @mock_url = "/test/1"

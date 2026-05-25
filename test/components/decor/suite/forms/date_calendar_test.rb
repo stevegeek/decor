@@ -190,5 +190,4 @@ class ::Decor::Suite::Forms::DateCalendarTest < ActiveSupport::TestCase
     refute_includes html, "Help"
     refute_includes html, ">Bad<"
   end
-
 end

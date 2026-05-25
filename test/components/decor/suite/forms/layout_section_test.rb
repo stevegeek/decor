@@ -80,5 +80,4 @@ class ::Decor::Suite::Forms::LayoutSectionTest < ActiveSupport::TestCase
     assert_includes html, "Verified."
     assert_includes html, "decor:rounded-suite-card"
   end
-
 end

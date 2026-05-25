@@ -51,5 +51,4 @@ class ::Decor::Suite::Forms::HiddenFieldTest < ActiveSupport::TestCase
     refute_includes html, "nope"
     refute_includes html, "decor:suite-field-help"
   end
-
 end

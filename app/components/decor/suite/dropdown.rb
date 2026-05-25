@@ -107,7 +107,7 @@ module Decor
         [
           "decor--suite--dropdown-menu",
           "decor:overflow-auto decor:focus:outline-hidden",
-          (@dropdown_size_classes&.join(" ") || "decor:w-auto decor:max-h-80"),
+          @dropdown_size_classes&.join(" ") || "decor:w-auto decor:max-h-80",
           base_menu_classes,
           @menu_classes&.join(" ")
         ].compact.join(" ")

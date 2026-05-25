@@ -18,11 +18,11 @@ module Decor
           if @url
             img(
               src: @url,
-              alt: (@alt.presence || @initials.presence || ""),
+              alt: @alt.presence || @initials.presence || "",
               class: "decor:w-full decor:h-full decor:object-cover"
             )
-          else
-            plain @initials if @initials
+          elsif @initials
+            plain @initials
           end
           status_dot if @status
           yield if block_given?
@@ -32,7 +32,7 @@ module Decor
       private
 
       def root_element_attributes
-        { element_tag: :span }
+        {element_tag: :span}
       end
 
       def root_element_classes
@@ -93,7 +93,7 @@ module Decor
         span(
           class: "decor:absolute decor:-bottom-px decor:-right-px decor:w-[10px] decor:h-[10px] " \
                  "decor:rounded-full decor:border-2 decor:border-white #{status_dot_color}",
-          aria: { label: @status.to_s }
+          aria: {label: @status.to_s}
         )
       end
 

@@ -80,7 +80,7 @@ class Decor::Forms::TagWrappers::Suite::ButtonRadioGroupTest < ActiveSupport::Te
   end
 
   test "accepts a Range of choices via the inherited initializer" do
-    html = render_wrapper(:some_string_from_list_maybe, (1..3), label: "Pick")
+    html = render_wrapper(:some_string_from_list_maybe, 1..3, label: "Pick")
     assert_equal 3, html.scan(/<input[^>]*type="radio"/).size
   end
 end

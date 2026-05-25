@@ -96,5 +96,4 @@ class ::Decor::Suite::PropertyStripTest < ActiveSupport::TestCase
     assert alpha_at < beta_at, "alpha precedes beta"
     assert beta_at < gamma_at, "beta precedes gamma"
   end
-
 end

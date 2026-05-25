@@ -136,7 +136,7 @@ class ::Decor::Suite::Forms::FormFieldLayoutPreview < ::Lookbook::Preview
   # from any concrete Suite field skin.
   def stand_in_input(id:, type: "text", value: nil, disabled: false)
     safe(
-      %(<input id="#{id}-control" name="#{id}" type="#{type}"#{value ? %( value="#{value}") : ""}#{disabled ? " disabled" : ""} class="decor:block decor:w-full decor:suite-input-base decor:border decor:border-suite-hairline-strong decor:rounded-suite-control decor:bg-white" />)
+      %(<input id="#{id}-control" name="#{id}" type="#{type}"#{%( value="#{value}") if value}#{" disabled" if disabled} class="decor:block decor:w-full decor:suite-input-base decor:border decor:border-suite-hairline-strong decor:rounded-suite-control decor:bg-white" />)
     )
   end
 

@@ -120,5 +120,4 @@ class ::Decor::Suite::Forms::ExpandingCheckboxCollectionTest < ActiveSupport::Te
     )
     refute_includes html, ">Required<"
   end
-
 end

@@ -78,13 +78,13 @@ class ::Decor::Suite::PropertyListPreview < ::Lookbook::Preview
     render ::Decor::Suite::PropertyList.new(title: title, layout: layout.to_sym, columns: columns.to_i) do |list|
       list.with_cta { '<a href="#" class="decor:text-suite-primary-700 decor:underline">Edit</a>'.html_safe } if with_cta
       list.with_section(kicker: "Identity") do
-        render ::Decor::Suite::Property.new(label: "Name", value: "Acme Co.", layout: layout.to_sym == :grid ? :stack : :row)
-        render ::Decor::Suite::Property.new(label: "Reference", value: "ACM-001", layout: layout.to_sym == :grid ? :stack : :row)
-        render ::Decor::Suite::Property.new(label: "Owner", value: "Procurement", layout: layout.to_sym == :grid ? :stack : :row)
+        render ::Decor::Suite::Property.new(label: "Name", value: "Acme Co.", layout: (layout.to_sym == :grid) ? :stack : :row)
+        render ::Decor::Suite::Property.new(label: "Reference", value: "ACM-001", layout: (layout.to_sym == :grid) ? :stack : :row)
+        render ::Decor::Suite::Property.new(label: "Owner", value: "Procurement", layout: (layout.to_sym == :grid) ? :stack : :row)
       end
       list.with_section(kicker: "Activity") do
-        render ::Decor::Suite::Property.new(label: "Created", value: "2026-04-01", layout: layout.to_sym == :grid ? :stack : :row)
-        render ::Decor::Suite::Property.new(label: "Updated", value: "today", layout: layout.to_sym == :grid ? :stack : :row)
+        render ::Decor::Suite::Property.new(label: "Created", value: "2026-04-01", layout: (layout.to_sym == :grid) ? :stack : :row)
+        render ::Decor::Suite::Property.new(label: "Updated", value: "today", layout: (layout.to_sym == :grid) ? :stack : :row)
       end
     end
   end

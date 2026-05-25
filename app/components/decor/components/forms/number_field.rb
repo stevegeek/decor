@@ -29,7 +29,6 @@ module Decor
         prop :pattern, _Nilable(_Any), default: -> {
           ->(instance) { instance.allow_float_input? ? "[0-9-.]*" : "[0-9]*" }
         }, reader: :public
-
       end
     end
   end

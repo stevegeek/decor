@@ -22,7 +22,7 @@ module Decor
       private
 
       def root_element_attributes
-        { element_tag: @tag_name }
+        {element_tag: @tag_name}
       end
 
       def root_element_classes

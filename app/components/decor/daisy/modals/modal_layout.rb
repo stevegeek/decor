@@ -25,7 +25,7 @@ module Decor
                       render ::Decor::Icon.new(name: @icon, html_options: {class: "decor:h-6 decor:w-6 #{icon_text_classes}"})
                     end
                   end
-                  div(class: "#{show_icon? ? "decor:mt-3 decor:sm:mt-0 decor:sm:ml-4" : ""} decor:text-center decor:sm:text-left") do
+                  div(class: "#{"decor:mt-3 decor:sm:mt-0 decor:sm:ml-4" if show_icon?} decor:text-center decor:sm:text-left") do
                     if @title
                       h3(class: "decor:text-lg decor:leading-6 decor:font-medium") { @title }
                     end

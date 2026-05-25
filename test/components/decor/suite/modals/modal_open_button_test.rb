@@ -101,7 +101,7 @@ class Decor::Suite::Modals::ModalOpenButtonTest < ActiveSupport::TestCase
   end
 
   test "inherits from the Modals::ModalOpenButton abstract base" do
-    assert ::Decor::Suite::Modals::ModalOpenButton.new(modal_id: "m1") \
+    assert ::Decor::Suite::Modals::ModalOpenButton.new(modal_id: "m1")
       .is_a?(::Decor::Components::Modals::ModalOpenButton)
   end
 end

@@ -121,12 +121,10 @@ module Decor
             else
               "decor:file:bg-suite-primary-500 decor:hover:file:bg-suite-primary-600 decor:file:text-white"
             end
+          elsif disabled?
+            "decor:file:bg-gray-50 decor:file:text-gray-400 decor:file:cursor-not-allowed"
           else
-            if disabled?
-              "decor:file:bg-gray-50 decor:file:text-gray-400 decor:file:cursor-not-allowed"
-            else
-              "decor:file:bg-white decor:hover:file:bg-suite-gray-25 decor:file:text-gray-700"
-            end
+            "decor:file:bg-white decor:hover:file:bg-suite-gray-25 decor:file:text-gray-700"
           end
         end
 
@@ -270,9 +268,9 @@ module Decor
 
         def file_drop_zone_data
           {
-            :"#{DAISY_CTRL}-target" => "dropZone",
-            :action => "dragover->#{DAISY_CTRL}#onDragOver dragleave->#{DAISY_CTRL}#onDragLeave drop->#{DAISY_CTRL}#onDrop",
-            :"#{DAISY_CTRL}-drag-over-class" => "decor:border-suite-primary-500 decor:bg-suite-primary-50"
+            "#{DAISY_CTRL}-target": "dropZone",
+            action: "dragover->#{DAISY_CTRL}#onDragOver dragleave->#{DAISY_CTRL}#onDragLeave drop->#{DAISY_CTRL}#onDrop",
+            "#{DAISY_CTRL}-drag-over-class": "decor:border-suite-primary-500 decor:bg-suite-primary-50"
           }
         end
 
@@ -282,7 +280,7 @@ module Decor
               name: field_name(@object_name, :"#{@method_name}_delete"),
               disabled: @disabled,
               collapsing_helper_text: true,
-              classes: "#{(@preview_layout == :inline) ? "decor:md:pl-6" : ""} decor:inline-block decor:w-auto",
+              classes: "#{"decor:md:pl-6" if @preview_layout == :inline} decor:inline-block decor:w-auto",
               value: "true"
             )
             render checkbox
@@ -331,8 +329,8 @@ module Decor
 
         def file_input_data
           {
-            :controller => form_control_controller,
-            :"#{DAISY_CTRL}-target" => "input"
+            controller: form_control_controller,
+            "#{DAISY_CTRL}-target": "input"
           }
         end
 
@@ -345,7 +343,7 @@ module Decor
         end
 
         def target_data(target_name)
-          {:"#{DAISY_CTRL}-target" => target_name.to_s}
+          {"#{DAISY_CTRL}-target": target_name.to_s}
         end
 
         # Referenced by the inherited `stimulus do` block (classes image: -> { preview_classes }).

@@ -76,5 +76,4 @@ class ::Decor::Suite::Tables::FilterBarTest < ActiveSupport::TestCase
     refute_match(/class="[^"]*(?<![\w:])bg-suite-gray-25(?![\w-])[^"]*"/, html)
     refute_match(/class="[^"]*(?<![\w:])border-b(?![\w-])[^"]*"/, html)
   end
-
 end

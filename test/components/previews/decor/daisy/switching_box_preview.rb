@@ -71,6 +71,7 @@ class ::Decor::Daisy::SwitchingBoxPreview < ::Lookbook::Preview
       property_name: property_name,
       model: Class.new {
                include ActiveModel::Model
+
                def self.name = "Test"
                attr_accessor :switch
              }.new(property_name => switch_options_checked),
@@ -205,6 +206,7 @@ class ::Decor::Daisy::SwitchingBoxPreview < ::Lookbook::Preview
   def create_model(property_name, value)
     Class.new {
       include ActiveModel::Model
+
       def self.name = "TestSwitchingBox"
       attr_accessor property_name
     }.new(property_name => value)

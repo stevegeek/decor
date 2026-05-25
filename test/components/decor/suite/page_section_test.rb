@@ -110,5 +110,4 @@ class ::Decor::Suite::PageSectionTest < ActiveSupport::TestCase
     html = render_component(::Decor::Suite::PageSection.new(title: "T")) { "x".html_safe }
     assert_includes html, "decor:suite-section-gap"
   end
-
 end

@@ -246,6 +246,5 @@ class Decor::Forms::ActionViewFormBuilderTest < ActiveSupport::TestCase
       Object.send(:remove_const, const_name)
     end
     Object.const_set(const_name, value)
-
   end
 end

@@ -51,7 +51,7 @@ module Decor
                 error_text: error_text,
                 show_floating_message: floating_error_text?,
                 html_options: {
-                  class: "#{errors? ? "" : "hidden"} decor:right-3"
+                  class: "#{"hidden" unless errors?} decor:right-3"
                 }
               )
             end

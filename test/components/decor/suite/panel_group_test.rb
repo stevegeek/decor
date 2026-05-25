@@ -119,7 +119,7 @@ class ::Decor::Suite::PanelGroupTest < ActiveSupport::TestCase
     end
     classes = html.scan(/class="([^"]+)"/).flatten.flat_map { |c| c.split(/\s+/) }.reject(&:empty?)
     refute_empty classes
-    bare = classes.reject { |c| c.start_with?("decor:") || c.start_with?("decor--") }
+    bare = classes.reject { |c| c.start_with?("decor:", "decor--") }
     assert_empty bare, "Found non-prefixed Tailwind classes: #{bare.inspect}"
   end
 end

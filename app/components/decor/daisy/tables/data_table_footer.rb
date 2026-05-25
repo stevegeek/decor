@@ -27,9 +27,9 @@ module Decor
                 div(class: "decor:flow-root") do
                   dl(class: "decor:-my-3 decor:divide-y decor:divide-base-300 decor:text-sm") do
                     @summary_lines.each do |line|
-                      div(class: "decor:grid decor:grid-cols-1 decor:gap-1 decor:py-3 decor:sm:grid-cols-3 decor:sm:gap-4 #{line.start_section? ? "decor:border-t-2 decor:border-base-300 decor:pt-4" : ""} #{line.final_line? ? "decor:border-t-2 decor:border-primary/20 decor:pt-4 decor:bg-base-50" : ""}") do
-                        dt(class: "decor:font-medium decor:text-base-content #{line.final_line? ? "decor:text-primary" : ""}") { line.title }
-                        dd(class: "decor:text-base-content/70 decor:sm:col-span-2 decor:font-semibold #{line.final_line? ? "decor:text-primary decor:text-base" : ""}") { line.value }
+                      div(class: "decor:grid decor:grid-cols-1 decor:gap-1 decor:py-3 decor:sm:grid-cols-3 decor:sm:gap-4 #{"decor:border-t-2 decor:border-base-300 decor:pt-4" if line.start_section?} #{"decor:border-t-2 decor:border-primary/20 decor:pt-4 decor:bg-base-50" if line.final_line?}") do
+                        dt(class: "decor:font-medium decor:text-base-content #{"decor:text-primary" if line.final_line?}") { line.title }
+                        dd(class: "decor:text-base-content/70 decor:sm:col-span-2 decor:font-semibold #{"decor:text-primary decor:text-base" if line.final_line?}") { line.value }
                       end
                     end
                   end

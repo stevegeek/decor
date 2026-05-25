@@ -35,5 +35,4 @@ class ::Decor::Suite::Forms::HelperTextSectionTest < ActiveSupport::TestCase
     )
     assert_includes html, "decor:text-gray-400"
   end
-
 end

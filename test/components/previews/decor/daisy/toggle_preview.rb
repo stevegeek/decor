@@ -152,6 +152,7 @@ class ::Decor::Daisy::TogglePreview < ::Lookbook::Preview
   def create_model(property_name, value)
     Class.new {
       include ActiveModel::Model
+
       def self.name = "TestToggle"
       attr_accessor property_name
     }.new(property_name => value)

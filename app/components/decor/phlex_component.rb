@@ -8,6 +8,7 @@ module Decor
 
     include Phlex::Rails::Helpers::Routes
     include Phlex::Rails::Helpers::ImagePath
+    include Phlex::Rails::Helpers::AssetPath
 
     # TODO: deprecate these?
     include ::Phlex::Rails::Helpers::T

@@ -21,7 +21,7 @@ module Decor
                     )
                   end
 
-                  span(class: "#{component_name}-text #{@counter ? "decor:flex-1 decor:flex decor:items-center" : nil}") do
+                  span(class: "#{component_name}-text #{"decor:flex-1 decor:flex decor:items-center" if @counter}") do
                     child_element(:p, stimulus_target: :title, class: "decor:shrink-0") { @title }
                     if @counter
                       span(class: "decor:d-badge decor:d-badge-primary decor:d-badge-sm decor:ml-auto") do
@@ -64,7 +64,7 @@ module Decor
                   )
                 end
 
-                span(class: "#{component_name}-text #{@counter ? "decor:flex-1 decor:flex decor:items-center" : nil}") do
+                span(class: "#{component_name}-text #{"decor:flex-1 decor:flex decor:items-center" if @counter}") do
                   child_element(:p, stimulus_target: :title, class: "decor:shrink-0") { @title }
                   if @counter
                     span(class: "decor:d-badge decor:d-badge-primary decor:d-badge-sm decor:ml-auto") do

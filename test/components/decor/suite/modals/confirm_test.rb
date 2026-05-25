@@ -185,5 +185,4 @@ class ::Decor::Suite::Modals::ConfirmTest < ActiveSupport::TestCase
     html = render_component(::Decor::Suite::Modals::Confirm.new(title: "T", message: "M", closeable: false))
     assert_includes html, 'data-decor--suite--modals--modal-closeable-value="false"'
   end
-
 end

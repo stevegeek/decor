@@ -44,7 +44,7 @@ class Decor::ClassMergerTest < ActiveSupport::TestCase
     inputs = [
       ["decor:p-4 p-4 decor:p-4 p-4", false],
       ["p-4 decor:p-4 p-4 decor:p-4", true],
-      ["decor:p-2 decor:p-4 p-8 decor:p-12", true],
+      ["decor:p-2 decor:p-4 p-8 decor:p-12", true]
     ]
     inputs.each do |input, expect_prefix|
       output = @merger.merge(input)

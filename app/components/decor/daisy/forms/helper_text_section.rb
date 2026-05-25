@@ -8,7 +8,7 @@ module Decor
           root_element do |el|
             if @helper_text.present? && @error_text.blank?
               div(
-                class: "decor:d-validator-hint #{@disabled ? "decor:opacity-50" : ""}",
+                class: "decor:d-validator-hint #{"decor:opacity-50" if @disabled}",
                 data: {**el.stimulus_target(:helper_text)}
               ) do
                 @helper_text

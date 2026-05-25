@@ -54,7 +54,6 @@ module Decor
         when :xs then "decor:d-progress-xs"
         when :sm then "decor:d-progress-sm"
         when :lg then "decor:d-progress-lg"
-        else nil
         end
       end
 

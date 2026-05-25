@@ -1,0 +1,11 @@
+ignore:
+  - .github/**/*
+  - bin/**/*
+  - node_modules/**/*
+  - test/dummy/log/**/*
+  - test/dummy/storage/**/*
+  - test/dummy/tmp/**/*
+  - tmp/**/*
+  - vendor/**/*
+parallel: true
+format: progress

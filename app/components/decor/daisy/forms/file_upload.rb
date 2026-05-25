@@ -72,7 +72,7 @@ module Decor
                     name: field_name(@object_name, :"#{@method_name}_delete"),
                     disabled: @disabled,
                     collapsing_helper_text: true,
-                    classes: "#{(@preview_layout == :inline) ? "decor:md:pl-6" : ""} decor:inline-block decor:w-auto",
+                    classes: "#{"decor:md:pl-6" if @preview_layout == :inline} decor:inline-block decor:w-auto",
                     value: "true"
                   )
                   render checkbox
@@ -85,7 +85,7 @@ module Decor
               render ::Decor::Daisy::Forms::ErrorIconSection.new(
                 error_text: error_text,
                 show_floating_message: floating_error_text?,
-                classes: "#{errors? ? "" : "decor:hidden"} decor:right-3"
+                classes: "#{"decor:hidden" unless errors?} decor:right-3"
               )
             end
           end

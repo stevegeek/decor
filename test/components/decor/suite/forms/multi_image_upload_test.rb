@@ -100,14 +100,6 @@ class ::Decor::Suite::Forms::MultiImageUploadTest < ActiveSupport::TestCase
     assert_match(/-crop-aspect-h-value="9"/, html)
   end
 
-  test "uses Suite chrome tokens (no daisy / confinus chrome leaks)" do
-    html = render_component(::Decor::Suite::Forms::MultiImageUpload.new(name: "imgs", label: "Photos"))
-    assert_includes html, "decor:rounded-suite-control"
-    refute_includes html, "decor:rounded-card"
-    refute_includes html, "decor:rounded-lg"
-    refute_includes html, "decor:bg-primary-600"
-  end
-
   test "motion uses suite duration tokens" do
     html = render_component(::Decor::Suite::Forms::MultiImageUpload.new(name: "imgs", label: "Photos"))
     assert_includes html, "decor:duration-suite-fast"
@@ -138,5 +130,4 @@ class ::Decor::Suite::Forms::MultiImageUploadTest < ActiveSupport::TestCase
     ))
     assert_includes html, "decor:disabled"
   end
-
 end

@@ -4,7 +4,7 @@ require "test_helper"
 
 class ::Decor::Daisy::Modals::ModalTriggerTest < ActiveSupport::TestCase
   test "inherits from Components::Modals::ModalTrigger" do
-    assert ::Decor::Daisy::Modals::ModalTrigger.new(modal_id: "m1") \
+    assert ::Decor::Daisy::Modals::ModalTrigger.new(modal_id: "m1")
       .is_a?(::Decor::Components::Modals::ModalTrigger)
   end
 

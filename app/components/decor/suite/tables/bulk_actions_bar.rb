@@ -5,6 +5,7 @@ module Decor
     module Tables
       class BulkActionsBar < ::Decor::PhlexComponent
         include ::Phlex::Rails::Helpers::FormWith
+
         prop :selection_count, Integer, default: 0, reader: :public
         prop :bulk_actions, _Array(_Any), default: -> { [] }, reader: :public
         prop :form_url, _Nilable(String), reader: :public
