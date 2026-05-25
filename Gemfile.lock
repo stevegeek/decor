@@ -1,13 +1,14 @@
 GIT
   remote: https://github.com/stevegeek/encoded_id.git
-  revision: e76a77403e6fee8e20c61cb8a4063ea31f2306e0
+  revision: 617d429a50921fd75560be23dcf42b164c44bed3
   branch: main
   specs:
-    encoded_id (1.0.0.rc6)
-    encoded_id-rails (1.0.0.rc6)
+    encoded_id (1.1.0)
+      sqids (~> 0.2)
+    encoded_id-rails (1.1.0)
       activerecord (>= 7.2, < 9)
       activesupport (>= 7.2, < 9)
-      encoded_id (= 1.0.0.rc6)
+      encoded_id (= 1.1.0)
 
 GIT
   remote: https://github.com/stevegeek/quo.git
@@ -108,19 +109,19 @@ GEM
       securerandom (>= 0.3)
       tzinfo (~> 2.0, >= 2.0.5)
       uri (>= 0.13.1)
-    addressable (2.8.8)
+    addressable (2.9.0)
       public_suffix (>= 2.0.2, < 8.0)
     ast (2.4.3)
     base64 (0.3.0)
     bigdecimal (4.1.2)
-    bootsnap (1.24.4)
+    bootsnap (1.24.5)
       msgpack (~> 1.2)
     builder (3.3.0)
     character_set (1.8.0)
     concurrent-ruby (1.3.6)
     connection_pool (3.0.2)
     crass (1.0.6)
-    css_parser (1.21.1)
+    css_parser (2.2.0)
       addressable
     date (3.5.1)
     debug (1.11.1)
@@ -140,7 +141,7 @@ GEM
     htmlentities (4.3.4)
     i18n (1.14.8)
       concurrent-ruby (~> 1.0)
-    importmap-rails (2.2.2)
+    importmap-rails (2.2.3)
       actionpack (>= 6.0.0)
       activesupport (>= 6.0.0)
       railties (>= 6.0.0)
@@ -222,15 +223,15 @@ GEM
       prettyprint
     prettyprint (0.2.0)
     prism (1.9.0)
-    propshaft (1.3.1)
+    propshaft (1.3.2)
       actionpack (>= 7.0.0)
       activesupport (>= 7.0.0)
       rack
     psych (5.3.1)
       date
       stringio
-    public_suffix (7.0.0)
-    puma (7.1.0)
+    public_suffix (7.0.5)
+    puma (8.0.1)
       nio4r (~> 2.0)
     raabro (1.4.0)
     racc (1.8.1)
@@ -286,7 +287,7 @@ GEM
     regexp_property_values (1.5.2)
     reline (0.6.3)
       io-console (~> 0.5)
-    rouge (4.6.1)
+    rouge (4.7.0)
     rubocop (1.84.2)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
@@ -308,7 +309,7 @@ GEM
     ruby-progressbar (1.13.0)
     securerandom (0.4.1)
     sin_lru_redux (2.5.2)
-    solid_cable (3.0.12)
+    solid_cable (4.0.0)
       actioncable (>= 7.2)
       activejob (>= 7.2)
       activerecord (>= 7.2)
@@ -317,13 +318,14 @@ GEM
       activejob (>= 7.2)
       activerecord (>= 7.2)
       railties (>= 7.2)
-    solid_queue (1.2.4)
+    solid_queue (1.4.0)
       activejob (>= 7.1)
       activerecord (>= 7.1)
       concurrent-ruby (>= 1.3.1)
       fugit (~> 1.11)
       railties (>= 7.1)
       thor (>= 1.3.1)
+    sqids (0.2.2)
     sqlite3 (2.9.4-aarch64-linux-gnu)
     sqlite3 (2.9.4-aarch64-linux-musl)
     sqlite3 (2.9.4-arm-linux-gnu)
@@ -350,7 +352,7 @@ GEM
     thor (1.5.0)
     timeout (0.6.1)
     tsort (0.2.0)
-    turbo-rails (2.0.20)
+    turbo-rails (2.0.23)
       actionpack (>= 7.1.0)
       railties (>= 7.1.0)
     tzinfo (2.0.6)
@@ -370,16 +372,16 @@ GEM
       phlex-rails (>= 0.8.1, < 3)
       railties (>= 7.2, < 9)
       vident (~> 3.0.0)
-    view_component (4.1.1)
-      actionview (>= 7.1.0, < 8.2)
-      activesupport (>= 7.1.0, < 8.2)
+    view_component (4.11.0)
+      actionview (>= 7.1.0)
+      activesupport (>= 7.1.0)
       concurrent-ruby (~> 1)
     websocket-driver (0.8.0)
       base64
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    yard (0.9.38)
-    zeitwerk (2.8.1)
+    yard (0.9.43)
+    zeitwerk (2.8.2)
 
 PLATFORMS
   aarch64-linux
@@ -395,7 +397,7 @@ DEPENDENCIES
   bootsnap
   debug
   decor!
-  encoded_id-rails (= 1.0.0.rc6)!
+  encoded_id-rails!
   importmap-rails
   lookbook
   minitest (~> 5.25)
