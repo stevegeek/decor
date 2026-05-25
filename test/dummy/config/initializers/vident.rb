@@ -13,10 +13,8 @@
 #
 # RANDOM_FALLBACK (test): generates a unique random id when no generator is
 #   set, so tests / previews / mailers don't need to wire up per-request seeding.
-Vident::StableId.strategy = if Rails.env.production?
-  Vident::StableId::STRICT
-else
-  # development + test: previews/mailers/tests render outside a request context,
-  # so fall back to a unique random seed rather than requiring explicit seeding.
-  Vident::StableId::RANDOM_FALLBACK
-end
+# The dummy is a Lookbook demo — its controllers (Lookbook's own + the
+# ApplicationController) don't share a base for the seeding before_action,
+# and stable IDs aren't useful for previews anyway. Use RANDOM_FALLBACK
+# everywhere so previews render without per-request seeding.
+Vident::StableId.strategy = Vident::StableId::RANDOM_FALLBACK
