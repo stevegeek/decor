@@ -22,13 +22,13 @@ class ::Decor::FlashHelperTest < ActionView::TestCase
   test "renders Suite skin when default_skin is :suite" do
     ::Decor.default_skin = :suite
     html = decor_flash(title: "T", text: "X").to_s
-    assert_match(/decor:bg-info\/10/, html)
+    assert_match(/decor:bg-suite-primary-50/, html)
   end
 
   test "explicit skin: param overrides default" do
     ::Decor.default_skin = :daisy
     html = decor_flash(skin: :suite, title: "T", text: "X").to_s
-    assert_match(/decor:bg-info\/10/, html)
+    assert_match(/decor:bg-suite-primary-50/, html)
   end
 
   test "raises on unknown skin" do

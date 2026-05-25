@@ -1,3 +1,0 @@
-css:    bin/watch-css
-js:     bin/watch-js
-dummy:  cd test/dummy && bin/rails s -p 3000
