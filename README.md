@@ -4,11 +4,25 @@ Phlex + Vident + daisyUI 5 component library for Rails. Distributed as a Ruby ge
 
 ## Installation
 
-1. Add to your Gemfile:
+1. Install the gem from [gem.coop](https://beta.gem.coop/@stephen/decor):
+
+   ```bash
+   bundle add decor --source "https://beta.gem.coop/@stephen"
+   ```
+
+   Or pin in your Gemfile directly:
+
+   ```ruby
+   source "https://beta.gem.coop/@stephen" do
+     gem "decor"
+   end
+   ```
+
+   Alternatively, install from the GitHub source or a local path:
 
    ```ruby
    gem "decor", github: "stevegeek/decor"
-   # Or, for local dev:
+   # or, for local dev:
    gem "decor", path: "../decor"
    ```
 
