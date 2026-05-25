@@ -92,6 +92,27 @@ class ::Decor::Suite::Forms::FormTest < ActiveSupport::TestCase
     assert_includes html, "ajax:success-&gt;decor--suite--forms--form#myCallback"
   end
 
+  test "wires ajax:success on a cross-controller Vident::Stimulus::Action" do
+    # Simulates a parent component passing
+    # `on_success: stimulus_action(:form_submit_success)` — the resulting
+    # Action carries its own controller routing, which must survive into the
+    # rendered data-action descriptor (not be flattened to a method name).
+    action = ::Vident::Stimulus::Action.parse(
+      :form_submit_success,
+      implied: ::Vident::Stimulus::Controller.new(path: "parent/component", name: "parent--component"),
+      component_id: nil
+    )
+
+    html = render_component(::Decor::Suite::Forms::Form.new(
+      model: @model,
+      url: "/test",
+      local: false,
+      on_success: action
+    ))
+    assert_includes html, "ajax:success-&gt;parent--component#formSubmitSuccess"
+    refute_includes html, "decor--suite--forms--form#parent--component#formSubmitSuccess"
+  end
+
   test "passes scope through to form_with" do
     html = render_component(::Decor::Suite::Forms::Form.new(url: "/test", scope: :user)) do |form_component|
       form_component.raw form_component.builder.hidden_field(:token, value: "abc")

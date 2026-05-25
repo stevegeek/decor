@@ -71,18 +71,23 @@ module Decor
           actions = [
             [:"ajax:beforeSend", :handle_submit_event]
           ]
-          actions << [:"ajax:before", to_action_method(@on_before)] if @on_before
-          actions << [:"ajax:beforeSend", to_action_method(@on_before_send)] if @on_before_send
-          actions << [:"ajax:send", to_action_method(@on_send)] if @on_send
-          actions << [:"ajax:stopped", to_action_method(@on_stopped)] if @on_stopped
-          actions << [:"ajax:success", to_action_method(@on_success)] if @on_success
-          actions << [:"ajax:error", to_action_method(@on_error)] if @on_error
-          actions << [:"ajax:complete", to_action_method(@on_complete)] if @on_complete
+          actions << action_pair(:"ajax:before", @on_before) if @on_before
+          actions << action_pair(:"ajax:beforeSend", @on_before_send) if @on_before_send
+          actions << action_pair(:"ajax:send", @on_send) if @on_send
+          actions << action_pair(:"ajax:stopped", @on_stopped) if @on_stopped
+          actions << action_pair(:"ajax:success", @on_success) if @on_success
+          actions << action_pair(:"ajax:error", @on_error) if @on_error
+          actions << action_pair(:"ajax:complete", @on_complete) if @on_complete
           actions
         end
 
-        def to_action_method(value)
-          value.is_a?(Symbol) ? value : value.to_s.to_sym
+        # Vident::Stimulus::Action carries its own controller/method routing,
+        # so pass it through untouched and let Vident's [event, Action]
+        # parsing add the event. Stringifying it would collapse the routing
+        # into a bogus method name like `parent--ctrl#method`.
+        def action_pair(event, value)
+          return [event, value] if defined?(::Vident::Stimulus::Action) && value.is_a?(::Vident::Stimulus::Action)
+          [event, value.is_a?(Symbol) ? value : value.to_s.to_sym]
         end
       end
     end
