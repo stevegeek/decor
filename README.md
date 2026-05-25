@@ -2,21 +2,16 @@
 
 Phlex + Vident + daisyUI 5 component library for Rails. Distributed as a Ruby gem and Rails engine.
 
-## Status
-
-Pre-release. Version 0.2.0 is **not yet published to RubyGems**. Consume via:
-
-```ruby
-# Local dev
-gem "decor", path: "../decor"
-
-# Or directly from GitHub
-gem "decor", github: "stevegeek/decor"
-```
-
 ## Installation
 
-1. Add to your Gemfile (see above).
+1. Add to your Gemfile:
+
+   ```ruby
+   gem "decor", github: "stevegeek/decor"
+   # Or, for local dev:
+   gem "decor", path: "../decor"
+   ```
+
 2. In your layout: `<%= stylesheet_link_tag "decor", "data-turbo-track": "reload" %>`
 3. In your Stimulus entry:
 
@@ -34,11 +29,15 @@ registerDecor(application);
 <%# Daisy skin — daisyUI semantic styling %>
 <%= render ::Decor::Daisy::Button.new(label: "Click me", color: :primary) %>
 
-<%# Suite skin — alternative visual idiom for hosts that need a different look %>
+<%# Suite skin — alternative visual idiom with bespoke design tokens %>
 <%= render ::Decor::Suite::Avatar.new(initials: "JG", color: :alt2) %>
 ```
 
-Each component shares an abstract base (`Decor::Components::<Name>`) with a unified prop API; the two skins (`Decor::Daisy::*`, `Decor::Suite::*`) own their visual language.
+Each component shares an abstract base (`Decor::Components::<Name>`) with a unified prop API; the two skins (`Decor::Daisy::*`, `Decor::Suite::*`) own their visual language. See `CHANGELOG.md` for the full component family list.
+
+## Security
+
+URL props on link-rendering components (`href`, `src`, `action`, …) strip `javascript:`, `data:`, and `vbscript:` schemes. Modal `initial_content` is rendered raw only when `html_safe?`; plain Strings are escaped. Bulk-action forms inject CSRF tokens automatically.
 
 ## Development
 
