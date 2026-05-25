@@ -1,16 +1,4 @@
 GIT
-  remote: https://github.com/stevegeek/encoded_id.git
-  revision: 617d429a50921fd75560be23dcf42b164c44bed3
-  branch: main
-  specs:
-    encoded_id (1.1.0)
-      sqids (~> 0.2)
-    encoded_id-rails (1.1.0)
-      activerecord (>= 7.2, < 9)
-      activesupport (>= 7.2, < 9)
-      encoded_id (= 1.1.0)
-
-GIT
   remote: https://github.com/stevegeek/quo.git
   revision: b79d3acf25fee21cf2c812eb1fcd37aaa371fe96
   branch: main
@@ -128,6 +116,12 @@ GEM
       irb (~> 1.10)
       reline (>= 0.3.8)
     drb (2.2.3)
+    encoded_id (1.1.0)
+      sqids (~> 0.2)
+    encoded_id-rails (1.1.0)
+      activerecord (>= 7.2, < 9)
+      activesupport (>= 7.2, < 9)
+      encoded_id (= 1.1.0)
     erb (6.0.4)
     erubi (1.13.1)
     et-orbi (1.4.0)
@@ -397,7 +391,7 @@ DEPENDENCIES
   bootsnap
   debug
   decor!
-  encoded_id-rails!
+  encoded_id-rails (~> 1.1)
   importmap-rails
   lookbook
   minitest (~> 5.25)
