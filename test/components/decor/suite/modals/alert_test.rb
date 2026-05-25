@@ -6,7 +6,7 @@ class ::Decor::Suite::Modals::AlertTest < ActiveSupport::TestCase
   test "renders a <dialog> root (delegated to Suite::Modals::Modal)" do
     html = render_component(::Decor::Suite::Modals::Alert.new(title: "T", message: "m"))
     assert_includes html, "<dialog"
-    assert_includes html, "cf-modal"
+    assert_includes html, "decor-modal"
   end
 
   test "renders the title in the modal header" do
@@ -18,12 +18,12 @@ class ::Decor::Suite::Modals::AlertTest < ActiveSupport::TestCase
   test "renders the message in the modal body" do
     html = render_component(::Decor::Suite::Modals::Alert.new(title: "T", message: "Please try again."))
     assert_includes html, "Please try again."
-    assert_includes html, "cf-modal__body"
+    assert_includes html, "decor-modal__body"
   end
 
   test "renders the dismiss button label in the footer" do
     html = render_component(::Decor::Suite::Modals::Alert.new(title: "T", message: "m", button_label: "Got it"))
-    assert_includes html, "cf-modal__footer"
+    assert_includes html, "decor-modal__footer"
     assert_includes html, "Got it"
   end
 

@@ -1,5 +1,133 @@
 // app/javascript/controllers/decor/daisy/ai_chat/widget_controller.js
 import { Controller } from "@hotwired/stimulus";
+
+// app/javascript/controllers/decor/http.js
+function getCSRFToken() {
+  const csrfMetaTag = document.head.querySelector('[name="csrf-token"]');
+  return csrfMetaTag && csrfMetaTag.getAttribute("content") || "";
+}
+function getDefaultHeaders() {
+  return {
+    "X-CSRF-TOKEN": getCSRFToken()
+  };
+}
+async function request(url, options = {}) {
+  const defaultOptions = {
+    headers: {
+      ...getDefaultHeaders(),
+      ...options.headers
+    },
+    credentials: "same-origin"
+    // Include cookies for same-origin requests
+  };
+  const fetchOptions = { ...defaultOptions, ...options };
+  try {
+    const response = await fetch(url, fetchOptions);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+async function get(url, options = {}) {
+  return request(url, {
+    method: "GET",
+    ...options
+  });
+}
+async function post(url, data, options = {}) {
+  const headers = { ...options.headers };
+  let body = data;
+  if (data && typeof data === "object" && !(data instanceof FormData)) {
+    headers["Content-Type"] = "application/json";
+    body = JSON.stringify(data);
+  }
+  return request(url, {
+    method: "POST",
+    body,
+    headers,
+    ...options
+  });
+}
+function createHTTPClient() {
+  return {
+    get: (url, config = {}) => {
+      const { headers = {}, ...otherConfig } = config;
+      return get(url, { headers, ...otherConfig }).then((response) => ({
+        data: null,
+        // Will be populated based on response type
+        status: response.status,
+        statusText: response.statusText,
+        headers: response.headers,
+        config,
+        request: response,
+        // Handle response data based on content type
+        _processResponse: async () => {
+          const contentType = response.headers.get("content-type");
+          if (contentType && contentType.includes("application/json")) {
+            return { ...response, data: await response.json() };
+          } else {
+            return { ...response, data: await response.text() };
+          }
+        }
+      })).then((result) => result._processResponse());
+    },
+    post: (url, data, config = {}) => {
+      const { headers = {}, ...otherConfig } = config;
+      return post(url, data, { headers, ...otherConfig }).then((response) => ({
+        data: null,
+        status: response.status,
+        statusText: response.statusText,
+        headers: response.headers,
+        config,
+        request: response,
+        _processResponse: async () => {
+          const contentType = response.headers.get("content-type");
+          if (contentType && contentType.includes("application/json")) {
+            return { ...response, data: await response.json() };
+          } else {
+            return { ...response, data: await response.text() };
+          }
+        }
+      })).then((result) => result._processResponse());
+    }
+  };
+}
+
+// app/javascript/controllers/decor.js
+function replaceContentsWithChildren(parent, children) {
+  emptyNode(parent);
+  const childrenArray = Array.isArray(children) ? children : [children];
+  const fragment = document.createDocumentFragment();
+  childrenArray.forEach((child) => {
+    fragment.appendChild(child);
+  });
+  parent.appendChild(fragment);
+  return parent;
+}
+function emptyNode(node) {
+  while (node.firstChild) {
+    node.removeChild(node.firstChild);
+  }
+}
+function markAsSafeHTML(html) {
+  return {
+    __safe: true,
+    content: html
+  };
+}
+function safelySetInnerHTML(el, { __safe, content }) {
+  if (!__safe) {
+    throw new Error(
+      "This content could not be displayed as it has not been marked as safe. Content must be explicitly marked as safe to try and reduce the likelihood of a XSS attack."
+    );
+  }
+  el.innerHTML = content;
+}
+
+// app/javascript/controllers/decor/daisy/ai_chat/widget_controller.js
 var PROCESSING_TIMEOUT_MS = 3e4;
 var BROADCAST_EVENT = "decor-ai-chat:broadcast";
 var widget_controller_default = class extends Controller {
@@ -153,7 +281,7 @@ var widget_controller_default = class extends Controller {
     this.hideThinking();
     if (this.streamingEl) {
       if (msg.message && msg.message.html) {
-        this.streamingEl.innerHTML = msg.message.html;
+        safelySetInnerHTML(this.streamingEl, markAsSafeHTML(msg.message.html));
         this.streamingEl.classList.remove("decor:whitespace-pre-wrap");
         this.streamingEl.classList.add("decor:prose", "decor:max-w-none");
       } else if (msg.message && msg.message.text) {
@@ -167,7 +295,7 @@ var widget_controller_default = class extends Controller {
       const el = document.createElement("div");
       if (msg.message.html) {
         el.className = "decor:mr-12 decor:bg-suite-gray-25 decor:text-gray-900 decor:rounded-suite-control decor:px-3 decor:py-2 decor:suite-description decor:prose decor:max-w-none";
-        el.innerHTML = msg.message.html;
+        safelySetInnerHTML(el, markAsSafeHTML(msg.message.html));
       } else {
         el.className = "decor:mr-12 decor:bg-suite-gray-25 decor:text-gray-900 decor:rounded-suite-control decor:px-3 decor:py-2 decor:suite-description decor:whitespace-pre-wrap";
         el.textContent = msg.message.text;
@@ -420,134 +548,6 @@ var code_block_controller_default = class extends Controller4 {
 
 // app/javascript/controllers/decor/daisy/dropdown_controller.js
 import { Controller as Controller5 } from "@hotwired/stimulus";
-
-// app/javascript/controllers/decor/http.js
-function getCSRFToken() {
-  const csrfMetaTag = document.head.querySelector('[name="csrf-token"]');
-  return csrfMetaTag && csrfMetaTag.getAttribute("content") || "";
-}
-function getDefaultHeaders() {
-  return {
-    "X-CSRF-TOKEN": getCSRFToken()
-  };
-}
-async function request(url, options = {}) {
-  const defaultOptions = {
-    headers: {
-      ...getDefaultHeaders(),
-      ...options.headers
-    },
-    credentials: "same-origin"
-    // Include cookies for same-origin requests
-  };
-  const fetchOptions = { ...defaultOptions, ...options };
-  try {
-    const response = await fetch(url, fetchOptions);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    return response;
-  } catch (error) {
-    throw error;
-  }
-}
-async function get(url, options = {}) {
-  return request(url, {
-    method: "GET",
-    ...options
-  });
-}
-async function post(url, data, options = {}) {
-  const headers = { ...options.headers };
-  let body = data;
-  if (data && typeof data === "object" && !(data instanceof FormData)) {
-    headers["Content-Type"] = "application/json";
-    body = JSON.stringify(data);
-  }
-  return request(url, {
-    method: "POST",
-    body,
-    headers,
-    ...options
-  });
-}
-function createHTTPClient() {
-  return {
-    get: (url, config = {}) => {
-      const { headers = {}, ...otherConfig } = config;
-      return get(url, { headers, ...otherConfig }).then((response) => ({
-        data: null,
-        // Will be populated based on response type
-        status: response.status,
-        statusText: response.statusText,
-        headers: response.headers,
-        config,
-        request: response,
-        // Handle response data based on content type
-        _processResponse: async () => {
-          const contentType = response.headers.get("content-type");
-          if (contentType && contentType.includes("application/json")) {
-            return { ...response, data: await response.json() };
-          } else {
-            return { ...response, data: await response.text() };
-          }
-        }
-      })).then((result) => result._processResponse());
-    },
-    post: (url, data, config = {}) => {
-      const { headers = {}, ...otherConfig } = config;
-      return post(url, data, { headers, ...otherConfig }).then((response) => ({
-        data: null,
-        status: response.status,
-        statusText: response.statusText,
-        headers: response.headers,
-        config,
-        request: response,
-        _processResponse: async () => {
-          const contentType = response.headers.get("content-type");
-          if (contentType && contentType.includes("application/json")) {
-            return { ...response, data: await response.json() };
-          } else {
-            return { ...response, data: await response.text() };
-          }
-        }
-      })).then((result) => result._processResponse());
-    }
-  };
-}
-
-// app/javascript/controllers/decor.js
-function replaceContentsWithChildren(parent, children) {
-  emptyNode(parent);
-  const childrenArray = Array.isArray(children) ? children : [children];
-  const fragment = document.createDocumentFragment();
-  childrenArray.forEach((child) => {
-    fragment.appendChild(child);
-  });
-  parent.appendChild(fragment);
-  return parent;
-}
-function emptyNode(node) {
-  while (node.firstChild) {
-    node.removeChild(node.firstChild);
-  }
-}
-function markAsSafeHTML(html) {
-  return {
-    __safe: true,
-    content: html
-  };
-}
-function safelySetInnerHTML(el, { __safe, content }) {
-  if (!__safe) {
-    throw new Error(
-      "This content could not be displayed as it has not been marked as safe. Content must be explicitly marked as safe to try and reduce the likelihood of a XSS attack."
-    );
-  }
-  el.innerHTML = content;
-}
-
-// app/javascript/controllers/decor/daisy/dropdown_controller.js
 var dropdown_controller_default = class extends Controller5 {
   constructor() {
     super(...arguments);
@@ -1742,9 +1742,6 @@ var FileUploadController = class extends FormFieldController {
     }
     this.fileListTarget.innerHTML = items.join("");
   }
-  // Legacy avatar variant — replaces the image inside a known container
-  // class. Predates the thumbnailWrapper target wiring and is kept for
-  // back-compat with existing renders.
   _renderLegacyAvatar(input) {
     const container = this.element.getElementsByClassName(
       "decor--image-upload--image-container"
@@ -3442,7 +3439,7 @@ var confirm_template_controller_default = class extends Controller16 {
     }
     if (this.hasMessageTarget) {
       if (options.messageHTML != null) {
-        this.messageTarget.innerHTML = options.messageHTML.toString();
+        safelySetInnerHTML(this.messageTarget, markAsSafeHTML(options.messageHTML.toString()));
       } else if (options.message != null) {
         this.messageTarget.textContent = options.message;
       }
@@ -4824,7 +4821,7 @@ var modal_controller_default2 = class extends Controller32 {
     if (!detail.id && !this.dialog.open) return;
     const href = detail.content_href || detail.contentHref || this.contentHrefValue || "";
     if (detail.title) {
-      const titleEl = this.element.querySelector(".cf-modal__title");
+      const titleEl = this.element.querySelector(".decor-modal__title");
       if (titleEl) titleEl.textContent = detail.title;
     }
     const bodyEl = this.resolveBodyElement();
@@ -4886,7 +4883,7 @@ var modal_controller_default2 = class extends Controller32 {
   // after the body loads:
   //
   //   <template data-modal-destructive-action>…rendered button…</template>
-  //     → cloned into .cf-modal__destructive-slot (left-pinned in footer)
+  //     → cloned into .decor-modal__destructive-slot (left-pinned in footer)
   //
   //   <template data-modal-hide-submit></template>
   //     → footer Submit button gets display:none
@@ -4894,13 +4891,13 @@ var modal_controller_default2 = class extends Controller32 {
   // Markers are removed from the body after processing. The reset step on
   // every open ensures stale footer state from a previous row never lingers.
   resetFooterMarkers() {
-    const slot = this.element.querySelector(".cf-modal__destructive-slot");
+    const slot = this.element.querySelector(".decor-modal__destructive-slot");
     if (slot) slot.replaceChildren();
-    const submit = this.element.querySelector(".cf-modal__footer button[type=submit]");
+    const submit = this.element.querySelector(".decor-modal__footer button[type=submit]");
     if (submit) submit.style.display = "";
   }
   applyFooterMarkers(bodyEl) {
-    const slot = this.element.querySelector(".cf-modal__destructive-slot");
+    const slot = this.element.querySelector(".decor-modal__destructive-slot");
     if (slot) {
       const destrTpl = bodyEl.querySelector("template[data-modal-destructive-action]");
       if (destrTpl) {
@@ -4910,7 +4907,7 @@ var modal_controller_default2 = class extends Controller32 {
         slot.replaceChildren();
       }
     }
-    const submit = this.element.querySelector(".cf-modal__footer button[type=submit]");
+    const submit = this.element.querySelector(".decor-modal__footer button[type=submit]");
     if (submit) {
       const hideTpl = bodyEl.querySelector("template[data-modal-hide-submit]");
       if (hideTpl) {
@@ -4924,16 +4921,16 @@ var modal_controller_default2 = class extends Controller32 {
   // ── Helpers ───────────────────────────────────────────────────────────
   resolveBodyElement() {
     if (this.hasBodyTarget) return this.bodyTarget;
-    return this.element.querySelector(".cf-modal__body");
+    return this.element.querySelector(".decor-modal__body");
   }
   showLoadingSkeleton(bodyEl) {
     this.element.setAttribute("aria-busy", "true");
-    this.element.classList.add("cf-modal--loading");
+    this.element.classList.add("decor-modal--loading");
     safelySetInnerHTML(bodyEl, markAsSafeHTML(LOADING_SKELETON_HTML));
   }
   clearLoadingState() {
     this.element.removeAttribute("aria-busy");
-    this.element.classList.remove("cf-modal--loading");
+    this.element.classList.remove("decor-modal--loading");
   }
   parseModalFragment(content) {
     if (!content.__safe) return null;
@@ -4942,7 +4939,7 @@ var modal_controller_default2 = class extends Controller32 {
     const topLevel = Array.from(tpl.content.children);
     if (topLevel.length !== 1) return null;
     const root = topLevel[0];
-    if (root instanceof HTMLDialogElement && root.classList.contains("cf-modal")) {
+    if (root instanceof HTMLDialogElement && root.classList.contains("decor-modal")) {
       return root;
     }
     return null;

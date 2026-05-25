@@ -49,7 +49,7 @@ module Decor
           # is set unconditionally, the cloned dialog would render visible
           # without `showModal()`. Scoping to the open state mirrors the
           # browser's default `dialog:not([open]) { display: none }`.
-          "cf-modal cf-modal--confirm decor:open:flex decor:flex-col decor:relative decor:bg-white decor:rounded-suite-card decor:shadow-2xl decor:p-0 decor:overflow-hidden decor:w-[420px] decor:max-w-[calc(100vw-32px)] decor:max-h-[calc(100vh-32px)] decor:m-auto"
+          "decor-modal decor-modal--confirm decor:open:flex decor:flex-col decor:relative decor:bg-white decor:rounded-suite-card decor:shadow-2xl decor:p-0 decor:overflow-hidden decor:w-[420px] decor:max-w-[calc(100vw-32px)] decor:max-h-[calc(100vh-32px)] decor:m-auto"
         end
 
         def render_accent_bar
@@ -64,14 +64,14 @@ module Decor
         def render_header
           child_element(
             :div,
-            class: "cf-modal__header decor:flex decor:items-center decor:gap-2.5 decor:px-5 decor:pt-3.5 decor:pb-3 decor:border-b decor:border-suite-hairline",
+            class: "decor-modal__header decor:flex decor:items-center decor:gap-2.5 decor:px-5 decor:pt-3.5 decor:pb-3 decor:border-b decor:border-suite-hairline",
             stimulus_target: :header
           ) do
             render_icons
             div(class: "decor:flex-1 decor:min-w-0") do
               child_element(
                 :h3,
-                class: "cf-modal__title decor:suite-section-title decor:leading-[1.4]",
+                class: "decor-modal__title decor:suite-section-title decor:leading-[1.4]",
                 stimulus_target: :title
               )
             end
@@ -109,13 +109,13 @@ module Decor
         end
 
         def render_body
-          div(class: "cf-modal__body decor:px-5 decor:pt-3 decor:pb-4 decor:suite-description decor:text-gray-500 decor:leading-[1.55]") do
+          div(class: "decor-modal__body decor:px-5 decor:pt-3 decor:pb-4 decor:suite-description decor:text-gray-500 decor:leading-[1.55]") do
             child_element(:p, stimulus_target: :message)
           end
         end
 
         def render_footer
-          div(class: "cf-modal__footer decor:flex decor:justify-end decor:gap-1.5 decor:px-5 decor:py-3 decor:bg-suite-gray-25 decor:border-t decor:border-suite-hairline") do
+          div(class: "decor-modal__footer decor:flex decor:justify-end decor:gap-1.5 decor:px-5 decor:py-3 decor:bg-suite-gray-25 decor:border-t decor:border-suite-hairline") do
             child_element(
               :button,
               type: "button",

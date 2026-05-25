@@ -67,7 +67,7 @@ module Decor
         # dialog off-screen.
         def root_element_classes
           [
-            "cf-modal",
+            "decor-modal",
             # `decor:flex` only when the <dialog> is actually open. Browsers
             # ship `dialog:not([open]) { display: none }` in the UA stylesheet,
             # but an unconditional `display: flex` from Tailwind overrides
@@ -95,7 +95,7 @@ module Decor
             div(class: "decor:flex-1 decor:min-w-0") do
               h3(id: "#{id}-title", class: title_classes) { plain @title.to_s }
               if @description.present?
-                p(class: "cf-modal__description decor:suite-description decor:text-gray-500 decor:mt-0.5") { plain @description }
+                p(class: "decor-modal__description decor:suite-description decor:text-gray-500 decor:mt-0.5") { plain @description }
               end
             end
             render_close_button if closeable? && show_close_button?
@@ -154,28 +154,28 @@ module Decor
         # it must replace `min-h-0` rather than sit beside it (two min-height
         # utilities on one element resolve by stylesheet source order).
         def body_classes
-          base = "cf-modal__body decor:overflow-y-auto decor:px-5 decor:pt-3 decor:pb-4 decor:suite-description decor:text-gray-500 decor:leading-[1.55]"
+          base = "decor-modal__body decor:overflow-y-auto decor:px-5 decor:pt-3 decor:pb-4 decor:suite-description decor:text-gray-500 decor:leading-[1.55]"
           @content_href.present? ? "#{base} decor:min-h-[120px]" : "#{base} decor:min-h-0"
         end
 
         def render_footer
           return unless @footer_block.present?
-          div(class: "cf-modal__footer decor:shrink-0 decor:flex decor:justify-end decor:gap-1.5 decor:px-5 decor:py-3 decor:bg-suite-gray-25 decor:border-t decor:border-suite-hairline") do
+          div(class: "decor-modal__footer decor:shrink-0 decor:flex decor:justify-end decor:gap-1.5 decor:px-5 decor:py-3 decor:bg-suite-gray-25 decor:border-t decor:border-suite-hairline") do
             render @footer_block
           end
         end
 
         def header_classes
-          base = "cf-modal__header decor:shrink-0 decor:flex decor:items-center decor:gap-2.5 decor:px-5 decor:pt-3.5"
+          base = "decor-modal__header decor:shrink-0 decor:flex decor:items-center decor:gap-2.5 decor:px-5 decor:pt-3.5"
           if @variant == :destructive
-            "#{base} cf-modal__header--destructive decor:pb-3.5 #{DESTRUCTIVE_HEADER_CLASSES}"
+            "#{base} decor-modal__header--destructive decor:pb-3.5 #{DESTRUCTIVE_HEADER_CLASSES}"
           else
             "#{base} decor:pb-3 decor:border-b decor:border-suite-hairline"
           end
         end
 
         def title_classes
-          base = "cf-modal__title decor:suite-section-title decor:leading-[1.4]"
+          base = "decor-modal__title decor:suite-section-title decor:leading-[1.4]"
           if @variant == :destructive
             "#{base} #{DESTRUCTIVE_TITLE_CLASSES}"
           else

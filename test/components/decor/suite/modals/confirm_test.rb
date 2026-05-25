@@ -106,7 +106,7 @@ class ::Decor::Suite::Modals::ConfirmTest < ActiveSupport::TestCase
     html = render_component(::Decor::Suite::Modals::Confirm.new(title: "T", message: "M"))
     assert_includes html, "<dialog"
     assert_includes html, "decor--suite--modals--modal"
-    assert_includes html, "cf-modal"
+    assert_includes html, "decor-modal"
   end
 
   test "renders the title in the modal header" do
@@ -172,7 +172,7 @@ class ::Decor::Suite::Modals::ConfirmTest < ActiveSupport::TestCase
 
   test "footer slot renders in suite-gray-25 surface (delegated to the inner Modal)" do
     html = render_component(::Decor::Suite::Modals::Confirm.new(title: "T", message: "M"))
-    assert_includes html, "cf-modal__footer"
+    assert_includes html, "decor-modal__footer"
     assert_includes html, "decor:bg-suite-gray-25"
   end
 

@@ -11,11 +11,11 @@ class ::Decor::Suite::Modals::ConfirmTemplateTest < ActiveSupport::TestCase
     assert ::Decor::Suite::Modals::ConfirmTemplate.include?(::Decor::Suite::Modals::ConfirmShared)
   end
 
-  test "renders a <dialog> root with cf-modal and cf-modal--confirm chrome" do
+  test "renders a <dialog> root with decor-modal and decor-modal--confirm chrome" do
     html = render_component(::Decor::Suite::Modals::ConfirmTemplate.new)
     assert_includes html, "<dialog"
-    assert_includes html, "cf-modal"
-    assert_includes html, "cf-modal--confirm"
+    assert_includes html, "decor-modal"
+    assert_includes html, "decor-modal--confirm"
   end
 
   test "uses the suite-card radius and suite-default 420px width" do

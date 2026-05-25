@@ -62,7 +62,12 @@ The Suite `Modal` is a capped-height flex column (`max-h` of the
 viewport) whose body is the internal scroll region (`overflow-y-auto`
 + `min-h-0`), with `shrink-0` header/footer — so content taller than
 the viewport scrolls inside the body and the footer action buttons
-stay reachable instead of being clipped.
+stay reachable instead of being clipped. The Suite modal exposes a
+stable BEM hook class `decor-modal` (with `__header`/`__body`/`__footer`
+/`__title`/`__destructive-slot` elements and `--confirm`/`--loading`
+modifiers) — decoupled from the namespace-derived Stimulus identifier —
+that the controller's `querySelector`s and the fragment-unwrap check
+rely on, and that consumers can target for content fragments.
 
 Layout — `Page`, `PageHeader`, `PageSection`, `Panel`, `PanelGroup`,
 `Box`, `Card`, `Stat`, `Stats`, `Property`, `PropertyStrip`,

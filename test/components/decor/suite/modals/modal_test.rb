@@ -3,10 +3,10 @@
 require "test_helper"
 
 class ::Decor::Suite::Modals::ModalTest < ActiveSupport::TestCase
-  test "renders a <dialog> root with the cf-modal class" do
+  test "renders a <dialog> root with the decor-modal class" do
     html = render_component(::Decor::Suite::Modals::Modal.new(id: "m1", title: "T"))
     assert_includes html, "<dialog"
-    assert_includes html, "cf-modal"
+    assert_includes html, "decor-modal"
   end
 
   test "wires the suite modal stimulus controller" do
@@ -136,7 +136,7 @@ class ::Decor::Suite::Modals::ModalTest < ActiveSupport::TestCase
   test "renders body content from a block" do
     html = render_component(::Decor::Suite::Modals::Modal.new(id: "m1", title: "T")) { "the-body-content".html_safe }
     assert_includes html, "the-body-content"
-    assert_includes html, "cf-modal__body"
+    assert_includes html, "decor-modal__body"
   end
 
   test "renders initial_content as raw HTML when caller marks it safe" do
@@ -174,7 +174,7 @@ class ::Decor::Suite::Modals::ModalTest < ActiveSupport::TestCase
     modal = ::Decor::Suite::Modals::Modal.new(id: "m1", title: "T")
     modal.with_footer { "<button>OK</button>".html_safe }
     html = render_component(modal) { "body" }
-    assert_includes html, "cf-modal__footer"
+    assert_includes html, "decor-modal__footer"
     assert_includes html, "decor:bg-suite-gray-25"
     assert_includes html, "decor:border-suite-hairline"
     assert_includes html, "<button>OK</button>"
@@ -182,7 +182,7 @@ class ::Decor::Suite::Modals::ModalTest < ActiveSupport::TestCase
 
   test "footer not rendered when no footer block provided" do
     html = render_component(::Decor::Suite::Modals::Modal.new(id: "m1", title: "T")) { "body" }
-    refute_includes html, "cf-modal__footer"
+    refute_includes html, "decor-modal__footer"
   end
 
   test "title gets aria-labelledby pointing at the dialog title id" do
@@ -220,14 +220,14 @@ class ::Decor::Suite::Modals::ModalTest < ActiveSupport::TestCase
 
   test "header is pinned with shrink-0 so it never collapses under a scrolling body" do
     html = render_component(::Decor::Suite::Modals::Modal.new(id: "m1", title: "T"))
-    assert_match(/class="cf-modal__header[^"]*decor:shrink-0/, html)
+    assert_match(/class="decor-modal__header[^"]*decor:shrink-0/, html)
   end
 
   test "footer is pinned with shrink-0 so action buttons stay reachable" do
     modal = ::Decor::Suite::Modals::Modal.new(id: "m1", title: "T")
     modal.with_footer { "<button>OK</button>".html_safe }
     html = render_component(modal) { "body" }
-    assert_match(/class="cf-modal__footer[^"]*decor:shrink-0/, html)
+    assert_match(/class="decor-modal__footer[^"]*decor:shrink-0/, html)
   end
 
   test "inherits from the Components::Modals::Modal abstract base" do

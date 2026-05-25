@@ -102,7 +102,7 @@ export default class extends Controller {
         const href = detail.content_href || detail.contentHref || this.contentHrefValue || "";
 
         if (detail.title) {
-            const titleEl = this.element.querySelector(".cf-modal__title");
+            const titleEl = this.element.querySelector(".decor-modal__title");
             if (titleEl) titleEl.textContent = detail.title;
         }
 
@@ -166,7 +166,7 @@ export default class extends Controller {
         this.clearLoadingState();
 
         // When the AJAX response is itself a full Modal (a top-level
-        // <dialog class="cf-modal">…</dialog>), unwrap it: the host modal
+        // <dialog class="decor-modal">…</dialog>), unwrap it: the host modal
         // already owns the <dialog> container, so injecting another would
         // display:none. Take the inner header/body/footer and use them in
         // place of ours.
@@ -188,7 +188,7 @@ export default class extends Controller {
     // after the body loads:
     //
     //   <template data-modal-destructive-action>…rendered button…</template>
-    //     → cloned into .cf-modal__destructive-slot (left-pinned in footer)
+    //     → cloned into .decor-modal__destructive-slot (left-pinned in footer)
     //
     //   <template data-modal-hide-submit></template>
     //     → footer Submit button gets display:none
@@ -197,15 +197,15 @@ export default class extends Controller {
     // every open ensures stale footer state from a previous row never lingers.
 
     resetFooterMarkers() {
-        const slot = this.element.querySelector(".cf-modal__destructive-slot");
+        const slot = this.element.querySelector(".decor-modal__destructive-slot");
         if (slot) slot.replaceChildren();
 
-        const submit = this.element.querySelector(".cf-modal__footer button[type=submit]");
+        const submit = this.element.querySelector(".decor-modal__footer button[type=submit]");
         if (submit) submit.style.display = "";
     }
 
     applyFooterMarkers(bodyEl) {
-        const slot = this.element.querySelector(".cf-modal__destructive-slot");
+        const slot = this.element.querySelector(".decor-modal__destructive-slot");
         if (slot) {
             const destrTpl = bodyEl.querySelector("template[data-modal-destructive-action]");
             if (destrTpl) {
@@ -216,7 +216,7 @@ export default class extends Controller {
             }
         }
 
-        const submit = this.element.querySelector(".cf-modal__footer button[type=submit]");
+        const submit = this.element.querySelector(".decor-modal__footer button[type=submit]");
         if (submit) {
             const hideTpl = bodyEl.querySelector("template[data-modal-hide-submit]");
             if (hideTpl) {
@@ -235,18 +235,18 @@ export default class extends Controller {
 
     resolveBodyElement() {
         if (this.hasBodyTarget) return this.bodyTarget;
-        return this.element.querySelector(".cf-modal__body");
+        return this.element.querySelector(".decor-modal__body");
     }
 
     showLoadingSkeleton(bodyEl) {
         this.element.setAttribute("aria-busy", "true");
-        this.element.classList.add("cf-modal--loading");
+        this.element.classList.add("decor-modal--loading");
         safelySetInnerHTML(bodyEl, markAsSafeHTML(LOADING_SKELETON_HTML));
     }
 
     clearLoadingState() {
         this.element.removeAttribute("aria-busy");
-        this.element.classList.remove("cf-modal--loading");
+        this.element.classList.remove("decor-modal--loading");
     }
 
     parseModalFragment(content) {
@@ -256,7 +256,7 @@ export default class extends Controller {
         const topLevel = Array.from(tpl.content.children);
         if (topLevel.length !== 1) return null;
         const root = topLevel[0];
-        if (root instanceof HTMLDialogElement && root.classList.contains("cf-modal")) {
+        if (root instanceof HTMLDialogElement && root.classList.contains("decor-modal")) {
             return root;
         }
         return null;
