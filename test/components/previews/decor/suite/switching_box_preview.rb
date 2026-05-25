@@ -1,5 +1,19 @@
 # @label SwitchingBox
 class ::Decor::Suite::SwitchingBoxPreview < ::Lookbook::Preview
+  # Minimal model stub for the "with switch" demo — has the
+  # `:active` accessor + a stable model_name so the bound switch can
+  # build a sensible name attribute.
+  class TestModel
+    include ActiveModel::Model
+
+    attr_accessor :id, :active
+    def self.model_name
+      ActiveModel::Name.new(self, nil, "TestModel")
+    end
+
+    def persisted? = !id.nil?
+  end
+
   # SwitchingBox (Suite)
   # --------------------
   #
@@ -31,25 +45,7 @@ class ::Decor::Suite::SwitchingBoxPreview < ::Lookbook::Preview
   # @group Examples
   # @label Stacked group
   def stacked_group
-    raw <<~HTML.html_safe
-      <div>
-        #{render ::Decor::Suite::SwitchingBox.new(
-          stack: true,
-          title: "Marketing emails",
-          description: "Receive product update emails."
-        )}
-        #{render ::Decor::Suite::SwitchingBox.new(
-          stack: true,
-          title: "Transactional emails",
-          description: "Order confirmations and receipts."
-        )}
-        #{render ::Decor::Suite::SwitchingBox.new(
-          stack: true,
-          title: "System alerts",
-          description: "Security warnings and account changes."
-        )}
-      </div>
-    HTML
+    render_with_template
   end
 
   # @group Playground

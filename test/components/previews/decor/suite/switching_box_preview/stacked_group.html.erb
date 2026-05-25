@@ -1,0 +1,17 @@
+<div>
+  <%= render ::Decor::Suite::SwitchingBox.new(
+        stack: true,
+        title: "Marketing emails",
+        description: "Receive product update emails."
+      ) %>
+  <%= render ::Decor::Suite::SwitchingBox.new(
+        stack: true,
+        title: "Transactional emails",
+        description: "Order confirmations and receipts."
+      ) %>
+  <%= render ::Decor::Suite::SwitchingBox.new(
+        stack: true,
+        title: "System alerts",
+        description: "Security warnings and account changes."
+      ) %>
+</div>

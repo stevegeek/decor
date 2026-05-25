@@ -211,46 +211,7 @@ class ::Decor::Daisy::FlowStepPreview < ::Lookbook::Preview
   # @group Examples
   # @label Onboarding Flow
   def onboarding_flow
-    content_tag :div, class: "decor:max-w-2xl decor:space-y-4" do
-      safe_join([
-        render(::Decor::Daisy::FlowStep.new(
-          title: "Account Setup",
-          description: "Create your account and verify your email",
-          step: 1,
-          color: :success,
-          style: :filled
-        ) do
-          content_tag :div, class: "decor:text-sm decor:font-medium decor:text-success" do
-            "✓ Completed"
-          end
-        end),
-        render(::Decor::Daisy::FlowStep.new(
-          title: "Profile Information",
-          description: "Add your personal and professional details",
-          step: 2,
-          color: :info,
-          style: :filled
-        ) do
-          content_tag :div, class: "decor:text-sm" do
-            "In progress..."
-          end
-        end),
-        render(::Decor::Daisy::FlowStep.new(
-          title: "Preferences",
-          description: "Configure your notification and privacy settings",
-          step: 3,
-          color: :info,
-          style: :outlined
-        )),
-        render(::Decor::Daisy::FlowStep.new(
-          title: "Review & Launch",
-          description: "Review your setup and activate your account",
-          step: 4,
-          color: :info,
-          style: :outlined
-        ))
-      ])
-    end
+    render_with_template
   end
 
   # @group Examples

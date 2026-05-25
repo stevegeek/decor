@@ -9,10 +9,6 @@ class ::Decor::Daisy::SearchResultsDropdownPreview < ::Lookbook::Preview
     end
   end
 
-  def mock_nav_element
-    MockNavElement.new
-  end
-
   # Search Results Dropdown
   # -------
   #
@@ -22,7 +18,7 @@ class ::Decor::Daisy::SearchResultsDropdownPreview < ::Lookbook::Preview
   # @label Playground
   def playground
     render ::Decor::Daisy::SearchResultsDropdown.new(
-      nav_element: mock_nav_element
+      nav_element: MockNavElement.new
     )
   end
 end

@@ -1,0 +1,37 @@
+<div class="decor:max-w-2xl decor:space-y-4">
+  <%= render ::Decor::Daisy::FlowStep.new(
+        title: "Account Setup",
+        description: "Create your account and verify your email",
+        step: 1,
+        color: :success,
+        style: :filled
+      ) do %>
+    <div class="decor:text-sm decor:font-medium decor:text-success">✓ Completed</div>
+  <% end %>
+
+  <%= render ::Decor::Daisy::FlowStep.new(
+        title: "Profile Information",
+        description: "Add your personal and professional details",
+        step: 2,
+        color: :info,
+        style: :filled
+      ) do %>
+    <div class="decor:text-sm">In progress…</div>
+  <% end %>
+
+  <%= render ::Decor::Daisy::FlowStep.new(
+        title: "Preferences",
+        description: "Configure your notification and privacy settings",
+        step: 3,
+        color: :info,
+        style: :outlined
+      ) %>
+
+  <%= render ::Decor::Daisy::FlowStep.new(
+        title: "Review & Launch",
+        description: "Review your setup and activate your account",
+        step: 4,
+        color: :info,
+        style: :outlined
+      ) %>
+</div>
