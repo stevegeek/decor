@@ -80,70 +80,13 @@ class ::Decor::Daisy::Modals::ModalPreview < ::Lookbook::Preview
   # @label With Modal Layout
   # Using ModalLayout for structured content
   def with_modal_layout
-    render ::Decor::Daisy::Modals::Modal.new(
-      start_shown: true
-    ) do
-      render ::Decor::Daisy::Modals::ModalLayout.new(
-        icon: "alert-triangle",
-        title: "Confirm Action",
-        description: "Are you sure you want to proceed? This action cannot be undone.",
-        color: :warning
-      ) do
-        render ::Decor::Daisy::Element.new(html_options: {class: "decor:flex decor:gap-4 decor:justify-end decor:mt-4"}) do
-          render ::Decor::Daisy::Modals::ModalCloseButton.new(
-            label: "Cancel",
-            style: :ghost
-          )
-          render ::Decor::Daisy::Button.new(
-            label: "Confirm",
-            color: :warning
-          )
-        end
-      end
-    end
+    render_with_template
   end
 
   # @label Form in Modal
   # Display a form inside a modal
   def form_modal
-    render ::Decor::Daisy::Modals::Modal.new(
-      start_shown: true
-    ) do
-      render ::Decor::Daisy::Modals::ModalLayout.new(
-        title: "Edit Profile",
-        description: "Update your profile information",
-        size: :lg
-      ) do
-        render ::Decor::Daisy::Forms::LayoutContainer.new do |form|
-          form.with_section do
-            render ::Decor::Daisy::Forms::TextField.new(
-              label: "Name",
-              name: "name",
-              value: "John Doe"
-            )
-          end
-          form.with_section do
-            render ::Decor::Daisy::Forms::TextArea.new(
-              label: "Bio",
-              name: "bio",
-              rows: 4
-            )
-          end
-          form.with_section do
-            render ::Decor::Daisy::Element.new(html_options: {class: "decor:flex decor:gap-4 decor:justify-end"}) do
-              render ::Decor::Daisy::Modals::ModalCloseButton.new(
-                label: "Cancel",
-                style: :ghost
-              )
-              render ::Decor::Daisy::Button.new(
-                label: "Save Changes",
-                color: :primary
-              )
-            end
-          end
-        end
-      end
-    end
+    render_with_template
   end
 
   # @label Initially Hidden

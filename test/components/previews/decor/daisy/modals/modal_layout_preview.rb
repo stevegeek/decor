@@ -35,18 +35,7 @@ class ::Decor::Daisy::Modals::ModalLayoutPreview < ::Lookbook::Preview
 
   # @label Confirmation Dialog
   def confirmation_dialog
-    render ::Decor::Daisy::Modals::ModalLayout.new(
-      icon: "alert-triangle",
-      color: :warning,
-      title: "Are you sure?",
-      description: "This action cannot be undone.",
-      classes: "decor:opacity-100"
-    ) do
-      render ::Decor::Daisy::Element.new(html_options: {class: "decor:flex decor:gap-4 decor:justify-end"}) do
-        render ::Decor::Daisy::Button.new(label: "Cancel", style: :ghost)
-        render ::Decor::Daisy::Button.new(label: "Continue", color: :warning)
-      end
-    end
+    render_with_template
   end
 
   # @!endgroup

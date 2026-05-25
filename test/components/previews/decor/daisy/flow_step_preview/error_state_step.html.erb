@@ -1,0 +1,12 @@
+<%= render ::Decor::Daisy::FlowStep.new(
+      title: "Payment Failed",
+      description: "There was an issue processing your payment",
+      icon: "x",
+      color: :error,
+      style: :filled
+    ) do %>
+  <div class="decor:space-y-2">
+    <p class="decor:text-sm">Please check your payment details and try again.</p>
+    <%= render ::Decor::Daisy::Button.new(label: "Retry Payment", color: :error, size: :sm) %>
+  </div>
+<% end %>

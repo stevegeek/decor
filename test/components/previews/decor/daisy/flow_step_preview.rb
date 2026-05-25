@@ -217,58 +217,12 @@ class ::Decor::Daisy::FlowStepPreview < ::Lookbook::Preview
   # @group Examples
   # @label Document Upload Step
   def document_upload_step
-    render ::Decor::Daisy::FlowStep.new(
-      title: "Upload Documents",
-      description: "Upload required verification documents",
-      step: 2,
-      color: :warning,
-      style: :filled
-    ) do
-      content_tag :div, class: "decor:space-y-3" do
-        safe_join([
-          content_tag(:div, class: "decor:grid decor:grid-cols-1 decor:gap-2") do
-            safe_join([
-              content_tag(:div, class: "decor:flex decor:items-center decor:justify-between decor:p-2 decor:bg-gray-50 decor:rounded") do
-                safe_join([
-                  content_tag(:span, "ID Document", class: "decor:text-sm"),
-                  render(::Decor::Daisy::Badge.new(label: "Required", color: :warning))
-                ])
-              end,
-              content_tag(:div, class: "decor:flex decor:items-center decor:justify-between decor:p-2 decor:bg-gray-50 decor:rounded") do
-                safe_join([
-                  content_tag(:span, "Proof of Address", class: "decor:text-sm"),
-                  render(::Decor::Daisy::Badge.new(label: "Optional", color: :neutral))
-                ])
-              end
-            ])
-          end,
-          content_tag(:div, class: "decor:flex decor:gap-2") do
-            safe_join([
-              render(::Decor::Daisy::Button.new(label: "Upload Files", color: :primary, size: :sm)),
-              render(::Decor::Daisy::Button.new(label: "Skip for Now", style: :outlined, size: :sm))
-            ])
-          end
-        ])
-      end
-    end
+    render_with_template
   end
 
   # @group Examples
   # @label Error State Step
   def error_state_step
-    render ::Decor::Daisy::FlowStep.new(
-      title: "Payment Failed",
-      description: "There was an issue processing your payment",
-      icon: "x",
-      color: :error,
-      style: :filled
-    ) do
-      content_tag :div, class: "decor:space-y-2" do
-        safe_join([
-          content_tag(:p, "Please check your payment details and try again.", class: "decor:text-sm"),
-          render(::Decor::Daisy::Button.new(label: "Retry Payment", color: :error, size: :sm))
-        ])
-      end
-    end
+    render_with_template
   end
 end

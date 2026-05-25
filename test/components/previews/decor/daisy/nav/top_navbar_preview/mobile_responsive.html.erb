@@ -1,0 +1,16 @@
+<%= render ::Decor::Daisy::Element.new(element_tag: :div, classes: "decor:d-mockup-phone") do %>
+  <%= render ::Decor::Daisy::Element.new(element_tag: :div, classes: "decor:camera") %>
+  <%= render ::Decor::Daisy::Element.new(element_tag: :div, classes: "decor:display") do %>
+    <%= render ::Decor::Daisy::Element.new(element_tag: :div, classes: "decor:artboard decor:artboard-demo decor:phone-1") do %>
+      <%= render ::Decor::Daisy::Nav::TopNavbar.new(has_search: true) do |navbar| %>
+        <% navbar.with_account_menu do |menu| %>
+          <% menu.trigger_button_content do %>
+            <%= render ::Decor::Daisy::Avatar.new(initials: "U", size: :xs) %>
+          <% end %>
+          <% menu.menu_item(render(::Decor::Daisy::DropdownItem.new(text: "Profile", href: "#"))) %>
+          <% menu.menu_item(render(::Decor::Daisy::DropdownItem.new(text: "Logout", href: "#"))) %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

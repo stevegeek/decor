@@ -1,0 +1,24 @@
+<%= render ::Decor::Daisy::FlowStep.new(
+      title: "Upload Documents",
+      description: "Upload required verification documents",
+      step: 2,
+      color: :warning,
+      style: :filled
+    ) do %>
+  <div class="decor:space-y-3">
+    <div class="decor:grid decor:grid-cols-1 decor:gap-2">
+      <div class="decor:flex decor:items-center decor:justify-between decor:p-2 decor:bg-gray-50 decor:rounded">
+        <span class="decor:text-sm">ID Document</span>
+        <%= render ::Decor::Daisy::Badge.new(label: "Required", color: :warning) %>
+      </div>
+      <div class="decor:flex decor:items-center decor:justify-between decor:p-2 decor:bg-gray-50 decor:rounded">
+        <span class="decor:text-sm">Proof of Address</span>
+        <%= render ::Decor::Daisy::Badge.new(label: "Optional", color: :neutral) %>
+      </div>
+    </div>
+    <div class="decor:flex decor:gap-2">
+      <%= render ::Decor::Daisy::Button.new(label: "Upload Files", color: :primary, size: :sm) %>
+      <%= render ::Decor::Daisy::Button.new(label: "Skip for Now", style: :outlined, size: :sm) %>
+    </div>
+  </div>
+<% end %>
