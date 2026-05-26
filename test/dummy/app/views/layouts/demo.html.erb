@@ -10,7 +10,7 @@
     <%= stylesheet_link_tag "decor", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-  <body data-theme="decor-light" class="decor:min-h-screen decor:bg-white decor:text-gray-900">
+  <body data-theme="decor-light" class="decor:min-h-screen decor:bg-white decor:text-gray-900 <%= yield(:nav_body_class) %>">
     <%# Notification host is skin-specific, so each overlays page mounts its own
         (Suite or Daisy) NotificationManager rather than the shared layout. %>
     <main>

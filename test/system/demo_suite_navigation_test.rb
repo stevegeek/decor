@@ -37,6 +37,35 @@ class DemoSuiteNavigationTest < ApplicationSystemTestCase
       "rail should collapse to w-20"
   end
 
+  test "collapsing shifts the page content and persists across reload" do
+    current_window.resize_to(1400, 1000)
+    visit demo_suite_navigation_path
+    content_pl = lambda do
+      page.evaluate_script(
+        "parseInt(getComputedStyle(document.querySelector('.decor--side-navbar-content')).paddingLeft)"
+      )
+    end
+    assert_operator content_pl.call, :>, 240, "content should be inset by the expanded rail width"
+
+    find("#side-navbar-desktop-collapse-button").click
+    sleep 0.4
+    assert_operator content_pl.call, :<, 120, "content should shift left to the collapsed rail width"
+
+    # Reload: the cookie should restore the collapsed state (no flash).
+    visit demo_suite_navigation_path
+    sleep 0.3
+    assert page.evaluate_script("document.querySelector('#side-navbar-desktop').classList.contains('decor:lg:w-20')"),
+      "collapsed state should persist across reload (cookie)"
+    assert_operator content_pl.call, :<, 120, "content should still be collapsed-width after reload"
+  end
+
+  test "dark variant renders Navigo's dark rail" do
+    current_window.resize_to(1400, 1000)
+    visit demo_suite_navigation_path(dark: 1)
+    bg = page.evaluate_script("getComputedStyle(document.querySelector('#side-navbar-desktop > div')).backgroundColor")
+    assert_equal "rgb(26, 31, 41)", bg, "dark rail should use Navigo's #1a1f29"
+  end
+
   test "search filters nav items by label" do
     current_window.resize_to(1400, 1000)
     visit demo_suite_navigation_path

@@ -1,7 +1,8 @@
 <%# Suite side navbar: fixed desktop rail + (hidden) mobile drawer. %>
-<%= render Demo::SuiteSidebarExample.new %>
+<% content_for :nav_body_class, ("decor-side-navbar-collapsed" if @collapsed) %>
+<%= render Demo::SuiteSidebarExample.new(collapsed: @collapsed, dark: params[:dark].present?) %>
 
-<div class="decor:lg:pl-72" data-controller="demo-triggers">
+<div class="decor--side-navbar-content" data-controller="demo-triggers">
   <%# Top navbar — its hamburger (mobile) now opens the side-navbar drawer via
       the top_navbar controller. %>
   <%= render ::Decor::Suite::Nav::TopNavbar.new(brand_text: "Demo App", has_search: true) %>
