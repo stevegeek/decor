@@ -6,12 +6,12 @@
 
   <%# Hamburger: dispatches the SideNavbar's scoped toggle event (as a top
       navbar would). On lg the desktop rail is visible; the drawer overlays. %>
-  <button type="button" id="open-mobile-menu"
-          class="decor:mt-4 decor:px-3 decor:py-2 decor:bg-suite-primary-500 decor:text-white decor:rounded-suite-control"
-          data-action="click->demo-triggers#fire"
-          data-demo-triggers-event-param="decor--daisy--nav--side-navbar:toggleMobileMenu">
-    Open mobile menu
-  </button>
+  <%= render ::Decor::Daisy::Button.new(
+        label: "Open mobile menu", color: :primary, id: "open-mobile-menu",
+        html_options: {type: "button", class: "decor:mt-4", data: {
+          action: "click->demo-triggers#fire",
+          "demo-triggers-event-param": "decor--daisy--nav--side-navbar:toggleMobileMenu"
+        }}) %>
 
   <p class="decor:mt-4 decor:suite-description decor:text-gray-500">
     On wide screens the rail is on the left — use its collapse button and search.

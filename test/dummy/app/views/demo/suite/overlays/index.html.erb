@@ -7,33 +7,32 @@
   <% end %>
 
   <%= render ::Decor::Suite::PageSection.new(title: "Notifications (toast placement)", separator: true) do %>
-    <div data-controller="demo-triggers" class="decor:flex decor:gap-2 decor:flex-wrap">
-      <button type="button" id="notify-success"
-              class="decor:px-3 decor:py-2 decor:bg-suite-primary-500 decor:text-white decor:rounded-suite-control"
-              data-action="click->demo-triggers#notify"
-              data-demo-triggers-title-param="Saved"
-              data-demo-triggers-body-param="Your changes were saved."
-              data-demo-triggers-timeout-param="8000">Show success toast</button>
-
-      <button type="button" id="notify-error"
-              class="decor:px-3 decor:py-2 decor:bg-suite-danger-500 decor:text-white decor:rounded-suite-control"
-              data-action="click->demo-triggers#notify"
-              data-demo-triggers-title-param="Error"
-              data-demo-triggers-body-param="Something went wrong."
-              data-demo-triggers-timeout-param="8000">Show error toast</button>
-
-      <button type="button" id="notify-dismiss-all"
-              class="decor:px-3 decor:py-2 decor:bg-white decor:border decor:border-suite-hairline-strong decor:rounded-suite-control"
-              data-action="click->demo-triggers#dismissAll">Dismiss all</button>
+    <div data-controller="demo-triggers" class="decor:flex decor:gap-2 decor:flex-wrap decor:items-center">
+      <%= render ::Decor::Suite::Button.new(
+            label: "Show success toast", color: :primary, id: "notify-success",
+            html_options: {type: "button", data: {
+              action: "click->demo-triggers#notify",
+              "demo-triggers-title-param": "Saved",
+              "demo-triggers-body-param": "Your changes were saved.",
+              "demo-triggers-timeout-param": "8000"
+            }}) %>
+      <%= render ::Decor::Suite::Button.new(
+            label: "Show error toast", color: :error, id: "notify-error",
+            html_options: {type: "button", data: {
+              action: "click->demo-triggers#notify",
+              "demo-triggers-title-param": "Error",
+              "demo-triggers-body-param": "Something went wrong.",
+              "demo-triggers-timeout-param": "8000"
+            }}) %>
+      <%= render ::Decor::Suite::Button.new(
+            label: "Dismiss all", style: :outlined, color: :base, id: "notify-dismiss-all",
+            html_options: {type: "button", data: {action: "click->demo-triggers#dismissAll"}}) %>
     </div>
   <% end %>
 
   <%= render ::Decor::Suite::PageSection.new(title: "Tooltip (popover anchored to its target)", separator: true) do %>
     <%= render ::Decor::Suite::Tooltip.new(tip_text: "I'm anchored to my trigger (Floating UI)", position: :top) do %>
-      <button type="button" id="tooltip-trigger"
-              class="decor:px-3 decor:py-2 decor:bg-white decor:border decor:border-suite-hairline-strong decor:rounded-suite-control">
-        Hover or focus me
-      </button>
+      <%= render ::Decor::Suite::Button.new(label: "Hover or focus me", style: :outlined, color: :base, id: "tooltip-trigger", html_options: {type: "button"}) %>
     <% end %>
   <% end %>
 

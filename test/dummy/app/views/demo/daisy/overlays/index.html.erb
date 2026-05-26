@@ -10,24 +10,26 @@
   <% end %>
 
   <%= render ::Decor::Daisy::PageSection.new(title: "Notifications (daisyUI toast, top-right)", separator: true) do %>
-    <div data-controller="demo-triggers" class="decor:flex decor:gap-2 decor:flex-wrap">
-      <button type="button" id="notify-success"
-              class="decor:d-btn decor:d-btn-success"
-              data-action="click->demo-triggers#notifyDaisy"
-              data-demo-triggers-title-param="Saved"
-              data-demo-triggers-body-param="Your changes were saved."
-              data-demo-triggers-timeout-param="8000">Show success toast</button>
-
-      <button type="button" id="notify-error"
-              class="decor:d-btn decor:d-btn-error"
-              data-action="click->demo-triggers#notifyDaisy"
-              data-demo-triggers-title-param="Error"
-              data-demo-triggers-body-param="Something went wrong."
-              data-demo-triggers-timeout-param="8000">Show error toast</button>
-
-      <button type="button" id="notify-dismiss-all"
-              class="decor:d-btn decor:d-btn-outline"
-              data-action="click->demo-triggers#dismissAllDaisy">Dismiss all</button>
+    <div data-controller="demo-triggers" class="decor:flex decor:gap-2 decor:flex-wrap decor:items-center">
+      <%= render ::Decor::Daisy::Button.new(
+            label: "Show success toast", color: :success, id: "notify-success",
+            html_options: {type: "button", data: {
+              action: "click->demo-triggers#notifyDaisy",
+              "demo-triggers-title-param": "Saved",
+              "demo-triggers-body-param": "Your changes were saved.",
+              "demo-triggers-timeout-param": "8000"
+            }}) %>
+      <%= render ::Decor::Daisy::Button.new(
+            label: "Show error toast", color: :error, id: "notify-error",
+            html_options: {type: "button", data: {
+              action: "click->demo-triggers#notifyDaisy",
+              "demo-triggers-title-param": "Error",
+              "demo-triggers-body-param": "Something went wrong.",
+              "demo-triggers-timeout-param": "8000"
+            }}) %>
+      <%= render ::Decor::Daisy::Button.new(
+            label: "Dismiss all", style: :outlined, id: "notify-dismiss-all",
+            html_options: {type: "button", data: {action: "click->demo-triggers#dismissAllDaisy"}}) %>
     </div>
   <% end %>
 
@@ -36,9 +38,7 @@
       hover. So the trigger content is wrapped INSIDE the tooltip element. %>
   <%= render ::Decor::Daisy::PageSection.new(title: "Tooltip (CSS :hover, daisyUI data-tip)", separator: true) do %>
     <%= render ::Decor::Daisy::Tooltip.new(tip_text: "I'm a CSS-positioned daisyUI tip", position: :right, id: "demo-tooltip") do %>
-      <button type="button" id="tooltip-trigger" class="decor:d-btn">
-        Hover or focus me
-      </button>
+      <%= render ::Decor::Daisy::Button.new(label: "Hover or focus me", id: "tooltip-trigger", html_options: {type: "button"}) %>
     <% end %>
   <% end %>
 
