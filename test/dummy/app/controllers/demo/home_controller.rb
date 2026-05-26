@@ -12,7 +12,9 @@ class Demo::HomeController < ApplicationController
         {name: "Navigation", path: "/demo/navigation",
          desc: "Side navbar: mobile drawer, desktop collapse, search filter"},
         {name: "Rich inputs", path: "/demo/inputs",
-         desc: "Switch, button radio group, searchable select, date field"}
+         desc: "Switch, button radio group, searchable select, date field"},
+        {name: "Media & misc", path: "/demo/media",
+         desc: "Carousel (Swiper), click-to-copy, code block"}
       ]
     },
     {

@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     get "overlays", to: "overlays#index"
     get "navigation", to: "navigation#index"
     get "inputs", to: "inputs#index"
+    get "media", to: "media#index"
   end
 
   if ENV["PROD_LOOKBOOK_ENABLED"] == "true" || Rails.env.local?
