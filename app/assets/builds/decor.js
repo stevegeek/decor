@@ -4803,6 +4803,7 @@ var modal_controller_default2 = class extends Controller32 {
     }
     this.dialog.addEventListener("close", this.boundHandleClose);
     this.dialog.addEventListener("cancel", this.boundHandleCancel);
+    this.dialog.addEventListener("turbo:submit-end", this.boundHandleSubmitEnd);
     if (this.startOpenValue || this.showInitialValue) {
       requestAnimationFrame(() => this.open());
     }
@@ -4810,6 +4811,7 @@ var modal_controller_default2 = class extends Controller32 {
   disconnect() {
     this.dialog.removeEventListener("close", this.boundHandleClose);
     this.dialog.removeEventListener("cancel", this.boundHandleCancel);
+    this.dialog.removeEventListener("turbo:submit-end", this.boundHandleSubmitEnd);
   }
   // ── Public API ────────────────────────────────────────────────────────
   open() {
@@ -4867,6 +4869,11 @@ var modal_controller_default2 = class extends Controller32 {
   boundHandleCancel = (evt) => {
     if (!this.closeableValue) {
       evt.preventDefault();
+    }
+  };
+  boundHandleSubmitEnd = (evt) => {
+    if (this.dialog.open && evt.detail && evt.detail.success) {
+      this.close("submit-success");
     }
   };
   // ── Content loading ───────────────────────────────────────────────────

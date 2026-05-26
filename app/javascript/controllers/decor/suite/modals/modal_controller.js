@@ -58,6 +58,16 @@ export default class extends Controller {
         this.dialog.addEventListener("close", this.boundHandleClose);
         this.dialog.addEventListener("cancel", this.boundHandleCancel);
 
+        // A Turbo form loaded into the modal body submits in place. On success
+        // Turbo follows the redirect and re-renders/morphs the underlying page —
+        // but the modal is still open in the native top layer, so its ::backdrop
+        // would block every click on the morphed page. Close on a successful
+        // submit (before the render) to release the top layer. A failed submit
+        // (422 validation re-render) leaves the modal open so its form can show
+        // the errors. `turbo:submit-end` bubbles from the form up through the
+        // dialog, so listening on the dialog catches forms in its body.
+        this.dialog.addEventListener("turbo:submit-end", this.boundHandleSubmitEnd);
+
         if (this.startOpenValue || this.showInitialValue) {
             requestAnimationFrame(() => this.open());
         }
@@ -66,6 +76,7 @@ export default class extends Controller {
     disconnect() {
         this.dialog.removeEventListener("close", this.boundHandleClose);
         this.dialog.removeEventListener("cancel", this.boundHandleCancel);
+        this.dialog.removeEventListener("turbo:submit-end", this.boundHandleSubmitEnd);
     }
 
     // ── Public API ────────────────────────────────────────────────────────
@@ -142,6 +153,12 @@ export default class extends Controller {
     boundHandleCancel = (evt) => {
         if (!this.closeableValue) {
             evt.preventDefault();
+        }
+    };
+
+    boundHandleSubmitEnd = (evt) => {
+        if (this.dialog.open && evt.detail && evt.detail.success) {
+            this.close("submit-success");
         }
     };
 

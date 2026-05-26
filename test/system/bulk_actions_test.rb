@@ -115,5 +115,17 @@ class BulkActionsTest < ApplicationSystemTestCase
 
     # The table should reflect the updated priorities.
     assert_selector "table", text: "High", wait: 5
+
+    # On a successful Turbo submit the modal must close itself, releasing the
+    # native top layer. If it stayed open its ::backdrop would block every click
+    # on the morphed page (regression: bulk modal left the page uninteractive).
+    open_modal_count = page.evaluate_script("document.querySelectorAll('dialog:modal').length")
+    assert_equal 0, open_modal_count,
+      "Bulk modal should close after a successful submit, but #{open_modal_count} " \
+      "<dialog> still matches :modal (its ::backdrop blocks the page)"
+
+    # The create form below the table is interactive again.
+    fill_in "Title", with: "Typed after bulk action"
+    assert_field "Title", with: "Typed after bulk action"
   end
 end
