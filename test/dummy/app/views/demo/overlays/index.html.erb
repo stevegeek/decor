@@ -1,0 +1,40 @@
+<%= render ::Decor::Suite::Page.new do |page| %>
+  <% page.with_header do %>
+    <%= render ::Decor::Suite::PageHeader.new(title: "Overlays & Notifications", subtitle: "Dynamic-behaviour harness") %>
+  <% end %>
+
+  <%= render ::Decor::Suite::PageSection.new(title: "Notifications (toast placement)", separator: true) do %>
+    <div data-controller="demo-triggers" class="decor:flex decor:gap-2 decor:flex-wrap">
+      <button type="button" id="notify-success"
+              class="decor:px-3 decor:py-2 decor:bg-suite-primary-500 decor:text-white decor:rounded-suite-control"
+              data-action="click->demo-triggers#notify"
+              data-demo-triggers-title-param="Saved"
+              data-demo-triggers-body-param="Your changes were saved."
+              data-demo-triggers-timeout-param="8000">Show success toast</button>
+
+      <button type="button" id="notify-error"
+              class="decor:px-3 decor:py-2 decor:bg-suite-danger-500 decor:text-white decor:rounded-suite-control"
+              data-action="click->demo-triggers#notify"
+              data-demo-triggers-title-param="Error"
+              data-demo-triggers-body-param="Something went wrong."
+              data-demo-triggers-timeout-param="8000">Show error toast</button>
+
+      <button type="button" id="notify-dismiss-all"
+              class="decor:px-3 decor:py-2 decor:bg-white decor:border decor:border-suite-hairline-strong decor:rounded-suite-control"
+              data-action="click->demo-triggers#dismissAll">Dismiss all</button>
+    </div>
+  <% end %>
+
+  <%= render ::Decor::Suite::PageSection.new(title: "Tooltip (popover anchored to its target)", separator: true) do %>
+    <%= render ::Decor::Suite::Tooltip.new(tip_text: "I'm anchored to my trigger (Floating UI)", position: :top) do %>
+      <button type="button" id="tooltip-trigger"
+              class="decor:px-3 decor:py-2 decor:bg-white decor:border decor:border-suite-hairline-strong decor:rounded-suite-control">
+        Hover or focus me
+      </button>
+    <% end %>
+  <% end %>
+
+  <%= render ::Decor::Suite::PageSection.new(title: "Flash", separator: true) do %>
+    <%= render ::Decor::Suite::Flash.new(id: "demo-flash", color: :success, text: "Saved successfully.") %>
+  <% end %>
+<% end %>

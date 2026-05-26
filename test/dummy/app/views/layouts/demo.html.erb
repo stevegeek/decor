@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Decor Component Demo</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "decor", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+  <body data-theme="decor-light">
+    <%# Suite toast host, pinned top-right. Toasts are dispatched as window
+        events by demo-triggers / the system test. %>
+    <%= render ::Decor::Suite::NotificationManager.new(position: :top_right) %>
+
+    <main>
+      <%= yield %>
+    </main>
+  </body>
+</html>

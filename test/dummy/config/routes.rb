@@ -24,6 +24,11 @@ Rails.application.routes.draw do
     end
   end
 
+  # Dynamic-component demo/harness pages (Cuprite system tests drive these).
+  namespace :demo do
+    get "overlays", to: "overlays#index"
+  end
+
   if ENV["PROD_LOOKBOOK_ENABLED"] == "true" || Rails.env.local?
     mount Lookbook::Engine, at: "/lookbook"
   end
