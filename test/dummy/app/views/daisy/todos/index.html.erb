@@ -1,7 +1,7 @@
 <h1>Daisy Todos</h1>
 
 <% if @todo.errors.any? %>
-  <div id="daisy-errors"><%= raw @todo.errors.full_messages.to_sentence %></div>
+  <div id="daisy-errors"><%= @todo.errors.full_messages.to_sentence %></div>
 <% end %>
 
 <ul id="daisy-todos">

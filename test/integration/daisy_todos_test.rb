@@ -23,7 +23,6 @@ class DaisyTodosTest < ActionDispatch::IntegrationTest
       post daisy_todos_path, params: {todo: {title: "", priority: "low"}}
     end
     assert_response :unprocessable_entity
-    assert_select "#daisy-errors"
-    assert_match(/can't be blank/, response.body)
+    assert_select "#daisy-errors", text: /can't be blank/
   end
 end
