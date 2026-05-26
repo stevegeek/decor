@@ -1,0 +1,17 @@
+<h1>Daisy Todos</h1>
+
+<% if @todo.errors.any? %>
+  <div id="daisy-errors"><%= raw @todo.errors.full_messages.to_sentence %></div>
+<% end %>
+
+<ul id="daisy-todos">
+  <%= render partial: "todos/todo", collection: @todos, as: :todo %>
+</ul>
+
+<%# turbo: true => Turbo Drive handles the submit (303 -> same-URL refresh -> morph). %>
+<%= render ::Decor::Daisy::Forms::Form.new(model: @todo, url: daisy_todos_path, local: true, turbo: true) do |form_component| %>
+  <%= form_component.builder.text_field :title, label: "Title", required: true %>
+  <%= form_component.builder.text_area :description, label: "Description", rows: 3 %>
+  <%= form_component.builder.select :priority, [["Low", "low"], ["Medium", "medium"], ["High", "high"]], {label: "Priority"} %>
+  <%= form_component.builder.submit "Create Todo" %>
+<% end %>

@@ -9,6 +9,13 @@ Rails.application.routes.draw do
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
+  namespace :daisy do
+    resources :todos, only: [:index, :create, :destroy]
+  end
+  namespace :suite do
+    resources :todos, only: [:index, :create]
+  end
+
   if ENV["PROD_LOOKBOOK_ENABLED"] == "true" || Rails.env.local?
     mount Lookbook::Engine, at: "/lookbook"
   end
