@@ -13,7 +13,6 @@ module Decor
         prop :selected_ids_field_name, _Nilable(String), reader: :public
 
         stimulus do
-          targets :selection_count, :selected_ids_container, :dropdown_form
           values selected_ids_field_name: -> { (@selected_ids_field_name || "selected_ids").to_s }
         end
 

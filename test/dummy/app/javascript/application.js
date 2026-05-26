@@ -3,6 +3,7 @@ import "@hotwired/turbo-rails"
 import Rails from "@rails/ujs"
 import "controllers"
 import "confirm_wiring"
+import "bulk_modal_wiring"
 
 if (!window._rails_loaded) {
   Rails.start()

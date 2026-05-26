@@ -19,6 +19,7 @@ module Decor
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
     config.autoload_paths += ["#{Rails.root}/app/lib"]
+    config.autoload_paths += ["#{Rails.root}/app/components"]
 
     # The dummy app runs against the gem's source tree at its real location
     # (two levels up from test/dummy/config/). Add gem-root JS source dirs to
