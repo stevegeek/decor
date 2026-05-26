@@ -4,9 +4,6 @@ module Decor
   module Suite
     module Modals
       class Confirm < ::Decor::Components::Modals::Confirm
-        CONFIRM_CONTROLLER = "decor--suite--modals--confirm"
-        private_constant :CONFIRM_CONTROLLER
-
         def view_template
           modal = ::Decor::Suite::Modals::Modal.new(
             id: id,
@@ -46,20 +43,6 @@ module Decor
             style: :filled,
             html_options: confirm_button_html_options
           )
-        end
-
-        def confirm_button_html_options
-          data = {
-            controller: CONFIRM_CONTROLLER,
-            action: "click->#{CONFIRM_CONTROLLER}#confirm"
-          }
-          data[:"#{CONFIRM_CONTROLLER}-confirm-event-value"] = @confirm_event if @confirm_event.present?
-          data[:"#{CONFIRM_CONTROLLER}-modal-id-value"] = id
-          {type: "button", data: data}
-        end
-
-        def destructive?
-          @variant == :destructive
         end
       end
     end
