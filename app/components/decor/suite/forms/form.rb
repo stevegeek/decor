@@ -67,7 +67,14 @@ module Decor
 
         # Vident's Action.parse expects Symbol events (not bare Strings —
         # those parse as controller paths), so use the quoted-symbol form.
+        #
+        # When `turbo: true`, defer to the base implementation which emits
+        # turbo:* lifecycle events that Turbo Drive actually fires. When
+        # `turbo: false` (default for Suite forms, preserving UJS callbacks),
+        # emit the ajax:* event names UJS dispatches.
         def remote_form_actions
+          return super if turbo?
+
           actions = [
             [:"ajax:beforeSend", :handle_submit_event]
           ]
@@ -81,14 +88,6 @@ module Decor
           actions
         end
 
-        # Vident::Stimulus::Action carries its own controller/method routing,
-        # so pass it through untouched and let Vident's [event, Action]
-        # parsing add the event. Stringifying it would collapse the routing
-        # into a bogus method name like `parent--ctrl#method`.
-        def action_pair(event, value)
-          return [event, value] if defined?(::Vident::Stimulus::Action) && value.is_a?(::Vident::Stimulus::Action)
-          [event, value.is_a?(Symbol) ? value : value.to_s.to_sym]
-        end
       end
     end
   end

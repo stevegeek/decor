@@ -13,6 +13,16 @@ module Decor
         prop :scope, _Nilable(_Union(Symbol, String))
         prop :local, _Boolean, default: true
         prop :http_method, _Nilable(_Interface(:to_s))
+
+        # Hint whether this form participates in Turbo Drive on Turbo-enabled
+        # pages. `false` (default) emits `data-turbo="false"` so the form opts
+        # out of Turbo entirely — submits are handled by the browser or UJS
+        # (with ajax:* callbacks). `true` emits `data-turbo="true"` so Turbo
+        # Drive handles the submit (turbo:submit-end-style callbacks) and
+        # natively wires Turbo.config.forms.confirm for `data-turbo-confirm`
+        # on submit buttons. `nil` omits the attribute so the form inherits
+        # from the nearest ancestor (typical for cms-injected fragments).
+        prop :turbo, _Nilable(_Boolean), default: false
         prop :form_builder_class, _Class(ActionView::Helpers::FormBuilder), default: -> { ::Decor::Forms::ActionViewFormBuilder }
 
         prop :on_before, _Nilable(_Interface(:to_s))
@@ -45,21 +55,23 @@ module Decor
           # button can target it via the HTML5 form="<id>" attribute.
           html[:id] = @id if @id
 
+          data = {
+            type: (@local != true && !turbo?) ? "json" : nil,
+            **root_element_data_attributes,
+            **stimulus_actions(
+              [stimulus_scoped_event(:submit), :handle_custom_submit_event],
+              [stimulus_scoped_event(:validate), :handle_validate_fields_event],
+              *(local? ? [[:submit, :handle_submit_event]] : remote_form_actions)
+            )
+          }
+          data[:turbo] = @turbo unless @turbo.nil?
+
           options = {
             url: @url,
             local: @local,
             method: @http_method,
             html: html,
-            data: {
-              turbo: false,
-              type: (@local != true) ? "json" : nil,
-              **root_element_data_attributes,
-              **stimulus_actions(
-                [stimulus_scoped_event(:submit), :handle_custom_submit_event],
-                [stimulus_scoped_event(:validate), :handle_validate_fields_event],
-                *(local? ? [[:submit, :handle_submit_event]] : remote_form_actions)
-              )
-            },
+            data: data,
             builder: @form_builder_class,
             namespace: @namespace
           }
@@ -74,24 +86,41 @@ module Decor
           @local == true || @local.nil?
         end
 
+        def turbo?
+          @turbo == true
+        end
+
+        # Vident's parser treats bare Strings as controller paths, so event
+        # names must be quoted Symbols (`:"turbo:submit_end"`). Symbol form
+        # also lets Vident's `[Symbol, Action]` overload survive a parent
+        # passing `on_success: stimulus_action(:foo)` cross-controller.
         def remote_form_actions
           actions = [
-            ["turbo:submit_start", :handle_submit_event]
+            [:"turbo:submit_start", :handle_submit_event]
           ]
 
           # TODO: fix this stuff up for Turbo
           # Add callback actions if specified, though the callbacks need to check
           # event.detail.formSubmission and event.detail.success etc to see if they are relevant
           # https://turbo.hotwired.dev/reference/events#forms
-          actions << ["turbo:submit_start", @on_before] if @on_before
-          actions << ["turbo:before_fetch_request", @on_before_send] if @on_before_send
-          actions << ["turbo:submit_start", @on_send] if @on_send
-          actions << ["turbo:before_fetch_request", @on_stopped] if @on_stopped
-          actions << ["turbo:submit_end", @on_success] if @on_success
-          actions << ["turbo:submit_end", @on_error] if @on_error
-          actions << ["turbo:submit_end", @on_complete] if @on_complete
+          actions << action_pair(:"turbo:submit_start", @on_before) if @on_before
+          actions << action_pair(:"turbo:before_fetch_request", @on_before_send) if @on_before_send
+          actions << action_pair(:"turbo:submit_start", @on_send) if @on_send
+          actions << action_pair(:"turbo:before_fetch_request", @on_stopped) if @on_stopped
+          actions << action_pair(:"turbo:submit_end", @on_success) if @on_success
+          actions << action_pair(:"turbo:submit_end", @on_error) if @on_error
+          actions << action_pair(:"turbo:submit_end", @on_complete) if @on_complete
 
           actions
+        end
+
+        # Shared action-pair builder. Passes a Vident::Stimulus::Action through
+        # untouched so its cross-controller routing survives — stringifying
+        # via `.to_s.to_sym` collapses `parent--ctrl#method` into a single
+        # bogus method name on the form controller.
+        def action_pair(event, value)
+          return [event, value] if defined?(::Vident::Stimulus::Action) && value.is_a?(::Vident::Stimulus::Action)
+          [event, value.is_a?(Symbol) ? value : value.to_s.to_sym]
         end
 
         def form_contents(builder)

@@ -113,6 +113,29 @@ class ::Decor::Suite::Forms::FormTest < ActiveSupport::TestCase
     refute_includes html, "decor--suite--forms--form#parent--component#formSubmitSuccess"
   end
 
+  test "defaults to data-turbo=\"false\" (UJS-only callback semantics)" do
+    html = render_component(::Decor::Suite::Forms::Form.new(model: @model, url: "/test"))
+    assert_includes html, 'data-turbo="false"'
+  end
+
+  test "turbo: true emits data-turbo=\"true\" and uses turbo:submit-end-style events" do
+    html = render_component(::Decor::Suite::Forms::Form.new(
+      model: @model,
+      url: "/test",
+      local: false,
+      turbo: true,
+      on_success: "handleSuccess"
+    ))
+    assert_includes html, 'data-turbo="true"'
+    refute_includes html, "ajax:success"
+    assert_includes html, "turbo:submit_end-&gt;decor--suite--forms--form#handleSuccess"
+  end
+
+  test "turbo: nil omits the data-turbo attribute entirely" do
+    html = render_component(::Decor::Suite::Forms::Form.new(model: @model, url: "/test", turbo: nil))
+    refute_includes html, "data-turbo="
+  end
+
   test "passes scope through to form_with" do
     html = render_component(::Decor::Suite::Forms::Form.new(url: "/test", scope: :user)) do |form_component|
       form_component.raw form_component.builder.hidden_field(:token, value: "abc")
