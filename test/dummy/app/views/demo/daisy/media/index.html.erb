@@ -1,0 +1,23 @@
+<%= render ::Decor::Daisy::Page.new do |page| %>
+  <% page.with_header do %>
+    <%= render ::Decor::Daisy::PageHeader.new(title: "Media & misc", subtitle: "Carousel, click-to-copy, code block") %>
+  <% end %>
+
+  <%= render ::Decor::Daisy::PageSection.new(title: "Carousel (daisyUI)", separator: true) do %>
+    <div class="decor:max-w-xl" id="daisy-carousel">
+      <%= render ::Decor::Daisy::Carousel.new(images: @slides, show_arrows: true, show_pagination: true, max_height: 220) %>
+    </div>
+  <% end %>
+
+  <%= render ::Decor::Daisy::PageSection.new(title: "Click to copy", separator: true) do %>
+    <div id="standalone-copy">
+      <%= render ::Decor::Daisy::ClickToCopy.new(to_copy: "copy-me-123", variant: :chip) do %>copy-me-123<% end %>
+    </div>
+  <% end %>
+
+  <%= render ::Decor::Daisy::PageSection.new(title: "Code block", separator: true) do %>
+    <div id="code-block">
+      <%= render ::Decor::Daisy::CodeBlock.new(filename: "example.rb", copy_button: true, language: "ruby") do %>puts "Hello, decor"<% end %>
+    </div>
+  <% end %>
+<% end %>

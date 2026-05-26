@@ -1,0 +1,35 @@
+<%= render ::Decor::Daisy::Page.new do |page| %>
+  <% page.with_header do %>
+    <%= render ::Decor::Daisy::PageHeader.new(title: "Rich inputs", subtitle: "Switch, button radio group, searchable select, date") %>
+  <% end %>
+
+  <%= render ::Decor::Daisy::PageSection.new(title: "Interactive form widgets", separator: true) do %>
+    <%= render ::Decor::Daisy::Forms::Form.new(url: "#", scope: :demo, local: true, turbo: false) do |form| %>
+      <%= form.builder.switch :notify, label: "Email notifications" %>
+
+      <%# NOTE: this component maps choices as [value, label] (reverse of Rails'
+          [label, value]); pairs are ordered accordingly so labels display right. %>
+      <%= form.builder.button_radio_group :plan,
+            [["free", "Free"], ["pro", "Pro"], ["team", "Team"]],
+            {label: "Plan"} %>
+
+      <%# Searchable typeahead select. The Daisy builder's `select_with_search`
+          method is broken (it forwards `include_blank` into FormFieldLayout,
+          which raises "unknown keyword: :include_blank"), so we render the
+          Daisy SearchableSelect component directly — the real typeahead the
+          Daisy skin offers, with local `choices` (open + filter + select). %>
+      <%= render ::Decor::Daisy::Forms::SearchableSelect.new(
+            name: "demo[country]",
+            label: "Country",
+            choices: [
+              {id: "us", label: "United States"},
+              {id: "ca", label: "Canada"},
+              {id: "gb", label: "United Kingdom"},
+              {id: "de", label: "Germany"}
+            ]
+          ) %>
+
+      <%= form.builder.date_field :due, label: "Due date" %>
+    <% end %>
+  <% end %>
+<% end %>

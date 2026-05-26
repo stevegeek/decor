@@ -1,0 +1,61 @@
+<%# Daisy toast host. Unlike Suite (which takes a position: prop), the Daisy
+    NotificationManager is hardcoded to the top-end (top-right) daisyUI toast
+    corner — there is no position prop to pass. It listens for the window event
+    decor--daisy--notification-manager:show (detail.content as safe HTML). %>
+<%= render ::Decor::Daisy::NotificationManager.new %>
+
+<%= render ::Decor::Daisy::Page.new do |page| %>
+  <% page.with_header do %>
+    <%= render ::Decor::Daisy::PageHeader.new(title: "Overlays & Notifications", subtitle: "Dynamic-behaviour harness (Daisy skin)") %>
+  <% end %>
+
+  <%= render ::Decor::Daisy::PageSection.new(title: "Notifications (daisyUI toast, top-right)", separator: true) do %>
+    <div data-controller="demo-triggers" class="decor:flex decor:gap-2 decor:flex-wrap">
+      <button type="button" id="notify-success"
+              class="decor:d-btn decor:d-btn-success"
+              data-action="click->demo-triggers#notifyDaisy"
+              data-demo-triggers-title-param="Saved"
+              data-demo-triggers-body-param="Your changes were saved."
+              data-demo-triggers-timeout-param="8000">Show success toast</button>
+
+      <button type="button" id="notify-error"
+              class="decor:d-btn decor:d-btn-error"
+              data-action="click->demo-triggers#notifyDaisy"
+              data-demo-triggers-title-param="Error"
+              data-demo-triggers-body-param="Something went wrong."
+              data-demo-triggers-timeout-param="8000">Show error toast</button>
+
+      <button type="button" id="notify-dismiss-all"
+              class="decor:d-btn decor:d-btn-outline"
+              data-action="click->demo-triggers#dismissAllDaisy">Dismiss all</button>
+    </div>
+  <% end %>
+
+  <%# Daisy tooltip is pure-CSS :hover (no JS popover / Floating UI). The tip
+      text lives in data-tip and daisyUI reveals it via a ::before/::after on
+      hover. So the trigger content is wrapped INSIDE the tooltip element. %>
+  <%= render ::Decor::Daisy::PageSection.new(title: "Tooltip (CSS :hover, daisyUI data-tip)", separator: true) do %>
+    <%= render ::Decor::Daisy::Tooltip.new(tip_text: "I'm a CSS-positioned daisyUI tip", position: :right, id: "demo-tooltip") do %>
+      <button type="button" id="tooltip-trigger" class="decor:d-btn">
+        Hover or focus me
+      </button>
+    <% end %>
+  <% end %>
+
+  <%# The dropdown's trigger_button_content / with_menu_item slots take blocks,
+      which compose in Phlex but not in ERB; the menu_item slot also accepts a
+      pre-built DropdownItem instance, so we populate it that way and keep the
+      default "Menu" trigger button (no block needed). %>
+  <%= render ::Decor::Daisy::PageSection.new(title: "Dropdown (JS-toggled, daisyUI anchored menu)", separator: true) do %>
+    <% dropdown = ::Decor::Daisy::Dropdown.new(id: "demo-dropdown") %>
+    <% dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Edit", href: "#")) %>
+    <% dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Duplicate", href: "#")) %>
+    <% dropdown.menu_item(::Decor::Daisy::DropdownItem.new(separator: true)) %>
+    <% dropdown.menu_item(::Decor::Daisy::DropdownItem.new(text: "Delete", href: "#", danger: true)) %>
+    <%= render dropdown %>
+  <% end %>
+
+  <%= render ::Decor::Daisy::PageSection.new(title: "Flash", separator: true) do %>
+    <%= render ::Decor::Daisy::Flash.new(id: "demo-flash", color: :success, text: "Saved successfully.") %>
+  <% end %>
+<% end %>
