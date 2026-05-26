@@ -26,7 +26,7 @@ class ::Decor::Suite::Forms::MultiImageUploadTest < ActiveSupport::TestCase
 
   test "renders both file inputs (picker + new_files payload)" do
     html = render_component(::Decor::Suite::Forms::MultiImageUpload.new(name: "imgs", label: "Photos"))
-    assert_match(/<input[^>]*type="file"[^>]*data-decor--daisy--forms--multi-image-upload-target="fileInput"/, html)
+    assert_match(/<input[^>]*type="file"[^>]*data-decor--suite--forms--multi-image-upload-target="fileInput"/, html)
     assert_match(/<input[^>]*type="file"[^>]*name="imgs\[new_images\]\[\]"/, html)
   end
 
@@ -37,34 +37,33 @@ class ::Decor::Suite::Forms::MultiImageUploadTest < ActiveSupport::TestCase
     assert_match(/accept="image\/png,image\/jpeg"/, html)
   end
 
-  test "wires the Daisy multi-image-upload Stimulus controller on data-controller" do
+  test "wires the Suite multi-image-upload Stimulus controller on data-controller" do
     html = render_component(::Decor::Suite::Forms::MultiImageUpload.new(name: "imgs", label: "Photos"))
-    assert_includes html, "decor--daisy--forms--multi-image-upload"
     assert_includes html, "decor--suite--forms--multi-image-upload"
   end
 
   test "renders sortable container target" do
     html = render_component(::Decor::Suite::Forms::MultiImageUpload.new(name: "imgs", label: "Photos"))
-    assert_includes html, "data-decor--daisy--forms--multi-image-upload-target=\"sortableContainer\""
+    assert_includes html, "data-decor--suite--forms--multi-image-upload-target=\"sortableContainer\""
   end
 
   test "filesSelected action wired on the picker input" do
     html = render_component(::Decor::Suite::Forms::MultiImageUpload.new(name: "imgs", label: "Photos"))
-    assert_includes html, "change->decor--daisy--forms--multi-image-upload#filesSelected"
+    assert_includes html, "change->decor--suite--forms--multi-image-upload#filesSelected"
   end
 
   test "openFilePicker action wired on the Add Images button" do
     html = render_component(::Decor::Suite::Forms::MultiImageUpload.new(name: "imgs", label: "Photos"))
-    assert_includes html, "click->decor--daisy--forms--multi-image-upload#openFilePicker"
+    assert_includes html, "click->decor--suite--forms--multi-image-upload#openFilePicker"
   end
 
   test "renders crop modal scaffolding when enable_crop is true (default)" do
     html = render_component(::Decor::Suite::Forms::MultiImageUpload.new(name: "imgs", label: "Photos"))
-    assert_includes html, "data-decor--daisy--forms--multi-image-upload-target=\"cropModal\""
+    assert_includes html, "data-decor--suite--forms--multi-image-upload-target=\"cropModal\""
     assert_includes html, "Crop Image"
     assert_includes html, "Apply Crop"
-    assert_includes html, "click->decor--daisy--forms--multi-image-upload#applyCrop"
-    assert_includes html, "click->decor--daisy--forms--multi-image-upload#cancelCrop"
+    assert_includes html, "click->decor--suite--forms--multi-image-upload#applyCrop"
+    assert_includes html, "click->decor--suite--forms--multi-image-upload#cancelCrop"
   end
 
   test "omits the crop modal when enable_crop is false" do
@@ -73,7 +72,7 @@ class ::Decor::Suite::Forms::MultiImageUploadTest < ActiveSupport::TestCase
     ))
     refute_includes html, "Crop Image"
     refute_includes html, "Apply Crop"
-    refute_includes html, "data-decor--daisy--forms--multi-image-upload-target=\"cropModal\""
+    refute_includes html, "data-decor--suite--forms--multi-image-upload-target=\"cropModal\""
   end
 
   test "max_size_in_mb prop flows through to a stimulus value" do

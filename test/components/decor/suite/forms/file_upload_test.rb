@@ -97,7 +97,7 @@ class ::Decor::Suite::Forms::FileUploadTest < ActiveSupport::TestCase
     html = render_component(::Decor::Suite::Forms::FileUpload.new(
       name: "avatar", label: "Avatar", preview_type: :image
     ))
-    assert_match(/<input[^>]*type="hidden"[^>]*data-decor--daisy--forms--file-upload-target="deleteField"/, html)
+    assert_match(/<input[^>]*type="hidden"[^>]*data-decor--suite--forms--file-upload-target="deleteField"/, html)
     assert_match(/<input[^>]*value="false"/, html)
   end
 
@@ -126,20 +126,16 @@ class ::Decor::Suite::Forms::FileUploadTest < ActiveSupport::TestCase
     assert_includes html, "Select to remove current file"
   end
 
-  test "wires the Daisy file-upload Stimulus controller on the data-controller attr" do
+  test "wires the Suite file-upload Stimulus controller on the data-controller attr" do
     html = render_component(::Decor::Suite::Forms::FileUpload.new(name: "doc", label: "Upload"))
-    # The Suite class APPENDS the Daisy controller path so the existing JS
-    # (registered as decor--daisy--forms--file-upload) drives drag/drop +
-    # preview behaviour. Both identifiers appear on data-controller.
-    assert_includes html, "decor--daisy--forms--file-upload"
     assert_includes html, "decor--suite--forms--file-upload"
   end
 
-  test "drop zone wires daisy controller target + drag actions" do
+  test "drop zone wires the Suite controller target + drag actions" do
     html = render_component(::Decor::Suite::Forms::FileUpload.new(name: "doc", label: "Upload"))
-    assert_includes html, "data-decor--daisy--forms--file-upload-target=\"dropZone\""
-    assert_includes html, "dragover->decor--daisy--forms--file-upload#onDragOver"
-    assert_includes html, "drop->decor--daisy--forms--file-upload#onDrop"
+    assert_includes html, "data-decor--suite--forms--file-upload-target=\"dropZone\""
+    assert_includes html, "dragover->decor--suite--forms--file-upload#onDragOver"
+    assert_includes html, "drop->decor--suite--forms--file-upload#onDrop"
   end
 
   test "max_size_in_mb prop flows through to a stimulus value" do
