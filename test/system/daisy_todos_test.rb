@@ -1,6 +1,8 @@
 require "application_system_test_case"
 
 class DaisyTodosSystemTest < ApplicationSystemTestCase
+  include ConfirmModalHelpers
+
   test "valid submit fires the Turbo submit lifecycle and morphs the list" do
     visit daisy_todos_path
     assert_selector "#morph-sentinel[data-token]"
@@ -11,6 +13,9 @@ class DaisyTodosSystemTest < ApplicationSystemTestCase
     # includes an asterisk ("Priority *"), so we target the select by name directly.
     find("select[name='todo[priority]']").find("option[value='high']").select_option
     click_button "Create Todo"
+
+    # The confirm modal now gates this submit — click Confirm to proceed.
+    click_confirm_positive
 
     # Outcome: new row present, still on the index URL.
     assert_selector "#daisy-todos li", text: "Renew passport", wait: 5
@@ -43,6 +48,10 @@ class DaisyTodosSystemTest < ApplicationSystemTestCase
     fill_in "todo[title]", with: "" # ensure blank
     page.evaluate_script("document.querySelector('input[name=\"todo[title]\"]').removeAttribute('required')")
     click_button "Create Todo"
+
+    # The confirm modal gates this submit — click Confirm to let the (invalid)
+    # form reach the server; the server will respond 422.
+    click_confirm_positive
 
     assert_selector "#daisy-errors", text: /can't be blank/, wait: 5
     assert_current_path daisy_todos_path

@@ -23,6 +23,8 @@
       <ol id="event-log" style="margin:0;padding:4px 8px;list-style:none;overflow-y:auto;max-height:160px;"></ol>
     </aside>
 
+    <%= render ::Decor::Daisy::Modals::ConfirmModal.new(id: "decor-confirm-modal") %>
+
     <main>
       <%= yield %>
     </main>

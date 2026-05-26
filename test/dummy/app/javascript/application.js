@@ -2,7 +2,11 @@
 import "@hotwired/turbo-rails"
 import Rails from "@rails/ujs"
 import "controllers"
+import "confirm_wiring"
 
 if (!window._rails_loaded) {
   Rails.start()
 }
+
+// Expose Rails globally for any code that reads window.Rails at runtime.
+window.Rails = Rails
