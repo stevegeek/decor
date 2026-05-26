@@ -127,5 +127,23 @@ class BulkActionsTest < ApplicationSystemTestCase
     # The create form below the table is interactive again.
     fill_in "Title", with: "Typed after bulk action"
     assert_field "Title", with: "Typed after bulk action"
+
+    # The consumed selection must be cleared from persistence — not just hidden
+    # by the morph. Otherwise it silently resurrects on the next page load.
+    leftover = page.evaluate_script(<<~JS)
+      Object.keys(window.localStorage)
+        .filter(function (k) { return k.indexOf("dataTable:") === 0 && k.indexOf(":selections") !== -1; })
+        .map(function (k) { return window.localStorage.getItem(k); })
+        .filter(function (v) { return v && v !== "[]"; })
+    JS
+    assert_empty leftover,
+      "Bulk action should clear the persisted selection, but localStorage holds: #{leftover.inspect}"
+
+    # Reload: the selection must not come back.
+    visit suite_turbo_todos_path
+    sleep 0.5
+    checked_after_reload = all("input[type='checkbox'][name^='todo_ids_']").count(&:checked?)
+    assert_equal 0, checked_after_reload,
+      "Bulk-action selection resurrected on reload: #{checked_after_reload} row(s) checked"
   end
 end

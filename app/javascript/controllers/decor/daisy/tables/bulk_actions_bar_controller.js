@@ -32,6 +32,38 @@ export default class extends Controller {
     this.offPageSelectionCount = 0;
   }
 
+  connect() {
+    this.boundHandleBulkSubmitEnd = this.handleBulkSubmitEnd.bind(this);
+    window.addEventListener("turbo:submit-end", this.boundHandleBulkSubmitEnd);
+  }
+
+  disconnect() {
+    window.removeEventListener("turbo:submit-end", this.boundHandleBulkSubmitEnd);
+  }
+
+  // A bulk action consumes the current selection. When the action's Turbo form
+  // submits successfully, clear the selection (and its localStorage
+  // persistence) so it doesn't silently resurrect on the next page load — the
+  // morph that redraws the table only unchecks the rows visually, it doesn't
+  // touch persistence. Scoped to forms belonging to this bar (inline/dropdown
+  // action forms) or to this bar's modal (the modal action form, wherever the
+  // modal currently lives in the DOM), so the page's other forms (e.g. a create
+  // form) never clear the selection. A failed submit leaves the selection
+  // intact.
+  handleBulkSubmitEnd(event) {
+    if (!event.detail || !event.detail.success) return;
+    const form = event.target;
+    if (!(form instanceof HTMLFormElement)) return;
+
+    const fromBar = this.element.contains(form);
+    const modal = document.getElementById(`${this.element.id}-bulk-modal`);
+    const fromModal = modal ? modal.contains(form) : false;
+
+    if (fromBar || fromModal) {
+      this.clearSelection();
+    }
+  }
+
   setDataTableController(controller) {
     this.dataTableController = controller;
     this.checkForExistingSelections();
