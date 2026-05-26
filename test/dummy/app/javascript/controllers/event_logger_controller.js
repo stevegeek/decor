@@ -40,6 +40,8 @@ export default class extends Controller {
     [...TURBO_EVENTS, ...UJS_EVENTS].forEach((type) => {
       document.addEventListener(type, (e) => this.record(type, e));
     });
+    // ajax:success/ajax:error are already logged via UJS_EVENTS above; these
+    // extra listeners additionally perform the suite page's DOM updates.
     document.addEventListener("ajax:success", (e) => this.onSuiteSuccess(e));
     document.addEventListener("ajax:error", (e) => this.onSuiteError(e));
   }
@@ -74,7 +76,7 @@ export default class extends Controller {
   onSuiteSuccess(e) {
     const list = document.getElementById("suite-todos");
     if (!list) return;
-    const body = this.parse(e.detail[0]);
+    const body = this.parse(Array.isArray(e.detail) ? e.detail[0] : e.detail);
     if (body.html) list.insertAdjacentHTML("beforeend", body.html);
     const errors = document.getElementById("suite-errors");
     if (errors) errors.textContent = "";
@@ -83,7 +85,7 @@ export default class extends Controller {
   onSuiteError(e) {
     const errors = document.getElementById("suite-errors");
     if (!errors) return;
-    const body = this.parse(e.detail[0]);
+    const body = this.parse(Array.isArray(e.detail) ? e.detail[0] : e.detail);
     errors.textContent = (body.errors || []).join(", ");
   }
 }
