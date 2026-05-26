@@ -16,9 +16,10 @@
     selected <%= selected_count == 1 ? "todo" : "todos" %>.
   </p>
 
-  <%# Hidden inputs carrying the selected todo IDs (todo_ids[]). %>
+  <%# Selected todo IDs (todo_ids[]) via the Rails form helper rather than raw
+      <input> HTML. `id: nil` avoids duplicate element ids across the set. %>
   <% @selected_ids.each do |id| %>
-    <input type="hidden" name="todo_ids[]" value="<%= id %>">
+    <%= hidden_field_tag "todo_ids[]", id, id: nil %>
   <% end %>
 
   <%= form.builder.select :priority,
