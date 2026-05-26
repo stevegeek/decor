@@ -4,29 +4,6 @@ class SuiteTodosSystemTest < ApplicationSystemTestCase
   ERROR_TEXT = "[data-decor--suite--forms--text-field-target='errorText']".freeze
 
   test "client-side validation blocks the request when title is blank" do
-    # CATEGORY-B FINDING: The client-side gate is NOT working.
-    #
-    # Expected behaviour: the Suite form controller's Stimulus action
-    # `ajax:beforeSend->decor--suite--forms--form#handleSubmitEvent` calls
-    # evt.preventDefault() + evt.stopImmediatePropagation(), so rails-ujs should
-    # abort the XHR and fire `ajax:stopped` — the request never leaves the browser
-    # and the errorText target shows a validation caption.
-    #
-    # Observed: when the title field is blank the XHR IS sent. Event log records
-    # ajax:before, ajax:beforeSend, ajax:send, ajax:error, ajax:complete with NO
-    # ajax:stopped. The server responds 422 and #suite-errors shows server error text.
-    # The errorText Stimulus target exists but remains empty (no client-side caption).
-    #
-    # Root cause hypothesis: in rails-ujs 7.1.3 ESM, the Stimulus action handler for
-    # ajax:beforeSend fires AFTER rails-ujs has already committed to sending the XHR,
-    # so stopImmediatePropagation() cannot abort it. The fix likely requires hooking
-    # ajax:before (which fires earlier, before the XHR is opened) instead of
-    # ajax:beforeSend. Needs investigation — assertions preserved, not papered over.
-    skip "CATEGORY-B: client-side gate broken in rails-ujs 7.1.3 ESM — " \
-         "handleSubmitEvent on ajax:beforeSend does NOT abort XHR; " \
-         "observed event_log includes ajax:send (not ajax:stopped). " \
-         "Fix: hook ajax:before instead, or vendor rails-ujs to verify dispatch order."
-
     visit suite_todos_path
     click_button "Create Todo" # title blank => fails the Suite JS validator
 
