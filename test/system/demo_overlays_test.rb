@@ -69,6 +69,43 @@ class DemoOverlaysTest < ApplicationSystemTestCase
     assert state["inViewport"], "tooltip should be kept inside the viewport"
   end
 
+  test "dropdown opens as a popover anchored to its trigger and closes on Escape" do
+    visit demo_overlays_path
+
+    trigger = find("button[id$='-menu-button']", match: :first)
+    menu_id = trigger["popovertarget"]
+    assert menu_id.present?, "trigger should target a popover menu"
+
+    assert page.evaluate_script("!document.getElementById('#{menu_id}').matches(':popover-open')"),
+      "menu should start closed"
+
+    trigger.click
+    sleep 0.2
+
+    state = page.evaluate_script(<<~JS)
+      (function () {
+        var m = document.getElementById('#{menu_id}');
+        var t = document.getElementById('#{trigger["id"]}');
+        var mr = m.getBoundingClientRect(), tr = t.getBoundingClientRect();
+        return {
+          open: m.matches(":popover-open"),
+          horizontallyAnchored: mr.left < tr.right && mr.right > tr.left,
+          near: Math.abs(mr.top - tr.bottom) < 24 || Math.abs(mr.bottom - tr.top) < 24,
+          inViewport: mr.left >= 0 && mr.right <= window.innerWidth
+        };
+      })()
+    JS
+    assert state["open"], "menu popover should open on trigger click"
+    assert state["horizontallyAnchored"], "menu should be anchored to its trigger (CSS anchor positioning), not adrift"
+    assert state["near"], "menu should sit just above/below its trigger"
+    assert state["inViewport"], "menu should stay in the viewport"
+
+    find("body").send_keys(:escape)
+    sleep 0.2
+    assert page.evaluate_script("!document.getElementById('#{menu_id}').matches(':popover-open')"),
+      "menu should light-dismiss on Escape"
+  end
+
   test "flash renders its message" do
     visit demo_overlays_path
     assert_text "Saved successfully."

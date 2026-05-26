@@ -35,5 +35,8 @@ Rails.application.routes.draw do
 
   if ENV["PROD_LOOKBOOK_ENABLED"] == "true"
     root to: redirect("/lookbook")
+  else
+    # Index of every harness/demo page for easy manual browsing.
+    root to: "demo/home#index"
   end
 end

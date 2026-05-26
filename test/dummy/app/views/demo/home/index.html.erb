@@ -1,0 +1,37 @@
+<%= render ::Decor::Suite::Page.new do |page| %>
+  <% page.with_header do %>
+    <%= render ::Decor::Suite::PageHeader.new(title: "Decor harness", subtitle: "Demo & test pages") %>
+  <% end %>
+
+  <% @sections.each do |section| %>
+    <%= render ::Decor::Suite::PageSection.new(title: section[:title], separator: true) do %>
+      <ul class="decor:flex decor:flex-col decor:gap-2">
+        <% section[:links].each do |link| %>
+          <li>
+            <a href="<%= link[:path] %>"
+               class="decor:block decor:px-3 decor:py-2 decor:bg-white decor:border decor:border-suite-hairline-strong decor:rounded-suite-control decor:hover:border-suite-primary-400 decor:no-underline">
+              <span class="decor:suite-field-label decor:text-suite-primary-700"><%= link[:name] %></span>
+              <span class="decor:block decor:suite-field-help decor:text-gray-500"><%= link[:desc] %></span>
+              <code class="decor:suite-caption decor:text-gray-400"><%= link[:path] %></code>
+            </a>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+  <% end %>
+
+  <% if @lookbook %>
+    <%= render ::Decor::Suite::PageSection.new(title: "Component catalog", separator: true) do %>
+      <ul class="decor:flex decor:flex-col decor:gap-2">
+        <li>
+          <a href="/lookbook"
+             class="decor:block decor:px-3 decor:py-2 decor:bg-white decor:border decor:border-suite-hairline-strong decor:rounded-suite-control decor:hover:border-suite-primary-400 decor:no-underline">
+            <span class="decor:suite-field-label decor:text-suite-primary-700">Lookbook</span>
+            <span class="decor:block decor:suite-field-help decor:text-gray-500">Previews for every component (render-only)</span>
+            <code class="decor:suite-caption decor:text-gray-400">/lookbook</code>
+          </a>
+        </li>
+      </ul>
+    <% end %>
+  <% end %>
+<% end %>

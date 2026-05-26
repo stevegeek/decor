@@ -34,6 +34,10 @@
     <% end %>
   <% end %>
 
+  <%= render ::Decor::Suite::PageSection.new(title: "Dropdown (native popover, CSS-anchored to trigger)", separator: true) do %>
+    <%= render Demo::DropdownExample.new %>
+  <% end %>
+
   <%= render ::Decor::Suite::PageSection.new(title: "Flash", separator: true) do %>
     <%= render ::Decor::Suite::Flash.new(id: "demo-flash", color: :success, text: "Saved successfully.") %>
   <% end %>
