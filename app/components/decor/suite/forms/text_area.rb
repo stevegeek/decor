@@ -6,6 +6,18 @@ module Decor
       class TextArea < ::Decor::Components::Forms::TextArea
         prop :silent_helper_and_error_text, _Boolean, default: false
 
+        # See Suite::Forms::TextField — the base ships a Daisy-only invalid
+        # class (invalid:border-error-dark) that paints nothing under the
+        # decor: Suite namespace. Override with the Suite-danger chrome the
+        # server renders for errors so client-side blur validation outlines the
+        # field in red to match the red helper text.
+        stimulus do
+          classes(
+            invalid_input: "decor:border-suite-danger-500 decor:bg-suite-danger-50",
+            invalid_label: "decor:text-suite-danger-700"
+          )
+        end
+
         def view_template
           root_element do |el|
             div(class: outer_layout_classes, data: form_field_target_data(:container)) do
@@ -78,6 +90,25 @@ module Decor
           ) { plain label_with_required }
         end
 
+        # Absolutely-positioned label in the textarea's top strip.
+        # pointer-events-none lets clicks fall through to the textarea.
+        def render_inside_label
+          label(
+            for: "#{id}-control",
+            class: inside_label_classes,
+            data: form_field_target_data(:label)
+          ) { plain label_with_required }
+        end
+
+        def inside_label_classes
+          [
+            "decor:absolute decor:left-3 decor:top-[6px] decor:z-10 decor:pointer-events-none",
+            "decor:block decor:suite-field-label decor:leading-none",
+            disabled? ? "decor:text-gray-400" : "decor:text-gray-500",
+            errors? ? "decor:text-suite-danger-700" : nil
+          ].compact.join(" ")
+        end
+
         def label_classes
           [
             "decor:block decor:suite-field-label",
@@ -100,6 +131,11 @@ module Decor
 
         def render_input_block(el)
           div(class: input_container_classes) do
+            # Floating "inside" label pinned to the textarea's reserved top
+            # strip (the textarea gets extra pt when label_inside?). Without
+            # this, label_position: :inside rendered no label at all.
+            render_inside_label if @label.present? && label_inside?
+
             child_element(
               :textarea,
               **html_attributes,
@@ -147,7 +183,9 @@ module Decor
         def textarea_state_classes
           [
             errors? ? "decor:border-suite-danger-500 decor:bg-suite-danger-50 decor:focus:shadow-[0_0_0_3px_var(--color-suite-danger-100)]" : nil,
-            disabled? ? "decor:bg-gray-50 decor:text-gray-400 decor:border-suite-hairline decor:cursor-not-allowed" : nil
+            disabled? ? "decor:bg-gray-50 decor:text-gray-400 decor:border-suite-hairline decor:cursor-not-allowed" : nil,
+            # Reserve room for the floating inside label.
+            label_inside? ? "decor:pt-[22px]" : nil
           ].compact.join(" ")
         end
 

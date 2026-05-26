@@ -6,6 +6,19 @@ module Decor
       class Select < ::Decor::Components::Forms::Select
         include ::Phlex::Rails::Helpers::HiddenFieldTag
 
+        # The base Select defines no invalid Stimulus class, so client-side
+        # validation had nothing to toggle and the <select> never went red on
+        # blur. Add the Suite-danger border the server renders for errors (plus
+        # a matching label colour). `label_position: :inside` is already handled
+        # by prepending the label as a placeholder <option>, so it needs nothing
+        # here.
+        stimulus do
+          classes(
+            invalid_input: "decor:border-suite-danger-500",
+            invalid_label: "decor:text-suite-danger-700"
+          )
+        end
+
         def view_template
           root_element do
             div(class: container_classes, data: form_field_target_data(:container)) do

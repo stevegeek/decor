@@ -168,4 +168,17 @@ class ::Decor::Suite::Forms::SelectTest < ActiveSupport::TestCase
     ))
     assert_includes html, "decor:sm:w-[180px]"
   end
+
+  test "invalid_input stimulus class uses suite-danger border so the select goes red on client-side validation" do
+    html = render_component(::Decor::Suite::Forms::Select.new(name: "n", label: "L", options_array: options))
+    assert_match(/invalid-input-class="[^"]*decor:border-suite-danger-500[^"]*"/, html)
+    refute_includes html, "invalid:border-error-dark"
+  end
+
+  test "label_position :inside surfaces the label as a placeholder option (no separate label element)" do
+    html = render_component(::Decor::Suite::Forms::Select.new(
+      name: "n", label: "Country", options_array: options, label_position: :inside
+    ))
+    assert_includes html, ">Country<"
+  end
 end

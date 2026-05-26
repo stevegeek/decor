@@ -151,4 +151,18 @@ class ::Decor::Suite::Forms::TextAreaTest < ActiveSupport::TestCase
     refute_includes html, "Help"
     refute_includes html, ">Bad<"
   end
+
+  test "label_position :inside renders a floating label inside the textarea and reserves the strip" do
+    html = render_component(
+      ::Decor::Suite::Forms::TextArea.new(name: "n", label: "Notes", label_position: :inside)
+    )
+    assert_match(/<label[^>]*for="[^"]+-control"[^>]*>Notes<\/label>/, html)
+    assert_includes html, "decor:pt-[22px]"
+  end
+
+  test "invalid_input stimulus class uses suite-danger tokens, not the daisy invalid:border-error-dark" do
+    html = render_component(::Decor::Suite::Forms::TextArea.new(name: "n", label: "L"))
+    assert_match(/invalid-input-class="[^"]*decor:border-suite-danger-500[^"]*"/, html)
+    refute_includes html, "invalid:border-error-dark"
+  end
 end
