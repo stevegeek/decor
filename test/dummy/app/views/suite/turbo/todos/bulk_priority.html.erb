@@ -25,5 +25,8 @@
         [["Low", "low"], ["Medium", "medium"], ["High", "high"]],
         {label: "New priority"} %>
 
-  <%= form.builder.submit "Apply" %>
+  <%# Submit in the form's footer slot — separated + right-aligned in the modal. %>
+  <% form.with_actions do %>
+    <%= form.builder.submit "Apply" %>
+  <% end %>
 <% end %>
