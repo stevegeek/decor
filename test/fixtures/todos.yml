@@ -1,0 +1,11 @@
+groceries:
+  title: Buy groceries
+  description: Milk, eggs, bread
+  priority: medium
+  completed: false
+
+laundry:
+  title: Do the laundry
+  description: Whites and colours
+  priority: low
+  completed: false

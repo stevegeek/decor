@@ -10,5 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 0) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_26_000001) do
+  create_table "todos", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description"
+    t.string "priority", default: "low", null: false
+    t.boolean "completed", default: false, null: false
+    t.date "due_on"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 end
