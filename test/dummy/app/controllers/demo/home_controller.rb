@@ -9,6 +9,8 @@ class Demo::HomeController < ApplicationController
       links: [
         {name: "Overlays & Notifications", path: "/demo/suite/overlays",
          desc: "Toast placement, tooltip + dropdown popovers, flash"},
+        {name: "Navigation", path: "/demo/suite/navigation",
+         desc: "Side navbar (drawer/collapse/search/sub-items), top navbar, breadcrumbs"},
         {name: "Rich inputs", path: "/demo/suite/inputs",
          desc: "Switch, button radio group, searchable select, date field"},
         {name: "Media & misc", path: "/demo/suite/media",

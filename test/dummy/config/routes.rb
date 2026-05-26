@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   namespace :demo do
     namespace :suite do
       get "overlays", to: "overlays#index"
+      get "navigation", to: "navigation#index"
       get "inputs", to: "inputs#index"
       get "media", to: "media#index"
     end

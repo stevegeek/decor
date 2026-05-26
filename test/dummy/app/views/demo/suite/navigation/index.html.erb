@@ -1,0 +1,31 @@
+<%# Suite side navbar: fixed desktop rail + (hidden) mobile drawer. %>
+<%= render Demo::SuiteSidebarExample.new %>
+
+<div class="decor:lg:pl-72" data-controller="demo-triggers">
+  <%# Top navbar — its hamburger (mobile) now opens the side-navbar drawer via
+      the top_navbar controller. %>
+  <%= render ::Decor::Suite::Nav::TopNavbar.new(brand_text: "Demo App", has_search: true) %>
+
+  <%= render ::Decor::Suite::Nav::SecondaryNavbar.new(bottom_border: true) %>
+
+  <div class="decor:p-6">
+    <%= render ::Decor::Suite::Nav::Breadcrumbs.new(breadcrumbs: [
+          {name: "Reports", path: "#"}, {name: "Sales", path: "#"}
+        ]) %>
+
+    <%= render ::Decor::Suite::PageHeader.new(title: "Navigation (Suite)", subtitle: "Side navbar, top navbar, secondary navbar, breadcrumbs") %>
+
+    <%# Standalone trigger (as a top navbar hamburger would) for the mobile drawer. %>
+    <%= render ::Decor::Suite::Button.new(
+          label: "Open mobile menu", color: :primary, id: "open-mobile-menu",
+          html_options: {type: "button", class: "decor:mt-4", data: {
+            action: "click->demo-triggers#fire",
+            "demo-triggers-event-param": "decor--suite--nav--side-navbar:toggleMobileMenu"
+          }}) %>
+
+    <p class="decor:mt-4 decor:suite-description decor:text-gray-500">
+      On wide screens the rail is on the left — use its collapse button and search.
+      "Open mobile menu" (or the top-navbar hamburger on mobile) opens the drawer.
+    </p>
+  </div>
+</div>
