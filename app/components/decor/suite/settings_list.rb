@@ -34,7 +34,7 @@ module Decor
       def render_group(group, idx)
         div(class: idx.zero? ? nil : "decor:border-t decor:border-suite-hairline") do
           render_section_header(group) unless anonymous_group?(group)
-          group.rows.each { |row| render_row(row) }
+          group.rows.each_with_index { |row, row_idx| render_row(row, "#{idx}-#{row_idx}") }
         end
       end
 
@@ -53,8 +53,8 @@ module Decor
         end
       end
 
-      def render_row(row)
-        detail_id = "settings-list-row-#{row.object_id}-detail"
+      def render_row(row, key)
+        detail_id = "#{id}-row-#{key}-detail"
 
         if expandable_row?(row)
           child_element(
