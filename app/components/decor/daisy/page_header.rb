@@ -51,7 +51,7 @@ module Decor
 
       def render_breadcrumbs
         div(class: "decor:mb-4") do
-          render @breadcrumbs_content if @breadcrumbs_content
+          render_slot(@breadcrumbs_content) if @breadcrumbs_content
         end
       end
 
@@ -137,7 +137,7 @@ module Decor
         classes << (centered ? "decor:mb-4" : "")
 
         div(class: classes.compact.join(" ")) do
-          render @avatar_content if @avatar_content
+          render_slot(@avatar_content) if @avatar_content
         end
       end
 
@@ -171,9 +171,7 @@ module Decor
       def render_title_section(centered: false, large: false, compact: false)
         return render_title_only(compact: compact) unless @title_content
 
-        if @title_content
-          render @title_content
-        end
+        render_slot(@title_content)
       end
 
       def render_title_only(compact: false)
@@ -261,7 +259,7 @@ module Decor
         classes << (centered ? "decor:flex decor:justify-center" : "")
 
         div(class: classes.compact.join(" ")) do
-          render @meta_content if @meta_content
+          render_slot(@meta_content)
         end
       end
 
@@ -289,19 +287,17 @@ module Decor
       def render_action_buttons(large: false, compact: false)
         if @actions_content
           div(class: "decor:flex decor:gap-2") do
-            render @actions_content
+            render_slot(@actions_content)
           end
         end
 
         if @secondary_actions_content
           div(class: "decor:flex decor:gap-2") do
-            render @secondary_actions_content
+            render_slot(@secondary_actions_content)
           end
         end
 
-        if @cta_content
-          render @cta_content
-        end
+        render_slot(@cta_content) if @cta_content
       end
 
       def render_status_section(centered: false)
@@ -311,7 +307,7 @@ module Decor
         classes << (centered ? "decor:flex decor:justify-center" : "")
 
         div(class: classes.compact.join(" ")) do
-          render @status_content if @status_content
+          render_slot(@status_content)
         end
       end
 

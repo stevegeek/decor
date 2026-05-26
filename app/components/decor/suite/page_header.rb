@@ -50,7 +50,7 @@ module Decor
 
       def render_breadcrumbs
         div(class: "decor:mb-3 decor:suite-description decor:text-gray-500") do
-          render @breadcrumbs_content
+          render_slot(@breadcrumbs_content)
         end
       end
 
@@ -121,7 +121,7 @@ module Decor
       def render_avatar_section(centered: false, compact: false)
         classes = ["decor:shrink-0"]
         classes << "decor:mb-3" if centered
-        div(class: classes.join(" ")) { render @avatar_content }
+        div(class: classes.join(" ")) { render_slot(@avatar_content) }
       end
 
       def render_content_section(centered: false, compact: false)
@@ -140,7 +140,7 @@ module Decor
 
       def render_title_section(centered: false, compact: false)
         if @title_content
-          render @title_content
+          render_slot(@title_content)
         else
           render_title_only(compact: compact)
         end
@@ -184,7 +184,7 @@ module Decor
       def render_meta_section(centered: false)
         classes = ["decor:mt-2.5"]
         classes << "decor:flex decor:justify-center" if centered
-        div(class: classes.join(" ")) { render @meta_content }
+        div(class: classes.join(" ")) { render_slot(@meta_content) }
       end
 
       def render_actions_section(centered: false, compact: false)
@@ -204,18 +204,18 @@ module Decor
 
       def render_action_buttons
         if @actions_content
-          div(class: "decor:flex decor:gap-2") { render @actions_content }
+          div(class: "decor:flex decor:gap-2") { render_slot(@actions_content) }
         end
         if @secondary_actions_content
-          div(class: "decor:flex decor:gap-2") { render @secondary_actions_content }
+          div(class: "decor:flex decor:gap-2") { render_slot(@secondary_actions_content) }
         end
-        render @cta_content if @cta_content
+        render_slot(@cta_content) if @cta_content
       end
 
       def render_status_section(centered: false)
         classes = ["decor:mt-3"]
         classes << "decor:flex decor:justify-center" if centered
-        div(class: classes.join(" ")) { render @status_content }
+        div(class: classes.join(" ")) { render_slot(@status_content) }
       end
 
       def render_badges_inline

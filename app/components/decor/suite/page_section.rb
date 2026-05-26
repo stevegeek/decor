@@ -11,10 +11,7 @@ module Decor
 
       def view_template(&)
         root_element do
-          if @hero
-            result = @hero.call
-            plain result if result.is_a?(String)
-          end
+          render_slot(@hero) if @hero
 
           if has_header_content? || @cta
             div(class: header_classes) do
@@ -33,8 +30,7 @@ module Decor
               end
               if @cta
                 div(class: "decor:shrink-0 decor:flex decor:gap-2 decor:items-center") do
-                  result = @cta.call
-                  plain result if result.is_a?(String)
+                  render_slot(@cta)
                 end
               end
             end

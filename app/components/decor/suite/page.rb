@@ -8,18 +8,11 @@ module Decor
         root_element do
           render_hero if @hero
 
-          if @header
-            result = @header.call
-            if result.is_a?(::Decor::PhlexComponent)
-              render result
-            else
-              plain result
-            end
-          end
+          render_slot(@header) if @header
 
           if @tabs
             div(class: tabs_wrapper_classes) do
-              render @tabs
+              render_slot(@tabs)
             end
           end
 
@@ -100,10 +93,10 @@ module Decor
       def render_hero
         if @background != :default
           div(class: hero_classes) do
-            plain capture { @hero.call }
+            render_slot(@hero)
           end
         else
-          plain capture { @hero.call }
+          render_slot(@hero)
         end
       end
     end

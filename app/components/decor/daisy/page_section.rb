@@ -5,10 +5,7 @@ module Decor
     class PageSection < ::Decor::Components::PageSection
       def view_template
         root_element do
-          if @hero
-            result = @hero.call
-            plain result if result.is_a?(String)
-          end
+          render_slot(@hero) if @hero
 
           div(class: header_wrapper_classes) do
             div(class: content_wrapper_classes) do
@@ -27,8 +24,7 @@ module Decor
               end
             end
             if @cta
-              result = @cta.call
-              plain result if result.is_a?(String)
+              render_slot(@cta)
             end
           end
 
