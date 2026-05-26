@@ -5028,6 +5028,41 @@ var SuiteNotificationManagerController = class extends notification_manager_cont
   get notificationClassName() {
     return "decor--suite--notification";
   }
+  async createNotification(options, contentHref) {
+    const template = document.getElementById(`${this.element.id}-toast-template`);
+    if (!template || !("content" in template)) {
+      return super.createNotification(options, contentHref);
+    }
+    const frag = template.content.firstElementChild;
+    if (!frag) return super.createNotification(options, contentHref);
+    const node = frag.cloneNode(true);
+    node.id = this.nextNotificationId();
+    node.classList.add(this.notificationClassName);
+    const body = options.body ?? options.content;
+    const title = options.title;
+    const titleEl = node.querySelector('[data-notification-slot="title"]');
+    if (titleEl) titleEl.textContent = title ?? "";
+    const headerEl = node.querySelector('[data-notification-slot="header"]');
+    if (headerEl) this._toggleSlotHidden(headerEl, !title);
+    const bodyTextEl = node.querySelector('[data-notification-slot="body-text"]');
+    if (bodyTextEl) {
+      if (body && typeof body === "object" && body.__safe) {
+        safelySetInnerHTML(bodyTextEl, body);
+      } else {
+        bodyTextEl.textContent = typeof body === "string" ? body : "";
+      }
+    }
+    const bodyEl = node.querySelector('[data-notification-slot="body"]');
+    if (bodyEl) this._toggleSlotHidden(bodyEl, !body && !options.destination);
+    return node;
+  }
+  _toggleSlotHidden(el, shouldHide) {
+    if (shouldHide) {
+      el.setAttribute("hidden", "");
+    } else {
+      el.removeAttribute("hidden");
+    }
+  }
 };
 
 // app/javascript/controllers/decor/suite/search_and_filter_controller.js
