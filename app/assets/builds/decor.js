@@ -4523,6 +4523,10 @@ var carousel_controller_default = class extends Controller27 {
   }
 };
 
+// app/javascript/controllers/decor/suite/code_block_controller.js
+var SuiteCodeBlockController = class extends code_block_controller_default {
+};
+
 // app/javascript/controllers/decor/suite/dropdown_controller.js
 import { Controller as Controller28 } from "@hotwired/stimulus";
 var dropdown_controller_default2 = class extends Controller28 {
@@ -5887,6 +5891,7 @@ var CONTROLLERS = {
   "decor--suite--button": button_controller_default,
   "decor--suite--carousel": carousel_controller_default,
   "decor--suite--click-to-copy": click_to_copy_controller_default,
+  "decor--suite--code-block": SuiteCodeBlockController,
   "decor--suite--dropdown": dropdown_controller_default2,
   "decor--suite--flash": flash_controller_default,
   "decor--suite--forms--button-radio-group": ButtonRadioGroupController,
@@ -5906,6 +5911,7 @@ var CONTROLLERS = {
   "decor--suite--forms--text-field": TextFieldController,
   "decor--suite--map": map_controller_default,
   "decor--suite--modals--confirm": confirm_controller_default2,
+  "decor--suite--modals--confirm-modal": confirm_modal_controller_default,
   "decor--suite--modals--confirm-template": confirm_template_controller_default,
   "decor--suite--modals--modal-close-button": modal_close_button_controller_default2,
   "decor--suite--modals--modal": modal_controller_default2,

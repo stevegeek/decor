@@ -21,7 +21,7 @@ import DaisyFormsTextAreaController from "../controllers/decor/daisy/forms/text_
 import DaisyFormsTextFieldController from "../controllers/decor/daisy/forms/text_field_controller";
 import DaisyMapController from "../controllers/decor/daisy/map_controller";
 import DaisyModalsConfirmController from "../controllers/decor/daisy/modals/confirm_controller";
-import ConfirmModalController from "../controllers/decor/daisy/modals/confirm_modal_controller";
+import DaisyModalsConfirmModalController from "../controllers/decor/daisy/modals/confirm_modal_controller";
 import DaisyModalsConfirmTemplateController from "../controllers/decor/daisy/modals/confirm_template_controller";
 import DaisyModalsModalCloseButtonController from "../controllers/decor/daisy/modals/modal_close_button_controller";
 import DaisyModalsModalController from "../controllers/decor/daisy/modals/modal_controller";
@@ -58,6 +58,7 @@ import SuiteFormsTextAreaController from "../controllers/decor/suite/forms/text_
 import SuiteFormsTextFieldController from "../controllers/decor/suite/forms/text_field_controller";
 import SuiteMapController from "../controllers/decor/suite/map_controller";
 import SuiteModalsConfirmController from "../controllers/decor/suite/modals/confirm_controller";
+import SuiteModalsConfirmModalController from "../controllers/decor/suite/modals/confirm_modal_controller";
 import SuiteModalsConfirmTemplateController from "../controllers/decor/suite/modals/confirm_template_controller";
 import SuiteModalsModalCloseButtonController from "../controllers/decor/suite/modals/modal_close_button_controller";
 import SuiteModalsModalController from "../controllers/decor/suite/modals/modal_controller";
@@ -98,7 +99,7 @@ export const CONTROLLERS = {
   "decor--daisy--forms--text-field": DaisyFormsTextFieldController,
   "decor--daisy--map": DaisyMapController,
   "decor--daisy--modals--confirm": DaisyModalsConfirmController,
-  "decor--daisy--modals--confirm-modal": ConfirmModalController,
+  "decor--daisy--modals--confirm-modal": DaisyModalsConfirmModalController,
   "decor--daisy--modals--confirm-template": DaisyModalsConfirmTemplateController,
   "decor--daisy--modals--modal-close-button": DaisyModalsModalCloseButtonController,
   "decor--daisy--modals--modal": DaisyModalsModalController,
@@ -135,6 +136,7 @@ export const CONTROLLERS = {
   "decor--suite--forms--text-field": SuiteFormsTextFieldController,
   "decor--suite--map": SuiteMapController,
   "decor--suite--modals--confirm": SuiteModalsConfirmController,
+  "decor--suite--modals--confirm-modal": SuiteModalsConfirmModalController,
   "decor--suite--modals--confirm-template": SuiteModalsConfirmTemplateController,
   "decor--suite--modals--modal-close-button": SuiteModalsModalCloseButtonController,
   "decor--suite--modals--modal": SuiteModalsModalController,
