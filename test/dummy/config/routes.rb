@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   namespace :demo do
     get "overlays", to: "overlays#index"
     get "navigation", to: "navigation#index"
+    get "inputs", to: "inputs#index"
   end
 
   if ENV["PROD_LOOKBOOK_ENABLED"] == "true" || Rails.env.local?

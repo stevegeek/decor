@@ -1,0 +1,28 @@
+<%= render ::Decor::Suite::Page.new do |page| %>
+  <% page.with_header do %>
+    <%= render ::Decor::Suite::PageHeader.new(title: "Rich inputs", subtitle: "Switch, button radio group, searchable select, date") %>
+  <% end %>
+
+  <%= render ::Decor::Suite::PageSection.new(title: "Interactive form widgets", separator: true) do %>
+    <%= render ::Decor::Suite::Forms::Form.new(url: "#", scope: :demo, local: true, turbo: false) do |form| %>
+      <%= form.builder.switch :notify, label: "Email notifications" %>
+
+      <%# NOTE: this component maps choices as [value, label] (reverse of Rails'
+          [label, value]); pairs are ordered accordingly so labels display right. %>
+      <%= form.builder.button_radio_group :plan,
+            [["free", "Free"], ["pro", "Pro"], ["team", "Team"]],
+            {label: "Plan"} %>
+
+      <%= form.builder.searchable_select :country,
+            label: "Country",
+            choices: [
+              {id: "us", label: "United States"},
+              {id: "ca", label: "Canada"},
+              {id: "gb", label: "United Kingdom"},
+              {id: "de", label: "Germany"}
+            ] %>
+
+      <%= form.builder.date_field :due, label: "Due date" %>
+    <% end %>
+  <% end %>
+<% end %>

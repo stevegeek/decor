@@ -10,7 +10,9 @@ class Demo::HomeController < ApplicationController
         {name: "Overlays & Notifications", path: "/demo/overlays",
          desc: "Toast placement, tooltip + dropdown popovers, flash"},
         {name: "Navigation", path: "/demo/navigation",
-         desc: "Side navbar: mobile drawer, desktop collapse, search filter"}
+         desc: "Side navbar: mobile drawer, desktop collapse, search filter"},
+        {name: "Rich inputs", path: "/demo/inputs",
+         desc: "Switch, button radio group, searchable select, date field"}
       ]
     },
     {
