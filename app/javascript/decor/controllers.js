@@ -27,6 +27,7 @@ import DaisyModalsModalCloseButtonController from "../controllers/decor/daisy/mo
 import DaisyModalsModalController from "../controllers/decor/daisy/modals/modal_controller";
 import DaisyModalsModalOpenButtonController from "../controllers/decor/daisy/modals/modal_open_button_controller";
 import DaisyModalsModalTriggerController from "../controllers/decor/daisy/modals/modal_trigger_controller";
+import SideNavbarController from "../controllers/decor/daisy/nav/side_navbar_controller";
 import DaisyNotificationManagerController from "../controllers/decor/daisy/notification_manager_controller";
 import DaisyPolygonEditorController from "../controllers/decor/daisy/polygon_editor_controller";
 import DaisyProgressController from "../controllers/decor/daisy/progress_controller";
@@ -105,6 +106,7 @@ export const CONTROLLERS = {
   "decor--daisy--modals--modal": DaisyModalsModalController,
   "decor--daisy--modals--modal-open-button": DaisyModalsModalOpenButtonController,
   "decor--daisy--modals--modal-trigger": DaisyModalsModalTriggerController,
+  "decor--daisy--nav--side-navbar": SideNavbarController,
   "decor--daisy--notification-manager": DaisyNotificationManagerController,
   "decor--daisy--polygon-editor": DaisyPolygonEditorController,
   "decor--daisy--progress": DaisyProgressController,
