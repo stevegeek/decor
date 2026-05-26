@@ -9,9 +9,11 @@
   <%= render ::Decor::Suite::Nav::SecondaryNavbar.new(bottom_border: true) %>
 
   <div class="decor:p-6">
-    <%= render ::Decor::Suite::Nav::Breadcrumbs.new(breadcrumbs: [
-          {name: "Reports", path: "#"}, {name: "Sales", path: "#"}
-        ]) %>
+    <div class="decor:mb-4">
+      <%= render ::Decor::Suite::Nav::Breadcrumbs.new(breadcrumbs: [
+            {name: "Reports", path: "#"}, {name: "Sales", path: "#"}
+          ]) %>
+    </div>
 
     <%= render ::Decor::Suite::PageHeader.new(title: "Navigation (Suite)", subtitle: "Side navbar, top navbar, secondary navbar, breadcrumbs") %>
 

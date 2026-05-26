@@ -13,12 +13,12 @@ class Demo::SuiteSidebarExample < Phlex::HTML
       avatar_logo_url: LOGO
     )
     navbar.with_section(title: "Main") do |section|
-      section.with_item(title: "Dashboard", path: "/")
-      section.with_item(title: "Reports", path: "#") do |item|
+      section.with_item(title: "Dashboard", path: "/", icon: "home")
+      section.with_item(title: "Reports", path: "#", icon: "chart-bar") do |item|
         item.with_sub_item(title: "Sales", path: "#")
         item.with_sub_item(title: "Traffic", path: "#")
       end
-      section.with_item(title: "Settings", path: "#")
+      section.with_item(title: "Settings", path: "#", icon: "settings")
     end
     render navbar
   end

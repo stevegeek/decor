@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html>
+<%# Theme on <html> (not just <body>) so the unthemed root doesn't fall back to
+    a dark default and bleed below short content. %>
+<html data-theme="decor-light">
   <head>
     <title>Decor Component Demo</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -8,7 +10,7 @@
     <%= stylesheet_link_tag "decor", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-  <body data-theme="decor-light">
+  <body data-theme="decor-light" class="decor:min-h-screen decor:bg-white decor:text-gray-900">
     <%# Notification host is skin-specific, so each overlays page mounts its own
         (Suite or Daisy) NotificationManager rather than the shared layout. %>
     <main>
