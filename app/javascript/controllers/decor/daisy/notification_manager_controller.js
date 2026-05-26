@@ -129,7 +129,11 @@ export default class extends Controller {
         if (element && this.notificationContainerTarget.contains(element) && !element.dataset.dismissing) {
             element.dataset.dismissing = 'true';
             element.style.opacity = '0';
-            
+            // Don't intercept clicks while fading out — otherwise UI elements
+            // that sit underneath (cart icon, navbar buttons) appear targetable
+            // but the still-mounted toast eats the click.
+            element.style.pointerEvents = 'none';
+
             setTimeout(() => {
                 this.removeNotification(element);
                 this.activeNotifications.delete(notificationId);

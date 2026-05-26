@@ -3707,6 +3707,7 @@ var notification_manager_controller_default = class extends Controller20 {
     if (element && this.notificationContainerTarget.contains(element) && !element.dataset.dismissing) {
       element.dataset.dismissing = "true";
       element.style.opacity = "0";
+      element.style.pointerEvents = "none";
       setTimeout(() => {
         this.removeNotification(element);
         this.activeNotifications.delete(notificationId);
