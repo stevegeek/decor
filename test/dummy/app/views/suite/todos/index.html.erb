@@ -1,0 +1,15 @@
+<h1>Suite Todos</h1>
+
+<div id="suite-errors"></div>
+
+<ul id="suite-todos">
+  <%= render partial: "todos/todo", collection: @todos, as: :todo %>
+</ul>
+
+<%# local: false => data-remote="true" (UJS); turbo: false => data-turbo="false" (opt out of Turbo). %>
+<%= render ::Decor::Suite::Forms::Form.new(model: @todo, url: suite_todos_path, local: false, turbo: false) do |form_component| %>
+  <%= form_component.builder.text_field :title, label: "Title", required: true, minimum_length: 3 %>
+  <%= form_component.builder.text_area :description, label: "Description", rows: 3 %>
+  <%= form_component.builder.select :priority, [["Low", "low"], ["Medium", "medium"], ["High", "high"]], {label: "Priority"} %>
+  <%= form_component.builder.submit "Create Todo" %>
+<% end %>
