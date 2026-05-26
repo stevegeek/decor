@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= turbo_refreshes_with method: :morph, scroll: :preserve %>
+    <%= turbo_refresh_method_tag(:morph) %>
+    <%= turbo_refresh_scroll_tag(:preserve) %>
     <%= stylesheet_link_tag "decor", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
