@@ -3630,6 +3630,23 @@ var side_navbar_controller_default = class extends Controller20 {
     "searchNavigation"
   ];
   static values = { collapsed: { type: Boolean, default: false } };
+  // Cookie that persists the collapsed state across reloads. Read on connect so
+  // client-side state restores; written on every toggle.
+  static collapsedCookieName = "decor_side_navbar_collapsed";
+  connect() {
+    const stored = this.readCollapsedCookie();
+    if (stored !== null) this.collapsedValue = stored;
+  }
+  readCollapsedCookie() {
+    const match = document.cookie.match(
+      new RegExp("(?:^|; )" + this.constructor.collapsedCookieName + "=([^;]*)")
+    );
+    if (!match) return null;
+    return match[1] === "true";
+  }
+  writeCollapsedCookie(value) {
+    document.cookie = this.constructor.collapsedCookieName + "=" + value + "; path=/; max-age=31536000; samesite=lax";
+  }
   // ── Mobile drawer ──────────────────────────────────────────────────────
   toggleMobileMenu(event) {
     if (event && typeof event.preventDefault === "function") event.preventDefault();
@@ -3640,6 +3657,7 @@ var side_navbar_controller_default = class extends Controller20 {
   // ── Desktop collapse / expand ──────────────────────────────────────────
   toggleCollapseDesktopMenu() {
     this.collapsedValue = !this.collapsedValue;
+    this.writeCollapsedCookie(this.collapsedValue);
   }
   collapsedValueChanged() {
     this.applyCollapsed(this.collapsedValue);
@@ -3651,6 +3669,7 @@ var side_navbar_controller_default = class extends Controller20 {
       this.desktopMenuTarget.classList.toggle("collapsed", collapsed);
       if (!collapsed) this.desktopMenuTarget.classList.remove("hover-open");
     }
+    document.body.classList.toggle("decor-side-navbar-collapsed", collapsed);
     this.setHidden(this.desktopCollapseIconTarget, this.hasDesktopCollapseIconTarget, collapsed);
     this.setHidden(this.desktopExpandIconTarget, this.hasDesktopExpandIconTarget, !collapsed);
     this.setHidden(this.desktopLogoTarget, this.hasDesktopLogoTarget, collapsed);

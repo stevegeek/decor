@@ -10,13 +10,13 @@ module Decor
               details(class: "decor:relative", data: {**el.stimulus_target(:details), open: resolve_selected?}) do
                 summary(
                   data: {**el.stimulus_action(:click, :button_clicked)},
-                  class: "#{component_name}-link decor:list-none decor:group decor:flex decor:items-center decor:gap-3 decor:px-3 decor:py-2 decor:my-px decor:suite-description decor:font-medium decor:rounded-suite-control decor:cursor-pointer decor:duration-suite-fast decor:ease-out #{summary_state_classes}"
+                  class: "#{component_name}-link decor:list-none decor:group decor:flex decor:items-center decor:gap-[10px] decor:px-3 decor:py-[7px] decor:my-px decor:suite-description decor:font-medium decor:rounded-suite-control decor:cursor-pointer decor:duration-suite-fast decor:ease-out #{summary_state_classes}"
                 ) do
                   if @icon.present?
                     render ::Decor::Icon.new(
                       name: @icon,
                       html_options: {
-                        class: "#{component_name}-icon #{resolve_selected? ? "decor:text-suite-primary-700" : "decor:text-gray-500 decor:group-hover:text-gray-900"} decor:shrink-0 decor:h-5 decor:w-5"
+                        class: "#{component_name}-icon #{resolve_selected? ? "decor:text-suite-primary-700" : "decor:text-gray-500 decor:group-hover:text-gray-900"} decor:shrink-0 decor:h-[15px] decor:w-[15px]"
                       }
                     )
                   end
@@ -49,7 +49,7 @@ module Decor
             else
               a(
                 href: @path,
-                class: "#{component_name}-link decor:group decor:flex decor:items-center decor:gap-3 decor:shrink-0 decor:px-3 decor:py-2 decor:my-px decor:suite-description decor:font-medium decor:rounded-suite-control decor:duration-suite-fast decor:ease-out #{link_state_classes}"
+                class: "#{component_name}-link decor:group decor:flex decor:items-center decor:gap-[10px] decor:shrink-0 decor:px-3 decor:py-[7px] decor:my-px decor:suite-description decor:font-medium decor:rounded-suite-control decor:duration-suite-fast decor:ease-out #{link_state_classes}"
               ) do
                 if @icon.present?
                   render ::Decor::Icon.new(

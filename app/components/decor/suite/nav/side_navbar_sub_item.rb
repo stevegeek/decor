@@ -8,7 +8,7 @@ module Decor
           root_element do |el|
             a(
               href: @path,
-              class: "#{component_name}-link decor:group decor:flex decor:items-center decor:gap-2 decor:px-3 decor:py-1.5 decor:my-px decor:no-underline decor:suite-description decor:font-medium decor:rounded-suite-control decor:duration-suite-fast decor:ease-out #{state_classes}"
+              class: "#{component_name}-link decor:group decor:flex decor:items-center decor:gap-[10px] decor:px-3 decor:py-[7px] decor:my-px decor:no-underline decor:suite-description decor:font-medium decor:rounded-suite-control decor:duration-suite-fast decor:ease-out #{state_classes}"
             ) do
               if @counter.present?
                 child_element(:span, stimulus_target: :counter, class: "decor:inline-flex decor:items-center decor:px-2 decor:py-0.5 decor:rounded-full decor:suite-caption decor:font-medium decor:bg-gray-100 decor:text-gray-600 decor:mr-2") { @counter.to_s }

@@ -4,6 +4,11 @@ module Decor
   module Suite
     module Nav
       class SideNavbar < ::Decor::Components::Nav::SideNavbar
+        # When enabled, both the desktop rail and mobile canvas get a plain
+        # `dark` marker class; the Suite skin's CSS keys off it to reproduce
+        # Navigo's dark palette. Light (default) keeps the current styling.
+        prop :dark, _Boolean, default: false
+
         def view_template(&)
           vanish(&)
           build_from_menu_items(@menu_items) if @menu_items&.any?
@@ -13,7 +18,7 @@ module Decor
             div(class: "decor:fixed decor:inset-0 decor:flex decor:z-40 decor:hidden", role: "dialog", aria_modal: "true", data: {**el.stimulus_target(:mobile_menu)}) do
               div(class: "decor:fixed decor:inset-0 decor:bg-gray-900/50 #{class_list_for_stimulus_classes(:mobile_menu_overlay_entering_from)}", aria_hidden: "true", data: {**el.stimulus_target(:mobile_menu_overlay)})
 
-              div(class: "decor:relative decor:flex-1 decor:flex decor:flex-col decor:max-w-xs decor:w-full decor:bg-white decor:border-r decor:border-suite-hairline #{class_list_for_stimulus_classes(:mobile_menu_canvas_entering_from)}", data: {**el.stimulus_target(:mobile_menu_canvas)}) do
+              div(class: "decor:relative decor:flex-1 decor:flex decor:flex-col decor:max-w-xs decor:w-full decor:bg-white decor:border-r decor:border-suite-hairline #{"dark" if @dark} #{class_list_for_stimulus_classes(:mobile_menu_canvas_entering_from)}", data: {**el.stimulus_target(:mobile_menu_canvas)}) do
                 div(class: "decor:absolute decor:top-0 decor:right-0 decor:-mr-12 decor:pt-2 #{class_list_for_stimulus_classes(:mobile_menu_close_button_entering_from)}", data: {**el.stimulus_target(:mobile_menu_close_button)}) do
                   button(
                     type: "button",
@@ -65,7 +70,7 @@ module Decor
             div(
               data: {**el.stimulus_target(:desktop_menu)},
               id: "side-navbar-desktop",
-              class: "decor:side-navbar-desktop decor:hidden decor:lg:fixed decor:lg:flex decor:lg:flex-col #{@collapsed ? "decor:lg:w-20" : "decor:lg:w-72"} decor:lg:inset-y-0 decor:transition-all decor:duration-300 decor:ease-out decor:z-50"
+              class: "decor:side-navbar-desktop decor:hidden decor:lg:fixed decor:lg:flex decor:lg:flex-col #{@collapsed ? "decor:lg:w-20 collapsed" : "decor:lg:w-72"} #{"dark" if @dark} decor:lg:inset-y-0 decor:transition-all decor:duration-300 decor:ease-out decor:z-50"
             ) do
               div(class: "decor:flex-1 decor:flex decor:flex-col decor:min-h-0 decor:bg-white decor:border-r decor:border-suite-hairline") do
                 div(class: "decor--suite--nav--side-navbar-brand-row decor:flex decor:items-center decor:gap-3 decor:px-4 decor:py-3 decor:border-b decor:border-suite-hairline decor:shrink-0 decor:relative decor:min-h-[60px]") do
@@ -144,6 +149,14 @@ module Decor
         end
 
         private
+
+        # Dark mode is keyed off a plain `dark` marker on the root element so
+        # all the Suite dark CSS can scope to `.decor--suite--nav--side-navbar.dark`.
+        # The rail + mobile canvas also carry `dark` (per the markup above) so the
+        # palette applies even where a descendant rule targets them directly.
+        def root_element_classes
+          @dark ? "dark" : ""
+        end
 
         def render_sections
           capture do

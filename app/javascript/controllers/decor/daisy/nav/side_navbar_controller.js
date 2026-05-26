@@ -26,6 +26,31 @@ export default class extends Controller {
 
   static values = { collapsed: { type: Boolean, default: false } };
 
+  // Cookie that persists the collapsed state across reloads. Read on connect so
+  // client-side state restores; written on every toggle.
+  static collapsedCookieName = "decor_side_navbar_collapsed";
+
+  connect() {
+    const stored = this.readCollapsedCookie();
+    if (stored !== null) this.collapsedValue = stored;
+  }
+
+  readCollapsedCookie() {
+    const match = document.cookie.match(
+      new RegExp("(?:^|; )" + this.constructor.collapsedCookieName + "=([^;]*)"),
+    );
+    if (!match) return null;
+    return match[1] === "true";
+  }
+
+  writeCollapsedCookie(value) {
+    document.cookie =
+      this.constructor.collapsedCookieName +
+      "=" +
+      value +
+      "; path=/; max-age=31536000; samesite=lax";
+  }
+
   // ── Mobile drawer ──────────────────────────────────────────────────────
   toggleMobileMenu(event) {
     if (event && typeof event.preventDefault === "function") event.preventDefault();
@@ -37,6 +62,7 @@ export default class extends Controller {
   // ── Desktop collapse / expand ──────────────────────────────────────────
   toggleCollapseDesktopMenu() {
     this.collapsedValue = !this.collapsedValue;
+    this.writeCollapsedCookie(this.collapsedValue);
   }
 
   collapsedValueChanged() {
@@ -54,6 +80,9 @@ export default class extends Controller {
       // Leaving collapsed clears any stale hover-open marker.
       if (!collapsed) this.desktopMenuTarget.classList.remove("hover-open");
     }
+    // Drive the page content's left padding: the `.decor--side-navbar-content`
+    // wrapper shrinks its padding to the collapsed rail width via this body class.
+    document.body.classList.toggle("decor-side-navbar-collapsed", collapsed);
     // Collapse shows the chevron-right (expand) icon; expanded shows the menu icon.
     this.setHidden(this.desktopCollapseIconTarget, this.hasDesktopCollapseIconTarget, collapsed);
     this.setHidden(this.desktopExpandIconTarget, this.hasDesktopExpandIconTarget, !collapsed);
