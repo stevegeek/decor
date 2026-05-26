@@ -29,4 +29,6 @@ group :test do
   # Pin to 5.x — railties 8.1.x's line_filtering monkey-patch is not 6.0-compatible.
   gem "minitest", "~> 5.25"
   gem "nokogiri"
+  gem "capybara"
+  gem "cuprite"
 end
