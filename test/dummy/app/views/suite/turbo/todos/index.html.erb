@@ -1,0 +1,25 @@
+<%= render ::Decor::Suite::Page.new(flash_data: flash) do |page| %>
+  <% page.with_header do %>
+    <%= render ::Decor::Suite::PageHeader.new(title: "Suite Todos (Turbo Drive)", subtitle: "Turbo Drive (morph)") %>
+  <% end %>
+
+  <% if @todo.errors.any? %>
+    <%= render ::Decor::Suite::Flash.new(id: "suite-turbo-errors", color: :error, text: @todo.errors.full_messages.to_sentence) %>
+  <% end %>
+
+  <%= render ::Decor::Suite::PageSection.new(title: "Todos", separator: true) do %>
+    <ul id="suite-turbo-todos">
+      <%= render partial: "todos/todo", collection: @todos, as: :todo %>
+    </ul>
+  <% end %>
+
+  <%= render ::Decor::Suite::PageSection.new(title: "Add a todo", separator: true) do %>
+    <%# local: true, turbo: true => standard Turbo Drive form submission (redirect morphs). %>
+    <%= render ::Decor::Suite::Forms::Form.new(model: @todo, url: suite_turbo_todos_path, local: true, turbo: true) do |form_component| %>
+      <%= form_component.builder.text_field :title, label: "Title", required: true, minimum_length: 3 %>
+      <%= form_component.builder.text_area :description, label: "Description", rows: 3 %>
+      <%= form_component.builder.select :priority, [["Low", "low"], ["Medium", "medium"], ["High", "high"]], {label: "Priority"} %>
+      <%= form_component.builder.submit "Create Todo" %>
+    <% end %>
+  <% end %>
+<% end %>

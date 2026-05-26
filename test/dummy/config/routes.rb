@@ -14,6 +14,9 @@ Rails.application.routes.draw do
   end
   namespace :suite do
     resources :todos, only: [:index, :create]
+    namespace :turbo do
+      resources :todos, only: [:index, :create]
+    end
   end
 
   if ENV["PROD_LOOKBOOK_ENABLED"] == "true" || Rails.env.local?
