@@ -3,12 +3,12 @@ require "application_system_test_case"
 # Proves the dynamic behaviour of the rich Suite form widgets in a real browser:
 # switch toggle, button-radio-group selection, searchable-select (open + filter
 # + select), and the date calendar writing into its hidden field.
-class DemoInputsTest < ApplicationSystemTestCase
+class DemoSuiteInputsTest < ApplicationSystemTestCase
   SWITCH = "decor--suite--forms--switch"
   SS = "decor--suite--forms--searchable-select"
 
   test "switch toggles its checkbox" do
-    visit demo_inputs_path
+    visit demo_suite_inputs_path
     cb = find("[data-#{SWITCH}-target='checkbox']")
     refute cb.checked?, "switch should start off"
     cb.click
@@ -17,7 +17,7 @@ class DemoInputsTest < ApplicationSystemTestCase
   end
 
   test "button radio group checks the clicked option" do
-    visit demo_inputs_path
+    visit demo_suite_inputs_path
     pro = find("input[name='demo[plan]'][value='pro']", visible: :all)
     refute pro.checked?
     find("label[for='#{pro[:id]}']").click
@@ -27,7 +27,7 @@ class DemoInputsTest < ApplicationSystemTestCase
   end
 
   test "searchable select opens, filters as you type, and selects an option" do
-    visit demo_inputs_path
+    visit demo_suite_inputs_path
     input = find("[data-#{SS}-target='input']")
     input.click
     sleep 0.3
@@ -49,7 +49,7 @@ class DemoInputsTest < ApplicationSystemTestCase
   end
 
   test "date calendar writes the chosen date into the hidden field" do
-    visit demo_inputs_path
+    visit demo_suite_inputs_path
     page.execute_script(<<~JS)
       var cal = document.querySelector("calendar-date");
       cal.value = "2026-06-15";

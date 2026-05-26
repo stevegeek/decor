@@ -5,7 +5,7 @@ require "application_system_test_case"
 # copy button write to the clipboard. Clipboard is asserted by spying on
 # navigator.clipboard.writeText (reading the real clipboard needs permissions
 # the headless browser withholds).
-class DemoMediaTest < ApplicationSystemTestCase
+class DemoSuiteMediaTest < ApplicationSystemTestCase
   CTC = "[data-controller~='decor--suite--click-to-copy']"
 
   def stub_clipboard
@@ -16,7 +16,7 @@ class DemoMediaTest < ApplicationSystemTestCase
   end
 
   test "carousel navigates between slides" do
-    visit demo_media_path
+    visit demo_suite_media_path
     # Swiper initialises and marks the first slide active.
     assert_selector ".swiper-slide-active", wait: 5
     assert_equal "Slide 1", page.evaluate_script("document.querySelector('.swiper-slide-active img')?.alt")
@@ -28,7 +28,7 @@ class DemoMediaTest < ApplicationSystemTestCase
   end
 
   test "click-to-copy writes its value to the clipboard" do
-    visit demo_media_path
+    visit demo_suite_media_path
     stub_clipboard
     within "#standalone-copy" do
       find(CTC).click
@@ -38,7 +38,7 @@ class DemoMediaTest < ApplicationSystemTestCase
   end
 
   test "code block copy button copies the code" do
-    visit demo_media_path
+    visit demo_suite_media_path
     stub_clipboard
     within "[data-controller~='decor--suite--code-block']" do
       find(CTC).click

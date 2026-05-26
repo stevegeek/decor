@@ -24,12 +24,20 @@ Rails.application.routes.draw do
     end
   end
 
-  # Dynamic-component demo/harness pages (Cuprite system tests drive these).
+  # Dynamic-component demo/harness pages (Cuprite system tests drive these),
+  # one set per skin so both Daisy and Suite behaviour is verified.
   namespace :demo do
-    get "overlays", to: "overlays#index"
-    get "navigation", to: "navigation#index"
-    get "inputs", to: "inputs#index"
-    get "media", to: "media#index"
+    namespace :suite do
+      get "overlays", to: "overlays#index"
+      get "inputs", to: "inputs#index"
+      get "media", to: "media#index"
+    end
+    namespace :daisy do
+      get "overlays", to: "overlays#index"
+      get "navigation", to: "navigation#index"
+      get "inputs", to: "inputs#index"
+      get "media", to: "media#index"
+    end
   end
 
   if ENV["PROD_LOOKBOOK_ENABLED"] == "true" || Rails.env.local?

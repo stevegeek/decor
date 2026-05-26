@@ -3,7 +3,7 @@ require "application_system_test_case"
 # Proves the SideNavbar controller (which previously did not exist — the
 # component referenced a controller that was never shipped, so all of this was
 # dead) actually drives the mobile drawer, the desktop collapse, and search.
-class DemoNavigationTest < ApplicationSystemTestCase
+class DemoDaisyNavigationTest < ApplicationSystemTestCase
   MOBILE = "[data-decor--daisy--nav--side-navbar-target='mobileMenu']"
   DESKTOP = "#side-navbar-desktop"
 
@@ -14,7 +14,7 @@ class DemoNavigationTest < ApplicationSystemTestCase
   test "mobile drawer opens via the scoped toggle event and closes via its close button" do
     # Phone width: the desktop rail is display:none, so the drawer is the nav.
     current_window.resize_to(390, 844)
-    visit demo_navigation_path
+    visit demo_daisy_navigation_path
     assert hidden?(MOBILE), "drawer should start hidden"
 
     click_button "Open mobile menu"
@@ -28,7 +28,7 @@ class DemoNavigationTest < ApplicationSystemTestCase
 
   test "desktop rail collapses and expands" do
     current_window.resize_to(1400, 1000) # lg: desktop rail visible
-    visit demo_navigation_path
+    visit demo_daisy_navigation_path
     assert page.evaluate_script("document.querySelector('#{DESKTOP}').classList.contains('decor:lg:w-72')"),
       "rail should start expanded (w-72)"
 
@@ -45,7 +45,7 @@ class DemoNavigationTest < ApplicationSystemTestCase
 
   test "search filters nav items by label" do
     current_window.resize_to(1400, 1000) # lg: desktop rail (and its search) visible
-    visit demo_navigation_path
+    visit demo_daisy_navigation_path
     fill_in "side-navbar-desktop-search-input", with: "report"
     sleep 0.3
 

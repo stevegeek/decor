@@ -1,6 +1,6 @@
 require "base64"
 
-class Demo::MediaController < ApplicationController
+class Demo::Suite::MediaController < ApplicationController
   layout "demo"
 
   def index

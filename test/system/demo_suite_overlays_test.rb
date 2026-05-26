@@ -5,12 +5,12 @@ require "application_system_test_case"
 #     + stack + dismiss (the Confinus "notifications in the wrong place" concern)
 #   - Tooltip popover is hidden until hover, then anchored over its trigger
 #     (Floating UI) — the "popovers appear correctly from their targets" concern
-class DemoOverlaysTest < ApplicationSystemTestCase
+class DemoSuiteOverlaysTest < ApplicationSystemTestCase
   TOAST = ".decor--suite--notification"
   TIP_CONTENT = "[data-decor--suite--tooltip-target='content']"
 
   test "toast appears in the top-right corner and stacks" do
-    visit demo_overlays_path
+    visit demo_suite_overlays_path
 
     find("#notify-success").click
     assert_selector TOAST, text: /Saved/, wait: 5
@@ -31,7 +31,7 @@ class DemoOverlaysTest < ApplicationSystemTestCase
   end
 
   test "notifications dismiss on demand" do
-    visit demo_overlays_path
+    visit demo_suite_overlays_path
     find("#notify-success").click
     assert_selector TOAST, wait: 5
     find("#notify-dismiss-all").click
@@ -39,7 +39,7 @@ class DemoOverlaysTest < ApplicationSystemTestCase
   end
 
   test "tooltip is hidden until hover, then anchored over its trigger" do
-    visit demo_overlays_path
+    visit demo_suite_overlays_path
 
     hidden_initially = page.evaluate_script(
       "!document.querySelector(\"#{TIP_CONTENT}\").matches(':popover-open')"
@@ -70,7 +70,7 @@ class DemoOverlaysTest < ApplicationSystemTestCase
   end
 
   test "dropdown opens as a popover anchored to its trigger and closes on Escape" do
-    visit demo_overlays_path
+    visit demo_suite_overlays_path
 
     trigger = find("button[id$='-menu-button']", match: :first)
     menu_id = trigger["popovertarget"]
@@ -107,7 +107,7 @@ class DemoOverlaysTest < ApplicationSystemTestCase
   end
 
   test "flash renders its message" do
-    visit demo_overlays_path
+    visit demo_suite_overlays_path
     assert_text "Saved successfully."
   end
 end

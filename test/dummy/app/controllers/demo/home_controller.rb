@@ -5,15 +5,26 @@ class Demo::HomeController < ApplicationController
   # demo/harness page lands.
   SECTIONS = [
     {
-      title: "Dynamic-component demos (Cuprite-tested)",
+      title: "Suite skin — dynamic-component demos (Cuprite-tested)",
       links: [
-        {name: "Overlays & Notifications", path: "/demo/overlays",
+        {name: "Overlays & Notifications", path: "/demo/suite/overlays",
          desc: "Toast placement, tooltip + dropdown popovers, flash"},
-        {name: "Navigation", path: "/demo/navigation",
-         desc: "Side navbar: mobile drawer, desktop collapse, search filter"},
-        {name: "Rich inputs", path: "/demo/inputs",
+        {name: "Rich inputs", path: "/demo/suite/inputs",
          desc: "Switch, button radio group, searchable select, date field"},
-        {name: "Media & misc", path: "/demo/media",
+        {name: "Media & misc", path: "/demo/suite/media",
+         desc: "Carousel (Swiper), click-to-copy, code block"}
+      ]
+    },
+    {
+      title: "Daisy skin — dynamic-component demos (Cuprite-tested)",
+      links: [
+        {name: "Overlays & Notifications", path: "/demo/daisy/overlays",
+         desc: "Toast placement, tooltip + dropdown, flash"},
+        {name: "Navigation", path: "/demo/daisy/navigation",
+         desc: "Side navbar: mobile drawer, desktop collapse, search filter"},
+        {name: "Rich inputs", path: "/demo/daisy/inputs",
+         desc: "Switch, button radio group, searchable select, date field"},
+        {name: "Media & misc", path: "/demo/daisy/media",
          desc: "Carousel (Swiper), click-to-copy, code block"}
       ]
     },

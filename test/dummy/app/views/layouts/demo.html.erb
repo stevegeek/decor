@@ -9,10 +9,8 @@
     <%= javascript_importmap_tags %>
   </head>
   <body data-theme="decor-light">
-    <%# Suite toast host, pinned top-right. Toasts are dispatched as window
-        events by demo-triggers / the system test. %>
-    <%= render ::Decor::Suite::NotificationManager.new(position: :top_right) %>
-
+    <%# Notification host is skin-specific, so each overlays page mounts its own
+        (Suite or Daisy) NotificationManager rather than the shared layout. %>
     <main>
       <%= yield %>
     </main>
