@@ -8,7 +8,9 @@ class Demo::HomeController < ApplicationController
       title: "Dynamic-component demos (Cuprite-tested)",
       links: [
         {name: "Overlays & Notifications", path: "/demo/overlays",
-         desc: "Toast placement, tooltip + dropdown popovers, flash"}
+         desc: "Toast placement, tooltip + dropdown popovers, flash"},
+        {name: "Navigation", path: "/demo/navigation",
+         desc: "Side navbar: mobile drawer, desktop collapse, search filter"}
       ]
     },
     {

@@ -1,0 +1,20 @@
+<%# The SideNavbar renders its own fixed desktop rail + (hidden) mobile drawer. %>
+<%= render Demo::SidebarExample.new %>
+
+<div class="decor:lg:pl-72 decor:p-6" data-controller="demo-triggers">
+  <%= render ::Decor::Suite::PageHeader.new(title: "Navigation", subtitle: "Side navbar: mobile drawer, collapse, search") %>
+
+  <%# Hamburger: dispatches the SideNavbar's scoped toggle event (as a top
+      navbar would). On lg the desktop rail is visible; the drawer overlays. %>
+  <button type="button" id="open-mobile-menu"
+          class="decor:mt-4 decor:px-3 decor:py-2 decor:bg-suite-primary-500 decor:text-white decor:rounded-suite-control"
+          data-action="click->demo-triggers#fire"
+          data-demo-triggers-event-param="decor--daisy--nav--side-navbar:toggleMobileMenu">
+    Open mobile menu
+  </button>
+
+  <p class="decor:mt-4 decor:suite-description decor:text-gray-500">
+    On wide screens the rail is on the left — use its collapse button and search.
+    The "Open mobile menu" button opens the drawer overlay.
+  </p>
+</div>

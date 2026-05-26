@@ -18,4 +18,11 @@ export default class extends Controller {
       new CustomEvent("decor--suite--notification-manager:dismissAll"),
     );
   }
+
+  // Generic: dispatch an arbitrary window CustomEvent (e.g. a component's
+  // scoped open/toggle event). data-demo-triggers-event-param="<name>".
+  fire(event) {
+    const name = event.params.event;
+    if (name) window.dispatchEvent(new CustomEvent(name));
+  }
 }
