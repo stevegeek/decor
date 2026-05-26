@@ -15,6 +15,7 @@ class TodoTest < ActiveSupport::TestCase
   test "invalid when title shorter than 3 chars" do
     todo = Todo.new(title: "ab", priority: "low")
     assert_not todo.valid?
+    assert_includes todo.errors[:title], "is too short (minimum is 3 characters)"
   end
 
   test "invalid with an unknown priority" do

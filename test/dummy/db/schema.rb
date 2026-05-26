@@ -19,5 +19,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_26_000001) do
     t.date "due_on"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["title"], name: "index_todos_on_title", unique: true
   end
 end
