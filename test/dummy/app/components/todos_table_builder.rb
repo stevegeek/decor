@@ -6,7 +6,7 @@ class TodosTableBuilder < Decor::Suite::Tables::DataTableBuilder
   end
 
   def pagination_options
-    {path: helpers.suite_turbo_todos_table_path}
+    {path: helpers.suite_turbo_todos_path}
   end
 
   # Todo has no encoded_id, so send integer ids in selected_ids[]:
@@ -23,7 +23,7 @@ class TodosTableBuilder < Decor::Suite::Tables::DataTableBuilder
       label: "Set Priority",
       icon: "pencil",
       style: :primary,
-      url: helpers.bulk_priority_suite_turbo_todos_table_path,
+      url: helpers.bulk_priority_suite_turbo_todos_path,
       http_method: :get,
       modal: true,
       inline: true

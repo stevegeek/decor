@@ -8,9 +8,7 @@
   <% end %>
 
   <%= render ::Decor::Suite::PageSection.new(title: "Todos", separator: true) do %>
-    <ul id="suite-turbo-todos">
-      <%= render partial: "todos/todo", collection: @todos, as: :todo %>
-    </ul>
+    <%= render TodosTableBuilder.new(params: params, helpers: self, rows_selectable_as_name: :todo_ids) %>
   <% end %>
 
   <%= render ::Decor::Suite::PageSection.new(title: "Add a todo", separator: true) do %>

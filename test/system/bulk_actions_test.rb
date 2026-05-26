@@ -13,7 +13,7 @@ class BulkActionsTest < ApplicationSystemTestCase
   end
 
   test "DataTable renders todos as rows with checkboxes" do
-    visit suite_turbo_todos_table_path
+    visit suite_turbo_todos_path
 
     # Each todo title should appear in the table.
     assert_selector "table tbody tr", minimum: 3
@@ -27,7 +27,7 @@ class BulkActionsTest < ApplicationSystemTestCase
   end
 
   test "BulkActionsBar is hidden until rows are selected" do
-    visit suite_turbo_todos_table_path
+    visit suite_turbo_todos_path
 
     # The BulkActionsBar is hidden by default (style="display: none;").
     assert_selector BULK_BAR_SELECTOR, visible: :hidden
@@ -43,7 +43,7 @@ class BulkActionsTest < ApplicationSystemTestCase
   end
 
   test "selecting rows and triggering bulk action opens modal with priority form" do
-    visit suite_turbo_todos_table_path
+    visit suite_turbo_todos_path
 
     # Select two rows.
     checkboxes = all("input[type='checkbox'][name^='todo_ids_']")
@@ -70,7 +70,7 @@ class BulkActionsTest < ApplicationSystemTestCase
   end
 
   test "submitting the bulk-priority form updates the todos and morphs the table" do
-    visit suite_turbo_todos_table_path
+    visit suite_turbo_todos_path
 
     # Confirm initial priorities are "low" for the first two todos.
     assert_equal "low", @todo1.reload.priority
@@ -104,7 +104,7 @@ class BulkActionsTest < ApplicationSystemTestCase
     end
 
     # After redirect (303 → GET), stay on the table page.
-    assert_current_path suite_turbo_todos_table_path, wait: 10
+    assert_current_path suite_turbo_todos_path, wait: 10
 
     # The two selected todos should now have priority "high".
     assert_equal "high", @todo1.reload.priority

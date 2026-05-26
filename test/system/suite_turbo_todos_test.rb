@@ -31,8 +31,8 @@ class SuiteTurboTodosSystemTest < ApplicationSystemTestCase
     find("select[name='todo[priority]']").find("option[value='high']").select_option
     click_button "Create Todo"
 
-    # Outcome: new row present in the suite-turbo-todos list, still on the index URL.
-    assert_selector "#suite-turbo-todos li", text: "Renew library card", wait: 5
+    # Outcome: new row present in the DataTable, still on the index URL.
+    assert_selector "table tbody tr", text: "Renew library card", wait: 5
     assert_current_path suite_turbo_todos_path
     assert_equal 1, Todo.count
 
@@ -56,7 +56,7 @@ class SuiteTurboTodosSystemTest < ApplicationSystemTestCase
     fill_in "todo[title]", with: "Unique suite turbo chore"
     find("select[name='todo[priority]']").find("option[value='low']").select_option
     click_button "Create Todo"
-    assert_selector "#suite-turbo-todos li", text: "Unique suite turbo chore", wait: 5
+    assert_selector "table tbody tr", text: "Unique suite turbo chore", wait: 5
     assert_equal 1, Todo.count
 
     # Submit the same title again — client-side validation passes (length >= 3),

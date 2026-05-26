@@ -15,8 +15,7 @@ Rails.application.routes.draw do
   namespace :suite do
     resources :todos, only: [:index, :create]
     namespace :turbo do
-      resources :todos, only: [:index, :create]
-      resource :todos_table, only: [:show], path: "todos_table" do
+      resources :todos, only: [:index, :create] do
         collection do
           get  :bulk_priority
           post :bulk_priority_submit

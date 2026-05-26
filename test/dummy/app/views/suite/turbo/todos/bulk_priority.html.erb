@@ -5,7 +5,7 @@
 <% selected_count = @selected_ids.size %>
 
 <%= render ::Decor::Suite::Forms::Form.new(
-      url: bulk_priority_submit_suite_turbo_todos_table_path,
+      url: bulk_priority_submit_suite_turbo_todos_path,
       http_method: :post,
       local: true,
       turbo: true

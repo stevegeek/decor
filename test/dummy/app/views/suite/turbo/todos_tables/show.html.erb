@@ -1,9 +1,0 @@
-<%= render ::Decor::Suite::Page.new(flash_data: flash) do |page| %>
-  <% page.with_header do %>
-    <%= render ::Decor::Suite::PageHeader.new(title: "Todos DataTable", subtitle: "Suite DataTable with BulkActionsBar (Turbo Drive)") %>
-  <% end %>
-
-  <%= render ::Decor::Suite::PageSection.new(title: "Todos", separator: true) do %>
-    <%= render TodosTableBuilder.new(params: params, helpers: self, rows_selectable_as_name: :todo_ids) %>
-  <% end %>
-<% end %>
