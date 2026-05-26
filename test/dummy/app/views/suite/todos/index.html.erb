@@ -1,15 +1,23 @@
-<h1>Suite Todos</h1>
+<%= render ::Decor::Suite::Page.new(flash_data: flash) do |page| %>
+  <% page.with_header do %>
+    <%= render ::Decor::Suite::PageHeader.new(title: "Suite Todos", subtitle: "UJS (Turbo opted out)") %>
+  <% end %>
 
-<div id="suite-errors"></div>
+  <%= render ::Decor::Suite::Flash.new(id: "suite-errors", color: :error, collapse_if_empty: true) %>
 
-<ul id="suite-todos">
-  <%= render partial: "todos/todo", collection: @todos, as: :todo %>
-</ul>
+  <%= render ::Decor::Suite::PageSection.new(title: "Todos", separator: true) do %>
+    <ul id="suite-todos">
+      <%= render partial: "todos/todo", collection: @todos, as: :todo %>
+    </ul>
+  <% end %>
 
-<%# local: false => data-remote="true" (UJS); turbo: false => data-turbo="false" (opt out of Turbo). %>
-<%= render ::Decor::Suite::Forms::Form.new(model: @todo, url: suite_todos_path, local: false, turbo: false) do |form_component| %>
-  <%= form_component.builder.text_field :title, label: "Title", required: true, minimum_length: 3 %>
-  <%= form_component.builder.text_area :description, label: "Description", rows: 3 %>
-  <%= form_component.builder.select :priority, [["Low", "low"], ["Medium", "medium"], ["High", "high"]], {label: "Priority"} %>
-  <%= form_component.builder.submit "Create Todo" %>
+  <%= render ::Decor::Suite::PageSection.new(title: "Add a todo", separator: true) do %>
+    <%# local: false => data-remote="true" (UJS); turbo: false => data-turbo="false" (opt out of Turbo). %>
+    <%= render ::Decor::Suite::Forms::Form.new(model: @todo, url: suite_todos_path, local: false, turbo: false) do |form_component| %>
+      <%= form_component.builder.text_field :title, label: "Title", required: true, minimum_length: 3 %>
+      <%= form_component.builder.text_area :description, label: "Description", rows: 3 %>
+      <%= form_component.builder.select :priority, [["Low", "low"], ["Medium", "medium"], ["High", "high"]], {label: "Priority"} %>
+      <%= form_component.builder.submit "Create Todo" %>
+    <% end %>
+  <% end %>
 <% end %>

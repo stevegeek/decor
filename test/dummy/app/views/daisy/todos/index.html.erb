@@ -1,17 +1,24 @@
-<h1>Daisy Todos</h1>
+<%= render ::Decor::Daisy::Page.new(flash_data: flash) do |page| %>
+  <% page.with_header do %>
+    <%= render ::Decor::Daisy::PageHeader.new(title: "Daisy Todos", subtitle: "Turbo Drive") %>
+  <% end %>
 
-<% if @todo.errors.any? %>
-  <div id="daisy-errors"><%= @todo.errors.full_messages.to_sentence %></div>
-<% end %>
+  <% if @todo.errors.any? %>
+    <%= render ::Decor::Daisy::Flash.new(id: "daisy-errors", color: :error, text: @todo.errors.full_messages.to_sentence) %>
+  <% end %>
 
-<ul id="daisy-todos">
-  <%= render partial: "todos/todo", collection: @todos, as: :todo %>
-</ul>
+  <%= render ::Decor::Daisy::PageSection.new(title: "Todos", separator: true) do %>
+    <ul id="daisy-todos">
+      <%= render partial: "todos/todo", collection: @todos, as: :todo %>
+    </ul>
+  <% end %>
 
-<%# turbo: true => Turbo Drive handles the submit (303 -> same-URL refresh -> morph). %>
-<%= render ::Decor::Daisy::Forms::Form.new(model: @todo, url: daisy_todos_path, local: true, turbo: true) do |form_component| %>
-  <%= form_component.builder.text_field :title, label: "Title", required: true %>
-  <%= form_component.builder.text_area :description, label: "Description", rows: 3 %>
-  <%= form_component.builder.select :priority, [["Low", "low"], ["Medium", "medium"], ["High", "high"]], {label: "Priority"} %>
-  <%= form_component.builder.submit "Create Todo" %>
+  <%= render ::Decor::Daisy::PageSection.new(title: "Add a todo", separator: true) do %>
+    <%= render ::Decor::Daisy::Forms::Form.new(model: @todo, url: daisy_todos_path, local: true, turbo: true) do |form_component| %>
+      <%= form_component.builder.text_field :title, label: "Title", required: true %>
+      <%= form_component.builder.text_area :description, label: "Description", rows: 3 %>
+      <%= form_component.builder.select :priority, [["Low", "low"], ["Medium", "medium"], ["High", "high"]], {label: "Priority"} %>
+      <%= form_component.builder.submit "Create Todo" %>
+    <% end %>
+  <% end %>
 <% end %>

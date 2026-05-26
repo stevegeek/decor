@@ -78,14 +78,35 @@ export default class extends Controller {
     if (!list) return;
     const body = this.parse(Array.isArray(e.detail) ? e.detail[0] : e.detail);
     if (body.html) list.insertAdjacentHTML("beforeend", body.html);
-    const errors = document.getElementById("suite-errors");
-    if (errors) errors.textContent = "";
+    this.hideSuiteErrors();
   }
 
   onSuiteError(e) {
     const errors = document.getElementById("suite-errors");
     if (!errors) return;
     const body = this.parse(Array.isArray(e.detail) ? e.detail[0] : e.detail);
-    errors.textContent = (body.errors || []).join(", ");
+    const message = (body.errors || []).join(", ");
+    // Try wiring into the decor Suite::Flash Stimulus controller first.
+    const flashCtrl = window.Stimulus &&
+      window.Stimulus.getControllerForElementAndIdentifier(errors, "decor--suite--flash");
+    if (flashCtrl) {
+      flashCtrl.showFlashMessage(message);
+    } else {
+      // Fallback: write text directly and ensure the element is visible.
+      errors.textContent = message;
+      errors.removeAttribute("hidden");
+    }
+  }
+
+  hideSuiteErrors() {
+    const errors = document.getElementById("suite-errors");
+    if (!errors) return;
+    const flashCtrl = window.Stimulus &&
+      window.Stimulus.getControllerForElementAndIdentifier(errors, "decor--suite--flash");
+    if (flashCtrl) {
+      flashCtrl.hide();
+    } else {
+      errors.textContent = "";
+    }
   }
 }

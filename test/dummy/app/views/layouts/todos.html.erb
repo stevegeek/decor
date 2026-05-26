@@ -10,13 +10,19 @@
     <%= stylesheet_link_tag "decor", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-  <body>
+  <body data-theme="decor-light">
+    <%= render ::Decor::Suite::NotificationManager.new(position: :top_right) %>
+
     <%# Instrument block: data-turbo-permanent so morphs preserve the logged
-        events and the document-level listeners. %>
-    <div id="instrument" data-turbo-permanent data-controller="event-logger">
+        events and the document-level listeners.
+        Restyled as an unobtrusive fixed debug panel; ids/attrs unchanged. %>
+    <aside id="instrument" data-turbo-permanent data-controller="event-logger"
+           style="position:fixed;bottom:0;right:0;z-index:9999;width:280px;max-height:200px;overflow:hidden;background:rgba(0,0,0,0.75);color:#e5e7eb;font-size:11px;font-family:monospace;border-top-left-radius:6px;">
+      <div style="padding:4px 8px;background:rgba(0,0,0,0.5);font-weight:600;letter-spacing:.05em;">event log</div>
       <div id="morph-sentinel" data-event-logger-target="sentinel"></div>
-      <ol id="event-log"></ol>
-    </div>
+      <ol id="event-log" style="margin:0;padding:4px 8px;list-style:none;overflow-y:auto;max-height:160px;"></ol>
+    </aside>
+
     <main>
       <%= yield %>
     </main>
