@@ -9,13 +9,14 @@ module Decor
         # Toggles vertical gridlines between body cells.
         prop :enabled_grid, _Boolean, default: false
 
-        # String-keyed outlets so the parallel Suite row/cell/bulk-actions
-        # skins don't need to exist at load time.
+        # Outlets to the parallel Suite skins. Naming the classes keeps the
+        # identifiers rename-safe; they autoload cleanly (no load-time cycle,
+        # since the skins reference DataTable only in render-time methods).
         stimulus do
           outlets({
-            "decor--suite--tables--data-table-header-row" => nil,
-            "decor--suite--tables--data-table-row" => nil,
-            "decor--suite--tables--bulk-actions-bar" => nil
+            ::Decor::Suite::Tables::DataTableHeaderRow => nil,
+            ::Decor::Suite::Tables::DataTableRow => nil,
+            ::Decor::Suite::Tables::BulkActionsBar => nil
           })
         end
 
