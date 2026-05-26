@@ -55,8 +55,8 @@ module Decor
         def root_element_attributes
           {
             outlets: [
-              ::Decor::Daisy::Forms::HelperTextSection.stimulus_identifier,
-              ::Decor::Daisy::Forms::ErrorIconSection.stimulus_identifier
+              ::Decor::Daisy::Forms::HelperTextSection,
+              ::Decor::Daisy::Forms::ErrorIconSection
             ]
           }
         end

@@ -8,7 +8,7 @@ module Decor
 
         stimulus do
           classes shown: "", filtered: "hidden"
-          outlets({::Decor::Daisy::Nav::SideNavbarItem.stimulus_identifier => nil})
+          outlets({::Decor::Daisy::Nav::SideNavbarItem => nil})
         end
 
         def with_item(**attributes, &block)

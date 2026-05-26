@@ -22,8 +22,8 @@ module Decor
           # `decor--daisy--forms--checkbox`. One extra `data-...-outlet`
           # attribute on the root is cheap and avoids a per-skin override.
           outlets({
-            ::Decor::Daisy::Forms::Checkbox.stimulus_identifier => nil,
-            ::Decor::Suite::Forms::Checkbox.stimulus_identifier => nil
+            ::Decor::Daisy::Forms::Checkbox => nil,
+            ::Decor::Suite::Forms::Checkbox => nil
           })
           values label: "collection", required: -> { @required }
           classes(

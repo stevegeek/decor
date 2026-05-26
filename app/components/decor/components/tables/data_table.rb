@@ -40,8 +40,8 @@ module Decor
 
         stimulus do
           outlets({
-            ::Decor::Daisy::Tables::DataTableHeaderRow.stimulus_identifier => nil,
-            ::Decor::Daisy::Tables::DataTableRow.stimulus_identifier => nil
+            ::Decor::Daisy::Tables::DataTableHeaderRow => nil,
+            ::Decor::Daisy::Tables::DataTableRow => nil
           })
 
           values table_id: -> { @table_identifier },

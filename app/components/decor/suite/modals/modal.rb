@@ -116,9 +116,7 @@ module Decor
             type: "button",
             class: "decor:w-[22px] decor:h-[22px] decor:inline-flex decor:items-center decor:justify-center decor:rounded-suite-control decor:text-gray-400 decor:hover:bg-gray-100 decor:hover:text-gray-900 decor:shrink-0",
             aria_label: "Close",
-            data: {
-              action: "click->#{stimulus_identifier}#close"
-            }
+            data: stimulus_action(:click, :close).to_h
           ) do
             render ::Decor::Icon.new(name: "x-mark", html_options: {class: "decor:w-3.5 decor:h-3.5"})
           end

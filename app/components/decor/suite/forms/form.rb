@@ -31,7 +31,7 @@ module Decor
             Dir.glob(File.join(base, "*.rb")).each { |f| require_dependency f }
           end
           ::Decor::Components::Forms::FormField.descendants.each do |klass|
-            add_stimulus_outlets(klass.stimulus_identifier)
+            add_stimulus_outlets(klass)
           end
         end
 

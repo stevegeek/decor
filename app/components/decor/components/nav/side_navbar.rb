@@ -15,7 +15,7 @@ module Decor
             [:mouseenter, :handle_mouse_over],
             [:mouseleave, :handle_mouse_away]
           values_from_props :collapsed
-          outlets({::Decor::Daisy::Nav::SideNavbarSection.stimulus_identifier => nil})
+          outlets({::Decor::Daisy::Nav::SideNavbarSection => nil})
         end
 
         def with_section(**attributes, &block)
