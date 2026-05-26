@@ -1,26 +1,29 @@
-<%# Modal body fragment: priority-select form for the selected todos.
-    Loaded via GET into the Suite Modal body (fetchAndInjectBody).
-    Returned as a bare HTML fragment (no layout). %>
+<%# Modal body fragment: decor Suite form to set priority for the selected todos.
+    Loaded via GET into the Suite Modal body (fetchAndInjectBody), submitted under
+    Turbo Drive (turbo: true). Built with the decor Form component + form builder. %>
 
 <% selected_count = @selected_ids.size %>
 
-<%= form_with(url: bulk_priority_submit_suite_turbo_todos_table_path, method: :post, local: true) do |f| %>
+<%= render ::Decor::Suite::Forms::Form.new(
+      url: bulk_priority_submit_suite_turbo_todos_table_path,
+      http_method: :post,
+      local: true,
+      turbo: true
+    ) do |form| %>
 
-  <p style="margin-bottom:1rem">
+  <p class="decor:mb-4">
     Set priority for <strong><%= selected_count %></strong>
     selected <%= selected_count == 1 ? "todo" : "todos" %>.
   </p>
 
-  <%# Hidden inputs carrying the selected todo IDs. %>
+  <%# Hidden inputs carrying the selected todo IDs (todo_ids[]). %>
   <% @selected_ids.each do |id| %>
-    <%= f.hidden_field :todo_ids, multiple: true, value: id %>
+    <input type="hidden" name="todo_ids[]" value="<%= id %>">
   <% end %>
 
-  <div style="margin-bottom:1rem">
-    <label for="bulk_priority_select" style="display:block;margin-bottom:0.25rem">New priority</label>
-    <%= f.select :priority, [["Low", "low"], ["Medium", "medium"], ["High", "high"]],
-                 {}, { id: "bulk_priority_select", name: "priority" } %>
-  </div>
+  <%= form.builder.select :priority,
+        [["Low", "low"], ["Medium", "medium"], ["High", "high"]],
+        {label: "New priority"} %>
 
-  <%= f.submit "Apply", id: "bulk_priority_submit" %>
+  <%= form.builder.submit "Apply" %>
 <% end %>

@@ -65,7 +65,7 @@ class BulkActionsTest < ApplicationSystemTestCase
 
     # The modal body should contain the priority form (loaded from content_href).
     within "#{BULK_MODAL_SELECTOR}[open]" do
-      assert_selector "select#bulk_priority_select", wait: 10
+      assert_selector "select[name='priority']", wait: 10
     end
   end
 
@@ -94,13 +94,13 @@ class BulkActionsTest < ApplicationSystemTestCase
     # Wait for modal to open and form to load.
     assert_selector "#{BULK_MODAL_SELECTOR}[open]", wait: 10
     within "#{BULK_MODAL_SELECTOR}[open]" do
-      assert_selector "select#bulk_priority_select", wait: 10
+      assert_selector "select[name='priority']", wait: 10
 
       # Choose "high" priority.
-      find("select#bulk_priority_select").find("option[value='high']").select_option
+      find("select[name='priority']").find("option[value='high']").select_option
 
-      # Submit the form.
-      find("#bulk_priority_submit").click
+      # Submit the form (decor builder submit button).
+      click_button "Apply"
     end
 
     # After redirect (303 → GET), stay on the table page.
