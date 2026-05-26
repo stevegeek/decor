@@ -27,8 +27,8 @@ module Decor
                 align: :center
               ) {
                 render ::Decor::Suite::Forms::Checkbox.new(
-                  stimulus_targets: [stimulus_target(:checkbox)],
-                  stimulus_actions: [stimulus_action(:change, :row_selected)],
+                  control_targets: [stimulus_target("decor/suite/tables/data_table", :row_checkbox)],
+                  control_actions: [stimulus_action(:change, "decor/suite/tables/data_table", :row_changed)],
                   show_label: false,
                   name: @selectable_as,
                   value: @selectable_value,

@@ -4,22 +4,28 @@ import SelectionPersistenceService from "../../../../services/selection_persiste
 /**
  * Suite DataTable Stimulus controller.
  *
- * Coordinates header-row, body-row, and bulk-actions outlets:
- *   - propagates header-checkbox "select all" → individual row controllers
- *   - listens for individual row selection-change events → updates the header
- *     tri-state checkbox + the bulk-actions bar
- *   - optionally persists selections to localStorage keyed by `tableIdValue`,
+ * Owns row selection directly via checkbox targets — no per-row or header-row
+ * outlet controllers required:
+ *   - `rowCheckbox` targets  → the individual row <input type="checkbox"> elements
+ *   - `selectAllCheckbox` target → the "select all" header <input type="checkbox">
+ *   - `rowChanged(event)` action → fired by each row checkbox on change
+ *   - `toggleAll(event)` action  → fired by the header checkbox on change
+ *   - Keeps bulk-actions-bar outlet wiring unchanged
+ *   - Optionally persists selections to localStorage keyed by `tableIdValue`,
  *     restoring them on reconnect and synchronising across browser tabs
- *   - paints inset-scroll-shadow fades on the horizontal scroll wrapper
+ *   - Paints inset-scroll-shadow fades on the horizontal scroll wrapper
  */
 export default class extends Controller {
   static outlets = [
-    "decor--suite--tables--data-table-header-row",
-    "decor--suite--tables--data-table-row",
     "decor--suite--tables--bulk-actions-bar",
   ];
 
-  static targets = ["tableContentContainer", "tableBody"];
+  static targets = [
+    "tableContentContainer",
+    "tableBody",
+    "rowCheckbox",
+    "selectAllCheckbox",
+  ];
 
   static values = {
     tableId: { type: String, default: "" },
@@ -28,18 +34,6 @@ export default class extends Controller {
 
   static SELECTION_CHANGE_DEBOUNCE_MS = 150;
   static MAX_APPLY_SELECTIONS_RETRIES = 3;
-
-  get headerRowController() {
-    return this.decorSuiteTablesDataTableHeaderRowOutlet;
-  }
-
-  get hasHeaderRowController() {
-    return this.hasDecorSuiteTablesDataTableHeaderRowOutlet;
-  }
-
-  get rowControllers() {
-    return this.decorSuiteTablesDataTableRowOutlets;
-  }
 
   get bulkActionsBarController() {
     return this.decorSuiteTablesBulkActionsBarOutlet;
@@ -53,7 +47,6 @@ export default class extends Controller {
     this.selectionChangeListeners = new Set();
     this.storageListenerCleanup = null;
     this.persistedSelections = new Set();
-    this.rowSelectionChangeHandler = null;
     this.applySelectionsRetryCount = 0;
     this.selectionChangeDebounceTimer = null;
     this.resizeObserver = null;
@@ -72,10 +65,6 @@ export default class extends Controller {
       );
     }
 
-    if (this.hasHeaderRowController && typeof this.headerRowController.onCheckboxChange === "function") {
-      this.headerRowController.onCheckboxChange(this.toggleRows.bind(this));
-    }
-
     if (this.hasBulkActionsBarController) {
       if (typeof this.bulkActionsBarController.setDataTableController === "function") {
         this.bulkActionsBarController.setDataTableController(this);
@@ -89,12 +78,6 @@ export default class extends Controller {
       }
     }
 
-    this.rowSelectionChangeHandler = this.handleRowSelectionChange.bind(this);
-    this.element.addEventListener(
-      "data-table-row-selection-changed",
-      this.rowSelectionChangeHandler,
-    );
-
     if (this.hasTableContentContainerTarget) {
       this.resizeObserver = new ResizeObserver(() => this.contentScrolled());
       this.resizeObserver.observe(this.tableContentContainerTarget);
@@ -103,13 +86,6 @@ export default class extends Controller {
 
   disconnect() {
     this.selectionChangeListeners.clear();
-    if (this.rowSelectionChangeHandler) {
-      this.element.removeEventListener(
-        "data-table-row-selection-changed",
-        this.rowSelectionChangeHandler,
-      );
-      this.rowSelectionChangeHandler = null;
-    }
     if (this.storageListenerCleanup) {
       this.storageListenerCleanup();
       this.storageListenerCleanup = null;
@@ -124,6 +100,113 @@ export default class extends Controller {
     }
   }
 
+  // ── Target lifecycle callbacks ──────────────────────────────────────────────
+
+  rowCheckboxTargetConnected(checkbox) {
+    if (this.persistSelectionsValue && this.tableIdValue) {
+      if (this.persistedSelections.has(checkbox.value)) {
+        checkbox.checked = true;
+      }
+    }
+    this.updateHeaderCheckboxState();
+  }
+
+  rowCheckboxTargetDisconnected(_checkbox) {
+    this.updateHeaderCheckboxState();
+  }
+
+  // ── Actions ────────────────────────────────────────────────────────────────
+
+  /**
+   * Called when an individual row checkbox changes.
+   * Updates persistence, header tri-state, and notifies listeners.
+   */
+  rowChanged(event) {
+    const checkbox = event.target;
+    if (this.persistSelectionsValue && this.tableIdValue) {
+      if (checkbox.checked) {
+        this.persistedSelections.add(checkbox.value);
+      } else {
+        this.persistedSelections.delete(checkbox.value);
+      }
+    }
+    this.updateHeaderCheckboxState();
+    this.notifySelectionChange();
+  }
+
+  /**
+   * Called when the "select all" header checkbox changes.
+   * Sets every row checkbox to match and updates persistence.
+   */
+  toggleAll(event) {
+    const checked = event.target.checked;
+    this.rowCheckboxTargets.forEach((cb) => {
+      cb.checked = checked;
+    });
+    if (this.persistSelectionsValue && this.tableIdValue) {
+      if (checked) {
+        this.rowCheckboxTargets.forEach((cb) => {
+          if (cb.value) this.persistedSelections.add(cb.value);
+        });
+      } else {
+        this.rowCheckboxTargets.forEach((cb) => {
+          if (cb.value) this.persistedSelections.delete(cb.value);
+        });
+      }
+    }
+    this.notifySelectionChange();
+  }
+
+  // ── Selection API ───────────────────────────────────────────────────────────
+
+  getSelectedRowIds() {
+    if (this.persistSelectionsValue && this.tableIdValue) {
+      return Array.from(this.persistedSelections);
+    }
+    return this.rowCheckboxTargets
+      .filter((cb) => cb.checked)
+      .map((cb) => cb.value);
+  }
+
+  getVisibleSelectedRowIds() {
+    return this.rowCheckboxTargets
+      .filter((cb) => cb.checked)
+      .map((cb) => cb.value);
+  }
+
+  getSelectionCount() {
+    if (this.persistSelectionsValue && this.tableIdValue) {
+      return this.persistedSelections.size;
+    }
+    return this.rowCheckboxTargets.filter((cb) => cb.checked).length;
+  }
+
+  hasSelection() {
+    return this.getSelectionCount() > 0;
+  }
+
+  clearSelection() {
+    this.rowCheckboxTargets.forEach((cb) => {
+      cb.checked = false;
+    });
+    if (this.hasSelectAllCheckboxTarget) {
+      this.selectAllCheckboxTarget.checked = false;
+      this.selectAllCheckboxTarget.indeterminate = false;
+    }
+    if (this.persistSelectionsValue && this.tableIdValue) {
+      this.persistedSelections.clear();
+      SelectionPersistenceService.clearSelections(this.tableIdValue);
+    }
+    this.notifySelectionChange();
+  }
+
+  onSelectionChange(callback) {
+    this.selectionChangeListeners.add(callback);
+    return () => this.selectionChangeListeners.delete(callback);
+  }
+
+  // ── Internal helpers ────────────────────────────────────────────────────────
+
   loadPersistedSelections() {
     if (!this.persistSelectionsValue || !this.tableIdValue) return;
 
@@ -137,7 +220,7 @@ export default class extends Controller {
   applyPersistedSelections() {
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        if (this.rowControllers.length === 0) {
+        if (this.rowCheckboxTargets.length === 0) {
           this.applySelectionsRetryCount++;
           if (
             this.applySelectionsRetryCount <
@@ -146,7 +229,7 @@ export default class extends Controller {
             requestAnimationFrame(() => this.applyPersistedSelections());
           } else {
             console.warn(
-              `Failed to apply persisted selections after ${this.constructor.MAX_APPLY_SELECTIONS_RETRIES} retries. Row controllers may not be initialized.`,
+              `Failed to apply persisted selections after ${this.constructor.MAX_APPLY_SELECTIONS_RETRIES} retries. Row checkboxes may not be initialized.`,
             );
           }
           return;
@@ -154,10 +237,9 @@ export default class extends Controller {
 
         this.applySelectionsRetryCount = 0;
 
-        this.rowControllers.forEach((controller) => {
-          const rowId = controller.checkboxValue;
-          if (rowId && this.persistedSelections.has(rowId)) {
-            controller.checked = true;
+        this.rowCheckboxTargets.forEach((cb) => {
+          if (cb.value && this.persistedSelections.has(cb.value)) {
+            cb.checked = true;
           }
         });
 
@@ -172,12 +254,11 @@ export default class extends Controller {
 
   handleStorageChange(selectedIds) {
     this.persistedSelections = new Set(selectedIds);
-    this.rowControllers.forEach((controller) => {
-      const rowId = controller.checkboxValue;
-      if (rowId) {
-        const shouldBeChecked = this.persistedSelections.has(rowId);
-        if (controller.checked !== shouldBeChecked) {
-          controller.checked = shouldBeChecked;
+    this.rowCheckboxTargets.forEach((cb) => {
+      if (cb.value) {
+        const shouldBeChecked = this.persistedSelections.has(cb.value);
+        if (cb.checked !== shouldBeChecked) {
+          cb.checked = shouldBeChecked;
         }
       }
     });
@@ -210,106 +291,27 @@ export default class extends Controller {
     SelectionPersistenceService.saveSelections(tableId, visibleSelections);
   }
 
-  handleRowSelectionChange(event) {
-    const detail = event.detail;
-    if (this.persistSelectionsValue && this.tableIdValue) {
-      if (detail && detail.checkboxValue) {
-        if (detail.checked) {
-          this.persistedSelections.add(detail.checkboxValue);
-        } else {
-          this.persistedSelections.delete(detail.checkboxValue);
-        }
-      }
-    }
-    this.updateHeaderCheckboxState();
-    this.notifySelectionChange();
-  }
-
   updateHeaderCheckboxState() {
-    if (!this.hasHeaderRowController) return;
-    const allVisibleChecked = this.rowControllers.every((c) => c.checked);
-    const someChecked = this.rowControllers.some((c) => c.checked);
-    const hasPersistedSelections = this.persistedSelections.size > 0;
+    if (!this.hasSelectAllCheckboxTarget) return;
 
-    if (allVisibleChecked && this.rowControllers.length > 0) {
-      this.headerRowController.checked = true;
-      this.headerRowController.indeterminate = false;
+    const checkboxes = this.rowCheckboxTargets;
+    const allChecked = checkboxes.length > 0 && checkboxes.every((cb) => cb.checked);
+    const someChecked = checkboxes.some((cb) => cb.checked);
+    const hasPersistedSelections =
+      this.persistSelectionsValue && this.persistedSelections.size > 0;
+
+    const header = this.selectAllCheckboxTarget;
+
+    if (allChecked) {
+      header.checked = true;
+      header.indeterminate = false;
     } else if (someChecked || hasPersistedSelections) {
-      this.headerRowController.checked = false;
-      this.headerRowController.indeterminate = true;
+      header.checked = false;
+      header.indeterminate = true;
     } else {
-      this.headerRowController.checked = false;
-      this.headerRowController.indeterminate = false;
+      header.checked = false;
+      header.indeterminate = false;
     }
-  }
-
-  toggleRows(checked) {
-    this.rowControllers.forEach((controller) => {
-      controller.checked = checked;
-    });
-    if (this.persistSelectionsValue && this.tableIdValue) {
-      if (checked) {
-        this.rowControllers.forEach((controller) => {
-          const rowId = controller.checkboxValue;
-          if (rowId) this.persistedSelections.add(rowId);
-        });
-      } else {
-        this.rowControllers.forEach((controller) => {
-          const rowId = controller.checkboxValue;
-          if (rowId) this.persistedSelections.delete(rowId);
-        });
-      }
-    }
-    this.notifySelectionChange();
-  }
-
-  getSelectedRowIds() {
-    if (this.persistSelectionsValue && this.tableIdValue) {
-      return Array.from(this.persistedSelections);
-    }
-    return this.rowControllers
-      .filter((controller) => controller.checked)
-      .map((controller) => controller.checkboxValue);
-  }
-
-  getVisibleSelectedRowIds() {
-    return this.rowControllers
-      .filter((controller) => controller.checked)
-      .map((controller) => controller.checkboxValue);
-  }
-
-  getSelectedRows() {
-    return this.rowControllers.filter((controller) => controller.checked);
-  }
-
-  getSelectionCount() {
-    if (this.persistSelectionsValue && this.tableIdValue) {
-      return this.persistedSelections.size;
-    }
-    return this.rowControllers.filter((controller) => controller.checked).length;
-  }
-
-  hasSelection() {
-    return this.getSelectionCount() > 0;
-  }
-
-  clearSelection() {
-    this.rowControllers.forEach((controller) => {
-      controller.checked = false;
-    });
-    if (this.hasHeaderRowController) {
-      this.headerRowController.checked = false;
-    }
-    if (this.persistSelectionsValue && this.tableIdValue) {
-      this.persistedSelections.clear();
-      SelectionPersistenceService.clearSelections(this.tableIdValue);
-    }
-    this.notifySelectionChange();
-  }
-
-  onSelectionChange(callback) {
-    this.selectionChangeListeners.add(callback);
-    return () => this.selectionChangeListeners.delete(callback);
   }
 
   notifySelectionChange() {
@@ -338,6 +340,8 @@ export default class extends Controller {
       }
     }, this.constructor.SELECTION_CHANGE_DEBOUNCE_MS);
   }
+
+  // ── Table DOM helpers ───────────────────────────────────────────────────────
 
   appendRow(row) {
     if (this.hasTableBodyTarget) {
