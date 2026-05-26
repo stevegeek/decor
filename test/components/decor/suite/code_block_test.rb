@@ -84,12 +84,12 @@ class ::Decor::Suite::CodeBlockTest < ActiveSupport::TestCase
     refute_includes rows[2]["class"], "decor:bg-amber-500"
   end
 
-  test "stimulus identifier binds to the daisy code_block controller" do
+  test "stimulus identifier binds to the suite code_block controller" do
     html = render_component(::Decor::Suite::CodeBlock.new(language: "javascript", highlight: true)) { "const x = 1;" }
-    assert_includes html, "data-controller=\"decor--daisy--code-block\""
-    assert_includes html, "data-decor--daisy--code-block-language-value=\"javascript\""
-    assert_includes html, "data-decor--daisy--code-block-highlight-value=\"true\""
-    assert_includes html, "data-decor--daisy--code-block-target=\"code\""
+    assert_includes html, "data-controller=\"decor--suite--code-block\""
+    assert_includes html, "data-decor--suite--code-block-language-value=\"javascript\""
+    assert_includes html, "data-decor--suite--code-block-highlight-value=\"true\""
+    assert_includes html, "data-decor--suite--code-block-target=\"code\""
   end
 
   test "renders both filename and copy button together" do

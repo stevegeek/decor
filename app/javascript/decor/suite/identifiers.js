@@ -17,6 +17,7 @@ export const DecorSuiteAiChatWidgetIdentifier = "decor--suite--ai-chat--widget";
 export const DecorSuiteButtonIdentifier = "decor--suite--button";
 export const DecorSuiteCarouselIdentifier = "decor--suite--carousel";
 export const DecorSuiteClickToCopyIdentifier = "decor--suite--click-to-copy";
+export const DecorSuiteCodeBlockIdentifier = "decor--suite--code-block";
 export const DecorSuiteDropdownIdentifier = "decor--suite--dropdown";
 export const DecorSuiteFlashIdentifier = "decor--suite--flash";
 export const DecorSuiteMapIdentifier = "decor--suite--map";

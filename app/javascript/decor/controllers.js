@@ -2,7 +2,7 @@
 import DaisyAiChatWidgetController from "../controllers/decor/daisy/ai_chat/widget_controller";
 import DaisyButtonController from "../controllers/decor/daisy/button_controller";
 import DaisyClickToCopyController from "../controllers/decor/daisy/click_to_copy_controller";
-import CodeBlockController from "../controllers/decor/daisy/code_block_controller";
+import DaisyCodeBlockController from "../controllers/decor/daisy/code_block_controller";
 import DaisyDropdownController from "../controllers/decor/daisy/dropdown_controller";
 import DaisyFlashController from "../controllers/decor/daisy/flash_controller";
 import DaisyFormsButtonRadioGroupController from "../controllers/decor/daisy/forms/button_radio_group_controller";
@@ -38,6 +38,7 @@ import SuiteAiChatWidgetController from "../controllers/decor/suite/ai_chat/widg
 import SuiteButtonController from "../controllers/decor/suite/button_controller";
 import CarouselController from "../controllers/decor/suite/carousel_controller";
 import SuiteClickToCopyController from "../controllers/decor/suite/click_to_copy_controller";
+import SuiteCodeBlockController from "../controllers/decor/suite/code_block_controller";
 import SuiteDropdownController from "../controllers/decor/suite/dropdown_controller";
 import SuiteFlashController from "../controllers/decor/suite/flash_controller";
 import SuiteFormsButtonRadioGroupController from "../controllers/decor/suite/forms/button_radio_group_controller";
@@ -78,7 +79,7 @@ export const CONTROLLERS = {
   "decor--daisy--ai-chat--widget": DaisyAiChatWidgetController,
   "decor--daisy--button": DaisyButtonController,
   "decor--daisy--click-to-copy": DaisyClickToCopyController,
-  "decor--daisy--code-block": CodeBlockController,
+  "decor--daisy--code-block": DaisyCodeBlockController,
   "decor--daisy--dropdown": DaisyDropdownController,
   "decor--daisy--flash": DaisyFlashController,
   "decor--daisy--forms--button-radio-group": DaisyFormsButtonRadioGroupController,
@@ -114,6 +115,7 @@ export const CONTROLLERS = {
   "decor--suite--button": SuiteButtonController,
   "decor--suite--carousel": CarouselController,
   "decor--suite--click-to-copy": SuiteClickToCopyController,
+  "decor--suite--code-block": SuiteCodeBlockController,
   "decor--suite--dropdown": SuiteDropdownController,
   "decor--suite--flash": SuiteFlashController,
   "decor--suite--forms--button-radio-group": SuiteFormsButtonRadioGroupController,

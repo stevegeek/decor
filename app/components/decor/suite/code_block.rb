@@ -3,11 +3,6 @@
 module Decor
   module Suite
     class CodeBlock < ::Decor::Components::CodeBlock
-      # Bind to the existing Daisy code_block Stimulus controller (no Suite JS).
-      def self.stimulus_identifier_path
-        "decor/daisy/code_block"
-      end
-
       private
 
       def view_template(&block)
