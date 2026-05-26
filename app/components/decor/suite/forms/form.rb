@@ -23,6 +23,8 @@ module Decor
         def after_component_initialize
           super if defined?(super)
 
+          @actions_block = nil
+
           # Outlets to all FormField subclasses. Eager-load Suite/Components form
           # field files in development so that descendants reflects everything
           # actually shipped, not just whatever's been autoloaded by this request.
@@ -33,6 +35,21 @@ module Decor
           ::Decor::Components::Forms::FormField.descendants.each do |klass|
             add_stimulus_outlets(klass)
           end
+        end
+
+        # Deferred footer slot. Buttons passed here render in a separated,
+        # right-aligned footer at the bottom of the form (inside the <form>, so
+        # submit works) rather than inline where the call appears:
+        #
+        #   <%= render Suite::Forms::Form.new(...) do |f| %>
+        #     <%= f.builder.text_field :title %>
+        #     <% f.with_actions do %>
+        #       <%= f.builder.submit "Save" %>
+        #     <% end %>
+        #   <% end %>
+        def with_actions(&block)
+          @actions_block = block
+          self
         end
 
         def view_template(&block)
@@ -58,12 +75,32 @@ module Decor
                 content << captured.to_s if captured.present?
               end
 
+              # Footer slot is captured AFTER the body block has run (which is
+              # when `with_actions` registers it) and appended last, so its
+              # buttons land in the footer region regardless of where the
+              # caller placed the `with_actions` call.
+              if @actions_block
+                actions_inner = capture { @actions_block.call }
+                if actions_inner.present?
+                  content << %(<div class="#{actions_footer_classes}">)
+                  content << actions_inner.to_s
+                  content << "</div>"
+                end
+              end
+
               content.html_safe
             end
           )
         end
 
         private
+
+        # Separated, right-aligned action region: a top hairline + spacing
+        # divides it from the field stack; buttons flow end-aligned with a gap.
+        def actions_footer_classes
+          "decor:mt-4 decor:pt-4 decor:border-t decor:border-suite-hairline " \
+            "decor:flex decor:flex-wrap decor:items-center decor:justify-end decor:gap-2"
+        end
 
         # Vident's Action.parse expects Symbol events (not bare Strings —
         # those parse as controller paths), so use the quoted-symbol form.

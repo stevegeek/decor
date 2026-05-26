@@ -200,6 +200,30 @@ class ::Decor::Suite::Forms::TextFieldTest < ActiveSupport::TestCase
     assert_includes html, "Legal name"
   end
 
+  test "label_position :inside renders a floating label element inside the field (issue: was reserved space with no label)" do
+    html = render_component(
+      ::Decor::Suite::Forms::TextField.new(name: "n", label: "Title", label_position: :inside)
+    )
+    # A real <label for=...-control> with the text must render (previously the
+    # strip was reserved via pt-[19px] but no label element was emitted).
+    assert_match(/<label[^>]*for="[^"]+-control"[^>]*>Title<\/label>/, html)
+    # The label is pinned inside the input box and the input reserves the strip.
+    assert_includes html, "decor:pt-[19px]"
+  end
+
+  test "label_position :inside floating label carries the suite-field-label typography + label target" do
+    html = render_component(
+      ::Decor::Suite::Forms::TextField.new(name: "n", label: "Title", label_position: :inside)
+    )
+    assert_match(/<label[^>]*data-decor--suite--forms--text-field-target="label"[^>]*>Title<\/label>/, html)
+  end
+
+  test "invalid_input stimulus class uses suite-danger tokens, not the daisy invalid:border-error-dark" do
+    html = render_component(::Decor::Suite::Forms::TextField.new(name: "n", label: "L"))
+    assert_match(/invalid-input-class="[^"]*decor:border-suite-danger-500[^"]*"/, html)
+    refute_includes html, "invalid:border-error-dark"
+  end
+
   test "silent_helper_and_error_text hides both helper and error rendering" do
     html = render_component(
       ::Decor::Suite::Forms::TextField.new(

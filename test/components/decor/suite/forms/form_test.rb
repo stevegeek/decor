@@ -167,6 +167,33 @@ class ::Decor::Suite::Forms::FormTest < ActiveSupport::TestCase
     assert_includes html, "decor:gap-2"
   end
 
+  test "with_actions renders a separated, right-aligned footer region with the action buttons inside the form" do
+    html = render_component(::Decor::Suite::Forms::Form.new(model: @model, url: "/test")) do |form_component|
+      form_component.raw form_component.builder.hidden_field(:name)
+      form_component.with_actions do
+        form_component.raw "<button type='submit'>Save</button>".html_safe
+      end
+    end
+
+    # A footer region with the separator hairline + end alignment is emitted.
+    assert_includes html, "decor:border-t"
+    assert_match(/<div class="[^"]*decor:justify-end[^"]*">/, html)
+    # The button renders inside that footer (footer div opens before the button).
+    assert_includes html, "<button type='submit'>Save</button>"
+    assert html.index("decor:justify-end") < html.index("Save"),
+      "Expected the Save button to render inside the justify-end footer region"
+    # Footer stays inside the <form> so submit works.
+    assert html.index("Save") < html.index("</form>"),
+      "Expected the footer to render inside the <form>"
+  end
+
+  test "no footer region is emitted when with_actions is not used" do
+    html = render_component(::Decor::Suite::Forms::Form.new(model: @model, url: "/test")) do |form_component|
+      form_component.raw form_component.builder.hidden_field(:name)
+    end
+    refute_includes html, "decor:border-t decor:border-suite-hairline"
+  end
+
   test "exposes the configured Rails FormBuilder via #builder after render" do
     component = ::Decor::Suite::Forms::Form.new(model: @model, url: "/test")
     render_component(component) { |_form_component| nil }

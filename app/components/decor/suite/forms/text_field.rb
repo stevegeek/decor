@@ -6,6 +6,20 @@ module Decor
       class TextField < ::Decor::Components::Forms::TextField
         prop :silent_helper_and_error_text, _Boolean, default: false
 
+        # The base sets `invalid_input: "invalid:border-error-dark"` — a Daisy
+        # utility that isn't compiled under the `decor:` Suite namespace, so the
+        # client-side validation controller toggles a class that paints nothing.
+        # Override with the same Suite-danger chrome the server renders for
+        # `errors?`, so a field that goes invalid on blur gets a red outline to
+        # match the red helper text. `invalid_label` reddens the (floating/top)
+        # label target in lockstep.
+        stimulus do
+          classes(
+            invalid_input: "decor:border-suite-danger-500 decor:bg-suite-danger-50",
+            invalid_label: "decor:text-suite-danger-700"
+          )
+        end
+
         def view_template(&block)
           capture(self, &block) if block_given?
 
@@ -79,6 +93,26 @@ module Decor
           ) { plain label_with_required }
         end
 
+        # Absolutely-positioned label living inside the input shell's top strip.
+        # `pointer-events-none` lets clicks fall through to the input; the field
+        # still focuses when its surface is clicked.
+        def render_inside_label
+          label(
+            for: "#{id}-control",
+            class: inside_label_classes,
+            data: form_field_target_data(:label)
+          ) { plain label_with_required }
+        end
+
+        def inside_label_classes
+          [
+            "decor:absolute decor:left-3 decor:top-[5px] decor:z-10 decor:pointer-events-none",
+            "decor:block decor:suite-field-label decor:leading-none",
+            disabled? ? "decor:text-gray-400" : "decor:text-gray-500",
+            errors? ? "decor:text-suite-danger-700" : nil
+          ].compact.join(" ")
+        end
+
         def form_field_target_data(target_name)
           stimulus_target(target_name).to_h
         end
@@ -105,6 +139,12 @@ module Decor
 
         def render_input_block(el)
           div(class: input_container_classes) do
+            # Floating "inside" label: pinned to the top-left strip the input
+            # reserves via `pt-[19px]`, with the value sitting below it. Only
+            # this position renders its label here (top/left/right/inline render
+            # theirs in view_template); without this branch the strip was empty.
+            render_inside_label if @label.present? && label_inside?
+
             if has_leading_add_on? && add_on_boxed?
               div(class: boxed_addon_classes(:leading)) do
                 render_addon_content(:leading, el, boxed: true)

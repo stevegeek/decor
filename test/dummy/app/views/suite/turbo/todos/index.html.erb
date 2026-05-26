@@ -17,7 +17,10 @@
       <%= form_component.builder.text_field :title, label: "Title", required: true, minimum_length: 3 %>
       <%= form_component.builder.text_area :description, label: "Description", rows: 3 %>
       <%= form_component.builder.select :priority, [["Low", "low"], ["Medium", "medium"], ["High", "high"]], {label: "Priority"} %>
-      <%= form_component.builder.submit "Create Todo" %>
+      <%# Submit lives in the form's footer slot — separated + right-aligned. %>
+      <% form_component.with_actions do %>
+        <%= form_component.builder.submit "Create Todo" %>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>
