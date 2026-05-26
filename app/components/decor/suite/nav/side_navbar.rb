@@ -68,7 +68,7 @@ module Decor
               class: "decor:side-navbar-desktop decor:hidden decor:lg:fixed decor:lg:flex decor:lg:flex-col #{@collapsed ? "decor:lg:w-20" : "decor:lg:w-72"} decor:lg:inset-y-0 decor:transition-all decor:duration-300 decor:ease-out decor:z-50"
             ) do
               div(class: "decor:flex-1 decor:flex decor:flex-col decor:min-h-0 decor:bg-white decor:border-r decor:border-suite-hairline") do
-                div(class: "decor:flex decor:items-center decor:gap-3 decor:px-4 decor:py-3 decor:border-b decor:border-suite-hairline decor:shrink-0 decor:relative decor:min-h-[60px]") do
+                div(class: "decor--suite--nav--side-navbar-brand-row decor:flex decor:items-center decor:gap-3 decor:px-4 decor:py-3 decor:border-b decor:border-suite-hairline decor:shrink-0 decor:relative decor:min-h-[60px]") do
                   render ::Decor::Suite::Avatar.new(
                     size: :sm,
                     initials: "C",
@@ -107,7 +107,7 @@ module Decor
                   div(id: "side-navbar-desktop-search", class: "decor:w-full decor:px-3 decor:pt-3 decor:pb-1") do
                     label(for: "side-navbar-desktop-search-input", class: "decor:sr-only") { "Search" }
                     div(class: "decor:relative") do
-                      div(class: "decor:pointer-events-none decor:absolute decor:inset-y-0 decor:left-0 decor:pl-3 decor:flex decor:items-center") do
+                      div(class: "decor--suite--nav--side-navbar-search-icon decor:pointer-events-none decor:absolute decor:inset-y-0 decor:left-0 decor:pl-3 decor:flex decor:items-center") do
                         render ::Decor::Icon.new(name: "search", style: :solid, html_options: {class: "decor:h-4 decor:w-4 decor:text-gray-400"})
                       end
                       input(

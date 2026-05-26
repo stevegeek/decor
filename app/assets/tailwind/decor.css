@@ -497,3 +497,79 @@ body.density-relaxed {
     transition: none;
   }
 }
+
+/* ──────────────────────────────────────────────────────────────────────
+ * Suite side navbar — COLLAPSED (icon-only) rail.
+ *
+ * The shared side_navbar controller toggles a plain `collapsed` class on the
+ * desktop rail (#side-navbar-desktop) when narrowed, and adds `hover-open`
+ * while the collapsed rail is hovered. These rules — ported from the Confinus
+ * Navigo original — turn the rail icon-only when `.collapsed` is present and
+ * `.hover-open` is NOT: labels/text/arrows hide, icons + links center, the
+ * search input hides leaving its icon centered. Hovering re-adds `hover-open`,
+ * the rail returns to w-72, and these rules stop applying so everything shows.
+ *
+ * Every rule is scoped to the SUITE rail (.decor--suite--nav--side-navbar)
+ * so the Daisy skin is unaffected.
+ * ──────────────────────────────────────────────────────────────────── */
+
+.decor--suite--nav--side-navbar #side-navbar-desktop.collapsed:not(.hover-open) {
+  /* Brand / app-title text (the wordmark span next to the logo). */
+  & .decor--suite--nav--side-navbar-brand-row > span:not(.decor--suite--avatar) {
+    display: none;
+  }
+
+  /* Brand row centers its icon. */
+  & .decor--suite--nav--side-navbar-brand-row {
+    justify-content: center;
+  }
+
+  /* Search input goes invisible (keeps layout box for the centered icon). */
+  & #side-navbar-desktop-search-input {
+    visibility: hidden;
+  }
+
+  /* Search icon wrapper: pull to full width and center the icon. */
+  & #side-navbar-desktop-search .decor--suite--nav--side-navbar-search-icon {
+    right: 0;
+    justify-content: center;
+    padding-left: 0;
+  }
+
+  /* Section title hidden. */
+  & .decor--suite--nav--side-navbar-section-title {
+    visibility: hidden;
+  }
+
+  /* Item label text + dropdown arrow hidden. */
+  & .decor--suite--nav--side-navbar-item-text,
+  & .decor--suite--nav--side-navbar-item-arrow {
+    display: none;
+  }
+
+  /* Item link becomes a centered pill. */
+  & .decor--suite--nav--side-navbar-item-link {
+    border-radius: 9999px;
+    justify-content: center;
+  }
+
+  /* Sub-items container loses its left guide rule. */
+  & .decor--suite--nav--side-navbar-item-sub-items-container {
+    border-left-width: 0;
+  }
+
+  /* Sub-item label text + arrow hidden. */
+  & .decor--suite--nav--side-navbar-sub-item-text,
+  & .decor--suite--nav--side-navbar-sub-item-arrow {
+    display: none;
+  }
+
+  /* Sub-item link becomes a small centered pill. */
+  & .decor--suite--nav--side-navbar-sub-item-link {
+    width: 2rem;
+    padding-inline: 0;
+    border-radius: 9999px;
+    justify-content: center;
+    margin-inline: auto;
+  }
+}

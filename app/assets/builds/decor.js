@@ -3648,6 +3648,8 @@ var side_navbar_controller_default = class extends Controller20 {
     if (this.hasDesktopMenuTarget) {
       this.desktopMenuTarget.classList.toggle("decor:lg:w-20", collapsed);
       this.desktopMenuTarget.classList.toggle("decor:lg:w-72", !collapsed);
+      this.desktopMenuTarget.classList.toggle("collapsed", collapsed);
+      if (!collapsed) this.desktopMenuTarget.classList.remove("hover-open");
     }
     this.setHidden(this.desktopCollapseIconTarget, this.hasDesktopCollapseIconTarget, collapsed);
     this.setHidden(this.desktopExpandIconTarget, this.hasDesktopExpandIconTarget, !collapsed);
@@ -3660,10 +3662,14 @@ var side_navbar_controller_default = class extends Controller20 {
   }
   // ── Hover-to-peek while collapsed ──────────────────────────────────────
   handleMouseOver() {
-    if (this.collapsedValue) this.setRailWidth(false);
+    if (this.collapsedValue) {
+      this.setRailWidth(false);
+      if (this.hasDesktopMenuTarget) this.desktopMenuTarget.classList.add("hover-open");
+    }
   }
   handleMouseAway() {
     if (this.collapsedValue) this.setRailWidth(true);
+    if (this.hasDesktopMenuTarget) this.desktopMenuTarget.classList.remove("hover-open");
   }
   setRailWidth(narrow) {
     if (!this.hasDesktopMenuTarget) return;

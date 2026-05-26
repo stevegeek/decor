@@ -47,6 +47,12 @@ export default class extends Controller {
     if (this.hasDesktopMenuTarget) {
       this.desktopMenuTarget.classList.toggle("decor:lg:w-20", collapsed);
       this.desktopMenuTarget.classList.toggle("decor:lg:w-72", !collapsed);
+      // Plain marker class the Suite skin's CSS keys off to turn the rail
+      // icon-only (text/labels/arrows hidden, items centered). Harmless on the
+      // Daisy skin, whose components lack the Suite class names the rules scope to.
+      this.desktopMenuTarget.classList.toggle("collapsed", collapsed);
+      // Leaving collapsed clears any stale hover-open marker.
+      if (!collapsed) this.desktopMenuTarget.classList.remove("hover-open");
     }
     // Collapse shows the chevron-right (expand) icon; expanded shows the menu icon.
     this.setHidden(this.desktopCollapseIconTarget, this.hasDesktopCollapseIconTarget, collapsed);
@@ -63,11 +69,17 @@ export default class extends Controller {
 
   // ── Hover-to-peek while collapsed ──────────────────────────────────────
   handleMouseOver() {
-    if (this.collapsedValue) this.setRailWidth(false);
+    if (this.collapsedValue) {
+      this.setRailWidth(false);
+      // While collapsed, hovering re-expands: the Suite CSS stops hiding things
+      // once both `collapsed` and `hover-open` are present.
+      if (this.hasDesktopMenuTarget) this.desktopMenuTarget.classList.add("hover-open");
+    }
   }
 
   handleMouseAway() {
     if (this.collapsedValue) this.setRailWidth(true);
+    if (this.hasDesktopMenuTarget) this.desktopMenuTarget.classList.remove("hover-open");
   }
 
   setRailWidth(narrow) {
