@@ -29,19 +29,38 @@ export default class extends Controller {
         this.element.addEventListener('close', () => {
             if (this.modalVisible) {
                 this.modalVisible = false;
-                this.dispatchLifecycleEvent(ModalEvents.Closed, { 
-                    closeReason: this.pendingCloseReason || 'dialog-closed' 
+                this.dispatchLifecycleEvent(ModalEvents.Closed, {
+                    closeReason: this.pendingCloseReason || 'dialog-closed'
                 });
                 this.pendingCloseReason = null;
             }
         });
-        
+
+        // A Turbo form loaded into the modal body submits in place. On success
+        // Turbo follows the redirect and re-renders/morphs the underlying page,
+        // but a modal opened with showModal() is still in the native top layer —
+        // its ::backdrop would block every click on the rendered page. Close on
+        // a successful submit (before the render) to release the top layer; a
+        // failed submit (422 validation re-render) leaves it open to show the
+        // errors. `turbo:submit-end` bubbles from the form up through the dialog.
+        this.element.addEventListener('turbo:submit-end', this.boundHandleSubmitEnd);
+
         if (this.showInitialValue) {
             this.open({
                 contentHref: this.contentHrefValue,
             });
         }
     }
+
+    disconnect() {
+        this.element.removeEventListener('turbo:submit-end', this.boundHandleSubmitEnd);
+    }
+
+    boundHandleSubmitEnd = (evt) => {
+        if (this.element.open && evt.detail && evt.detail.success) {
+            this.close('submit-success');
+        }
+    };
     // Handle click on overlay to optionally close modal
     overlayClicked(event) {
         // The form with method="dialog" will automatically close the dialog

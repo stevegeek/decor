@@ -3214,12 +3214,21 @@ var modal_controller_default = class extends Controller15 {
         this.pendingCloseReason = null;
       }
     });
+    this.element.addEventListener("turbo:submit-end", this.boundHandleSubmitEnd);
     if (this.showInitialValue) {
       this.open({
         contentHref: this.contentHrefValue
       });
     }
   }
+  disconnect() {
+    this.element.removeEventListener("turbo:submit-end", this.boundHandleSubmitEnd);
+  }
+  boundHandleSubmitEnd = (evt) => {
+    if (this.element.open && evt.detail && evt.detail.success) {
+      this.close("submit-success");
+    }
+  };
   // Handle click on overlay to optionally close modal
   overlayClicked(event) {
     if (!this.closeOnOverlayClick && !this.closeOnOverlayClickValue) {
