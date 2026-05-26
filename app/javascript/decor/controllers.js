@@ -27,7 +27,8 @@ import DaisyModalsModalCloseButtonController from "../controllers/decor/daisy/mo
 import DaisyModalsModalController from "../controllers/decor/daisy/modals/modal_controller";
 import DaisyModalsModalOpenButtonController from "../controllers/decor/daisy/modals/modal_open_button_controller";
 import DaisyModalsModalTriggerController from "../controllers/decor/daisy/modals/modal_trigger_controller";
-import SideNavbarController from "../controllers/decor/daisy/nav/side_navbar_controller";
+import DaisyNavSideNavbarController from "../controllers/decor/daisy/nav/side_navbar_controller";
+import DaisyNavTopNavbarController from "../controllers/decor/daisy/nav/top_navbar_controller";
 import DaisyNotificationManagerController from "../controllers/decor/daisy/notification_manager_controller";
 import DaisyPolygonEditorController from "../controllers/decor/daisy/polygon_editor_controller";
 import DaisyProgressController from "../controllers/decor/daisy/progress_controller";
@@ -65,6 +66,8 @@ import SuiteModalsModalCloseButtonController from "../controllers/decor/suite/mo
 import SuiteModalsModalController from "../controllers/decor/suite/modals/modal_controller";
 import SuiteModalsModalOpenButtonController from "../controllers/decor/suite/modals/modal_open_button_controller";
 import SuiteModalsModalTriggerController from "../controllers/decor/suite/modals/modal_trigger_controller";
+import SuiteNavSideNavbarController from "../controllers/decor/suite/nav/side_navbar_controller";
+import SuiteNavTopNavbarController from "../controllers/decor/suite/nav/top_navbar_controller";
 import SuiteNotificationManagerController from "../controllers/decor/suite/notification_manager_controller";
 import SuitePolygonEditorController from "../controllers/decor/suite/polygon_editor_controller";
 import SuiteProgressController from "../controllers/decor/suite/progress_controller";
@@ -106,7 +109,8 @@ export const CONTROLLERS = {
   "decor--daisy--modals--modal": DaisyModalsModalController,
   "decor--daisy--modals--modal-open-button": DaisyModalsModalOpenButtonController,
   "decor--daisy--modals--modal-trigger": DaisyModalsModalTriggerController,
-  "decor--daisy--nav--side-navbar": SideNavbarController,
+  "decor--daisy--nav--side-navbar": DaisyNavSideNavbarController,
+  "decor--daisy--nav--top-navbar": DaisyNavTopNavbarController,
   "decor--daisy--notification-manager": DaisyNotificationManagerController,
   "decor--daisy--polygon-editor": DaisyPolygonEditorController,
   "decor--daisy--progress": DaisyProgressController,
@@ -144,6 +148,8 @@ export const CONTROLLERS = {
   "decor--suite--modals--modal": SuiteModalsModalController,
   "decor--suite--modals--modal-open-button": SuiteModalsModalOpenButtonController,
   "decor--suite--modals--modal-trigger": SuiteModalsModalTriggerController,
+  "decor--suite--nav--side-navbar": SuiteNavSideNavbarController,
+  "decor--suite--nav--top-navbar": SuiteNavTopNavbarController,
   "decor--suite--notification-manager": SuiteNotificationManagerController,
   "decor--suite--polygon-editor": SuitePolygonEditorController,
   "decor--suite--progress": SuiteProgressController,

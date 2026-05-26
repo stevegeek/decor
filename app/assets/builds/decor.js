@@ -3680,12 +3680,40 @@ var side_navbar_controller_default = class extends Controller20 {
   }
 };
 
-// app/javascript/controllers/decor/daisy/notification_manager_controller.js
+// app/javascript/controllers/decor/daisy/nav/top_navbar_controller.js
 import { Controller as Controller21 } from "@hotwired/stimulus";
+var top_navbar_controller_default = class extends Controller21 {
+  static targets = ["search", "searchInput", "searchDropdown"];
+  toggleMobileMenu() {
+    const sidebar = document.querySelector(
+      "[data-controller~='decor--suite--nav--side-navbar'],[data-controller~='decor--daisy--nav--side-navbar']"
+    );
+    if (!sidebar) return;
+    const identifier = (sidebar.getAttribute("data-controller") || "").split(/\s+/).find((c) => /nav--side-navbar$/.test(c));
+    if (identifier) {
+      window.dispatchEvent(new CustomEvent(`${identifier}:toggleMobileMenu`));
+    }
+  }
+  // Instant search needs a backend that the harness doesn't provide; keep these
+  // as safe no-ops so the component's wired actions resolve.
+  clickedSearchInput() {
+  }
+  search() {
+  }
+  gotSearchFocus() {
+  }
+  lostSearchFocus() {
+  }
+  clickedSearchContent() {
+  }
+};
+
+// app/javascript/controllers/decor/daisy/notification_manager_controller.js
+import { Controller as Controller22 } from "@hotwired/stimulus";
 var NOTIFICATION_MANAGER_CLASS_NAME = "decor--daisy--notification-manager";
 var DEFAULT_DISMISS_AFTER_MS = 3e3;
 var DISMISS_ALL_STAGGER_MS = 50;
-var notification_manager_controller_default = class extends Controller21 {
+var notification_manager_controller_default = class extends Controller22 {
   static targets = ["notificationContainer"];
   static values = {
     initialNotifications: { type: Array, default: [] }
@@ -3820,8 +3848,8 @@ var notification_manager_controller_default = class extends Controller21 {
 };
 
 // app/javascript/controllers/decor/daisy/polygon_editor_controller.js
-import { Controller as Controller22 } from "@hotwired/stimulus";
-var polygon_editor_controller_default = class extends Controller22 {
+import { Controller as Controller23 } from "@hotwired/stimulus";
+var polygon_editor_controller_default = class extends Controller23 {
   static targets = ["mapContainer", "geoJsonInput"];
   static values = {
     apiKey: String,
@@ -4058,8 +4086,8 @@ var polygon_editor_controller_default = class extends Controller22 {
 };
 
 // app/javascript/controllers/decor/daisy/progress_controller.js
-import { Controller as Controller23 } from "@hotwired/stimulus";
-var progress_controller_default = class extends Controller23 {
+import { Controller as Controller24 } from "@hotwired/stimulus";
+var progress_controller_default = class extends Controller24 {
   static targets = ["progress", "step"];
   static values = {
     currentStep: { type: Number, default: 1 },
@@ -4160,8 +4188,8 @@ var progress_controller_default = class extends Controller23 {
 };
 
 // app/javascript/controllers/decor/daisy/tables/bulk_actions_bar_controller.js
-import { Controller as Controller24 } from "@hotwired/stimulus";
-var bulk_actions_bar_controller_default = class extends Controller24 {
+import { Controller as Controller25 } from "@hotwired/stimulus";
+var bulk_actions_bar_controller_default = class extends Controller25 {
   static targets = [
     "selectionCount",
     "selectedIdsContainer",
@@ -4341,8 +4369,8 @@ var bulk_actions_bar_controller_default = class extends Controller24 {
 };
 
 // app/javascript/controllers/decor/daisy/tables/tag_filter_bar_controller.js
-import { Controller as Controller25 } from "@hotwired/stimulus";
-var tag_filter_bar_controller_default = class extends Controller25 {
+import { Controller as Controller26 } from "@hotwired/stimulus";
+var tag_filter_bar_controller_default = class extends Controller26 {
   static targets = [
     "chip",
     "applyButton",
@@ -4448,8 +4476,8 @@ var tag_filter_bar_controller_default = class extends Controller25 {
 };
 
 // app/javascript/controllers/decor/daisy/tabs_controller.js
-import { Controller as Controller26 } from "@hotwired/stimulus";
-var tabs_controller_default = class extends Controller26 {
+import { Controller as Controller27 } from "@hotwired/stimulus";
+var tabs_controller_default = class extends Controller27 {
   handleSelectTabOnMobile(event) {
     const select = event.target;
     const selected = select.options[select.selectedIndex];
@@ -4461,8 +4489,8 @@ var tabs_controller_default = class extends Controller26 {
 };
 
 // app/javascript/controllers/decor/progress_animation_controller.js
-import { Controller as Controller27 } from "@hotwired/stimulus";
-var progress_animation_controller_default = class extends Controller27 {
+import { Controller as Controller28 } from "@hotwired/stimulus";
+var progress_animation_controller_default = class extends Controller28 {
   static values = {
     currentStep: { type: Number, default: 2 },
     steps: { type: Number, default: 5 },
@@ -4529,7 +4557,7 @@ var progress_animation_controller_default = class extends Controller27 {
 };
 
 // app/javascript/controllers/decor/suite/carousel_controller.js
-import { Controller as Controller28 } from "@hotwired/stimulus";
+import { Controller as Controller29 } from "@hotwired/stimulus";
 import Swiper from "swiper";
 import { Navigation, Pagination, Keyboard, A11y, Autoplay } from "swiper/modules";
 var BREAKPOINT_PX = {
@@ -4540,7 +4568,7 @@ var BREAKPOINT_PX = {
   xl: 1280,
   "2xl": 1536
 };
-var carousel_controller_default = class extends Controller28 {
+var carousel_controller_default = class extends Controller29 {
   static values = {
     slidesPerView: { type: Object, default: {} },
     spaceBetween: { type: Number, default: 16 },
@@ -4628,8 +4656,8 @@ var SuiteCodeBlockController = class extends code_block_controller_default {
 };
 
 // app/javascript/controllers/decor/suite/dropdown_controller.js
-import { Controller as Controller29 } from "@hotwired/stimulus";
-var dropdown_controller_default2 = class extends Controller29 {
+import { Controller as Controller30 } from "@hotwired/stimulus";
+var dropdown_controller_default2 = class extends Controller30 {
   static targets = ["menu", "button"];
   static values = {
     contentHref: { type: String, default: "" },
@@ -4684,8 +4712,8 @@ var SuiteFormsFileUploadController = class extends FileUploadController {
 };
 
 // app/javascript/controllers/decor/suite/forms/form_controller.js
-import { Controller as Controller30 } from "@hotwired/stimulus";
-var form_controller_default = class extends Controller30 {
+import { Controller as Controller31 } from "@hotwired/stimulus";
+var form_controller_default = class extends Controller31 {
   static targets = ["form"];
   connect() {
     this.element.setAttribute("novalidate", "true");
@@ -4839,8 +4867,8 @@ var searchable_select_controller_default2 = class extends searchable_select_cont
 };
 
 // app/javascript/controllers/decor/suite/modals/confirm_controller.js
-import { Controller as Controller31 } from "@hotwired/stimulus";
-var confirm_controller_default2 = class extends Controller31 {
+import { Controller as Controller32 } from "@hotwired/stimulus";
+var confirm_controller_default2 = class extends Controller32 {
   static values = {
     confirmEvent: { type: String, default: "" },
     modalId: { type: String, default: "" }
@@ -4864,8 +4892,8 @@ var confirm_controller_default2 = class extends Controller31 {
 };
 
 // app/javascript/controllers/decor/suite/modals/modal_close_button_controller.js
-import { Controller as Controller32 } from "@hotwired/stimulus";
-var modal_close_button_controller_default2 = class extends Controller32 {
+import { Controller as Controller33 } from "@hotwired/stimulus";
+var modal_close_button_controller_default2 = class extends Controller33 {
   static values = {
     closeReason: String
   };
@@ -4878,7 +4906,7 @@ var modal_close_button_controller_default2 = class extends Controller32 {
 };
 
 // app/javascript/controllers/decor/suite/modals/modal_controller.js
-import { Controller as Controller33 } from "@hotwired/stimulus";
+import { Controller as Controller34 } from "@hotwired/stimulus";
 var LOADING_SKELETON_HTML = `
   <div class="decor:space-y-2 decor:py-1" aria-hidden="true">
     <div class="decor:h-3 decor:bg-gray-100 decor:rounded-sm decor:animate-pulse"></div>
@@ -4888,7 +4916,7 @@ var LOADING_SKELETON_HTML = `
 `;
 var OPENED_EVENT = "decor--suite--modals--modal:opened";
 var CLOSED_EVENT = "decor--suite--modals--modal:closed";
-var modal_controller_default2 = class extends Controller33 {
+var modal_controller_default2 = class extends Controller34 {
   static targets = ["body", "overlay", "modal"];
   static values = {
     startOpen: { type: Boolean, default: false },
@@ -5084,8 +5112,8 @@ var modal_controller_default2 = class extends Controller33 {
 };
 
 // app/javascript/controllers/decor/suite/modals/modal_open_button_controller.js
-import { Controller as Controller34 } from "@hotwired/stimulus";
-var modal_open_button_controller_default2 = class extends Controller34 {
+import { Controller as Controller35 } from "@hotwired/stimulus";
+var modal_open_button_controller_default2 = class extends Controller35 {
   static values = {
     modalId: String,
     contentHref: String,
@@ -5110,8 +5138,8 @@ var modal_open_button_controller_default2 = class extends Controller34 {
 };
 
 // app/javascript/controllers/decor/suite/modals/modal_trigger_controller.js
-import { Controller as Controller35 } from "@hotwired/stimulus";
-var modal_trigger_controller_default2 = class extends Controller35 {
+import { Controller as Controller36 } from "@hotwired/stimulus";
+var modal_trigger_controller_default2 = class extends Controller36 {
   static values = {
     modalId: String,
     contentHref: String,
@@ -5178,8 +5206,8 @@ var SuiteNotificationManagerController = class extends notification_manager_cont
 };
 
 // app/javascript/controllers/decor/suite/search_and_filter_controller.js
-import { Controller as Controller36 } from "@hotwired/stimulus";
-var search_and_filter_controller_default = class extends Controller36 {
+import { Controller as Controller37 } from "@hotwired/stimulus";
+var search_and_filter_controller_default = class extends Controller37 {
   static targets = [
     "searchInput",
     "applyButton",
@@ -5287,8 +5315,8 @@ var search_and_filter_controller_default = class extends Controller36 {
 };
 
 // app/javascript/controllers/decor/suite/settings_list/row_controller.js
-import { Controller as Controller37 } from "@hotwired/stimulus";
-var row_controller_default = class extends Controller37 {
+import { Controller as Controller38 } from "@hotwired/stimulus";
+var row_controller_default = class extends Controller38 {
   static targets = ["chevron", "detail", "summary"];
   static values = {
     open: { type: Boolean, default: false }
@@ -5304,8 +5332,8 @@ var row_controller_default = class extends Controller37 {
 };
 
 // app/javascript/controllers/decor/suite/tables/data_table_cell_controller.js
-import { Controller as Controller38 } from "@hotwired/stimulus";
-var data_table_cell_controller_default = class extends Controller38 {
+import { Controller as Controller39 } from "@hotwired/stimulus";
+var data_table_cell_controller_default = class extends Controller39 {
   static values = {
     noPathNavigation: { type: Boolean, default: false }
   };
@@ -5318,7 +5346,7 @@ var data_table_cell_controller_default = class extends Controller38 {
 };
 
 // app/javascript/controllers/decor/suite/tables/data_table_controller.js
-import { Controller as Controller39 } from "@hotwired/stimulus";
+import { Controller as Controller40 } from "@hotwired/stimulus";
 
 // app/javascript/services/selection_persistence_service.js
 var SelectionPersistenceService = class {
@@ -5522,7 +5550,7 @@ if (typeof window !== "undefined") {
 var selection_persistence_service_default = SelectionPersistenceService;
 
 // app/javascript/controllers/decor/suite/tables/data_table_controller.js
-var data_table_controller_default = class extends Controller39 {
+var data_table_controller_default = class extends Controller40 {
   static outlets = [
     "decor--suite--tables--bulk-actions-bar"
   ];
@@ -5814,8 +5842,8 @@ var data_table_controller_default = class extends Controller39 {
 };
 
 // app/javascript/controllers/decor/suite/tabs_controller.js
-import { Controller as Controller40 } from "@hotwired/stimulus";
-var tabs_controller_default2 = class extends Controller40 {
+import { Controller as Controller41 } from "@hotwired/stimulus";
+var tabs_controller_default2 = class extends Controller41 {
   static targets = ["wrapper", "scroll"];
   connect() {
     if (!this.hasWrapperTarget || !this.hasScrollTarget) return;
@@ -5850,7 +5878,7 @@ var tabs_controller_default2 = class extends Controller40 {
 };
 
 // app/javascript/controllers/decor/suite/tooltip_controller.js
-import { Controller as Controller41 } from "@hotwired/stimulus";
+import { Controller as Controller42 } from "@hotwired/stimulus";
 import {
   computePosition,
   autoUpdate,
@@ -5859,7 +5887,7 @@ import {
   offset as offsetMiddleware,
   arrow
 } from "@floating-ui/dom";
-var tooltip_controller_default = class extends Controller41 {
+var tooltip_controller_default = class extends Controller42 {
   static targets = ["content", "arrow"];
   static values = {
     placement: { type: String, default: "top" },
@@ -6001,6 +6029,7 @@ var CONTROLLERS = {
   "decor--daisy--modals--modal-open-button": modal_open_button_controller_default,
   "decor--daisy--modals--modal-trigger": modal_trigger_controller_default,
   "decor--daisy--nav--side-navbar": side_navbar_controller_default,
+  "decor--daisy--nav--top-navbar": top_navbar_controller_default,
   "decor--daisy--notification-manager": notification_manager_controller_default,
   "decor--daisy--polygon-editor": polygon_editor_controller_default,
   "decor--daisy--progress": progress_controller_default,
@@ -6038,6 +6067,8 @@ var CONTROLLERS = {
   "decor--suite--modals--modal": modal_controller_default2,
   "decor--suite--modals--modal-open-button": modal_open_button_controller_default2,
   "decor--suite--modals--modal-trigger": modal_trigger_controller_default2,
+  "decor--suite--nav--side-navbar": side_navbar_controller_default,
+  "decor--suite--nav--top-navbar": top_navbar_controller_default,
   "decor--suite--notification-manager": SuiteNotificationManagerController,
   "decor--suite--polygon-editor": polygon_editor_controller_default,
   "decor--suite--progress": progress_controller_default,
@@ -6053,8 +6084,8 @@ var CONTROLLERS = {
 
 // app/javascript/decor/index.js
 function register(application) {
-  for (const [identifier, Controller42] of Object.entries(CONTROLLERS)) {
-    application.register(identifier, Controller42);
+  for (const [identifier, Controller43] of Object.entries(CONTROLLERS)) {
+    application.register(identifier, Controller43);
   }
 }
 if (typeof window !== "undefined" && window.Stimulus) {
