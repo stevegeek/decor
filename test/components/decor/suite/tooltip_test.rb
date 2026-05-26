@@ -3,11 +3,13 @@
 require "test_helper"
 
 class ::Decor::Suite::TooltipTest < ActiveSupport::TestCase
-  test "renders anchor + hidden tip bubble by default" do
+  test "renders anchor + a popover tip bubble (hidden by the UA until shown)" do
     html = render_component(::Decor::Suite::Tooltip.new(tip_text: "Help")) { "Hover me" }
     assert_includes html, "Hover me"
     assert_includes html, "Help"
-    assert_includes html, "decor:hidden"
+    # Hidden via the native Popover API (display:none until showPopover()),
+    # not a decor:hidden utility.
+    assert_includes html, 'popover="manual"'
   end
 
   test "uses dark gray-900 bubble with white text and suite-control radius" do
@@ -74,17 +76,18 @@ class ::Decor::Suite::TooltipTest < ActiveSupport::TestCase
     assert_includes html, "anchor"
   end
 
-  test "root uses inline-block + relative positioning so anchor wraps inline" do
+  test "root uses inline-block so the anchor wraps its content inline" do
     html = render_component(::Decor::Suite::Tooltip.new(tip_text: "x")) { "anchor" }
     assert_includes html, "decor:inline-block"
-    assert_includes html, "decor:relative"
   end
 
-  test "bubble target is absolute z-50 w-max for floating-element layout" do
+  test "tip bubble is a top-layer popover (popover=manual) sized to its content" do
     html = render_component(::Decor::Suite::Tooltip.new(tip_text: "x")) { "anchor" }
-    assert_includes html, "decor:absolute"
-    assert_includes html, "decor:z-50"
+    assert_includes html, 'popover="manual"'
     assert_includes html, "decor:w-max"
+    # Positioning is JS-driven (Floating UI, position:fixed) — no static z-50,
+    # and the top layer makes it immune to overflow:hidden clipping.
+    refute_includes html, "decor:z-50"
   end
 
   test "inherits from abstract Decor::Components::Tooltip" do

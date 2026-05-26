@@ -28,11 +28,16 @@ module Decor
         root_element do
           raw safe(@content) if @content.present?
 
-          # Floating UI writes left/top from the controller; `decor:hidden` is
-          # removed on show; `decor:w-max` prevents anchor-width constraint.
+          # Top-layer popover (popover="manual" — JS drives show/hide on hover).
+          # Living in the top layer means no `overflow:hidden` ancestor can clip
+          # it and there's no z-index war. Floating UI writes position:fixed +
+          # left/top from the controller, anchored to the TRIGGER element (not
+          # this root, which can be stretched full-width by a flex/grid parent).
+          # Reset the UA popover chrome (margin/padding/border/bg) so only the
+          # inner bubble is styled. `decor:w-max` prevents anchor-width clamping.
           div(
-            class: "decor:hidden decor:absolute decor:z-50 decor:w-max decor:max-w-xs decor:transition-opacity decor:duration-suite-fast decor:ease-out",
-            style: "left: 0; top: 0;",
+            popover: "manual",
+            class: "decor:w-max decor:max-w-xs decor:m-0 decor:p-0 decor:border-0 decor:bg-transparent decor:transition-opacity decor:duration-suite-fast decor:ease-out",
             data: {**stimulus_target(:content)}
           ) do
             div(class: "decor:relative decor:inline-block decor:px-2.5 decor:py-[5px] decor:bg-gray-900 decor:text-white decor:suite-description decor:rounded-suite-control decor:font-medium") do
@@ -59,8 +64,10 @@ module Decor
         end
       end
 
+      # No `relative` needed anymore: the tip is a top-layer popover positioned
+      # with `position: fixed`, so it doesn't depend on a positioned ancestor.
       def root_element_classes
-        "decor:inline-block decor:relative"
+        "decor:inline-block"
       end
     end
   end

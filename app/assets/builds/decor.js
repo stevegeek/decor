@@ -5804,6 +5804,15 @@ var tooltip_controller_default = class extends Controller40 {
   connect() {
     this.contentTarget.style.transform = "";
   }
+  // Anchor to the TRIGGER element, never `this.element`: the root can be
+  // blockified + stretched full-width by a flex/grid parent, which would drag
+  // the tip to the middle of that box. The trigger content renders before the
+  // popover, so it's the first element child that isn't the tip itself.
+  get anchor() {
+    const first = this.element.firstElementChild;
+    if (first && first !== this.contentTarget) return first;
+    return this.element;
+  }
   disconnect() {
     this.stopAutoUpdate();
     clearTimeout(this.showTimer);
@@ -5818,22 +5827,26 @@ var tooltip_controller_default = class extends Controller40 {
     this.hideTimer = setTimeout(() => this.hide(), 100);
   }
   handleClick() {
-    if (this.contentTarget.classList.contains("decor:hidden")) {
-      this.show();
-    } else {
+    if (this.isOpen) {
       this.hide();
+    } else {
+      this.show();
     }
   }
+  get isOpen() {
+    return this.contentTarget.matches(":popover-open");
+  }
   show() {
-    this.contentTarget.classList.remove("decor:hidden");
+    if (!this.isOpen && this.contentTarget.isConnected) {
+      this.contentTarget.showPopover();
+    }
     this.startAutoUpdate();
   }
   hide() {
-    this.contentTarget.classList.add("decor:hidden");
     this.stopAutoUpdate();
-  }
-  get anchor() {
-    return this.element;
+    if (this.isOpen) {
+      this.contentTarget.hidePopover();
+    }
   }
   startAutoUpdate() {
     this.stopAutoUpdate();
@@ -5863,11 +5876,14 @@ var tooltip_controller_default = class extends Controller40 {
       this.contentTarget,
       {
         placement: this.placementValue,
-        strategy: "absolute",
+        strategy: "fixed",
         middleware
       }
     );
     Object.assign(this.contentTarget.style, {
+      position: "fixed",
+      margin: "0",
+      inset: "auto",
       left: `${x}px`,
       top: `${y}px`
     });
