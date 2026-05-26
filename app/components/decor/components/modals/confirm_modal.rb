@@ -10,7 +10,6 @@ module Decor
         default_style :filled
 
         stimulus do
-          targets :positive_button, :negative_button, :title, :message
           actions -> { [stimulus_scoped_event_on_window(:open), :handle_open_event] },
             -> { [stimulus_scoped_event_on_window(:close), :handle_close_event] }
           values_from_props :close_on_overlay_click

@@ -1,45 +1,29 @@
 # Shared helpers for system tests that interact with the decor ConfirmModal.
 #
-# The ConfirmModal renders as <aside data-controller="decor--daisy--modals--confirm-modal">.
-# Our confirm_wiring.js reveals it by removing the decor:hidden class and setting
-# display:"" so Capybara can find and interact with the buttons.
-#
-# The ConfirmModal's "Continue"/"Cancel" default labels are overridden by our
-# wiring to "Confirm"/"Cancel" via positiveButtonLabel/negativeButtonLabel.
-# We locate buttons by their visible text inside the aside.
+# The ConfirmModal renders as a <dialog data-controller="decor--daisy--modals--confirm-modal">.
+# confirm_wiring.js dispatches its open event, so the controller fills the
+# labels/reasons and showModal()s it — the buttons are then real, visible, and
+# clickable. Clicking Confirm/Cancel fires decor--confirm-modal:closing.
 module ConfirmModalHelpers
   MODAL_CONTROLLER = "decor--daisy--modals--confirm-modal"
   MODAL_SELECTOR   = "[data-controller='#{MODAL_CONTROLLER}']"
+  POS_BTN          = "[data-#{MODAL_CONTROLLER}-target='positiveButton']"
+  NEG_BTN          = "[data-#{MODAL_CONTROLLER}-target='negativeButton']"
 
-  # Assert the confirm modal aside is currently visible (revealed by our wiring).
+  # Assert the confirm modal dialog is currently open/visible.
   def assert_confirm_modal_visible(wait: 5)
-    assert_selector MODAL_SELECTOR, visible: true, wait: wait
+    assert_selector "#{MODAL_SELECTOR}[open]", visible: true, wait: wait
   end
 
   # Click the Confirm (positive) button in the modal.
-  # Our wiring sets positiveButtonLabel: "Confirm".
   def click_confirm_positive
     assert_confirm_modal_visible
-    # Dispatch the closing event directly with POSITIVE_REASON to simulate
-    # clicking the Confirm button. This bypasses the CSS layout issues of
-    # the aside-based modal while still driving the real event flow.
-    page.execute_script(<<~JS)
-      window.dispatchEvent(new CustomEvent("decor--confirm-modal:closing", {
-        bubbles: false,
-        detail: { closeReason: "confirmed" }
-      }));
-    JS
+    within(MODAL_SELECTOR) { find(POS_BTN).click }
   end
 
   # Click the Cancel (negative) button in the modal.
-  # Our wiring sets negativeButtonLabel: "Cancel" (same as default).
   def click_confirm_negative
     assert_confirm_modal_visible
-    page.execute_script(<<~JS)
-      window.dispatchEvent(new CustomEvent("decor--confirm-modal:closing", {
-        bubbles: false,
-        detail: { closeReason: "cancelled" }
-      }));
-    JS
+    within(MODAL_SELECTOR) { find(NEG_BTN).click }
   end
 end
