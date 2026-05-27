@@ -70,7 +70,7 @@ module Decor
             div(
               data: {**el.stimulus_target(:desktop_menu)},
               id: "side-navbar-desktop",
-              class: "decor:side-navbar-desktop decor:hidden decor:lg:fixed decor:lg:flex decor:lg:flex-col #{@collapsed ? "decor:lg:w-20 collapsed" : "decor:lg:w-72"} #{"dark" if @dark} decor:lg:inset-y-0 decor:transition-all decor:duration-300 decor:ease-out decor:z-50"
+              class: "decor:side-navbar-desktop decor:hidden decor:lg:fixed decor:lg:flex decor:lg:flex-col #{@collapsed ? "decor:lg:w-20 collapsed" : "decor:lg:w-64"} #{"dark" if @dark} decor:lg:inset-y-0 decor:transition-all decor:duration-300 decor:ease-out decor:z-50"
             ) do
               div(class: "decor:flex-1 decor:flex decor:flex-col decor:min-h-0 decor:bg-white decor:border-r decor:border-suite-hairline") do
                 div(class: "decor--suite--nav--side-navbar-brand-row decor:flex decor:items-center decor:gap-3 decor:px-4 decor:py-3 decor:border-b decor:border-suite-hairline decor:shrink-0 decor:relative decor:min-h-[60px]") do

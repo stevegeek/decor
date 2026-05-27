@@ -7,18 +7,17 @@ module Decor
         def view_template(&)
           vanish(&)
           root_element do |el|
-            # Mobile hamburger (only when nav items are present)
-            if @nav_items_block
-              button(
-                type: "button",
-                class: "decor:inline-flex decor:items-center decor:justify-center decor:w-8 decor:h-8 decor:rounded-suite-control decor:text-gray-500 decor:border-r decor:border-suite-hairline decor:transition-colors decor:duration-suite-fast decor:ease-out decor:hover:text-gray-900 decor:hover:bg-suite-gray-25 decor:focus:outline-none decor:lg:hidden decor:shrink-0",
-                data: {
-                  action: "click->#{stimulus_identifier}#toggle_mobile_menu"
-                }
-              ) do
-                span(class: "decor:sr-only") { "Open sidebar" }
-                render ::Decor::Icon.new(name: "menu-2", classes: "decor:h-5 decor:w-5")
-              end
+            # Mobile hamburger — opens the side-navbar drawer (independent of
+            # whether the top navbar itself has nav items). Hidden on lg+.
+            button(
+              type: "button",
+              class: "decor:inline-flex decor:items-center decor:justify-center decor:w-8 decor:h-8 decor:rounded-suite-control decor:text-gray-500 decor:border-r decor:border-suite-hairline decor:transition-colors decor:duration-suite-fast decor:ease-out decor:hover:text-gray-900 decor:hover:bg-suite-gray-25 decor:focus:outline-none decor:lg:hidden decor:shrink-0",
+              data: {
+                action: "click->#{stimulus_identifier}#toggle_mobile_menu"
+              }
+            ) do
+              span(class: "decor:sr-only") { "Open sidebar" }
+              render ::Decor::Icon.new(name: "menu-2", classes: "decor:h-5 decor:w-5")
             end
 
             # Brand

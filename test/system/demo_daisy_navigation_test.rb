@@ -29,7 +29,7 @@ class DemoDaisyNavigationTest < ApplicationSystemTestCase
   test "desktop rail collapses and expands" do
     current_window.resize_to(1400, 1000) # lg: desktop rail visible
     visit demo_daisy_navigation_path
-    assert page.evaluate_script("document.querySelector('#{DESKTOP}').classList.contains('decor:lg:w-72')"),
+    assert page.evaluate_script("document.querySelector('#{DESKTOP}').classList.contains('decor:lg:w-64')"),
       "rail should start expanded (w-72)"
 
     find("#side-navbar-desktop-collapse-button").click
@@ -39,7 +39,7 @@ class DemoDaisyNavigationTest < ApplicationSystemTestCase
 
     find("#side-navbar-desktop-collapse-button").click
     sleep 0.2
-    assert page.evaluate_script("document.querySelector('#{DESKTOP}').classList.contains('decor:lg:w-72')"),
+    assert page.evaluate_script("document.querySelector('#{DESKTOP}').classList.contains('decor:lg:w-64')"),
       "rail should expand back to w-72"
   end
 

@@ -590,7 +590,7 @@ body.density-relaxed {
 
 @media (min-width: 64rem) {
   .decor--side-navbar-content {
-    padding-left: 18rem;
+    padding-left: 16rem;
   }
 
   body.decor-side-navbar-collapsed .decor--side-navbar-content {

@@ -3616,9 +3616,9 @@ var modal_trigger_controller_default = class extends Controller19 {
   }
 };
 
-// app/javascript/controllers/decor/daisy/nav/side_navbar_controller.js
+// app/javascript/controllers/decor/nav/side_navbar_base.js
 import { Controller as Controller20 } from "@hotwired/stimulus";
-var side_navbar_controller_default = class extends Controller20 {
+var side_navbar_base_default = class extends Controller20 {
   static targets = [
     "mobileMenu",
     "desktopMenu",
@@ -3665,7 +3665,7 @@ var side_navbar_controller_default = class extends Controller20 {
   applyCollapsed(collapsed) {
     if (this.hasDesktopMenuTarget) {
       this.desktopMenuTarget.classList.toggle("decor:lg:w-20", collapsed);
-      this.desktopMenuTarget.classList.toggle("decor:lg:w-72", !collapsed);
+      this.desktopMenuTarget.classList.toggle("decor:lg:w-64", !collapsed);
       this.desktopMenuTarget.classList.toggle("collapsed", collapsed);
       if (!collapsed) this.desktopMenuTarget.classList.remove("hover-open");
     }
@@ -3693,7 +3693,7 @@ var side_navbar_controller_default = class extends Controller20 {
   setRailWidth(narrow) {
     if (!this.hasDesktopMenuTarget) return;
     this.desktopMenuTarget.classList.toggle("decor:lg:w-20", narrow);
-    this.desktopMenuTarget.classList.toggle("decor:lg:w-72", !narrow);
+    this.desktopMenuTarget.classList.toggle("decor:lg:w-64", !narrow);
   }
   // ── Client-side nav filter ─────────────────────────────────────────────
   search(event) {
@@ -3705,9 +3705,13 @@ var side_navbar_controller_default = class extends Controller20 {
   }
 };
 
-// app/javascript/controllers/decor/daisy/nav/top_navbar_controller.js
+// app/javascript/controllers/decor/daisy/nav/side_navbar_controller.js
+var side_navbar_controller_default = class extends side_navbar_base_default {
+};
+
+// app/javascript/controllers/decor/nav/top_navbar_base.js
 import { Controller as Controller21 } from "@hotwired/stimulus";
-var top_navbar_controller_default = class extends Controller21 {
+var top_navbar_base_default = class extends Controller21 {
   static targets = ["search", "searchInput", "searchDropdown"];
   toggleMobileMenu() {
     const sidebar = document.querySelector(
@@ -3731,6 +3735,10 @@ var top_navbar_controller_default = class extends Controller21 {
   }
   clickedSearchContent() {
   }
+};
+
+// app/javascript/controllers/decor/daisy/nav/top_navbar_controller.js
+var top_navbar_controller_default = class extends top_navbar_base_default {
 };
 
 // app/javascript/controllers/decor/daisy/notification_manager_controller.js
@@ -5188,6 +5196,14 @@ var modal_trigger_controller_default2 = class extends Controller36 {
   }
 };
 
+// app/javascript/controllers/decor/suite/nav/side_navbar_controller.js
+var side_navbar_controller_default2 = class extends side_navbar_base_default {
+};
+
+// app/javascript/controllers/decor/suite/nav/top_navbar_controller.js
+var top_navbar_controller_default2 = class extends top_navbar_base_default {
+};
+
 // app/javascript/controllers/decor/suite/notification_manager_controller.js
 var SuiteNotificationManagerController = class extends notification_manager_controller_default {
   get notificationClassName() {
@@ -6092,8 +6108,8 @@ var CONTROLLERS = {
   "decor--suite--modals--modal": modal_controller_default2,
   "decor--suite--modals--modal-open-button": modal_open_button_controller_default2,
   "decor--suite--modals--modal-trigger": modal_trigger_controller_default2,
-  "decor--suite--nav--side-navbar": side_navbar_controller_default,
-  "decor--suite--nav--top-navbar": top_navbar_controller_default,
+  "decor--suite--nav--side-navbar": side_navbar_controller_default2,
+  "decor--suite--nav--top-navbar": top_navbar_controller_default2,
   "decor--suite--notification-manager": SuiteNotificationManagerController,
   "decor--suite--polygon-editor": polygon_editor_controller_default,
   "decor--suite--progress": progress_controller_default,

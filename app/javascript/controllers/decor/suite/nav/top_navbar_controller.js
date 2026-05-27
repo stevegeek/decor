@@ -1,2 +1,4 @@
-// Suite re-export — same behaviour, registered under the Suite identifier.
-export { default } from "../../daisy/nav/top_navbar_controller";
+import TopNavbarBaseController from "../../nav/top_navbar_base";
+
+// Suite skin's TopNavbar controller (own class), extending the shared base.
+export default class extends TopNavbarBaseController {}

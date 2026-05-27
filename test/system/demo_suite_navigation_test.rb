@@ -29,7 +29,7 @@ class DemoSuiteNavigationTest < ApplicationSystemTestCase
   test "desktop rail collapses and expands" do
     current_window.resize_to(1400, 1000)
     visit demo_suite_navigation_path
-    assert page.evaluate_script("document.querySelector('#{DESKTOP}').classList.contains('decor:lg:w-72')")
+    assert page.evaluate_script("document.querySelector('#{DESKTOP}').classList.contains('decor:lg:w-64')")
 
     find("#side-navbar-desktop-collapse-button").click
     sleep 0.2
