@@ -11,7 +11,7 @@ GIT
 PATH
   remote: ../..
   specs:
-    decor (0.23.0)
+    decor (0.23.1)
       js_regex (~> 3.5)
       literal (>= 1.0)
       phlex-rails (>= 2.0)
@@ -466,7 +466,7 @@ CHECKSUMS
   cuprite (0.17)
   date (3.5.1) sha256=750d06384d7b9c15d562c76291407d89e368dda4d4fff957eb94962d325a0dc0
   debug (1.11.1) sha256=2e0b0ac6119f2207a6f8ac7d4a73ca8eb4e440f64da0a3136c30343146e952b6
-  decor (0.23.0)
+  decor (0.23.1)
   drb (2.2.3) sha256=0b00d6fdb50995fe4a45dea13663493c841112e4068656854646f418fda13373
   encoded_id (1.1.0) sha256=c45843b9d643f52d8397e7c8d5fc405befc8fbd123340baf2fbbff1c5d78152a
   encoded_id-rails (1.1.0) sha256=62eac9bbd7d44caf685860a217e4e719b4b319260467d25d7da2683312571590
