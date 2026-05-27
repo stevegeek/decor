@@ -55,7 +55,7 @@ module Decor
           # break Stimulus target resolution. Children declare their own.
           values(
             search_url: -> { @search_url || "" },
-            choices: -> { (@choices || []).to_json },
+            choices: -> { normalized_choices.to_json },
             extra_search_params: -> { @extra_search_params || "" },
             min_chars: -> { @choices.present? ? 0 : @min_chars },
             debounce_ms: -> { @debounce_ms },
@@ -68,6 +68,15 @@ module Decor
         end
 
         private
+
+        # Accept both {id:, label:, ...} entries and Rails select-helper
+        # [label, value] pairs (e.g. `*.for_select` output) so local choices
+        # don't render blank-labelled.
+        def normalized_choices
+          (@choices || []).map do |choice|
+            choice.is_a?(Array) ? {id: choice[1], label: choice[0]} : choice
+          end
+        end
 
         def disabled?
           @disabled

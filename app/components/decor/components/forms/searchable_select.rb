@@ -58,7 +58,7 @@ module Decor
           # actions inline via `child_element(stimulus_target:, stimulus_actions:)`.
           values(
             search_url: -> { @search_url || "" },
-            choices: -> { (@choices || []).to_json },
+            choices: -> { normalized_choices.to_json },
             min_chars: -> { @choices.present? ? 0 : @min_chars },
             debounce_ms: -> { @debounce_ms },
             page_size: -> { @page_size },
@@ -70,6 +70,16 @@ module Decor
         end
 
         private
+
+        # The JS controller and XHR results use {id:, label:, ...} entries.
+        # Also accept Rails select-helper format ([label, value] pairs) so
+        # callers can pass `*.for_select` / OptionsForSelect output directly
+        # without the dropdown rendering blank-labelled options.
+        def normalized_choices
+          (@choices || []).map do |choice|
+            choice.is_a?(Array) ? {id: choice[1], label: choice[0]} : choice
+          end
+        end
 
         def disabled?
           @disabled
