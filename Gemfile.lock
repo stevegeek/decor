@@ -11,7 +11,7 @@ GIT
 PATH
   remote: .
   specs:
-    decor (0.22.0)
+    decor (0.23.0)
       js_regex (~> 3.5)
       literal (>= 1.0)
       phlex-rails (>= 2.0)

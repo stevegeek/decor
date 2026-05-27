@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.23.0
+
+High-level summary of notable changes since 0.22.0:
+
+- **Suite navigation skin.** New `Decor::Suite::Nav::SideNavbar` (+ section /
+  item / sub-item), `TopNavbar`, `SecondaryNavbar`, and `Breadcrumbs` — a
+  light-by-default, generic port of the Navigo design with an optional `dark:`
+  flag for a dark rail. The side navbar adds a mobile drawer, a collapsible
+  icon-only desktop rail with hover-peek, cookie-persisted collapse state
+  (no-flash server render), a `.decor--side-navbar-content` wrapper whose
+  padding follows the rail width, and client-side item search.
+- **Tooltip is a top-layer popover.** The Suite `Tooltip` now renders as a
+  native `popover` anchored to its trigger via Floating UI, so it can't be
+  clipped by `overflow:hidden` ancestors and no longer drifts when its wrapper
+  is stretched by a flex/grid parent.
+- **Shipped previously-missing Stimulus controllers.** The side navbar and top
+  navbar referenced controllers that were never shipped (the drawer, collapse,
+  search, and mobile hamburger were inert); both now ship, as skin-neutral
+  bases with per-skin subclasses (no skin → skin coupling).
+- **Dynamic-component demo harness.** `test/dummy` gains `/demo/*` pages for
+  both skins (overlays/notifications, navigation, rich inputs, media) driven by
+  Cuprite system tests that verify the Stimulus behaviour in a real browser.
+
 ## Unreleased
 
 Pre-1.0. The entries below describe the gem's current surface area at a
