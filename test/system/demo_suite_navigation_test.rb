@@ -26,6 +26,16 @@ class DemoSuiteNavigationTest < ApplicationSystemTestCase
     assert hidden?(MOBILE), "drawer should hide again"
   end
 
+  test "top navbar hamburger opens the mobile drawer" do
+    current_window.resize_to(390, 844)
+    visit demo_suite_navigation_path
+    assert hidden?(MOBILE), "drawer should start hidden"
+
+    find("button[data-action*='nav--top-navbar#toggleMobileMenu']", match: :first).click
+    sleep 0.2
+    refute hidden?(MOBILE), "the top-navbar hamburger should open the drawer"
+  end
+
   test "desktop rail collapses and expands" do
     current_window.resize_to(1400, 1000)
     visit demo_suite_navigation_path

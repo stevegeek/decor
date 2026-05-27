@@ -15,7 +15,7 @@ module Decor
                   type: "button",
                   class: "decor:d-btn decor:d-btn-ghost decor:d-btn-circle decor:lg:hidden",
                   data: {
-                    action: "click->#{stimulus_identifier}#toggle_mobile_menu"
+                    action: "click->#{stimulus_identifier}#toggleMobileMenu"
                   }
                 ) do
                   span(class: "decor:sr-only") { "Open sidebar" }

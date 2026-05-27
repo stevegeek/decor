@@ -13,7 +13,7 @@ module Decor
               type: "button",
               class: "decor:inline-flex decor:items-center decor:justify-center decor:w-8 decor:h-8 decor:rounded-suite-control decor:text-gray-500 decor:border-r decor:border-suite-hairline decor:transition-colors decor:duration-suite-fast decor:ease-out decor:hover:text-gray-900 decor:hover:bg-suite-gray-25 decor:focus:outline-none decor:lg:hidden decor:shrink-0",
               data: {
-                action: "click->#{stimulus_identifier}#toggle_mobile_menu"
+                action: "click->#{stimulus_identifier}#toggleMobileMenu"
               }
             ) do
               span(class: "decor:sr-only") { "Open sidebar" }
