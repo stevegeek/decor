@@ -290,7 +290,7 @@ module Decor
             (errors? && !shell_owns_chrome?) ? "decor:border-suite-danger-500 decor:bg-suite-danger-50 decor:focus:shadow-[0_0_0_3px_var(--color-suite-danger-100)]" : nil,
             (disabled? && !shell_owns_chrome?) ? "decor:bg-gray-50 decor:text-gray-400 decor:border-suite-hairline decor:cursor-not-allowed" : nil,
             (disabled? && shell_owns_chrome?) ? "decor:text-gray-400 decor:cursor-not-allowed" : nil,
-            label_inside? ? "decor:pt-[19px] decor:pb-[5px]" : nil,
+            (@label.present? && label_inside?) ? "decor:pt-[19px] decor:pb-[5px]" : nil,
             (!shell_owns_chrome? && add_on_boxed? && has_leading_add_on?) ? "decor:rounded-l-none" : nil,
             (!shell_owns_chrome? && add_on_boxed? && has_trailing_add_on?) ? "decor:rounded-r-none" : nil,
             shell_owns_chrome? ? "decor:flex-1 decor:min-w-0" : nil

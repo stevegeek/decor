@@ -218,6 +218,18 @@ class ::Decor::Suite::Forms::TextFieldTest < ActiveSupport::TestCase
     assert_match(/<label[^>]*data-decor--suite--forms--text-field-target="label"[^>]*>Title<\/label>/, html)
   end
 
+  test "label_position :inside without a label does not reserve the floating-label strip" do
+    html = render_component(
+      ::Decor::Suite::Forms::TextField.new(name: "n", placeholder: "Search...", label_position: :inside)
+    )
+    # No label means no floating-label element, so the input must not reserve
+    # the top strip — otherwise the placeholder/value gets jammed into the
+    # bottom 5px and the field looks broken.
+    refute_match(/<label[^>]*for="[^"]+-control"/, html)
+    refute_includes html, "decor:pt-[19px]"
+    refute_includes html, "decor:pb-[5px]"
+  end
+
   test "invalid_input stimulus class uses suite-danger tokens, not the daisy invalid:border-error-dark" do
     html = render_component(::Decor::Suite::Forms::TextField.new(name: "n", label: "L"))
     assert_match(/invalid-input-class="[^"]*decor:border-suite-danger-500[^"]*"/, html)

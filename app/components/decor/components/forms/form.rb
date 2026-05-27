@@ -55,15 +55,21 @@ module Decor
           # button can target it via the HTML5 form="<id>" attribute.
           html[:id] = @id if @id
 
+          own_actions = {**stimulus_actions(
+            [stimulus_scoped_event(:submit), :handle_custom_submit_event],
+            [stimulus_scoped_event(:validate), :handle_validate_fields_event],
+            *(local? ? [[:submit, :handle_submit_event]] : remote_form_actions)
+          )}
+
           data = {
             type: (@local != true && !turbo?) ? "json" : nil,
-            **root_element_data_attributes,
-            **stimulus_actions(
-              [stimulus_scoped_event(:submit), :handle_custom_submit_event],
-              [stimulus_scoped_event(:validate), :handle_validate_fields_event],
-              *(local? ? [[:submit, :handle_submit_event]] : remote_form_actions)
-            )
+            **root_element_data_attributes
           }
+          # Merge the form's own actions with any caller-supplied `stimulus_actions:`
+          # (already aggregated by Vident into root_element_data_attributes[:action]).
+          # A bare spread of own_actions would share the `:action` key and clobber
+          # the caller's actions, silently dropping cross-controller listeners.
+          data[:action] = [data[:action], own_actions[:action]].compact.reject(&:blank?).join(" ")
           data[:turbo] = @turbo unless @turbo.nil?
 
           options = {

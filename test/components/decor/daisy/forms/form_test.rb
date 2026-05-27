@@ -116,6 +116,22 @@ class Decor::Daisy::Forms::FormTest < ActiveSupport::TestCase
     assert_includes rendered, "json"
   end
 
+  test "preserves caller-supplied stimulus_actions alongside the form's own actions" do
+    caller_action = ::Vident::Stimulus::Action.parse_descriptor(
+      "my-row:price_change->my-parent#handlePriceChange"
+    )
+    component = Decor::Daisy::Forms::Form.new(
+      model: @model, url: "/test", stimulus_actions: [caller_action]
+    )
+    fragment = render_fragment(component)
+    action = fragment.at_css("form")["data-action"].to_s
+
+    # Regression guard: the form used to clobber caller actions with its own.
+    assert_includes action, "my-row:price_change->my-parent#handlePriceChange"
+    # The form's own internal actions must still be wired.
+    assert_includes action, "decor--daisy--forms--form:submit"
+  end
+
   test "uses nokogiri for parsing" do
     component = Decor::Daisy::Forms::Form.new(model: @model, url: "/test")
     fragment = render_fragment(component)
