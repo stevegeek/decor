@@ -23,7 +23,7 @@ High-level summary of notable changes since 0.22.0:
   both skins (overlays/notifications, navigation, rich inputs, media) driven by
   Cuprite system tests that verify the Stimulus behaviour in a real browser.
 
-## Unreleased
+## 0.22.x
 
 Pre-1.0. The entries below describe the gem's current surface area at a
 high level; a versioned, narrower changelog will start with the 1.0
