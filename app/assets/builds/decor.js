@@ -3713,18 +3713,18 @@ var side_navbar_controller_default = class extends side_navbar_base_default {
 import { Controller as Controller21 } from "@hotwired/stimulus";
 var top_navbar_base_default = class extends Controller21 {
   static targets = ["search", "searchInput", "searchDropdown"];
-  toggleMobileMenu() {
-    const sidebar = document.querySelector(
-      "[data-controller~='decor--suite--nav--side-navbar'],[data-controller~='decor--daisy--nav--side-navbar']"
-    );
-    if (!sidebar) return;
-    const identifier = (sidebar.getAttribute("data-controller") || "").split(/\s+/).find((c) => /nav--side-navbar$/.test(c));
-    if (identifier) {
-      window.dispatchEvent(new CustomEvent(`${identifier}:toggleMobileMenu`));
-    }
+  // Override in the skin subclass, e.g. "decor--suite--nav--side-navbar".
+  get sideNavbarIdentifier() {
+    return null;
   }
-  // Instant search needs a backend that the harness doesn't provide; keep these
-  // as safe no-ops so the component's wired actions resolve.
+  // Opens the (same-skin) side-navbar drawer by firing its scoped toggle event,
+  // the one the side-navbar listens for on window.
+  toggleMobileMenu() {
+    const id = this.sideNavbarIdentifier;
+    if (id) window.dispatchEvent(new CustomEvent(`${id}:toggleMobileMenu`));
+  }
+  // Instant search needs a backend the harness doesn't provide; safe no-ops so
+  // the component's wired actions resolve cleanly.
   clickedSearchInput() {
   }
   search() {
@@ -3739,6 +3739,9 @@ var top_navbar_base_default = class extends Controller21 {
 
 // app/javascript/controllers/decor/daisy/nav/top_navbar_controller.js
 var top_navbar_controller_default = class extends top_navbar_base_default {
+  get sideNavbarIdentifier() {
+    return "decor--daisy--nav--side-navbar";
+  }
 };
 
 // app/javascript/controllers/decor/daisy/notification_manager_controller.js
@@ -5202,6 +5205,9 @@ var side_navbar_controller_default2 = class extends side_navbar_base_default {
 
 // app/javascript/controllers/decor/suite/nav/top_navbar_controller.js
 var top_navbar_controller_default2 = class extends top_navbar_base_default {
+  get sideNavbarIdentifier() {
+    return "decor--suite--nav--side-navbar";
+  }
 };
 
 // app/javascript/controllers/decor/suite/notification_manager_controller.js
