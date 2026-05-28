@@ -36,11 +36,14 @@ module Decor
       prop :download_path, _Nilable(String)
 
       stimulus do
-        actions [:click, :toggle], ["click@window", :hide_on_click_outside],
-          [:keydown, :handle_search_input_keydown],
-          [:focus, :handle_range_picker],
-          [:click, :handle_clear_filters],
-          [:click, :handle_apply]
+        # ONLY the window-scoped dismiss belongs on the root: it light-dismisses
+        # the filter dropdown (`toggle` stopPropagation()s so its own click never
+        # reaches this listener). toggle / apply / clear / keydown / range-picker
+        # are bound to their own child elements by each variant — a root `click`
+        # action fires on EVERY click in the subtree, so an actions-slot CTA would
+        # trigger apply+clear → reloadWith → full-page nav, tearing down a modal it
+        # just opened.
+        action :hide_on_click_outside, on: :click, window: true
       end
 
       def actions(&block)

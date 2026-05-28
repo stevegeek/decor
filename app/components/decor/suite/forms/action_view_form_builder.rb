@@ -168,6 +168,7 @@ module Decor
         end
 
         def file_field(method, options = {})
+          self.multipart = true
           options = options.dup
           options[:name] ||= "#{object_name}[#{method}]"
           options[:object] ||= @object
@@ -185,6 +186,7 @@ module Decor
         end
 
         def multi_image_upload(method, options = {})
+          self.multipart = true
           options = options.dup
           options[:name] ||= "#{object_name}[#{method}][]"
           options[:object] ||= @object

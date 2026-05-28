@@ -19,6 +19,9 @@ module Decor
         def select_content_tag(option_tags, options, html_options)
           options = options.merge(html_options: html_options).stringify_keys
           add_default_name_and_id(options)
+          # `multiple` arrives via html_options (Rails convention) but is a Decor
+          # component prop — lift it so the component renders `<select multiple>`.
+          options["multiple"] = true if html_options[:multiple] || html_options["multiple"]
           component_options = select_options(option_tags, options)
           @template_object.render ::Decor::Daisy::Forms::Select.new(**component_options)
         end

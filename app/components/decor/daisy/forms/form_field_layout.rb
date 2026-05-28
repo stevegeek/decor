@@ -8,7 +8,7 @@ module Decor
           @content = capture(&) if block_given?
 
           root_element do
-            div(class: container_classes, data: {**@form_field_element.stimulus_target(:container)}) do
+            div(class: container_classes, data: {**(@form_field_element&.stimulus_target(:container) || {})}) do
               div(class: label_section_layout_classes) do
                 if @label.present? && (label_left? || label_top?)
                   label(
@@ -33,7 +33,7 @@ module Decor
                     div(class: "decor:ml-4") do
                       label(
                         for: "#{@field_id}-control",
-                        data: {**@form_field_element.stimulus_target(:label)},
+                        data: {**(@form_field_element&.stimulus_target(:label) || {})},
                         class: "decor:d-label #{label_element_classes}"
                       ) do
                         span(class: "decor:d-label-text") { @label }
