@@ -6,11 +6,18 @@ module Decor
       class DataTableHeaderCell < ::Decor::Components::Tables::DataTableHeaderCell
         def view_template
           root_element do
-            div(class: "decor:group decor:flex decor:items-center decor:gap-0.5") do
-              span(class: "decor:flex-1") { plain resolved_content.to_s }
-              if sort_key?
-                span(class: sort_indicator_classes) do
-                  plain sort_icon
+            if @sort_href.present?
+              a(href: @sort_href, class: "decor:group decor:flex decor:items-center decor:gap-0.5 decor:no-underline decor:text-inherit") do
+                span(class: "decor:flex-1") { plain resolved_content.to_s }
+                span(class: sort_indicator_classes) { plain sort_icon } if sort_key?
+              end
+            else
+              div(class: "decor:group decor:flex decor:items-center decor:gap-0.5") do
+                span(class: "decor:flex-1") { plain resolved_content.to_s }
+                if sort_key?
+                  span(class: sort_indicator_classes) do
+                    plain sort_icon
+                  end
                 end
               end
             end

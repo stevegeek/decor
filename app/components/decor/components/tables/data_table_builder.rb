@@ -47,7 +47,6 @@ module Decor
         prop :sort_by, _Nilable(Symbol), reader: :private
         prop :sort_parameter_name, _Nilable(Symbol)
         prop :sorted_direction_parameter_name, _Nilable(Symbol)
-        prop :sorting_keys, _Array(Symbol), default: -> { [] }, reader: :private
 
         prop :columns_hash, Hash, default: -> { {} }, reader: :private
 
@@ -111,8 +110,14 @@ module Decor
         end
 
         def merge_sort_and_filter_params
-          direction = params[@sorted_direction_parameter_name || :sorted_direction]
-          key = params[@sort_parameter_name || :sort_by]
+          # Read the class-prefixed param names (matching `sort_parameter_name` /
+          # the header sort links / `keys_for_permit`), the same way
+          # `merge_pagination_params` reads via `page_parameter_name`. The old
+          # `@sort_parameter_name || :sort_by` fallback read the UNprefixed key,
+          # which no link ever sets — so the sort param was silently never read
+          # and header-click sorting did nothing.
+          direction = params[sorted_direction_parameter_name]
+          key = params[sort_parameter_name]
           @sorted_direction = direction.to_sym if direction.present?
           @sort_by = key.to_sym if key.present?
         end
@@ -272,9 +277,27 @@ module Decor
                 row_height: header_height,
                 stretch_divisor: col.stretch ? visible_columns.count(&:stretch) : nil,
                 sort_key: (col.sortable && !search_enabled?) ? col.name : nil,
-                sorted_direction: resolved_sort_direction(col)
+                sorted_direction: resolved_sort_direction(col),
+                sort_href: (col.sortable && !search_enabled?) ? sort_href_for(col) : nil
               )
             end
+        end
+
+        # URL for a column's sort link: toggles asc<->desc on the active column
+        # (defaults to asc otherwise) and preserves all other query params
+        # (page, filters). Uses the class-prefixed sort param names so multiple
+        # tables on one page don't collide — matching what
+        # `merge_sort_and_filter_params` reads back.
+        def sort_href_for(col)
+          current = (sanitised_sort_by&.to_sym == col.name) ? sanitised_sorted_direction : nil
+          next_direction = (current == :asc) ? :desc : :asc
+          overrides = {
+            sort_parameter_name.to_s => col.name.to_s,
+            sorted_direction_parameter_name.to_s => next_direction.to_s
+          }
+          request = helpers.request
+          query = request.query_parameters.to_h.except(*overrides.keys).merge(overrides)
+          query.empty? ? request.path : "#{request.path}?#{query.to_query}"
         end
 
         def visible_header_columns

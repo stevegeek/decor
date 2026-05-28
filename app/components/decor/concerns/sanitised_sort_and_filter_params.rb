@@ -11,7 +11,6 @@ module Decor
 
         prop :sorted_direction, _Nilable(Symbol)
         prop :sort_by, _Nilable(Symbol)
-        prop :sorting_keys, _Array(Symbol), default: -> { [] }
       end
 
       private
@@ -19,7 +18,7 @@ module Decor
       def sanitised_sort_by
         @sanitised_sort_by ||= begin
           key = @sort_by || default_sort_by
-          (key && @sorting_keys.include?(key)) ? key : nil
+          (key && sorting_keys.include?(key)) ? key : nil
         end
       end
 

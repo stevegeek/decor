@@ -7,7 +7,9 @@ class Decor::Daisy::Tables::DataTableBuilderTest < ActiveSupport::TestCase
       {id: 2, name: "Jane Smith", email: "jane@example.com", active: false}
     ]
     @mock_params = ActionController::Parameters.new({})
+    request = Struct.new(:path, :query_parameters).new("/items", {})
     @mock_helpers = Object.new
+    @mock_helpers.define_singleton_method(:request) { request }
   end
 
   private

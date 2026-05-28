@@ -18,6 +18,10 @@ module Decor
         prop :sort_key, _Nilable(Symbol)
         # Current sort direction of the column
         prop :sorted_direction, _Nilable(_Union(:asc, :desc))
+        # Server-rendered sort link (preserves other params, toggles direction).
+        # When present the header title is wrapped in an <a> so a plain click
+        # navigates to the sorted URL — no JS/Turbo Drive required.
+        prop :sort_href, _Nilable(String)
 
         stimulus do
           actions -> { [:click, :handle_sortable_click] if sort_key? }
