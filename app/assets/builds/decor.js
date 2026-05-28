@@ -2745,12 +2745,23 @@ var switch_controller_default = class extends Controller12 {
     const confirmMessage = this.confirmOnSubmitValue;
     const confirmLabel = this.confirmOnSubmitYesValue || "Confirm";
     const cancelLabel = this.confirmOnSubmitNoValue || "Cancel";
-    if (window.confirm(`${confirmMessage}
+    const resolve = (confirmed) => {
+      if (confirmed) {
+        this.submitForm();
+      } else {
+        this.revertSwitchState();
+      }
+    };
+    const event = new CustomEvent("decor:switch:confirm", {
+      detail: { message: confirmMessage, confirmLabel, cancelLabel, resolve },
+      cancelable: true
+    });
+    if (window.dispatchEvent(event)) {
+      resolve(
+        window.confirm(`${confirmMessage}
 
-Click OK to ${confirmLabel} or Cancel to ${cancelLabel}.`)) {
-      this.submitForm();
-    } else {
-      this.revertSwitchState();
+Click OK to ${confirmLabel} or Cancel to ${cancelLabel}.`)
+      );
     }
   }
   submitForm() {
@@ -4968,6 +4979,7 @@ var modal_controller_default2 = class extends Controller34 {
     this.dialog.addEventListener("close", this.boundHandleClose);
     this.dialog.addEventListener("cancel", this.boundHandleCancel);
     this.dialog.addEventListener("turbo:submit-end", this.boundHandleSubmitEnd);
+    document.addEventListener("turbo:submit-end", this.boundHandleDocumentSubmitEnd);
     if (this.startOpenValue || this.showInitialValue) {
       requestAnimationFrame(() => this.open());
     }
@@ -4976,6 +4988,7 @@ var modal_controller_default2 = class extends Controller34 {
     this.dialog.removeEventListener("close", this.boundHandleClose);
     this.dialog.removeEventListener("cancel", this.boundHandleCancel);
     this.dialog.removeEventListener("turbo:submit-end", this.boundHandleSubmitEnd);
+    document.removeEventListener("turbo:submit-end", this.boundHandleDocumentSubmitEnd);
   }
   // ── Public API ────────────────────────────────────────────────────────
   open() {
@@ -5039,6 +5052,13 @@ var modal_controller_default2 = class extends Controller34 {
     if (this.dialog.open && evt.detail && evt.detail.success) {
       this.close("submit-success");
     }
+  };
+  boundHandleDocumentSubmitEnd = (evt) => {
+    if (!this.dialog.open) return;
+    if (!evt.detail || !evt.detail.success) return;
+    const form = evt.target;
+    if (form && this.dialog.contains(form)) return;
+    this.close("orphan-submit-success");
   };
   // ── Content loading ───────────────────────────────────────────────────
   fetchAndInjectBody(href) {

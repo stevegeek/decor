@@ -68,6 +68,20 @@ export default class extends Controller {
         // dialog, so listening on the dialog catches forms in its body.
         this.dialog.addEventListener("turbo:submit-end", this.boundHandleSubmitEnd);
 
+        // Also catch Turbo form submissions whose `turbo:submit-end` event
+        // doesn't bubble through this dialog. Turbo's confirm-driven
+        // `<a data-turbo-method="…">` handler builds a hidden form on
+        // `<body>` for the click, so a DELETE link inside a modal body
+        // submits via a form the dialog never sees. The redirect-follow
+        // then morphs the page WITH the modal still open in the top layer
+        // — and morph mutates the dialog's `[open]` attribute via DOM
+        // manipulation, which doesn't trigger the browser's top-layer
+        // cleanup (only `.close()` does). Result: the next-rendered dialog
+        // reports `:modal` true (stale top-layer slot), its invisible
+        // backdrop covers the whole viewport, every subsequent click hits
+        // <html>. Document-level listener catches the orphaned submission.
+        document.addEventListener("turbo:submit-end", this.boundHandleDocumentSubmitEnd);
+
         if (this.startOpenValue || this.showInitialValue) {
             requestAnimationFrame(() => this.open());
         }
@@ -77,6 +91,7 @@ export default class extends Controller {
         this.dialog.removeEventListener("close", this.boundHandleClose);
         this.dialog.removeEventListener("cancel", this.boundHandleCancel);
         this.dialog.removeEventListener("turbo:submit-end", this.boundHandleSubmitEnd);
+        document.removeEventListener("turbo:submit-end", this.boundHandleDocumentSubmitEnd);
     }
 
     // ── Public API ────────────────────────────────────────────────────────
@@ -160,6 +175,16 @@ export default class extends Controller {
         if (this.dialog.open && evt.detail && evt.detail.success) {
             this.close("submit-success");
         }
+    };
+
+    boundHandleDocumentSubmitEnd = (evt) => {
+        // Don't double-fire for forms inside this dialog (the dialog-level
+        // listener already handled them).
+        if (!this.dialog.open) return;
+        if (!evt.detail || !evt.detail.success) return;
+        const form = evt.target;
+        if (form && this.dialog.contains(form)) return;
+        this.close("orphan-submit-success");
     };
 
     // ── Content loading ───────────────────────────────────────────────────
