@@ -53,13 +53,15 @@ module Decor
           else
             super(*args, **kwargs, &nil)
           end
-          if block
-            block.call(instance)
-            # Columns / bulk actions / configure_slot calls registered by the
-            # block need to influence setup_data_table — re-run it now that
-            # the block has filled in the DSL state.
-            instance.send(:setup_data_table)
-          end
+          # Block-DSL callers register columns / bulk actions / slots here.
+          block&.call(instance)
+          # `setup_data_table` runs exactly once, after the block has had a
+          # chance to register columns. Calling it earlier (e.g. from
+          # `after_component_initialize`) means subclass overrides that read
+          # `final_db_query` (which is memoised) lock in a column-less,
+          # sort-less query that the post-block call can't override —
+          # silently dropping every subclass-defined sort.
+          instance.send(:setup_data_table)
           instance
         end
 
@@ -70,10 +72,8 @@ module Decor
           @slots = {}
           @bulk_actions = []
           @row_nested_form_builders = nil
-          # setup_data_table runs here so kwargs-only callers get initial setup;
-          # block-based callers get a second setup_data_table call from
-          # self.new after the block has registered columns.
-          setup_data_table
+          # NB: `setup_data_table` is intentionally not called here — see
+          # `self.new` above.
         end
 
         def view_template
