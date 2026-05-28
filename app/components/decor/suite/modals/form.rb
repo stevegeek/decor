@@ -27,7 +27,7 @@ module Decor
             # by ModalController when the loaded fragment contains a
             # <template data-modal-destructive-action>. `mr-auto` pins it left
             # regardless of population state.
-            div(class: "decor:mr-auto", data: {modal_destructive_slot: true})
+            div(class: "decor-modal__destructive-slot decor:mr-auto", data: {modal_destructive_slot: true})
             render cancel_button
             render submit_button
           end

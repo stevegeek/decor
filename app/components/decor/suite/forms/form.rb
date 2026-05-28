@@ -63,32 +63,33 @@ module Decor
               # would break ERB-driven leaves.
               @builder = phlex_builder.respond_to?(:unwrap) ? phlex_builder.unwrap : phlex_builder
 
-              content = +""
+              # Write the body straight into form_with's output buffer instead
+              # of building a string via a nested `capture`. A nested capture
+              # returns blank whenever this Form is rendered inside another
+              # capturing slot (PageSection / Box / Card / PropertyList) or a
+              # layout's content_for chain, silently dropping the form body
+              # (the submit button et al). Writing inline lets ActionView's own
+              # form_with capture collect the body exactly as it does for a
+              # plain Rails form, which is reentrant across that nesting.
+              vc = helpers
 
               unless locked_version.nil?
                 hidden = @builder.hidden_field(:lock_version)
-                content << hidden.to_s if hidden
+                vc.safe_concat(hidden) if hidden
               end
 
-              if block
-                captured = capture { block.call(self) }
-                content << captured.to_s if captured.present?
-              end
+              block&.call(self)
 
-              # Footer slot is captured AFTER the body block has run (which is
-              # when `with_actions` registers it) and appended last, so its
-              # buttons land in the footer region regardless of where the
-              # caller placed the `with_actions` call.
+              # Footer runs AFTER the body block (which is when `with_actions`
+              # registers it) so its buttons land in the footer region
+              # regardless of where the caller placed the `with_actions` call.
               if @actions_block
-                actions_inner = capture { @actions_block.call }
-                if actions_inner.present?
-                  content << %(<div class="#{actions_footer_classes}">)
-                  content << actions_inner.to_s
-                  content << "</div>"
-                end
+                vc.safe_concat(%(<div class="#{actions_footer_classes}">))
+                @actions_block.call
+                vc.safe_concat("</div>")
               end
 
-              content.html_safe
+              nil
             end
           )
         end
