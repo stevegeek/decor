@@ -33,6 +33,9 @@ module Decor
 
         switch_kwargs = {
           disabled: false,
+          # Match ActionView's field_id (model_property) so the rendered input
+          # id is "<model>_<property>-control" rather than a random Vident id.
+          id: "#{@model.class.name.underscore}_#{@property_name}",
           name: "#{@model.class.name.underscore}[#{@property_name}]",
           submit_on_change: true,
           **@switch_options
