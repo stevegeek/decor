@@ -2,8 +2,6 @@
 
 module Decor
   class PhlexComponent < ::Vident::Phlex::HTML
-    include ActiveSupport::Configurable
-
     include ::Vident::Caching
 
     include Phlex::Rails::Helpers::Routes
