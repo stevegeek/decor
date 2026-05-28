@@ -43,10 +43,27 @@ export default class extends Controller {
     const confirmLabel = this.confirmOnSubmitYesValue || "Confirm";
     const cancelLabel = this.confirmOnSubmitNoValue || "Cancel";
 
-    if (window.confirm(`${confirmMessage}\n\nClick OK to ${confirmLabel} or Cancel to ${cancelLabel}.`)) {
-      this.submitForm();
-    } else {
-      this.revertSwitchState();
+    const resolve = (confirmed) => {
+      if (confirmed) {
+        this.submitForm();
+      } else {
+        this.revertSwitchState();
+      }
+    };
+
+    // Ask the host app to show a real confirm modal by dispatching a
+    // cancelable event with a `resolve` callback (mirrors the bulk-actions
+    // bar pattern). If no listener handles it (preventDefault), fall back to
+    // native window.confirm() so the switch still works standalone.
+    const event = new CustomEvent("decor:switch:confirm", {
+      detail: { message: confirmMessage, confirmLabel, cancelLabel, resolve },
+      cancelable: true,
+    });
+
+    if (window.dispatchEvent(event)) {
+      resolve(
+        window.confirm(`${confirmMessage}\n\nClick OK to ${confirmLabel} or Cancel to ${cancelLabel}.`)
+      );
     }
   }
 
