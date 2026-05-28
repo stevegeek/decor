@@ -5,24 +5,26 @@ module Decor
     module StyleClasses
       module ClassMethods
         def styles
-          config.styles || [:filled, :outlined, :ghost]
+          _configured_styles || [:filled, :outlined, :ghost]
         end
 
         def default_style(style = nil)
-          return config.default_style unless style
-          config.default_style = style
+          return _configured_default_style unless style
+          self._configured_default_style = style
         end
 
         def redefine_styles(*new_styles)
-          config.styles = new_styles
-          prop :style, _Nilable(_Union(*new_styles)), default: -> { config.default_style }
+          self._configured_styles = new_styles
+          prop :style, _Nilable(_Union(*new_styles)), default: -> { self.class._configured_default_style }
         end
       end
 
       def self.included(base)
         base.extend(ClassMethods)
+        base.class_attribute :_configured_styles, instance_accessor: false
+        base.class_attribute :_configured_default_style, instance_accessor: false
         base.class_eval do
-          prop :style, _Nilable(_Union(*styles)), default: -> { config.default_style }
+          prop :style, _Nilable(_Union(*styles)), default: -> { self.class._configured_default_style }
         end
       end
 

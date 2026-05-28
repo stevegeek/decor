@@ -7,24 +7,26 @@ module Decor
 
       module ClassMethods
         def colors
-          config.colors || SEMANTIC_COLORS
+          _configured_colors || SEMANTIC_COLORS
         end
 
         def default_color(color = nil)
-          return config.default_color unless color
-          config.default_color = color
+          return _configured_default_color unless color
+          self._configured_default_color = color
         end
 
         def redefine_colors(*new_colors)
-          config.colors = new_colors
-          prop :color, _Nilable(_Union(*new_colors)), default: -> { config.default_color }
+          self._configured_colors = new_colors
+          prop :color, _Nilable(_Union(*new_colors)), default: -> { self.class._configured_default_color }
         end
       end
 
       def self.included(base)
         base.extend(ClassMethods)
+        base.class_attribute :_configured_colors, instance_accessor: false
+        base.class_attribute :_configured_default_color, instance_accessor: false
         base.class_eval do
-          prop :color, _Nilable(_Union(*colors)), default: -> { config.default_color }
+          prop :color, _Nilable(_Union(*colors)), default: -> { self.class._configured_default_color }
         end
       end
 

@@ -15,33 +15,36 @@ module Decor
 
       module ClassMethods
         def sizes
-          config.sizes || STANDARD_SIZES
+          _configured_sizes || STANDARD_SIZES
         end
 
         def size_aliases
-          config.size_aliases || SIZE_ALIASES
+          _configured_size_aliases || SIZE_ALIASES
         end
 
         def default_size(size = nil)
-          return config.default_size unless size
-          config.default_size = size
+          return _configured_default_size unless size
+          self._configured_default_size = size
         end
 
         def redefine_sizes(*new_sizes)
-          config.sizes = new_sizes
-          prop :size, _Nilable(_Union(*(size_aliases.keys + new_sizes))), default: -> { config.default_size }
+          self._configured_sizes = new_sizes
+          prop :size, _Nilable(_Union(*(size_aliases.keys + new_sizes))), default: -> { self.class._configured_default_size }
         end
 
         def redefine_size_aliases(new_aliases)
-          config.size_aliases = new_aliases
-          prop :size, _Nilable(_Union(*(new_aliases.keys + sizes))), default: -> { config.default_size }
+          self._configured_size_aliases = new_aliases
+          prop :size, _Nilable(_Union(*(new_aliases.keys + sizes))), default: -> { self.class._configured_default_size }
         end
       end
 
       def self.included(base)
         base.extend(ClassMethods)
+        base.class_attribute :_configured_sizes, instance_accessor: false
+        base.class_attribute :_configured_size_aliases, instance_accessor: false
+        base.class_attribute :_configured_default_size, instance_accessor: false
         base.class_eval do
-          prop :size, _Nilable(_Union(*(size_aliases.keys + sizes))), default: -> { config.default_size }
+          prop :size, _Nilable(_Union(*(size_aliases.keys + sizes))), default: -> { self.class._configured_default_size }
         end
       end
 
