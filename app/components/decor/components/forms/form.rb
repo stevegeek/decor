@@ -14,15 +14,15 @@ module Decor
         prop :local, _Boolean, default: true
         prop :http_method, _Nilable(_Interface(:to_s))
 
-        # Hint whether this form participates in Turbo Drive on Turbo-enabled
-        # pages. `false` (default) emits `data-turbo="false"` so the form opts
-        # out of Turbo entirely — submits are handled by the browser or UJS
-        # (with ajax:* callbacks). `true` emits `data-turbo="true"` so Turbo
-        # Drive handles the submit (turbo:submit-end-style callbacks) and
-        # natively wires Turbo.config.forms.confirm for `data-turbo-confirm`
-        # on submit buttons. `nil` omits the attribute so the form inherits
-        # from the nearest ancestor (typical for cms-injected fragments).
-        prop :turbo, _Nilable(_Boolean), default: false
+        # Hint whether this form participates in Turbo Drive. `nil` (default)
+        # omits the attribute so the form inherits Turbo behavior from the
+        # nearest `data-turbo` ancestor — which, in a Turbo Drive app, means the
+        # page/layout decides. `true` forces `data-turbo="true"`; `false` forces
+        # `data-turbo="false"` to opt a single form out of Drive (e.g. on a
+        # carve-out page or a legacy flow). Turbo handles submits natively and
+        # wires Turbo.config.forms.confirm for `data-turbo-confirm` on submit
+        # buttons.
+        prop :turbo, _Nilable(_Boolean), default: nil
         prop :form_builder_class, _Class(ActionView::Helpers::FormBuilder), default: -> { ::Decor::Forms::ActionViewFormBuilder }
 
         prop :on_before, _Nilable(_Interface(:to_s))

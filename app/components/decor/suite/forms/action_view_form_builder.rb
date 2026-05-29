@@ -143,7 +143,7 @@ module Decor
         def submit(label = nil, options = {}, &)
           options = normalize_legacy_button_kwargs(options)
           options = {style: :filled, color: :base}.merge(options)
-          html_options = options.fetch(:html_options, {})
+          html_options = turbofy_submit_html_options(options.fetch(:html_options, {}))
           options[:html_options] = {type: :submit, name: "commit", value: label || submit_default_value}.merge(html_options)
           options[:id] ||= field_id_generator(options, "submit")
           @template.render(::Decor::Suite::Button.new(label: label || "Submit", **options), &)

@@ -103,29 +103,6 @@ module Decor
             "decor:flex decor:flex-wrap decor:items-center decor:justify-end decor:gap-2"
         end
 
-        # Vident's Action.parse expects Symbol events (not bare Strings —
-        # those parse as controller paths), so use the quoted-symbol form.
-        #
-        # When `turbo: true`, defer to the base implementation which emits
-        # turbo:* lifecycle events that Turbo Drive actually fires. When
-        # `turbo: false` (default for Suite forms, preserving UJS callbacks),
-        # emit the ajax:* event names UJS dispatches.
-        def remote_form_actions
-          return super if turbo?
-
-          actions = [
-            [:"ajax:beforeSend", :handle_submit_event]
-          ]
-          actions << action_pair(:"ajax:before", @on_before) if @on_before
-          actions << action_pair(:"ajax:beforeSend", @on_before_send) if @on_before_send
-          actions << action_pair(:"ajax:send", @on_send) if @on_send
-          actions << action_pair(:"ajax:stopped", @on_stopped) if @on_stopped
-          actions << action_pair(:"ajax:success", @on_success) if @on_success
-          actions << action_pair(:"ajax:error", @on_error) if @on_error
-          actions << action_pair(:"ajax:complete", @on_complete) if @on_complete
-          actions
-        end
-
       end
     end
   end

@@ -334,10 +334,31 @@ module Decor
 
       def submit(label = nil, options = {}, &)
         options = {style: :filled, color: :secondary}.merge(options)
-        html_options = options.fetch(:html_options, {})
+        html_options = turbofy_submit_html_options(options.fetch(:html_options, {}))
         options[:html_options] = {type: :submit, name: "commit", value: label || submit_default_value}.merge(html_options)
         options[:id] ||= field_id_generator(options, "submit")
         @template.render(::Decor::Daisy::Button.new(label: label || "Submit", **options), &)
+      end
+
+      # Translates legacy Rails-UJS data attributes on a submit button into
+      # their Turbo equivalents, so callers can keep passing the familiar
+      # `data: {confirm:, disable_with:}` while the app runs UJS-free under
+      # Turbo Drive. `data-confirm` -> `data-turbo-confirm` (Turbo's confirm
+      # hook), `data-disable-with` -> `data-turbo-submits-with` (Turbo's
+      # while-submitting label). Existing turbo_* keys win if both are present.
+      def turbofy_submit_html_options(html_options)
+        return html_options unless html_options.is_a?(Hash)
+        data = html_options[:data]
+        return html_options unless data.is_a?(Hash)
+
+        data = data.dup
+        if (confirm = data.delete(:confirm))
+          data[:turbo_confirm] ||= confirm
+        end
+        if (label = data.delete(:disable_with) || data.delete("disable-with"))
+          data[:turbo_submits_with] ||= label
+        end
+        html_options.merge(data: data)
       end
 
       private

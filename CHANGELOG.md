@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.24.0
+
+High-level summary of notable changes since 0.23.0:
+
+- **Forms default to inheriting Turbo behavior.** `Decor::Components::Forms::Form`
+  (and the Suite/Daisy skins) now default `turbo:` to `nil` instead of `false`,
+  so a form emits no `data-turbo` attribute and inherits Turbo Drive from its
+  nearest ancestor. Pass `turbo: false` to explicitly opt a single form out of
+  Drive, or `turbo: true` to force it on. This makes forms behave correctly by
+  default in a Turbo Drive application.
+- **Removed the Suite form's Rails-UJS callback path.** The Suite form no
+  longer rewrites its lifecycle callbacks to `ajax:*` event names; all forms now
+  use Turbo's native `turbo:submit-*` events. `on_success`/`on_error`/etc. fire
+  on `turbo:submit-end` (check `event.detail.success`).
+- **Form-builder submit buttons translate legacy data attributes.** `submit` /
+  `submit_primary` now map `data: {confirm:}` → `data-turbo-confirm` and
+  `data: {disable_with:}` → `data-turbo-submits-with`, so existing call sites
+  keep working without Rails-UJS.
+
 ## 0.23.0
 
 High-level summary of notable changes since 0.22.0:
