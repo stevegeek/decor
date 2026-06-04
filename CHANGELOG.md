@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.24.1
+
+- **Expose the public JS surface from the package entry.** The bundle entry
+  (`import "decor"`) now re-exports the identifier constants (Suite + Daisy) and
+  the controller classes intended for reuse/subclassing (`TextFieldController`,
+  `NumberFieldController`, `FormFieldController`, `ConfirmTemplateController`,
+  `DataTableController`). Host apps can import these from `"decor"` instead of
+  deep-importing the package's source tree, so consuming the prebuilt bundle is
+  sufficient and no source files need to be resolvable at the consumer's build.
+
 ## 0.24.0
 
 High-level summary of notable changes since 0.23.0:

@@ -6149,6 +6149,85 @@ var CONTROLLERS = {
   "decor--suite--tooltip": tooltip_controller_default
 };
 
+// app/javascript/decor/suite/identifiers.js
+var DecorSuiteAiChatWidgetIdentifier = "decor--suite--ai-chat--widget";
+var DecorSuiteButtonIdentifier = "decor--suite--button";
+var DecorSuiteCarouselIdentifier = "decor--suite--carousel";
+var DecorSuiteClickToCopyIdentifier = "decor--suite--click-to-copy";
+var DecorSuiteCodeBlockIdentifier = "decor--suite--code-block";
+var DecorSuiteDropdownIdentifier = "decor--suite--dropdown";
+var DecorSuiteFlashIdentifier = "decor--suite--flash";
+var DecorSuiteMapIdentifier = "decor--suite--map";
+var DecorSuiteNotificationManagerIdentifier = "decor--suite--notification-manager";
+var DecorSuitePolygonEditorIdentifier = "decor--suite--polygon-editor";
+var DecorSuiteProgressIdentifier = "decor--suite--progress";
+var DecorSuiteSearchAndFilterIdentifier = "decor--suite--search-and-filter";
+var DecorSuiteTabsIdentifier = "decor--suite--tabs";
+var DecorSuiteTooltipIdentifier = "decor--suite--tooltip";
+var DecorSuiteFormsButtonRadioGroupIdentifier = "decor--suite--forms--button-radio-group";
+var DecorSuiteFormsCheckboxIdentifier = "decor--suite--forms--checkbox";
+var DecorSuiteFormsDateCalendarIdentifier = "decor--suite--forms--date-calendar";
+var DecorSuiteFormsExpandingCheckboxCollectionIdentifier = "decor--suite--forms--expanding-checkbox-collection";
+var DecorSuiteFormsFileUploadIdentifier = "decor--suite--forms--file-upload";
+var DecorSuiteFormsFormIdentifier = "decor--suite--forms--form";
+var DecorSuiteFormsMultiImageUploadIdentifier = "decor--suite--forms--multi-image-upload";
+var DecorSuiteFormsNumberFieldIdentifier = "decor--suite--forms--number-field";
+var DecorSuiteFormsRadioIdentifier = "decor--suite--forms--radio";
+var DecorSuiteFormsSearchableMultiSelectIdentifier = "decor--suite--forms--searchable-multi-select";
+var DecorSuiteFormsSearchableSelectIdentifier = "decor--suite--forms--searchable-select";
+var DecorSuiteFormsSelectIdentifier = "decor--suite--forms--select";
+var DecorSuiteFormsSwitchIdentifier = "decor--suite--forms--switch";
+var DecorSuiteFormsTextAreaIdentifier = "decor--suite--forms--text-area";
+var DecorSuiteFormsTextFieldIdentifier = "decor--suite--forms--text-field";
+var DecorSuiteModalsConfirmIdentifier = "decor--suite--modals--confirm";
+var DecorSuiteModalsConfirmTemplateIdentifier = "decor--suite--modals--confirm-template";
+var DecorSuiteModalsModalCloseButtonIdentifier = "decor--suite--modals--modal-close-button";
+var DecorSuiteModalsModalIdentifier = "decor--suite--modals--modal";
+var DecorSuiteModalsModalOpenButtonIdentifier = "decor--suite--modals--modal-open-button";
+var DecorSuiteModalsModalTriggerIdentifier = "decor--suite--modals--modal-trigger";
+var DecorSuiteSettingsListRowIdentifier = "decor--suite--settings-list--row";
+var DecorSuiteTablesBulkActionsBarIdentifier = "decor--suite--tables--bulk-actions-bar";
+var DecorSuiteTablesDataTableCellIdentifier = "decor--suite--tables--data-table-cell";
+var DecorSuiteTablesDataTableIdentifier = "decor--suite--tables--data-table";
+var DecorSuiteTablesDataTableRowIdentifier = "decor--suite--tables--data-table-row";
+var DecorSuiteTablesTagFilterBarIdentifier = "decor--suite--tables--tag-filter-bar";
+
+// app/javascript/decor/daisy/identifiers.js
+var DecorDaisyAiChatWidgetIdentifier = "decor--daisy--ai-chat--widget";
+var DecorDaisyButtonIdentifier = "decor--daisy--button";
+var DecorDaisyClickToCopyIdentifier = "decor--daisy--click-to-copy";
+var DecorDaisyCodeBlockIdentifier = "decor--daisy--code-block";
+var DecorDaisyDropdownIdentifier = "decor--daisy--dropdown";
+var DecorDaisyFlashIdentifier = "decor--daisy--flash";
+var DecorDaisyMapIdentifier = "decor--daisy--map";
+var DecorDaisyNotificationManagerIdentifier = "decor--daisy--notification-manager";
+var DecorDaisyPolygonEditorIdentifier = "decor--daisy--polygon-editor";
+var DecorDaisyProgressIdentifier = "decor--daisy--progress";
+var DecorDaisyTabsIdentifier = "decor--daisy--tabs";
+var DecorDaisyFormsButtonRadioGroupIdentifier = "decor--daisy--forms--button-radio-group";
+var DecorDaisyFormsCheckboxIdentifier = "decor--daisy--forms--checkbox";
+var DecorDaisyFormsDateCalendarIdentifier = "decor--daisy--forms--date-calendar";
+var DecorDaisyFormsExpandingCheckboxCollectionIdentifier = "decor--daisy--forms--expanding-checkbox-collection";
+var DecorDaisyFormsFileUploadIdentifier = "decor--daisy--forms--file-upload";
+var DecorDaisyFormsMultiImageUploadIdentifier = "decor--daisy--forms--multi-image-upload";
+var DecorDaisyFormsNumberFieldIdentifier = "decor--daisy--forms--number-field";
+var DecorDaisyFormsRadioIdentifier = "decor--daisy--forms--radio";
+var DecorDaisyFormsSearchableMultiSelectIdentifier = "decor--daisy--forms--searchable-multi-select";
+var DecorDaisyFormsSearchableSelectIdentifier = "decor--daisy--forms--searchable-select";
+var DecorDaisyFormsSelectIdentifier = "decor--daisy--forms--select";
+var DecorDaisyFormsSwitchIdentifier = "decor--daisy--forms--switch";
+var DecorDaisyFormsTextAreaIdentifier = "decor--daisy--forms--text-area";
+var DecorDaisyFormsTextFieldIdentifier = "decor--daisy--forms--text-field";
+var DecorDaisyModalsConfirmIdentifier = "decor--daisy--modals--confirm";
+var DecorDaisyModalsConfirmModalIdentifier = "decor--daisy--modals--confirm-modal";
+var DecorDaisyModalsConfirmTemplateIdentifier = "decor--daisy--modals--confirm-template";
+var DecorDaisyModalsModalCloseButtonIdentifier = "decor--daisy--modals--modal-close-button";
+var DecorDaisyModalsModalIdentifier = "decor--daisy--modals--modal";
+var DecorDaisyModalsModalOpenButtonIdentifier = "decor--daisy--modals--modal-open-button";
+var DecorDaisyModalsModalTriggerIdentifier = "decor--daisy--modals--modal-trigger";
+var DecorDaisyTablesBulkActionsBarIdentifier = "decor--daisy--tables--bulk-actions-bar";
+var DecorDaisyTablesTagFilterBarIdentifier = "decor--daisy--tables--tag-filter-bar";
+
 // app/javascript/decor/index.js
 function register(application) {
   for (const [identifier, Controller43] of Object.entries(CONTROLLERS)) {
@@ -6160,6 +6239,86 @@ if (typeof window !== "undefined" && window.Stimulus) {
 }
 export {
   CONTROLLERS,
+  confirm_template_controller_default as ConfirmTemplateController,
+  data_table_controller_default as DataTableController,
+  DecorDaisyAiChatWidgetIdentifier,
+  DecorDaisyButtonIdentifier,
+  DecorDaisyClickToCopyIdentifier,
+  DecorDaisyCodeBlockIdentifier,
+  DecorDaisyDropdownIdentifier,
+  DecorDaisyFlashIdentifier,
+  DecorDaisyFormsButtonRadioGroupIdentifier,
+  DecorDaisyFormsCheckboxIdentifier,
+  DecorDaisyFormsDateCalendarIdentifier,
+  DecorDaisyFormsExpandingCheckboxCollectionIdentifier,
+  DecorDaisyFormsFileUploadIdentifier,
+  DecorDaisyFormsMultiImageUploadIdentifier,
+  DecorDaisyFormsNumberFieldIdentifier,
+  DecorDaisyFormsRadioIdentifier,
+  DecorDaisyFormsSearchableMultiSelectIdentifier,
+  DecorDaisyFormsSearchableSelectIdentifier,
+  DecorDaisyFormsSelectIdentifier,
+  DecorDaisyFormsSwitchIdentifier,
+  DecorDaisyFormsTextAreaIdentifier,
+  DecorDaisyFormsTextFieldIdentifier,
+  DecorDaisyMapIdentifier,
+  DecorDaisyModalsConfirmIdentifier,
+  DecorDaisyModalsConfirmModalIdentifier,
+  DecorDaisyModalsConfirmTemplateIdentifier,
+  DecorDaisyModalsModalCloseButtonIdentifier,
+  DecorDaisyModalsModalIdentifier,
+  DecorDaisyModalsModalOpenButtonIdentifier,
+  DecorDaisyModalsModalTriggerIdentifier,
+  DecorDaisyNotificationManagerIdentifier,
+  DecorDaisyPolygonEditorIdentifier,
+  DecorDaisyProgressIdentifier,
+  DecorDaisyTablesBulkActionsBarIdentifier,
+  DecorDaisyTablesTagFilterBarIdentifier,
+  DecorDaisyTabsIdentifier,
+  DecorSuiteAiChatWidgetIdentifier,
+  DecorSuiteButtonIdentifier,
+  DecorSuiteCarouselIdentifier,
+  DecorSuiteClickToCopyIdentifier,
+  DecorSuiteCodeBlockIdentifier,
+  DecorSuiteDropdownIdentifier,
+  DecorSuiteFlashIdentifier,
+  DecorSuiteFormsButtonRadioGroupIdentifier,
+  DecorSuiteFormsCheckboxIdentifier,
+  DecorSuiteFormsDateCalendarIdentifier,
+  DecorSuiteFormsExpandingCheckboxCollectionIdentifier,
+  DecorSuiteFormsFileUploadIdentifier,
+  DecorSuiteFormsFormIdentifier,
+  DecorSuiteFormsMultiImageUploadIdentifier,
+  DecorSuiteFormsNumberFieldIdentifier,
+  DecorSuiteFormsRadioIdentifier,
+  DecorSuiteFormsSearchableMultiSelectIdentifier,
+  DecorSuiteFormsSearchableSelectIdentifier,
+  DecorSuiteFormsSelectIdentifier,
+  DecorSuiteFormsSwitchIdentifier,
+  DecorSuiteFormsTextAreaIdentifier,
+  DecorSuiteFormsTextFieldIdentifier,
+  DecorSuiteMapIdentifier,
+  DecorSuiteModalsConfirmIdentifier,
+  DecorSuiteModalsConfirmTemplateIdentifier,
+  DecorSuiteModalsModalCloseButtonIdentifier,
+  DecorSuiteModalsModalIdentifier,
+  DecorSuiteModalsModalOpenButtonIdentifier,
+  DecorSuiteModalsModalTriggerIdentifier,
+  DecorSuiteNotificationManagerIdentifier,
+  DecorSuitePolygonEditorIdentifier,
+  DecorSuiteProgressIdentifier,
+  DecorSuiteSearchAndFilterIdentifier,
+  DecorSuiteSettingsListRowIdentifier,
+  DecorSuiteTablesBulkActionsBarIdentifier,
+  DecorSuiteTablesDataTableCellIdentifier,
+  DecorSuiteTablesDataTableIdentifier,
+  DecorSuiteTablesDataTableRowIdentifier,
+  DecorSuiteTablesTagFilterBarIdentifier,
+  DecorSuiteTabsIdentifier,
+  DecorSuiteTooltipIdentifier,
+  FormFieldController,
+  NumberFieldController,
+  TextFieldController,
   register
 };
 //# sourceMappingURL=decor.js.map
