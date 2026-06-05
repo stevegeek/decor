@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "main": "app/assets/builds/decor.js",
   "module": "app/assets/builds/decor.js",
+  "types": "app/assets/builds/decor.d.ts",
   "type": "module",
   "files": [
     "app/assets/builds/decor.js",
-    "app/assets/builds/decor.js.map"
+    "app/assets/builds/decor.js.map",
+    "app/assets/builds/decor.d.ts"
   ],
   "peerDependencies": {
     "@hotwired/stimulus": ">= 3.2",

@@ -5029,6 +5029,7 @@ var modal_controller_default2 = class extends Controller34 {
     this.resetFooterMarkers();
     this.open();
     if (href) {
+      this.fetchedBody = true;
       this.fetchAndInjectBody(href);
     }
   }
@@ -5042,6 +5043,11 @@ var modal_controller_default2 = class extends Controller34 {
   boundHandleClose = () => {
     const reason = this.dialog.returnValue || "";
     this.dispatchOnDialog(CLOSED_EVENT, { reason, closeReason: reason });
+    if (this.fetchedBody) {
+      this.fetchedBody = false;
+      const bodyEl = this.resolveBodyElement();
+      if (bodyEl) safelySetInnerHTML(bodyEl, markAsSafeHTML(""));
+    }
   };
   boundHandleCancel = (evt) => {
     if (!this.closeableValue) {

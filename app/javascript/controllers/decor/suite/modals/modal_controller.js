@@ -146,6 +146,9 @@ export default class extends Controller {
         this.open();
 
         if (href) {
+            // Remember that this open populated the body from the network, so the
+            // body can be torn down again on close (see boundHandleClose).
+            this.fetchedBody = true;
             this.fetchAndInjectBody(href);
         }
     }
@@ -163,6 +166,19 @@ export default class extends Controller {
     boundHandleClose = () => {
         const reason = this.dialog.returnValue || "";
         this.dispatchOnDialog(CLOSED_EVENT, { reason, closeReason: reason });
+
+        // Tear down a lazily-fetched body on close: disconnect its controllers
+        // and drop its DOM so it can't linger and collide with the next-opened
+        // modal (e.g. duplicate element ids across two product Quick-Views, where
+        // a label[for] then actuates the wrong modal's control). The body is
+        // re-fetched on every open, so this is non-destructive. Fires on the
+        // native 'close' event — the dialog is already closed, so no visible
+        // flash. Static (non-fetched) bodies are left untouched.
+        if (this.fetchedBody) {
+            this.fetchedBody = false;
+            const bodyEl = this.resolveBodyElement();
+            if (bodyEl) safelySetInnerHTML(bodyEl, markAsSafeHTML(""));
+        }
     };
 
     boundHandleCancel = (evt) => {

@@ -1,5 +1,44 @@
 # Changelog
 
+## 0.24.3
+
+- **Suite `Modal` tears down a lazily-fetched body on close.** A modal opened
+  with `content_href` (or a per-open content href) now clears its
+  `.decor-modal__body` on the native `close` event, disconnecting the fetched
+  content's controllers and dropping its DOM. Previously the fetched body
+  lingered after close, so two modals fed from different fragments could coexist
+  in the DOM — and any non-unique element ids they shared (e.g. a `label[for]`)
+  would resolve to the wrong, hidden modal's control. The body is re-fetched on
+  every open, so this is non-destructive; static (non-fetched) bodies are
+  untouched.
+- **Suite `Dropdown` merges its size classes instead of replacing them.**
+  `dropdown_size_classes:` is now tailwind-merged with the defaults
+  (`w-auto max-h-80`) rather than replacing them, so passing only a width no
+  longer silently drops the `max-h` cap. Without the cap a tall menu (e.g. a
+  full cart) grew past the viewport and the CSS-anchor `flip-block` fallback
+  re-anchored it off the top of the screen. A consumer's own width/`max-h`
+  still overrides the defaults (last-wins).
+- **Fix the outlined Suite `Tag` "nose" rendering invisibly on light surfaces.**
+  The left tag nose is a `::before` clip-path triangle, and a CSS border can't
+  follow a clip-path — so the outlined nose was filled with `bg-inherit` (the
+  white body background) with no visible edge. On a white surface it vanished,
+  leaving the tag looking like a three-sided box with an open left point. The
+  outlined nose is now filled with the body's border colour (mirroring the
+  per-`color` map used for the body outline), so the tip reads as a solid
+  extension of the outline. Filled tags are unchanged — `bg-inherit` already
+  shows their tip against the coloured body.
+
+## 0.24.2
+
+- **Ship TypeScript declarations for the prebuilt bundle.** The package now
+  includes `app/assets/builds/decor.d.ts` (referenced via package.json `types`)
+  declaring the public JS surface exported from the bundle entry: the `register`
+  function, `CONTROLLERS`, the reusable controller classes (`TextFieldController`,
+  `NumberFieldController`, `FormFieldController`, `ConfirmTemplateController`,
+  `DataTableController`), and every Suite/Daisy identifier constant (typed as its
+  literal string). Host apps that type-check with `tsc` now resolve `import …
+  from "decor"` without a hand-written module shim. No runtime change.
+
 ## 0.24.1
 
 - **Expose the public JS surface from the package entry.** The bundle entry

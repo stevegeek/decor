@@ -107,10 +107,22 @@ module Decor
         [
           "decor--suite--dropdown-menu",
           "decor:overflow-auto decor:focus:outline-hidden",
-          @dropdown_size_classes&.join(" ") || "decor:w-auto decor:max-h-80",
+          size_class_string,
           base_menu_classes,
           @menu_classes&.join(" ")
         ].compact.join(" ")
+      end
+
+      # Merge (not replace) the default size classes with any consumer-supplied
+      # ones, so passing e.g. a width can't silently drop the default `max-h`
+      # cap. Without that cap a tall menu grows past the viewport and the
+      # CSS-anchor `flip-block` fallback re-anchors it off-screen. tailwind_merge
+      # resolves conflicts last-wins, so a consumer's own width/`max-h` still
+      # overrides the defaults.
+      def size_class_string
+        tailwind_merger.merge(
+          ["decor:w-auto decor:max-h-80", @dropdown_size_classes&.join(" ")].compact.join(" ")
+        )
       end
 
       def base_menu_classes

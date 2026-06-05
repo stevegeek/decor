@@ -165,16 +165,34 @@ module Decor
         end
       end
 
-      # CSS borders don't follow clip-path, so the outlined nose stays borderless
-      # by design; `bg-inherit` picks up the body bg seamlessly.
+      # CSS borders can't follow a clip-path, so the outlined nose can't carry the
+      # body's border on its diagonal edges. Filling it with `bg-inherit` (white)
+      # leaves it invisible on a white surface — three sides of the tag with an
+      # open left point. Instead fill the outlined nose with the body's border
+      # colour so the tip reads as a solid extension of the outline; filled tags
+      # keep `bg-inherit` (their coloured body already shows the tip).
       def nose_classes
-        base = "decor:before:content-[''] decor:before:absolute decor:before:top-0 decor:before:h-full decor:before:bg-inherit decor:before:[clip-path:polygon(0_50%,100%_0,100%_100%)]"
+        base = "decor:before:content-[''] decor:before:absolute decor:before:top-0 decor:before:h-full #{nose_bg_class} decor:before:[clip-path:polygon(0_50%,100%_0,100%_100%)]"
         size = case @size
         when :xs, :sm then "decor:before:left-[-11px] decor:before:w-[11px]"
         when :lg, :xl then "decor:before:left-[-15px] decor:before:w-[15px]"
         else "decor:before:left-[-13px] decor:before:w-[13px]"
         end
         "#{base} #{size}"
+      end
+
+      # Outlined noses match the body border colour; filled noses inherit the
+      # body fill. Mirrors the colour map in `outlined_color_classes`.
+      def nose_bg_class
+        return "decor:before:bg-inherit" unless @style == :outlined
+
+        case @color
+        when :primary, :info then "decor:before:bg-suite-primary-200"
+        when :success then "decor:before:bg-suite-success-100"
+        when :warning then "decor:before:bg-suite-warning-100"
+        when :error then "decor:before:bg-suite-danger-100"
+        else "decor:before:bg-suite-hairline-strong"
+        end
       end
 
       def hole_classes

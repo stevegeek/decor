@@ -30,6 +30,7 @@ Gem::Specification.new do |spec|
     "app/assets/images/{sprites,svgs}/**/*",
     "app/assets/builds/decor.{css,js}",
     "app/assets/builds/decor.{css,js}.map",
+    "app/assets/builds/decor.d.ts",
     "config/routes.rb",
     "package.json",
     "README.md",
