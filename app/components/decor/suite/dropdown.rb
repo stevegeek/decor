@@ -6,8 +6,16 @@ module Decor
       MENU_POSITION_OPTIONS = [:aligned_to_left, :aligned_to_right].freeze
       prop :menu_position, _Union(*MENU_POSITION_OPTIONS), default: :aligned_to_left
 
+      # NB: do NOT declare `targets :button, :menu` here. The `targets` DSL
+      # stamps the target attribute onto the ROOT element, but the real button
+      # and popover menu already carry their own `stimulus_target(...)` inline
+      # (see view_template / trigger_attributes). Declaring them here too made
+      # the root a second `menu` target; Stimulus resolves `this.menuTarget` to
+      # the first match in DOM order = the root, so the lazy-content controller's
+      # `replaceContentsWithChildren(this.menuTarget, ...)` emptied the whole
+      # dropdown (button + popover) instead of just the menu body, leaving the
+      # fetched content un-positioned and in-flow.
       stimulus do
-        targets :button, :menu
         values_from_props :content_href, :placeholder
       end
 

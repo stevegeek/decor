@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.24.4
+
+- **Suite `Dropdown` no longer declares its `button`/`menu` targets on the root
+  element.** The `stimulus do` block listed `targets :button, :menu`, which
+  stamps `data-...-target="button menu"` onto the controller's root element — in
+  addition to the real `<button>` and the `popover` menu, which already carry
+  their own targets inline. Stimulus resolves `this.menuTarget` to the first
+  match in DOM order, so it picked the root rather than the menu. With a static
+  menu this was harmless, but a lazy-loaded dropdown (`content_href`/
+  `placeholder`) calls `replaceContentsWithChildren(this.menuTarget, ...)` on
+  open — which then emptied the entire dropdown (button + popover) and injected
+  the fetched content directly under the root. The fetched content lost its
+  `popover`/anchor positioning and size classes, rendering un-positioned and
+  in-flow instead of as an overlay. The targets are now declared only on their
+  actual elements, so `this.menuTarget` resolves to the popover menu and the
+  lazy fetch fills the menu body as intended.
+
 ## 0.24.3
 
 - **Suite `Modal` tears down a lazily-fetched body on close.** A modal opened
